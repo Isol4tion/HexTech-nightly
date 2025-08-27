@@ -23,7 +23,7 @@ public class MixinLightmapTextureManager {
     @Inject(method={"getDarknessFactor(F)F"}, at={@At(value="HEAD")}, cancellable=true)
     private void getDarknessFactor(float tickDelta, CallbackInfoReturnable<Float> info) {
         if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.darkness.getValue()) {
-            info.setReturnValue((Object)Float.valueOf(0.0f));
+            info.setReturnValue(0.0f);
         }
     }
 }

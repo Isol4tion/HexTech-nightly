@@ -8,52 +8,8 @@ import java.util.Objects;
 import java.util.Random;
 import me.hextech.HexTech;
 import me.hextech.asm.accessors.IInteractEntityC2SPacket;
-import me.hextech.remapped.Aura;
 import me.hextech.remapped.Aura_nurTqHTNjexQmuWdDgIn;
-import me.hextech.remapped.AutoAnchor_MDcwoWYRcPYheLZJWRZK;
-import me.hextech.remapped.AutoCrystal;
-import me.hextech.remapped.AutoCrystal_DyfHylndhLrmDUsYPHRl;
-import me.hextech.remapped.AutoCrystal_ohSMJidwaoXtIVckTOpo;
-import me.hextech.remapped.AutoEXP;
-import me.hextech.remapped.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
-import me.hextech.remapped.BedAura_BzCWaQEhnpenizjBqrRp;
-import me.hextech.remapped.Blink;
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.Burrow_eOaBGEoOSTDRbYIUAbXC;
-import me.hextech.remapped.CanPlaceCrystal;
-import me.hextech.remapped.Cleaner_iFwqnooxsJEmHoVteFeQ;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.CrystalDamage_eJITUTNYpCPnjaYYZUHH;
-import me.hextech.remapped.EntityUtil;
 import me.hextech.remapped.Enum;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.Enum_IKgLeKHCELPvcpdGlLhV;
-import me.hextech.remapped.Enum_rNhWITNdkrqkhKfDZgGo;
-import me.hextech.remapped.Enum_sBhvBqKgHyCqkGvharVr;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn;
-import me.hextech.remapped.InjectRotate;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.JelloUtil;
-import me.hextech.remapped.ListenerHelperUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.OffTrackEvent;
-import me.hextech.remapped.PacketEvent;
-import me.hextech.remapped.PistonCrystal;
-import me.hextech.remapped.PredictionSetting;
-import me.hextech.remapped.RotateEvent;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.SpeedMine;
-import me.hextech.remapped.SwingSide;
-import me.hextech.remapped.Timer;
-import me.hextech.remapped.UpdateWalkingEvent;
-import me.hextech.remapped.WallCheck;
-import me.hextech.remapped.WebAuraTick_gaIdrzDzsbegzNTtPQoV;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -130,7 +86,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final BooleanSetting checkLook = this.add(new BooleanSetting("CheckLook", true, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Rotation));
     public final SliderSetting fov = this.add(new SliderSetting("Fov", 30.0, 0.0, 90.0, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Rotation));
     public final BooleanSetting faceVector = this.add(new BooleanSetting("FaceVector", false, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Rotation));
-    public final EnumSetting<Enum> rotateMode = this.add(new EnumSetting<Enum>("RotateMode", Enum.OffTrack, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Rotation));
+    public final EnumSetting<RotateMode> rotateMode = this.add(new EnumSetting<RotateMode>("RotateMode", RotateMode.OffTrack, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Rotation));
     public final BooleanSetting obsidian = this.add(new BooleanSetting("Obsidian", true, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Obsidian));
     public final SliderSetting placeObsDelay = this.add(new SliderSetting("PlaceObsDelay", 500, 0, 1000, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Obsidian));
     public final BooleanSetting smart = this.add(new BooleanSetting("Smart", true, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Calculations));
@@ -205,7 +161,107 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public AutoCrystal_QcRVYRsOqpKivetoXSJa() {
         super("AutoCrystal", Module_JlagirAibYQgkHtbRnhw.Combat);
         INSTANCE = this;
-        HexTech.EVENT_BUS.subscribe(new AutoCrystal(this));
+        HexTech.EVENT_BUS.subscribe(new AutoCrystal_QcRVYRsOqpKivetoXSJa());
+    }
+
+    @EventHandler
+    public void onRender3D(Render3DEvent event) {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null) {
+            this.noPosTimer.reset();
+            AutoCrystal_QcRVYRsOqpKivetoXSJa.placeVec3d = AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos.down().toCenterPos();
+        }
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.placeVec3d == null) {
+            return;
+        }
+        this.fade = this.fadeSpeed.getValue() >= 1.0 ? (this.this$0.noPosTimer.passedMs((long)(this.this$0.startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5) : AnimateUtil.animate(this.this$0.fade, this.this$0.noPosTimer.passedMs((long)(this.this$0.startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5, this.this$0.fadeSpeed.getValue() / 10.0);
+        if (this.this$0.fade == 0.0) {
+            AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d = null;
+            return;
+        }
+        AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d = AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d == null || this.this$0.sliderSpeed.getValue() >= 1.0 ? AutoCrystal_QcRVYRsOqpKivetoXSJa.placeVec3d : new Vec3d(AnimateUtil.animate(AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.x, AutoCrystal_QcRVYRsOqpKivetoXSJa.placeVec3d.x, this.this$0.sliderSpeed.getValue() / 10.0), AnimateUtil.animate(AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.y, AutoCrystal_QcRVYRsOqpKivetoXSJa.placeVec3d.y, this.this$0.sliderSpeed.getValue() / 10.0), AnimateUtil.animate(AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.z, AutoCrystal_QcRVYRsOqpKivetoXSJa.placeVec3d.z, this.this$0.sliderSpeed.getValue() / 10.0));
+        if (this.this$0.render.getValue()) {
+            Box cbox = new Box(AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d, AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d);
+            cbox = this.this$0.shrink.getValue() ? cbox.expand(this.this$0.fade) : cbox.expand((double)this.this$0.expand.getValueFloat());
+            MatrixStack matrixStack = event.getMatrixStack();
+            if (this.this$0.colortype.getValue().equals((Object)AutoCrystal_ohSMJidwaoXtIVckTOpo.Custom)) {
+                if (this.this$0.box.booleanValue) {
+                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(this.this$0.box.getValue(), (int)((double)this.this$0.box.getValue().getAlpha() * this.this$0.fade * 2.0)));
+                }
+                if (this.this$0.online.booleanValue) {
+                    if (!this.this$0.bold.getValue()) {
+                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(this.this$0.online.getValue(), (int)((double)this.this$0.online.getValue().getAlpha() * this.this$0.fade * 2.0)));
+                    } else {
+                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(this.this$0.online.getValue(), (int)((double)this.this$0.online.getValue().getAlpha() * this.this$0.fade * 2.0)), this.this$0.lineWidth.getValueInt());
+                    }
+                }
+            }
+            if (this.this$0.colortype.getValue().equals((Object)AutoCrystal_ohSMJidwaoXtIVckTOpo.ComboBreaks) && ComboBreaks.INSTANCE.isOn()) {
+                if (ComboBreaks.INSTANCE.Acolor.booleanValue) {
+                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Acolor.getValue(), (int)((double)ComboBreaks.INSTANCE.Acolor.getValue().getAlpha() * this.this$0.fade * 2.0)));
+                }
+                if (ComboBreaks.INSTANCE.Aonline.booleanValue) {
+                    if (!this.this$0.bold.getValue()) {
+                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Aonline.getValue(), (int)((double)ComboBreaks.INSTANCE.Aonline.getValue().getAlpha() * this.this$0.fade * 2.0)));
+                    } else {
+                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Aonline.getValue(), (int)((double)ComboBreaks.INSTANCE.Aonline.getValue().getAlpha() * this.this$0.fade * 2.0)), this.this$0.lineWidth.getValueInt());
+                    }
+                }
+            }
+            if (this.this$0.colortype.getValue().equals((Object)AutoCrystal_ohSMJidwaoXtIVckTOpo.ComboBreaks) && ComboBreaks.INSTANCE.isOff()) {
+                if (ComboBreaks.INSTANCE.Dcolor.booleanValue) {
+                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Dcolor.getValue(), (int)((double)ComboBreaks.INSTANCE.Dcolor.getValue().getAlpha() * this.this$0.fade * 2.0)));
+                }
+                if (ComboBreaks.INSTANCE.Donline.booleanValue) {
+                    if (!this.this$0.bold.getValue()) {
+                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Donline.getValue(), (int)((double)ComboBreaks.INSTANCE.Donline.getValue().getAlpha() * this.this$0.fade * 2.0)));
+                    } else {
+                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Donline.getValue(), (int)((double)ComboBreaks.INSTANCE.Donline.getValue().getAlpha() * this.this$0.fade * 2.0)), this.this$0.lineWidth.getValueInt());
+                    }
+                }
+            }
+            if (this.this$0.colortype.getValue().equals((Object)AutoCrystal_ohSMJidwaoXtIVckTOpo.Sync)) {
+                if (ColorsSetting.INSTANCE.box.booleanValue) {
+                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.box.getValue(), (int)((double)ColorsSetting.INSTANCE.box.getValue().getAlpha() * this.this$0.fade * 2.0)));
+                }
+                if (ColorsSetting.INSTANCE.online.booleanValue) {
+                    if (!this.this$0.bold.getValue()) {
+                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.online.getValue(), (int)((double)ColorsSetting.INSTANCE.online.getValue().getAlpha() * this.this$0.fade * 2.0)));
+                    } else {
+                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.online.getValue(), (int)((double)ColorsSetting.INSTANCE.online.getValue().getAlpha() * this.this$0.fade * 2.0)), this.this$0.lineWidth.getValueInt());
+                    }
+                }
+            }
+        }
+        if (this.this$0.text.booleanValue && !this.this$0.noPosTimer.passedMs((long)(this.this$0.startFadeTime.getValue() * 1000.0))) {
+            ListenerText.drawText3D1("" + this.this$0.lastDamage, AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d, this.this$0.text.getValue());
+        }
+        if (this.this$0.showCB_A.booleanValue && !this.this$0.noPosTimer.passedMs((long)(this.this$0.startFadeTime.getValue() * 1000.0)) && ComboBreaks.INSTANCE.isOn()) {
+            ListenerText.drawText3D4("[\u8fdb\u653b\u6a21\u5f0f]", AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.this$0.showCB_A.getValue());
+        }
+        if (this.this$0.showCB_D.booleanValue && !this.this$0.noPosTimer.passedMs((long)(this.this$0.startFadeTime.getValue() * 1000.0)) && ComboBreaks.INSTANCE.isOff()) {
+            ListenerText.drawText3D4("[\u538b\u5236\u4e2d..]", AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.this$0.showCB_D.getValue());
+        }
+        if (this.this$0.misscatext.booleanValue && this.this$0.lastDamage > 0.0f && !this.this$0.noPosTimer.passedMs((long)(this.this$0.startFadeTime.getValue() * 1000.0))) {
+            ListenerText.drawText3D2(String.format("%.1f Sync", Float.valueOf(this.this$0.tempDamage)), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.this$0.misscatext.getValue());
+        }
+        if (this.this$0.spamtext.booleanValue && WebAuraTick_gaIdrzDzsbegzNTtPQoV.INSTANCE.isOn() && !this.this$0.noPosTimer.passedMs((long)(this.this$0.startFadeTime.getValue() * 1000.0))) {
+            ListenerText.drawText3D3(String.format("[Web > %.0f > %.0f]", Float.valueOf(WebAuraTick_gaIdrzDzsbegzNTtPQoV.lastYaw), Float.valueOf(WebAuraTick_gaIdrzDzsbegzNTtPQoV.lastPitch)), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.15, 0.0), this.this$0.spamtext.getValue());
+        }
+        if (this.this$0.nullpostext.booleanValue && AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null && !this.this$0.noPosTimer.passedMs((long)(this.this$0.startFadeTime.getValue() * 1000.0))) {
+            ListenerText.drawText3D2(String.format("WaitSync", AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.this$0.nullpostext.getValue());
+        }
+        if (this.this$0.showIf.booleanValue && ComboBreaks.INSTANCE.isOn() && !this.this$0.noPosTimer.passedMs((long)(this.this$0.startFadeTime.getValue() * 1000.0))) {
+            ListenerText.drawText3DIF1(String.format("[\u5168\u529f\u7387]", AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.this$0.showIf.getValue());
+        }
+        if (this.this$0.showif2.booleanValue && this.this$0.forceWeb.getValue() && ComboBreaks.INSTANCE.isOff() && !this.this$0.noPosTimer.passedMs((long)(this.this$0.startFadeTime.getValue() * 1000.0))) {
+            ListenerText.drawText3DIF1(String.format("[\u65e0\u6781\u53d8\u901f]", AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.this$0.showif2.getValue());
+        }
+        if (this.this$0.showCleaner.booleanValue && Cleaner_iFwqnooxsJEmHoVteFeQ.INSTANCE.isOn() && !this.this$0.noPosTimer.passedMs((long)(this.this$0.startFadeTime.getValue() * 1000.0))) {
+            ListenerText.drawText3DCleaner(String.format("[\u6e05\u7406\u8718\u86db\u7f51\u4e2d..]", AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.15, 0.0), this.this$0.showCleaner.getValue());
+        }
+        if (this.this$0.syncdebug.getValue() && AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null) {
+            CommandManager.sendChatMessage("[!]Waiting CrystalPos, Try do Sync");
+        }
     }
 
     @Override
@@ -379,7 +435,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 event.setYaw(lastYaw);
                 event.setPitch(lastPitch);
-            } else if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.rotateMode.getValue() == Enum.OffTrack) {
+            } else if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.rotateMode.getValue() == RotateMode.OffTrack) {
                 if (this.offTackStep.getValue()) {
                     OffTrackEvent offTrackEvent = new OffTrackEvent();
                     offTrackEvent.setTarget(this.directionVec, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.offstep.getValueFloat(), 1.0f);
@@ -641,7 +697,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.breakRemove.getValue() && AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world != null) {
                 AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.removeEntity(entity.method_5628(), Entity.RemovalReason.KILLED);
             }
-            if (crystalPos != null && this.displayTarget != null && (double)this.lastDamage >= this.getDamage(this.displayTarget) && this.instant.getValue() && (!this.rotate.getValue() || this.rotateMode.getValue() == Enum.OffTrack)) {
+            if (crystalPos != null && this.displayTarget != null && (double)this.lastDamage >= this.getDamage(this.displayTarget) && this.instant.getValue() && (!this.rotate.getValue() || this.rotateMode.getValue() == RotateMode.OffTrack)) {
                 this.doPlace(crystalPos);
             }
             if (this.instantcalc.getValue()) {
@@ -768,5 +824,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return true;
         }
         return !this.checkLook.getValue();
+    }
+
+    public enum RotateMode {
+        OffTrack,
+        Inject,
+        None
+    }
+
+    public enum AutoCrystal_ohSMJidwaoXtIVckTOpo {
+        Custom,
+        ComboBreaks,
+        Sync
+    }
+
+    private record AutoCrystal_DyfHylndhLrmDUsYPHRl(int crystalId, Vec3d crystalPos, long executeAt) {
     }
 }

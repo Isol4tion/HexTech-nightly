@@ -17,7 +17,7 @@ import net.minecraft.util.Util;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class AltSelectionList
+public class AltSelectionList
 extends AltSelectionList_MlYuzYrWmNSiQOBPfePW {
     private final AltScreen owner;
     private final MinecraftClient mc;
