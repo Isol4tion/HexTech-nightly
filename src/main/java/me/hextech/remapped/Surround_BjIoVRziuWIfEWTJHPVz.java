@@ -143,7 +143,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         BlockPos blockPos = EntityUtil.getPlayerPos(true);
-        if (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX() - (double)blockPos.method_10263() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX() - (double)blockPos.method_10263() - 0.5 >= -0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ() - (double)blockPos.method_10260() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
+        if (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX() - (double)blockPos.getX() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX() - (double)blockPos.getX() - 0.5 >= -0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ() - (double)blockPos.getZ() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ() - 0.5 - (double)blockPos.getZ() >= -0.2) {
             if (this.shouldCenter && (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.isOnGround() || MovementUtil.isMoving())) {
                 event.setX(0.0);
                 event.setZ(0.0);
@@ -151,9 +151,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         } else if (this.shouldCenter) {
             Vec3d centerPos = EntityUtil.getPlayerPos(true).toCenterPos();
-            float rotation = Surround_BjIoVRziuWIfEWTJHPVz.getRotationTo((Vec3d)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_19538(), (Vec3d)centerPos).x;
+            float rotation = Surround_BjIoVRziuWIfEWTJHPVz.getRotationTo((Vec3d)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getPos(), (Vec3d)centerPos).x;
             float yawRad = rotation / 180.0f * (float)Math.PI;
-            double dist = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_19538().distanceTo(new Vec3d(centerPos.x, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY(), centerPos.z));
+            double dist = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getPos().distanceTo(new Vec3d(centerPos.x, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY(), centerPos.z));
             double cappedSpeed = Math.min(0.2873, dist);
             double x = (double)(-((float)Math.sin(yawRad))) * cappedSpeed;
             double z = (double)((float)Math.cos(yawRad)) * cappedSpeed;
@@ -234,7 +234,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (side == null) {
             return;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         if (!BlockUtil.canPlace(pos, 6.0, true)) {
             return;
         }

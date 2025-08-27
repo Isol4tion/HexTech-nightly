@@ -29,7 +29,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Entity getEntity(@NotNull PlayerInteractEntityC2SPacket packet) {
         PacketByteBuf packetBuf = new PacketByteBuf(Unpooled.buffer());
         packet.write(packetBuf);
-        return AntiHunger.mc.world.method_8469(packetBuf.readVarInt());
+        return AntiHunger.mc.world.getEntityById(packetBuf.readVarInt());
     }
 
     public static AntiHunger_zYbEBAOiuFfDBojQHScp getInteractType(@NotNull PlayerInteractEntityC2SPacket packet) {

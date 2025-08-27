@@ -74,8 +74,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (TwoDESP_CLphFghCvliwVuLcyYHt.mc.player == null) {
             return 0.0f;
         }
-        double x = (double)vec.x - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.method_19538().x;
-        double z = (double)vec.y - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.method_19538().z;
+        double x = (double)vec.x - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.getPos().x;
+        double z = (double)vec.y - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.getPos().z;
         return (float)(-(Math.atan2(x, z) * 57.29577951308232));
     }
 

@@ -70,8 +70,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if ((double)chest >= this.count.getValue()) {
             this.timer.reset();
-            BaseFinder.writePacketData(basedata, "Find:" + String.valueOf(BaseFinder.mc.player.method_19538()) + " Count:" + chest);
-            CommandManager.sendChatMessage("Find:" + String.valueOf(BaseFinder.mc.player.method_19538()) + " Count:" + chest);
+            BaseFinder.writePacketData(basedata, "Find:" + String.valueOf(BaseFinder.mc.player.getPos()) + " Count:" + chest);
+            CommandManager.sendChatMessage("Find:" + String.valueOf(BaseFinder.mc.player.getPos()) + " Count:" + chest);
             chest = 0;
         }
     }

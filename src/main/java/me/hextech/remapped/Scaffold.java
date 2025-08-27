@@ -106,7 +106,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (this.rotate.getValue()) {
                 Direction side = BlockUtil.getPlaceSide(placePos);
-                this.angle = EntityUtil.getLegitRotations(placePos.offset(side).toCenterPos().add((double)side.getOpposite().method_10163().getX() * 0.5, (double)side.getOpposite().method_10163().getY() * 0.5, (double)side.getOpposite().method_10163().getZ() * 0.5));
+                this.angle = EntityUtil.getLegitRotations(placePos.offset(side).toCenterPos().add((double)side.getOpposite().getVector().getX() * 0.5, (double)side.getOpposite().getVector().getY() * 0.5, (double)side.getOpposite().getVector().getZ() * 0.5));
                 this.timer.reset();
             }
             InventoryUtil.switchToSlot(block);

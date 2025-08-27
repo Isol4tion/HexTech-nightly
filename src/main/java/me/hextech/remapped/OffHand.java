@@ -55,9 +55,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.timer.passedMs(200L)) {
             return;
         }
-        if ((double)(OffHand.mc.player.method_6032() + OffHand.mc.player.method_6067()) > this.health.getValue()) {
+        if ((double)(OffHand.mc.player.getHealth() + OffHand.mc.player.getAbsorptionAmount()) > this.health.getValue()) {
             int itemSlot;
-            if (!this.mainHand.getValue() && this.crystal.getValue() && OffHand.mc.player.method_6079().getItem() != Items.END_CRYSTAL && (itemSlot = InventoryUtil.findItemInventorySlot(Items.END_CRYSTAL)) != -1) {
+            if (!this.mainHand.getValue() && this.crystal.getValue() && OffHand.mc.player.getOffHandStack().getItem() != Items.END_CRYSTAL && (itemSlot = InventoryUtil.findItemInventorySlot(Items.END_CRYSTAL)) != -1) {
                 OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.field_7512.syncId, itemSlot, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
                 OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.field_7512.syncId, 45, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
                 OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.field_7512.syncId, itemSlot, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
@@ -66,7 +66,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             return;
         }
-        if (OffHand.mc.player.method_6047().getItem() == Items.TOTEM_OF_UNDYING || OffHand.mc.player.method_6079().getItem() == Items.TOTEM_OF_UNDYING) {
+        if (OffHand.mc.player.getMainHandStack().getItem() == Items.TOTEM_OF_UNDYING || OffHand.mc.player.getOffHandStack().getItem() == Items.TOTEM_OF_UNDYING) {
             return;
         }
         int itemSlot = InventoryUtil.findItemInventorySlot(Items.TOTEM_OF_UNDYING);

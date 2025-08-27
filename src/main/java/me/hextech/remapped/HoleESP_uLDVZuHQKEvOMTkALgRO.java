@@ -64,7 +64,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.tempBedrockList.clear();
             this.tempNormalList.clear();
             this.tempAirList.clear();
-            for (BlockPos pos : BlockUtil.getSphere(this.distance.getValueFloat(), HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.method_19538())) {
+            for (BlockPos pos : BlockUtil.getSphere(this.distance.getValueFloat(), HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.getPos())) {
                 HoleESP type = this.isHole(pos);
                 if (type == HoleESP.Bedrock) {
                     this.tempBedrockList.add(pos);
@@ -81,7 +81,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     HoleESP isHole(BlockPos pos) {
-        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && (!this.airYCheck.getValue() || pos.method_10264() == HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.method_31478() - 1) && CombatUtil.isHard(pos.up())) {
+        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && (!this.airYCheck.getValue() || pos.getY() == HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.method_31478() - 1) && CombatUtil.isHard(pos.up())) {
             return HoleESP.Air;
         }
         int blockProgress = 0;
@@ -116,9 +116,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void draw(MatrixStack matrixStack, List<BlockPos> list, ColorSetting fill, ColorSetting fade, ColorSetting box, double height) {
         for (BlockPos pos : list) {
-            double distance = HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.method_19538().distanceTo(pos.toCenterPos());
+            double distance = HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.getPos().distanceTo(pos.toCenterPos());
             double alpha = distance > this.startFade.getValue() ? Math.max(Math.min(1.0, 1.0 - (distance - this.startFade.getValue()) / (this.distance.getValue() - this.startFade.getValue())), 0.0) : 1.0;
-            Box espBox = new Box((double)pos.method_10263(), (double)pos.method_10264(), (double)pos.method_10260(), (double)(pos.method_10263() + 1), (double)pos.method_10264() + height, (double)(pos.method_10260() + 1));
+            Box espBox = new Box((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), (double)(pos.getX() + 1), (double)pos.getY() + height, (double)(pos.getZ() + 1));
             if (fill.booleanValue) {
                 if (fade.booleanValue) {
                     Render3DUtil.drawFadeFill(matrixStack, espBox, ColorUtil.injectAlpha(fill.getValue(), (int)((double)fill.getValue().getAlpha() * alpha)), ColorUtil.injectAlpha(fade.getValue(), (int)((double)fade.getValue().getAlpha() * alpha)));

@@ -39,11 +39,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (Sprint.mc.player.method_7344().getFoodLevel() <= 6 && !Sprint.mc.player.method_7337()) {
                     return;
                 }
-                Sprint.mc.player.method_5728(MovementUtil.isMoving() && !Sprint.mc.player.method_5715());
+                Sprint.mc.player.method_5728(MovementUtil.isMoving() && !Sprint.mc.player.isSneaking());
                 break;
             }
             case 2: {
-                shouldSprint = (Sprint.mc.player.method_7344().getFoodLevel() > 6 || Sprint.mc.player.method_7337()) && !Sprint.mc.player.method_5715();
+                shouldSprint = (Sprint.mc.player.method_7344().getFoodLevel() > 6 || Sprint.mc.player.method_7337()) && !Sprint.mc.player.isSneaking();
                 Sprint.mc.player.method_5728(shouldSprint);
             }
         }

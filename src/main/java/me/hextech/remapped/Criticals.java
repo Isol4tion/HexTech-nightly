@@ -30,7 +30,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Entity getEntity(PlayerInteractEntityC2SPacket packet) {
         PacketByteBuf packetBuf = new PacketByteBuf(Unpooled.buffer());
         packet.write(packetBuf);
-        return Criticals.mc.world == null ? null : Criticals.mc.world.method_8469(packetBuf.readVarInt());
+        return Criticals.mc.world == null ? null : Criticals.mc.world.getEntityById(packetBuf.readVarInt());
     }
 
     public static Criticals_QenzavIULhSqCVPmsILH getInteractType(PlayerInteractEntityC2SPacket packet) {

@@ -109,7 +109,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public String getInfo() {
-        return target == null ? null : target.method_5477().getString();
+        return target == null ? null : target.getName().getString();
     }
 
     @Override
@@ -208,7 +208,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double distance = this.range.getValue();
         double maxHealth = 36.0;
         for (Entity entity : Aura.mc.world.getEntities()) {
-            if (!this.isEnemy(entity) || !Aura.mc.player.method_6057(entity) && (double)Aura.mc.player.method_5739(entity) > this.wallRange.getValue() || !CombatUtil.isValid(entity, this.range.getValue())) continue;
+            if (!this.isEnemy(entity) || !Aura.mc.player.canSee(entity) && (double)Aura.mc.player.method_5739(entity) > this.wallRange.getValue() || !CombatUtil.isValid(entity, this.range.getValue())) continue;
             if (target == null) {
                 target = entity;
                 distance = Aura.mc.player.method_5739(entity);

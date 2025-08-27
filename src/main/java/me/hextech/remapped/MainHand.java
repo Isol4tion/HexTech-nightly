@@ -67,11 +67,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.totem.getValue()) {
             return;
         }
-        boolean bl = this.handSlot = (double)(MainHand.mc.player.method_6067() + MainHand.mc.player.method_6032()) - this.getCrystal() <= this.forceHealth.getValue();
+        boolean bl = this.handSlot = (double)(MainHand.mc.player.getAbsorptionAmount() + MainHand.mc.player.getHealth()) - this.getCrystal() <= this.forceHealth.getValue();
         if (this.minePause.getValue() && this.needSwitch && !MainHand.mc.player.isUsingItem()) {
             return;
         }
-        if (MainHand.mc.player.method_6047().getItem() == Items.TOTEM_OF_UNDYING) {
+        if (MainHand.mc.player.getMainHandStack().getItem() == Items.TOTEM_OF_UNDYING) {
             return;
         }
         if (this.handSlot) {
@@ -150,7 +150,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (Entity entity : MainHand.mc.world.getEntities()) {
             double dmg;
             EndCrystalEntity endCrystal;
-            if (!(entity instanceof EndCrystalEntity) || (endCrystal = (EndCrystalEntity)entity).squaredDistanceTo(MainHand.mc.player.method_33571()) > 25.0 || !((dmg = (double)this.calculateDamage(endCrystal.getBlockPos().toCenterPos(), (PlayerEntity)MainHand.mc.player, (PlayerEntity)MainHand.mc.player)) > maxDMG)) continue;
+            if (!(entity instanceof EndCrystalEntity) || (endCrystal = (EndCrystalEntity)entity).squaredDistanceTo(MainHand.mc.player.getEyePos()) > 25.0 || !((dmg = (double)this.calculateDamage(endCrystal.getBlockPos().toCenterPos(), (PlayerEntity)MainHand.mc.player, (PlayerEntity)MainHand.mc.player)) > maxDMG)) continue;
             maxDMG = dmg;
         }
         return maxDMG;

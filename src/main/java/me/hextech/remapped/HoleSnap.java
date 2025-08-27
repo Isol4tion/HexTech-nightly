@@ -185,10 +185,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        Vec3d playerPos = HoleSnap.mc.player.method_19538();
-        this.targetPos = new Vec3d((double)this.holePos.method_10263() + 0.5, HoleSnap.mc.player.getY(), (double)this.holePos.method_10260() + 0.5);
+        Vec3d playerPos = HoleSnap.mc.player.getPos();
+        this.targetPos = new Vec3d((double)this.holePos.getX() + 0.5, HoleSnap.mc.player.getY(), (double)this.holePos.getZ() + 0.5);
         if (CombatUtil.isDoubleHole(this.holePos) && (facing = CombatUtil.is3Block(this.holePos)) != null) {
-            this.targetPos = this.targetPos.add(new Vec3d((double)facing.method_10163().getX() * 0.5, (double)facing.method_10163().getY() * 0.5, (double)facing.method_10163().getZ() * 0.5));
+            this.targetPos = this.targetPos.add(new Vec3d((double)facing.getVector().getX() * 0.5, (double)facing.getVector().getY() * 0.5, (double)facing.getVector().getZ() * 0.5));
         }
         this.applyTimer = true;
         this.resetMove = true;
@@ -200,7 +200,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double z = (double)((float)Math.cos(yawRad)) * cappedSpeed;
         event.setX(x);
         event.setZ(z);
-        if (Math.abs(x) < 0.1 && Math.abs(z) < 0.1 && playerPos.y <= (double)this.holePos.method_10264() + 0.5) {
+        if (Math.abs(x) < 0.1 && Math.abs(z) < 0.1 && playerPos.y <= (double)this.holePos.getY() + 0.5) {
             this.disable();
         }
         this.stuckTicks = HoleSnap.mc.player.field_5976 ? ++this.stuckTicks : 0;
@@ -213,7 +213,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         GL11.glEnable((int)3042);
         Color color = this.color.getValue();
-        Vec3d pos = new Vec3d(this.targetPos.x, (double)this.holePos.method_10264(), this.targetPos.method_10215());
+        Vec3d pos = new Vec3d(this.targetPos.x, (double)this.holePos.getY(), this.targetPos.method_10215());
         if (this.fade.getValue()) {
             double temp = 0.01;
             for (double i = 0.0; i < this.circleSize.getValue(); i += temp) {

@@ -74,17 +74,17 @@ implements Wrapper {
                 EntityUtil.faceVector(new Vec3d(crystal.getX(), crystal.getY() + 0.25, crystal.getZ()));
             }
             if (CombatUtil.mc.player != null) {
-                CombatUtil.mc.player.networkHandler.sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)crystal, (boolean)CombatUtil.mc.player.method_5715()));
+                CombatUtil.mc.player.networkHandler.sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)crystal, (boolean)CombatUtil.mc.player.isSneaking()));
             }
             if (CombatUtil.mc.player != null) {
-                CombatUtil.mc.player.method_7350();
+                CombatUtil.mc.player.resetLastAttackedTicks();
             }
             EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         }
     }
 
     public static boolean isValid(Entity entity, double range) {
-        boolean invalid = entity == null || !entity.isAlive() || entity.equals((Object)CombatUtil.mc.player) || entity instanceof PlayerEntity && FriendManager.isFriend(entity.method_5477().getString()) || CombatUtil.mc.player.method_5858(entity) > MathUtil.square(range);
+        boolean invalid = entity == null || !entity.isAlive() || entity.equals((Object)CombatUtil.mc.player) || entity instanceof PlayerEntity && FriendManager.isFriend(entity.getName().getString()) || CombatUtil.mc.player.method_5858(entity) > MathUtil.square(range);
         return !invalid;
     }
 
@@ -92,8 +92,8 @@ implements Wrapper {
         BlockPos bestPos = null;
         double bestDistance = range + 1.0f;
         for (BlockPos pos : BlockUtil.getSphere(range)) {
-            if (CombatUtil.mc.player == null || pos.method_10263() == CombatUtil.mc.player.method_31477() && pos.method_10260() == CombatUtil.mc.player.method_31479() || !BlockUtil.isHole(pos, true, true, any) && (!doubleHole || !CombatUtil.isDoubleHole(pos)) || pos.method_10264() - CombatUtil.mc.player.method_31478() > 1) continue;
-            double distance = MathHelper.sqrt((float)((float)CombatUtil.mc.player.method_5649((double)pos.method_10263() + 0.5, (double)pos.method_10264() + 0.5, (double)pos.method_10260() + 0.5)));
+            if (CombatUtil.mc.player == null || pos.getX() == CombatUtil.mc.player.method_31477() && pos.getZ() == CombatUtil.mc.player.method_31479() || !BlockUtil.isHole(pos, true, true, any) && (!doubleHole || !CombatUtil.isDoubleHole(pos)) || pos.getY() - CombatUtil.mc.player.method_31478() > 1) continue;
+            double distance = MathHelper.sqrt((float)((float)CombatUtil.mc.player.method_5649((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5)));
             if (bestPos != null && !(distance < bestDistance)) continue;
             bestPos = pos;
             bestDistance = distance;
@@ -148,7 +148,7 @@ implements Wrapper {
                 closest = player;
                 continue;
             }
-            if (!(CombatUtil.mc.player.method_33571().squaredDistanceTo(player.method_19538()) < CombatUtil.mc.player.method_5858((Entity)closest))) continue;
+            if (!(CombatUtil.mc.player.getEyePos().squaredDistanceTo(player.getPos()) < CombatUtil.mc.player.method_5858((Entity)closest))) continue;
             closest = player;
         }
         return closest;
@@ -156,9 +156,9 @@ implements Wrapper {
 
     public static Vec3d getEntityPosVec(PlayerEntity entity, int ticks) {
         if (ticks <= 0) {
-            return entity.method_19538();
+            return entity.getPos();
         }
-        return entity.method_19538().add(CombatUtil.getMotionVec((Entity)entity, ticks, true));
+        return entity.getPos().add(CombatUtil.getMotionVec((Entity)entity, ticks, true));
     }
 
     public static Vec3d getMotionVec(Entity entity, float ticks, boolean collision) {
@@ -180,9 +180,9 @@ implements Wrapper {
 
     public static Vec3d getEntityPosVecWithY(PlayerEntity entity, int ticks) {
         if (ticks <= 0) {
-            return entity.method_19538();
+            return entity.getPos();
         }
-        return entity.method_19538().add(CombatUtil.getMotionVecWithY((Entity)entity, ticks, true));
+        return entity.getPos().add(CombatUtil.getMotionVecWithY((Entity)entity, ticks, true));
     }
 
     public static Vec3d getMotionVecWithY(Entity entity, int ticks, boolean collision) {

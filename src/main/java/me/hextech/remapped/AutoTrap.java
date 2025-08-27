@@ -301,7 +301,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public String getInfo() {
         if (this.target != null) {
-            return this.target.method_5477().getString();
+            return this.target.getName().getString();
         }
         return null;
     }

@@ -48,7 +48,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 slotMain = SilentDouble.mc.player.getInventory().selectedSlot;
             }
             if (SpeedMine.secondPos != null && SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.getTool(SpeedMine.secondPos), this.lastdmg.getValueFloat()))) {
-                if (SilentDouble.mc.player.method_6047().getItem() == Items.ENCHANTED_GOLDEN_APPLE) {
+                if (SilentDouble.mc.player.getMainHandStack().getItem() == Items.ENCHANTED_GOLDEN_APPLE) {
                     if (!SilentDouble.mc.options.useKey.isPressed()) {
                         SilentDouble.mc.player.networkHandler.sendPacket((Packet)new UpdateSelectedSlotC2SPacket(this.getTool(SpeedMine.secondPos)));
                         swithc2 = 1;

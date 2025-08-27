@@ -64,16 +64,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.players = Desktop.mc.world.method_18456().stream().filter(Objects::nonNull).collect(Collectors.toList());
         try {
             for (Entity entity2 : this.players) {
-                if (!(entity2 instanceof PlayerEntity) || entity2.method_5477().equals((Object)Desktop.mc.player.method_5477()) || this.knownPlayers.contains(entity2) || FriendManager.isFriend(entity2.method_5477().getString())) continue;
+                if (!(entity2 instanceof PlayerEntity) || entity2.getName().equals((Object)Desktop.mc.player.getName()) || this.knownPlayers.contains(entity2) || FriendManager.isFriend(entity2.getName().getString())) continue;
                 this.knownPlayers.add(entity2);
-                this.icon.displayMessage("NullPoint", String.valueOf(entity2.method_5477()) + " has entered your visual range!", TrayIcon.MessageType.INFO);
+                this.icon.displayMessage("NullPoint", String.valueOf(entity2.getName()) + " has entered your visual range!", TrayIcon.MessageType.INFO);
             }
         }
         catch (Exception exception) {
             // empty catch block
         }
         try {
-            this.knownPlayers.removeIf(entity -> entity instanceof PlayerEntity && !entity.method_5477().equals((Object)Desktop.mc.player.method_5477()) && !this.players.contains(entity));
+            this.knownPlayers.removeIf(entity -> entity instanceof PlayerEntity && !entity.getName().equals((Object)Desktop.mc.player.getName()) && !this.players.contains(entity));
         }
         catch (Exception exception) {
             // empty catch block
@@ -97,7 +97,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (t instanceof GameMessageS2CPacket) {
             GameMessageS2CPacket e = (GameMessageS2CPacket)t;
             String message = String.valueOf(e.content());
-            if (message.contains(Desktop.mc.player.method_5477().getString()) && this.mention.getValue()) {
+            if (message.contains(Desktop.mc.player.getName().getString()) && this.mention.getValue()) {
                 this.icon.displayMessage("NullPoint", "New chat mention!", TrayIcon.MessageType.INFO);
             }
             if (message.contains("whispers:") && this.dm.getValue()) {

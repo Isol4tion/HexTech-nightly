@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (!this.onlyGround.getValue() || AutoPot.mc.player.isOnGround() && !AutoPot.mc.world.isAir((BlockPos)new BlockPosX(AutoPot.mc.player.method_19538().add(0.0, -1.0, 0.0)))) {
+        if (!this.onlyGround.getValue() || AutoPot.mc.player.isOnGround() && !AutoPot.mc.world.isAir((BlockPos)new BlockPosX(AutoPot.mc.player.getPos().add(0.0, -1.0, 0.0)))) {
             if (this.speed.getValue() && !AutoPot.mc.player.method_6059(StatusEffects.field_5904)) {
                 this.throwing = this.checkThrow(StatusEffects.field_5904);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {

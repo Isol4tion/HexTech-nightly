@@ -73,7 +73,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.stopGround.getValue() && Speed.mc.player.isOnGround()) {
             return;
         }
-        if (HoleKickTest.isInWeb((PlayerEntity)Speed.mc.player) || Speed.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().flying) {
+        if (HoleKickTest.isInWeb((PlayerEntity)Speed.mc.player) || Speed.mc.player.isSneaking() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().flying) {
             return;
         }
         if (!MovementUtil.isMoving()) {
@@ -94,7 +94,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Object t = event.getPacket();
             if (t instanceof EntityVelocityUpdateS2CPacket) {
                 EntityVelocityUpdateS2CPacket packet = (EntityVelocityUpdateS2CPacket)t;
-                if (Speed.mc.player != null && packet.getEntityId() == Speed.mc.player.method_5628() && this.velocity.getValue()) {
+                if (Speed.mc.player != null && packet.getEntityId() == Speed.mc.player.getId() && this.velocity.getValue()) {
                     double speed = Math.sqrt(packet.method_11815() * packet.method_11815() + packet.method_11819() * packet.method_11819()) / 8000.0;
                     double d = this.lastExp = this.expTimer.passedMs(this.coolDown.getValueInt()) ? speed : speed - this.lastExp;
                     if (this.lastExp > 0.0) {
@@ -158,7 +158,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void invoke(MoveEvent event) {
         if (this.mode.is(_hIXwTMQyjavijZllSIBF.Strafe)) {
-            if (Speed.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().flying) {
+            if (Speed.mc.player.isSneaking() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().flying) {
                 return;
             }
             if (!MovementUtil.isMoving()) {

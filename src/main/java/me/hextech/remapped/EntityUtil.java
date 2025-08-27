@@ -37,7 +37,7 @@ implements Wrapper {
     public static boolean rotating;
 
     public static boolean isHoldingWeapon(PlayerEntity player) {
-        return player.method_6047().getItem() instanceof SwordItem || player.method_6047().getItem() instanceof AxeItem;
+        return player.getMainHandStack().getItem() instanceof SwordItem || player.getMainHandStack().getItem() instanceof AxeItem;
     }
 
     public static boolean isUsing() {
@@ -89,7 +89,7 @@ implements Wrapper {
     }
 
     public static BlockPos getPlayerPos() {
-        return new BlockPosX(EntityUtil.mc.player.method_19538());
+        return new BlockPosX(EntityUtil.mc.player.getPos());
     }
 
     public static BlockPos getEntityPos(Entity entity) {
@@ -97,7 +97,7 @@ implements Wrapper {
     }
 
     public static BlockPos getPlayerPos(boolean fix) {
-        return new BlockPosX(EntityUtil.mc.player.method_19538(), fix);
+        return new BlockPosX(EntityUtil.mc.player.getPos(), fix);
     }
 
     public static BlockPos getEntityPos(Entity entity, boolean fix) {
@@ -105,11 +105,11 @@ implements Wrapper {
     }
 
     public static Vec3d getEyesPos() {
-        return EntityUtil.mc.player.method_33571();
+        return EntityUtil.mc.player.getEyePos();
     }
 
     public static boolean canSee(BlockPos pos, Direction side) {
-        Vec3d testVec = pos.toCenterPos().add((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5);
+        Vec3d testVec = pos.toCenterPos().add((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5);
         BlockHitResult result = EntityUtil.mc.world.method_17742(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)EntityUtil.mc.player));
         return result == null || result.getType() == HitResult.Type.MISS;
     }
@@ -147,12 +147,12 @@ implements Wrapper {
     }
 
     public static void facePosSide(BlockPos pos, Direction side) {
-        Vec3d hitVec = pos.toCenterPos().add(new Vec3d((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5));
+        Vec3d hitVec = pos.toCenterPos().add(new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5));
         EntityUtil.faceVector(hitVec);
     }
 
     public static void facePosSideNoStay(BlockPos pos, Direction side) {
-        Vec3d hitVec = pos.toCenterPos().add(new Vec3d((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5));
+        Vec3d hitVec = pos.toCenterPos().add(new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5));
         EntityUtil.faceVectorNoStay(hitVec);
     }
 

@@ -355,7 +355,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (side == null) {
             return false;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         float[] rotation = EntityUtil.getLegitRotations(directionVec);
         return MathUtil.getFacingOrder(rotation[0], rotation[1]).getOpposite() == facing;
     }

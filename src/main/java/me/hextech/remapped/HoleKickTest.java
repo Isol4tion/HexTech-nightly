@@ -97,7 +97,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static boolean isInWeb(PlayerEntity player) {
-        Vec3d playerPos = player.method_19538();
+        Vec3d playerPos = player.getPos();
         for (float x : new float[]{0.0f, 0.3f, -0.3f}) {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
                 for (float y : new float[]{0.0f, 1.0f, -1.0f}) {
@@ -215,7 +215,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (Direction i : Direction.values()) {
                 if (i == Direction.DOWN || i == Direction.UP) continue;
                 pos = targetPos.offset(i).up();
-                if ((HoleKickTest.mc.player.getY() - target.getY() <= -1.0 || HoleKickTest.mc.player.getY() - target.getY() >= 2.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) continue;
+                if ((HoleKickTest.mc.player.getY() - target.getY() <= -1.0 || HoleKickTest.mc.player.getY() - target.getY() >= 2.0) && BlockUtil.distanceToXZ((double)pos.getX() + 0.5, (double)pos.getZ() + 0.5) < 2.6) continue;
                 this.attackCrystal(pos);
                 if (!this.isTrueFacing(pos, i) || !BlockUtil.clientCanPlace(pos, false) || this.getBlockState(pos.offset(i, -2)).method_51366() || this.getBlockState(pos.offset(i, -2).up()).method_51366()) continue;
                 if (BlockUtil.getPlaceSide(pos) == null && this.downPower(pos)) break;
@@ -254,7 +254,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (Direction i : Direction.values()) {
                 if (i == Direction.DOWN || i == Direction.UP) continue;
                 pos = targetPos.offset(i).up();
-                if (HoleKickTest.mc.player != null && (HoleKickTest.mc.player.getY() - target.getY() <= -1.0 || HoleKickTest.mc.player.getY() - target.getY() >= 2.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) continue;
+                if (HoleKickTest.mc.player != null && (HoleKickTest.mc.player.getY() - target.getY() <= -1.0 || HoleKickTest.mc.player.getY() - target.getY() >= 2.0) && BlockUtil.distanceToXZ((double)pos.getX() + 0.5, (double)pos.getZ() + 0.5) < 2.6) continue;
                 this.attackCrystal(pos);
                 if (!this.isTrueFacing(pos, i) || !BlockUtil.clientCanPlace(pos, false) || this.downPower(pos)) continue;
                 this.doPiston(i, pos, true);
@@ -282,7 +282,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (Direction i : Direction.values()) {
                 if (i == Direction.DOWN || i == Direction.UP) continue;
                 pos = targetPos.offset(i).up();
-                if (HoleKickTest.mc.player != null && (HoleKickTest.mc.player.getY() - target.getY() <= -1.0 || HoleKickTest.mc.player.getY() - target.getY() >= 2.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) continue;
+                if (HoleKickTest.mc.player != null && (HoleKickTest.mc.player.getY() - target.getY() <= -1.0 || HoleKickTest.mc.player.getY() - target.getY() >= 2.0) && BlockUtil.distanceToXZ((double)pos.getX() + 0.5, (double)pos.getZ() + 0.5) < 2.6) continue;
                 this.attackCrystal(pos);
                 if (!this.isTrueFacing(pos, i) || !BlockUtil.clientCanPlace(pos, false) || (!HoleKickTest.mc.world.isAir(pos.offset(i, -2)) || !HoleKickTest.mc.world.isAir(pos.offset(i, -2).down())) && !HoleKickTest.isTargetHere(pos.offset(i, 2), (Entity)target) || this.getBlockState(pos.offset(i, -2).up()).method_51366()) continue;
                 if (BlockUtil.getPlaceSide(pos) != null || !this.downPower(pos)) {
@@ -305,7 +305,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (side == null) {
             side = Direction.UP;
         }
-        return Direction.fromHorizontalDegrees((double)EntityUtil.getLegitRotations(hitVec = pos.offset((side = side.getOpposite()).getOpposite()).toCenterPos().add(new Vec3d((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5)))[0]) == facing;
+        return Direction.fromHorizontalDegrees((double)EntityUtil.getLegitRotations(hitVec = pos.offset((side = side.getOpposite()).getOpposite()).toCenterPos().add(new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5)))[0]) == facing;
     }
 
     private boolean doPower(BlockPos pos, Direction i2) {
@@ -416,7 +416,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public String getInfo() {
         if (this.displayTarget != null) {
-            return this.displayTarget.method_5477().getString();
+            return this.displayTarget.getName().getString();
         }
         return null;
     }
@@ -451,7 +451,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (HoleKickTest.mc.world != null) {
             for (Entity crystal : HoleKickTest.mc.world.getEntities()) {
-                if (!(crystal instanceof EndCrystalEntity) || (double)MathHelper.sqrt((float)((float)crystal.squaredDistanceTo((double)pos.method_10263() + 0.5, (double)pos.method_10264(), (double)pos.method_10260() + 0.5))) > 2.0) continue;
+                if (!(crystal instanceof EndCrystalEntity) || (double)MathHelper.sqrt((float)((float)crystal.squaredDistanceTo((double)pos.getX() + 0.5, (double)pos.getY(), (double)pos.getZ() + 0.5))) > 2.0) continue;
                 CombatUtil.attackCrystal(crystal, this.rotate.getValue(), false);
                 return;
             }
@@ -528,7 +528,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if ((side = BlockUtil.getPlaceSide(pos)) == null) {
             return;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         BlockUtil.placedPos.add(pos);

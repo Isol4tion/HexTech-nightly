@@ -59,7 +59,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (entity == KillEffects.mc.player || this.renderEntities.containsKey(entity) || this.lightingEntities.containsKey(entity)) {
                 return;
             }
-            if (((PlayerEntity)entity).method_6032() > this.gethealth.getValueFloat()) {
+            if (((PlayerEntity)entity).getHealth() > this.gethealth.getValueFloat()) {
                 return;
             }
             this.renderEntities.put((Entity)entity, System.currentTimeMillis());

@@ -90,7 +90,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         ArrayList<Float> yList = new ArrayList<Float>();
         if (this.down.getValue()) {
-            if (this.smart.getValue() && (double)(player.getBlockPos().method_10264() - AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getBlockPos().method_10264()) > this.yandy.getValue()) {
+            if (this.smart.getValue() && (double)(player.getBlockPos().getY() - AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getBlockPos().getY()) > this.yandy.getValue()) {
                 yList.add(Float.valueOf(-0.8f));
             } else if (!this.smart.getValue()) {
                 yList.add(Float.valueOf(-0.8f));
@@ -130,7 +130,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.mineMode.getValue() == AutoMinePlus.Normal) {
                 void var6_24;
                 for (Direction direction : Direction.values()) {
-                    if (direction == Direction.UP || direction == Direction.DOWN || Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571().squaredDistanceTo(pos.offset(direction).toCenterPos())) > this.range.getValue() || !AutoMinePlus_frUaFZksknOJRqkizndn.mc.world.isAir(pos.offset(direction)) && !pos.offset(direction).equals((Object)SpeedMine.getBreakPos()) || !this.canPlaceCrystal(pos.offset(direction), false)) continue;
+                    if (direction == Direction.UP || direction == Direction.DOWN || Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos().squaredDistanceTo(pos.offset(direction).toCenterPos())) > this.range.getValue() || !AutoMinePlus_frUaFZksknOJRqkizndn.mc.world.isAir(pos.offset(direction)) && !pos.offset(direction).equals((Object)SpeedMine.getBreakPos()) || !this.canPlaceCrystal(pos.offset(direction), false)) continue;
                     return;
                 }
                 ArrayList<BlockPos> arrayList = new ArrayList<BlockPos>();
@@ -139,13 +139,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 boolean bl = false;
                 while (var6_24 < n) {
                     i = directionArray[var6_24];
-                    if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), true)) {
+                    if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), true)) {
                         arrayList.add(pos.offset(i));
                     }
                     ++var6_24;
                 }
                 if (!arrayList.isEmpty()) {
-                    SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571()))).get());
+                    SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                 } else {
                     void var6_26;
                     directionArray = Direction.values();
@@ -153,13 +153,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     boolean bl2 = false;
                     while (var6_26 < n) {
                         i = directionArray[var6_26];
-                        if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), false)) {
+                        if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), false)) {
                             arrayList.add(pos.offset(i));
                         }
                         ++var6_26;
                     }
                     if (!arrayList.isEmpty()) {
-                        SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571()))).get());
+                        SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                     }
                 }
             } else if (this.mineMode.getValue() == AutoMinePlus.Always) {
@@ -170,13 +170,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 boolean bl = false;
                 while (var6_28 < n) {
                     i = directionArray[var6_28];
-                    if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), true)) {
+                    if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), true)) {
                         arrayList.add(pos.offset(i));
                     }
                     ++var6_28;
                 }
                 if (!arrayList.isEmpty()) {
-                    SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571()))).get());
+                    SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                 } else {
                     void var6_30;
                     directionArray = Direction.values();
@@ -184,19 +184,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     boolean bl3 = false;
                     while (var6_30 < n) {
                         i = directionArray[var6_30];
-                        if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), false)) {
+                        if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), false)) {
                             arrayList.add(pos.offset(i));
                         }
                         ++var6_30;
                     }
                     if (!arrayList.isEmpty()) {
-                        SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571()))).get());
+                        SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                     }
                 }
             } else if (this.mineMode.getValue() == AutoMinePlus.First) {
                 void var6_34;
                 for (Direction direction : Direction.values()) {
-                    if (direction == Direction.UP || direction == Direction.DOWN || Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571().squaredDistanceTo(pos.offset(direction).toCenterPos())) > this.range.getValue() || !pos.offset(direction).equals((Object)SpeedMine.getBreakPos()) || SpeedMine.secondPos != null) continue;
+                    if (direction == Direction.UP || direction == Direction.DOWN || Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos().squaredDistanceTo(pos.offset(direction).toCenterPos())) > this.range.getValue() || !pos.offset(direction).equals((Object)SpeedMine.getBreakPos()) || SpeedMine.secondPos != null) continue;
                     return;
                 }
                 ArrayList<BlockPos> arrayList = new ArrayList<BlockPos>();
@@ -205,13 +205,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 boolean bl = false;
                 while (var6_34 < n) {
                     i = directionArray[var6_34];
-                    if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), true)) {
+                    if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), true)) {
                         arrayList.add(pos.offset(i));
                     }
                     ++var6_34;
                 }
                 if (!arrayList.isEmpty()) {
-                    SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571()))).get());
+                    SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                 } else {
                     void var6_36;
                     directionArray = Direction.values();
@@ -219,13 +219,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     boolean bl4 = false;
                     while (var6_36 < n) {
                         i = directionArray[var6_36];
-                        if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), false)) {
+                        if (i != Direction.UP && i != Direction.DOWN && !(Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue()) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), false)) {
                             arrayList.add(pos.offset(i));
                         }
                         ++var6_36;
                     }
                     if (!arrayList.isEmpty()) {
-                        SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571()))).get());
+                        SpeedMine.INSTANCE.mine(arrayList.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                     }
                 }
             }
@@ -265,7 +265,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean isObsidian(BlockPos pos) {
-        return AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571().distanceTo(pos.toCenterPos()) <= this.range.getValue() && (BlockUtil.getBlock(pos) == Blocks.OBSIDIAN || BlockUtil.getBlock(pos) == Blocks.ENDER_CHEST || BlockUtil.getBlock(pos) == Blocks.NETHERITE_BLOCK || BlockUtil.getBlock(pos) == Blocks.RESPAWN_ANCHOR) && BlockUtil.getClickSide(pos) != null;
+        return AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos().distanceTo(pos.toCenterPos()) <= this.range.getValue() && (BlockUtil.getBlock(pos) == Blocks.OBSIDIAN || BlockUtil.getBlock(pos) == Blocks.ENDER_CHEST || BlockUtil.getBlock(pos) == Blocks.NETHERITE_BLOCK || BlockUtil.getBlock(pos) == Blocks.RESPAWN_ANCHOR) && BlockUtil.getClickSide(pos) != null;
     }
 
     void mine(BlockPos pos) {

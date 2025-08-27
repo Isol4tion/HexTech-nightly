@@ -53,7 +53,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.method_6112(StatusEffects.field_5911) == null) {
             return;
         }
-        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.method_6047().getItem() instanceof SwordItem) {
+        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getMainHandStack().getItem() instanceof SwordItem) {
             return;
         }
         if (!this.delayTimer.passedMs(this.delay.getValue())) {

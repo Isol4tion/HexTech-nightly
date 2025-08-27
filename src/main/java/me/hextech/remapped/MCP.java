@@ -30,7 +30,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (MCP.mc.mouse.wasMiddleButtonClicked()) {
             if (!this.click) {
-                if (MCP.mc.player.method_6047().getItem() == Items.ENDER_PEARL) {
+                if (MCP.mc.player.getMainHandStack().getItem() == Items.ENDER_PEARL) {
                     EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(MCP.mc.player.method_36454(), MCP.mc.player.method_36455(), MCP.mc.player.isOnGround()));
                     MCP.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
                 } else {

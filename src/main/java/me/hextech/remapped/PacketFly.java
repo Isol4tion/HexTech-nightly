@@ -149,7 +149,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void sendPackets(double x, double y, double z, boolean teleport) {
         Vec3d vec = new Vec3d(x, y, z);
-        Vec3d position = PacketFly.mc.player.method_19538().add(vec);
+        Vec3d position = PacketFly.mc.player.getPos().add(vec);
         Vec3d outOfBoundsVec = this.outOfBoundsVec(position);
         this.packetSender((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.PositionAndOnGround(position.x, position.y, position.z, PacketFly.mc.player.isOnGround()));
         if (this.invalidPacket.getValue()) {

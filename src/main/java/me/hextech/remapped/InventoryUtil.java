@@ -61,7 +61,7 @@ implements Wrapper {
     }
 
     public static boolean holdingItem(Class clazz) {
-        ItemStack stack = InventoryUtil.mc.player.method_6047();
+        ItemStack stack = InventoryUtil.mc.player.getMainHandStack();
         boolean result = InventoryUtil.isInstanceOf(stack, clazz);
         if (!result) {
             result = InventoryUtil.isInstanceOf(stack, clazz);

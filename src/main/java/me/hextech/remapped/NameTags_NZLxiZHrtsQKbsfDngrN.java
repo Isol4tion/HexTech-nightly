@@ -119,15 +119,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.gamemode.getValue()) {
                 final_string = (String)final_string + this.translateGamemode(NameTags_NZLxiZHrtsQKbsfDngrN.getEntityGamemode(ent)) + " ";
             }
-            final_string = (String)final_string + String.valueOf(Formatting.RESET) + ent.method_5477().getString();
+            final_string = (String)final_string + String.valueOf(Formatting.RESET) + ent.getName().getString();
             if (this.health.getValue()) {
-                final_string = (String)final_string + " " + String.valueOf(this.getHealthColor(ent)) + NameTags_NZLxiZHrtsQKbsfDngrN.round2(ent.method_6067() + ent.method_6032());
+                final_string = (String)final_string + " " + String.valueOf(this.getHealthColor(ent)) + NameTags_NZLxiZHrtsQKbsfDngrN.round2(ent.getAbsorptionAmount() + ent.getHealth());
             }
             if (this.distance.getValue()) {
                 final_string = (String)final_string + " " + String.valueOf(Formatting.RESET) + String.format("%.1f", Float.valueOf(NameTags_NZLxiZHrtsQKbsfDngrN.mc.player.method_5739((Entity)ent))) + "m";
             }
-            if (this.pops.getValue() && HexTech.POP.getPop(ent.method_5477().getString()) != 0) {
-                final_string = (String)final_string + " \u00a7bPop " + String.valueOf(Formatting.LIGHT_PURPLE) + HexTech.POP.getPop(ent.method_5477().getString());
+            if (this.pops.getValue() && HexTech.POP.getPop(ent.getName().getString()) != 0) {
+                final_string = (String)final_string + " \u00a7bPop " + String.valueOf(Formatting.LIGHT_PURPLE) + HexTech.POP.getPop(ent.getName().getString());
             }
             double posX = position.x;
             double posY = position.y;
@@ -136,12 +136,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             float textWidth = this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy ? FontRenderers.Arial.getWidth((String)final_string) * 1.0f : (float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer.getWidth((String)final_string);
             float tagX = (float)((posX + (double)diff - (double)(textWidth / 2.0f)) * 1.0);
             ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
-            stacks.add(ent.method_6047());
+            stacks.add(ent.getMainHandStack());
             stacks.add((ItemStack)ent.getInventory().armor.get(3));
             stacks.add((ItemStack)ent.getInventory().armor.get(2));
             stacks.add((ItemStack)ent.getInventory().armor.get(1));
             stacks.add((ItemStack)ent.getInventory().armor.get(0));
-            stacks.add(ent.method_6079());
+            stacks.add(ent.getOffHandStack());
             context.getMatrices().push();
             context.getMatrices().translate(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float)(posY - 13.0) + 6.5f, 0.0f);
             float size = (float)Math.max(1.0 - (double)MathHelper.sqrt((float)((float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.cameraEntity.squaredDistanceTo(preVec))) * 0.01 * this.scaled.getValue(), 0.0);
@@ -301,7 +301,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private Formatting getHealthColor(@NotNull PlayerEntity entity) {
-        int health = (int)((float)((int)entity.method_6032()) + entity.method_6067());
+        int health = (int)((float)((int)entity.getHealth()) + entity.getAbsorptionAmount());
         if (health >= 30) {
             return Formatting.DARK_GREEN;
         }

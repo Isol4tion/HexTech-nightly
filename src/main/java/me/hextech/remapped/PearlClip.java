@@ -89,7 +89,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void throwPearl() {
         int pearl;
         AutoPearl.throwing = true;
-        if (PearlClip.mc.player.method_6047().getItem() == Items.ENDER_PEARL) {
+        if (PearlClip.mc.player.getMainHandStack().getItem() == Items.ENDER_PEARL) {
             PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
         } else if (AutoPearl.INSTANCE.inventory.getValue() && (pearl = InventoryUtil.findItemInventorySlot(Items.ENDER_PEARL)) != -1) {
             InventoryUtil.inventorySwap(pearl, PearlClip.mc.player.getInventory().selectedSlot);

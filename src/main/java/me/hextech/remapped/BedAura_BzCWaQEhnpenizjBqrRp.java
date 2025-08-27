@@ -122,7 +122,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public String getInfo() {
         if (this.displayTarget != null && placePos != null) {
-            return this.displayTarget.method_5477().getString();
+            return this.displayTarget.getName().getString();
         }
         return super.getInfo();
     }
@@ -172,7 +172,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             placePos = null;
             return;
         }
-        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_5715()) {
+        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.player.isSneaking()) {
             placePos = null;
             return;
         }
@@ -199,7 +199,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
                     float damage = this.calculateDamage(pos, pap.player, pap.predict);
                     float selfDamage = this.calculateDamage(pos, self.player, self.predict);
-                    if ((double)selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_6032() + BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_6067()) - this.antiSuicide.getValue() || damage < EntityUtil.getHealth((Entity)pap.player) && (damage < this.placeMinDamage.getValueFloat() || this.smart.getValue() && damage < selfDamage) || placePos != null && !(damage > this.lastDamage)) continue;
+                    if ((double)selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getHealth() + BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getAbsorptionAmount()) - this.antiSuicide.getValue() || damage < EntityUtil.getHealth((Entity)pap.player) && (damage < this.placeMinDamage.getValueFloat() || this.smart.getValue() && damage < selfDamage) || placePos != null && !(damage > this.lastDamage)) continue;
                     this.displayTarget = pap.player;
                     placePos = pos;
                     this.lastDamage = damage;
@@ -236,7 +236,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.getBlockState(pos).getBlock() instanceof BedBlock) {
             Direction side = BlockUtil.getClickSide(pos);
-            Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+            Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
             if (this.rotate.getValue() && !this.faceVector(directionVec)) {
                 return;
             }
@@ -267,7 +267,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             break;
         }
         if (facing != null) {
-            Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)Direction.UP.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)Direction.UP.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)Direction.UP.method_10163().getZ() * 0.5);
+            Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)Direction.UP.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)Direction.UP.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)Direction.UP.getVector().getZ() * 0.5);
             if (this.rotate.getValue() && !this.faceVector(directionVec)) {
                 return;
             }

@@ -222,9 +222,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         switch ((above ? this.aboveLagMode.getValue() : this.lagMode.getValue()).ordinal()) {
             case 0: {
                 ArrayList<BlockPosX> list = new ArrayList<BlockPosX>();
-                for (double x = XinBurrow.mc.player.method_19538().method_10216() - this.smartX.getValue(); x < XinBurrow.mc.player.method_19538().method_10216() + this.smartX.getValue(); x += 1.0) {
-                    for (double z = XinBurrow.mc.player.method_19538().method_10215() - this.smartX.getValue(); z < XinBurrow.mc.player.method_19538().method_10215() + this.smartX.getValue(); z += 1.0) {
-                        for (double y = XinBurrow.mc.player.method_19538().method_10214() - this.smartDown.getValue(); y < XinBurrow.mc.player.method_19538().method_10214() + this.smartUp.getValue(); y += 1.0) {
+                for (double x = XinBurrow.mc.player.getPos().method_10216() - this.smartX.getValue(); x < XinBurrow.mc.player.getPos().method_10216() + this.smartX.getValue(); x += 1.0) {
+                    for (double z = XinBurrow.mc.player.getPos().method_10215() - this.smartX.getValue(); z < XinBurrow.mc.player.getPos().method_10215() + this.smartX.getValue(); z += 1.0) {
+                        for (double y = XinBurrow.mc.player.getPos().method_10214() - this.smartDown.getValue(); y < XinBurrow.mc.player.getPos().method_10214() + this.smartUp.getValue(); y += 1.0) {
                             list.add(new BlockPosX(x, y, z));
                         }
                     }
@@ -237,7 +237,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     distance = XinBurrow.mc.player.squaredDistanceTo(blockPos.toCenterPos());
                 }
                 if (bestPos == null) break;
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.method_10263() + 0.5, (double)bestPos.method_10264(), (double)bestPos.method_10260() + 0.5, false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.getX() + 0.5, (double)bestPos.getY(), (double)bestPos.getZ() + 0.5, false));
                 break;
             }
             case 1: {
@@ -321,9 +321,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void gotoPos(BlockPos offPos) {
         if (this.rotate.getValue() == _uPHLOgEUPRaLZqLkrbQU.None) {
-            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)offPos.method_10263() + 0.5, XinBurrow.mc.player.getY() + 0.1, (double)offPos.method_10260() + 0.5, false));
+            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)offPos.getX() + 0.5, XinBurrow.mc.player.getY() + 0.1, (double)offPos.getZ() + 0.5, false));
         } else {
-            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.Full((double)offPos.method_10263() + 0.5, XinBurrow.mc.player.getY() + 0.1, (double)offPos.method_10260() + 0.5, HexTech.ROTATE.rotateYaw, 90.0f, false));
+            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.Full((double)offPos.getX() + 0.5, XinBurrow.mc.player.getY() + 0.1, (double)offPos.getZ() + 0.5, HexTech.ROTATE.rotateYaw, 90.0f, false));
         }
     }
 

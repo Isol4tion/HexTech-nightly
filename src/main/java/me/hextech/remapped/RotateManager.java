@@ -115,8 +115,8 @@ implements Wrapper {
 
     public float[] offtrackStep(Vec3d vec, float steps) {
         float yawDelta = MathHelper.wrapDegrees((float)((float)MathHelper.wrapDegrees((double)(Math.toDegrees(Math.atan2(vec.z - RotateManager.mc.player.getZ(), vec.x - RotateManager.mc.player.getX())) - 90.0)) - this.rotateYaw));
-        float pitchDelta = (float)(-Math.toDegrees(Math.atan2(vec.y - (RotateManager.mc.player.method_19538().y + (double)RotateManager.mc.player.method_18381(RotateManager.mc.player.method_18376())), Math.sqrt(Math.pow(vec.x - RotateManager.mc.player.getX(), 2.0) + Math.pow(vec.z - RotateManager.mc.player.getZ(), 2.0))))) - this.rotatePitch;
-        float angleToRad = (float)Math.toRadians(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.minrad.getValueFloat() * (float)(RotateManager.mc.player.field_6012 % 30));
+        float pitchDelta = (float)(-Math.toDegrees(Math.atan2(vec.y - (RotateManager.mc.player.getPos().y + (double)RotateManager.mc.player.method_18381(RotateManager.mc.player.method_18376())), Math.sqrt(Math.pow(vec.x - RotateManager.mc.player.getX(), 2.0) + Math.pow(vec.z - RotateManager.mc.player.getZ(), 2.0))))) - this.rotatePitch;
+        float angleToRad = (float)Math.toRadians(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.minrad.getValueFloat() * (float)(RotateManager.mc.player.age % 30));
         yawDelta = (float)((double)yawDelta + Math.sin(angleToRad) * 3.0) + MathUtil.random(-1.0f, 1.0f);
         pitchDelta += MathUtil.random(-0.6f, 0.6f);
         if (yawDelta > 180.0f) {
@@ -305,10 +305,10 @@ implements Wrapper {
         if (RotateManager.mc.player == null) {
             return;
         }
-        if (RotateManager.mc.player.field_6012 == this.ticksExisted && !force) {
+        if (RotateManager.mc.player.age == this.ticksExisted && !force) {
             return;
         }
-        this.ticksExisted = RotateManager.mc.player.field_6012;
+        this.ticksExisted = RotateManager.mc.player.age;
         prevPitch = renderPitch;
         prevRenderYawOffset = renderYawOffset;
         renderYawOffset = this.getRenderYawOffset(yaw, prevRenderYawOffset);

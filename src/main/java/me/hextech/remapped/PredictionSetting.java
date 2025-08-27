@@ -98,7 +98,7 @@ implements Wrapper {
             return;
         }
         Vec3d last = path.get(path.size() - 1);
-        Box box = real.getBoundingBox().offset(last.subtract(real.method_19538()));
+        Box box = real.getBoundingBox().offset(last.subtract(real.getPos()));
         Render3DUtil.draw3DBox(matrices, box, this.color.getValue(), true, true);
     }
 
@@ -162,7 +162,7 @@ implements Wrapper {
                     Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(player, ticks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());
                     Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
                     this.predict.method_33574(center);
-                    this.predict.method_6033(player.method_6032());
+                    this.predict.method_6033(player.getHealth());
                     this.predict.field_6014 = player.field_6014;
                     this.predict.field_6036 = player.field_6036;
                     this.predict.field_5969 = player.field_5969;
@@ -171,8 +171,8 @@ implements Wrapper {
                     this.predict.method_18380(player.method_18376());
                     player.method_6026().forEach(arg_0 -> ((PlayerEntity)this.predict).addStatusEffect(arg_0));
                 } else if (PredictionSetting.INSTANCE.mode.getValue() == _mJSQReswTiaqOSqkjOmh.HexTech) {
-                    this.predict.method_33574(player.method_19538().add(CombatUtil.getMotionVec((Entity)player, PredictionSetting.INSTANCE.breakextrap.getValueInt(), true)));
-                    this.predict.method_6033(player.method_6032());
+                    this.predict.method_33574(player.getPos().add(CombatUtil.getMotionVec((Entity)player, PredictionSetting.INSTANCE.breakextrap.getValueInt(), true)));
+                    this.predict.method_6033(player.getHealth());
                     this.predict.field_6014 = player.field_6014;
                     this.predict.field_5969 = player.field_5969;
                     this.predict.field_6036 = player.field_6036;

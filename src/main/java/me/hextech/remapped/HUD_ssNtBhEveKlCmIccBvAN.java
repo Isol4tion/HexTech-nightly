@@ -359,7 +359,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         dfDistance.setRoundingMode(RoundingMode.CEILING);
         StringBuilder distanceSB = new StringBuilder();
         for (PlayerEntity player : HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_18456()) {
-            if (player.method_5767() || player.method_5477().equals((Object)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_5477())) continue;
+            if (player.method_5767() || player.getName().equals((Object)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getName())) continue;
             int distanceInt = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_5739((Entity)player);
             String distance = dfDistance.format(distanceInt);
             if (distanceInt >= 25) {
@@ -370,7 +370,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 distanceSB.append(Formatting.RED);
             }
             distanceSB.append(distance);
-            retval.put((String)(this.health.getValue() ? String.valueOf(this.getHealthColor(player)) + String.valueOf(HUD_ssNtBhEveKlCmIccBvAN.round2(player.method_6067() + player.method_6032())) + " " : "") + String.valueOf(HexTech.FRIEND.isFriend(player) ? Formatting.AQUA : Formatting.RESET) + player.method_5477().getString() + " " + String.valueOf(Formatting.WHITE) + "[" + String.valueOf(Formatting.RESET) + String.valueOf(distanceSB) + "m" + String.valueOf(Formatting.WHITE) + "] " + String.valueOf(Formatting.GREEN), (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_5739((Entity)player));
+            retval.put((String)(this.health.getValue() ? String.valueOf(this.getHealthColor(player)) + String.valueOf(HUD_ssNtBhEveKlCmIccBvAN.round2(player.getAbsorptionAmount() + player.getHealth())) + " " : "") + String.valueOf(HexTech.FRIEND.isFriend(player) ? Formatting.AQUA : Formatting.RESET) + player.getName().getString() + " " + String.valueOf(Formatting.WHITE) + "[" + String.valueOf(Formatting.RESET) + String.valueOf(distanceSB) + "m" + String.valueOf(Formatting.WHITE) + "] " + String.valueOf(Formatting.GREEN), (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_5739((Entity)player));
             distanceSB.setLength(0);
         }
         if (!retval.isEmpty()) {
@@ -386,7 +386,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private Formatting getHealthColor(@NotNull PlayerEntity entity) {
-        int health = (int)((float)((int)entity.method_6032()) + entity.method_6067());
+        int health = (int)((float)((int)entity.getHealth()) + entity.getAbsorptionAmount());
         if (health <= 15 && health > 7) {
             return Formatting.YELLOW;
         }

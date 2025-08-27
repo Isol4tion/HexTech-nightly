@@ -124,7 +124,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public List<BlockPos> getWebPos(PlayerEntity player) {
-        Vec3d playerPos = player.method_19538();
+        Vec3d playerPos = player.getPos();
         ArrayList<BlockPos> qzw = new ArrayList<BlockPos>();
         for (float x : new float[]{0.0f, 0.3f, -0.3f}) {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
@@ -173,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (this.fireFix.getValue()) {
                     CombatUtil.terrainIgnore = false;
                 }
-                if (!((double)pos.method_10264() - Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getY() <= 1.0) || !this.canTouch(pos.down()) || !this.canPlaceCrystal(pos, false, false) || !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.isAir(pos) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock() == Blocks.FIRE || !this.place.getValue()) continue;
+                if (!((double)pos.getY() - Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getY() <= 1.0) || !this.canTouch(pos.down()) || !this.canPlaceCrystal(pos, false, false) || !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.isAir(pos) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock() == Blocks.FIRE || !this.place.getValue()) continue;
                 this.doPlace(pos);
             }
         }
@@ -187,7 +187,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doPlace(BlockPos pos) {
         this.noPosTimer.reset();
-        if (!(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6047().getItem().equals(Items.END_CRYSTAL) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().getItem().equals(Items.END_CRYSTAL) || this.findCrystal())) {
+        if (!(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getMainHandStack().getItem().equals(Items.END_CRYSTAL) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getOffHandStack().getItem().equals(Items.END_CRYSTAL) || this.findCrystal())) {
             return;
         }
         if (!this.canTouch(pos.down())) {
@@ -195,7 +195,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         BlockPos obsPos = pos.down();
         Direction facing = BlockUtil.getClickSide(obsPos);
-        Vec3d vec = obsPos.toCenterPos().add((double)facing.method_10163().getX() * 0.5, (double)facing.method_10163().getY() * 0.5, (double)facing.method_10163().getZ() * 0.5);
+        Vec3d vec = obsPos.toCenterPos().add((double)facing.getVector().getX() * 0.5, (double)facing.getVector().getY() * 0.5, (double)facing.getVector().getZ() * 0.5);
         if (facing != Direction.UP && facing != Direction.DOWN) {
             vec = vec.add(0.0, 0.45, 0.0);
         }
@@ -205,7 +205,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.placeTimer.passedMs((long)this.placeDelay.getValue())) {
             return;
         }
-        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6047().getItem().equals(Items.END_CRYSTAL) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().getItem().equals(Items.END_CRYSTAL)) {
+        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getMainHandStack().getItem().equals(Items.END_CRYSTAL) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getOffHandStack().getItem().equals(Items.END_CRYSTAL)) {
             this.placeTimer.reset();
             this.syncPos = pos;
             this.placeCrystal(pos);
@@ -254,7 +254,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void placeCrystal(BlockPos pos) {
-        boolean offhand = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().getItem() == Items.END_CRYSTAL;
+        boolean offhand = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getOffHandStack().getItem() == Items.END_CRYSTAL;
         BlockPos obsPos = pos.down();
         Direction facing = BlockUtil.getClickSide(obsPos);
         BlockUtil.clickBlock(obsPos, facing, false, offhand ? Hand.OFF_HAND : Hand.MAIN_HAND, this.swingMode.getValue());
@@ -263,10 +263,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void doBreak(BlockPos pos) {
         this.noPosTimer.reset();
         this.lastBreakTimer.reset();
-        Iterator<EndCrystalEntity> iterator = BlockUtil.getEndCrystals(new Box((double)pos.method_10263(), (double)pos.method_10264(), (double)pos.method_10260(), (double)(pos.method_10263() + 1), (double)(pos.method_10264() + 2), (double)(pos.method_10260() + 1))).iterator();
+        Iterator<EndCrystalEntity> iterator = BlockUtil.getEndCrystals(new Box((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), (double)(pos.getX() + 1), (double)(pos.getY() + 2), (double)(pos.getZ() + 1))).iterator();
         if (iterator.hasNext()) {
             EndCrystalEntity entity = iterator.next();
-            if (this.rotate.getValue() && this.onBreak.getValue() && !this.faceVector(entity.method_19538().add(0.0, this.yOffset.getValue(), 0.0))) {
+            if (this.rotate.getValue() && this.onBreak.getValue() && !this.faceVector(entity.getPos().add(0.0, this.yOffset.getValue(), 0.0))) {
                 return;
             }
             if (!CombatUtil.breakTimer.passedMs((long)this.breakDelay.getValue())) {
@@ -274,10 +274,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             CombatUtil.breakTimer.reset();
             this.syncPos = pos;
-            mc.getNetworkHandler().sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)entity, (boolean)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_5715()));
-            Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_7350();
+            mc.getNetworkHandler().sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)entity, (boolean)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.isSneaking()));
+            Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.resetLastAttackedTicks();
             EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
-            if (pos != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player != null && this.afterBreak.getValue() && (!this.yawStep.getValue() || !this.checkFov.getValue() || HexTech.ROTATE.inFov(entity.method_19538(), this.fov.getValueFloat()))) {
+            if (pos != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player != null && this.afterBreak.getValue() && (!this.yawStep.getValue() || !this.checkFov.getValue() || HexTech.ROTATE.inFov(entity.getPos(), this.fov.getValueFloat()))) {
                 this.doPlace(pos);
             }
             if (this.forceWeb.getValue() && WebAuraTick_gaIdrzDzsbegzNTtPQoV.INSTANCE.isOn()) {
@@ -288,12 +288,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean behindWall(BlockPos pos) {
-        Vec3d testVec = new Vec3d((double)pos.method_10263() + 0.5, (double)pos.method_10264() + 1.7, (double)pos.method_10260() + 0.5);
+        Vec3d testVec = new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() + 1.7, (double)pos.getZ() + 0.5);
         BlockHitResult result = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_17742(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player));
         if (result == null || result.getType() == HitResult.Type.MISS) {
             return false;
         }
-        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_33571().distanceTo(pos.toCenterPos().add(0.0, -0.5, 0.0)) > this.wallRange.getValue();
+        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getEyePos().distanceTo(pos.toCenterPos().add(0.0, -0.5, 0.0)) > this.wallRange.getValue();
     }
 
     /*
@@ -303,8 +303,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean canTouch(BlockPos pos) {
         Direction side = BlockUtil.getClickSideStrict(pos);
         if (side == null) return false;
-        Vec3d vec3d = new Vec3d((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5);
-        if (!(pos.toCenterPos().add(vec3d).distanceTo(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_33571()) <= this.range.getValue())) return false;
+        Vec3d vec3d = new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5);
+        if (!(pos.toCenterPos().add(vec3d).distanceTo(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getEyePos()) <= this.range.getValue())) return false;
         return true;
     }
 
@@ -322,7 +322,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (!ignoreCrystal) {
                     return false;
                 }
-                if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6057(entity) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_33571().distanceTo(entity.getPos()) <= this.wallRange.getValue()) continue;
+                if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.canSee(entity) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getEyePos().distanceTo(entity.getPos()) <= this.wallRange.getValue()) continue;
             }
             return false;
         }
@@ -330,11 +330,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean canExplodeReach(BlockPos explosionCenter, BlockPos targetBlock, float power) {
-        if (explosionCenter.method_10264() > targetBlock.method_10264()) {
+        if (explosionCenter.getY() > targetBlock.getY()) {
             return false;
         }
-        Vec3d start = new Vec3d((double)explosionCenter.method_10263() + 0.5, (double)explosionCenter.method_10264() + 0.5, (double)explosionCenter.method_10260() + 0.5);
-        Vec3d end = new Vec3d((double)targetBlock.method_10263() + 0.5, (double)targetBlock.method_10264() + 0.5, (double)targetBlock.method_10260() + 0.5);
+        Vec3d start = new Vec3d((double)explosionCenter.getX() + 0.5, (double)explosionCenter.getY() + 0.5, (double)explosionCenter.getZ() + 0.5);
+        Vec3d end = new Vec3d((double)targetBlock.getX() + 0.5, (double)targetBlock.getY() + 0.5, (double)targetBlock.getZ() + 0.5);
         Vec3d direction = end.subtract(start).normalize();
         double distance = start.distanceTo(end);
         double step = 0.5;
@@ -355,7 +355,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public boolean willBlockBeDestroyedByExplosion(World world, BlockPos explosionPos, BlockPos pos2, float power) {
         float blastResistance;
         float exposure;
-        Explosion explosion = new Explosion(world, null, (double)explosionPos.method_10263(), (double)explosionPos.method_10264(), (double)explosionPos.method_10260(), power, false, Explosion.DestructionType.DESTROY);
+        Explosion explosion = new Explosion(world, null, (double)explosionPos.getX(), (double)explosionPos.getY(), (double)explosionPos.getZ(), power, false, Explosion.DestructionType.DESTROY);
         BlockState blockState = world.getBlockState(pos2);
         float doubleExplosionSize = 2.0f * explosion.getPower();
         double distancedsize = (double)MathHelper.sqrt((float)((float)explosionPos.method_10262((Vec3i)pos2))) / (double)doubleExplosionSize;

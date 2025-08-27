@@ -28,7 +28,7 @@ public static class MineManager {
         if (Wrapper.mc.world == null) {
             return null;
         }
-        Entity entity = Wrapper.mc.world.method_8469(this.entityId);
+        Entity entity = Wrapper.mc.world.getEntityById(this.entityId);
         return entity instanceof PlayerEntity ? entity : null;
     }
 }

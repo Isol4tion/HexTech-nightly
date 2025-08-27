@@ -51,7 +51,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.rotation.getValue() && HexTech.ROTATE.inFov(AutoPearl.mc.player.method_36454(), AutoPearl.mc.player.method_36455(), this.fov.getValueFloat())) {
             int pearl;
             throwing = true;
-            if (AutoPearl.mc.player.method_6047().getItem() == Items.ENDER_PEARL) {
+            if (AutoPearl.mc.player.getMainHandStack().getItem() == Items.ENDER_PEARL) {
                 AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
             } else if (this.inventory.getValue() && (pearl = InventoryUtil.findItemInventorySlot(Items.ENDER_PEARL)) != -1) {
                 InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.getInventory().selectedSlot);
@@ -82,7 +82,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void throwPearl(float yaw, float pitch) {
         int pearl;
         throwing = true;
-        if (AutoPearl.mc.player.method_6047().getItem() == Items.ENDER_PEARL) {
+        if (AutoPearl.mc.player.getMainHandStack().getItem() == Items.ENDER_PEARL) {
             EntityUtil.sendYawAndPitch(yaw, pitch);
             AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
         } else if (this.inventory.getValue() && (pearl = InventoryUtil.findItemInventorySlot(Items.ENDER_PEARL)) != -1) {

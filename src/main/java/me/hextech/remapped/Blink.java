@@ -46,7 +46,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        fakePlayer = new OtherClientPlayerEntity(Blink.mc.world, new GameProfile(UUID.fromString("11451466-6666-6666-6666-666666666601"), Blink.mc.player.method_5477().getString()));
+        fakePlayer = new OtherClientPlayerEntity(Blink.mc.world, new GameProfile(UUID.fromString("11451466-6666-6666-6666-666666666601"), Blink.mc.player.getName().getString()));
         fakePlayer.method_5719((Entity)Blink.mc.player);
         fakePlayer.getInventory().clone(Blink.mc.player.getInventory());
         Blink.mc.world.addEntity((Entity)fakePlayer);

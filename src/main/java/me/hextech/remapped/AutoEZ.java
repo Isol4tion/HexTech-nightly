@@ -37,19 +37,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             switch (this.type.getValue().ordinal()) {
                 case 1: {
-                    AutoEZ.mc.player.networkHandler.sendChatMessage(this.ALEXJONNY.get(this.random.nextInt(this.ALEXJONNY.size() - 1)) + " " + String.valueOf(player.method_5477()));
+                    AutoEZ.mc.player.networkHandler.sendChatMessage(this.ALEXJONNY.get(this.random.nextInt(this.ALEXJONNY.size() - 1)) + " " + String.valueOf(player.getName()));
                     break;
                 }
                 case 0: {
-                    AutoEZ.mc.player.networkHandler.sendChatMessage(this.HEXTECH.get(this.random.nextInt(this.HEXTECH.size() - 1)) + " " + player.method_5477().getString());
+                    AutoEZ.mc.player.networkHandler.sendChatMessage(this.HEXTECH.get(this.random.nextInt(this.HEXTECH.size() - 1)) + " " + player.getName().getString());
                     break;
                 }
                 case 2: {
-                    AutoEZ.mc.player.networkHandler.sendChatMessage(player.method_5477().getString() + " " + this.GUAZIGEGE.get(this.random.nextInt(this.GUAZIGEGE.size() - 1)));
+                    AutoEZ.mc.player.networkHandler.sendChatMessage(player.getName().getString() + " " + this.GUAZIGEGE.get(this.random.nextInt(this.GUAZIGEGE.size() - 1)));
                     break;
                 }
                 case 3: {
-                    AutoEZ.mc.player.networkHandler.sendChatMessage(this.msg.getValue().replaceAll("%player%", player.method_5477().getString()));
+                    AutoEZ.mc.player.networkHandler.sendChatMessage(this.msg.getValue().replaceAll("%player%", player.getName().getString()));
                 }
             }
         }

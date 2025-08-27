@@ -14,8 +14,8 @@ import net.minecraft.world.RaycastContext;
 public class WallCheck
 implements Wrapper {
     public static boolean behindWall(BlockPos pos) {
-        Vec3d WallVec = CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.lowVersion.getValue() ? new Vec3d((double)pos.method_10263() + 0.5, (double)pos.method_10264(), (double)pos.method_10260() + 0.5) : new Vec3d((double)pos.method_10263() + 0.5, (double)pos.method_10264() + 1.7, (double)pos.method_10260() + 0.5);
-        WallVec = new Vec3d((double)pos.method_10263() + 0.5, (double)pos.method_10264() + 1.7, (double)pos.method_10260() + 0.5);
+        Vec3d WallVec = CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.lowVersion.getValue() ? new Vec3d((double)pos.getX() + 0.5, (double)pos.getY(), (double)pos.getZ() + 0.5) : new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() + 1.7, (double)pos.getZ() + 0.5);
+        WallVec = new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() + 1.7, (double)pos.getZ() + 0.5);
         BlockHitResult result = null;
         if (WallCheck.mc.world != null && WallCheck.mc.player != null) {
             result = WallCheck.mc.world.method_17742(new RaycastContext(EntityUtil.getEyesPos(), WallVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)WallCheck.mc.player));
@@ -23,6 +23,6 @@ implements Wrapper {
         if (result == null || result.getType() == HitResult.Type.MISS) {
             return false;
         }
-        return WallCheck.mc.player.method_33571().distanceTo(pos.toCenterPos().add(0.0, -0.5, 0.0)) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue();
+        return WallCheck.mc.player.getEyePos().distanceTo(pos.toCenterPos().add(0.0, -0.5, 0.0)) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue();
     }
 }

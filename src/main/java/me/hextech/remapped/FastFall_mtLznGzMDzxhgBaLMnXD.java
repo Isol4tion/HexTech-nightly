@@ -107,7 +107,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int y;
         int retval = 0;
         for (int tracey = y = (int)Math.round(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getY()) - 1; tracey >= 0; --tracey) {
-            BlockHitResult trace = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.method_17742(new RaycastContext(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_19538(), new Vec3d(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getX(), (double)tracey, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player));
+            BlockHitResult trace = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.method_17742(new RaycastContext(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getPos(), new Vec3d(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getX(), (double)tracey, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player));
             if (trace != null && trace.getType() == HitResult.Type.BLOCK) {
                 return retval;
             }

@@ -15,7 +15,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class CrystalDamage_eJITUTNYpCPnjaYYZUHH {
     public static float calculateDamage(BlockPos pos, PlayerEntity player, PlayerEntity predict) {
-        return CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateCrystalDamage(new Vec3d((double)pos.method_10263() + 0.5, (double)pos.method_10264(), (double)pos.method_10260() + 0.5), player, predict);
+        return CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateCrystalDamage(new Vec3d((double)pos.getX() + 0.5, (double)pos.getY(), (double)pos.getZ() + 0.5), player, predict);
     }
 
     public static float calculateCrystalDamage(Vec3d pos, PlayerEntity player, PlayerEntity predict) {

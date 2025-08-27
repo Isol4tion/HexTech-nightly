@@ -423,7 +423,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.done) {
                 boolean shouldSwitch;
                 if (this.endRotate.getValue()) {
-                    Vec3i vec3i = BlockUtil.getClickSide(breakPos).method_10163();
+                    Vec3i vec3i = BlockUtil.getClickSide(breakPos).getVector();
                     if (!this.faceVector(breakPos.toCenterPos().add(new Vec3d((double)vec3i.getX() * 0.5, (double)vec3i.getY() * 0.5, (double)vec3i.getZ() * 0.5)))) {
                         return;
                     }
@@ -480,7 +480,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             Direction side = BlockUtil.getClickSide(breakPos);
             if (this.rotate.getValue()) {
-                Vec3i vec3i = side.method_10163();
+                Vec3i vec3i = side.getVector();
                 if (!this.faceVector(breakPos.toCenterPos().add(new Vec3d((double)vec3i.getX() * 0.5, (double)vec3i.getY() * 0.5, (double)vec3i.getZ() * 0.5)))) {
                     return;
                 }
@@ -573,7 +573,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.skip = true;
         Direction side = BlockUtil.getClickSide(breakPos);
         if (this.rotate.getValue()) {
-            Vec3i vec3i = side.method_10163();
+            Vec3i vec3i = side.getVector();
             if (!this.faceVector(breakPos.toCenterPos().add(new Vec3d((double)vec3i.getX() * 0.5, (double)vec3i.getY() * 0.5, (double)vec3i.getZ() * 0.5)))) {
                 return;
             }

@@ -125,7 +125,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public String getInfo() {
         if (this.displayTarget != null && currentPos != null) {
-            return this.displayTarget.method_5477().getString();
+            return this.displayTarget.getName().getString();
         }
         return null;
     }
@@ -186,7 +186,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.tempPos = null;
             return;
         }
-        if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_5715()) {
+        if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.isSneaking()) {
             currentPos = null;
             this.tempPos = null;
             return;
@@ -229,7 +229,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (this.spamPlace.getValue() && this.inSpam.getValue()) {
                     if (this.yawStep.getValue() && this.checkFov.getValue()) {
                         Direction side = BlockUtil.getClickSide(currentPos);
-                        Vec3d directionVec = new Vec3d((double)currentPos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)currentPos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)currentPos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+                        Vec3d directionVec = new Vec3d((double)currentPos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)currentPos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)currentPos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
                         if (HexTech.ROTATE.inFov(directionVec, this.fov.getValueFloat())) {
                             CombatUtil.modifyPos = currentPos;
                             CombatUtil.modifyBlockState = Blocks.AIR.getDefaultState();
@@ -267,7 +267,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     if (this.spamPlace.getValue()) {
                         if (this.yawStep.getValue() && this.checkFov.getValue()) {
                             Direction side = BlockUtil.getClickSide(currentPos);
-                            Vec3d directionVec = new Vec3d((double)currentPos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)currentPos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)currentPos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+                            Vec3d directionVec = new Vec3d((double)currentPos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)currentPos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)currentPos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
                             if (HexTech.ROTATE.inFov(directionVec, this.fov.getValueFloat())) {
                                 CombatUtil.modifyPos = currentPos;
                                 CombatUtil.modifyBlockState = Blocks.AIR.getDefaultState();
@@ -310,7 +310,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double d;
                 double selfDamage;
                 BlockPos pos = EntityUtil.getEntityPos((Entity)pap.player, true).up(2);
-                if (!BlockUtil.canPlace(pos, this.range.getValue(), this.breakCrystal.getValue()) && (BlockUtil.getBlock(pos) != Blocks.RESPAWN_ANCHOR || BlockUtil.getClickSideStrict(pos) == null) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_6032() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_6067()))) continue;
+                if (!BlockUtil.canPlace(pos, this.range.getValue(), this.breakCrystal.getValue()) && (BlockUtil.getBlock(pos) != Blocks.RESPAWN_ANCHOR || BlockUtil.getClickSideStrict(pos) == null) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
                 damage = this.getAnchorDamage(pos, pap.player, pap.predict);
                 if (!(d > (double)this.headDamage.getValueFloat())) continue;
                 this.lastDamage = damage;
@@ -326,7 +326,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (this.light.getValue()) {
                             CombatUtil.modifyPos = pos;
                             CombatUtil.modifyBlockState = Blocks.AIR.getDefaultState();
-                            skip = !AutoAnchor_MDcwoWYRcPYheLZJWRZK.canSee(pos.toCenterPos(), pap.predict.method_19538());
+                            skip = !AutoAnchor_MDcwoWYRcPYheLZJWRZK.canSee(pos.toCenterPos(), pap.predict.getPos());
                             CombatUtil.modifyPos = null;
                             if (skip) continue;
                         }
@@ -337,7 +337,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                             CombatUtil.modifyBlockState = Blocks.OBSIDIAN.getDefaultState();
                             skip = BlockUtil.getClickSideStrict(pos) == null;
                             CombatUtil.modifyPos = null;
-                            if (skip || !((damage = this.getAnchorDamage(pos, pap.player, pap.predict)) >= placeDamage) || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage2 = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage2 > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_6032() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_6067()))) continue;
+                            if (skip || !((damage = this.getAnchorDamage(pos, pap.player, pap.predict)) >= placeDamage) || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage2 = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage2 > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
                             this.lastDamage = damage;
                             this.displayTarget = pap.player;
                             placeDamage = damage;
@@ -349,7 +349,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (damage2 >= this.minPrefer.getValue()) {
                             anchorFound = true;
                         }
-                        if (!anchorFound && damage2 < placeDamage || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage2) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_6032() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_6067()))) continue;
+                        if (!anchorFound && damage2 < placeDamage || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage2) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
                         this.lastDamage = damage2;
                         this.displayTarget = pap.player;
                         breakDamage = damage2;
@@ -386,7 +386,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (pos == null) {
             return;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         if (rotate && !this.faceVector(directionVec)) {
             return;
         }
@@ -436,7 +436,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (glowstone == -1) {
             return;
         }
-        if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_5715()) {
+        if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.isSneaking()) {
             return;
         }
         if (this.usingPause.getValue() && AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.isUsingItem()) {

@@ -32,7 +32,7 @@ implements Wrapper {
                     if (!ignoreCrystal) {
                         return false;
                     }
-                    if (CanPlaceCrystal.mc.player != null && (CanPlaceCrystal.mc.player.method_6057(entity) || CanPlaceCrystal.mc.player.method_33571().distanceTo(entity.getPos()) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue())) continue;
+                    if (CanPlaceCrystal.mc.player != null && (CanPlaceCrystal.mc.player.canSee(entity) || CanPlaceCrystal.mc.player.getEyePos().distanceTo(entity.getPos()) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue())) continue;
                 }
                 return false;
             }

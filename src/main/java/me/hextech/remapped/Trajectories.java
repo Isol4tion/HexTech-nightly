@@ -76,8 +76,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Trajectories.nullCheck()) {
             return;
         }
-        ItemStack mainHand = Trajectories.mc.player.method_6047();
-        ItemStack offHand = Trajectories.mc.player.method_6079();
+        ItemStack mainHand = Trajectories.mc.player.getMainHandStack();
+        ItemStack offHand = Trajectories.mc.player.getOffHandStack();
         if (mainHand.getItem() instanceof BowItem || mainHand.getItem() instanceof CrossbowItem || this.isThrowable(mainHand.getItem())) {
             hand = Hand.MAIN_HAND;
         } else if (offHand.getItem() instanceof BowItem || offHand.getItem() instanceof CrossbowItem || this.isThrowable(offHand.getItem())) {
@@ -102,7 +102,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double y = MathUtil.interpolate(Trajectories.mc.player.field_6036, Trajectories.mc.player.getY(), mc.getTickDelta());
         double z = MathUtil.interpolate(Trajectories.mc.player.field_5969, Trajectories.mc.player.getZ(), mc.getTickDelta());
         y = y + (double)Trajectories.mc.player.method_18381(Trajectories.mc.player.method_18376()) - 0.1000000014901161;
-        if (item == Trajectories.mc.player.method_6047().getItem()) {
+        if (item == Trajectories.mc.player.getMainHandStack().getItem()) {
             x -= (double)(MathHelper.cos((float)(yaw / 180.0f * (float)Math.PI)) * 0.16f);
             z -= (double)(MathHelper.sin((float)(yaw / 180.0f * (float)Math.PI)) * 0.16f);
         } else {
@@ -141,7 +141,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 motionY *= 0.99;
                 motionZ *= 0.99;
             }
-            motionY = item instanceof BowItem ? (motionY -= (double)0.05f) : (Trajectories.mc.player.method_6047().getItem() instanceof CrossbowItem ? (motionY -= (double)0.05f) : (motionY -= (double)0.03f));
+            motionY = item instanceof BowItem ? (motionY -= (double)0.05f) : (Trajectories.mc.player.getMainHandStack().getItem() instanceof CrossbowItem ? (motionY -= (double)0.05f) : (motionY -= (double)0.03f));
             Vec3d pos = new Vec3d(x, y, z);
             for (Entity ent : Trajectories.mc.world.getEntities()) {
                 if (ent instanceof ArrowEntity || ent.equals((Object)Trajectories.mc.player) || !ent.getBoundingBox().intersects(new Box(x - 0.4, y - 0.4, z - 0.4, x + 0.4, y + 0.4, z + 0.4))) continue;

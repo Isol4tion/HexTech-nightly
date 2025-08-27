@@ -143,7 +143,7 @@ implements Wrapper {
             amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.field_5909)).getAmplifier();
             defaultSpeed /= 1.0 + 0.2 * (double)(amplifier + 1);
         }
-        if (MovementUtil.mc.player.method_5715()) {
+        if (MovementUtil.mc.player.isSneaking()) {
             defaultSpeed /= 5.0;
         }
         return defaultSpeed;

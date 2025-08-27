@@ -17,7 +17,7 @@ import net.minecraft.util.math.Vec3d;
 public class PathUtils
 implements Wrapper {
     private static boolean canPassThrough(BlockPos pos) {
-        Block block = PathUtils.mc.world.getBlockState(new BlockPos(pos.method_10263(), pos.method_10264(), pos.method_10260())).getBlock();
+        Block block = PathUtils.mc.world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ())).getBlock();
         return block == Blocks.AIR || block instanceof PlantBlock || block == Blocks.VINE || block == Blocks.LADDER || block == Blocks.WATER || block == Blocks.WATER_CAULDRON || block instanceof WallSignBlock;
     }
 

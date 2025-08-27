@@ -76,13 +76,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (e.getPlayer().equals((Object)PopChams_WNWBvFQQYNjRmTHDKpkM.mc.player) || PopChams_WNWBvFQQYNjRmTHDKpkM.mc.world == null) {
             return;
         }
-        PopChams_YempjTMivfvNUIHSOfBB entity = new PopChams_YempjTMivfvNUIHSOfBB(this, (World)PopChams_WNWBvFQQYNjRmTHDKpkM.mc.world, BlockPos.ORIGIN, e.getPlayer().field_6283, new GameProfile(e.getPlayer().method_5667(), e.getPlayer().method_5477().getString()));
+        PopChams_YempjTMivfvNUIHSOfBB entity = new PopChams_YempjTMivfvNUIHSOfBB(this, (World)PopChams_WNWBvFQQYNjRmTHDKpkM.mc.world, BlockPos.ORIGIN, e.getPlayer().field_6283, new GameProfile(e.getPlayer().method_5667(), e.getPlayer().getName().getString()));
         entity.method_5719((Entity)e.getPlayer());
         entity.field_6283 = e.getPlayer().field_6283;
         entity.field_6241 = e.getPlayer().field_6241;
         entity.field_6251 = e.getPlayer().field_6251;
         entity.field_6279 = e.getPlayer().field_6279;
-        entity.method_5660(e.getPlayer().method_5715());
+        entity.method_5660(e.getPlayer().isSneaking());
         entity.field_42108.setSpeed(e.getPlayer().field_42108.getSpeed());
         entity.field_42108.pos = e.getPlayer().field_42108.getPos();
         this.popList.add(new PopChams(this, entity));
@@ -97,7 +97,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         matrices.multiply(RotationAxis.POSITIVE_Y.rotation(MathUtil.rad(180.0f - entity.bodyYaw)));
         PopChams_WNWBvFQQYNjRmTHDKpkM.prepareScale(matrices);
         modelBase.method_17086((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), mc.getTickDelta());
-        modelBase.method_17087((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float)entity.field_6012, entity.headYaw - entity.bodyYaw, entity.method_36455());
+        modelBase.method_17087((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float)entity.age, entity.headYaw - entity.bodyYaw, entity.method_36455());
         RenderSystem.enableBlend();
         GL11.glDisable((int)2929);
         Tessellator tessellator = Tessellator.getInstance();

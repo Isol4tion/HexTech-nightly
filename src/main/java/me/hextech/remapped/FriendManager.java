@@ -167,6 +167,6 @@ implements Wrapper {
     }
 
     public boolean isFriend(PlayerEntity entity) {
-        return FriendManager.isFriend(entity.method_5477().getString());
+        return FriendManager.isFriend(entity.getName().getString());
     }
 }

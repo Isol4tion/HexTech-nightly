@@ -126,7 +126,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)HoleFiller.mc.player);
         if (!list.isEmpty()) {
             for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
-                for (BlockPos pos : BlockUtil.getSphere(this.range.getValueFloat(), pap.player.method_19538())) {
+                for (BlockPos pos : BlockUtil.getSphere(this.range.getValueFloat(), pap.player.getPos())) {
                     if (!BlockUtil.isHole(pos, true, true, this.any.getValue()) && (!this.doubleHole.getValue() || !CombatUtil.isDoubleHole(pos)) || HoleFiller.mc.player.squaredDistanceTo(pos.toCenterPos()) < this.saferange.getValue() || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals((Object)SpeedMine.breakPos)) || this.progress >= this.blocksPer.getValueInt() || !BlockUtil.canPlace(pos, this.placeRange.getValue()) || BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) == null || !HoleFiller.mc.world.isAir(pos)) continue;
                     int oldSlot = HoleFiller.mc.player.getInventory().selectedSlot;
                     this.doSwap(block);
@@ -155,7 +155,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if ((side = BlockUtil.getPlaceSide(pos)) == null) {
             return false;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         BlockUtil.placedPos.add(pos);
         boolean sprint = false;
@@ -164,7 +164,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         boolean sneak = false;
         if (HoleFiller.mc.world != null) {
-            boolean bl = sneak = HoleFiller.needSneak(HoleFiller.mc.world.getBlockState(result.getBlockPos()).getBlock()) && !HoleFiller.mc.player.method_5715();
+            boolean bl = sneak = HoleFiller.needSneak(HoleFiller.mc.world.getBlockState(result.getBlockPos()).getBlock()) && !HoleFiller.mc.player.isSneaking();
         }
         if (sprint) {
             HoleFiller.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
@@ -184,7 +184,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean clickBlock(BlockPos pos, Direction side, boolean rotate) {
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         if (rotate && !this.faceVector(directionVec)) {
             return false;
         }

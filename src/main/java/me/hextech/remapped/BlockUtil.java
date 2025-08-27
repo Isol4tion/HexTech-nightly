@@ -174,10 +174,10 @@ implements Wrapper {
     }
 
     public static void placeCrystal(BlockPos pos, boolean rotate) {
-        boolean offhand = BlockUtil.mc.player.method_6079().getItem() == Items.END_CRYSTAL;
+        boolean offhand = BlockUtil.mc.player.getOffHandStack().getItem() == Items.END_CRYSTAL;
         BlockPos obsPos = pos.down();
         Direction facing = BlockUtil.getClickSide(obsPos);
-        Vec3d vec = obsPos.toCenterPos().add((double)facing.method_10163().getX() * 0.5, (double)facing.method_10163().getY() * 0.5, (double)facing.method_10163().getZ() * 0.5);
+        Vec3d vec = obsPos.toCenterPos().add((double)facing.getVector().getX() * 0.5, (double)facing.getVector().getY() * 0.5, (double)facing.getVector().getZ() * 0.5);
         if (rotate) {
             EntityUtil.faceVector(vec);
         }
@@ -214,7 +214,7 @@ implements Wrapper {
         if ((side = BlockUtil.getPlaceSide(pos)) == null) {
             return;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         if (rotate) {
             EntityUtil.faceVector(directionVec);
         }
@@ -227,7 +227,7 @@ implements Wrapper {
         }
         boolean sneak = false;
         if (BlockUtil.mc.world != null) {
-            boolean bl = sneak = BlockUtil.needSneak(BlockUtil.mc.world.getBlockState(result.getBlockPos()).getBlock()) && !BlockUtil.mc.player.method_5715();
+            boolean bl = sneak = BlockUtil.needSneak(BlockUtil.mc.world.getBlockState(result.getBlockPos()).getBlock()) && !BlockUtil.mc.player.isSneaking();
         }
         if (sprint) {
             BlockUtil.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
@@ -273,7 +273,7 @@ implements Wrapper {
     }
 
     public static void clickBlock(BlockPos pos, Direction side, boolean rotate, Hand hand, boolean packet) {
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         if (rotate) {
             EntityUtil.faceVector(directionVec);
         }
@@ -287,7 +287,7 @@ implements Wrapper {
     }
 
     public static void clickBlock(BlockPos pos, Direction side, boolean rotate, Hand hand, SwingSide swingSide) {
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         if (rotate) {
             EntityUtil.faceVector(directionVec);
         }
@@ -305,7 +305,7 @@ implements Wrapper {
         Direction side = null;
         for (Direction i : Direction.values()) {
             if (!BlockUtil.canClick(pos.offset(i)) || BlockUtil.canReplace(pos.offset(i)) || legit && !EntityUtil.canSee(pos.offset(i), i.getOpposite()) || strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite())) continue;
-            double vecDis = BlockUtil.mc.player.squaredDistanceTo(pos.toCenterPos().add((double)i.method_10163().getX() * 0.5, (double)i.method_10163().getY() * 0.5, (double)i.method_10163().getZ() * 0.5));
+            double vecDis = BlockUtil.mc.player.squaredDistanceTo(pos.toCenterPos().add((double)i.getVector().getX() * 0.5, (double)i.getVector().getY() * 0.5, (double)i.getVector().getZ() * 0.5));
             if (side != null && !(vecDis < dis)) continue;
             side = i;
             dis = vecDis;
@@ -330,7 +330,7 @@ implements Wrapper {
         Direction side = null;
         for (Direction i : Direction.values()) {
             if (!BlockUtil.canClick(pos.offset(i)) || BlockUtil.canReplace(pos.offset(i)) || (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() != Placement.Legit ? CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite()) : !EntityUtil.canSee(pos.offset(i), i.getOpposite()))) continue;
-            double vecDis = BlockUtil.mc.player.squaredDistanceTo(pos.toCenterPos().add((double)i.method_10163().getX() * 0.5, (double)i.method_10163().getY() * 0.5, (double)i.method_10163().getZ() * 0.5));
+            double vecDis = BlockUtil.mc.player.squaredDistanceTo(pos.toCenterPos().add((double)i.getVector().getX() * 0.5, (double)i.getVector().getY() * 0.5, (double)i.getVector().getZ() * 0.5));
             if ((double)MathHelper.sqrt((float)((float)vecDis)) > distance || side != null && !(vecDis < dis)) continue;
             side = i;
             dis = vecDis;
@@ -394,10 +394,10 @@ implements Wrapper {
     }
 
     public static boolean isStrictDirection(BlockPos pos, Direction side, boolean isFullBox) {
-        if (EntityUtil.getPlayerPos().method_10264() - pos.method_10264() >= 0 && side == Direction.DOWN) {
+        if (EntityUtil.getPlayerPos().getY() - pos.getY() >= 0 && side == Direction.DOWN) {
             return false;
         }
-        if (BypassSetting_RInKGmTQYgWFRhsUOiJP.INSTANCE.grim.getValue() ? side == Direction.UP && (double)(pos.method_10264() + 1) > BlockUtil.mc.player.method_33571().method_10214() : side == Direction.UP && (double)pos.method_10264() > BlockUtil.mc.player.method_33571().method_10214()) {
+        if (BypassSetting_RInKGmTQYgWFRhsUOiJP.INSTANCE.grim.getValue() ? side == Direction.UP && (double)(pos.getY() + 1) > BlockUtil.mc.player.getEyePos().method_10214() : side == Direction.UP && (double)pos.getY() > BlockUtil.mc.player.getEyePos().method_10214()) {
             return false;
         }
         if (BlockUtil.getBlock(pos.offset(side)) == Blocks.OBSIDIAN || BlockUtil.getBlock(pos.offset(side)) == Blocks.BEDROCK || BlockUtil.getBlock(pos.offset(side)) == Blocks.RESPAWN_ANCHOR) {
@@ -464,7 +464,7 @@ implements Wrapper {
     }
 
     public static ArrayList<BlockPos> getSphere(float range) {
-        return BlockUtil.getSphere(range, BlockUtil.mc.player.method_33571());
+        return BlockUtil.getSphere(range, BlockUtil.mc.player.getEyePos());
     }
 
     public static ArrayList<BlockPos> getSphere(float range, Vec3d pos) {
@@ -490,7 +490,7 @@ implements Wrapper {
     }
 
     public static boolean canReplace(BlockPos pos) {
-        if (pos.method_10264() >= 320) {
+        if (pos.getY() >= 320) {
             return false;
         }
         if (BlockUtil.mc.world.getBlockState(pos).getBlock() == Blocks.COBWEB && WebAuraTick_gaIdrzDzsbegzNTtPQoV.ignore && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.replace.getValue()) {
@@ -500,7 +500,7 @@ implements Wrapper {
     }
 
     public static boolean canClick(BlockPos pos) {
-        return BlockUtil.mc.world.getBlockState(pos).method_51367() && (!shiftBlocks.contains(BlockUtil.getBlock(pos)) && !(BlockUtil.getBlock(pos) instanceof BedBlock) || BlockUtil.mc.player.method_5715());
+        return BlockUtil.mc.world.getBlockState(pos).method_51367() && (!shiftBlocks.contains(BlockUtil.getBlock(pos)) && !(BlockUtil.getBlock(pos) instanceof BedBlock) || BlockUtil.mc.player.isSneaking());
     }
 
     public static boolean airPlace() {

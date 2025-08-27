@@ -97,7 +97,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotation(MathUtil.rad(180.0f - bodyYaw)));
         DesyncESP_dCvptoNghaTFSegtZyHR.prepareScale(matrixStack);
         this.model.modelPlayer.method_17086((LivingEntity)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player, DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.getPos(mc.getTickDelta()), DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.getSpeed(mc.getTickDelta()), mc.getTickDelta());
-        this.model.modelPlayer.method_17087((LivingEntity)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player, DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.getPos(mc.getTickDelta()), DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.getSpeed(mc.getTickDelta()), (float)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6012, headYaw - bodyYaw, pitch);
+        this.model.modelPlayer.method_17087((LivingEntity)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player, DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.getPos(mc.getTickDelta()), DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.getSpeed(mc.getTickDelta()), (float)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.age, headYaw - bodyYaw, pitch);
         RenderSystem.enableBlend();
         GL11.glDisable((int)2929);
         Tessellator tessellator = Tessellator.getInstance();

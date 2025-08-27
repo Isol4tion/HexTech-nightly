@@ -258,8 +258,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (rotate && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.attackRotate.getValue() && !this.faceVector(new Vec3d(crystal.getX(), crystal.getY() + 0.25, crystal.getZ()))) {
                 return;
             }
-            PistonCrystal.mc.player.networkHandler.sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)crystal, (boolean)PistonCrystal.mc.player.method_5715()));
-            PistonCrystal.mc.player.method_7350();
+            PistonCrystal.mc.player.networkHandler.sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)crystal, (boolean)PistonCrystal.mc.player.isSneaking()));
+            PistonCrystal.mc.player.resetLastAttackedTicks();
             EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         }
     }
@@ -304,7 +304,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public String getInfo() {
         if (this.target != null) {
-            return this.target.method_5477().getString();
+            return this.target.getName().getString();
         }
         return null;
     }
@@ -322,8 +322,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.getPos(pos.offset(i, 3), i, pos);
         this.getPos(pos.offset(i, 3).up(), i, pos);
-        int offsetX = pos.offset(i).method_10263() - pos.method_10263();
-        int offsetZ = pos.offset(i).method_10260() - pos.method_10260();
+        int offsetX = pos.offset(i).getX() - pos.getX();
+        int offsetZ = pos.offset(i).getZ() - pos.getZ();
         this.getPos(pos.offset(i, 3).add(offsetZ, 0, offsetX), i, pos);
         this.getPos(pos.offset(i, 3).add(-offsetZ, 0, -offsetX), i, pos);
         this.getPos(pos.offset(i, 3).add(offsetZ, 1, offsetX), i, pos);
@@ -347,7 +347,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (!(this.getBlock(pos) instanceof PistonBlock)) {
-            if (PistonCrystal.mc.player != null && (PistonCrystal.mc.player.getY() - (double)pos.method_10264() <= -2.0 || PistonCrystal.mc.player.getY() - (double)pos.method_10264() >= 3.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) {
+            if (PistonCrystal.mc.player != null && (PistonCrystal.mc.player.getY() - (double)pos.getY() <= -2.0 || PistonCrystal.mc.player.getY() - (double)pos.getY() >= 3.0) && BlockUtil.distanceToXZ((double)pos.getX() + 0.5, (double)pos.getZ() + 0.5) < 2.6) {
                 return;
             }
             if (!this.isTrueFacing(pos, facing)) {
@@ -390,7 +390,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                     BlockPos neighbour = pos.offset(side);
                     Direction opposite = side.getOpposite();
-                    if (this.rotate.getValue() && !this.faceVector(hitVec = pos.toCenterPos().add(new Vec3d((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5)))) {
+                    if (this.rotate.getValue() && !this.faceVector(hitVec = pos.toCenterPos().add(new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5)))) {
                         return;
                     }
                     if (this.shouldYawCheck()) {
@@ -563,7 +563,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (side == null) {
             side = Direction.UP;
         }
-        return Direction.fromHorizontalDegrees((double)EntityUtil.getLegitRotations(hitVec = pos.offset((side = side.getOpposite()).getOpposite()).toCenterPos().add(new Vec3d((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5)))[0]) == facing;
+        return Direction.fromHorizontalDegrees((double)EntityUtil.getLegitRotations(hitVec = pos.offset((side = side.getOpposite()).getOpposite()).toCenterPos().add(new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5)))[0]) == facing;
     }
 
     private void doSwap(int slot) {
@@ -616,7 +616,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if ((side = BlockUtil.getPlaceSide(pos)) == null) {
             return;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         BlockUtil.placedPos.add(pos);
@@ -626,7 +626,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         boolean sneak = false;
         if (PistonCrystal.mc.world != null) {
-            boolean bl = sneak = BlockUtil.needSneak(PistonCrystal.mc.world.getBlockState(result.getBlockPos()).getBlock()) && !PistonCrystal.mc.player.method_5715();
+            boolean bl = sneak = BlockUtil.needSneak(PistonCrystal.mc.world.getBlockState(result.getBlockPos()).getBlock()) && !PistonCrystal.mc.player.isSneaking();
         }
         if (sprint) {
             PistonCrystal.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
@@ -671,7 +671,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean clickBlock(BlockPos pos, Direction side, boolean rotate) {
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         if (rotate && !this.faceVector(directionVec)) {
             return false;
         }

@@ -143,7 +143,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     return;
                 }
                 try {
-                    Vec3d current_pos = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_19538();
+                    Vec3d current_pos = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getPos();
                     int i = 0;
                     while ((double)i < this.movementPackets.getValue()) {
                         PlayerMoveC2SPacket.Full move_packet = new PlayerMoveC2SPacket.Full(current_pos.x + this.getDistributedRandom(1.0), current_pos.y + this.getDistributedRandom(1.0), current_pos.z + this.getDistributedRandom(1.0), (float)ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(90.0), (float)ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(180.0), true);
@@ -298,7 +298,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     return;
                 }
                 BlockPos start = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getBlockPos();
-                Vec3d end = new Vec3d((double)start.method_10263() + 0.5, (double)(start.method_10264() + 1), (double)start.method_10260() + 0.5);
+                Vec3d end = new Vec3d((double)start.getX() + 0.5, (double)(start.getY() + 1), (double)start.getZ() + 0.5);
                 vehicle.updatePosition(end.x, end.y - 1.0, end.z);
                 int i = 0;
                 while ((double)i < this.vehiclePackets.getValue()) {

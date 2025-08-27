@@ -117,7 +117,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         BlockPos blockPos = EntityUtil.getPlayerPos(true);
-        if (SelfTrap.mc.player.getX() - (double)blockPos.method_10263() - 0.5 <= 0.2 && SelfTrap.mc.player.getX() - (double)blockPos.method_10263() - 0.5 >= -0.2 && SelfTrap.mc.player.getZ() - (double)blockPos.method_10260() - 0.5 <= 0.2 && SelfTrap.mc.player.getZ() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
+        if (SelfTrap.mc.player.getX() - (double)blockPos.getX() - 0.5 <= 0.2 && SelfTrap.mc.player.getX() - (double)blockPos.getX() - 0.5 >= -0.2 && SelfTrap.mc.player.getZ() - (double)blockPos.getZ() - 0.5 <= 0.2 && SelfTrap.mc.player.getZ() - 0.5 - (double)blockPos.getZ() >= -0.2) {
             if (this.shouldCenter && (SelfTrap.mc.player.isOnGround() || MovementUtil.isMoving())) {
                 event.setX(0.0);
                 event.setZ(0.0);
@@ -125,9 +125,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         } else if (this.shouldCenter) {
             Vec3d centerPos = EntityUtil.getPlayerPos(true).toCenterPos();
-            float rotation = SelfTrap.getRotationTo((Vec3d)SelfTrap.mc.player.method_19538(), (Vec3d)centerPos).x;
+            float rotation = SelfTrap.getRotationTo((Vec3d)SelfTrap.mc.player.getPos(), (Vec3d)centerPos).x;
             float yawRad = rotation / 180.0f * (float)Math.PI;
-            double dist = SelfTrap.mc.player.method_19538().distanceTo(new Vec3d(centerPos.x, SelfTrap.mc.player.getY(), centerPos.z));
+            double dist = SelfTrap.mc.player.getPos().distanceTo(new Vec3d(centerPos.x, SelfTrap.mc.player.getY(), centerPos.z));
             double cappedSpeed = Math.min(0.2873, dist);
             double x = (double)(-((float)Math.sin(yawRad))) * cappedSpeed;
             double z = (double)((float)Math.cos(yawRad)) * cappedSpeed;

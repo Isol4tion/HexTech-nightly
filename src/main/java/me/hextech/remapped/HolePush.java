@@ -207,7 +207,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     Direction side = BlockUtil.getPlaceSide(piston);
                     if (side != null) {
                         Vec3d directionVec;
-                        if (this.rotate.getValue() && !this.faceVector(directionVec = new Vec3d((double)piston.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)piston.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)piston.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5))) {
+                        if (this.rotate.getValue() && !this.faceVector(directionVec = new Vec3d((double)piston.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)piston.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)piston.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5))) {
                             return true;
                         }
                         if (this.yawDeceive.getValue()) {
@@ -294,7 +294,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     Direction side2 = BlockUtil.getPlaceSide(piston);
                     if (side2 != null) {
                         Vec3d directionVec;
-                        if (this.rotate.getValue() && !this.faceVector(directionVec = new Vec3d((double)piston.method_10263() + 0.5 + (double)side2.method_10163().getX() * 0.5, (double)piston.method_10264() + 0.5 + (double)side2.method_10163().getY() * 0.5, (double)piston.method_10260() + 0.5 + (double)side2.method_10163().getZ() * 0.5))) {
+                        if (this.rotate.getValue() && !this.faceVector(directionVec = new Vec3d((double)piston.getX() + 0.5 + (double)side2.getVector().getX() * 0.5, (double)piston.getY() + 0.5 + (double)side2.getVector().getY() * 0.5, (double)piston.getZ() + 0.5 + (double)side2.getVector().getZ() * 0.5))) {
                             return true;
                         }
                         if (this.yawDeceive.getValue()) {
@@ -372,7 +372,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (side == null) {
             return false;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         float[] ROTATE = HexTech.ROTATE.getRotation(directionVec);
         return MathUtil.getFacingOrder(ROTATE[0], ROTATE[1]).getOpposite() == facing;
     }

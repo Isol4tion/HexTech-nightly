@@ -83,7 +83,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.timer.reset();
             fakePlayer.method_6073(16.0f);
         }
-        if (this.autoTotem.getValue() && fakePlayer.method_6079().getItem() != Items.TOTEM_OF_UNDYING) {
+        if (this.autoTotem.getValue() && fakePlayer.getOffHandStack().getItem() != Items.TOTEM_OF_UNDYING) {
             HexTech.POP.onTotemPop((PlayerEntity)fakePlayer);
             fakePlayer.method_6122(Hand.OFF_HAND, new ItemStack((ItemConvertible)Items.TOTEM_OF_UNDYING));
         }
@@ -106,25 +106,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     public void onPacketReceive(PacketEvent_YXFfxdDjQAfjBumqRbBu event) {
-        if (this.damage.getValue() && fakePlayer != null && FakePlayer.fakePlayer.field_6235 == 0) {
+        if (this.damage.getValue() && fakePlayer != null && FakePlayer.fakePlayer.hurtTime == 0) {
             Object t;
-            if (this.autoTotem.getValue() && fakePlayer.method_6079().getItem() != Items.TOTEM_OF_UNDYING) {
+            if (this.autoTotem.getValue() && fakePlayer.getOffHandStack().getItem() != Items.TOTEM_OF_UNDYING) {
                 fakePlayer.method_6122(Hand.OFF_HAND, new ItemStack((ItemConvertible)Items.TOTEM_OF_UNDYING));
             }
             if ((t = event.getPacket()) instanceof ExplosionS2CPacket) {
                 ExplosionS2CPacket explosion = (ExplosionS2CPacket)t;
                 Vec3d vec3d = new Vec3d(explosion.method_11475(), explosion.method_11477(), explosion.method_11478());
-                if (MathHelper.sqrt((float)((float)vec3d.squaredDistanceTo(fakePlayer.method_19538()))) > 10.0f) {
+                if (MathHelper.sqrt((float)((float)vec3d.squaredDistanceTo(fakePlayer.getPos()))) > 10.0f) {
                     return;
                 }
                 float damage = BlockUtil.getBlock(new BlockPosX(explosion.method_11475(), explosion.method_11477(), explosion.method_11478())) == Blocks.RESPAWN_ANCHOR ? (float)AutoAnchor_MDcwoWYRcPYheLZJWRZK.INSTANCE.getAnchorDamage(new BlockPosX(explosion.method_11475(), explosion.method_11477(), explosion.method_11478()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer) : CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateCrystalDamage(new Vec3d(explosion.method_11475(), explosion.method_11477(), explosion.method_11478()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer);
                 fakePlayer.method_48922(FakePlayer.mc.world.method_48963().generic());
-                if (fakePlayer.method_6067() >= damage) {
-                    fakePlayer.method_6073(fakePlayer.method_6067() - damage);
+                if (fakePlayer.getAbsorptionAmount() >= damage) {
+                    fakePlayer.method_6073(fakePlayer.getAbsorptionAmount() - damage);
                 } else {
-                    float damage2 = damage - fakePlayer.method_6067();
+                    float damage2 = damage - fakePlayer.getAbsorptionAmount();
                     fakePlayer.method_6073(0.0f);
-                    fakePlayer.method_6033(fakePlayer.method_6032() - damage2);
+                    fakePlayer.method_6033(fakePlayer.getHealth() - damage2);
                 }
             }
             if (fakePlayer.method_29504() && fakePlayer.method_6095(FakePlayer.mc.world.method_48963().generic())) {

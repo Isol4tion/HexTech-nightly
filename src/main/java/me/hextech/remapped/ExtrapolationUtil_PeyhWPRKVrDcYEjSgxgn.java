@@ -29,7 +29,7 @@ implements Wrapper {
         HashMap<AbstractClientPlayerEntity, List> newMap = new HashMap<AbstractClientPlayerEntity, List>();
         for (AbstractClientPlayerEntity p : ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.method_18456()) {
             List list = motionHistory.computeIfAbsent((PlayerEntity)p, k -> new ArrayList());
-            list.add(0, p.method_19538().subtract(p.field_6014, p.field_6036, p.field_5969));
+            list.add(0, p.getPos().subtract(p.field_6014, p.field_6036, p.field_5969));
             if (list.size() > 20) {
                 list.remove(20);
             }
@@ -55,7 +55,7 @@ implements Wrapper {
             fake = new ExtrapolationUtil_GIipvtNGRWEFrnWjqFrx((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.method_36454(), new GameProfile(UUID.randomUUID(), "Predict"));
         }
         fake.method_33574(center);
-        fake.method_6033(p.method_6032());
+        fake.method_6033(p.getHealth());
         fake.method_24830(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
         p.method_6026().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
@@ -162,7 +162,7 @@ implements Wrapper {
         Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
         ExtrapolationUtil fake = new ExtrapolationUtil((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.method_36454(), new GameProfile(UUID.randomUUID(), "SelfPredict"));
         fake.method_33574(center);
-        fake.method_6033(p.method_6032());
+        fake.method_6033(p.getHealth());
         fake.method_24830(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
         p.method_6026().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));

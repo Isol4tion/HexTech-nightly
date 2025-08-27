@@ -163,16 +163,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (posX == 114514.0f || posY == 114514.0f) {
             return;
         }
-        float hurtPercent = (float)target.field_6235 / 8.0f;
+        float hurtPercent = (float)target.hurtTime / 8.0f;
         hurtAnimation.setValue(hurtPercent);
-        String name = "Enemy: " + target.method_5477().getString();
-        double health = target.method_6032() + target.method_6067();
+        String name = "Enemy: " + target.getName().getString();
+        double health = target.getHealth() + target.getAbsorptionAmount();
         healthAnimation.setValue(health);
         health = healthAnimation.getAnimationD();
         String healthText = "Health: " + Math.round((double)health);
         String pops = "0";
-        if (HexTech.POP.popContainer.containsKey(target.method_5477().getString())) {
-            pops = String.valueOf(HexTech.POP.popContainer.get(target.method_5477().getString()));
+        if (HexTech.POP.popContainer.containsKey(target.getName().getString())) {
+            pops = String.valueOf(HexTech.POP.popContainer.get(target.getName().getString()));
         }
         String popText = "Kills: " + pops;
         float maxWidth = (float)Math.max((double)Math.max((double)TargetHud.mc.textRenderer.getWidth(name), (double)(health * 100.0 / 36.0 + 10.0 + (double)TargetHud.mc.textRenderer.getWidth(healthText))), (double)TargetHud.mc.textRenderer.getWidth(popText));

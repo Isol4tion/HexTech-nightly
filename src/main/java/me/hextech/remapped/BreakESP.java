@@ -62,7 +62,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 Render3DUtil.drawBox(matrixStack, cbox, this.box.getValue());
             }
             if (this.name.getValue()) {
-                Render3DUtil.drawText3DBreak(breakData.getEntity().method_5477().getString(), breakData.pos.toCenterPos().add(0.0, (double)this.nameY.getValueFloat(), 0.0), -1);
+                Render3DUtil.drawText3DBreak(breakData.getEntity().getName().getString(), breakData.pos.toCenterPos().add(0.0, (double)this.nameY.getValueFloat(), 0.0), -1);
             }
             double breakTimeMs = this.breakTime.getValue() * 1000.0;
             if (this.breakName.getValue()) {

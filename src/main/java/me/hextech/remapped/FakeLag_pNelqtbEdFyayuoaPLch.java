@@ -55,12 +55,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (map.containsKey(player) && this.entity.getValue()) {
                 Vec3d vec3d = new Vec3d((double)entityS2CPacket.getDeltaX(), (double)entityS2CPacket.getDeltaY(), (double)entityS2CPacket.getDeltaZ());
-                if (map.get(player).distanceTo(FakeLag_pNelqtbEdFyayuoaPLch.mc.player.method_19538()) < vec3d.distanceTo(FakeLag_pNelqtbEdFyayuoaPLch.mc.player.method_19538())) {
+                if (map.get(player).distanceTo(FakeLag_pNelqtbEdFyayuoaPLch.mc.player.getPos()) < vec3d.distanceTo(FakeLag_pNelqtbEdFyayuoaPLch.mc.player.getPos())) {
                     this.packet.add(new FakeLag(this, (Packet)entityS2CPacket));
                     event.cancel();
                 }
             }
-            map.put(player, player.method_19538());
+            map.put(player, player.getPos());
         }
     }
 

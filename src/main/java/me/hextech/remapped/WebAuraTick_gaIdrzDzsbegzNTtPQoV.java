@@ -168,7 +168,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.isInBurrow(player)) {
                 this.tempMaxWebs = (int)this.burrowMaxWebs.getValue();
             }
-            Vec3d playerPos = this.predictTicks.getValue() > 0.0 ? CombatUtil.getEntityPosVec(player, this.predictTicks.getValueInt()) : player.method_19538();
+            Vec3d playerPos = this.predictTicks.getValue() > 0.0 ? CombatUtil.getEntityPosVec(player, this.predictTicks.getValueInt()) : player.getPos();
             int webs = 0;
             if (this.down.getValue()) {
                 this.placeWeb(new BlockPosX(playerPos.method_10216(), playerPos.method_10214() - 0.8, playerPos.method_10215()));
@@ -225,7 +225,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || !this.noMine.getValue() && pos.equals((Object)SpeedMine.breakPos))) {
             return false;
         }
-        if (BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) != null && (WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.isAir(pos) || ignore && BlockUtil.getBlock(pos) == Blocks.COBWEB) && pos.method_10264() < 320) {
+        if (BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) != null && (WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.isAir(pos) || ignore && BlockUtil.getBlock(pos) == Blocks.COBWEB) && pos.getY() < 320) {
             int oldSlot = WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.player.getInventory().selectedSlot;
             int webSlot = this.getWebSlot();
             if (!this.placeBlock(pos, this.rotate.getValue(), webSlot)) {
@@ -273,7 +273,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean clickBlock(BlockPos pos, Direction side, boolean rotate, int slot) {
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
         if (rotate && !this.faceVector(directionVec)) {
             return false;
         }

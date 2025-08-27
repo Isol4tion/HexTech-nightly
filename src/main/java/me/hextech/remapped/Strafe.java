@@ -25,7 +25,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     public void onStrafe(MoveEvent event) {
-        if (Strafe.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || Speed.INSTANCE.isOn() || Strafe.mc.player.method_6128() || EntityUtil.isInsideBlock() || Strafe.mc.player.method_5771() || Strafe.mc.player.method_5799() || Strafe.mc.player.method_31549().flying) {
+        if (Strafe.mc.player.isSneaking() || HoleSnap.INSTANCE.isOn() || Speed.INSTANCE.isOn() || Strafe.mc.player.method_6128() || EntityUtil.isInsideBlock() || Strafe.mc.player.method_5771() || Strafe.mc.player.method_5799() || Strafe.mc.player.method_31549().flying) {
             return;
         }
         if (!MovementUtil.isMoving()) {

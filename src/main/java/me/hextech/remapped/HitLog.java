@@ -68,8 +68,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (player == HitLog.mc.player || player.method_5739((Entity)HitLog.mc.player) > 20.0f) {
             return;
         }
-        int popCount = HexTech.POP.popContainer.getOrDefault(player.method_5477().getString(), 0);
-        this.addLog("\u00a74\u00a7m" + player.method_5477().getString() + "\u00a7f " + popCount);
+        int popCount = HexTech.POP.popContainer.getOrDefault(player.getName().getString(), 0);
+        this.addLog("\u00a74\u00a7m" + player.getName().getString() + "\u00a7f " + popCount);
     }
 
     @EventHandler
@@ -78,8 +78,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (player == HitLog.mc.player || player.method_5739((Entity)HitLog.mc.player) > 20.0f) {
             return;
         }
-        int popCount = HexTech.POP.popContainer.getOrDefault(player.method_5477().getString(), 1);
-        this.addLog("\u00a7a" + player.method_5477().getString() + "\u00a7f " + popCount);
+        int popCount = HexTech.POP.popContainer.getOrDefault(player.getName().getString(), 1);
+        this.addLog("\u00a7a" + player.getName().getString() + "\u00a7f " + popCount);
     }
 
     public void addLog(String text) {

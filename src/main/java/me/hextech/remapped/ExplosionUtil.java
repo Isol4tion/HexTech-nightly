@@ -135,6 +135,6 @@ implements Wrapper {
     }
 
     public static float calculateDamage(BlockPos pos, Entity target) {
-        return ExplosionUtil.calculateDamage((double)pos.method_10263() + 0.5, pos.method_10264(), (double)pos.method_10260() + 0.5, target, target, 6.0f);
+        return ExplosionUtil.calculateDamage((double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5, target, target, 6.0f);
     }
 }

@@ -69,7 +69,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Object t = e.getPacket();
-        if (t instanceof EntityVelocityUpdateS2CPacket && (packet = (EntityVelocityUpdateS2CPacket)t).getEntityId() == Velocity.mc.player.method_5628()) {
+        if (t instanceof EntityVelocityUpdateS2CPacket && (packet = (EntityVelocityUpdateS2CPacket)t).getEntityId() == Velocity.mc.player.getId()) {
             if (this.horizontal.getValue() == 0.0 && this.vertical.getValue() == 0.0) {
                 e.cancel();
             } else {

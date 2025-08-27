@@ -58,16 +58,16 @@ implements Wrapper {
     }
 
     public void onDeath(PlayerEntity player) {
-        this.popContainer.remove(player.method_5477().getString());
+        this.popContainer.remove(player.getName().getString());
     }
 
     public void onTotemPop(PlayerEntity player) {
         int l_Count = 1;
-        if (this.popContainer.containsKey(player.method_5477().getString())) {
-            l_Count = this.popContainer.get(player.method_5477().getString());
-            this.popContainer.put(player.method_5477().getString(), ++l_Count);
+        if (this.popContainer.containsKey(player.getName().getString())) {
+            l_Count = this.popContainer.get(player.getName().getString());
+            this.popContainer.put(player.getName().getString(), ++l_Count);
         } else {
-            this.popContainer.put(player.method_5477().getString(), l_Count);
+            this.popContainer.put(player.getName().getString(), l_Count);
         }
         HexTech.EVENT_BUS.post(new TotemEvent(player));
     }

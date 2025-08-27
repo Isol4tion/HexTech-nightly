@@ -13,7 +13,7 @@ import net.minecraft.util.Hand;
 public class PearlUtil
 implements Wrapper {
     public static void doPearl(float yaw, float pitch, boolean inv) {
-        if (PearlUtil.mc.player.method_6047().getItem() == Items.ENDER_PEARL) {
+        if (PearlUtil.mc.player.getMainHandStack().getItem() == Items.ENDER_PEARL) {
             EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(PearlUtil.mc.player.method_36454(), PearlUtil.mc.player.method_36455(), PearlUtil.mc.player.isOnGround()));
             PearlUtil.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
         } else {
