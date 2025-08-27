@@ -67,7 +67,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.totem.getValue()) {
             return;
         }
-        boolean bl = this.handSlot = (double)(MainHand.mc.player.getAbsorptionAmount() + MainHand.mc.player.getHealth()) - this.getCrystal() <= this.forceHealth.getValue();
+        boolean bl = this.handSlot = (double)(MainHand.mc.player.getABSORPTIONAmount() + MainHand.mc.player.getHealth()) - this.getCrystal() <= this.forceHealth.getValue();
         if (this.minePause.getValue() && this.needSwitch && !MainHand.mc.player.isUsingItem()) {
             return;
         }

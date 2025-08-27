@@ -73,7 +73,7 @@ implements Wrapper {
     }
 
     public int getPing() {
-        PlayerListEntry playerListEntry = mc.getNetworkHandler().getPlayerListEntry(ServerManager.mc.player.method_5667());
+        PlayerListEntry playerListEntry = mc.getNetworkHandler().getPlayerListEntry(ServerManager.mc.player.getUuid());
         int ping = playerListEntry == null ? 0 : playerListEntry.getLatency();
         return ping;
     }

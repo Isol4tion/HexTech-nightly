@@ -310,7 +310,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double d;
                 double selfDamage;
                 BlockPos pos = EntityUtil.getEntityPos((Entity)pap.player, true).up(2);
-                if (!BlockUtil.canPlace(pos, this.range.getValue(), this.breakCrystal.getValue()) && (BlockUtil.getBlock(pos) != Blocks.RESPAWN_ANCHOR || BlockUtil.getClickSideStrict(pos) == null) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
+                if (!BlockUtil.canPlace(pos, this.range.getValue(), this.breakCrystal.getValue()) && (BlockUtil.getBlock(pos) != Blocks.RESPAWN_ANCHOR || BlockUtil.getClickSideStrict(pos) == null) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getABSORPTIONAmount()))) continue;
                 damage = this.getAnchorDamage(pos, pap.player, pap.predict);
                 if (!(d > (double)this.headDamage.getValueFloat())) continue;
                 this.lastDamage = damage;
@@ -337,7 +337,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                             CombatUtil.modifyBlockState = Blocks.OBSIDIAN.getDefaultState();
                             skip = BlockUtil.getClickSideStrict(pos) == null;
                             CombatUtil.modifyPos = null;
-                            if (skip || !((damage = this.getAnchorDamage(pos, pap.player, pap.predict)) >= placeDamage) || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage2 = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage2 > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
+                            if (skip || !((damage = this.getAnchorDamage(pos, pap.player, pap.predict)) >= placeDamage) || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage2 = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage2 > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getABSORPTIONAmount()))) continue;
                             this.lastDamage = damage;
                             this.displayTarget = pap.player;
                             placeDamage = damage;
@@ -349,7 +349,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (damage2 >= this.minPrefer.getValue()) {
                             anchorFound = true;
                         }
-                        if (!anchorFound && damage2 < placeDamage || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage2) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
+                        if (!anchorFound && damage2 < placeDamage || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage2) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getABSORPTIONAmount()))) continue;
                         this.lastDamage = damage2;
                         this.displayTarget = pap.player;
                         breakDamage = damage2;

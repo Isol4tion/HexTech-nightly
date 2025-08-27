@@ -166,7 +166,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float hurtPercent = (float)target.hurtTime / 8.0f;
         hurtAnimation.setValue(hurtPercent);
         String name = "Enemy: " + target.getName().getString();
-        double health = target.getHealth() + target.getAbsorptionAmount();
+        double health = target.getHealth() + target.getABSORPTIONAmount();
         healthAnimation.setValue(health);
         health = healthAnimation.getAnimationD();
         String healthText = "Health: " + Math.round((double)health);

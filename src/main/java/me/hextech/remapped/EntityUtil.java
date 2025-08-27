@@ -83,7 +83,7 @@ implements Wrapper {
     public static float getHealth(Entity entity) {
         if (entity.isLiving()) {
             LivingEntity livingBase = (LivingEntity)entity;
-            return livingBase.getHealth() + livingBase.getAbsorptionAmount();
+            return livingBase.getHealth() + livingBase.getABSORPTIONAmount();
         }
         return 0.0f;
     }

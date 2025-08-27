@@ -46,13 +46,13 @@ implements Wrapper {
         }
         Framebuffer MCBuffer = MinecraftClient.getInstance().getFramebuffer();
         RenderSystem.assertOnRenderThreadOrInit();
-        if (this.shaderBuffer.field_1482 != MCBuffer.textureWidth || this.shaderBuffer.field_1481 != MCBuffer.textureHeight) {
-            this.shaderBuffer.method_1234(MCBuffer.textureWidth, MCBuffer.textureHeight, false);
+        if (this.shaderBuffer.textureWidth != MCBuffer.textureWidth || this.shaderBuffer.textureHeight != MCBuffer.textureHeight) {
+            this.shaderBuffer.resize(MCBuffer.textureWidth, MCBuffer.textureHeight, false);
         }
-        GlStateManager._glBindFramebuffer((int)36009, (int)this.shaderBuffer.field_1476);
-        this.shaderBuffer.method_1235(true);
+        GlStateManager._glBindFramebuffer((int)36009, (int)this.shaderBuffer.fbo);
+        this.shaderBuffer.beginWrite(true);
         runnable.run();
-        this.shaderBuffer.method_1240();
+        this.shaderBuffer.endWrite();
         GlStateManager._glBindFramebuffer((int)36009, (int)MCBuffer.fbo);
         MCBuffer.beginWrite(false);
         Framebuffer mainBuffer = MinecraftClient.getInstance().getFramebuffer();
@@ -60,17 +60,17 @@ implements Wrapper {
         if (effect != null) {
             ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", this.shaderBuffer);
         }
-        Framebuffer outBuffer = FLOW.getShaderEffect().method_1264("bufOut");
+        Framebuffer outBuffer = FLOW.getShaderEffect().getSecondaryTarget("bufOut");
         FLOW.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
         FLOW.setUniformValue("time", this.time);
         FLOW.render(mc.getTickDelta());
         this.time += 0.01f;
-        this.shaderBuffer.method_1230(false);
+        this.shaderBuffer.clear(false);
         mainBuffer.beginWrite(false);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate((GlStateManager.SrcFactor)GlStateManager.SrcFactor.SRC_ALPHA, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, (GlStateManager.SrcFactor)GlStateManager.SrcFactor.ZERO, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE);
         RenderSystem.backupProjectionMatrix();
-        outBuffer.method_22594(outBuffer.textureWidth, outBuffer.textureHeight, false);
+        outBuffer.draw(outBuffer.textureWidth, outBuffer.textureHeight, false);
         RenderSystem.restoreProjectionMatrix();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
@@ -82,13 +82,13 @@ implements Wrapper {
         }
         Framebuffer MCBuffer = MinecraftClient.getInstance().getFramebuffer();
         RenderSystem.assertOnRenderThreadOrInit();
-        if (this.shaderBuffer.field_1482 != MCBuffer.textureWidth || this.shaderBuffer.field_1481 != MCBuffer.textureHeight) {
-            this.shaderBuffer.method_1234(MCBuffer.textureWidth, MCBuffer.textureHeight, false);
+        if (this.shaderBuffer.textureWidth != MCBuffer.textureWidth || this.shaderBuffer.textureHeight != MCBuffer.textureHeight) {
+            this.shaderBuffer.resize(MCBuffer.textureWidth, MCBuffer.textureHeight, false);
         }
-        GlStateManager._glBindFramebuffer((int)36009, (int)this.shaderBuffer.field_1476);
-        this.shaderBuffer.method_1235(true);
+        GlStateManager._glBindFramebuffer((int)36009, (int)this.shaderBuffer.fbo);
+        this.shaderBuffer.beginWrite(true);
         runnable.run();
-        this.shaderBuffer.method_1240();
+        this.shaderBuffer.endWrite();
         GlStateManager._glBindFramebuffer((int)36009, (int)MCBuffer.fbo);
         MCBuffer.beginWrite(false);
         ManagedShaderEffect shader = this.getShader(mode);
@@ -97,14 +97,14 @@ implements Wrapper {
         if (effect != null) {
             ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", this.shaderBuffer);
         }
-        Framebuffer outBuffer = shader.getShaderEffect().method_1264("bufOut");
+        Framebuffer outBuffer = shader.getShaderEffect().getSecondaryTarget("bufOut");
         this.setupShader(mode, shader);
-        this.shaderBuffer.method_1230(false);
+        this.shaderBuffer.clear(false);
         mainBuffer.beginWrite(false);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate((GlStateManager.SrcFactor)GlStateManager.SrcFactor.SRC_ALPHA, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, (GlStateManager.SrcFactor)GlStateManager.SrcFactor.ZERO, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE);
         RenderSystem.backupProjectionMatrix();
-        outBuffer.method_22594(outBuffer.textureWidth, outBuffer.textureHeight, false);
+        outBuffer.draw(outBuffer.textureWidth, outBuffer.textureHeight, false);
         RenderSystem.restoreProjectionMatrix();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
@@ -278,8 +278,8 @@ implements Wrapper {
         public _WNhDoPXLcRvHUWNoquud(int width, int height) {
             super(false);
             RenderSystem.assertOnRenderThreadOrInit();
-            this.method_1234(width, height, true);
-            this.method_1236(0.0f, 0.0f, 0.0f, 0.0f);
+            this.resize(width, height, true);
+            this.setClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         }
     }
 

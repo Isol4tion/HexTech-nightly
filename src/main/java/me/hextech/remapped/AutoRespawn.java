@@ -14,7 +14,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         if (AutoRespawn.mc.currentScreen instanceof DeathScreen) {
-            AutoRespawn.mc.player.method_7331();
+            AutoRespawn.mc.player.requestRespawn();
             mc.setScreen(null);
         }
     }

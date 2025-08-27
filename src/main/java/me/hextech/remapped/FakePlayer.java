@@ -62,33 +62,33 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         fakePlayer = new OtherClientPlayerEntity(FakePlayer.mc.world, new GameProfile(UUID.fromString("11451466-6666-6666-6666-666666666600"), this.name.getValue()));
         fakePlayer.getInventory().clone(FakePlayer.mc.player.getInventory());
         FakePlayer.mc.world.addEntity((Entity)fakePlayer);
-        fakePlayer.method_5719((Entity)FakePlayer.mc.player);
-        FakePlayer.fakePlayer.field_6283 = FakePlayer.mc.player.field_6283;
-        FakePlayer.fakePlayer.field_6241 = FakePlayer.mc.player.field_6241;
-        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 9999, 2));
-        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5898, 9999, 4));
+        fakePlayer.copyPositionAndRotation((Entity)FakePlayer.mc.player);
+        FakePlayer.fakePlayer.bodyYaw = FakePlayer.mc.player.bodyYaw;
+        FakePlayer.fakePlayer.headYaw = FakePlayer.mc.player.headYaw;
+        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 9999, 2));
+        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 9999, 4));
         fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 9999, 1));
     }
 
     @Override
     public void onUpdate() {
-        if (fakePlayer == null || fakePlayer.isDead() || FakePlayer.fakePlayer.field_17892 != FakePlayer.mc.world) {
+        if (fakePlayer == null || fakePlayer.isDead() || FakePlayer.fakePlayer.clientWorld != FakePlayer.mc.world) {
             this.disable();
             return;
         }
-        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 9999, 2));
-        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5898, 9999, 4));
+        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 9999, 2));
+        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 9999, 4));
         if (this.gApple.getValue() && this.timer.passedMs(4000L)) {
             fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 9999, 1));
             this.timer.reset();
-            fakePlayer.method_6073(16.0f);
+            fakePlayer.setAbsorptionAmount(16.0f);
         }
         if (this.autoTotem.getValue() && fakePlayer.getOffHandStack().getItem() != Items.TOTEM_OF_UNDYING) {
             HexTech.POP.onTotemPop((PlayerEntity)fakePlayer);
-            fakePlayer.method_6122(Hand.OFF_HAND, new ItemStack((ItemConvertible)Items.TOTEM_OF_UNDYING));
+            fakePlayer.setStackInHand(Hand.OFF_HAND, new ItemStack((ItemConvertible)Items.TOTEM_OF_UNDYING));
         }
-        if (fakePlayer.isDead() && fakePlayer.method_6095(FakePlayer.mc.world.getDamageSources().generic())) {
-            fakePlayer.method_6033(10.0f);
+        if (fakePlayer.isDead() && fakePlayer.tryUseTotem(FakePlayer.mc.world.getDamageSources().generic())) {
+            fakePlayer.setHealth(10.0f);
             new EntityStatusS2CPacket((Entity)fakePlayer, 35).apply((ClientPlayPacketListener)FakePlayer.mc.player.networkHandler);
         }
     }
@@ -98,9 +98,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (fakePlayer == null) {
             return;
         }
-        fakePlayer.method_5768();
-        fakePlayer.method_31745(Entity.RemovalReason.KILLED);
-        fakePlayer.method_36209();
+        fakePlayer.kill();
+        fakePlayer.setRemoved(Entity.RemovalReason.KILLED);
+        fakePlayer.onRemoved();
         fakePlayer = null;
     }
 
@@ -109,7 +109,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.damage.getValue() && fakePlayer != null && FakePlayer.fakePlayer.hurtTime == 0) {
             Object t;
             if (this.autoTotem.getValue() && fakePlayer.getOffHandStack().getItem() != Items.TOTEM_OF_UNDYING) {
-                fakePlayer.method_6122(Hand.OFF_HAND, new ItemStack((ItemConvertible)Items.TOTEM_OF_UNDYING));
+                fakePlayer.setStackInHand(Hand.OFF_HAND, new ItemStack((ItemConvertible)Items.TOTEM_OF_UNDYING));
             }
             if ((t = event.getPacket()) instanceof ExplosionS2CPacket) {
                 ExplosionS2CPacket explosion = (ExplosionS2CPacket)t;
@@ -118,17 +118,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     return;
                 }
                 float damage = BlockUtil.getBlock(new BlockPosX(explosion.getX(), explosion.getY(), explosion.getZ())) == Blocks.RESPAWN_ANCHOR ? (float)AutoAnchor_MDcwoWYRcPYheLZJWRZK.INSTANCE.getAnchorDamage(new BlockPosX(explosion.getX(), explosion.getY(), explosion.getZ()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer) : CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateCrystalDamage(new Vec3d(explosion.getX(), explosion.getY(), explosion.getZ()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer);
-                fakePlayer.method_48922(FakePlayer.mc.world.getDamageSources().generic());
-                if (fakePlayer.getAbsorptionAmount() >= damage) {
-                    fakePlayer.method_6073(fakePlayer.getAbsorptionAmount() - damage);
+                fakePlayer.onDamaged(FakePlayer.mc.world.getDamageSources().generic());
+                if (fakePlayer.getABSORPTIONAmount() >= damage) {
+                    fakePlayer.setAbsorptionAmount(fakePlayer.getABSORPTIONAmount() - damage);
                 } else {
-                    float damage2 = damage - fakePlayer.getAbsorptionAmount();
-                    fakePlayer.method_6073(0.0f);
-                    fakePlayer.method_6033(fakePlayer.getHealth() - damage2);
+                    float damage2 = damage - fakePlayer.getABSORPTIONAmount();
+                    fakePlayer.setAbsorptionAmount(0.0f);
+                    fakePlayer.setHealth(fakePlayer.getHealth() - damage2);
                 }
             }
-            if (fakePlayer.isDead() && fakePlayer.method_6095(FakePlayer.mc.world.getDamageSources().generic())) {
-                fakePlayer.method_6033(10.0f);
+            if (fakePlayer.isDead() && fakePlayer.tryUseTotem(FakePlayer.mc.world.getDamageSources().generic())) {
+                fakePlayer.setHealth(10.0f);
                 new EntityStatusS2CPacket((Entity)fakePlayer, 35).apply((ClientPlayPacketListener)FakePlayer.mc.player.networkHandler);
             }
         }

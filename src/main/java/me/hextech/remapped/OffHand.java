@@ -55,7 +55,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.timer.passedMs(200L)) {
             return;
         }
-        if ((double)(OffHand.mc.player.getHealth() + OffHand.mc.player.getAbsorptionAmount()) > this.health.getValue()) {
+        if ((double)(OffHand.mc.player.getHealth() + OffHand.mc.player.getABSORPTIONAmount()) > this.health.getValue()) {
             int itemSlot;
             if (!this.mainHand.getValue() && this.crystal.getValue() && OffHand.mc.player.getOffHandStack().getItem() != Items.END_CRYSTAL && (itemSlot = InventoryUtil.findItemInventorySlot(Items.END_CRYSTAL)) != -1) {
                 OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);

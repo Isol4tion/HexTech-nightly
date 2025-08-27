@@ -68,7 +68,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (mc.getNetworkHandler() == null) {
             return "-1";
         }
-        PlayerListEntry playerListEntry = mc.getNetworkHandler().getPlayerListEntry(entity.method_5667());
+        PlayerListEntry playerListEntry = mc.getNetworkHandler().getPlayerListEntry(entity.getUuid());
         if (playerListEntry == null) {
             return "-1";
         }
@@ -87,7 +87,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (entity == null) {
             return null;
         }
-        PlayerListEntry playerListEntry = mc.getNetworkHandler().getPlayerListEntry(entity.method_5667());
+        PlayerListEntry playerListEntry = mc.getNetworkHandler().getPlayerListEntry(entity.getUuid());
         return playerListEntry == null ? null : playerListEntry.getGameMode();
     }
 
@@ -121,7 +121,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             final_string = (String)final_string + String.valueOf(Formatting.RESET) + ent.getName().getString();
             if (this.health.getValue()) {
-                final_string = (String)final_string + " " + String.valueOf(this.getHealthColor(ent)) + NameTags_NZLxiZHrtsQKbsfDngrN.round2(ent.getAbsorptionAmount() + ent.getHealth());
+                final_string = (String)final_string + " " + String.valueOf(this.getHealthColor(ent)) + NameTags_NZLxiZHrtsQKbsfDngrN.round2(ent.getABSORPTIONAmount() + ent.getHealth());
             }
             if (this.distance.getValue()) {
                 final_string = (String)final_string + " " + String.valueOf(Formatting.RESET) + String.format("%.1f", Float.valueOf(NameTags_NZLxiZHrtsQKbsfDngrN.mc.player.distanceTo((Entity)ent))) + "m";
@@ -213,7 +213,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         context.getMatrices().pop();
                         if (this.enchants.getValue()) {
                             float enchantmentY = 0.0f;
-                            NbtList enchants = armorComponent.method_7921();
+                            NbtList enchants = armorComponent.getEnchantments();
                             block26: for (int index = 0; index < enchants.size(); ++index) {
                                 String encName;
                                 String id = enchants.getCompound(index).getString("id");
@@ -301,7 +301,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private Formatting getHealthColor(@NotNull PlayerEntity entity) {
-        int health = (int)((float)((int)entity.getHealth()) + entity.getAbsorptionAmount());
+        int health = (int)((float)((int)entity.getHealth()) + entity.getABSORPTIONAmount());
         if (health >= 30) {
             return Formatting.DARK_GREEN;
         }

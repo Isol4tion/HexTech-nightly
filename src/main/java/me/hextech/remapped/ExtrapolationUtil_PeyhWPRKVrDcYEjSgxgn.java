@@ -55,7 +55,7 @@ implements Wrapper {
             fake = new ExtrapolationUtil_GIipvtNGRWEFrnWjqFrx((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.getYaw(), new GameProfile(UUID.randomUUID(), "Predict"));
         }
         fake.method_33574(center);
-        fake.method_6033(p.getHealth());
+        fake.setHealth(p.getHealth());
         fake.method_24830(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
         p.getStatusEffects().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
@@ -162,7 +162,7 @@ implements Wrapper {
         Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
         ExtrapolationUtil fake = new ExtrapolationUtil((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.getYaw(), new GameProfile(UUID.randomUUID(), "SelfPredict"));
         fake.method_33574(center);
-        fake.method_6033(p.getHealth());
+        fake.setHealth(p.getHealth());
         fake.method_24830(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
         p.getStatusEffects().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));

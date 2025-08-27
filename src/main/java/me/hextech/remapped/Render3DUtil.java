@@ -89,13 +89,13 @@ implements Wrapper {
         matrices.translate(offX, offY, 0.0);
         matrices.scale(-0.025f * (float)scale, -0.025f * (float)scale, 1.0f);
         int halfWidth = Render3DUtil.mc.textRenderer.getWidth((StringVisitable)text) / 2;
-        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.method_22991((BufferBuilder)Tessellator.getInstance().getBuffer());
+        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate((BufferBuilder)Tessellator.getInstance().getBuffer());
         matrices.push();
         matrices.translate(1.0f, 1.0f, 0.0f);
-        Render3DUtil.mc.textRenderer.method_30882(Text.of((String)text.getString().replaceAll("\u00a7[a-zA-Z0-9]", "")), (float)(-halfWidth), 0.0f, 0x202020, false, matrices.peek().getPositionMatrix(), (VertexConsumerProvider)immediate, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0xF000F0);
+        Render3DUtil.mc.textRenderer.draw(Text.of((String)text.getString().replaceAll("\u00a7[a-zA-Z0-9]", "")), (float)(-halfWidth), 0.0f, 0x202020, false, matrices.peek().getPositionMatrix(), (VertexConsumerProvider)immediate, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0xF000F0);
         immediate.draw();
         matrices.pop();
-        Render3DUtil.mc.textRenderer.method_30882((Text)text.copy(), (float)(-halfWidth), 0.0f, color, false, matrices.peek().getPositionMatrix(), (VertexConsumerProvider)immediate, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0xF000F0);
+        Render3DUtil.mc.textRenderer.draw((Text)text.copy(), (float)(-halfWidth), 0.0f, color, false, matrices.peek().getPositionMatrix(), (VertexConsumerProvider)immediate, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0xF000F0);
         immediate.draw();
         RenderSystem.disableBlend();
         GL11.glEnable((int)2929);
@@ -114,7 +114,7 @@ implements Wrapper {
         RenderSystem.defaultBlendFunc();
         matrices.translate(offX, offY - 0.1, -0.01);
         matrices.scale(-0.025f, -0.025f, 0.0f);
-        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.method_22991((BufferBuilder)Tessellator.getInstance().getBuffer());
+        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate((BufferBuilder)Tessellator.getInstance().getBuffer());
         FontRenderers.Arial.drawCenteredString(matrices, text, textOffset, 0.0, color.getRGB());
         immediate.draw();
         RenderSystem.enableCull();
@@ -308,7 +308,7 @@ implements Wrapper {
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
         BufferBuilder buffer = tessellator.getBuffer();
         RenderSystem.disableCull();
-        RenderSystem.setShader(GameRenderer::method_34535);
+        RenderSystem.setShader(GameRenderer::getRenderTypeLinesProgram);
         RenderSystem.lineWidth((float)lineWidth);
         buffer.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
         Box box = b.offset(new Vec3d(b.minX, b.minY, b.minZ).negate());
@@ -482,7 +482,7 @@ implements Wrapper {
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
         BufferBuilder buffer = tessellator.getBuffer();
         RenderSystem.disableCull();
-        RenderSystem.setShader(GameRenderer::method_34535);
+        RenderSystem.setShader(GameRenderer::getRenderTypeLinesProgram);
         RenderSystem.lineWidth((float)lineWidth);
         buffer.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
         Box box = b.offset(new Vec3d(b.minX, b.minY, b.minZ).negate());
@@ -508,7 +508,7 @@ implements Wrapper {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
         RenderSystem.disableCull();
-        RenderSystem.setShader(GameRenderer::method_34535);
+        RenderSystem.setShader(GameRenderer::getRenderTypeLinesProgram);
         RenderSystem.lineWidth((float)width);
         buffer.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
         Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, 0.0, 0.0, 0.0, (float)(x2 - x1), (float)(y2 - y1), (float)(z2 - z1), color);
@@ -522,8 +522,8 @@ implements Wrapper {
         Matrix4f model = matrices.peek().getPositionMatrix();
         Matrix3f normal = matrices.peek().getNormalMatrix();
         Vector3f normalVec = Render3DUtil.getNormal((float)x1, (float)y1, (float)z1, (float)x2, (float)y2, (float)z2);
-        buffer.vertex(model, (float)x1, (float)y1, (float)z1).color(lineColor.getRed(), lineColor.getGreen(), lineColor.getBlue(), lineColor.getAlpha()).method_23763(normal, normalVec.x(), normalVec.y(), normalVec.z()).next();
-        buffer.vertex(model, (float)x2, (float)y2, (float)z2).color(lineColor.getRed(), lineColor.getGreen(), lineColor.getBlue(), lineColor.getAlpha()).method_23763(normal, normalVec.x(), normalVec.y(), normalVec.z()).next();
+        buffer.vertex(model, (float)x1, (float)y1, (float)z1).color(lineColor.getRed(), lineColor.getGreen(), lineColor.getBlue(), lineColor.getAlpha()).normal(normal, normalVec.x(), normalVec.y(), normalVec.z()).next();
+        buffer.vertex(model, (float)x2, (float)y2, (float)z2).color(lineColor.getRed(), lineColor.getGreen(), lineColor.getBlue(), lineColor.getAlpha()).normal(normal, normalVec.x(), normalVec.y(), normalVec.z()).next();
     }
 
     public static Vector3f getNormal(float x1, float y1, float z1, float x2, float y2, float z2) {
@@ -542,7 +542,7 @@ implements Wrapper {
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
         BufferBuilder buffer = tessellator.getBuffer();
         RenderSystem.disableCull();
-        RenderSystem.setShader(GameRenderer::method_34535);
+        RenderSystem.setShader(GameRenderer::getRenderTypeLinesProgram);
         RenderSystem.lineWidth((float)lineWidth);
         buffer.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
         Box box = b.offset(new Vec3d(b.minX, b.minY, b.minZ).negate());

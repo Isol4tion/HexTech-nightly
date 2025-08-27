@@ -32,9 +32,9 @@ public class PopChams {
     public void update(CopyOnWriteArrayList<PopChams> arrayList) {
         if (this.alpha <= 0) {
             arrayList.remove(this);
-            this.player.method_5768();
+            this.player.kill();
             this.player.method_5650(Entity.RemovalReason.KILLED);
-            this.player.method_36209();
+            this.player.onRemoved();
             return;
         }
         this.alpha = (int)(AnimateUtil.animate(this.alpha, 0.0, this.this$0.alphaSpeed.getValue()) - 0.2);

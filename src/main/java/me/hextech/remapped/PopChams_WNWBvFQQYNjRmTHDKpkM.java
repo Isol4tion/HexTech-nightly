@@ -76,10 +76,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (e.getPlayer().equals((Object)PopChams_WNWBvFQQYNjRmTHDKpkM.mc.player) || PopChams_WNWBvFQQYNjRmTHDKpkM.mc.world == null) {
             return;
         }
-        PopChams_YempjTMivfvNUIHSOfBB entity = new PopChams_YempjTMivfvNUIHSOfBB(this, (World)PopChams_WNWBvFQQYNjRmTHDKpkM.mc.world, BlockPos.ORIGIN, e.getPlayer().field_6283, new GameProfile(e.getPlayer().method_5667(), e.getPlayer().getName().getString()));
-        entity.method_5719((Entity)e.getPlayer());
-        entity.field_6283 = e.getPlayer().field_6283;
-        entity.field_6241 = e.getPlayer().field_6241;
+        PopChams_YempjTMivfvNUIHSOfBB entity = new PopChams_YempjTMivfvNUIHSOfBB(this, (World)PopChams_WNWBvFQQYNjRmTHDKpkM.mc.world, BlockPos.ORIGIN, e.getPlayer().bodyYaw, new GameProfile(e.getPlayer().getUuid(), e.getPlayer().getName().getString()));
+        entity.copyPositionAndRotation((Entity)e.getPlayer());
+        entity.bodyYaw = e.getPlayer().bodyYaw;
+        entity.headYaw = e.getPlayer().headYaw;
         entity.handSwingProgress = e.getPlayer().handSwingProgress;
         entity.field_6279 = e.getPlayer().field_6279;
         entity.method_5660(e.getPlayer().isSneaking());

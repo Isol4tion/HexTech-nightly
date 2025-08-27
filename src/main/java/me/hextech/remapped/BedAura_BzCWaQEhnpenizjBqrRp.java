@@ -199,7 +199,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
                     float damage = this.calculateDamage(pos, pap.player, pap.predict);
                     float selfDamage = this.calculateDamage(pos, self.player, self.predict);
-                    if ((double)selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getHealth() + BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getAbsorptionAmount()) - this.antiSuicide.getValue() || damage < EntityUtil.getHealth((Entity)pap.player) && (damage < this.placeMinDamage.getValueFloat() || this.smart.getValue() && damage < selfDamage) || placePos != null && !(damage > this.lastDamage)) continue;
+                    if ((double)selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getHealth() + BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getABSORPTIONAmount()) - this.antiSuicide.getValue() || damage < EntityUtil.getHealth((Entity)pap.player) && (damage < this.placeMinDamage.getValueFloat() || this.smart.getValue() && damage < selfDamage) || placePos != null && !(damage > this.lastDamage)) continue;
                     this.displayTarget = pap.player;
                     placePos = pos;
                     this.lastDamage = damage;

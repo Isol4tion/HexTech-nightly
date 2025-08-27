@@ -162,7 +162,7 @@ implements Wrapper {
                     Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(player, ticks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());
                     Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
                     this.predict.method_33574(center);
-                    this.predict.method_6033(player.getHealth());
+                    this.predict.setHealth(player.getHealth());
                     this.predict.prevX = player.prevX;
                     this.predict.prevY = player.prevY;
                     this.predict.prevZ = player.prevZ;
@@ -172,7 +172,7 @@ implements Wrapper {
                     player.getStatusEffects().forEach(arg_0 -> ((PlayerEntity)this.predict).addStatusEffect(arg_0));
                 } else if (PredictionSetting.INSTANCE.mode.getValue() == _mJSQReswTiaqOSqkjOmh.HexTech) {
                     this.predict.method_33574(player.getPos().add(CombatUtil.getMotionVec((Entity)player, PredictionSetting.INSTANCE.breakextrap.getValueInt(), true)));
-                    this.predict.method_6033(player.getHealth());
+                    this.predict.setHealth(player.getHealth());
                     this.predict.prevX = player.prevX;
                     this.predict.prevZ = player.prevZ;
                     this.predict.prevY = player.prevY;

@@ -27,7 +27,7 @@ implements Wrapper {
         super(Text.of((String)"ClickGui"));
     }
 
-    public boolean method_25421() {
+    public boolean shouldPause() {
         return false;
     }
 
@@ -59,7 +59,7 @@ implements Wrapper {
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
-    public boolean method_25406(double mouseX, double mouseY, int button) {
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
         if (button == 0) {
             clicked = false;
             hoverClicked = false;
@@ -70,10 +70,10 @@ implements Wrapper {
         } else if (button == 4) {
             MOUSE_BUTTON_5 = false;
         }
-        return super.method_25406(mouseX, mouseY, button);
+        return super.mouseReleased(mouseX, mouseY, button);
     }
 
-    public void method_25419() {
+    public void close() {
         super.close();
         rightClicked = false;
         hoverClicked = false;
@@ -82,7 +82,7 @@ implements Wrapper {
         clicked = false;
     }
 
-    public void method_49589() {
+    public void onDisplayed() {
         super.onDisplayed();
         this.snow.clear();
         Random random = new Random();
@@ -94,10 +94,10 @@ implements Wrapper {
         }
     }
 
-    public boolean method_25401(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         for (Tab tab : HexTech.GUI.tabs) {
             tab.setY((int)((double)tab.getY() + verticalAmount * 30.0));
         }
-        return super.method_25401(mouseX, mouseY, horizontalAmount, verticalAmount);
+        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 }

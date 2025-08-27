@@ -20,7 +20,7 @@ public class Cleaner_KppopygwsrtGITfPgSgG {
         this.this$0 = this$0;
         this.predict = new Cleaner(this, (World)Wrapper.mc.world, pos.down(), 0.0f, new GameProfile(UUID.fromString("66123666-1234-5432-6666-667563866600"), "PredictEntity339"), this$0);
         this.predict.method_33574(pos.toCenterPos().add(0.0, -1.0, 0.0));
-        this.predict.method_6033(20.0f);
+        this.predict.setHealth(20.0f);
         this.predict.method_24830(true);
     }
 }
