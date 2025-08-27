@@ -31,7 +31,7 @@ public abstract class MixinEntity {
     private CameraState camera;
 
     @Shadow
-    private static Vec3d method_18795(Vec3d movementInput, float speed, float yaw) {
+    private static Vec3d movementInputToVelocity(Vec3d movementInput, float speed, float yaw) {
         double d = movementInput.lengthSquared();
         if (d < 1.0E-7) {
             return Vec3d.ZERO;
@@ -56,9 +56,9 @@ public abstract class MixinEntity {
         }
         if (this == Wrapper.mc.player) {
             ci.cancel();
-            inVelocityEvent event = new inVelocityEvent(movementInput, speed, Wrapper.mc.player.method_36454(), MixinEntity.method_18795(movementInput, speed, Wrapper.mc.player.method_36454()));
+            inVelocityEvent event = new inVelocityEvent(movementInput, speed, Wrapper.mc.player.getYaw(), MixinEntity.movementInputToVelocity(movementInput, speed, Wrapper.mc.player.getYaw()));
             HexTech.EVENT_BUS.post(event);
-            Wrapper.mc.player.method_18799(Wrapper.mc.player.getVelocity().add(event.getVelocity()));
+            Wrapper.mc.player.setVelocity(Wrapper.mc.player.getVelocity().add(event.getVelocity()));
         }
     }
 

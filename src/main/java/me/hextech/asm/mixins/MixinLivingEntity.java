@@ -26,7 +26,7 @@ public abstract class MixinLivingEntity
 extends Entity {
     @Final
     @Shadow
-    private static EntityAttributeModifier field_6231;
+    private static EntityAttributeModifier SPRINTING_SPEED_BOOST;
 
     public MixinLivingEntity(EntityType<?> type, World world) {
         super(type, world);
@@ -35,11 +35,11 @@ extends Entity {
     @Shadow
     @Nullable
     public EntityAttributeInstance getAttributeInstance(EntityAttribute attribute) {
-        return this.method_6127().method_26842(attribute);
+        return this.getAttributes().getCustomInstance(attribute);
     }
 
     @Shadow
-    public AttributeContainer method_6127() {
+    public AttributeContainer getAttributes() {
         return null;
     }
 
@@ -56,10 +56,10 @@ extends Entity {
             ci.cancel();
             sprinting = Sprint.shouldSprint;
             super.setSprinting(sprinting);
-            EntityAttributeInstance entityAttributeInstance = this.getAttributeInstance(EntityAttributes.field_23719);
-            entityAttributeInstance.method_6200(field_6231.method_6189());
+            EntityAttributeInstance entityAttributeInstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            entityAttributeInstance.removeModifier(SPRINTING_SPEED_BOOST.getId());
             if (sprinting) {
-                entityAttributeInstance.addTemporaryModifier(field_6231);
+                entityAttributeInstance.addTemporaryModifier(SPRINTING_SPEED_BOOST);
             }
         }
     }

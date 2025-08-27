@@ -47,7 +47,7 @@ extends ClientCommonNetworkHandler {
     }
 
     @Shadow
-    public abstract void method_45729(String var1);
+    public abstract void sendChatMessage(String var1);
 
     @Inject(method={"sendChatMessage"}, at={@At(value="HEAD")}, cancellable=true)
     private void onSendChatMessage(String message, CallbackInfo ci) throws Throwable {
@@ -64,7 +64,7 @@ extends ClientCommonNetworkHandler {
                 ci.cancel();
             } else if (!event.message.equals(event.defaultMessage)) {
                 this.nullpoint_ignoreChatMessage = true;
-                this.method_45729(event.message);
+                this.sendChatMessage(event.message);
                 this.nullpoint_ignoreChatMessage = false;
                 ci.cancel();
             }

@@ -136,6 +136,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return false;
         }
         BlockState state = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.getBlockState((BlockPos)new BlockPosX(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getX(), FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getY() - 1.0, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getZ()));
-        return state.method_26215();
+        return state.isAir();
     }
 }

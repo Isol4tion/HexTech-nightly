@@ -301,7 +301,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return true;
         }
         if (i.getItem().equals(Items.SPLASH_POTION) && this.stealCountList[9] > 0) {
-            ArrayList effects = new ArrayList(PotionContentsComponent.method_8067((ItemStack)i));
+            ArrayList effects = new ArrayList(PotionContentsComponent.getPotionEffects((ItemStack)i));
             for (StatusEffectInstance potionEffect : effects) {
                 if (potionEffect.getEffectType() != StatusEffects.RESISTANCE) continue;
                 this.stealCountList[9] = this.stealCountList[9] - i.getCount();

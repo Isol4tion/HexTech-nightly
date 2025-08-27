@@ -29,13 +29,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinWorldRenderer {
     @Final
     @Shadow
-    private MinecraftClient field_4088;
+    private MinecraftClient client;
     @Shadow
     @Final
-    private EntityRenderDispatcher field_4109;
+    private EntityRenderDispatcher entityRenderDispatcher;
 
     @Shadow
-    protected abstract void method_3250(MatrixStack var1);
+    protected abstract void renderEndSky(MatrixStack var1);
 
     @Inject(method={"renderEntity"}, at={@At(value="HEAD")}, cancellable=true)
     private void renderEntityHook(Entity entity, double cameraX, double cameraY, double cameraZ, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, CallbackInfo ci) {
@@ -45,7 +45,7 @@ public abstract class MixinWorldRenderer {
             double e = entity.getY();
             double f = entity.getZ();
             float g = entity.getYaw();
-            this.field_4109.method_3954(entity, d - cameraX, e - cameraY, f - cameraZ, g, NoInterp.INSTANCE.tickDelta.getValueFloat(), matrices, vertexConsumers, this.field_4109.getLight(entity, tickDelta));
+            this.entityRenderDispatcher.render(entity, d - cameraX, e - cameraY, f - cameraZ, g, NoInterp.INSTANCE.tickDelta.getValueFloat(), matrices, vertexConsumers, this.entityRenderDispatcher.getLight(entity, tickDelta));
         }
     }
 
@@ -55,14 +55,14 @@ public abstract class MixinWorldRenderer {
         if (Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.isOn() && Wrapper.mc.world != null) {
             HexTech.SHADER.setupShader(shaders, HexTech.SHADER.getShaderOutline(shaders));
         } else {
-            instance.method_1258(tickDelta);
+            instance.render(tickDelta);
         }
     }
 
     @Inject(method={"renderSky(Lnet/minecraft/client/util/math/MatrixStack;Lorg/joml/Matrix4f;FLnet/minecraft/client/render/Camera;ZLjava/lang/Runnable;)V"}, at={@At(value="HEAD")}, cancellable=true)
     private void renderSkyHead(MatrixStack matrices, Matrix4f matrix4f, float tickDelta, Camera camera, boolean bl, Runnable runnable, CallbackInfo info) {
         if (Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.isOn() && Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.sky.getValue()) {
-            HexTech.SHADER.applyShader(() -> this.method_3250(matrices), Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.skyMode.getValue());
+            HexTech.SHADER.applyShader(() -> this.renderEndSky(matrices), Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.skyMode.getValue());
             info.cancel();
         }
     }

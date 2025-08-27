@@ -17,23 +17,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinWorld {
     @Inject(method={"getBlockState"}, at={@At(value="HEAD")}, cancellable=true)
     public void blockStateHook(BlockPos pos, CallbackInfoReturnable<BlockState> cir) {
-        if (Wrapper.mc.world != null && Wrapper.mc.world.method_24794(pos)) {
+        if (Wrapper.mc.world != null && Wrapper.mc.world.isInBuildLimit(pos)) {
             WorldChunk worldChunk;
             BlockState tempState;
             if (CombatUtil.terrainIgnore || CombatUtil.modifyPos != null) {
-                WorldChunk worldChunk2 = Wrapper.mc.world.method_8497(pos.method_10263() >> 4, pos.method_10260() >> 4);
-                BlockState tempState2 = worldChunk2.method_8320(pos);
+                WorldChunk worldChunk2 = Wrapper.mc.world.getChunk(pos.getX() >> 4, pos.getZ() >> 4);
+                BlockState tempState2 = worldChunk2.getBlockState(pos);
                 if (CombatUtil.modifyPos != null && pos.equals((Object)CombatUtil.modifyPos)) {
                     cir.setReturnValue((Object)CombatUtil.modifyBlockState);
                     return;
                 }
                 if (CombatUtil.terrainIgnore) {
-                    if (tempState2.method_26204() == Blocks.OBSIDIAN || tempState2.method_26204() == Blocks.BEDROCK || tempState2.method_26204() == Blocks.ENDER_CHEST || tempState2.method_26204() == Blocks.RESPAWN_ANCHOR || tempState2.method_26204() == Blocks.NETHERITE_BLOCK) {
+                    if (tempState2.getBlock() == Blocks.OBSIDIAN || tempState2.getBlock() == Blocks.BEDROCK || tempState2.getBlock() == Blocks.ENDER_CHEST || tempState2.getBlock() == Blocks.RESPAWN_ANCHOR || tempState2.getBlock() == Blocks.NETHERITE_BLOCK) {
                         return;
                     }
                     cir.setReturnValue((Object)Blocks.AIR.getDefaultState());
                 }
-            } else if (MineTweak.INSTANCE.isActive && (tempState = (worldChunk = Wrapper.mc.world.method_8497(pos.method_10263() >> 4, pos.method_10260() >> 4)).method_8320(pos)).method_26204() == Blocks.BEDROCK) {
+            } else if (MineTweak.INSTANCE.isActive && (tempState = (worldChunk = Wrapper.mc.world.getChunk(pos.getX() >> 4, pos.getZ() >> 4)).getBlockState(pos)).getBlock() == Blocks.BEDROCK) {
                 cir.setReturnValue((Object)Blocks.AIR.getDefaultState());
             }
         }

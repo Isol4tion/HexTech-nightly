@@ -36,10 +36,10 @@ public abstract class MixinHeldItemRenderer {
     }
 
     @Shadow
-    public abstract void method_3233(LivingEntity var1, ItemStack var2, ModelTransformationMode var3, boolean var4, MatrixStack var5, VertexConsumerProvider var6, int var7);
+    public abstract void renderItem(LivingEntity var1, ItemStack var2, ModelTransformationMode var3, boolean var4, MatrixStack var5, VertexConsumerProvider var6, int var7);
 
     @Shadow
-    protected abstract void method_3218(MatrixStack var1, float var2, Arm var3, ItemStack var4);
+    protected abstract void applyEatOrDrinkTransformation(MatrixStack var1, float var2, Arm var3, ItemStack var4);
 
     @Inject(method={"renderFirstPersonItem"}, at={@At(value="HEAD")}, cancellable=true)
     private void onRenderItemHook(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
@@ -93,7 +93,7 @@ public abstract class MixinHeldItemRenderer {
                 }
                 HeldItemRendererEvent event = new HeldItemRendererEvent(hand, item, equipProgress, matrices);
                 HexTech.EVENT_BUS.post(event);
-                this.method_3233((LivingEntity)player, item, bl3 ? ModelTransformationMode.FIRST_PERSON_RIGHT_HAND : ModelTransformationMode.FIRST_PERSON_LEFT_HAND, !bl3, matrices, vertexConsumers, light);
+                this.renderItem((LivingEntity)player, item, bl3 ? ModelTransformationMode.FIRST_PERSON_RIGHT_HAND : ModelTransformationMode.FIRST_PERSON_LEFT_HAND, !bl3, matrices, vertexConsumers, light);
             } else {
                 boolean bl2;
                 boolean bl3 = bl2 = arm == Arm.RIGHT;
@@ -106,7 +106,7 @@ public abstract class MixinHeldItemRenderer {
                         if (ViewModel.INSTANCE.eatAnimation.getValue()) {
                             this.applyEatOrDrinkTransformationCustom(matrices, tickDelta, arm, item);
                         } else {
-                            this.method_3218(matrices, tickDelta, arm, item);
+                            this.applyEatOrDrinkTransformation(matrices, tickDelta, arm, item);
                         }
                         this.applyEquipOffset(matrices, arm, equipProgress);
                     } else if (useAction == UseAction.BOW) {
@@ -166,7 +166,7 @@ public abstract class MixinHeldItemRenderer {
                 }
                 HeldItemRendererEvent event = new HeldItemRendererEvent(hand, item, equipProgress, matrices);
                 HexTech.EVENT_BUS.post(event);
-                this.method_3233((LivingEntity)player, item, bl2 ? ModelTransformationMode.FIRST_PERSON_RIGHT_HAND : ModelTransformationMode.FIRST_PERSON_LEFT_HAND, !bl2, matrices, vertexConsumers, light);
+                this.renderItem((LivingEntity)player, item, bl2 ? ModelTransformationMode.FIRST_PERSON_RIGHT_HAND : ModelTransformationMode.FIRST_PERSON_LEFT_HAND, !bl2, matrices, vertexConsumers, light);
             }
             matrices.pop();
         }

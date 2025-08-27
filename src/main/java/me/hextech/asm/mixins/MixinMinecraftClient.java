@@ -30,16 +30,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinMinecraftClient
 extends ReentrantThreadExecutor<Runnable> {
     @Shadow
-    public int field_1771;
+    public int attackCooldown;
     @Shadow
     public ClientPlayerEntity player;
     @Shadow
-    public HitResult field_1765;
+    public HitResult crosshairTarget;
     @Shadow
-    public ClientPlayerInteractionManager field_1761;
+    public ClientPlayerInteractionManager interactionManager;
     @Final
     @Shadow
-    public ParticleManager field_1713;
+    public ParticleManager particleManager;
     @Shadow
     public ClientWorld world;
 
@@ -66,28 +66,28 @@ extends ReentrantThreadExecutor<Runnable> {
     }
 
     @Shadow
-    public ClientPlayNetworkHandler method_1562() {
+    public ClientPlayNetworkHandler getNetworkHandler() {
         return null;
     }
 
     @Shadow
-    public ServerInfo method_1558() {
+    public ServerInfo getCurrentServerEntry() {
         return null;
     }
 
     @Inject(method={"handleBlockBreaking"}, at={@At(value="HEAD")}, cancellable=true)
     private void handleBlockBreaking(boolean breaking, CallbackInfo ci) {
-        if (this.field_1771 <= 0 && this.player.method_6115() && MineTweak.INSTANCE.multiTask()) {
-            if (breaking && this.field_1765 != null && this.field_1765.getType() == HitResult.Type.BLOCK) {
+        if (this.attackCooldown <= 0 && this.player.isUsingItem() && MineTweak.INSTANCE.multiTask()) {
+            if (breaking && this.crosshairTarget != null && this.crosshairTarget.getType() == HitResult.Type.BLOCK) {
                 Direction direction;
-                BlockHitResult blockHitResult = (BlockHitResult)this.field_1765;
+                BlockHitResult blockHitResult = (BlockHitResult)this.crosshairTarget;
                 BlockPos blockPos = blockHitResult.getBlockPos();
-                if (!this.world.method_8320(blockPos).method_26215() && this.field_1761.updateBlockBreakingProgress(blockPos, direction = blockHitResult.getSide())) {
-                    this.field_1713.addBlockBreakingParticles(blockPos, direction);
-                    this.player.method_6104(Hand.MAIN_HAND);
+                if (!this.world.getBlockState(blockPos).isAir() && this.interactionManager.updateBlockBreakingProgress(blockPos, direction = blockHitResult.getSide())) {
+                    this.particleManager.addBlockBreakingParticles(blockPos, direction);
+                    this.player.swingHand(Hand.MAIN_HAND);
                 }
             } else {
-                this.field_1761.cancelBlockBreaking();
+                this.interactionManager.cancelBlockBreaking();
             }
             ci.cancel();
         }
@@ -103,7 +103,7 @@ extends ReentrantThreadExecutor<Runnable> {
     }
 
     @Overwrite
-    private String method_24287() {
+    private String getWindowTitle() {
         if (!HexTech.isLoaded) {
             return "Ez Cracked By Isol4ion.(github.com/Isol4ion) \u5e7b\u5f71\u76fe\u62ef\u6551\u4e0d\u4e86\u72c2\u5984\u81ea\u5927\u7684\u4f60";
         }

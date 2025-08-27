@@ -52,7 +52,7 @@ extends Screen {
         }
     }
 
-    public void method_25393() {
+    public void tick() {
         AutoReconnect autoReconnect = AutoReconnect.INSTANCE;
         if (!autoReconnect.isOn() || autoReconnect.lastServerConnection == null) {
             return;

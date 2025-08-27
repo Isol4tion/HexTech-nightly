@@ -25,8 +25,8 @@ extends MixinParticle {
             this.field_3850 = event.velocityZ;
             Color color = event.color;
             if (color != null) {
-                this.method_3084((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f);
-                this.method_3083((float)color.getAlpha() / 255.0f);
+                this.setColor((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f);
+                this.setAlpha((float)color.getAlpha() / 255.0f);
             }
         }
     }

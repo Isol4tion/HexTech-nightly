@@ -378,7 +378,7 @@ implements Wrapper {
 
     public static boolean isStrictDirection(BlockPos pos, Direction side) {
         BlockState blockState = BlockUtil.mc.world.getBlockState(pos);
-        boolean isFullBox = blockState.method_26215() || blockState.method_26234((BlockView)BlockUtil.mc.world, pos) || BlockUtil.getBlock(pos) == Blocks.COBWEB;
+        boolean isFullBox = blockState.isAir() || blockState.method_26234((BlockView)BlockUtil.mc.world, pos) || BlockUtil.getBlock(pos) == Blocks.COBWEB;
         return BlockUtil.isStrictDirection(pos, side, isFullBox);
     }
 
@@ -449,7 +449,7 @@ implements Wrapper {
                 ++z;
             }
             return new ChunkPos(x, z);
-        }).limit((long)diameter * (long)diameter).filter(c -> BlockUtil.mc.world.method_8393(c.x, c.z)).map(c -> BlockUtil.mc.world.method_8497(c.x, c.z)).filter(Objects::nonNull);
+        }).limit((long)diameter * (long)diameter).filter(c -> BlockUtil.mc.world.method_8393(c.x, c.z)).map(c -> BlockUtil.mc.world.getChunk(c.x, c.z)).filter(Objects::nonNull);
     }
 
     public static ArrayList<BlockPos> getSphere(float range) {

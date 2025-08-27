@@ -128,7 +128,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private double[] getMotion(double speed) {
         float moveForward = MovementUtil.getMoveForward();
         float moveStrafe = MovementUtil.getMoveStrafe();
-        float rotationYaw = PacketFly.mc.player.field_5982 + (PacketFly.mc.player.getYaw() - PacketFly.mc.player.field_5982) * mc.getTickDelta();
+        float rotationYaw = PacketFly.mc.player.prevYaw + (PacketFly.mc.player.getYaw() - PacketFly.mc.player.prevYaw) * mc.getTickDelta();
         if (moveForward != 0.0f) {
             if (moveStrafe > 0.0f) {
                 rotationYaw += (float)(moveForward > 0.0f ? -45 : 45);

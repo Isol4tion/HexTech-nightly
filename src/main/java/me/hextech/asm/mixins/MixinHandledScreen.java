@@ -43,16 +43,16 @@ implements ScreenHandlerProvider<T> {
 
     @Inject(method={"render"}, at={@At(value="TAIL")})
     private void onRender(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (this.field_2787 != null && !this.field_2787.getStack().isEmpty() && this.field_22787.player.field_7498.method_34255().isEmpty() && this.hasItems(this.field_2787.getStack()) && ShulkerViewer.INSTANCE.isOn()) {
+        if (this.field_2787 != null && !this.field_2787.getStack().isEmpty() && this.client.player.playerScreenHandler.getCursorStack().isEmpty() && this.hasItems(this.field_2787.getStack()) && ShulkerViewer.INSTANCE.isOn()) {
             this.renderShulkerToolTip(context, mouseX, mouseY, this.field_2787.getStack());
         }
     }
 
     public void renderShulkerToolTip(DrawContext context, int mouseX, int mouseY, ItemStack stack) {
         try {
-            NbtCompound compoundTag = stack.method_7941("BlockEntityTag");
+            NbtCompound compoundTag = stack.getSubNbt("BlockEntityTag");
             DefaultedList itemStacks = DefaultedList.ofSize((int)27, (Object)ItemStack.EMPTY);
-            Inventories.method_5429((NbtCompound)compoundTag, (DefaultedList)itemStacks);
+            Inventories.readNbt((NbtCompound)compoundTag, (DefaultedList)itemStacks);
             this.draw(context, (DefaultedList<ItemStack>)itemStacks, mouseX, mouseY);
         }
         catch (Exception exception) {
@@ -84,7 +84,7 @@ implements ScreenHandlerProvider<T> {
     }
 
     private boolean hasItems(ItemStack itemStack) {
-        NbtCompound compoundTag = itemStack.method_7941("BlockEntityTag");
+        NbtCompound compoundTag = itemStack.getSubNbt("BlockEntityTag");
         return compoundTag != null && compoundTag.contains("Items", 9);
     }
 }

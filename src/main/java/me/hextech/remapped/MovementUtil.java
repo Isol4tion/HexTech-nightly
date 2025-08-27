@@ -83,7 +83,7 @@ implements Wrapper {
     public static double[] directionSpeed(double speed) {
         float forward = MovementUtil.mc.player.input.movementForward;
         float side = MovementUtil.mc.player.input.movementSideways;
-        float yaw = MovementUtil.mc.player.field_5982 + (MovementUtil.mc.player.getYaw() - MovementUtil.mc.player.field_5982) * mc.getTickDelta();
+        float yaw = MovementUtil.mc.player.prevYaw + (MovementUtil.mc.player.getYaw() - MovementUtil.mc.player.prevYaw) * mc.getTickDelta();
         if (forward != 0.0f) {
             if (side > 0.0f) {
                 yaw += (float)(forward > 0.0f ? -45 : 45);

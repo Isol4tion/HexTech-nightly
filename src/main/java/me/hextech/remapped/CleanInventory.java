@@ -41,9 +41,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (int slot2 = 35; slot2 >= 9; --slot2) {
                     ItemStack stack2;
                     if (slot1 == slot2 || (stack2 = CleanInventory.mc.player.getInventory().getStack(slot2)).getCount() == stack2.getMaxCount() || !this.canMerge(stack, stack2)) continue;
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot2, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.field_7763, slot2, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
                     this.timer.reset();
                     return;
                 }
@@ -61,9 +61,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     int itemID;
                     ItemStack stack = CleanInventory.mc.player.getInventory().getStack(slot2);
                     if (stack.isEmpty() || (itemID = Item.getRawId((Item)stack.getItem())) != minId) continue;
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot2, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.field_7763, slot2, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
                     this.timer.reset();
                     return;
                 }

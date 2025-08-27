@@ -21,21 +21,21 @@ extends Screen {
 
     @Inject(method={"tick"}, at={@At(value="HEAD")})
     private void tick(CallbackInfo ci) {
-        if (this.field_22787 != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.Nullpoint) {
-            this.field_22787.setScreen((Screen)new Menu());
+        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.Nullpoint) {
+            this.client.setScreen((Screen)new Menu());
         }
-        if (this.field_22787 != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.HexTech) {
-            this.field_22787.setScreen((Screen)new HexTech());
+        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.HexTech) {
+            this.client.setScreen((Screen)new HexTech());
         }
     }
 
     @Inject(method={"init"}, at={@At(value="HEAD")})
     private void init(CallbackInfo ci) {
-        if (this.field_22787 != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.Nullpoint) {
-            this.field_22787.setScreen((Screen)new Menu());
+        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.Nullpoint) {
+            this.client.setScreen((Screen)new Menu());
         }
-        if (this.field_22787 != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.HexTech) {
-            this.field_22787.setScreen((Screen)new HexTech());
+        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.HexTech) {
+            this.client.setScreen((Screen)new HexTech());
         }
     }
 }

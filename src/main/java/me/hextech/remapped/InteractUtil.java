@@ -26,7 +26,7 @@ implements Wrapper {
         EntityHitResult entityHitResult = ProjectileUtil.raycast((Entity)InteractUtil.mc.player, (Vec3d)vec3d, (Vec3d)vec3d3, (Box)(box = new Box(x - 0.3, y, z - 0.3, x + 0.3, y + (double)InteractUtil.mc.player.getEyeHeight(InteractUtil.mc.player.getPose()), z + 0.3).stretch(vec3d2.multiply(5.0)).expand(1.0, 1.0, 1.0)), entity -> !entity.isSpectator() && entity.canHit(), (double)distancePow2);
         if (entityHitResult != null) {
             Entity entity2 = entityHitResult.getEntity();
-            Vec3d vec3d4 = entityHitResult.method_17784();
+            Vec3d vec3d4 = entityHitResult.getPos();
             double g = vec3d.squaredDistanceTo(vec3d4);
             if ((g < distancePow2 || result == null) && entity2 instanceof LivingEntity) {
                 return entityHitResult;

@@ -22,7 +22,7 @@ public class MixinKeyboard
 implements Wrapper {
     @Shadow
     @Final
-    private MinecraftClient field_1678;
+    private MinecraftClient client;
 
     @Inject(method={"onKey"}, at={@At(value="HEAD")})
     private void onKey(long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo ci) {
@@ -40,13 +40,13 @@ implements Wrapper {
     @Inject(method={"onChar"}, at={@At(value="HEAD")}, cancellable=true)
     private void onChar(long window, int codePoint, int modifiers, CallbackInfo ci) {
         Screen element;
-        if (window == this.field_1678.getWindow().getHandle() && (element = this.field_1678.currentScreen) != null && this.field_1678.getOverlay() == null) {
+        if (window == this.client.getWindow().getHandle() && (element = this.client.currentScreen) != null && this.client.getOverlay() == null) {
             if (Character.charCount(codePoint) == 1) {
                 if (!Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck() && HexTech.GUI != null && HexTech.GUI.isClickGuiOpen()) {
                     HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting)setting).filter(StringSetting::isListening).forEach(setting -> setting.charType((char)codePoint)));
                     HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof SliderSetting).map(setting -> (SliderSetting)setting).filter(SliderSetting::isListening).forEach(setting -> setting.charType((char)codePoint)));
                 }
-                Screen.method_25412(() -> MixinKeyboard.lambda$onChar$8((Element)element, codePoint, modifiers), (String)"charTyped event handler", (String)element.getClass().getCanonicalName());
+                Screen.wrapScreenError(() -> MixinKeyboard.lambda$onChar$8((Element)element, codePoint, modifiers), (String)"charTyped event handler", (String)element.getClass().getCanonicalName());
             } else {
                 char[] var6;
                 for (char c : var6 = Character.toChars(codePoint)) {
@@ -54,7 +54,7 @@ implements Wrapper {
                         HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting)setting).filter(StringSetting::isListening).forEach(setting -> setting.charType(c)));
                         HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof SliderSetting).map(setting -> (SliderSetting)setting).filter(SliderSetting::isListening).forEach(setting -> setting.charType((char)codePoint)));
                     }
-                    Screen.method_25412(() -> MixinKeyboard.lambda$onChar$17((Element)element, c, modifiers), (String)"charTyped event handler", (String)element.getClass().getCanonicalName());
+                    Screen.wrapScreenError(() -> MixinKeyboard.lambda$onChar$17((Element)element, c, modifiers), (String)"charTyped event handler", (String)element.getClass().getCanonicalName());
                 }
             }
         }

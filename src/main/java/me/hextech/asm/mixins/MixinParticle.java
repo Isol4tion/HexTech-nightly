@@ -7,16 +7,16 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(value={Particle.class})
 public abstract class MixinParticle {
     @Shadow
-    protected double field_3852;
+    protected double velocityX;
     @Shadow
-    protected double field_3869;
+    protected double velocityY;
     @Shadow
-    protected double field_3850;
+    protected double velocityZ;
 
     @Shadow
-    public abstract void method_3084(float var1, float var2, float var3);
+    public abstract void setColor(float var1, float var2, float var3);
 
     @Shadow
-    protected void method_3083(float alpha) {
+    protected void setAlpha(float alpha) {
     }
 }

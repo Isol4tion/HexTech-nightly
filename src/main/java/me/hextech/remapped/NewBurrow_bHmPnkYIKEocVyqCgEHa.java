@@ -256,10 +256,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
         } else {
-            mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.4199999868869781, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-            mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.7531999805212017, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-            mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.9999957640154541, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-            mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.1661092609382138, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.4199999868869781, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.7531999805212017, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.9999957640154541, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.1661092609382138, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
         }
         this.doSwap(block);
         if (this.rotate.getValue() == NewBurrow_qqQhaOJZqeVGcFBKpQgd.Bypass) {
@@ -306,55 +306,55 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     distance = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.squaredDistanceTo(blockPos.toCenterPos());
                 }
                 if (bestPos == null) break;
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.getX() + 0.5, (double)bestPos.getY(), (double)bestPos.getZ() + 0.5, false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.getX() + 0.5, (double)bestPos.getY(), (double)bestPos.getZ() + 0.5, false));
                 break;
             }
             case 1: {
                 int i = 0;
                 while ((double)i < this.invalids.getValue()) {
-                    mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1337.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1337.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                     ++i;
                 }
                 break;
             }
             case 7: {
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.16610926093821, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.170005801788139, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.2426308013947485, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.640088003576279, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.16610926093821, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.170005801788139, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.2426308013947485, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.640088003576279, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 8: {
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0001, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0405, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0802, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.1027, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0001, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0405, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0802, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.1027, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 2: {
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 5: {
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.9, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.9, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 3: {
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), -70.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), -70.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 4: {
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), -7.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), -7.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 9: {
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.height.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.height.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 6: {
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.LookAndOnGround(-180.0f, -90.0f, false));
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.LookAndOnGround(180.0f, 90.0f, false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.LookAndOnGround(-180.0f, -90.0f, false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.LookAndOnGround(180.0f, 90.0f, false));
             }
         }
         if (this.disable.getValue()) {
@@ -401,9 +401,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void gotoPos(BlockPos offPos) {
         if (this.gotoMode.is(NewBurrow.Alien)) {
             if (this.rotate.getValue() == NewBurrow_qqQhaOJZqeVGcFBKpQgd.None) {
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)offPos.getX() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), (double)offPos.getZ() + 0.5, false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)offPos.getX() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), (double)offPos.getZ() + 0.5, false));
             } else {
-                mc.method_1562().sendPacket((Packet)new PlayerMoveC2SPacket.Full((double)offPos.getX() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), (double)offPos.getZ() + 0.5, HexTech.ROTATE.rotateYaw, 90.0f, false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.Full((double)offPos.getX() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), (double)offPos.getZ() + 0.5, HexTech.ROTATE.rotateYaw, 90.0f, false));
             }
         } else if (Math.abs((double)offPos.getX() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX()) < Math.abs((double)offPos.getZ() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ())) {
             NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.field_3944.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + ((double)offPos.getZ() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ()), true));

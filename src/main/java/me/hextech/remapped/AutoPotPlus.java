@@ -57,7 +57,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (int i = 0; i < 45; ++i) {
             ItemStack itemStack = AutoPotPlus.mc.player.getInventory().getStack(i);
             if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
-            List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
+            List effects = PotionContentsComponent.getPotionEffects((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
                 if (effect.getEffectType() != targetEffect) continue;
                 return i < 9 ? i + 36 : i;
@@ -70,7 +70,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (int i = 0; i < 9; ++i) {
             ItemStack itemStack = InventoryUtil.getStackInSlot(i);
             if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
-            List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
+            List effects = PotionContentsComponent.getPotionEffects((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
                 if (effect.getEffectType() != targetEffect) continue;
                 return i;

@@ -174,7 +174,7 @@ implements Wrapper {
     public static void swingHand(Hand hand, SwingSide side) {
         switch (EntityUtil_jqZdaOopZvRmVGkTNyyz.$SwitchMap$me$hextech$mod$modules$settings$SwingSide[side.ordinal()]) {
             case 1: {
-                EntityUtil.mc.player.method_6104(hand);
+                EntityUtil.mc.player.swingHand(hand);
                 break;
             }
             case 2: {

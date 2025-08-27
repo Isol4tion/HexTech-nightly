@@ -148,7 +148,7 @@ implements Closeable {
         RenderSystem.disableCull();
         GL11.glTexParameteri((int)3553, (int)10241, (int)9729);
         GL11.glTexParameteri((int)3553, (int)10240, (int)9729);
-        RenderSystem.setShader(GameRenderer::method_34543);
+        RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
         BufferBuilder bb = Tessellator.getInstance().getBuffer();
         Matrix4f mat = stack.peek().getPositionMatrix();
         char[] chars = s.toCharArray();
@@ -232,7 +232,7 @@ implements Closeable {
         RenderSystem.disableCull();
         GL11.glTexParameteri((int)3553, (int)10241, (int)9729);
         GL11.glTexParameteri((int)3553, (int)10240, (int)9729);
-        RenderSystem.setShader(GameRenderer::method_34543);
+        RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
         BufferBuilder bb = Tessellator.getInstance().getBuffer();
         Matrix4f mat = stack.peek().getPositionMatrix();
         char[] chars = s.toCharArray();

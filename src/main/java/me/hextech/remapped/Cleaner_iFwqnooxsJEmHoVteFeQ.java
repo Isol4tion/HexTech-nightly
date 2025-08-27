@@ -323,7 +323,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null) {
                 blockState = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState((BlockPos)currentBlockPos);
             }
-            if (!(blockState == null || !blockState.method_26215() && (resistance = blockState.getBlock().getBlastResistance()) > power)) continue;
+            if (!(blockState == null || !blockState.isAir() && (resistance = blockState.getBlock().getBlastResistance()) > power)) continue;
             return false;
         }
         return true;

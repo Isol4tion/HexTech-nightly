@@ -42,7 +42,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!(AutoArmor.mc.currentScreen == null || AutoArmor.mc.currentScreen instanceof ChatScreen || AutoArmor.mc.currentScreen instanceof InventoryScreen || AutoArmor.mc.currentScreen instanceof ClickGuiScreen)) {
             return;
         }
-        if (AutoArmor.mc.player.field_7498 != AutoArmor.mc.player.currentScreenHandler) {
+        if (AutoArmor.mc.player.playerScreenHandler != AutoArmor.mc.player.currentScreenHandler) {
             return;
         }
         if (MovementUtil.isMoving() && this.noMove.getValue()) {
@@ -82,7 +82,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, 36 + ((int[])equipmentSlotEntry.getValue())[2], 1, SlotActionType.QUICK_MOVE, (PlayerEntity)AutoArmor.mc.player);
                 EntityUtil.syncInventory();
-            } else if (AutoArmor.mc.player.field_7498 == AutoArmor.mc.player.currentScreenHandler) {
+            } else if (AutoArmor.mc.player.playerScreenHandler == AutoArmor.mc.player.currentScreenHandler) {
                 int armorSlot = ((int[])equipmentSlotEntry.getValue())[0] - 34 + (39 - ((int[])equipmentSlotEntry.getValue())[0]) * 2;
                 int newArmorSlot = ((int[])equipmentSlotEntry.getValue())[2] < 9 ? 36 + ((int[])equipmentSlotEntry.getValue())[2] : ((int[])equipmentSlotEntry.getValue())[2];
                 AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, newArmorSlot, 0, SlotActionType.PICKUP, (PlayerEntity)AutoArmor.mc.player);

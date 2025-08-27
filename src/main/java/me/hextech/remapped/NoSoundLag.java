@@ -26,16 +26,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onPlaySound(PlaySoundEvent event) {
         if (this.equip.getValue()) {
             for (SoundEvent se : armor) {
-                if (event.sound.getId() != se.method_14833()) continue;
+                if (event.sound.getId() != se.getId()) continue;
                 event.cancel();
                 return;
             }
         }
-        if (this.explode.getValue() && event.sound.getId() == SoundEvents.field_15152.method_14833()) {
+        if (this.explode.getValue() && event.sound.getId() == SoundEvents.ENTITY_GENERIC_EXPLODE.getId()) {
             event.cancel();
             return;
         }
-        if (this.attack.getValue() && (event.sound.getId() == SoundEvents.ENTITY_PLAYER_ATTACK_WEAK.method_14833() || event.sound.getId() == SoundEvents.ENTITY_PLAYER_ATTACK_STRONG.method_14833())) {
+        if (this.attack.getValue() && (event.sound.getId() == SoundEvents.ENTITY_PLAYER_ATTACK_WEAK.getId() || event.sound.getId() == SoundEvents.ENTITY_PLAYER_ATTACK_STRONG.getId())) {
             event.cancel();
         }
     }

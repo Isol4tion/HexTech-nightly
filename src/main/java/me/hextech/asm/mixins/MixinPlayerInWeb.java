@@ -19,7 +19,7 @@ public class MixinPlayerInWeb {
     @Inject(at={@At(value="HEAD")}, method={"onEntityCollision"}, cancellable=true)
     private void onGetVelocityMultiplier(BlockState state, World world, BlockPos pos, Entity entity, CallbackInfo ci) {
         if (FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.isOn() && (Wrapper.mc.options.sneakKey.isPressed() || !FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.onlySneak.getValue())) {
-            if (FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.groundcheck.getValue() && Wrapper.mc.player.method_24828()) {
+            if (FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.groundcheck.getValue() && Wrapper.mc.player.isOnGround()) {
                 return;
             }
             if (FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.mode.is(FastWeb.Ignore)) {

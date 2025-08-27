@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value={Screen.class})
 public class MixinScreen {
     @Shadow
-    public int field_22789;
+    public int width;
     @Shadow
     public int field_22790;
 
@@ -20,10 +20,10 @@ public class MixinScreen {
     public void renderInGameBackgroundHook(DrawContext context, CallbackInfo ci) {
         ci.cancel();
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.blackground.getValue()) {
-            context.fillGradient(0, 0, this.field_22789, this.field_22790, -1072689136, -804253680);
+            context.fillGradient(0, 0, this.width, this.field_22790, -1072689136, -804253680);
         }
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.customBackground.booleanValue) {
-            context.fillGradient(0, 0, this.field_22789, this.field_22790, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.customBackground.getValue().getRGB(), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.endColor.getValue().getRGB());
+            context.fillGradient(0, 0, this.width, this.field_22790, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.customBackground.getValue().getRGB(), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.endColor.getValue().getRGB());
         }
     }
 }

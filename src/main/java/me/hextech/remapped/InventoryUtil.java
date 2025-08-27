@@ -167,7 +167,7 @@ implements Wrapper {
         int count = 0;
         block0: for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
             if (!(entry.getValue().getItem() instanceof SplashPotionItem)) continue;
-            ArrayList effects = new ArrayList(PotionContentsComponent.method_8067((ItemStack)entry.getValue()));
+            ArrayList effects = new ArrayList(PotionContentsComponent.getPotionEffects((ItemStack)entry.getValue()));
             for (StatusEffectInstance potionEffect : effects) {
                 if (potionEffect.getEffectType() != potion) continue;
                 count += entry.getValue().getCount();
@@ -197,7 +197,7 @@ implements Wrapper {
         for (int i = 0; i < 9; ++i) {
             ItemStack stack = InventoryUtil.getStackInSlot(i);
             if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof SplashPotionItem)) continue;
-            ArrayList effects = new ArrayList(PotionContentsComponent.method_8067((ItemStack)stack));
+            ArrayList effects = new ArrayList(PotionContentsComponent.getPotionEffects((ItemStack)stack));
             for (StatusEffectInstance potionEffect : effects) {
                 if (potionEffect.getEffectType() != potion) continue;
                 return i;
@@ -241,7 +241,7 @@ implements Wrapper {
         for (int i = 0; i < 45; ++i) {
             ItemStack stack = InventoryUtil.mc.player.getInventory().getStack(i);
             if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof SplashPotionItem)) continue;
-            ArrayList effects = new ArrayList(PotionContentsComponent.method_8067((ItemStack)stack));
+            ArrayList effects = new ArrayList(PotionContentsComponent.getPotionEffects((ItemStack)stack));
             for (StatusEffectInstance potionEffect : effects) {
                 if (potionEffect.getEffectType() != potion) continue;
                 return i < 9 ? i + 36 : i;
