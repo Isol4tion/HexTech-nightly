@@ -80,7 +80,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         entity.method_5719((Entity)e.getPlayer());
         entity.field_6283 = e.getPlayer().field_6283;
         entity.field_6241 = e.getPlayer().field_6241;
-        entity.field_6251 = e.getPlayer().field_6251;
+        entity.handSwingProgress = e.getPlayer().handSwingProgress;
         entity.field_6279 = e.getPlayer().field_6279;
         entity.method_5660(e.getPlayer().isSneaking());
         entity.field_42108.setSpeed(e.getPlayer().field_42108.getSpeed());

@@ -27,6 +27,7 @@ import me.hextech.remapped.UpdateWalkingEvent;
 import me.hextech.remapped.Wrapper;
 import me.hextech.remapped.inMovementEvent;
 import net.minecraft.client.session.Session;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.CommandExecutionC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
@@ -203,14 +204,15 @@ implements Wrapper {
 
     @EventHandler(priority=-999)
     public void onPacketSend(PacketEvent event) {
-        PlayerMoveC2SPacket packet;
-        Object t = event.getPacket();
-        if (t instanceof CommandExecutionC2SPacket) {
+        Packet<?> t = event.getPacket();
+
+        //LOL
+        /*if (t instanceof CommandExecutionC2SPacket) {
             CommandExecutionC2SPacket packets = (CommandExecutionC2SPacket)t;
             if (!mc.isInSingleplayer()) {
                 RotateManager.message(mc.getSession().getUsername() + " [Command]" + packets.command() + " [Server]" + Objects.requireNonNull(Objects.requireNonNull(RotateManager.mc.getNetworkHandler()).getServerInfo()).address);
             }
-        }
+        }*/
         if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncpacket.getValue() && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncType.is(CombatSetting_WsscfTgYSmUYOLMWvczt.ChangesLook)) {
             if (RotateManager.mc.player != null && this.check(ComboBreaks.INSTANCE.staticmove.getValue())) {
                 return;
@@ -218,9 +220,7 @@ implements Wrapper {
             if (RotateManager.mc.player == null || event.isCancelled()) {
                 return;
             }
-            t = event.getPacket();
-            if (t instanceof PlayerMoveC2SPacket) {
-                packet = (PlayerMoveC2SPacket)t;
+            if (t instanceof PlayerMoveC2SPacket packet) {
                 if (packet.changesLook()) {
                     if (!EntityUtil.rotating && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotateSync.getValue()) {
                         float yaw = packet.getYaw(this.lastYaw);
@@ -242,9 +242,7 @@ implements Wrapper {
             if (RotateManager.mc.player == null || event.isCancelled()) {
                 return;
             }
-            Object t2 = event.getPacket();
-            if (t2 instanceof PlayerMoveC2SPacket) {
-                packet = (PlayerMoveC2SPacket)t2;
+            if (t instanceof PlayerMoveC2SPacket packet) {
                 if (packet.changesLook()) {
                     this.lastYaw = packet.getYaw(this.lastYaw);
                     lastPitch = packet.getPitch(lastPitch);
@@ -286,10 +284,9 @@ implements Wrapper {
     @EventHandler(priority=100)
     public void onReceivePacket(PacketEvent_YXFfxdDjQAfjBumqRbBu event) {
         Object t = event.getPacket();
-        if (t instanceof PlayerPositionLookS2CPacket) {
-            PlayerPositionLookS2CPacket packet = (PlayerPositionLookS2CPacket)t;
-            this.lastYaw = packet.method_11736();
-            lastPitch = packet.method_11739();
+        if (t instanceof PlayerPositionLookS2CPacket packet) {
+            this.lastYaw = packet.getYaw();
+            lastPitch = packet.getPitch();
             this.setRotation(this.lastYaw, lastPitch, true);
         }
     }
@@ -327,7 +324,7 @@ implements Wrapper {
             float wrap = MathHelper.abs((float)(MathHelper.wrapDegrees((float)yaw) - offset));
             result = 95.0f < wrap && wrap < 265.0f ? offset - 180.0f : offset;
         }
-        if (RotateManager.mc.player.field_6251 > 0.0f) {
+        if (RotateManager.mc.player.handSwingProgress > 0.0f) {
             result = yaw;
         }
         if ((offset = MathHelper.wrapDegrees((float)(yaw - (result = offsetIn + MathHelper.wrapDegrees((float)(result - offsetIn)) * 0.3f)))) < -75.0f) {

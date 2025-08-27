@@ -298,7 +298,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         String A1 = "\u00a74[\u64cd\u63a7\u529b] | \u00a78\u538b\u5236";
         String D1 = "\u00a73[\u538b\u5236] | \u00a78\u64cd\u63a7\u529b";
         String t4 = "\u9759\u6001\u540c\u6b65";
-        ArrayList effects = new ArrayList(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getStatusEffects());
+        ArrayList<StatusEffectInstance> effects = new ArrayList(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getStatusEffects());
         if (this.totemtext.getValue()) {
             drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, t1, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(t1) / 2)), (int)y, this.getColor(this.counter));
             ++this.counter;
@@ -365,7 +365,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         dfDistance.setRoundingMode(RoundingMode.CEILING);
         StringBuilder distanceSB = new StringBuilder();
         for (PlayerEntity player : HUD_ssNtBhEveKlCmIccBvAN.mc.world.getPlayers()) {
-            if (player.method_5767() || player.getName().equals((Object)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getName())) continue;
+            if (player.isInvisible() || player.getName().equals((Object)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getName())) continue;
             int distanceInt = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.distanceTo((Entity)player);
             String distance = dfDistance.format(distanceInt);
             if (distanceInt >= 25) {
@@ -404,11 +404,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private String getColoredPotionString(StatusEffectInstance effect) {
         StatusEffect potion = effect.getEffectType();
-        return potion.getName().getString() + " " + (effect.getAmplifier() + 1) + " \u00a7f" + StatusEffectUtil.getDurationText((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_54719().getTickRate()).getString();
+        return potion.getName().getString() + " " + (effect.getAmplifier() + 1) + " \u00a7f" + StatusEffectUtil.getDurationText((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.getTickManager().getTickRate()).getString();
     }
 
     private String getColoredPotionTimeString(StatusEffectInstance effect) {
-        return StatusEffectUtil.getDurationText((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_54719().getTickRate()).getString();
+        return StatusEffectUtil.getDurationText((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.getTickManager().getTickRate()).getString();
     }
 
     private int getColor(int counter) {
