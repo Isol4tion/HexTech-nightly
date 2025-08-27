@@ -1,0 +1,85 @@
+package me.hextech.remapped;
+
+import me.hextech.asm.accessors.IHeldItemRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.RotationAxis;
+
+public class ViewModel extends Module_eSdgMXWuzcxgQVaJFmKZ {
+   public static ViewModel INSTANCE;
+   public final BooleanSetting swingAnimation = this.add(new BooleanSetting("SwingAnimation", false));
+   public final BooleanSetting eatAnimation = this.add(new BooleanSetting("EatAnimation", false));
+   public final BooleanSetting mainhandSwap = this.add(new BooleanSetting("MainhandSwap", true));
+   public final BooleanSetting offhandSwap = this.add(new BooleanSetting("OffhandSwap", true));
+   public final SliderSetting scaleMainX = this.add(new SliderSetting("ScaleMainX", 1.0, 0.1F, 5.0, 0.01));
+   public final SliderSetting scaleMainY = this.add(new SliderSetting("ScaleMainY", 1.0, 0.1F, 5.0, 0.01));
+   public final SliderSetting scaleMainZ = this.add(new SliderSetting("ScaleMainZ", 1.0, 0.1F, 5.0, 0.01));
+   public final SliderSetting positionMainX = this.add(new SliderSetting("PositionMainX", 0.0, -3.0, 3.0, 0.01));
+   public final SliderSetting positionMainY = this.add(new SliderSetting("PositionMainY", 0.0, -3.0, 3.0, 0.01));
+   public final SliderSetting positionMainZ = this.add(new SliderSetting("PositionMainZ", 0.0, -3.0, 3.0, 0.01));
+   public final SliderSetting rotationMainX = this.add(new SliderSetting("RotationMainX", 0.0, -180.0, 180.0, 0.01));
+   public final SliderSetting rotationMainY = this.add(new SliderSetting("RotationMainY", 0.0, -180.0, 180.0, 0.01));
+   public final SliderSetting rotationMainZ = this.add(new SliderSetting("RotationMainZ", 0.0, -180.0, 180.0, 0.01));
+   public final SliderSetting scaleOffX = this.add(new SliderSetting("ScaleOffX", 1.0, 0.1F, 5.0, 0.01));
+   public final SliderSetting scaleOffY = this.add(new SliderSetting("ScaleOffY", 1.0, 0.1F, 5.0, 0.01));
+   public final SliderSetting scaleOffZ = this.add(new SliderSetting("ScaleOffZ", 1.0, 0.1F, 5.0, 0.01));
+   public final SliderSetting positionOffX = this.add(new SliderSetting("PositionOffX", 0.0, -3.0, 3.0, 0.01));
+   public final SliderSetting positionOffY = this.add(new SliderSetting("PositionOffY", 0.0, -3.0, 3.0, 0.01));
+   public final SliderSetting positionOffZ = this.add(new SliderSetting("PositionOffZ", 0.0, -3.0, 3.0, 0.01));
+   public final SliderSetting rotationOffX = this.add(new SliderSetting("RotationOffX", 0.0, -180.0, 180.0, 0.01));
+   public final SliderSetting rotationOffY = this.add(new SliderSetting("RotationOffY", 0.0, -180.0, 180.0, 0.01));
+   public final SliderSetting rotationOffZ = this.add(new SliderSetting("RotationOffZ", 0.0, -180.0, 180.0, 0.01));
+   public final BooleanSetting slowAnimation = this.add(new BooleanSetting("SlowAnimation", true));
+   public final SliderSetting slowAnimationVal = this.add(new SliderSetting("SlowValue", 6, 1, 50));
+   public final SliderSetting eatX = this.add(new SliderSetting("EatX", 1.0, -1.0, 2.0, 0.01));
+   public final SliderSetting eatY = this.add(new SliderSetting("EatY", 1.0, -1.0, 2.0, 0.01));
+   public final BooleanSetting setdeaflu = this.add(new BooleanSetting("Setdefault", false));
+
+   public ViewModel() {
+      super("ViewModel", Module_JlagirAibYQgkHtbRnhw.Render);
+      INSTANCE = this;
+   }
+
+   @Override
+   public void onUpdate() {
+      if (this.setdeaflu.getValue()) {
+         this.positionMainX.setValue(0.0);
+         this.positionMainY.setValue(0.0);
+         this.positionMainZ.setValue(0.0);
+         this.positionOffX.setValue(0.0);
+         this.positionOffY.setValue(0.0);
+         this.positionOffZ.setValue(0.0);
+         this.setdeaflu.setValue(false);
+      }
+   }
+
+   @Override
+   public void onRender3D(MatrixStack matrixStack, float partialTicks) {
+      if (!this.mainhandSwap.getValue() && ((IHeldItemRenderer)mc.method_1561().method_43336()).getEquippedProgressMainHand() <= 1.0F) {
+         ((IHeldItemRenderer)mc.method_1561().method_43336()).setEquippedProgressMainHand(1.0F);
+         ((IHeldItemRenderer)mc.method_1561().method_43336()).setItemStackMainHand(mc.field_1724.method_6047());
+      }
+
+      if (!this.offhandSwap.getValue() && ((IHeldItemRenderer)mc.method_1561().method_43336()).getEquippedProgressOffHand() <= 1.0F) {
+         ((IHeldItemRenderer)mc.method_1561().method_43336()).setEquippedProgressOffHand(1.0F);
+         ((IHeldItemRenderer)mc.method_1561().method_43336()).setItemStackOffHand(mc.field_1724.method_6079());
+      }
+   }
+
+   @EventHandler
+   private void onHeldItemRender(HeldItemRendererEvent event) {
+      if (event.getHand() == Hand.field_5808) {
+         event.getStack().method_46416(this.positionMainX.getValueFloat(), this.positionMainY.getValueFloat(), this.positionMainZ.getValueFloat());
+         event.getStack().method_22905(this.scaleMainX.getValueFloat(), this.scaleMainY.getValueFloat(), this.scaleMainZ.getValueFloat());
+         event.getStack().method_22907(RotationAxis.field_40714.rotationDegrees(this.rotationMainX.getValueFloat()));
+         event.getStack().method_22907(RotationAxis.field_40716.rotationDegrees(this.rotationMainY.getValueFloat()));
+         event.getStack().method_22907(RotationAxis.field_40718.rotationDegrees(this.rotationMainZ.getValueFloat()));
+      } else {
+         event.getStack().method_46416(this.positionOffX.getValueFloat(), this.positionOffY.getValueFloat(), this.positionOffZ.getValueFloat());
+         event.getStack().method_22905(this.scaleOffX.getValueFloat(), this.scaleOffY.getValueFloat(), this.scaleOffZ.getValueFloat());
+         event.getStack().method_22907(RotationAxis.field_40714.rotationDegrees(this.rotationOffX.getValueFloat()));
+         event.getStack().method_22907(RotationAxis.field_40716.rotationDegrees(this.rotationOffY.getValueFloat()));
+         event.getStack().method_22907(RotationAxis.field_40718.rotationDegrees(this.rotationOffZ.getValueFloat()));
+      }
+   }
+}

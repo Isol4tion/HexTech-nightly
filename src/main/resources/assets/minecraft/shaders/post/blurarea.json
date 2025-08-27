@@ -1,0 +1,39 @@
+{
+    "targets": [
+        "bufIn",
+        "swap",
+        "bufOut"
+    ],
+    "passes": [
+        {
+            "name": "blurarea",
+            "intarget": "minecraft:main",
+            "outtarget": "swap",
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "values": [ 1.0, 0.0 ]
+                },
+                {
+                    "name": "Radius",
+                    "values": [ 20.0 ]
+                }
+            ]
+        },
+        {
+            "name": "blurarea",
+            "intarget": "swap",
+            "outtarget": "bufOut",
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "values": [ 0.0, 1.0 ]
+                },
+                {
+                    "name": "Radius",
+                    "values": [ 20.0 ]
+                }
+            ]
+        }
+    ]
+}
