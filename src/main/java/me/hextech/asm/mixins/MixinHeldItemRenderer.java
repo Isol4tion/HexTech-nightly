@@ -8,16 +8,16 @@ import me.hextech.remapped.Wrapper;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.HeldItemRenderer;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.ModelTransformationMode;
-import net.minecraft.item.consume.UseAction;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
+import net.minecraft.util.UseAction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import org.jetbrains.annotations.NotNull;
@@ -50,23 +50,23 @@ public abstract class MixinHeldItemRenderer {
     }
 
     private void renderFirstPersonItemCustom(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        if (!player.method_31550()) {
+        if (!player.isUsingSpyglass()) {
             boolean bl = hand == Hand.MAIN_HAND;
-            Arm arm = bl ? player.method_6068() : player.method_6068().getOpposite();
+            Arm arm = bl ? player.getMainArm() : player.getMainArm().getOpposite();
             matrices.push();
             if (item.isOf(Items.CROSSBOW)) {
                 int i;
                 boolean bl2 = CrossbowItem.isCharged((ItemStack)item);
                 boolean bl3 = arm == Arm.RIGHT;
                 int n = i = bl3 ? 1 : -1;
-                if (player.method_6115() && player.method_6014() > 0 && player.method_6058() == hand) {
+                if (player.isUsingItem() && player.getItemUseTimeLeft() > 0 && player.getActiveHand() == hand) {
                     this.applyEquipOffset(matrices, arm, equipProgress);
                     matrices.translate((float)i * -0.4785682f, -0.094387f, 0.05731531f);
                     matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-11.935f));
                     matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((float)i * 65.3f));
                     matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees((float)i * -9.785f));
-                    float f = (float)item.method_7935() - ((float)Wrapper.mc.player.method_6014() - tickDelta + 1.0f);
-                    float g = f / (float)CrossbowItem.method_7775((ItemStack)item);
+                    float f = (float)item.getMaxUseTime() - ((float)Wrapper.mc.player.getItemUseTimeLeft() - tickDelta + 1.0f);
+                    float g = f / (float)CrossbowItem.getPullTime((ItemStack)item);
                     if (g > 1.0f) {
                         g = 1.0f;
                     }
@@ -97,7 +97,7 @@ public abstract class MixinHeldItemRenderer {
             } else {
                 boolean bl2;
                 boolean bl3 = bl2 = arm == Arm.RIGHT;
-                if (player.method_6115() && player.method_6014() > 0 && player.method_6058() == hand) {
+                if (player.isUsingItem() && player.getItemUseTimeLeft() > 0 && player.getActiveHand() == hand) {
                     int l = bl2 ? 1 : -1;
                     UseAction useAction = item.getUseAction();
                     if (Objects.requireNonNull(useAction) == UseAction.NONE || useAction == UseAction.BLOCK) {
@@ -115,7 +115,7 @@ public abstract class MixinHeldItemRenderer {
                         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-13.935f));
                         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((float)l * 35.3f));
                         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees((float)l * -9.785f));
-                        float m = (float)item.method_7935() - ((float)Wrapper.mc.player.method_6014() - tickDelta + 1.0f);
+                        float m = (float)item.getMaxUseTime() - ((float)Wrapper.mc.player.getItemUseTimeLeft() - tickDelta + 1.0f);
                         float f = m / 20.0f;
                         f = (f * f + f * 2.0f) / 3.0f;
                         if (f > 1.0f) {
@@ -136,7 +136,7 @@ public abstract class MixinHeldItemRenderer {
                         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-55.0f));
                         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((float)l * 35.3f));
                         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees((float)l * -9.785f));
-                        float m = (float)item.method_7935() - ((float)Wrapper.mc.player.method_6014() - tickDelta + 1.0f);
+                        float m = (float)item.getMaxUseTime() - ((float)Wrapper.mc.player.getItemUseTimeLeft() - tickDelta + 1.0f);
                         float f = m / 10.0f;
                         if (f > 1.0f) {
                             f = 1.0f;
@@ -153,7 +153,7 @@ public abstract class MixinHeldItemRenderer {
                     } else if (useAction == UseAction.BRUSH) {
                         this.applyBrushTransformation(matrices, tickDelta, arm, item, equipProgress);
                     }
-                } else if (player.method_6123()) {
+                } else if (player.isUsingRiptide()) {
                     this.applyEquipOffset(matrices, arm, equipProgress);
                     int l = bl2 ? 1 : -1;
                     matrices.translate((float)l * -0.4f, 0.8f, 0.3f);
@@ -189,8 +189,8 @@ public abstract class MixinHeldItemRenderer {
 
     private void applyEatOrDrinkTransformationCustom(MatrixStack matrices, float tickDelta, Arm arm, @NotNull ItemStack stack) {
         float h;
-        float f = (float)Wrapper.mc.player.method_6014() - tickDelta + 1.0f;
-        float g = f / (float)stack.method_7935();
+        float f = (float)Wrapper.mc.player.getItemUseTimeLeft() - tickDelta + 1.0f;
+        float g = f / (float)stack.getMaxUseTime();
         if (g < 0.8f) {
             h = MathHelper.abs((float)(MathHelper.cos((float)(f / 4.0f * (float)Math.PI)) * 0.005f));
             matrices.translate(0.0f, h, 0.0f);
@@ -213,8 +213,8 @@ public abstract class MixinHeldItemRenderer {
 
     private void applyBrushTransformation(MatrixStack matrices, float tickDelta, Arm arm, @NotNull ItemStack stack, float equipProgress) {
         this.applyEquipOffset(matrices, arm, equipProgress);
-        float f = (float)Wrapper.mc.player.method_6014() - tickDelta + 1.0f;
-        float g = 1.0f - f / (float)stack.method_7935();
+        float f = (float)Wrapper.mc.player.getItemUseTimeLeft() - tickDelta + 1.0f;
+        float g = 1.0f - f / (float)stack.getMaxUseTime();
         float m = -15.0f + 75.0f * MathHelper.cos((float)(g * 45.0f * (float)Math.PI));
         if (arm != Arm.RIGHT) {
             matrices.translate(0.1, 0.83, 0.35);

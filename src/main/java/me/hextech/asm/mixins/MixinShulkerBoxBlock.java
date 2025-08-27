@@ -4,7 +4,6 @@ import java.util.List;
 import me.hextech.remapped.ShulkerViewer;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
