@@ -21,8 +21,8 @@ implements Wrapper {
     }
 
     public static double getDistance2D() {
-        double xDist = MovementUtil.mc.player.method_23317() - MovementUtil.mc.player.field_6014;
-        double zDist = MovementUtil.mc.player.method_23321() - MovementUtil.mc.player.field_5969;
+        double xDist = MovementUtil.mc.player.getX() - MovementUtil.mc.player.field_6014;
+        double zDist = MovementUtil.mc.player.getZ() - MovementUtil.mc.player.field_5969;
         return Math.sqrt(xDist * xDist + zDist * zDist);
     }
 
@@ -83,7 +83,7 @@ implements Wrapper {
     public static double[] directionSpeed(double speed) {
         float forward = MovementUtil.mc.player.input.movementForward;
         float side = MovementUtil.mc.player.input.movementSideways;
-        float yaw = MovementUtil.mc.player.field_5982 + (MovementUtil.mc.player.method_36454() - MovementUtil.mc.player.field_5982) * mc.method_1488();
+        float yaw = MovementUtil.mc.player.field_5982 + (MovementUtil.mc.player.method_36454() - MovementUtil.mc.player.field_5982) * mc.getTickDelta();
         if (forward != 0.0f) {
             if (side > 0.0f) {
                 yaw += (float)(forward > 0.0f ? -45 : 45);

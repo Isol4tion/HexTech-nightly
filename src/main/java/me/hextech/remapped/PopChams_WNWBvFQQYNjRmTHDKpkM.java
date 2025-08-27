@@ -89,14 +89,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void renderEntity(MatrixStack matrices, LivingEntity entity, BipedEntityModel<PlayerEntity> modelBase, int alpha) {
-        double x = entity.method_23317() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.getEntityRenderDispatcher().camera.getPos().method_10216();
-        double y = entity.method_23318() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.getEntityRenderDispatcher().camera.getPos().method_10214();
-        double z = entity.method_23321() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.getEntityRenderDispatcher().camera.getPos().method_10215();
+        double x = entity.getX() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.getEntityRenderDispatcher().camera.getPos().method_10216();
+        double y = entity.getY() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.getEntityRenderDispatcher().camera.getPos().method_10214();
+        double z = entity.getZ() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.getEntityRenderDispatcher().camera.getPos().method_10215();
         matrices.push();
         matrices.translate((float)x, (float)y, (float)z);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotation(MathUtil.rad(180.0f - entity.bodyYaw)));
         PopChams_WNWBvFQQYNjRmTHDKpkM.prepareScale(matrices);
-        modelBase.method_17086((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), mc.method_1488());
+        modelBase.method_17086((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), mc.getTickDelta());
         modelBase.method_17087((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float)entity.field_6012, entity.headYaw - entity.bodyYaw, entity.method_36455());
         RenderSystem.enableBlend();
         GL11.glDisable((int)2929);

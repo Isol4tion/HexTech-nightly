@@ -14,15 +14,15 @@ public class PearlUtil
 implements Wrapper {
     public static void doPearl(float yaw, float pitch, boolean inv) {
         if (PearlUtil.mc.player.method_6047().getItem() == Items.ENDER_PEARL) {
-            EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(PearlUtil.mc.player.method_36454(), PearlUtil.mc.player.method_36455(), PearlUtil.mc.player.method_24828()));
-            PearlUtil.mc.player.networkHandler.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
+            EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(PearlUtil.mc.player.method_36454(), PearlUtil.mc.player.method_36455(), PearlUtil.mc.player.isOnGround()));
+            PearlUtil.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
         } else {
             int pearl = PearlUtil.findItem(Items.ENDER_PEARL, inv);
             if (pearl != -1) {
-                int old = PearlUtil.mc.player.method_31548().selectedSlot;
+                int old = PearlUtil.mc.player.getInventory().selectedSlot;
                 PearlUtil.doSwap(pearl, inv);
-                EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(PearlUtil.mc.player.method_36454(), PearlUtil.mc.player.method_36455(), PearlUtil.mc.player.method_24828()));
-                PearlUtil.mc.player.networkHandler.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
+                EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(PearlUtil.mc.player.method_36454(), PearlUtil.mc.player.method_36455(), PearlUtil.mc.player.isOnGround()));
+                PearlUtil.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
                 if (inv) {
                     PearlUtil.doSwap(pearl, true);
                     EntityUtil.syncInventory();
@@ -35,7 +35,7 @@ implements Wrapper {
 
     private static void doSwap(int slot, boolean inv) {
         if (inv) {
-            InventoryUtil.inventorySwap(slot, PearlUtil.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, PearlUtil.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

@@ -234,7 +234,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.Break.getValue()) {
             return;
         }
-        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.method_8320(pos).method_26204() instanceof BedBlock) {
+        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.getBlockState(pos).getBlock() instanceof BedBlock) {
             Direction side = BlockUtil.getClickSide(pos);
             Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
             if (this.rotate.getValue() && !this.faceVector(directionVec)) {
@@ -246,7 +246,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.breakTimer.reset();
             EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
             BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
-            BedAura_BzCWaQEhnpenizjBqrRp.mc.player.networkHandler.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(BedAura_BzCWaQEhnpenizjBqrRp.mc.world)));
+            BedAura_BzCWaQEhnpenizjBqrRp.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(BedAura_BzCWaQEhnpenizjBqrRp.mc.world)));
         }
     }
 
@@ -259,7 +259,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             placePos = null;
             return;
         }
-        int oldSlot = BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_31548().selectedSlot;
+        int oldSlot = BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getInventory().selectedSlot;
         Direction facing = null;
         for (Direction i : Direction.values()) {
             if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.clientCanPlace(pos.offset(i), false) || !BlockUtil.canClick(pos.offset(i).down()) || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i))) continue;
@@ -349,7 +349,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventorySwap.getValue()) {
-            InventoryUtil.inventorySwap(slot, BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

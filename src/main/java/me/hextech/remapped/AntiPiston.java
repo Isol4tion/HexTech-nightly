@@ -50,10 +50,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (!AntiPiston.mc.player.method_24828()) {
+        if (!AntiPiston.mc.player.isOnGround()) {
             return;
         }
-        if (this.usingPause.getValue() && AntiPiston.mc.player.method_6115()) {
+        if (this.usingPause.getValue() && AntiPiston.mc.player.isUsingItem()) {
             return;
         }
         this.block();
@@ -64,16 +64,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.moveUp.getValue()) {
             boolean canMove = false;
             for (Direction i : Direction.values()) {
-                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction)AntiPiston.mc.world.method_8320(pos.offset(i).up()).method_11654((Property)FacingBlock.field_10927)).getOpposite() != i) {
+                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction)AntiPiston.mc.world.getBlockState(pos.offset(i).up()).get((Property)FacingBlock.FACING)).getOpposite() != i) {
                     if (this.webUpdate((PlayerEntity)AntiPiston.mc.player)) continue;
                     canMove = true;
                     continue;
                 }
                 if (!canMove) continue;
-                mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(AntiPiston.mc.player.method_23317(), AntiPiston.mc.player.method_23318() + 0.4199999868869781, AntiPiston.mc.player.method_23321(), false));
-                mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(AntiPiston.mc.player.method_23317(), AntiPiston.mc.player.method_23318() + 0.7531999805212017, AntiPiston.mc.player.method_23321(), false));
-                AntiPiston.mc.player.method_5814(AntiPiston.mc.player.method_23317(), AntiPiston.mc.player.method_23318() + 1.0, AntiPiston.mc.player.method_23321());
-                mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(AntiPiston.mc.player.method_23317(), AntiPiston.mc.player.method_23318(), AntiPiston.mc.player.method_23321(), true));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(AntiPiston.mc.player.getX(), AntiPiston.mc.player.getY() + 0.4199999868869781, AntiPiston.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(AntiPiston.mc.player.getX(), AntiPiston.mc.player.getY() + 0.7531999805212017, AntiPiston.mc.player.getZ(), false));
+                AntiPiston.mc.player.setPosition(AntiPiston.mc.player.getX(), AntiPiston.mc.player.getY() + 1.0, AntiPiston.mc.player.getZ());
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(AntiPiston.mc.player.getX(), AntiPiston.mc.player.getY(), AntiPiston.mc.player.getZ(), true));
                 canMove = false;
             }
         }
@@ -83,16 +83,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int progress = 0;
         if (this.whenDouble.getValue()) {
             for (Direction i : Direction.values()) {
-                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction)AntiPiston.mc.world.method_8320(pos.offset(i).up()).method_11654((Property)FacingBlock.field_10927)).getOpposite() != i) continue;
+                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction)AntiPiston.mc.world.getBlockState(pos.offset(i).up()).get((Property)FacingBlock.FACING)).getOpposite() != i) continue;
                 ++progress;
             }
         }
         if (!this.webUpdate((PlayerEntity)AntiPiston.mc.player)) {
-            AntiPiston.mc.player.method_5814(AntiPiston.mc.player.method_23317(), AntiPiston.mc.player.method_23318() + 3.0, AntiPiston.mc.player.method_23321());
-            mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(AntiPiston.mc.player.method_23317(), AntiPiston.mc.player.method_23318(), AntiPiston.mc.player.method_23321(), true));
+            AntiPiston.mc.player.setPosition(AntiPiston.mc.player.getX(), AntiPiston.mc.player.getY() + 3.0, AntiPiston.mc.player.getZ());
+            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(AntiPiston.mc.player.getX(), AntiPiston.mc.player.getY(), AntiPiston.mc.player.getZ(), true));
         }
         for (Direction i : Direction.values()) {
-            if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction)AntiPiston.mc.world.method_8320(pos.offset(i).up()).method_11654((Property)FacingBlock.field_10927)).getOpposite() != i) continue;
+            if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction)AntiPiston.mc.world.getBlockState(pos.offset(i).up()).get((Property)FacingBlock.FACING)).getOpposite() != i) continue;
             this.placeBlock(pos.up().offset(i, -1));
             if (this.trap.getValue() && (this.getBlock(pos) != Blocks.AIR || !this.onlyBurrow.getValue() || progress >= 2)) {
                 this.placeBlock(pos.up(2));
@@ -114,14 +114,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private Block getBlock(BlockPos block) {
-        return AntiPiston.mc.world.method_8320(block).method_26204();
+        return AntiPiston.mc.world.getBlockState(block).getBlock();
     }
 
     private void placeBlock(BlockPos pos) {
         if (!AntiPiston.canPlace(pos)) {
             return;
         }
-        int old = AntiPiston.mc.player.method_31548().selectedSlot;
+        int old = AntiPiston.mc.player.getInventory().selectedSlot;
         int block = this.findBlock(Blocks.OBSIDIAN);
         if (block == -1) {
             return;
@@ -145,7 +145,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, AntiPiston.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, AntiPiston.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -155,8 +155,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (float x : new float[]{0.0f, 0.3f, -0.3f}) {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
                 for (int y : new int[]{-1, 0, 1, 2}) {
-                    BlockPos pos = new BlockPosX(player.method_23317() + (double)x, player.method_23318(), player.method_23321() + (double)z).method_10086(y);
-                    if (!new Box(pos).intersects(player.method_5829()) || AntiPiston.mc.world.method_8320(pos).method_26204() != Blocks.COBWEB) continue;
+                    BlockPos pos = new BlockPosX(player.getX() + (double)x, player.getY(), player.getZ() + (double)z).up(y);
+                    if (!new Box(pos).intersects(player.getBoundingBox()) || AntiPiston.mc.world.getBlockState(pos).getBlock() != Blocks.COBWEB) continue;
                     return true;
                 }
             }

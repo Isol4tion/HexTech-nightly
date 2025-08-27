@@ -26,10 +26,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         this.work = false;
-        if (AntiCrawl.mc.player.method_20448() || this.pre.getValue() && HexTech.BREAK.isMining(AntiCrawl.mc.player.method_24515())) {
+        if (AntiCrawl.mc.player.isCrawling() || this.pre.getValue() && HexTech.BREAK.isMining(AntiCrawl.mc.player.getBlockPos())) {
             for (double offset : this.xzOffset) {
                 for (double offset2 : this.xzOffset) {
-                    BlockPosX pos = new BlockPosX(AntiCrawl.mc.player.method_23317() + offset, AntiCrawl.mc.player.method_23318() + 1.2, AntiCrawl.mc.player.method_23321() + offset2);
+                    BlockPosX pos = new BlockPosX(AntiCrawl.mc.player.getX() + offset, AntiCrawl.mc.player.getY() + 1.2, AntiCrawl.mc.player.getZ() + offset2);
                     if (!this.mine.getValue() || !this.canBreak(pos)) continue;
                     SpeedMine.INSTANCE.mine(pos);
                     this.work = true;
@@ -40,6 +40,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean canBreak(BlockPos pos) {
-        return (BlockUtil.getClickSideStrict(pos) != null || SpeedMine.breakPos.equals((Object)pos)) && !SpeedMine.godBlocks.contains(AntiCrawl.mc.world.method_8320(pos).method_26204()) && !AntiCrawl.mc.world.method_22347(pos);
+        return (BlockUtil.getClickSideStrict(pos) != null || SpeedMine.breakPos.equals(pos)) && !SpeedMine.godBlocks.contains(AntiCrawl.mc.world.getBlockState(pos).getBlock()) && !AntiCrawl.mc.world.isAir(pos);
     }
 }

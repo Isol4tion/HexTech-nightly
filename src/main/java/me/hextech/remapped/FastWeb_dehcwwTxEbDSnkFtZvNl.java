@@ -39,10 +39,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (this.groundcheck.getValue() && FastWeb_dehcwwTxEbDSnkFtZvNl.mc.player.method_24828()) {
+        if (this.groundcheck.getValue() && FastWeb_dehcwwTxEbDSnkFtZvNl.mc.player.isOnGround()) {
             return;
         }
-        boolean bl = this.work = !FastWeb_dehcwwTxEbDSnkFtZvNl.mc.player.method_24828() && (FastWeb_dehcwwTxEbDSnkFtZvNl.mc.options.sneakKey.isPressed() || !this.onlySneak.getValue()) && HoleKickTest.isInWeb((PlayerEntity)FastWeb_dehcwwTxEbDSnkFtZvNl.mc.player);
+        boolean bl = this.work = !FastWeb_dehcwwTxEbDSnkFtZvNl.mc.player.isOnGround() && (FastWeb_dehcwwTxEbDSnkFtZvNl.mc.options.sneakKey.isPressed() || !this.onlySneak.getValue()) && HoleKickTest.isInWeb((PlayerEntity)FastWeb_dehcwwTxEbDSnkFtZvNl.mc.player);
         if (this.work && this.mode.getValue() == FastWeb.Vanilla) {
             MovementUtil.setMotionY(MovementUtil.getMotionY() - this.fastSpeed.getValue());
         }

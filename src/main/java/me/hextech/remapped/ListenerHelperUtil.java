@@ -90,7 +90,7 @@ implements Wrapper {
 
     private static boolean noEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
         if (ListenerHelperUtil.mc.world != null) {
-            for (Entity entity : ListenerHelperUtil.mc.world.method_18467(Entity.class, new Box(pos))) {
+            for (Entity entity : ListenerHelperUtil.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
                 if (!entity.isAlive() || ignoreItem && entity instanceof ItemEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
                 if (entity instanceof EndCrystalEntity) {
                     if (!ignoreCrystal) {

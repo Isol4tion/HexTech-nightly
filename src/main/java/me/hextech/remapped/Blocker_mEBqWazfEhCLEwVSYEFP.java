@@ -77,7 +77,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.getObsidian() == -1) {
             return;
         }
-        if (this.inAirPause.getValue() && !Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.method_24828()) {
+        if (this.inAirPause.getValue() && !Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.isOnGround()) {
             return;
         }
         this.placePos.removeIf(pos -> !BlockUtil.clientCanPlace(pos, true));
@@ -112,11 +112,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean crystalHere(BlockPos pos) {
-        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.world.method_18467(EndCrystalEntity.class, new Box(pos)).stream().anyMatch(entity -> entity.method_24515().equals((Object)pos));
+        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.world.getNonSpectatingEntities(EndCrystalEntity.class, new Box(pos)).stream().anyMatch(entity -> entity.getBlockPos().equals((Object)pos));
     }
 
     private boolean isBedrock(BlockPos pos) {
-        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.world.method_8320(pos).method_26204() == Blocks.BEDROCK;
+        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.world.getBlockState(pos).getBlock() == Blocks.BEDROCK;
     }
 
     private void tryPlaceObsidian(BlockPos pos) {
@@ -126,7 +126,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.detectMining.getValue() && BlockUtil.isMining(pos)) {
             return;
         }
-        int oldSlot = Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.method_31548().selectedSlot;
+        int oldSlot = Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.getInventory().selectedSlot;
         int block = this.getObsidian();
         if (block == -1) {
             return;
@@ -146,7 +146,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventorySwap.getValue()) {
-            InventoryUtil.inventorySwap(slot, Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

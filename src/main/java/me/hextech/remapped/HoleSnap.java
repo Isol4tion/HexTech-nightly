@@ -186,7 +186,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Vec3d playerPos = HoleSnap.mc.player.method_19538();
-        this.targetPos = new Vec3d((double)this.holePos.method_10263() + 0.5, HoleSnap.mc.player.method_23318(), (double)this.holePos.method_10260() + 0.5);
+        this.targetPos = new Vec3d((double)this.holePos.method_10263() + 0.5, HoleSnap.mc.player.getY(), (double)this.holePos.method_10260() + 0.5);
         if (CombatUtil.isDoubleHole(this.holePos) && (facing = CombatUtil.is3Block(this.holePos)) != null) {
             this.targetPos = this.targetPos.add(new Vec3d((double)facing.method_10163().getX() * 0.5, (double)facing.method_10163().getY() * 0.5, (double)facing.method_10163().getZ() * 0.5));
         }

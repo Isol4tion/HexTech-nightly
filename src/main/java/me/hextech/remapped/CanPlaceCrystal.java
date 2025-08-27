@@ -26,7 +26,7 @@ implements Wrapper {
 
     private static boolean hasEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
         if (CanPlaceCrystal.mc.world != null) {
-            for (Entity entity : CanPlaceCrystal.mc.world.method_18467(Entity.class, new Box(pos))) {
+            for (Entity entity : CanPlaceCrystal.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
                 if (!entity.isAlive() || ignoreItem && entity instanceof ItemEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
                 if (entity instanceof EndCrystalEntity) {
                     if (!ignoreCrystal) {

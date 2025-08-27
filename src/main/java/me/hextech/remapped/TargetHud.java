@@ -141,10 +141,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float posX = 114514.0f;
         float posY = 114514.0f;
         if (this.move.getValue() && (double)target.method_5739((Entity)TargetHud.mc.player) <= this.moveDis.getValue()) {
-            double x = target.field_6014 + (target.method_23317() - target.field_6014) * (double)mc.method_1488();
-            double y = target.field_6036 + (target.method_23318() - target.field_6036) * (double)mc.method_1488();
-            double z = target.field_5969 + (target.method_23321() - target.field_5969) * (double)mc.method_1488();
-            Vec3d vector = new Vec3d(x, y + target.method_5829().getLengthY() + (double)this.moveY.getValueInt(), z);
+            double x = target.field_6014 + (target.getX() - target.field_6014) * (double)mc.getTickDelta();
+            double y = target.field_6036 + (target.getY() - target.field_6036) * (double)mc.getTickDelta();
+            double z = target.field_5969 + (target.getZ() - target.field_5969) * (double)mc.getTickDelta();
+            Vec3d vector = new Vec3d(x, y + target.getBoundingBox().getLengthY() + (double)this.moveY.getValueInt(), z);
             vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
             if (vector.z > 0.0 && vector.z < 1.0) {
                 Vector4d position = new Vector4d(vector.x, vector.y, vector.z, 0.0);

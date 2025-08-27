@@ -61,7 +61,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.getBlock() == -1) {
             return;
         }
-        if (this.onlyGround.getValue() && !Objects.requireNonNull(AntiCev.mc.player).method_24828()) {
+        if (this.onlyGround.getValue() && !Objects.requireNonNull(AntiCev.mc.player).isOnGround()) {
             return;
         }
         this.crystalPos.removeIf(pos -> !BlockUtil.clientCanPlace(pos, true));
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean crystalHere(BlockPos pos) {
-        for (Entity entity : Objects.requireNonNull(AntiCev.mc.world).method_18467(EndCrystalEntity.class, new Box(pos))) {
+        for (Entity entity : Objects.requireNonNull(AntiCev.mc.world).getNonSpectatingEntities(EndCrystalEntity.class, new Box(pos))) {
             if (!EntityUtil.getEntityPos(entity).equals((Object)pos)) continue;
             return true;
         }
@@ -83,7 +83,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean isGod(BlockPos pos) {
-        return Objects.requireNonNull(AntiCev.mc.world).method_8320(pos).method_26204() == Blocks.BEDROCK;
+        return Objects.requireNonNull(AntiCev.mc.world).getBlockState(pos).getBlock() == Blocks.BEDROCK;
     }
 
     private void placeBlock(BlockPos pos) {
@@ -112,7 +112,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, AntiCev.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, AntiCev.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

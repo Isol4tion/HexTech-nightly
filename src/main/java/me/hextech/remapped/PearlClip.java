@@ -59,7 +59,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void updatePos() {
-        this.targetPos = new Vec3d(PearlClip.mc.player.method_23317() + MathHelper.clamp((double)(this.roundToClosest(PearlClip.mc.player.method_23317(), Math.floor(PearlClip.mc.player.method_23317()) + 0.241, Math.floor(PearlClip.mc.player.method_23317()) + 0.759) - PearlClip.mc.player.method_23317()), (double)-0.2, (double)0.2), PearlClip.mc.player.method_23318() - 0.5, PearlClip.mc.player.method_23321() + MathHelper.clamp((double)(this.roundToClosest(PearlClip.mc.player.method_23321(), Math.floor(PearlClip.mc.player.method_23321()) + 0.241, Math.floor(PearlClip.mc.player.method_23321()) + 0.759) - PearlClip.mc.player.method_23321()), (double)-0.2, (double)0.2));
+        this.targetPos = new Vec3d(PearlClip.mc.player.getX() + MathHelper.clamp((double)(this.roundToClosest(PearlClip.mc.player.getX(), Math.floor(PearlClip.mc.player.getX()) + 0.241, Math.floor(PearlClip.mc.player.getX()) + 0.759) - PearlClip.mc.player.getX()), (double)-0.2, (double)0.2), PearlClip.mc.player.getY() - 0.5, PearlClip.mc.player.getZ() + MathHelper.clamp((double)(this.roundToClosest(PearlClip.mc.player.getZ(), Math.floor(PearlClip.mc.player.getZ()) + 0.241, Math.floor(PearlClip.mc.player.getZ()) + 0.759) - PearlClip.mc.player.getZ()), (double)-0.2, (double)0.2));
     }
 
     @EventHandler
@@ -92,14 +92,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (PearlClip.mc.player.method_6047().getItem() == Items.ENDER_PEARL) {
             PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
         } else if (AutoPearl.INSTANCE.inventory.getValue() && (pearl = InventoryUtil.findItemInventorySlot(Items.ENDER_PEARL)) != -1) {
-            InventoryUtil.inventorySwap(pearl, PearlClip.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(pearl, PearlClip.mc.player.getInventory().selectedSlot);
             PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
-            InventoryUtil.inventorySwap(pearl, PearlClip.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(pearl, PearlClip.mc.player.getInventory().selectedSlot);
             EntityUtil.syncInventory();
         } else {
             pearl = InventoryUtil.findItem(Items.ENDER_PEARL);
             if (pearl != -1) {
-                int old = PearlClip.mc.player.method_31548().selectedSlot;
+                int old = PearlClip.mc.player.getInventory().selectedSlot;
                 InventoryUtil.switchToSlot(pearl);
                 PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
                 InventoryUtil.switchToSlot(old);

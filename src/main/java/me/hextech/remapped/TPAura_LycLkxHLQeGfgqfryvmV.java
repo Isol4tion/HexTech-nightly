@@ -109,7 +109,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!((double)Math.max((float)at / TPAura_LycLkxHLQeGfgqfryvmV.getAttackCooldownProgressPerTick(), 0.0f) >= this.cooldown.getValue())) {
             return false;
         }
-        return this.whileEating.getValue() || !TPAura_LycLkxHLQeGfgqfryvmV.mc.player.method_6115();
+        return this.whileEating.getValue() || !TPAura_LycLkxHLQeGfgqfryvmV.mc.player.isUsingItem();
     }
 
     private LivingEntity getTarget() {
@@ -145,16 +145,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         attacking = true;
         List<Vec3> tpPath = PathUtils.computePath((LivingEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player, entity);
         this.lastPath = new ArrayList<Vec3>(tpPath);
-        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
+        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
         TPAura_LycLkxHLQeGfgqfryvmV.mc.interactionManager.attackEntity((PlayerEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player, (Entity)target);
         EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
         tpPath = Lists.reverse(tpPath);
-        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
+        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
         if (this.test.getValue()) {
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.354844, 0.0, false));
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, 0.325488, 0.0, false));
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15441, 0.0, false));
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15444, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.354844, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, 0.325488, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15441, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15444, 0.0, false));
         }
         attacking = false;
         this.attackTicks = 0;

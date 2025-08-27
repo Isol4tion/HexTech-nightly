@@ -55,7 +55,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public static int findPotionInventorySlot(StatusEffect targetEffect) {
         for (int i = 0; i < 45; ++i) {
-            ItemStack itemStack = AutoPotPlus.mc.player.method_31548().method_5438(i);
+            ItemStack itemStack = AutoPotPlus.mc.player.getInventory().method_5438(i);
             if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
             List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
@@ -140,16 +140,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public void throwPotion(StatusEffect targetEffect) {
         int newSlot;
-        int oldSlot = AutoPotPlus.mc.player.method_31548().selectedSlot;
+        int oldSlot = AutoPotPlus.mc.player.getInventory().selectedSlot;
         if (this.inventory.getValue() && (newSlot = AutoPotPlus.findPotionInventorySlot(targetEffect)) != -1) {
             if (this.throwPos != null) {
                 this.snapAt(this.throwPos.toCenterPos());
             } else {
                 EntityUtil.sendYawAndPitch(AutoPotPlus.mc.player.method_36454(), 90.0f);
             }
-            InventoryUtil.inventorySwap(newSlot, AutoPotPlus.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(newSlot, AutoPotPlus.mc.player.getInventory().selectedSlot);
             AutoPotPlus.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
-            InventoryUtil.inventorySwap(newSlot, AutoPotPlus.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(newSlot, AutoPotPlus.mc.player.getInventory().selectedSlot);
             EntityUtil.syncInventory();
             this.delayTimer.reset();
         } else {
@@ -171,8 +171,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public BlockPos findPos() {
         for (float x : new float[]{0.0f, -0.3f, 0.3f}) {
             for (float z : new float[]{0.0f, -0.3f, 0.3f}) {
-                BlockPosX pos = new BlockPosX(AutoPotPlus.mc.player.method_23317() + (double)x, AutoPotPlus.mc.player.method_23318() - 0.5, AutoPotPlus.mc.player.method_23321() + (double)z);
-                if (BlockUtil.isAir(pos) || AutoPotPlus.mc.world.method_8320((BlockPos)pos).method_26204() == Blocks.COBWEB) continue;
+                BlockPosX pos = new BlockPosX(AutoPotPlus.mc.player.getX() + (double)x, AutoPotPlus.mc.player.getY() - 0.5, AutoPotPlus.mc.player.getZ() + (double)z);
+                if (BlockUtil.isAir(pos) || AutoPotPlus.mc.world.getBlockState((BlockPos)pos).getBlock() == Blocks.COBWEB) continue;
                 return pos;
             }
         }
@@ -190,7 +190,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!(AutoPotPlus.mc.currentScreen == null || AutoPotPlus.mc.currentScreen instanceof ChatScreen || AutoPotPlus.mc.currentScreen instanceof InventoryScreen || AutoPotPlus.mc.currentScreen instanceof ClickGuiScreen || AutoPotPlus.mc.currentScreen instanceof GameMenuScreen)) {
             return false;
         }
-        if (this.usingPause.getValue() && AutoPotPlus.mc.player.method_6115()) {
+        if (this.usingPause.getValue() && AutoPotPlus.mc.player.isUsingItem()) {
             return false;
         }
         return AutoPotPlus.findPotion(targetEffect) != -1 || this.inventory.getValue() && AutoPotPlus.findPotionInventorySlot(targetEffect) != -1;

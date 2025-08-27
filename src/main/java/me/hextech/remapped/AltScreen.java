@@ -28,35 +28,35 @@ extends Screen {
         this.parentScreen = parentScreen;
     }
 
-    public void method_25426() {
+    public void init() {
         super.init();
-        this.altListSelector = new AltSelectionList_DSrXNkYQoNXcgOtMWUrt(this, this.field_22787, this.field_22789, this.field_22790, 32, this.field_22790 - 64);
+        this.altListSelector = new AltSelectionList_DSrXNkYQoNXcgOtMWUrt(this, this.client, this.width, this.height, 32, this.height - 64);
         this.altListSelector.updateAlts();
-        this.method_37063((Element)this.altListSelector);
-        this.deleteButton = ButtonWidget.builder((Text)Text.of((String)"Delete Alt"), b -> this.deleteSelected()).dimensions(this.field_22789 / 2 - 154, this.field_22790 - 28, 100, 20).build();
-        this.deleteButton.field_22763 = false;
-        this.method_37063((Element)this.deleteButton);
-        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Token Login"), b -> this.field_22787.setScreen((Screen)new TokenLoginScreen(this))).dimensions(this.field_22789 / 2 - 154, this.field_22790 - 52, 100, 20).build());
-        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Direct Login"), b -> this.field_22787.setScreen((Screen)new DirectLoginAltScreen(this))).dimensions(this.field_22789 / 2 - 50, this.field_22790 - 52, 100, 20).build());
-        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Add Alt"), b -> this.field_22787.setScreen((Screen)new AddAltScreen(this))).dimensions(this.field_22789 / 2 + 54, this.field_22790 - 52, 100, 20).build());
-        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.field_22787.setScreen(this.parentScreen)).dimensions(this.field_22789 / 2 + 54, this.field_22790 - 28, 100, 20).build());
-        this.editButton = ButtonWidget.builder((Text)Text.of((String)"EditionHex Alt"), b -> this.editSelected()).dimensions(this.field_22789 / 2 - 50, this.field_22790 - 28, 100, 20).build();
-        this.editButton.field_22763 = false;
-        this.method_37063((Element)this.editButton);
+        this.addDrawableChild(this.altListSelector);
+        this.deleteButton = ButtonWidget.builder((Text)Text.of((String)"Delete Alt"), b -> this.deleteSelected()).dimensions(this.width / 2 - 154, this.height - 28, 100, 20).build();
+        this.deleteButton.active = false;
+        this.addDrawableChild(this.deleteButton);
+        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Token Login"), b -> this.client.setScreen((Screen)new TokenLoginScreen(this))).dimensions(this.width / 2 - 154, this.height - 52, 100, 20).build());
+        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Direct Login"), b -> this.client.setScreen((Screen)new DirectLoginAltScreen(this))).dimensions(this.width / 2 - 50, this.height - 52, 100, 20).build());
+        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Add Alt"), b -> this.client.setScreen((Screen)new AddAltScreen(this))).dimensions(this.width / 2 + 54, this.height - 52, 100, 20).build());
+        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.client.setScreen(this.parentScreen)).dimensions(this.width / 2 + 54, this.height - 28, 100, 20).build());
+        this.editButton = ButtonWidget.builder((Text)Text.of((String)"EditionHex Alt"), b -> this.editSelected()).dimensions(this.width / 2 - 50, this.height - 28, 100, 20).build();
+        this.editButton.active = false;
+        this.addDrawableChild(this.editButton);
     }
 
-    public void method_25394(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
-        this.altListSelector.method_25394(drawContext, mouseX, mouseY, partialTicks);
-        super.method_25394(drawContext, mouseX, mouseY, partialTicks);
-        drawContext.drawCenteredTextWithShadow(this.field_22793, "Currently Logged Into: " + MinecraftClient.getInstance().getSession().getUsername(), this.field_22789 / 2, 20, 0xFFFFFF);
+    public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+        this.altListSelector.render(drawContext, mouseX, mouseY, partialTicks);
+        super.render(drawContext, mouseX, mouseY, partialTicks);
+        drawContext.drawCenteredTextWithShadow(this.textRenderer, "Currently Logged Into: " + MinecraftClient.getInstance().getSession().getUsername(), this.width / 2, 20, 0xFFFFFF);
     }
 
-    public void method_25419() {
-        this.field_22787.setScreen(this.parentScreen);
+    public void close() {
+        this.client.setScreen(this.parentScreen);
     }
 
     public void refreshAltList() {
-        this.field_22787.setScreen((Screen)new AltScreen(this.parentScreen));
+        this.client.setScreen((Screen)new AltScreen(this.parentScreen));
     }
 
     public void setSelected(AltSelectionList_MlYuzYrWmNSiQOBPfePW selected) {
@@ -65,12 +65,12 @@ extends Screen {
     }
 
     protected void setEdittable() {
-        this.editButton.field_22763 = true;
-        this.deleteButton.field_22763 = true;
+        this.editButton.active = true;
+        this.deleteButton.active = true;
     }
 
     public void loginToSelected() {
-        AltSelectionList_MlYuzYrWmNSiQOBPfePW altselectionlist$entry = (AltSelectionList_MlYuzYrWmNSiQOBPfePW)this.altListSelector.method_25334();
+        AltSelectionList_MlYuzYrWmNSiQOBPfePW altselectionlist$entry = this.altListSelector.getSelectedOrNull();
         if (altselectionlist$entry == null) {
             return;
         }
@@ -79,15 +79,15 @@ extends Screen {
     }
 
     public void editSelected() {
-        Alt alt = ((AltSelectionList)this.altListSelector.method_25334()).getAltData();
+        Alt alt = ((AltSelectionList)this.altListSelector.getSelectedOrNull()).getAltData();
         if (alt == null) {
             return;
         }
-        this.field_22787.setScreen((Screen)new EditAltScreen(this, alt));
+        this.client.setScreen((Screen)new EditAltScreen(this, alt));
     }
 
     public void deleteSelected() {
-        Alt alt = ((AltSelectionList)this.altListSelector.method_25334()).getAltData();
+        Alt alt = ((AltSelectionList)this.altListSelector.getSelectedOrNull()).getAltData();
         if (alt == null) {
             return;
         }

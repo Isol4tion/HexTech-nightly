@@ -72,7 +72,7 @@ implements Wrapper {
         effect.setUniformValue("Radius", Radius);
         effect.setUniformValue("BlurXY", BlurX + offsetX, (float)mc.getWindow().getScaledHeight() - BlurY - offsetY);
         effect.setUniformValue("BlurCoord", (float)((int)BlurCoordX), BlurCoordY);
-        effect.render(mc.method_1488());
+        effect.render(mc.getTickDelta());
     }
 
     public void updateResolution() {

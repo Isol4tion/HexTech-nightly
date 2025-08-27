@@ -102,10 +102,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (PlayerEntity ent : NameTags_NZLxiZHrtsQKbsfDngrN.mc.world.method_18456()) {
             Vec3d vector;
             if (ent == NameTags_NZLxiZHrtsQKbsfDngrN.mc.player && NameTags_NZLxiZHrtsQKbsfDngrN.mc.options.getPerspective().isFirstPerson() && FreeCam.INSTANCE.isOff()) continue;
-            double x = ent.field_6014 + (ent.method_23317() - ent.field_6014) * (double)mc.method_1488();
-            double y = ent.field_6036 + (ent.method_23318() - ent.field_6036) * (double)mc.method_1488();
-            double z = ent.field_5969 + (ent.method_23321() - ent.field_5969) * (double)mc.method_1488();
-            Vec3d preVec = vector = new Vec3d(x, y + this.height.getValue() + ent.method_5829().getLengthY() + 0.3, z);
+            double x = ent.field_6014 + (ent.getX() - ent.field_6014) * (double)mc.getTickDelta();
+            double y = ent.field_6036 + (ent.getY() - ent.field_6036) * (double)mc.getTickDelta();
+            double z = ent.field_5969 + (ent.getZ() - ent.field_5969) * (double)mc.getTickDelta();
+            Vec3d preVec = vector = new Vec3d(x, y + this.height.getValue() + ent.getBoundingBox().getLengthY() + 0.3, z);
             vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
             if (!(vector.z > 0.0) || !(vector.z < 1.0)) continue;
             Vector4d position = new Vector4d(vector.x, vector.y, vector.z, 0.0);

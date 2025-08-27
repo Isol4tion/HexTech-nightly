@@ -61,19 +61,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         this.progress = 0;
-        if (this.usingPause.getValue() && SelfFlatten.mc.player.method_6115()) {
+        if (this.usingPause.getValue() && SelfFlatten.mc.player.isUsingItem()) {
             return;
         }
-        if (this.selfGround.getValue() && !SelfFlatten.mc.player.method_24828()) {
+        if (this.selfGround.getValue() && !SelfFlatten.mc.player.isOnGround()) {
             return;
         }
-        if (!SelfFlatten.mc.player.method_24828()) {
+        if (!SelfFlatten.mc.player.isOnGround()) {
             return;
         }
         if (!this.timer.passedMs(this.delay.getValueInt())) {
             return;
         }
-        int oldSlot = SelfFlatten.mc.player.method_31548().selectedSlot;
+        int oldSlot = SelfFlatten.mc.player.getInventory().selectedSlot;
         int block = this.getBlock();
         if (block == -1) {
             return;
@@ -81,10 +81,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!EntityUtil.isInsideBlock()) {
             return;
         }
-        BlockPos pos1 = new BlockPosX(SelfFlatten.mc.player.method_23317() + 0.6, SelfFlatten.mc.player.method_23318() + 0.5, SelfFlatten.mc.player.method_23321() + 0.6).method_10074();
-        BlockPos pos2 = new BlockPosX(SelfFlatten.mc.player.method_23317() - 0.6, SelfFlatten.mc.player.method_23318() + 0.5, SelfFlatten.mc.player.method_23321() + 0.6).method_10074();
-        BlockPos pos3 = new BlockPosX(SelfFlatten.mc.player.method_23317() + 0.6, SelfFlatten.mc.player.method_23318() + 0.5, SelfFlatten.mc.player.method_23321() - 0.6).method_10074();
-        BlockPos pos4 = new BlockPosX(SelfFlatten.mc.player.method_23317() - 0.6, SelfFlatten.mc.player.method_23318() + 0.5, SelfFlatten.mc.player.method_23321() - 0.6).method_10074();
+        BlockPos pos1 = new BlockPosX(SelfFlatten.mc.player.getX() + 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() + 0.6).method_10074();
+        BlockPos pos2 = new BlockPosX(SelfFlatten.mc.player.getX() - 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() + 0.6).method_10074();
+        BlockPos pos3 = new BlockPosX(SelfFlatten.mc.player.getX() + 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() - 0.6).method_10074();
+        BlockPos pos4 = new BlockPosX(SelfFlatten.mc.player.getX() - 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() - 0.6).method_10074();
         if (!(this.canPlace(pos1) || this.canPlace(pos2) || this.canPlace(pos3) || this.canPlace(pos4))) {
             return;
         }
@@ -143,7 +143,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, SelfFlatten.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, SelfFlatten.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -160,7 +160,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean hasEntity(BlockPos pos) {
-        for (Entity entity : SelfFlatten.mc.world.method_18467(Entity.class, new Box(pos))) {
+        for (Entity entity : SelfFlatten.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
             if (entity == SelfFlatten.mc.player || !entity.isAlive() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
             return true;
         }

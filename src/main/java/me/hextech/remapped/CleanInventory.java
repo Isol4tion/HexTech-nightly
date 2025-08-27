@@ -36,11 +36,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (this.stack.getValue()) {
             for (slot1 = 9; slot1 < 36; ++slot1) {
-                ItemStack stack = CleanInventory.mc.player.method_31548().method_5438(slot1);
+                ItemStack stack = CleanInventory.mc.player.getInventory().method_5438(slot1);
                 if (stack.isEmpty() || !stack.isStackable() || stack.getCount() == stack.getMaxCount()) continue;
                 for (int slot2 = 35; slot2 >= 9; --slot2) {
                     ItemStack stack2;
-                    if (slot1 == slot2 || (stack2 = CleanInventory.mc.player.method_31548().method_5438(slot2)).getCount() == stack2.getMaxCount() || !this.canMerge(stack, stack2)) continue;
+                    if (slot1 == slot2 || (stack2 = CleanInventory.mc.player.getInventory().method_5438(slot2)).getCount() == stack2.getMaxCount() || !this.canMerge(stack, stack2)) continue;
                     CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
                     CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot2, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
                     CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
@@ -52,14 +52,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.sort.getValue()) {
             for (slot1 = 9; slot1 < 36; ++slot1) {
                 int minId;
-                int id = Item.getRawId((Item)CleanInventory.mc.player.method_31548().method_5438(slot1).getItem());
-                if (CleanInventory.mc.player.method_31548().method_5438(slot1).isEmpty()) {
+                int id = Item.getRawId((Item)CleanInventory.mc.player.getInventory().method_5438(slot1).getItem());
+                if (CleanInventory.mc.player.getInventory().method_5438(slot1).isEmpty()) {
                     id = 114514;
                 }
                 if ((minId = this.getMinId(slot1, id)) >= id) continue;
                 for (int slot2 = 35; slot2 > slot1; --slot2) {
                     int itemID;
-                    ItemStack stack = CleanInventory.mc.player.method_31548().method_5438(slot2);
+                    ItemStack stack = CleanInventory.mc.player.getInventory().method_5438(slot2);
                     if (stack.isEmpty() || (itemID = Item.getRawId((Item)stack.getItem())) != minId) continue;
                     CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
                     CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot2, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int id = currentId;
         for (int slot1 = slot + 1; slot1 < 36; ++slot1) {
             int itemID;
-            ItemStack stack = CleanInventory.mc.player.method_31548().method_5438(slot1);
+            ItemStack stack = CleanInventory.mc.player.getInventory().method_5438(slot1);
             if (stack.isEmpty() || (itemID = Item.getRawId((Item)stack.getItem())) >= id) continue;
             id = itemID;
         }

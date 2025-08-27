@@ -50,7 +50,7 @@ implements Wrapper {
         if (predict == null) {
             predict = player;
         }
-        if ((modDistance = Math.sqrt(predict.method_5707(pos))) > 10.0) {
+        if ((modDistance = Math.sqrt(predict.squaredDistanceTo(pos))) > 10.0) {
             return 0.0;
         }
         double exposure = Explosion.method_17752((Vec3d)pos, (Entity)predict);

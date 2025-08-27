@@ -133,7 +133,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender3D(MatrixStack matrixStack) {
         if (this.displayTarget != null && currentPos != null) {
-            Aura.doRender(matrixStack, mc.method_1488(), (Entity)this.displayTarget, this.color.getValue(), this.mode.getValue());
+            Aura.doRender(matrixStack, mc.getTickDelta(), (Entity)this.displayTarget, this.color.getValue(), this.mode.getValue());
         }
     }
 
@@ -166,7 +166,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int unBlock = this.inventorySwap.getValue() ? anchor : InventoryUtil.findUnBlock();
         int old = 0;
         if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null) {
-            old = AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_31548().selectedSlot;
+            old = AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getInventory().selectedSlot;
         }
         if (!this.thread.getValue()) {
             this.calc();
@@ -191,7 +191,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.tempPos = null;
             return;
         }
-        if (this.usingPause.getValue() && AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_6115()) {
+        if (this.usingPause.getValue() && AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.isUsingItem()) {
             currentPos = null;
             this.tempPos = null;
             return;
@@ -402,7 +402,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void doSwap(int slot) {
         if (this.inventorySwap.getValue()) {
             if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null) {
-                InventoryUtil.inventorySwap(slot, AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_31548().selectedSlot);
+                InventoryUtil.inventorySwap(slot, AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getInventory().selectedSlot);
             }
         } else {
             InventoryUtil.switchToSlot(slot);
@@ -428,7 +428,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int glowstone = this.inventorySwap.getValue() ? InventoryUtil.findBlockInventorySlot(Blocks.GLOWSTONE) : InventoryUtil.findBlock(Blocks.GLOWSTONE);
         int old = 0;
         if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null) {
-            old = AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_31548().selectedSlot;
+            old = AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getInventory().selectedSlot;
         }
         if (anchor == -1) {
             return;
@@ -439,7 +439,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_5715()) {
             return;
         }
-        if (this.usingPause.getValue() && AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.method_6115()) {
+        if (this.usingPause.getValue() && AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.isUsingItem()) {
             return;
         }
         if (Blink.INSTANCE.isOn() && this.cancelblink.getValue()) {
@@ -457,7 +457,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
             double damage;
             BlockPos pos = EntityUtil.getEntityPos((Entity)pap.player, true).up(2);
-            if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world != null && AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world.method_8320(pos).method_26204() == Blocks.RESPAWN_ANCHOR) {
+            if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world != null && AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world.getBlockState(pos).getBlock() == Blocks.RESPAWN_ANCHOR) {
                 return;
             }
             if (BlockUtil.clientCanPlace(pos, false) && (damage = this.getAnchorDamage(pos, pap.player, pap.predict)) >= bestDamage) {

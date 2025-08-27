@@ -37,16 +37,16 @@ implements Wrapper {
         super(Text.of((String)"HexTech"));
     }
 
-    public void method_25394(DrawContext drawContext, int mouseX, int mouseY, float tickDelta) {
+    public void render(DrawContext drawContext, int mouseX, int mouseY, float tickDelta) {
         if (mc.getWindow() == null) {
             return;
         }
-        float offsetX = ((float)mouseX - (float)this.field_22789 / 2.0f) / 48.0f;
-        float offsetY = ((float)mouseY - (float)this.field_22790 / 2.0f) / 80.0f;
-        drawContext.method_25291(this.bg, (int)offsetX, (int)offsetY, 0, 0.0f, 0.0f, this.field_22789, this.field_22790, this.field_22789, this.field_22790);
+        float offsetX = ((float)mouseX - (float)this.width / 2.0f) / 48.0f;
+        float offsetY = ((float)mouseY - (float)this.height / 2.0f) / 80.0f;
+        drawContext.method_25291(this.bg, (int)offsetX, (int)offsetY, 0, 0.0f, 0.0f, this.width, this.height, this.width, this.height);
         float buttonSpacing = 8.0f;
-        float baseX = (float)(this.field_22789 / 2) - this.buttonWidth / 2.0f;
-        float baseY = (float)(this.field_22790 / 2) - 2.0f * this.buttonHeight;
+        float baseX = (float)(this.width / 2) - this.buttonWidth / 2.0f;
+        float baseY = (float)(this.height / 2) - 2.0f * this.buttonHeight;
         for (int i = 0; i < 6; ++i) {
             float y = baseY + (float)i * (30.0f + buttonSpacing);
             boolean hover = this.isMouseHoveringRect(baseX, y, 200.0, 30.0, mouseX, mouseY);
@@ -80,18 +80,18 @@ implements Wrapper {
                 default -> "";
             };
             float fh = FontRenderers.Arial.getFontHeight();
-            FontRenderers.Arial.drawCenteredString(matrices, label, (double)this.field_22789 / 2.0, (double)y + (double)(30.0f - fh) / 2.0, Color.WHITE.getRGB());
+            FontRenderers.Arial.drawCenteredString(matrices, label, (double)this.width / 2.0, (double)y + (double)(30.0f - fh) / 2.0, Color.WHITE.getRGB());
             matrices.pop();
         }
-        int logoSize = this.field_22790 / 8;
-        drawContext.method_25291(this.logo, this.field_22789 / 2 - logoSize / 2, (int)(baseY - (float)logoSize - 30.0f), 0, 0.0f, 0.0f, logoSize, logoSize, logoSize, logoSize);
-        FontRenderers.ui.drawString(drawContext.getMatrices(), "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c-8", 5.0f, (float)this.field_22790 - FontRenderers.ui.getFontHeight(), Color.WHITE.getRGB());
+        int logoSize = this.height / 8;
+        drawContext.method_25291(this.logo, this.width / 2 - logoSize / 2, (int)(baseY - (float)logoSize - 30.0f), 0, 0.0f, 0.0f, logoSize, logoSize, logoSize, logoSize);
+        FontRenderers.ui.drawString(drawContext.getMatrices(), "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c-8", 5.0f, (float)this.height - FontRenderers.ui.getFontHeight(), Color.WHITE.getRGB());
     }
 
     public boolean method_25402(double mouseX, double mouseY, int button) {
         float buttonSpacing = 8.0f;
-        float x = (float)(this.field_22789 / 2) - this.buttonWidth / 2.0f;
-        float y = (float)(this.field_22790 / 2) - 2.0f * this.buttonHeight;
+        float x = (float)(this.width / 2) - this.buttonWidth / 2.0f;
+        float y = (float)(this.height / 2) - 2.0f * this.buttonHeight;
         if (button == 0) {
             double d = x;
             double d2 = y;

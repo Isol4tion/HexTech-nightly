@@ -31,18 +31,18 @@ implements Wrapper {
         return false;
     }
 
-    public void method_25394(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
-        super.method_25394(drawContext, mouseX, mouseY, partialTicks);
+    public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+        super.render(drawContext, mouseX, mouseY, partialTicks);
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.snow.getValue()) {
             this.snow.forEach(snow -> snow.drawSnow(drawContext));
         }
         HexTech.GUI.draw(mouseX, mouseY, drawContext, partialTicks);
     }
 
-    public boolean method_25404(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting)setting).filter(StringSetting::isListening).forEach(setting -> setting.keyType(keyCode)));
         HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof SliderSetting).map(setting -> (SliderSetting)setting).filter(SliderSetting::isListening).forEach(setting -> setting.keyType(keyCode)));
-        return super.method_25404(keyCode, scanCode, modifiers);
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     public boolean method_25402(double mouseX, double mouseY, int button) {

@@ -93,7 +93,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static boolean isTargetHere(BlockPos pos, Entity target) {
-        return new Box(pos).intersects(target.method_5829());
+        return new Box(pos).intersects(target.getBoundingBox());
     }
 
     public static boolean isInWeb(PlayerEntity player) {
@@ -102,7 +102,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
                 for (float y : new float[]{0.0f, 1.0f, -1.0f}) {
                     BlockPosX pos = new BlockPosX(playerPos.method_10216() + (double)x, playerPos.method_10214() + (double)y, playerPos.method_10215() + (double)z);
-                    if (!HoleKickTest.isTargetHere(pos, (Entity)player) || HoleKickTest.mc.world.method_8320((BlockPos)pos).method_26204() != Blocks.COBWEB) continue;
+                    if (!HoleKickTest.isTargetHere(pos, (Entity)player) || HoleKickTest.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.COBWEB) continue;
                     return true;
                 }
             }
@@ -124,7 +124,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.timer.passedMs(this.updateDelay.getValue())) {
             return;
         }
-        if (HoleKickTest.mc.player != null && this.selfGround.getValue() && !HoleKickTest.mc.player.method_24828()) {
+        if (HoleKickTest.mc.player != null && this.selfGround.getValue() && !HoleKickTest.mc.player.isOnGround()) {
             if (this.autoDisable.getValue()) {
                 this.disable();
             }
@@ -157,12 +157,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             return;
         }
-        if (this.noEating.getValue() && HoleKickTest.mc.player.method_6115()) {
+        if (this.noEating.getValue() && HoleKickTest.mc.player.isUsingItem()) {
             return;
         }
         this.timer.reset();
         for (PlayerEntity target : CombatUtil.getEnemies(this.range.getValue())) {
-            if (!this.canPush(target).booleanValue() || !target.method_24828() && this.onlyGround.getValue()) continue;
+            if (!this.canPush(target).booleanValue() || !target.isOnGround() && this.onlyGround.getValue()) continue;
             this.displayTarget = target;
             if (!this.doPush(EntityUtil.getEntityPos((Entity)target), target)) continue;
             return;
@@ -176,7 +176,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean checkPiston(BlockPos targetPos) {
         for (Direction i : Direction.values()) {
             BlockPos pos;
-            if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock((pos = targetPos.up()).offset(i)) instanceof PistonBlock) || ((Direction)this.getBlockState(pos.offset(i)).method_11654((Property)FacingBlock.field_10927)).getOpposite() != i) continue;
+            if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock((pos = targetPos.up()).offset(i)) instanceof PistonBlock) || ((Direction)this.getBlockState(pos.offset(i)).get((Property)FacingBlock.FACING)).getOpposite() != i) continue;
             for (Direction i2 : Direction.values()) {
                 if (this.getBlock(pos.offset(i).offset(i2)) != Blocks.REDSTONE_BLOCK || !this.mine.getValue()) continue;
                 this.mine(pos.offset(i).offset(i2));
@@ -193,10 +193,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.checkPiston.getValue() && this.checkPiston(targetPos)) {
             return true;
         }
-        if (!HoleKickTest.mc.world.method_8320(targetPos.up(2)).method_51366()) {
+        if (!HoleKickTest.mc.world.getBlockState(targetPos.up(2)).method_51366()) {
             BlockPos pos;
             for (Direction i : Direction.values()) {
-                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos = targetPos.offset(i).up()) instanceof PistonBlock) || this.getBlockState(pos.offset(i, -2)).method_51366() || this.getBlock(pos.offset(i, -2).up()) != Blocks.AIR && this.getBlock(pos.offset(i, -2).up()) != Blocks.REDSTONE_BLOCK || ((Direction)this.getBlockState(pos).method_11654((Property)FacingBlock.field_10927)).getOpposite() != i) continue;
+                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos = targetPos.offset(i).up()) instanceof PistonBlock) || this.getBlockState(pos.offset(i, -2)).method_51366() || this.getBlock(pos.offset(i, -2).up()) != Blocks.AIR && this.getBlock(pos.offset(i, -2).up()) != Blocks.REDSTONE_BLOCK || ((Direction)this.getBlockState(pos).get((Property)FacingBlock.FACING)).getOpposite() != i) continue;
                 for (Direction i2 : Direction.values()) {
                     if (this.getBlock(pos.offset(i2)) != Blocks.REDSTONE_BLOCK) continue;
                     if (this.mine.getValue()) {
@@ -209,13 +209,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
             for (Direction i : Direction.values()) {
-                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos = targetPos.offset(i).up()) instanceof PistonBlock) || this.getBlockState(pos.offset(i, -2)).method_51366() || this.getBlock(pos.offset(i, -2).up()) != Blocks.AIR && this.getBlock(pos.offset(i, -2).up()) != Blocks.REDSTONE_BLOCK || ((Direction)this.getBlockState(pos).method_11654((Property)FacingBlock.field_10927)).getOpposite() != i || !this.doPower(pos)) continue;
+                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos = targetPos.offset(i).up()) instanceof PistonBlock) || this.getBlockState(pos.offset(i, -2)).method_51366() || this.getBlock(pos.offset(i, -2).up()) != Blocks.AIR && this.getBlock(pos.offset(i, -2).up()) != Blocks.REDSTONE_BLOCK || ((Direction)this.getBlockState(pos).get((Property)FacingBlock.FACING)).getOpposite() != i || !this.doPower(pos)) continue;
                 return true;
             }
             for (Direction i : Direction.values()) {
                 if (i == Direction.DOWN || i == Direction.UP) continue;
                 pos = targetPos.offset(i).up();
-                if ((HoleKickTest.mc.player.method_23318() - target.method_23318() <= -1.0 || HoleKickTest.mc.player.method_23318() - target.method_23318() >= 2.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) continue;
+                if ((HoleKickTest.mc.player.getY() - target.getY() <= -1.0 || HoleKickTest.mc.player.getY() - target.getY() >= 2.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) continue;
                 this.attackCrystal(pos);
                 if (!this.isTrueFacing(pos, i) || !BlockUtil.clientCanPlace(pos, false) || this.getBlockState(pos.offset(i, -2)).method_51366() || this.getBlockState(pos.offset(i, -2).up()).method_51366()) continue;
                 if (BlockUtil.getPlaceSide(pos) == null && this.downPower(pos)) break;
@@ -232,7 +232,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (i == Direction.DOWN || i == Direction.UP) continue;
                 pos = targetPos.offset(i).up();
                 for (Direction i2 : Direction.values()) {
-                    if (!(this.getBlock(pos) instanceof PistonBlock) || this.getBlock(pos.offset(i2)) != Blocks.REDSTONE_BLOCK || ((Direction)this.getBlockState(pos).method_11654((Property)FacingBlock.field_10927)).getOpposite() != i) continue;
+                    if (!(this.getBlock(pos) instanceof PistonBlock) || this.getBlock(pos.offset(i2)) != Blocks.REDSTONE_BLOCK || ((Direction)this.getBlockState(pos).get((Property)FacingBlock.FACING)).getOpposite() != i) continue;
                     this.mine(pos.offset(i2));
                     if (this.autoDisable.getValue()) {
                         this.disable();
@@ -244,7 +244,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (i == Direction.DOWN || i == Direction.UP) continue;
                 pos = targetPos.offset(i).up();
                 for (Direction i2 : Direction.values()) {
-                    if (!(this.getBlock(pos) instanceof PistonBlock) || this.getBlock(pos.offset(i2)) != Blocks.AIR || ((Direction)this.getBlockState(pos).method_11654((Property)FacingBlock.field_10927)).getOpposite() != i) continue;
+                    if (!(this.getBlock(pos) instanceof PistonBlock) || this.getBlock(pos.offset(i2)) != Blocks.AIR || ((Direction)this.getBlockState(pos).get((Property)FacingBlock.FACING)).getOpposite() != i) continue;
                     this.attackCrystal(pos.offset(i2));
                     if (this.doPower(pos, i2)) continue;
                     this.mine(pos.offset(i2));
@@ -254,7 +254,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (Direction i : Direction.values()) {
                 if (i == Direction.DOWN || i == Direction.UP) continue;
                 pos = targetPos.offset(i).up();
-                if (HoleKickTest.mc.player != null && (HoleKickTest.mc.player.method_23318() - target.method_23318() <= -1.0 || HoleKickTest.mc.player.method_23318() - target.method_23318() >= 2.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) continue;
+                if (HoleKickTest.mc.player != null && (HoleKickTest.mc.player.getY() - target.getY() <= -1.0 || HoleKickTest.mc.player.getY() - target.getY() >= 2.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) continue;
                 this.attackCrystal(pos);
                 if (!this.isTrueFacing(pos, i) || !BlockUtil.clientCanPlace(pos, false) || this.downPower(pos)) continue;
                 this.doPiston(i, pos, true);
@@ -263,7 +263,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         } else {
             BlockPos pos;
             for (Direction i : Direction.values()) {
-                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos = targetPos.offset(i).up()) instanceof PistonBlock) || (!HoleKickTest.mc.world.method_22347(pos.offset(i, -2)) || !HoleKickTest.mc.world.method_22347(pos.offset(i, -2).down())) && !HoleKickTest.isTargetHere(pos.offset(i, 2), (Entity)target) || ((Direction)this.getBlockState(pos).method_11654((Property)FacingBlock.field_10927)).getOpposite() != i) continue;
+                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos = targetPos.offset(i).up()) instanceof PistonBlock) || (!HoleKickTest.mc.world.isAir(pos.offset(i, -2)) || !HoleKickTest.mc.world.isAir(pos.offset(i, -2).down())) && !HoleKickTest.isTargetHere(pos.offset(i, 2), (Entity)target) || ((Direction)this.getBlockState(pos).get((Property)FacingBlock.FACING)).getOpposite() != i) continue;
                 for (Direction i2 : Direction.values()) {
                     if (this.getBlock(pos.offset(i2)) != Blocks.REDSTONE_BLOCK) continue;
                     if (this.mine.getValue()) {
@@ -276,15 +276,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
             for (Direction i : Direction.values()) {
-                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos = targetPos.offset(i).up()) instanceof PistonBlock) || (!HoleKickTest.mc.world.method_22347(pos.offset(i, -2)) || !HoleKickTest.mc.world.method_22347(pos.offset(i, -2).down())) && !HoleKickTest.isTargetHere(pos.offset(i, 2), (Entity)target) || ((Direction)this.getBlockState(pos).method_11654((Property)FacingBlock.field_10927)).getOpposite() != i || !this.doPower(pos)) continue;
+                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos = targetPos.offset(i).up()) instanceof PistonBlock) || (!HoleKickTest.mc.world.isAir(pos.offset(i, -2)) || !HoleKickTest.mc.world.isAir(pos.offset(i, -2).down())) && !HoleKickTest.isTargetHere(pos.offset(i, 2), (Entity)target) || ((Direction)this.getBlockState(pos).get((Property)FacingBlock.FACING)).getOpposite() != i || !this.doPower(pos)) continue;
                 return true;
             }
             for (Direction i : Direction.values()) {
                 if (i == Direction.DOWN || i == Direction.UP) continue;
                 pos = targetPos.offset(i).up();
-                if (HoleKickTest.mc.player != null && (HoleKickTest.mc.player.method_23318() - target.method_23318() <= -1.0 || HoleKickTest.mc.player.method_23318() - target.method_23318() >= 2.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) continue;
+                if (HoleKickTest.mc.player != null && (HoleKickTest.mc.player.getY() - target.getY() <= -1.0 || HoleKickTest.mc.player.getY() - target.getY() >= 2.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) continue;
                 this.attackCrystal(pos);
-                if (!this.isTrueFacing(pos, i) || !BlockUtil.clientCanPlace(pos, false) || (!HoleKickTest.mc.world.method_22347(pos.offset(i, -2)) || !HoleKickTest.mc.world.method_22347(pos.offset(i, -2).down())) && !HoleKickTest.isTargetHere(pos.offset(i, 2), (Entity)target) || this.getBlockState(pos.offset(i, -2).up()).method_51366()) continue;
+                if (!this.isTrueFacing(pos, i) || !BlockUtil.clientCanPlace(pos, false) || (!HoleKickTest.mc.world.isAir(pos.offset(i, -2)) || !HoleKickTest.mc.world.isAir(pos.offset(i, -2).down())) && !HoleKickTest.isTargetHere(pos.offset(i, 2), (Entity)target) || this.getBlockState(pos.offset(i, -2).up()).method_51366()) continue;
                 if (BlockUtil.getPlaceSide(pos) != null || !this.downPower(pos)) {
                     dopush = true;
                     this.doPiston(i, pos, this.mine.getValue());
@@ -314,7 +314,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         int old = 0;
         if (HoleKickTest.mc.player != null) {
-            old = HoleKickTest.mc.player.method_31548().selectedSlot;
+            old = HoleKickTest.mc.player.getInventory().selectedSlot;
         }
         int power = this.findBlock(Blocks.REDSTONE_BLOCK);
         this.doSwap(power);
@@ -358,7 +358,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 int old = 0;
                 if (HoleKickTest.mc.player != null) {
-                    old = HoleKickTest.mc.player.method_31548().selectedSlot;
+                    old = HoleKickTest.mc.player.getInventory().selectedSlot;
                 }
                 int power = this.findBlock(Blocks.REDSTONE_BLOCK);
                 this.doSwap(power);
@@ -386,7 +386,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             int old = 0;
             if (HoleKickTest.mc.player != null) {
-                old = HoleKickTest.mc.player.method_31548().selectedSlot;
+                old = HoleKickTest.mc.player.getInventory().selectedSlot;
             }
             this.doSwap(piston);
             BlockUtil.placeBlock(pos, false, this.pistonPacket.getValue());
@@ -424,7 +424,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
             if (HoleKickTest.mc.player != null) {
-                InventoryUtil.inventorySwap(slot, HoleKickTest.mc.player.method_31548().selectedSlot);
+                InventoryUtil.inventorySwap(slot, HoleKickTest.mc.player.getInventory().selectedSlot);
             }
         } else {
             InventoryUtil.switchToSlot(slot);
@@ -463,64 +463,64 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private Block getBlock(BlockPos pos) {
-        return HoleKickTest.mc.world.method_8320(pos).method_26204();
+        return HoleKickTest.mc.world.getBlockState(pos).getBlock();
     }
 
     private BlockState getBlockState(BlockPos pos) {
         if (HoleKickTest.mc.world != null) {
-            return HoleKickTest.mc.world.method_8320(pos);
+            return HoleKickTest.mc.world.getBlockState(pos);
         }
         return null;
     }
 
     private Boolean canPush(PlayerEntity player) {
-        if (this.onlyGround.getValue() && !player.method_24828()) {
+        if (this.onlyGround.getValue() && !player.isOnGround()) {
             return false;
         }
         if (!this.allowWeb.getValue() && HoleKickTest.isInWeb(player)) {
             return false;
         }
         int progress = 0;
-        if (!HoleKickTest.mc.world.method_22347((BlockPos)new BlockPosX(player.method_23317() + 1.0, player.method_23318() + 0.5, player.method_23321()))) {
+        if (!HoleKickTest.mc.world.isAir((BlockPos)new BlockPosX(player.getX() + 1.0, player.getY() + 0.5, player.getZ()))) {
             ++progress;
         }
-        if (!HoleKickTest.mc.world.method_22347((BlockPos)new BlockPosX(player.method_23317() - 1.0, player.method_23318() + 0.5, player.method_23321()))) {
+        if (!HoleKickTest.mc.world.isAir((BlockPos)new BlockPosX(player.getX() - 1.0, player.getY() + 0.5, player.getZ()))) {
             ++progress;
         }
-        if (!HoleKickTest.mc.world.method_22347((BlockPos)new BlockPosX(player.method_23317(), player.method_23318() + 0.5, player.method_23321() + 1.0))) {
+        if (!HoleKickTest.mc.world.isAir((BlockPos)new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ() + 1.0))) {
             ++progress;
         }
-        if (!HoleKickTest.mc.world.method_22347((BlockPos)new BlockPosX(player.method_23317(), player.method_23318() + 0.5, player.method_23321() - 1.0))) {
+        if (!HoleKickTest.mc.world.isAir((BlockPos)new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ() - 1.0))) {
             ++progress;
         }
-        if (!HoleKickTest.mc.world.method_22347((BlockPos)new BlockPosX(player.method_23317(), player.method_23318() + 2.5, player.method_23321()))) {
+        if (!HoleKickTest.mc.world.isAir((BlockPos)new BlockPosX(player.getX(), player.getY() + 2.5, player.getZ()))) {
             for (Direction i : Direction.values()) {
                 BlockPos pos;
-                if (i == Direction.UP || i == Direction.DOWN || (!HoleKickTest.mc.world.method_22347(pos = EntityUtil.getEntityPos((Entity)player).offset(i)) || !HoleKickTest.mc.world.method_22347(pos.up())) && !HoleKickTest.isTargetHere(pos, (Entity)player)) continue;
-                if (!HoleKickTest.mc.world.method_22347((BlockPos)new BlockPosX(player.method_23317(), player.method_23318() + 0.5, player.method_23321()))) {
+                if (i == Direction.UP || i == Direction.DOWN || (!HoleKickTest.mc.world.isAir(pos = EntityUtil.getEntityPos((Entity)player).offset(i)) || !HoleKickTest.mc.world.isAir(pos.up())) && !HoleKickTest.isTargetHere(pos, (Entity)player)) continue;
+                if (!HoleKickTest.mc.world.isAir((BlockPos)new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ()))) {
                     return true;
                 }
                 return (double)progress > this.surroundCheck.getValue() - 1.0;
             }
             return false;
         }
-        if (!HoleKickTest.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.method_23317(), player.method_23318() + 2.5, player.method_23321())))) {
+        if (!HoleKickTest.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 2.5, player.getZ())))) {
             for (Direction i : Direction.values()) {
                 if (i == Direction.UP || i == Direction.DOWN) continue;
                 BlockPos pos = EntityUtil.getEntityPos((Entity)player).offset(i);
-                Box box = player.method_5829().offset(new Vec3d((double)i.getOffsetX(), (double)i.getOffsetY(), (double)i.getOffsetZ()));
-                if (this.getBlock(pos.up()) == Blocks.PISTON_HEAD || HoleKickTest.mc.world.method_39454((Entity)player, box.offset(0.0, 1.0, 0.0)) || HoleKickTest.isTargetHere(pos, (Entity)player) || !HoleKickTest.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.method_23317(), player.method_23318() + 0.5, player.method_23321())))) continue;
+                Box box = player.getBoundingBox().offset(new Vec3d((double)i.getOffsetX(), (double)i.getOffsetY(), (double)i.getOffsetZ()));
+                if (this.getBlock(pos.up()) == Blocks.PISTON_HEAD || HoleKickTest.mc.world.method_39454((Entity)player, box.offset(0.0, 1.0, 0.0)) || HoleKickTest.isTargetHere(pos, (Entity)player) || !HoleKickTest.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ())))) continue;
                 return true;
             }
         }
-        return (double)progress > this.surroundCheck.getValue() - 1.0 || CombatUtil.isHard(new BlockPosX(player.method_23317(), player.method_23318() + 0.5, player.method_23321()));
+        return (double)progress > this.surroundCheck.getValue() - 1.0 || CombatUtil.isHard(new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ()));
     }
 
     public void placeBlock(BlockPos pos, boolean rotate, boolean bypass) {
         Direction side;
         if (BlockUtil.airPlace()) {
             for (Direction i : Direction.values()) {
-                if (HoleKickTest.mc.world == null || !HoleKickTest.mc.world.method_22347(pos.offset(i))) continue;
+                if (HoleKickTest.mc.world == null || !HoleKickTest.mc.world.isAir(pos.offset(i))) continue;
                 BlockUtil.clickBlock(pos, i, rotate);
                 return;
             }
@@ -538,17 +538,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         boolean sneak = false;
         if (sprint) {
-            HoleKickTest.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleKickTest.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
+            HoleKickTest.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)HoleKickTest.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
         }
         if (sneak) {
-            HoleKickTest.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleKickTest.mc.player, ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY));
+            HoleKickTest.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)HoleKickTest.mc.player, ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY));
         }
         BlockUtil.clickBlock(pos.offset(side), side.getOpposite(), rotate);
         if (sneak) {
-            HoleKickTest.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleKickTest.mc.player, ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY));
+            HoleKickTest.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)HoleKickTest.mc.player, ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY));
         }
         if (sprint) {
-            HoleKickTest.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleKickTest.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
+            HoleKickTest.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)HoleKickTest.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
         }
         if (bypass) {
             EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());

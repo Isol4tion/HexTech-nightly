@@ -48,7 +48,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.throwing = this.checkThrow();
-        if (this.isThrow() && this.delayTimer.passedMs((long)this.delay.getValueInt() * 20L) && (!this.onlyGround.getValue() || AutoEXP.mc.player.method_24828())) {
+        if (this.isThrow() && this.delayTimer.passedMs((long)this.delay.getValueInt() * 20L) && (!this.onlyGround.getValue() || AutoEXP.mc.player.isOnGround())) {
             this.exp = InventoryUtil.getItemCount(Items.EXPERIENCE_BOTTLE) - 1;
             this.throwExp();
         }
@@ -70,18 +70,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public void throwExp() {
         int newSlot;
-        int oldSlot = AutoEXP.mc.player.method_31548().selectedSlot;
+        int oldSlot = AutoEXP.mc.player.getInventory().selectedSlot;
         if (this.inventory.getValue() && (newSlot = InventoryUtil.findItemInventorySlot(Items.EXPERIENCE_BOTTLE)) != -1) {
-            InventoryUtil.inventorySwap(newSlot, AutoEXP.mc.player.method_31548().selectedSlot);
-            AutoEXP.mc.player.networkHandler.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
-            InventoryUtil.inventorySwap(newSlot, AutoEXP.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(newSlot, AutoEXP.mc.player.getInventory().selectedSlot);
+            AutoEXP.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
+            InventoryUtil.inventorySwap(newSlot, AutoEXP.mc.player.getInventory().selectedSlot);
             EntityUtil.syncInventory();
             this.delayTimer.reset();
         } else {
             newSlot = InventoryUtil.findItem(Items.EXPERIENCE_BOTTLE);
             if (newSlot != -1) {
                 InventoryUtil.switchToSlot(newSlot);
-                AutoEXP.mc.player.networkHandler.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
+                AutoEXP.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
                 InventoryUtil.switchToSlot(oldSlot);
                 this.delayTimer.reset();
             }
@@ -112,14 +112,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (AutoEXP.mc.currentScreen != null) {
             return false;
         }
-        if (this.usingPause.getValue() && AutoEXP.mc.player.method_6115()) {
+        if (this.usingPause.getValue() && AutoEXP.mc.player.isUsingItem()) {
             return false;
         }
         if (!(InventoryUtil.findItem(Items.EXPERIENCE_BOTTLE) != -1 || this.inventory.getValue() && InventoryUtil.findItemInventorySlot(Items.EXPERIENCE_BOTTLE) != -1)) {
             return false;
         }
         if (this.onlyBroken.getValue()) {
-            DefaultedList armors = AutoEXP.mc.player.method_31548().armor;
+            DefaultedList armors = AutoEXP.mc.player.getInventory().armor;
             for (ItemStack armor : armors) {
                 if (armor.isEmpty() || EntityUtil.getDamagePercent(armor) >= 100) continue;
                 return true;

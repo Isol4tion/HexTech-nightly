@@ -76,7 +76,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (ElytraFly.nullCheck()) {
             return;
         }
-        if (ElytraFly.mc.player.method_24828()) {
+        if (ElytraFly.mc.player.isOnGround()) {
             this.hasTouchedGround = true;
         }
         for (ItemStack is : ElytraFly.mc.player.method_5661()) {
@@ -90,15 +90,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             HexTech.TIMER.reset();
         }
         if (!ElytraFly.mc.player.method_6128()) {
-            if (this.hasTouchedGround && this.boostTimer.getValue() && !ElytraFly.mc.player.method_24828()) {
+            if (this.hasTouchedGround && this.boostTimer.getValue() && !ElytraFly.mc.player.isOnGround()) {
                 HexTech.TIMER.set(0.3f);
             }
-            if (!ElytraFly.mc.player.method_24828() && this.instantFly.getValue() && ElytraFly.mc.player.method_18798().method_10214() < 0.0) {
+            if (!ElytraFly.mc.player.isOnGround() && this.instantFly.getValue() && ElytraFly.mc.player.method_18798().method_10214() < 0.0) {
                 if (!this.instantFlyTimer.passedMs((long)(1000.0 * this.timeout.getValue()))) {
                     return;
                 }
                 this.instantFlyTimer.reset();
-                ElytraFly.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)ElytraFly.mc.player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
+                ElytraFly.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)ElytraFly.mc.player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
                 this.hasTouchedGround = false;
                 this.strictTimer.reset();
             }
@@ -125,7 +125,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (ElytraFly.nullCheck() || !this.hasElytra || !ElytraFly.mc.player.method_6128()) {
             return;
         }
-        Vec3d lookVec = this.getRotationVec(mc.method_1488());
+        Vec3d lookVec = this.getRotationVec(mc.getTickDelta());
         double lookDist = Math.sqrt(lookVec.x * lookVec.x + lookVec.z * lookVec.z);
         double motionDist = Math.sqrt(this.getX() * this.getX() + this.getZ() * this.getZ());
         if (ElytraFly.mc.options.sneakKey.isPressed()) {

@@ -45,7 +45,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (MineTweak.mc.options.useKey.isPressed()) {
                 if (MineTweak.mc.player.method_6047().getItem() instanceof PickaxeItem && MineTweak.mc.player.method_6079().getItem() != Items.ENCHANTED_GOLDEN_APPLE) {
-                    this.lastSlot = MineTweak.mc.player.method_31548().selectedSlot;
+                    this.lastSlot = MineTweak.mc.player.getInventory().selectedSlot;
                     InventoryUtil.switchToSlot(gapple);
                     this.swapped = true;
                 }
@@ -82,7 +82,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return false;
         }
         if (this.onlyPickaxe.getValue()) {
-            return MineTweak.mc.player.method_6047().getItem() instanceof PickaxeItem || MineTweak.mc.player.method_6115() && !(MineTweak.mc.player.method_6047().getItem() instanceof SwordItem);
+            return MineTweak.mc.player.method_6047().getItem() instanceof PickaxeItem || MineTweak.mc.player.isUsingItem() && !(MineTweak.mc.player.method_6047().getItem() instanceof SwordItem);
         }
         return true;
     }

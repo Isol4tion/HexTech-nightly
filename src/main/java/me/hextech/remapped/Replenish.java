@@ -30,7 +30,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean replenish(int slot) {
-        ItemStack stack = Replenish.mc.player.method_31548().method_5438(slot);
+        ItemStack stack = Replenish.mc.player.getInventory().method_5438(slot);
         if (stack.isEmpty()) {
             return false;
         }
@@ -44,7 +44,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return false;
         }
         for (int i = 9; i < 36; ++i) {
-            ItemStack item = Replenish.mc.player.method_31548().method_5438(i);
+            ItemStack item = Replenish.mc.player.getInventory().method_5438(i);
             if (item.isEmpty() || !this.canMerge(stack, item)) continue;
             if ((float)stack.getCount() > this.forceMin.getValueFloat() ? !this.timer.passedS(this.delay.getValue()) : !this.timer.passedS(this.forceDelay.getValue())) {
                 return false;

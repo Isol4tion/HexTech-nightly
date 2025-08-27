@@ -81,19 +81,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (strong == -1) {
             return;
         }
-        int old = AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.method_31548().selectedSlot;
+        int old = AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot;
         if (this.swapMode.getValue() != AntiWeakness.Inventory) {
             InventoryUtil.switchToSlot(strong);
         } else {
-            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.field_7512.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.method_31548().selectedSlot, SlotActionType.SWAP, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
+            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.field_7512.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot, SlotActionType.SWAP, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
         }
-        AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.networkHandler.method_52787((Packet)this.lastPacket);
+        AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.networkHandler.sendPacket((Packet)this.lastPacket);
         if (this.swapMode.getValue() != AntiWeakness.Inventory) {
             if (this.swapMode.getValue() != AntiWeakness.Normal) {
                 InventoryUtil.switchToSlot(old);
             }
         } else {
-            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.field_7512.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.method_31548().selectedSlot, SlotActionType.SWAP, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
+            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.field_7512.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot, SlotActionType.SWAP, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
             EntityUtil.syncInventory();
         }
     }

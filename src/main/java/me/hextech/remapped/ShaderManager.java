@@ -67,7 +67,7 @@ implements Wrapper {
         Framebuffer outBuffer = FLOW.getShaderEffect().method_1264("bufOut");
         FLOW.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
         FLOW.setUniformValue("time", this.time);
-        FLOW.render(mc.method_1488());
+        FLOW.render(mc.getTickDelta());
         this.time += 0.01f;
         this.shaderBuffer.method_1230(false);
         mainBuffer.beginWrite(false);
@@ -146,7 +146,7 @@ implements Wrapper {
             effect.setUniformValue("maxSample", shaderChams.maxSample.getValueFloat());
             effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
             effect.setUniformValue("time", this.time);
-            effect.render(mc.method_1488());
+            effect.render(mc.getTickDelta());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
         } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Gradient) {
             effect.setUniformValue("alpha2", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
@@ -159,7 +159,7 @@ implements Wrapper {
             effect.setUniformValue("moreGradient", (float)shaderChams.gradient.getValue());
             effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
             effect.setUniformValue("time", this.time);
-            effect.render(mc.method_1488());
+            effect.render(mc.getTickDelta());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
         } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Smoke) {
             effect.setUniformValue("alpha1", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
@@ -173,7 +173,7 @@ implements Wrapper {
             effect.setUniformValue("oct", (int)shaderChams.octaves.getValue());
             effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
             effect.setUniformValue("time", this.time);
-            effect.render(mc.method_1488());
+            effect.render(mc.getTickDelta());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
         } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Solid) {
             effect.setUniformValue("mixFactor", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
@@ -184,7 +184,7 @@ implements Wrapper {
             effect.setUniformValue("maxSample", shaderChams.maxSample.getValueFloat());
             effect.setUniformValue("color", (float)shaderChams.fill.getValue().getRed() / 255.0f, (float)shaderChams.fill.getValue().getGreen() / 255.0f, (float)shaderChams.fill.getValue().getBlue() / 255.0f);
             effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
-            effect.render(mc.method_1488());
+            effect.render(mc.getTickDelta());
         } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Snow) {
             effect.setUniformValue("color", (float)shaderChams.fill.getValue().getRed() / 255.0f, (float)shaderChams.fill.getValue().getGreen() / 255.0f, (float)shaderChams.fill.getValue().getBlue() / 255.0f, (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
             effect.setUniformValue("radius", shaderChams.radius.getValueFloat());
@@ -193,7 +193,7 @@ implements Wrapper {
             effect.setUniformValue("maxSample", shaderChams.maxSample.getValueFloat());
             effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
             effect.setUniformValue("time", this.time);
-            effect.render(mc.method_1488());
+            effect.render(mc.getTickDelta());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
         } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Flow) {
             effect.setUniformValue("mixFactor", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
@@ -203,7 +203,7 @@ implements Wrapper {
             effect.setUniformValue("maxSample", shaderChams.maxSample.getValueFloat());
             effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
             effect.setUniformValue("time", this.time);
-            effect.render(mc.method_1488());
+            effect.render(mc.getTickDelta());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
         }
     }

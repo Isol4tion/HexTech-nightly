@@ -41,14 +41,14 @@ implements Wrapper {
     }
 
     public static boolean isUsing() {
-        return EntityUtil.mc.player.method_6115();
+        return EntityUtil.mc.player.isUsingItem();
     }
 
     public static boolean isInsideBlock() {
         if (BlockUtil.getBlock(EntityUtil.getPlayerPos(true)) == Blocks.ENDER_CHEST) {
             return true;
         }
-        return EntityUtil.mc.world.method_39454((Entity)EntityUtil.mc.player, EntityUtil.mc.player.method_5829());
+        return EntityUtil.mc.world.method_39454((Entity)EntityUtil.mc.player, EntityUtil.mc.player.getBoundingBox());
     }
 
     public static int getDamagePercent(ItemStack stack) {
@@ -115,7 +115,7 @@ implements Wrapper {
     }
 
     public static void sendYawAndPitch(float yaw, float pitch) {
-        EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, EntityUtil.mc.player.method_24828()));
+        EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, EntityUtil.mc.player.isOnGround()));
     }
 
     public static void faceVector(Vec3d directionVec) {
@@ -132,7 +132,7 @@ implements Wrapper {
             if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.incRotate.getValue() && MathHelper.angleBetween((float)angle[0], (float)HexTech.ROTATE.lastYaw) < CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.incStrike.getValueFloat() && MathHelper.angleBetween((float)angle[1], (float)RotateManager.lastPitch) < CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.incStrike.getValueFloat()) {
                 return;
             }
-            EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(angle[0], angle[1], EntityUtil.mc.player.method_24828()));
+            EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(angle[0], angle[1], EntityUtil.mc.player.isOnGround()));
         }
     }
 
@@ -142,7 +142,7 @@ implements Wrapper {
         }
         rotating = true;
         HexTech.ROTATE.setRotation(packet.getYaw(0.0f), packet.getPitch(0.0f), true);
-        EntityUtil.mc.player.networkHandler.method_52787((Packet)packet);
+        EntityUtil.mc.player.networkHandler.sendPacket((Packet)packet);
         rotating = false;
     }
 
@@ -182,14 +182,14 @@ implements Wrapper {
                 break;
             }
             case 3: {
-                EntityUtil.mc.player.networkHandler.method_52787((Packet)new HandSwingC2SPacket(hand));
+                EntityUtil.mc.player.networkHandler.sendPacket((Packet)new HandSwingC2SPacket(hand));
             }
         }
     }
 
     public static void syncInventory() {
         if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.inventorySync.getValue()) {
-            EntityUtil.mc.player.networkHandler.method_52787((Packet)new CloseHandledScreenC2SPacket(EntityUtil.mc.player.field_7512.syncId));
+            EntityUtil.mc.player.networkHandler.sendPacket((Packet)new CloseHandledScreenC2SPacket(EntityUtil.mc.player.field_7512.syncId));
         }
     }
 }

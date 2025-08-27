@@ -44,7 +44,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public static int findPotionInventorySlot(StatusEffect targetEffect) {
         for (int i = 0; i < 45; ++i) {
-            ItemStack itemStack = AutoPot.mc.player.method_31548().method_5438(i);
+            ItemStack itemStack = AutoPot.mc.player.getInventory().method_5438(i);
             if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
             List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (!this.onlyGround.getValue() || AutoPot.mc.player.method_24828() && !AutoPot.mc.world.method_22347((BlockPos)new BlockPosX(AutoPot.mc.player.method_19538().add(0.0, -1.0, 0.0)))) {
+        if (!this.onlyGround.getValue() || AutoPot.mc.player.isOnGround() && !AutoPot.mc.world.isAir((BlockPos)new BlockPosX(AutoPot.mc.player.method_19538().add(0.0, -1.0, 0.0)))) {
             if (this.speed.getValue() && !AutoPot.mc.player.method_6059(StatusEffects.field_5904)) {
                 this.throwing = this.checkThrow(StatusEffects.field_5904);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
@@ -94,12 +94,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public void throwPotion(StatusEffect targetEffect) {
         int newSlot;
-        int oldSlot = AutoPot.mc.player.method_31548().selectedSlot;
+        int oldSlot = AutoPot.mc.player.getInventory().selectedSlot;
         if (this.inventory.getValue() && (newSlot = AutoPot.findPotionInventorySlot(targetEffect)) != -1) {
             EntityUtil.sendYawAndPitch(AutoPot.mc.player.method_36454(), 90.0f);
-            InventoryUtil.inventorySwap(newSlot, AutoPot.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(newSlot, AutoPot.mc.player.getInventory().selectedSlot);
             AutoPot.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
-            InventoryUtil.inventorySwap(newSlot, AutoPot.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(newSlot, AutoPot.mc.player.getInventory().selectedSlot);
             EntityUtil.syncInventory();
             this.delayTimer.reset();
         } else {
@@ -125,7 +125,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!(AutoPot.mc.currentScreen == null || AutoPot.mc.currentScreen instanceof ChatScreen || AutoPot.mc.currentScreen instanceof InventoryScreen || AutoPot.mc.currentScreen instanceof ClickGuiScreen || AutoPot.mc.currentScreen instanceof GameMenuScreen)) {
             return false;
         }
-        if (this.usingPause.getValue() && AutoPot.mc.player.method_6115()) {
+        if (this.usingPause.getValue() && AutoPot.mc.player.isUsingItem()) {
             return false;
         }
         return AutoPot.findPotion(targetEffect) != -1 || this.inventory.getValue() && AutoPot.findPotionInventorySlot(targetEffect) != -1;

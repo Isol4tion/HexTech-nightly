@@ -17,7 +17,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double x = event.getX();
         double y = event.getY();
         double z = event.getZ();
-        if (SafeWalk.mc.player.method_24828()) {
+        if (SafeWalk.mc.player.isOnGround()) {
             double increment = 0.05;
             while (x != 0.0 && this.isOffsetBBEmpty(x, -1.0, 0.0)) {
                 if (x < increment && x >= -increment) {
@@ -60,6 +60,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean isOffsetBBEmpty(double offsetX, double offsetY, double offsetZ) {
-        return !SafeWalk.mc.world.method_39454((Entity)SafeWalk.mc.player, SafeWalk.mc.player.method_5829().offset(offsetX, offsetY, offsetZ));
+        return !SafeWalk.mc.world.method_39454((Entity)SafeWalk.mc.player, SafeWalk.mc.player.getBoundingBox().offset(offsetX, offsetY, offsetZ));
     }
 }

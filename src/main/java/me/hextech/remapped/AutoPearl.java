@@ -54,14 +54,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (AutoPearl.mc.player.method_6047().getItem() == Items.ENDER_PEARL) {
                 AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
             } else if (this.inventory.getValue() && (pearl = InventoryUtil.findItemInventorySlot(Items.ENDER_PEARL)) != -1) {
-                InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.method_31548().selectedSlot);
+                InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.getInventory().selectedSlot);
                 AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
-                InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.method_31548().selectedSlot);
+                InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.getInventory().selectedSlot);
                 EntityUtil.syncInventory();
             } else {
                 pearl = InventoryUtil.findItem(Items.ENDER_PEARL);
                 if (pearl != -1) {
-                    int old = AutoPearl.mc.player.method_31548().selectedSlot;
+                    int old = AutoPearl.mc.player.getInventory().selectedSlot;
                     InventoryUtil.switchToSlot(pearl);
                     AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
                     InventoryUtil.switchToSlot(old);
@@ -86,15 +86,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             EntityUtil.sendYawAndPitch(yaw, pitch);
             AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
         } else if (this.inventory.getValue() && (pearl = InventoryUtil.findItemInventorySlot(Items.ENDER_PEARL)) != -1) {
-            InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.getInventory().selectedSlot);
             EntityUtil.sendYawAndPitch(yaw, pitch);
             AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
-            InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.getInventory().selectedSlot);
             EntityUtil.syncInventory();
         } else {
             pearl = InventoryUtil.findItem(Items.ENDER_PEARL);
             if (pearl != -1) {
-                int old = AutoPearl.mc.player.method_31548().selectedSlot;
+                int old = AutoPearl.mc.player.getInventory().selectedSlot;
                 InventoryUtil.switchToSlot(pearl);
                 EntityUtil.sendYawAndPitch(yaw, pitch);
                 AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));

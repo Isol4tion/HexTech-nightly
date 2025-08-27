@@ -21,7 +21,7 @@ import net.minecraft.util.math.Vec3d;
 public class ListenerHelper
 implements Wrapper {
     public static Block getBlock(BlockPos pos) {
-        return BlockUtil.getState(pos).method_26204();
+        return BlockUtil.getState(pos).getBlock();
     }
 
     private static int getBlock() {
@@ -65,7 +65,7 @@ implements Wrapper {
         }
         int old = 0;
         if (ListenerHelper.mc.player != null) {
-            old = ListenerHelper.mc.player.method_31548().selectedSlot;
+            old = ListenerHelper.mc.player.getInventory().selectedSlot;
         }
         ListenerHelper.doSwap(block);
         if (BlockUtil.airPlace()) {
@@ -87,7 +87,7 @@ implements Wrapper {
     private static void doSwap(int slot) {
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
             if (ListenerHelper.mc.player != null) {
-                InventoryUtil.inventorySwap(slot, ListenerHelper.mc.player.method_31548().selectedSlot);
+                InventoryUtil.inventorySwap(slot, ListenerHelper.mc.player.getInventory().selectedSlot);
             }
         } else {
             InventoryUtil.switchToSlot(slot);

@@ -35,7 +35,7 @@ implements Wrapper {
             if (!altFile.exists()) {
                 throw new IOException("File not found! Could not load alts...");
             }
-            List list = IOUtils.readLines((InputStream)new FileInputStream(altFile), (Charset)StandardCharsets.UTF_8);
+            List<String> list = IOUtils.readLines((InputStream)new FileInputStream(altFile), (Charset)StandardCharsets.UTF_8);
             for (String s : list) {
                 this.alts.add(new Alt(s));
             }

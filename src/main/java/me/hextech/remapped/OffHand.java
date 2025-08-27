@@ -73,7 +73,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (itemSlot != -1) {
             if (this.mainHand.getValue()) {
                 InventoryUtil.switchToSlot(0);
-                if (OffHand.mc.player.method_31548().method_5438(0).getItem() != Items.TOTEM_OF_UNDYING) {
+                if (OffHand.mc.player.getInventory().method_5438(0).getItem() != Items.TOTEM_OF_UNDYING) {
                     OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.field_7512.syncId, itemSlot, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
                     OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.field_7512.syncId, 36, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
                     OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.field_7512.syncId, itemSlot, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);

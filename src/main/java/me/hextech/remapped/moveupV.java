@@ -37,21 +37,21 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (moveupV.mc.player != null && (!this.onlyburrow.getValue() || Util.isBurrowed((PlayerEntity)moveupV.mc.player, !this.pEndChest.getValue()))) {
             switch (this.mode.getValue().ordinal()) {
                 case 1: {
-                    moveupV.mc.player.method_5814(moveupV.mc.player.method_23317(), moveupV.mc.player.method_23318() + 3.0, moveupV.mc.player.method_23321());
-                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(moveupV.mc.player.method_23317(), moveupV.mc.player.method_23318(), moveupV.mc.player.method_23321(), true));
+                    moveupV.mc.player.setPosition(moveupV.mc.player.getX(), moveupV.mc.player.getY() + 3.0, moveupV.mc.player.getZ());
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(moveupV.mc.player.getX(), moveupV.mc.player.getY(), moveupV.mc.player.getZ(), true));
                     break;
                 }
                 case 0: {
-                    double posX = moveupV.mc.player.method_23317();
-                    double posY = Math.round(moveupV.mc.player.method_23318());
-                    double posZ = moveupV.mc.player.method_23321();
-                    boolean onGround = moveupV.mc.player.method_24828();
-                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
+                    double posX = moveupV.mc.player.getX();
+                    double posY = Math.round(moveupV.mc.player.getY());
+                    double posZ = moveupV.mc.player.getZ();
+                    boolean onGround = moveupV.mc.player.isOnGround();
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
                     double halfY = 0.005;
-                    moveupV.mc.player.method_5814(posX, posY -= halfY, posZ);
-                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
-                    moveupV.mc.player.method_5814(posX, posY -= halfY * 300.0, posZ);
-                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
+                    moveupV.mc.player.setPosition(posX, posY -= halfY, posZ);
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
+                    moveupV.mc.player.setPosition(posX, posY -= halfY * 300.0, posZ);
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
                 }
             }
         }

@@ -147,10 +147,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void drawBox(BufferBuilder bufferBuilder, @NotNull Entity ent, Matrix4f matrix, DrawContext context) {
-        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.method_1488();
-        double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.method_1488();
-        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.method_1488();
-        Box axisAlignedBB2 = ent.method_5829();
+        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.getTickDelta();
+        double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.getTickDelta();
+        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.getTickDelta();
+        Box axisAlignedBB2 = ent.getBoundingBox();
         Box axisAlignedBB = new Box(axisAlignedBB2.minX - ent.getX() + x - 0.05, axisAlignedBB2.minY - ent.getY() + y, axisAlignedBB2.minZ - ent.getZ() + z - 0.05, axisAlignedBB2.maxX - ent.getX() + x + 0.05, axisAlignedBB2.maxY - ent.getY() + y + 0.15, axisAlignedBB2.maxZ - ent.getZ() + z + 0.05);
         Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.maxZ)};
         Color col = this.getEntityColor(ent);
@@ -211,10 +211,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void drawText(Entity ent, DrawContext context) {
-        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.method_1488();
-        double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.method_1488();
-        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.method_1488();
-        Box axisAlignedBB2 = ent.method_5829();
+        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.getTickDelta();
+        double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.getTickDelta();
+        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.getTickDelta();
+        Box axisAlignedBB2 = ent.getBoundingBox();
         Box axisAlignedBB = new Box(axisAlignedBB2.minX - ent.getX() + x - 0.05, axisAlignedBB2.minY - ent.getY() + y, axisAlignedBB2.minZ - ent.getZ() + z - 0.05, axisAlignedBB2.maxX - ent.getX() + x + 0.05, axisAlignedBB2.maxY - ent.getY() + y + 0.15, axisAlignedBB2.maxZ - ent.getZ() + z + 0.05);
         Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.maxZ)};
         Color col = this.getEntityColor(ent);

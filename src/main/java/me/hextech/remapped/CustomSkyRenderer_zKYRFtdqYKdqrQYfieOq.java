@@ -74,7 +74,7 @@ implements DimensionRenderingRegistry.SkyRenderer {
         this.initialise();
         Matrix4f projectionMatrix = context.projectionMatrix();
         MatrixStack matrices = context.matrixStack();
-        float time = ((float)context.world().method_8532() + context.tickDelta()) % 360000.0f * 1.7453292E-5f;
+        float time = ((float)context.world().getTimeOfDay() + context.tickDelta()) % 360000.0f * 1.7453292E-5f;
         float time2 = time * 2.0f;
         float time3 = time * 3.0f;
         BackgroundRenderer.method_3212();

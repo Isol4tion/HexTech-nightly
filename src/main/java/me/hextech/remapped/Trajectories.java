@@ -98,9 +98,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void calcTrajectory(MatrixStack matrixStack, Item item, float yaw) {
-        double x = MathUtil.interpolate(Trajectories.mc.player.field_6014, Trajectories.mc.player.method_23317(), mc.method_1488());
-        double y = MathUtil.interpolate(Trajectories.mc.player.field_6036, Trajectories.mc.player.method_23318(), mc.method_1488());
-        double z = MathUtil.interpolate(Trajectories.mc.player.field_5969, Trajectories.mc.player.method_23321(), mc.method_1488());
+        double x = MathUtil.interpolate(Trajectories.mc.player.field_6014, Trajectories.mc.player.getX(), mc.getTickDelta());
+        double y = MathUtil.interpolate(Trajectories.mc.player.field_6036, Trajectories.mc.player.getY(), mc.getTickDelta());
+        double z = MathUtil.interpolate(Trajectories.mc.player.field_5969, Trajectories.mc.player.getZ(), mc.getTickDelta());
         y = y + (double)Trajectories.mc.player.method_18381(Trajectories.mc.player.method_18376()) - 0.1000000014901161;
         if (item == Trajectories.mc.player.method_6047().getItem()) {
             x -= (double)(MathHelper.cos((float)(yaw / 180.0f * (float)Math.PI)) * 0.16f);
@@ -126,13 +126,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         motionX *= (double)pow;
         motionY *= (double)pow;
         motionZ *= (double)pow;
-        if (!Trajectories.mc.player.method_24828()) {
+        if (!Trajectories.mc.player.isOnGround()) {
             motionY += Trajectories.mc.player.method_18798().method_10214();
         }
         for (int i = 0; i < 300; ++i) {
             BlockHitResult bhr;
             Vec3d lastPos = new Vec3d(x, y, z);
-            if (Trajectories.mc.world.method_8320(new BlockPos((int)(x += motionX), (int)(y += motionY), (int)(z += motionZ))).method_26204() == Blocks.WATER) {
+            if (Trajectories.mc.world.getBlockState(new BlockPos((int)(x += motionX), (int)(y += motionY), (int)(z += motionZ))).getBlock() == Blocks.WATER) {
                 motionX *= 0.8;
                 motionY *= 0.8;
                 motionZ *= 0.8;
@@ -144,8 +144,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             motionY = item instanceof BowItem ? (motionY -= (double)0.05f) : (Trajectories.mc.player.method_6047().getItem() instanceof CrossbowItem ? (motionY -= (double)0.05f) : (motionY -= (double)0.03f));
             Vec3d pos = new Vec3d(x, y, z);
             for (Entity ent : Trajectories.mc.world.getEntities()) {
-                if (ent instanceof ArrowEntity || ent.equals((Object)Trajectories.mc.player) || !ent.method_5829().intersects(new Box(x - 0.4, y - 0.4, z - 0.4, x + 0.4, y + 0.4, z + 0.4))) continue;
-                Render3DUtil.draw3DBox(matrixStack, ent.method_5829(), this.lcolor.getValue());
+                if (ent instanceof ArrowEntity || ent.equals((Object)Trajectories.mc.player) || !ent.getBoundingBox().intersects(new Box(x - 0.4, y - 0.4, z - 0.4, x + 0.4, y + 0.4, z + 0.4))) continue;
+                Render3DUtil.draw3DBox(matrixStack, ent.getBoundingBox(), this.lcolor.getValue());
                 break;
             }
             if ((bhr = Trajectories.mc.world.method_17742(new RaycastContext(lastPos, pos, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity)Trajectories.mc.player))) != null && bhr.method_17783() == HitResult.Type.BLOCK) {

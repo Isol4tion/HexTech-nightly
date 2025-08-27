@@ -33,21 +33,21 @@ extends Screen {
         super((Text)Text.translatable((String)"narrator.screen.title"));
     }
 
-    public void method_25394(DrawContext context, int mouseX, int mouseY, float delta) {
-        LogoDrawer.draw(context, this.field_22789 / 4, this.field_22790 / 4, 1.0f);
-        context.method_25302(moon, 50, 15, 0, 0, this.field_22789, this.field_22790);
-        context.method_25291(sky, 0, 0, 0, 0.0f, 0.0f, this.field_22789, this.field_22790, this.field_22789, this.field_22790);
-        context.method_25291(station, (mouseX - this.field_22789) / 48, 30 + (mouseY - this.field_22790 / 2) / 80, 0, 0.0f, 0.0f, this.field_22789, this.field_22790, this.field_22789, this.field_22790);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        LogoDrawer.draw(context, this.width / 4, this.height / 4, 1.0f);
+        context.method_25302(moon, 50, 15, 0, 0, this.width, this.height);
+        context.method_25291(sky, 0, 0, 0, 0.0f, 0.0f, this.width, this.height, this.width, this.height);
+        context.method_25291(station, (mouseX - this.width) / 48, 30 + (mouseY - this.height / 2) / 80, 0, 0.0f, 0.0f, this.width, this.height, this.width, this.height);
         MatrixStack matrices = context.getMatrices();
         RenderSystem.defaultBlendFunc();
-        float maxButtonWidth = (float)this.field_22789 / 2.0f;
-        int buttonWidth = this.field_22790 / 12;
+        float maxButtonWidth = (float)this.width / 2.0f;
+        int buttonWidth = this.height / 12;
         float scaled = 1.2f;
-        int startX = this.field_22789 / 4 + 25;
-        int buttonY = (this.field_22790 - buttonWidth) / 2;
+        int startX = this.width / 4 + 25;
+        int buttonY = (this.height - buttonWidth) / 2;
         int charc = (int)((maxButtonWidth - (float)(4 * buttonWidth)) / 5.0f);
         double zoomAdd = 0.06;
-        float alphaFac = (float)(1 - Math.abs(mouseY - this.field_22790 / 2) / this.field_22790) / 255.0f;
+        float alphaFac = (float)(1 - Math.abs(mouseY - this.height / 2) / this.height) / 255.0f;
         matrices.push();
         if (this.isMouseHoveringRect((float)startX, (float)buttonY, buttonWidth, mouseX, mouseY)) {
             if (this.zoomSingle < scaled) {
@@ -164,15 +164,15 @@ extends Screen {
     }
 
     public boolean method_25402(double mouseX, double mouseY, int button) {
-        float maxButtonWidth = (float)this.field_22789 / 2.0f;
-        int buttonWidth = this.field_22790 / 12;
+        float maxButtonWidth = (float)this.width / 2.0f;
+        int buttonWidth = this.height / 12;
         float scaled = 1.2f;
-        int startX = this.field_22789 / 4 + 15;
-        int buttonY = (this.field_22790 - buttonWidth) / 2;
+        int startX = this.width / 4 + 15;
+        int buttonY = (this.height - buttonWidth) / 2;
         int charc = (int)((maxButtonWidth - (float)(4 * buttonWidth)) / 5.0f);
         if (button == 0) {
             if (this.isMouseHoveringRect((float)startX, (float)buttonY, buttonWidth, mouseX, mouseY)) {
-                this.field_22787.setScreen((Screen)new SelectWorldScreen((Screen)this));
+                this.client.setScreen((Screen)new SelectWorldScreen((Screen)this));
             }
             if (this.isMouseHoveringRect((float)(startX += (int)((double)buttonWidth + 0.2 * (double)buttonWidth + (double)charc)), (float)buttonY, buttonWidth, mouseX, mouseY)) {
                 if (!Wrapper.mc.options.skipMultiplayerWarning) {

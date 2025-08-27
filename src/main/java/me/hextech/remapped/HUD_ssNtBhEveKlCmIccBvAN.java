@@ -235,12 +235,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         boolean inHell = HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_27983().equals(World.NETHER);
-        int posX = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_23317();
-        int posY = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_23318();
-        int posZ = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_23321();
+        int posX = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getX();
+        int posY = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getY();
+        int posZ = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getZ();
         float nether = !inHell ? 0.125f : 8.0f;
-        int hposX = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_23317() * (double)nether);
-        int hposZ = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_23321() * (double)nether);
+        int hposX = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getX() * (double)nether);
+        int hposZ = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getZ() * (double)nether);
         int yawPitch = (int)MathHelper.wrapDegrees((float)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_36454());
         int p = this.coords.getValue() ? 0 : 11;
         i = HUD_ssNtBhEveKlCmIccBvAN.mc.currentScreen instanceof ChatScreen ? 14 : 0;

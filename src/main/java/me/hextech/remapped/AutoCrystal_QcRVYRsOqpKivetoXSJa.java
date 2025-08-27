@@ -217,7 +217,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean shouldReturn() {
-        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null && this.eatingPause.getValue() && AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6115()) {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null && this.eatingPause.getValue() && AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.isUsingItem()) {
             this.lastBreakTimer.reset();
             return true;
         }
@@ -309,7 +309,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (packet != null) {
             ((IInteractEntityC2SPacket)packet).setId(id);
         }
-        mc.getNetworkHandler().method_52787(packet);
+        mc.getNetworkHandler().sendPacket(packet);
         if (this.breakRemove.getValue() && (ent = AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.method_8469(id)) instanceof EndCrystalEntity) {
             AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.removeEntity(id, Entity.RemovalReason.KILLED);
         }
@@ -334,7 +334,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.doInteract();
         }
         if (this.displayTarget != null && !this.noPosTimer.passedMs(500L)) {
-            this.doRender(matrixStack, mc.method_1488(), (Entity)this.displayTarget, this.mode.getValue());
+            this.doRender(matrixStack, mc.getTickDelta(), (Entity)this.displayTarget, this.mode.getValue());
         }
     }
 
@@ -530,7 +530,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     PlayerEntity breakPredict = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createPredict(target.player, breakTicks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());
                     float damage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(BlockPos.ofFloored((Position)crystal.method_19538()), breakPredict, breakPredict);
                     if (breakPos != null && !(damage > this.breakDamage) || (double)(selfDamage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(BlockPos.ofFloored((Position)crystal.method_19538()), self.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createSelfPredict(self.player, (int)PredictionSetting.INSTANCE.selfExtrap.getValue()))) > this.maxSelf.getValue() || this.noSuicide.getValue() > 0.0 && (double)selfDamage > (double)(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6032() + AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6067()) - this.noSuicide.getValue() || (double)damage < this.breakMinDmg.getValue()) continue;
-                    breakPos = crystal.method_24515();
+                    breakPos = crystal.getBlockPos();
                     if (!(damage > this.tempDamage)) continue;
                     this.displayTarget = target.player;
                 }
@@ -541,7 +541,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (Direction dir : Direction.values()) {
                     BlockPos crystalPos;
                     BlockPos offsetPos;
-                    if (dir == Direction.DOWN || dir == Direction.UP || !(offsetPos = target.player.method_24515().offset(dir)).equals((Object)SpeedMine.breakPos) || !CanPlaceCrystal.canPlaceCrystal(crystalPos = offsetPos.offset(dir), false, false) || !((double)(selfDamage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(crystalPos, self.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createSelfPredict(self.player, (int)PredictionSetting.INSTANCE.selfExtrap.getValue()))) < this.maxSelf.getValue()) || this.noSuicide.getValue() > 0.0 && (double)selfDamage > (double)(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6032() + AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6067()) - this.noSuicide.getValue()) continue;
+                    if (dir == Direction.DOWN || dir == Direction.UP || !(offsetPos = target.player.getBlockPos().offset(dir)).equals((Object)SpeedMine.breakPos) || !CanPlaceCrystal.canPlaceCrystal(crystalPos = offsetPos.offset(dir), false, false) || !((double)(selfDamage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(crystalPos, self.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createSelfPredict(self.player, (int)PredictionSetting.INSTANCE.selfExtrap.getValue()))) < this.maxSelf.getValue()) || this.noSuicide.getValue() > 0.0 && (double)selfDamage > (double)(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6032() + AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6067()) - this.noSuicide.getValue()) continue;
                     tempPos = crystalPos;
                     if (this.doCrystal.getValue()) {
                         this.doCrystal(tempPos);
@@ -632,7 +632,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             CombatUtil.breakTimer.reset();
             syncPos = pos;
             if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null) {
-                Objects.requireNonNull(mc.getNetworkHandler()).method_52787((Packet)PlayerInteractEntityC2SPacket.attack((Entity)entity, (boolean)AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_5715()));
+                Objects.requireNonNull(mc.getNetworkHandler()).sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)entity, (boolean)AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_5715()));
             }
             if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null) {
                 AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_7350();
@@ -693,7 +693,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         } else {
             this.placeTimer.reset();
             syncPos = pos;
-            int old = AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_31548().selectedSlot;
+            int old = AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getInventory().selectedSlot;
             int crystal = this.getCrystal();
             if (crystal == -1) {
                 return;
@@ -713,7 +713,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Silent || this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Normal) {
             InventoryUtil.switchToSlot(slot);
         } else if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory && AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null) {
-            InventoryUtil.inventorySwap(slot, AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getInventory().selectedSlot);
         }
     }
 

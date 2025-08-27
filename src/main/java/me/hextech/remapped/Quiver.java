@@ -30,7 +30,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Quiver.nullCheck()) {
             return;
         }
-        oldSlot = Quiver.mc.player.method_31548().selectedSlot;
+        oldSlot = Quiver.mc.player.getInventory().selectedSlot;
         slot = this.findItem(Items.BOW);
         if (slot == -1) {
             return;
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler(priority=-101)
     public void onRotate(RotateEvent event) {
-        if (Quiver.mc.player.method_6115() && Quiver.mc.player.method_6030().getItem() instanceof BowItem) {
+        if (Quiver.mc.player.isUsingItem() && Quiver.mc.player.method_6030().getItem() instanceof BowItem) {
             event.setPitch(-90.0f);
         }
     }
@@ -89,7 +89,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, Quiver.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, Quiver.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

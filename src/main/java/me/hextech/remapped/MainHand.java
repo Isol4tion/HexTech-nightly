@@ -48,7 +48,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public static int findItemInventorySlot(Item item) {
         for (int i = 35; i >= 0; --i) {
-            ItemStack stack = MainHand.mc.player.method_31548().method_5438(i);
+            ItemStack stack = MainHand.mc.player.getInventory().method_5438(i);
             if (stack.getItem() != item) continue;
             return i < 9 ? i + 36 : i;
         }
@@ -68,7 +68,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         boolean bl = this.handSlot = (double)(MainHand.mc.player.method_6067() + MainHand.mc.player.method_6032()) - this.getCrystal() <= this.forceHealth.getValue();
-        if (this.minePause.getValue() && this.needSwitch && !MainHand.mc.player.method_6115()) {
+        if (this.minePause.getValue() && this.needSwitch && !MainHand.mc.player.isUsingItem()) {
             return;
         }
         if (MainHand.mc.player.method_6047().getItem() == Items.TOTEM_OF_UNDYING) {
@@ -92,7 +92,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.handSlot && this.totemPause.getValue()) {
             return;
         }
-        if (this.pauseEat.getValue() && MainHand.mc.player.method_6115() && MainHand.mc.player.method_6058() == Hand.MAIN_HAND) {
+        if (this.pauseEat.getValue() && MainHand.mc.player.isUsingItem() && MainHand.mc.player.method_6058() == Hand.MAIN_HAND) {
             return;
         }
         if (this.mode.getValue() == _TQxYHQLcjCDwbwqUjIlv.All) {
@@ -104,22 +104,22 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return;
             }
             if (!this.needSwitch) {
-                this.old = MainHand.mc.player.method_31548().selectedSlot;
+                this.old = MainHand.mc.player.getInventory().selectedSlot;
             }
             if (this.needSwitch && this.timer.passedMs(this.time.getValue() * 50.0)) {
-                MainHand.mc.player.method_31548().selectedSlot = this.old;
+                MainHand.mc.player.getInventory().selectedSlot = this.old;
                 this.needSwitch = false;
             }
             if (SpeedMine.breakPos != null && (double)MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(SpeedMine.breakPos.toCenterPos()))) <= SpeedMine.INSTANCE.range.getValue() && (!BlockUtil.isAir(SpeedMine.breakPos) || SpeedMine.secondPos != null) && (SpeedMine.INSTANCE.done || SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.slot, this.damage.getValue())))) {
                 this.needSwitch = true;
-                if (MainHand.mc.player.method_31548().selectedSlot != this.slot) {
-                    MainHand.mc.player.method_31548().selectedSlot = this.slot;
+                if (MainHand.mc.player.getInventory().selectedSlot != this.slot) {
+                    MainHand.mc.player.getInventory().selectedSlot = this.slot;
                 }
                 this.timer.reset();
             } else if (SpeedMine.breakPos == null && SpeedMine.secondPos != null && SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.slot, this.damage.getValue()))) {
                 this.needSwitch = true;
-                if (MainHand.mc.player.method_31548().selectedSlot != this.slot2) {
-                    MainHand.mc.player.method_31548().selectedSlot = this.slot2;
+                if (MainHand.mc.player.getInventory().selectedSlot != this.slot2) {
+                    MainHand.mc.player.getInventory().selectedSlot = this.slot2;
                 }
                 this.timer.reset();
             }
@@ -129,16 +129,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return;
             }
             if (!this.needSwitch) {
-                this.old = MainHand.mc.player.method_31548().selectedSlot;
+                this.old = MainHand.mc.player.getInventory().selectedSlot;
             }
             if (this.needSwitch && this.timer.passedMs(this.time.getValue() * 50.0)) {
-                MainHand.mc.player.method_31548().selectedSlot = this.old;
+                MainHand.mc.player.getInventory().selectedSlot = this.old;
                 this.needSwitch = false;
             }
             if (SpeedMine.INSTANCE.isOn() && SpeedMine.secondPos != null && SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.slot2, this.damage.getValue()))) {
                 this.needSwitch = true;
-                if (MainHand.mc.player.method_31548().selectedSlot != this.slot2) {
-                    MainHand.mc.player.method_31548().selectedSlot = this.slot2;
+                if (MainHand.mc.player.getInventory().selectedSlot != this.slot2) {
+                    MainHand.mc.player.getInventory().selectedSlot = this.slot2;
                 }
                 this.timer.reset();
             }
@@ -150,14 +150,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (Entity entity : MainHand.mc.world.getEntities()) {
             double dmg;
             EndCrystalEntity endCrystal;
-            if (!(entity instanceof EndCrystalEntity) || (endCrystal = (EndCrystalEntity)entity).method_5707(MainHand.mc.player.method_33571()) > 25.0 || !((dmg = (double)this.calculateDamage(endCrystal.method_24515().toCenterPos(), (PlayerEntity)MainHand.mc.player, (PlayerEntity)MainHand.mc.player)) > maxDMG)) continue;
+            if (!(entity instanceof EndCrystalEntity) || (endCrystal = (EndCrystalEntity)entity).squaredDistanceTo(MainHand.mc.player.method_33571()) > 25.0 || !((dmg = (double)this.calculateDamage(endCrystal.getBlockPos().toCenterPos(), (PlayerEntity)MainHand.mc.player, (PlayerEntity)MainHand.mc.player)) > maxDMG)) continue;
             maxDMG = dmg;
         }
         return maxDMG;
     }
 
     private void doSwap(int slot) {
-        InventoryUtil.inventorySwap(slot, MainHand.mc.player.method_31548().selectedSlot);
+        InventoryUtil.inventorySwap(slot, MainHand.mc.player.getInventory().selectedSlot);
     }
 
     public float calculateDamage(Vec3d pos, PlayerEntity player, PlayerEntity predict) {

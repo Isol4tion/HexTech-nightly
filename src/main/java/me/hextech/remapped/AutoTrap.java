@@ -107,7 +107,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.directionVec = null;
         this.placeList.clear();
         this.progress = 0;
-        if (this.selfGround.getValue() && !AutoTrap.mc.player.method_24828()) {
+        if (this.selfGround.getValue() && !AutoTrap.mc.player.isOnGround()) {
             this.target = null;
             return;
         }
@@ -267,7 +267,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.tryPlaceObsidian(this.getHelper(offsetPos2.down()));
             }
         }
-        if (this.chest.getValue() && (!this.onlyGround.getValue() || this.target.method_24828())) {
+        if (this.chest.getValue() && (!this.onlyGround.getValue() || this.target.isOnGround())) {
             Direction[] directionArray = Direction.values();
             int n6 = directionArray.length;
             for (n2 = 0; n2 < n6; ++n2) {
@@ -329,10 +329,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean checkEntity(BlockPos pos) {
-        if (AutoTrap.mc.player.method_5829().intersects(new Box(pos))) {
+        if (AutoTrap.mc.player.getBoundingBox().intersects(new Box(pos))) {
             return false;
         }
-        for (Entity entity : AutoTrap.mc.world.method_18467(PlayerEntity.class, new Box(pos))) {
+        for (Entity entity : AutoTrap.mc.world.getNonSpectatingEntities(PlayerEntity.class, new Box(pos))) {
             if (!entity.isAlive()) continue;
             return true;
         }
@@ -362,7 +362,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if ((double)MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.placeRange.getValue()) {
             return;
         }
-        int old = AutoTrap.mc.player.method_31548().selectedSlot;
+        int old = AutoTrap.mc.player.getInventory().selectedSlot;
         int n = block = anchor && this.getAnchor() != -1 ? this.getAnchor() : this.getBlock();
         if (block == -1) {
             return;
@@ -406,7 +406,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if ((double)MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.placeRange.getValue()) {
             return;
         }
-        int old = AutoTrap.mc.player.method_31548().selectedSlot;
+        int old = AutoTrap.mc.player.getInventory().selectedSlot;
         int block = this.getBlock();
         if (block == -1) {
             return;
@@ -430,7 +430,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, AutoTrap.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, AutoTrap.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

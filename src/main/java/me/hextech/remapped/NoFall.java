@@ -36,7 +36,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Object t = event.getPacket();
         if (t instanceof PlayerMoveC2SPacket) {
             PlayerMoveC2SPacket packet = (PlayerMoveC2SPacket)t;
-            if (NoFall.mc.player.field_6017 >= (float)this.distance.getValue()) {
+            if (NoFall.mc.player.fallDistance >= (float)this.distance.getValue()) {
                 ((IPlayerMoveC2SPacket)packet).setOnGround(true);
             }
         }

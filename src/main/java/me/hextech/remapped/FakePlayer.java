@@ -60,14 +60,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         fakePlayer = new OtherClientPlayerEntity(FakePlayer.mc.world, new GameProfile(UUID.fromString("11451466-6666-6666-6666-666666666600"), this.name.getValue()));
-        fakePlayer.method_31548().clone(FakePlayer.mc.player.method_31548());
+        fakePlayer.getInventory().clone(FakePlayer.mc.player.getInventory());
         FakePlayer.mc.world.addEntity((Entity)fakePlayer);
         fakePlayer.method_5719((Entity)FakePlayer.mc.player);
         FakePlayer.fakePlayer.field_6283 = FakePlayer.mc.player.field_6283;
         FakePlayer.fakePlayer.field_6241 = FakePlayer.mc.player.field_6241;
-        fakePlayer.method_6092(new StatusEffectInstance(StatusEffects.field_5924, 9999, 2));
-        fakePlayer.method_6092(new StatusEffectInstance(StatusEffects.field_5898, 9999, 4));
-        fakePlayer.method_6092(new StatusEffectInstance(StatusEffects.field_5907, 9999, 1));
+        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 9999, 2));
+        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5898, 9999, 4));
+        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5907, 9999, 1));
     }
 
     @Override
@@ -76,10 +76,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        fakePlayer.method_6092(new StatusEffectInstance(StatusEffects.field_5924, 9999, 2));
-        fakePlayer.method_6092(new StatusEffectInstance(StatusEffects.field_5898, 9999, 4));
+        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 9999, 2));
+        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5898, 9999, 4));
         if (this.gApple.getValue() && this.timer.passedMs(4000L)) {
-            fakePlayer.method_6092(new StatusEffectInstance(StatusEffects.field_5907, 9999, 1));
+            fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5907, 9999, 1));
             this.timer.reset();
             fakePlayer.method_6073(16.0f);
         }

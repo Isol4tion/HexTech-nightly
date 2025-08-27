@@ -47,10 +47,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         if (this.fullBright.getValue()) {
-            Ambience.mc.player.method_6092(new StatusEffectInstance(StatusEffects.field_5925, 100000, 0));
+            Ambience.mc.player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 100000, 0));
         }
         if (this.customTime.getValue()) {
-            Ambience.mc.world.method_8435((long)this.time.getValue());
+            Ambience.mc.world.setTimeOfDay((long)this.time.getValue());
         }
     }
 
@@ -59,7 +59,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Ambience.nullCheck()) {
             return;
         }
-        this.oldTime = Ambience.mc.world.method_8532();
+        this.oldTime = Ambience.mc.world.getTimeOfDay();
     }
 
     @Override
@@ -67,14 +67,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Ambience.nullCheck()) {
             return;
         }
-        Ambience.mc.player.method_6016(StatusEffects.field_5925);
-        Ambience.mc.world.method_8435(this.oldTime);
+        Ambience.mc.player.removeStatusEffect(StatusEffects.NIGHT_VISION);
+        Ambience.mc.world.setTimeOfDay(this.oldTime);
     }
 
     @EventHandler
     public void onReceivePacket(PacketEvent_YXFfxdDjQAfjBumqRbBu event) {
         if (event.getPacket() instanceof WorldTimeUpdateS2CPacket) {
-            this.oldTime = ((WorldTimeUpdateS2CPacket)event.getPacket()).method_11871();
+            this.oldTime = ((WorldTimeUpdateS2CPacket)event.getPacket()).getTime();
             event.cancel();
         }
     }

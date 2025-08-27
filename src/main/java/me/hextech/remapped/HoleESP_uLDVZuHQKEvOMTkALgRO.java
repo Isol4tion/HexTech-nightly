@@ -81,19 +81,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     HoleESP isHole(BlockPos pos) {
-        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.method_22347(pos) && (!this.airYCheck.getValue() || pos.method_10264() == HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.method_31478() - 1) && CombatUtil.isHard(pos.up())) {
+        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && (!this.airYCheck.getValue() || pos.method_10264() == HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.method_31478() - 1) && CombatUtil.isHard(pos.up())) {
             return HoleESP.Air;
         }
         int blockProgress = 0;
         boolean bedRock = true;
         for (Direction i : Direction.values()) {
             if (i == Direction.UP || i == Direction.DOWN || !CombatUtil.isHard(pos.offset(i))) continue;
-            if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.method_8320(pos.offset(i)).method_26204() != Blocks.BEDROCK) {
+            if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.getBlockState(pos.offset(i)).getBlock() != Blocks.BEDROCK) {
                 bedRock = false;
             }
             ++blockProgress;
         }
-        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.method_22347(pos) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.method_22347(pos.up()) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.method_22347(pos.up(2)) && blockProgress > 3 && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.method_39454((Entity)HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player, new Box(pos.down()))) {
+        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.up()) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.up(2)) && blockProgress > 3 && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.method_39454((Entity)HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player, new Box(pos.down()))) {
             if (bedRock) {
                 return HoleESP.Bedrock;
             }

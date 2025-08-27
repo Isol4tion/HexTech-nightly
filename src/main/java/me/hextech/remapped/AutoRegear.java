@@ -111,7 +111,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (AutoRegear.nullCheck()) {
             return;
         }
-        int oldSlot = AutoRegear.mc.player.method_31548().selectedSlot;
+        int oldSlot = AutoRegear.mc.player.getInventory().selectedSlot;
         if (!this.place.getValue()) {
             return;
         }
@@ -119,11 +119,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         BlockPos bestPos = null;
         for (BlockPos pos : BlockUtil.getSphere((float)this.range.getValue())) {
             if (!BlockUtil.isAir(pos.up())) continue;
-            if (this.preferOpen.getValue() && AutoRegear.mc.world.method_8320(pos).method_26204() instanceof ShulkerBoxBlock) {
+            if (this.preferOpen.getValue() && AutoRegear.mc.world.getBlockState(pos).getBlock() instanceof ShulkerBoxBlock) {
                 return;
             }
-            if ((double)MathHelper.sqrt((float)((float)AutoRegear.mc.player.method_5707(pos.toCenterPos()))) < this.minRange.getValue() || !BlockUtil.clientCanPlace(pos, false) || !BlockUtil.isStrictDirection(pos.offset(Direction.DOWN), Direction.UP) || !BlockUtil.canClick(pos.offset(Direction.DOWN)) || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals((Object)SpeedMine.breakPos)) || bestPos != null && !((double)MathHelper.sqrt((float)((float)AutoRegear.mc.player.method_5707(pos.toCenterPos()))) < distance)) continue;
-            distance = MathHelper.sqrt((float)((float)AutoRegear.mc.player.method_5707(pos.toCenterPos())));
+            if ((double)MathHelper.sqrt((float)((float)AutoRegear.mc.player.squaredDistanceTo(pos.toCenterPos()))) < this.minRange.getValue() || !BlockUtil.clientCanPlace(pos, false) || !BlockUtil.isStrictDirection(pos.offset(Direction.DOWN), Direction.UP) || !BlockUtil.canClick(pos.offset(Direction.DOWN)) || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals((Object)SpeedMine.breakPos)) || bestPos != null && !((double)MathHelper.sqrt((float)((float)AutoRegear.mc.player.squaredDistanceTo(pos.toCenterPos()))) < distance)) continue;
+            distance = MathHelper.sqrt((float)((float)AutoRegear.mc.player.squaredDistanceTo(pos.toCenterPos())));
             bestPos = pos;
         }
         if (bestPos != null) {
@@ -149,7 +149,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, AutoRegear.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, AutoRegear.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -199,7 +199,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     this.disable2();
                 }
                 if (this.mine.getValue() && this.openPos != null) {
-                    if (AutoRegear.mc.world.method_8320(this.openPos).method_26204() instanceof ShulkerBoxBlock) {
+                    if (AutoRegear.mc.world.getBlockState(this.openPos).getBlock() instanceof ShulkerBoxBlock) {
                         SpeedMine.INSTANCE.mine(this.openPos);
                     } else {
                         this.openPos = null;
@@ -208,15 +208,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return;
             }
             if (this.open.getValue()) {
-                if (this.placePos != null && (double)MathHelper.sqrt((float)((float)AutoRegear.mc.player.method_5707(this.placePos.toCenterPos()))) <= this.range.getValue() && AutoRegear.mc.world.method_22347(this.placePos.up()) && (!this.timer.passedMs(500L) || AutoRegear.mc.world.method_8320(this.placePos).method_26204() instanceof ShulkerBoxBlock)) {
-                    if (AutoRegear.mc.world.method_8320(this.placePos).method_26204() instanceof ShulkerBoxBlock) {
+                if (this.placePos != null && (double)MathHelper.sqrt((float)((float)AutoRegear.mc.player.squaredDistanceTo(this.placePos.toCenterPos()))) <= this.range.getValue() && AutoRegear.mc.world.isAir(this.placePos.up()) && (!this.timer.passedMs(500L) || AutoRegear.mc.world.getBlockState(this.placePos).getBlock() instanceof ShulkerBoxBlock)) {
+                    if (AutoRegear.mc.world.getBlockState(this.placePos).getBlock() instanceof ShulkerBoxBlock) {
                         this.openPos = this.placePos;
                         BlockUtil.clickBlock(this.placePos, BlockUtil.getClickSide(this.placePos), this.rotate.getValue());
                     }
                 } else {
                     boolean found = false;
                     for (BlockPos pos : BlockUtil.getSphere((float)this.range.getValue())) {
-                        if (!BlockUtil.isAir(pos.up()) || !(AutoRegear.mc.world.method_8320(pos).method_26204() instanceof ShulkerBoxBlock)) continue;
+                        if (!BlockUtil.isAir(pos.up()) || !(AutoRegear.mc.world.getBlockState(pos).getBlock() instanceof ShulkerBoxBlock)) continue;
                         this.openPos = pos;
                         BlockUtil.clickBlock(pos, BlockUtil.getClickSide(pos), this.rotate.getValue());
                         found = true;
@@ -256,7 +256,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void disable2() {
         if (this.disableTimer.passedMs(this.disableTime.getValueInt())) {
             if (this.close.getValue()) {
-                AutoRegear.mc.player.networkHandler.method_52787((Packet)new CloseHandledScreenC2SPacket(AutoRegear.mc.player.field_7512.syncId));
+                AutoRegear.mc.player.networkHandler.sendPacket((Packet)new CloseHandledScreenC2SPacket(AutoRegear.mc.player.field_7512.syncId));
                 AutoRegear.mc.player.method_7346();
             }
             this.disable();

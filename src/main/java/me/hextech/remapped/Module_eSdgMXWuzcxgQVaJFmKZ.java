@@ -59,7 +59,7 @@ extends Mod {
         }
         try (PendingUpdateManager pendingUpdateManager = Module_eSdgMXWuzcxgQVaJFmKZ.mc.world.getPendingUpdateManager().incrementSequence();){
             int i = pendingUpdateManager.getSequence();
-            mc.getNetworkHandler().method_52787(packetCreator.predict(i));
+            mc.getNetworkHandler().sendPacket(packetCreator.predict(i));
         }
     }
 
@@ -292,7 +292,7 @@ extends Mod {
         if (mc.getNetworkHandler() == null) {
             return;
         }
-        mc.getNetworkHandler().method_52787(packet);
+        mc.getNetworkHandler().sendPacket(packet);
     }
 
     public final boolean isCategory(Module_JlagirAibYQgkHtbRnhw category) {

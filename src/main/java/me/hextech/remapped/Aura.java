@@ -161,7 +161,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return false;
             }
         }
-        return this.whileEating.getValue() || !Aura.mc.player.method_6115();
+        return this.whileEating.getValue() || !Aura.mc.player.isUsingItem();
     }
 
     private void doAura() {
@@ -174,7 +174,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int slot = InventoryUtil.findItemInventorySlot(Items.NETHERITE_SWORD);
         if (this.ghost.getValue()) {
             this.sweeping = true;
-            InventoryUtil.inventorySwap(slot, Aura.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, Aura.mc.player.getInventory().selectedSlot);
         }
         this.ghostTimer.reset();
         if (!this.ghost.getValue() && Criticals.INSTANCE.isOn()) {
@@ -183,7 +183,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Aura.mc.interactionManager.attackEntity((PlayerEntity)Aura.mc.player, target);
         EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
         if (this.ghost.getValue()) {
-            InventoryUtil.inventorySwap(slot, Aura.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, Aura.mc.player.getInventory().selectedSlot);
             this.sweeping = false;
         }
         this.attackTicks = 0;

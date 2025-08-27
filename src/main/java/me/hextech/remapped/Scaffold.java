@@ -68,7 +68,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 GL11.glEnable((int)3042);
                 double temp = 0.01;
                 for (double i = 0.0; i < 0.8; i += temp) {
-                    HoleSnap.doCircle(matrixStack, ColorUtil.injectAlpha(this.color.getValue(), (int)Math.min((double)(this.color.getValue().getAlpha() * 2) / (0.8 / temp), 255.0)), i, new Vec3d(MathUtil.interpolate(Scaffold.mc.player.field_6038, Scaffold.mc.player.method_23317(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.field_5971, Scaffold.mc.player.method_23318(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.field_5989, Scaffold.mc.player.method_23321(), partialTicks)), 5);
+                    HoleSnap.doCircle(matrixStack, ColorUtil.injectAlpha(this.color.getValue(), (int)Math.min((double)(this.color.getValue().getAlpha() * 2) / (0.8 / temp), 255.0)), i, new Vec3d(MathUtil.interpolate(Scaffold.mc.player.field_6038, Scaffold.mc.player.getX(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.field_5971, Scaffold.mc.player.getY(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.field_5989, Scaffold.mc.player.getZ(), partialTicks)), 5);
                 }
                 RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
                 GL11.glDisable((int)3042);
@@ -89,14 +89,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         BlockPos placePos = EntityUtil.getPlayerPos().down();
         if (BlockUtil.clientCanPlace(placePos, false)) {
-            int old = Scaffold.mc.player.method_31548().selectedSlot;
+            int old = Scaffold.mc.player.getInventory().selectedSlot;
             if (BlockUtil.getPlaceSide(placePos) == null) {
                 double distance = 1000.0;
                 BlockPos bestPos = null;
                 for (Direction i : Direction.values()) {
-                    if (i == Direction.UP || !BlockUtil.canPlace(placePos.offset(i)) || bestPos != null && !(Scaffold.mc.player.method_5707(placePos.offset(i).toCenterPos()) < distance)) continue;
+                    if (i == Direction.UP || !BlockUtil.canPlace(placePos.offset(i)) || bestPos != null && !(Scaffold.mc.player.squaredDistanceTo(placePos.offset(i).toCenterPos()) < distance)) continue;
                     bestPos = placePos.offset(i);
-                    distance = Scaffold.mc.player.method_5707(placePos.offset(i).toCenterPos());
+                    distance = Scaffold.mc.player.squaredDistanceTo(placePos.offset(i).toCenterPos());
                 }
                 if (bestPos != null) {
                     placePos = bestPos;

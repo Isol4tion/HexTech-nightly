@@ -98,7 +98,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static Block getBlock(BlockPos pos) {
-        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_8320(pos).method_26204();
+        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock();
     }
 
     @Override
@@ -129,8 +129,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (float x : new float[]{0.0f, 0.3f, -0.3f}) {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
                 for (int y : new int[]{0, 1, 2}) {
-                    BlockPos pos = new BlockPosX(playerPos.method_10216() + (double)x, playerPos.method_10214(), playerPos.method_10215() + (double)z).method_10086(y);
-                    if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_8320(pos).method_26204() != Blocks.COBWEB) continue;
+                    BlockPos pos = new BlockPosX(playerPos.method_10216() + (double)x, playerPos.method_10214(), playerPos.method_10215() + (double)z).up(y);
+                    if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock() != Blocks.COBWEB) continue;
                     qzw.add(pos);
                 }
             }
@@ -153,13 +153,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.checkBurrow.getValue() && !Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.isOn()) {
             return;
         }
-        if (this.selfGround.getValue() && !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_24828() && !HexTech.PLAYER.insideBlock) {
+        if (this.selfGround.getValue() && !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.isOnGround() && !HexTech.PLAYER.insideBlock) {
             return;
         }
         if (this.state != 2.0f) {
             return;
         }
-        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player != null && this.eatingPause.getValue() && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6115()) {
+        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player != null && this.eatingPause.getValue() && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.isUsingItem()) {
             return;
         }
         this.delayTimer.reset();
@@ -173,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (this.fireFix.getValue()) {
                     CombatUtil.terrainIgnore = false;
                 }
-                if (!((double)pos.method_10264() - Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_23318() <= 1.0) || !this.canTouch(pos.down()) || !this.canPlaceCrystal(pos, false, false) || !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_22347(pos) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_8320(pos).method_26204() == Blocks.FIRE || !this.place.getValue()) continue;
+                if (!((double)pos.method_10264() - Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getY() <= 1.0) || !this.canTouch(pos.down()) || !this.canPlaceCrystal(pos, false, false) || !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.isAir(pos) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock() == Blocks.FIRE || !this.place.getValue()) continue;
                 this.doPlace(pos);
             }
         }
@@ -212,7 +212,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         } else {
             this.placeTimer.reset();
             this.syncPos = pos;
-            int old = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_31548().selectedSlot;
+            int old = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getInventory().selectedSlot;
             int crystal = this.getCrystal();
             if (crystal == -1) {
                 return;
@@ -249,7 +249,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Silent || this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Normal) {
             InventoryUtil.switchToSlot(slot);
         } else if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
-            InventoryUtil.inventorySwap(slot, Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getInventory().selectedSlot);
         }
     }
 
@@ -274,7 +274,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             CombatUtil.breakTimer.reset();
             this.syncPos = pos;
-            mc.getNetworkHandler().method_52787((Packet)PlayerInteractEntityC2SPacket.attack((Entity)entity, (boolean)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_5715()));
+            mc.getNetworkHandler().sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)entity, (boolean)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_5715()));
             Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_7350();
             EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
             if (pos != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player != null && this.afterBreak.getValue() && (!this.yawStep.getValue() || !this.checkFov.getValue() || HexTech.ROTATE.inFov(entity.method_19538(), this.fov.getValueFloat()))) {
@@ -312,7 +312,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         BlockPos obsPos = pos.down();
         BlockPos boost = obsPos.up();
         BlockPos boost2 = boost.up();
-        return (Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.BEDROCK || Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.OBSIDIAN) && BlockUtil.getClickSideStrict(obsPos) != null && this.noEntityBlockCrystal(boost, ignoreCrystal, ignoreItem) && this.noEntityBlockCrystal(boost2, ignoreCrystal, ignoreItem) && (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_22347(boost) || BlockUtil.hasCrystal(boost) && Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(boost) == Blocks.FIRE);
+        return (Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.BEDROCK || Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.OBSIDIAN) && BlockUtil.getClickSideStrict(obsPos) != null && this.noEntityBlockCrystal(boost, ignoreCrystal, ignoreItem) && this.noEntityBlockCrystal(boost2, ignoreCrystal, ignoreItem) && (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.isAir(boost) || BlockUtil.hasCrystal(boost) && Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(boost) == Blocks.FIRE);
     }
 
     private boolean noEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
@@ -344,9 +344,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             BlockPosX currentBlockPos = new BlockPosX(currentPos);
             BlockState blockState = null;
             if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null) {
-                blockState = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_8320((BlockPos)currentBlockPos);
+                blockState = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState((BlockPos)currentBlockPos);
             }
-            if (!(blockState == null || !blockState.method_26215() && (resistance = blockState.method_26204().getBlastResistance()) > power)) continue;
+            if (!(blockState == null || !blockState.method_26215() && (resistance = blockState.getBlock().getBlastResistance()) > power)) continue;
             return false;
         }
         return true;
@@ -356,11 +356,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float blastResistance;
         float exposure;
         Explosion explosion = new Explosion(world, null, (double)explosionPos.method_10263(), (double)explosionPos.method_10264(), (double)explosionPos.method_10260(), power, false, Explosion.DestructionType.DESTROY);
-        BlockState blockState = world.method_8320(pos2);
+        BlockState blockState = world.getBlockState(pos2);
         float doubleExplosionSize = 2.0f * explosion.getPower();
         double distancedsize = (double)MathHelper.sqrt((float)((float)explosionPos.method_10262((Vec3i)pos2))) / (double)doubleExplosionSize;
         float damage = (float)((1.0 - distancedsize) * (double)(exposure = this.getExposure(explosionPos.toCenterPos(), pos2)));
-        return (double)damage > (double)(blastResistance = blockState.method_26204().getBlastResistance()) * 3.5;
+        return (double)damage > (double)(blastResistance = blockState.getBlock().getBlastResistance()) * 3.5;
     }
 
     public float getExposure(Vec3d source, BlockPos pos2) {

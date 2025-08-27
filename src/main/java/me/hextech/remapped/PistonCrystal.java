@@ -114,7 +114,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (BlockUtil.canReplace(pos.down())) {
             return false;
         }
-        if (PistonCrystal.mc.world != null && !PistonCrystal.mc.world.method_22347(pos)) {
+        if (PistonCrystal.mc.world != null && !PistonCrystal.mc.world.isAir(pos)) {
             return false;
         }
         if (!BlockUtil.canClick(pos.offset(Direction.DOWN))) {
@@ -197,7 +197,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.noEating.getValue() && EntityUtil.isUsing()) {
             return;
         }
-        if (PistonCrystal.mc.player != null && this.check(this.onlyStatic.getValue(), !PistonCrystal.mc.player.method_24828(), this.onlyGround.getValue())) {
+        if (PistonCrystal.mc.player != null && this.check(this.onlyStatic.getValue(), !PistonCrystal.mc.player.isOnGround(), this.onlyGround.getValue())) {
             return;
         }
         BlockPos pos = EntityUtil.getEntityPos((Entity)this.target, true);
@@ -213,7 +213,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         if (PistonCrystal.mc.world != null && this.bestPos != null) {
-            PistonCrystal.mc.world.method_8320(this.bestPos).method_26204();
+            PistonCrystal.mc.world.getBlockState(this.bestPos).getBlock();
         }
         if (this.crystalTimer.passedMs(this.posUpdateDelay.getValueInt())) {
             this.stage = 0;
@@ -230,7 +230,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.debug.getValue()) {
                 CommandManager.sendChatMessage("[Debug] PistonPos:" + String.valueOf(this.bestPos) + " Facing:" + String.valueOf(this.bestFacing) + " CrystalPos:" + String.valueOf(this.bestOPos.offset(this.bestFacing)));
             }
-            if (this.check(this.onlyStatic.getValue(), !PistonCrystal.mc.player.method_24828(), this.onlyGround.getValue())) {
+            if (this.check(this.onlyStatic.getValue(), !PistonCrystal.mc.player.isOnGround(), this.onlyGround.getValue())) {
                 return;
             }
             this.doPistonAura(this.bestPos, this.bestFacing, this.bestOPos);
@@ -239,7 +239,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public void attackCrystal(BlockPos pos, boolean rotate, boolean eatingPause) {
         block0: {
-            Iterator iterator = PistonCrystal.mc.world.method_18467(EndCrystalEntity.class, new Box(pos)).iterator();
+            Iterator iterator = PistonCrystal.mc.world.getNonSpectatingEntities(EndCrystalEntity.class, new Box(pos)).iterator();
             if (!iterator.hasNext()) break block0;
             EndCrystalEntity entity = (EndCrystalEntity)iterator.next();
             this.attackCrystal((Entity)entity, rotate, eatingPause);
@@ -258,7 +258,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (rotate && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.attackRotate.getValue() && !this.faceVector(new Vec3d(crystal.getX(), crystal.getY() + 0.25, crystal.getZ()))) {
                 return;
             }
-            PistonCrystal.mc.player.networkHandler.method_52787((Packet)PlayerInteractEntityC2SPacket.attack((Entity)crystal, (boolean)PistonCrystal.mc.player.method_5715()));
+            PistonCrystal.mc.player.networkHandler.sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)crystal, (boolean)PistonCrystal.mc.player.method_5715()));
             PistonCrystal.mc.player.method_7350();
             EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         }
@@ -282,7 +282,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private boolean checkCrystal(BlockPos pos) {
         if (PistonCrystal.mc.world != null) {
-            for (Entity entity : PistonCrystal.mc.world.method_18467(EndCrystalEntity.class, new Box(pos))) {
+            for (Entity entity : PistonCrystal.mc.world.getNonSpectatingEntities(EndCrystalEntity.class, new Box(pos))) {
                 float damage = ThunderExplosionUtil.calculateDamage(entity.getPos(), this.target, this.target, 6.0f);
                 if (!(damage > 6.0f)) continue;
                 return true;
@@ -293,7 +293,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private boolean checkCrystal2(BlockPos pos) {
         if (PistonCrystal.mc.world != null) {
-            for (Entity entity : PistonCrystal.mc.world.method_18467(Entity.class, new Box(pos))) {
+            for (Entity entity : PistonCrystal.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
                 if (!(entity instanceof EndCrystalEntity) || !EntityUtil.getEntityPos(entity).equals((Object)pos)) continue;
                 return true;
             }
@@ -337,7 +337,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void getPos(BlockPos pos, Direction facing, BlockPos oPos) {
-        if (PistonCrystal.mc.world != null && this.switchPos.getValue() && this.bestPos != null && this.bestPos.equals((Object)pos) && PistonCrystal.mc.world.method_22347(this.bestPos)) {
+        if (PistonCrystal.mc.world != null && this.switchPos.getValue() && this.bestPos != null && this.bestPos.equals((Object)pos) && PistonCrystal.mc.world.isAir(this.bestPos)) {
             return;
         }
         if (!BlockUtil.canPlace(pos, this.placeRange.getValue()) && !(this.getBlock(pos) instanceof PistonBlock)) {
@@ -347,14 +347,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (!(this.getBlock(pos) instanceof PistonBlock)) {
-            if (PistonCrystal.mc.player != null && (PistonCrystal.mc.player.method_23318() - (double)pos.method_10264() <= -2.0 || PistonCrystal.mc.player.method_23318() - (double)pos.method_10264() >= 3.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) {
+            if (PistonCrystal.mc.player != null && (PistonCrystal.mc.player.getY() - (double)pos.method_10264() <= -2.0 || PistonCrystal.mc.player.getY() - (double)pos.method_10264() >= 3.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) {
                 return;
             }
             if (!this.isTrueFacing(pos, facing)) {
                 return;
             }
         }
-        if (!PistonCrystal.mc.world.method_22347(pos.offset(facing, -1)) || PistonCrystal.mc.world.method_8320(pos.offset(facing, -1)).method_26204() == Blocks.FIRE || this.getBlock(pos.offset(facing.getOpposite())) == Blocks.MOVING_PISTON && !this.checkCrystal2(pos.offset(facing.getOpposite()))) {
+        if (!PistonCrystal.mc.world.isAir(pos.offset(facing, -1)) || PistonCrystal.mc.world.getBlockState(pos.offset(facing, -1)).getBlock() == Blocks.FIRE || this.getBlock(pos.offset(facing.getOpposite())) == Blocks.MOVING_PISTON && !this.checkCrystal2(pos.offset(facing.getOpposite()))) {
             return;
         }
         if (!BlockUtil.canPlace(pos, this.placeRange.getValue()) && !this.isPiston(pos, facing)) {
@@ -376,7 +376,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.stage = 0;
         }
         ++this.stage;
-        if (PistonCrystal.mc.world != null && PistonCrystal.mc.world.method_22347(pos)) {
+        if (PistonCrystal.mc.world != null && PistonCrystal.mc.world.isAir(pos)) {
             if (BlockUtil.canPlace(pos)) {
                 if ((double)this.stage >= this.pistonStage.getValue() && (double)this.stage <= this.pistonMaxStage.getValue()) {
                     Vec3d hitVec;
@@ -386,7 +386,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                     int old = 0;
                     if (PistonCrystal.mc.player != null) {
-                        old = PistonCrystal.mc.player.method_31548().selectedSlot;
+                        old = PistonCrystal.mc.player.getInventory().selectedSlot;
                     }
                     BlockPos neighbour = pos.offset(side);
                     Direction opposite = side.getOpposite();
@@ -434,7 +434,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         int old = 0;
         if (PistonCrystal.mc.player != null) {
-            old = PistonCrystal.mc.player.method_31548().selectedSlot;
+            old = PistonCrystal.mc.player.getInventory().selectedSlot;
         }
         this.doSwap(crystal);
         this.placeCrystal(pos.offset(facing), this.rotate.getValue());
@@ -453,13 +453,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean isPiston(BlockPos pos, Direction facing) {
-        if (PistonCrystal.mc.world != null && !(PistonCrystal.mc.world.method_8320(pos).method_26204() instanceof PistonBlock)) {
+        if (PistonCrystal.mc.world != null && !(PistonCrystal.mc.world.getBlockState(pos).getBlock() instanceof PistonBlock)) {
             return false;
         }
-        if (((Direction)PistonCrystal.mc.world.method_8320(pos).method_11654((Property)FacingBlock.field_10927)).getOpposite() != facing) {
+        if (((Direction)PistonCrystal.mc.world.getBlockState(pos).get((Property)FacingBlock.FACING)).getOpposite() != facing) {
             return false;
         }
-        return PistonCrystal.mc.world.method_22347(pos.offset(facing, -1)) || this.getBlock(pos.offset(facing, -1)) == Blocks.FIRE || this.getBlock(pos.offset(facing.getOpposite())) == Blocks.MOVING_PISTON;
+        return PistonCrystal.mc.world.isAir(pos.offset(facing, -1)) || this.getBlock(pos.offset(facing, -1)) == Blocks.FIRE || this.getBlock(pos.offset(facing.getOpposite())) == Blocks.MOVING_PISTON;
     }
 
     private void doFire(BlockPos pos, Direction facing) {
@@ -472,7 +472,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         int old = 0;
         if (PistonCrystal.mc.player != null) {
-            old = PistonCrystal.mc.player.method_31548().selectedSlot;
+            old = PistonCrystal.mc.player.getInventory().selectedSlot;
         }
         int[] xOffset = new int[]{0, facing.getOffsetZ(), -facing.getOffsetZ()};
         int[] yOffset = new int[]{0, 1};
@@ -510,7 +510,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doRedStone(BlockPos pos, Direction facing, BlockPos crystalPos) {
         Direction bestNeighboring;
-        if (PistonCrystal.mc.world != null && !PistonCrystal.mc.world.method_22347(pos.offset(facing, -1)) && this.getBlock(pos.offset(facing, -1)) != Blocks.FIRE && this.getBlock(pos.offset(facing.getOpposite())) != Blocks.MOVING_PISTON) {
+        if (PistonCrystal.mc.world != null && !PistonCrystal.mc.world.isAir(pos.offset(facing, -1)) && this.getBlock(pos.offset(facing, -1)) != Blocks.FIRE && this.getBlock(pos.offset(facing.getOpposite())) != Blocks.MOVING_PISTON) {
             return;
         }
         for (Direction i : Direction.values()) {
@@ -523,7 +523,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         int old = 0;
         if (PistonCrystal.mc.player != null) {
-            old = PistonCrystal.mc.player.method_31548().selectedSlot;
+            old = PistonCrystal.mc.player.getInventory().selectedSlot;
         }
         if ((bestNeighboring = BlockUtil.getBestNeighboring(pos, facing)) != null && bestNeighboring != facing.getOpposite() && BlockUtil.canPlace(pos.offset(bestNeighboring), this.placeRange.getValue()) && !pos.offset(bestNeighboring).equals((Object)crystalPos)) {
             this.doSwap(power);
@@ -569,7 +569,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
             if (PistonCrystal.mc.player != null) {
-                InventoryUtil.inventorySwap(slot, PistonCrystal.mc.player.method_31548().selectedSlot);
+                InventoryUtil.inventorySwap(slot, PistonCrystal.mc.player.getInventory().selectedSlot);
             }
         } else {
             InventoryUtil.switchToSlot(slot);
@@ -599,7 +599,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private Block getBlock(BlockPos pos) {
         if (PistonCrystal.mc.world != null) {
-            return PistonCrystal.mc.world.method_8320(pos).method_26204();
+            return PistonCrystal.mc.world.getBlockState(pos).getBlock();
         }
         return null;
     }
@@ -608,7 +608,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Direction side;
         if (BlockUtil.airPlace()) {
             for (Direction i : Direction.values()) {
-                if (PistonCrystal.mc.world == null || !PistonCrystal.mc.world.method_22347(pos.offset(i))) continue;
+                if (PistonCrystal.mc.world == null || !PistonCrystal.mc.world.isAir(pos.offset(i))) continue;
                 this.clickBlock(pos, i, rotate);
                 return;
             }
@@ -626,20 +626,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         boolean sneak = false;
         if (PistonCrystal.mc.world != null) {
-            boolean bl = sneak = BlockUtil.needSneak(PistonCrystal.mc.world.method_8320(result.getBlockPos()).method_26204()) && !PistonCrystal.mc.player.method_5715();
+            boolean bl = sneak = BlockUtil.needSneak(PistonCrystal.mc.world.getBlockState(result.getBlockPos()).getBlock()) && !PistonCrystal.mc.player.method_5715();
         }
         if (sprint) {
-            PistonCrystal.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
+            PistonCrystal.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
         }
         if (sneak) {
-            PistonCrystal.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY));
+            PistonCrystal.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY));
         }
         this.clickBlock(pos.offset(side), side.getOpposite(), rotate);
         if (sneak) {
-            PistonCrystal.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY));
+            PistonCrystal.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY));
         }
         if (sprint) {
-            PistonCrystal.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
+            PistonCrystal.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
         }
         if (bypass) {
             EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
@@ -678,7 +678,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         if (PistonCrystal.mc.player != null) {
-            PistonCrystal.mc.player.networkHandler.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(PistonCrystal.mc.world)));
+            PistonCrystal.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(PistonCrystal.mc.world)));
         }
         return true;
     }

@@ -58,7 +58,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (HoleKickTest.isInWeb((PlayerEntity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player)) {
             return;
         }
-        if (FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_24828()) {
+        if (FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isOnGround()) {
             if (this.mode.getValue() == FastFall.Fast) {
                 MovementUtil.setMotionY(MovementUtil.getMotionY() - (double)(this.noLag.getValue() ? 0.62f : 1.0f));
             }
@@ -68,7 +68,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         if (this.mode.getValue() == FastFall.Strict) {
-            if (!FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_24828()) {
+            if (!FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isOnGround()) {
                 if (this.onGround) {
                     this.useTimer = true;
                 }
@@ -91,7 +91,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (FastFall_mtLznGzMDzxhgBaLMnXD.nullCheck()) {
             return;
         }
-        if (!FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_24828() && this.useTimer) {
+        if (!FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isOnGround() && this.useTimer) {
             event.set((float)this.STimer.getValue());
         }
     }
@@ -106,8 +106,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private int traceDown() {
         int y;
         int retval = 0;
-        for (int tracey = y = (int)Math.round(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23318()) - 1; tracey >= 0; --tracey) {
-            BlockHitResult trace = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.method_17742(new RaycastContext(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_19538(), new Vec3d(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23317(), (double)tracey, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23321()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player));
+        for (int tracey = y = (int)Math.round(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getY()) - 1; tracey >= 0; --tracey) {
+            BlockHitResult trace = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.method_17742(new RaycastContext(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_19538(), new Vec3d(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getX(), (double)tracey, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player));
             if (trace != null && trace.getType() == HitResult.Type.BLOCK) {
                 return retval;
             }
@@ -117,7 +117,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean trace() {
-        Box bbox = FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_5829();
+        Box bbox = FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getBoundingBox();
         Vec3d basepos = bbox.getCenter();
         double minX = bbox.minX;
         double minZ = bbox.minZ;
@@ -135,7 +135,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (result == null || result.method_17783() != HitResult.Type.BLOCK) continue;
             return false;
         }
-        BlockState state = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.method_8320((BlockPos)new BlockPosX(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23317(), FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23318() - 1.0, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23321()));
+        BlockState state = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.getBlockState((BlockPos)new BlockPosX(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getX(), FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getY() - 1.0, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getZ()));
         return state.method_26215();
     }
 }

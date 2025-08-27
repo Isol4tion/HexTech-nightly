@@ -46,7 +46,7 @@ implements Wrapper {
     public static void attackCrystal(BlockPos pos, boolean rotate, boolean eatingPause) {
         block0: {
             Iterator iterator;
-            if (CombatUtil.mc.world == null || !(iterator = CombatUtil.mc.world.method_18467(EndCrystalEntity.class, new Box(pos)).iterator()).hasNext()) break block0;
+            if (CombatUtil.mc.world == null || !(iterator = CombatUtil.mc.world.getNonSpectatingEntities(EndCrystalEntity.class, new Box(pos)).iterator()).hasNext()) break block0;
             EndCrystalEntity entity = (EndCrystalEntity)iterator.next();
             CombatUtil.attackCrystal((Entity)entity, rotate, eatingPause);
         }
@@ -55,7 +55,7 @@ implements Wrapper {
     public static void attackCrystal(Box box, boolean rotate, boolean eatingPause) {
         block0: {
             Iterator iterator;
-            if (CombatUtil.mc.world == null || !(iterator = CombatUtil.mc.world.method_18467(EndCrystalEntity.class, box).iterator()).hasNext()) break block0;
+            if (CombatUtil.mc.world == null || !(iterator = CombatUtil.mc.world.getNonSpectatingEntities(EndCrystalEntity.class, box).iterator()).hasNext()) break block0;
             EndCrystalEntity entity = (EndCrystalEntity)iterator.next();
             CombatUtil.attackCrystal((Entity)entity, rotate, eatingPause);
         }
@@ -74,7 +74,7 @@ implements Wrapper {
                 EntityUtil.faceVector(new Vec3d(crystal.getX(), crystal.getY() + 0.25, crystal.getZ()));
             }
             if (CombatUtil.mc.player != null) {
-                CombatUtil.mc.player.networkHandler.method_52787((Packet)PlayerInteractEntityC2SPacket.attack((Entity)crystal, (boolean)CombatUtil.mc.player.method_5715()));
+                CombatUtil.mc.player.networkHandler.sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)crystal, (boolean)CombatUtil.mc.player.method_5715()));
             }
             if (CombatUtil.mc.player != null) {
                 CombatUtil.mc.player.method_7350();
@@ -167,7 +167,7 @@ implements Wrapper {
         double entityMotionPosX = 0.0;
         double entityMotionPosZ = 0.0;
         if (collision) {
-            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.method_39454(entity, entity.method_5829().offset(new Vec3d(dX * i, 0.0, dZ * i))); i += 0.5) {
+            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.method_39454(entity, entity.getBoundingBox().offset(new Vec3d(dX * i, 0.0, dZ * i))); i += 0.5) {
                 entityMotionPosX = dX * i;
                 entityMotionPosZ = dZ * i;
             }
@@ -193,7 +193,7 @@ implements Wrapper {
         double entityMotionPosY = 0.0;
         double entityMotionPosZ = 0.0;
         if (collision) {
-            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.method_39454(entity, entity.method_5829().offset(new Vec3d(dX * i, dY * i, dZ * i))); i += 0.5) {
+            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.method_39454(entity, entity.getBoundingBox().offset(new Vec3d(dX * i, dY * i, dZ * i))); i += 0.5) {
                 entityMotionPosX = dX * i;
                 entityMotionPosY = dY * i;
                 entityMotionPosZ = dZ * i;
@@ -207,7 +207,7 @@ implements Wrapper {
     }
 
     public static boolean isHard(BlockPos pos) {
-        Block block = BlockUtil.getState(pos).method_26204();
+        Block block = BlockUtil.getState(pos).getBlock();
         return block == Blocks.OBSIDIAN || block == Blocks.NETHERITE_BLOCK || block == Blocks.ENDER_CHEST || block == Blocks.BEDROCK || block == Blocks.ANVIL;
     }
 }

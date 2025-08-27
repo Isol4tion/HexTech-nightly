@@ -20,19 +20,19 @@ extends Screen {
         this.parent = parentScreen;
     }
 
-    public void method_25426() {
+    public void init() {
         super.init();
-        this.textFieldAltUsername = new TextFieldWidget(this.field_22793, this.field_22789 / 2 - 100, this.field_22790 / 2 - 76, 200, 20, Text.of((String)"Enter Name"));
+        this.textFieldAltUsername = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 76, 200, 20, Text.of((String)"Enter Name"));
         this.textFieldAltUsername.setText("");
-        this.method_37063((Element)this.textFieldAltUsername);
-        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Add Alt"), b -> this.onButtonAltAddPressed()).dimensions(this.field_22789 / 2 - 100, this.field_22790 / 2 + 24, 200, 20).build());
-        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.onButtonCancelPressed()).dimensions(this.field_22789 / 2 - 100, this.field_22790 / 2 + 46, 200, 20).build());
+        this.addDrawableChild(this.textFieldAltUsername);
+        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Add Alt"), b -> this.onButtonAltAddPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 24, 200, 20).build());
+        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.onButtonCancelPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 46, 200, 20).build());
     }
 
-    public void method_25394(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        drawContext.drawCenteredTextWithShadow(this.field_22793, "Add Alternate Account", this.field_22789 / 2, 20, 0xFFFFFF);
-        drawContext.drawCenteredTextWithShadow(this.field_22793, "Username:", this.field_22789 / 2 - 100, this.field_22790 / 2 - 90, 0xFFFFFF);
-        super.method_25394(drawContext, mouseX, mouseY, delta);
+    public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+        drawContext.drawCenteredTextWithShadow(this.textRenderer, "Add Alternate Account", this.width / 2, 20, 0xFFFFFF);
+        drawContext.drawCenteredTextWithShadow(this.textRenderer, "Username:", this.width / 2 - 100, this.height / 2 - 90, 0xFFFFFF);
+        super.render(drawContext, mouseX, mouseY, delta);
     }
 
     private void onButtonAltAddPressed() {
@@ -42,6 +42,6 @@ extends Screen {
     }
 
     public void onButtonCancelPressed() {
-        this.field_22787.setScreen((Screen)this.parent);
+        this.client.setScreen((Screen)this.parent);
     }
 }

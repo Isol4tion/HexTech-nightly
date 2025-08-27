@@ -339,9 +339,9 @@ implements Wrapper {
     public static void drawSphere(MatrixStack matrix, EndCrystalEntity entity, Float radius, Float height, Float lineWidth, Color color) {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        double x = entity.field_6038 + (entity.method_23317() - entity.field_6038) * (double)mc.method_1488();
-        double y = entity.field_5971 + (entity.method_23318() - entity.field_5971) * (double)mc.method_1488();
-        double z = entity.field_5989 + (entity.method_23321() - entity.field_5989) * (double)mc.method_1488();
+        double x = entity.field_6038 + (entity.getX() - entity.field_6038) * (double)mc.getTickDelta();
+        double y = entity.field_5971 + (entity.getY() - entity.field_5971) * (double)mc.getTickDelta();
+        double z = entity.field_5989 + (entity.getZ() - entity.field_5989) * (double)mc.getTickDelta();
         double pix2 = Math.PI * 2;
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.method_1349();

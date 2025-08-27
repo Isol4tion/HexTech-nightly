@@ -85,7 +85,7 @@ implements Wrapper {
     }
 
     public static float getExposure(Vec3d source, Entity entity) {
-        Box box = entity.method_5829();
+        Box box = entity.getBoundingBox();
         int miss = 0;
         int hit = 0;
         for (int k = 0; k <= 1; ++k) {
@@ -107,8 +107,8 @@ implements Wrapper {
 
     private static HitResult.Type raycast(Vec3d start, Vec3d end) {
         return (HitResult.Type)BlockView.raycast((Vec3d)start, (Vec3d)end, null, (_null, blockPos) -> {
-            BlockState blockState = ExplosionUtil.mc.world.method_8320(blockPos);
-            if (blockState.method_26204().getBlastResistance() < 600.0f) {
+            BlockState blockState = ExplosionUtil.mc.world.getBlockState(blockPos);
+            if (blockState.getBlock().getBlastResistance() < 600.0f) {
                 return null;
             }
             BlockHitResult hitResult = blockState.method_26220((BlockView)ExplosionUtil.mc.world, blockPos).raycast(start, end, blockPos);

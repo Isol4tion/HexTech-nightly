@@ -46,10 +46,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private static boolean canbur() {
-        BlockPosX pos1 = new BlockPosX(BurrowAssist.mc.player.method_23317() + 0.3, BurrowAssist.mc.player.method_23318() + 0.5, BurrowAssist.mc.player.method_23321() + 0.3);
-        BlockPosX pos2 = new BlockPosX(BurrowAssist.mc.player.method_23317() - 0.3, BurrowAssist.mc.player.method_23318() + 0.5, BurrowAssist.mc.player.method_23321() + 0.3);
-        BlockPosX pos3 = new BlockPosX(BurrowAssist.mc.player.method_23317() + 0.3, BurrowAssist.mc.player.method_23318() + 0.5, BurrowAssist.mc.player.method_23321() - 0.3);
-        BlockPosX pos4 = new BlockPosX(BurrowAssist.mc.player.method_23317() - 0.3, BurrowAssist.mc.player.method_23318() + 0.5, BurrowAssist.mc.player.method_23321() - 0.3);
+        BlockPosX pos1 = new BlockPosX(BurrowAssist.mc.player.getX() + 0.3, BurrowAssist.mc.player.getY() + 0.5, BurrowAssist.mc.player.getZ() + 0.3);
+        BlockPosX pos2 = new BlockPosX(BurrowAssist.mc.player.getX() - 0.3, BurrowAssist.mc.player.getY() + 0.5, BurrowAssist.mc.player.getZ() + 0.3);
+        BlockPosX pos3 = new BlockPosX(BurrowAssist.mc.player.getX() + 0.3, BurrowAssist.mc.player.getY() + 0.5, BurrowAssist.mc.player.getZ() - 0.3);
+        BlockPosX pos4 = new BlockPosX(BurrowAssist.mc.player.getX() - 0.3, BurrowAssist.mc.player.getY() + 0.5, BurrowAssist.mc.player.getZ() - 0.3);
         BlockPos playerPos = EntityUtil.getPlayerPos(true);
         return Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.canPlace(pos1) || Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.canPlace(pos2) || Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.canPlace(pos3) || Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.canPlace(pos4);
     }
@@ -62,7 +62,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!delay.passed((long)this.Delay.getValue())) {
             return;
         }
-        if (this.pause.getValue() && BurrowAssist.mc.player.method_6115()) {
+        if (this.pause.getValue() && BurrowAssist.mc.player.isUsingItem()) {
             return;
         }
         if (BurrowAssist.mc.options.jumpKey.isPressed()) {
@@ -71,7 +71,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!BurrowAssist.canbur()) {
             return;
         }
-        if (BurrowAssist.mc.player.method_24828() && this.getPlayerSpeed((PlayerEntity)BurrowAssist.mc.player) < (double)this.speed.getValueInt() && (this.ccheck.getValue() && this.mcheck.getValue() ? this.findcrystal() || this.checkmine(this.mself.getValue()) : !(this.ccheck.getValue() && !this.findcrystal() || this.mcheck.getValue() && !this.checkmine(this.mself.getValue())))) {
+        if (BurrowAssist.mc.player.isOnGround() && this.getPlayerSpeed((PlayerEntity)BurrowAssist.mc.player) < (double)this.speed.getValueInt() && (this.ccheck.getValue() && this.mcheck.getValue() ? this.findcrystal() || this.checkmine(this.mself.getValue()) : !(this.ccheck.getValue() && !this.findcrystal() || this.mcheck.getValue() && !this.checkmine(this.mself.getValue())))) {
             if (Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.isOn()) {
                 return;
             }
@@ -116,10 +116,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public boolean checkmine(boolean self) {
         ArrayList<BlockPos> pos = new ArrayList<BlockPos>();
         pos.add(EntityUtil.getPlayerPos(true));
-        pos.add(new BlockPosX(BurrowAssist.mc.player.method_23317() + 0.4, BurrowAssist.mc.player.method_23318() + 0.5, BurrowAssist.mc.player.method_23321() + 0.4));
-        pos.add(new BlockPosX(BurrowAssist.mc.player.method_23317() - 0.4, BurrowAssist.mc.player.method_23318() + 0.5, BurrowAssist.mc.player.method_23321() + 0.4));
-        pos.add(new BlockPosX(BurrowAssist.mc.player.method_23317() + 0.4, BurrowAssist.mc.player.method_23318() + 0.5, BurrowAssist.mc.player.method_23321() - 0.4));
-        pos.add(new BlockPosX(BurrowAssist.mc.player.method_23317() - 0.4, BurrowAssist.mc.player.method_23318() + 0.5, BurrowAssist.mc.player.method_23321() - 0.4));
+        pos.add(new BlockPosX(BurrowAssist.mc.player.getX() + 0.4, BurrowAssist.mc.player.getY() + 0.5, BurrowAssist.mc.player.getZ() + 0.4));
+        pos.add(new BlockPosX(BurrowAssist.mc.player.getX() - 0.4, BurrowAssist.mc.player.getY() + 0.5, BurrowAssist.mc.player.getZ() + 0.4));
+        pos.add(new BlockPosX(BurrowAssist.mc.player.getX() + 0.4, BurrowAssist.mc.player.getY() + 0.5, BurrowAssist.mc.player.getZ() - 0.4));
+        pos.add(new BlockPosX(BurrowAssist.mc.player.getX() - 0.4, BurrowAssist.mc.player.getY() + 0.5, BurrowAssist.mc.player.getZ() - 0.4));
         for (MineManager breakData : new HashMap<Integer, MineManager>(HexTech.BREAK.breakMap).values()) {
             if (breakData == null || breakData.getEntity() == null) continue;
             for (BlockPos pos1 : pos) {

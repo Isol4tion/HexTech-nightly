@@ -67,7 +67,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Shader_CLqIXXaHSdAoBoxRSgjR.mc.player == null) {
             return false;
         }
-        if ((double)MathHelper.sqrt((float)((float)Shader_CLqIXXaHSdAoBoxRSgjR.mc.player.method_5707(entity.getPos()))) > this.maxRange.getValue()) {
+        if ((double)MathHelper.sqrt((float)((float)Shader_CLqIXXaHSdAoBoxRSgjR.mc.player.squaredDistanceTo(entity.getPos()))) > this.maxRange.getValue()) {
             return false;
         }
         if (entity instanceof PlayerEntity) {
@@ -96,7 +96,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         if (this.hands.getValue()) {
-            HexTech.SHADER.renderShader(() -> Shader_CLqIXXaHSdAoBoxRSgjR.mc.gameRenderer.method_3172(matrixStack, Shader_CLqIXXaHSdAoBoxRSgjR.mc.gameRenderer.getCamera(), mc.method_1488()), this.mode.getValue());
+            HexTech.SHADER.renderShader(() -> Shader_CLqIXXaHSdAoBoxRSgjR.mc.gameRenderer.method_3172(matrixStack, Shader_CLqIXXaHSdAoBoxRSgjR.mc.gameRenderer.getCamera(), mc.getTickDelta()), this.mode.getValue());
         }
     }
 

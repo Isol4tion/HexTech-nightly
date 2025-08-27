@@ -98,7 +98,7 @@ implements Wrapper {
             return;
         }
         Vec3d last = path.get(path.size() - 1);
-        Box box = real.method_5829().offset(last.subtract(real.method_19538()));
+        Box box = real.getBoundingBox().offset(last.subtract(real.method_19538()));
         Render3DUtil.draw3DBox(matrices, box, this.color.getValue(), true, true);
     }
 
@@ -156,7 +156,7 @@ implements Wrapper {
         public _XBpBEveLWEKUGQPHCCIS(PlayerEntity player) {
             this.player = player;
             if (PredictionSetting.INSTANCE.prediction.getValue()) {
-                this.predict = new PredictionSetting_JKvMiRXQVAwkYSSmKMez(this, (World)Wrapper.mc.world, player.method_24515(), player.method_36454(), new GameProfile(UUID.fromString("66123666-1234-5432-6666-667563866600"), "PredictEntity339"));
+                this.predict = new PredictionSetting_JKvMiRXQVAwkYSSmKMez(this, (World)Wrapper.mc.world, player.getBlockPos(), player.method_36454(), new GameProfile(UUID.fromString("66123666-1234-5432-6666-667563866600"), "PredictEntity339"));
                 if (PredictionSetting.INSTANCE.mode.getValue() == _mJSQReswTiaqOSqkjOmh.Aurora) {
                     int ticks = PredictionSetting.INSTANCE.breakExtrap.getValueInt();
                     Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(player, ticks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());
@@ -166,7 +166,7 @@ implements Wrapper {
                     this.predict.field_6014 = player.field_6014;
                     this.predict.field_6036 = player.field_6036;
                     this.predict.field_5969 = player.field_5969;
-                    this.predict.method_24830(player.method_24828());
+                    this.predict.method_24830(player.isOnGround());
                     this.predict.getInventory().clone(player.getInventory());
                     this.predict.method_18380(player.method_18376());
                     player.method_6026().forEach(arg_0 -> ((PlayerEntity)this.predict).addStatusEffect(arg_0));
@@ -176,11 +176,11 @@ implements Wrapper {
                     this.predict.field_6014 = player.field_6014;
                     this.predict.field_5969 = player.field_5969;
                     this.predict.field_6036 = player.field_6036;
-                    this.predict.method_24830(player.method_24828());
+                    this.predict.method_24830(player.isOnGround());
                     this.predict.getInventory().clone(player.getInventory());
                     this.predict.method_18380(player.method_18376());
                     for (StatusEffectInstance se : new ArrayList(player.method_6026())) {
-                        this.predict.method_6092(se);
+                        this.predict.addStatusEffect(se);
                     }
                 }
             } else {

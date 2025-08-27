@@ -20,12 +20,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         boolean isVoid = true;
-        for (int i = (int)AntiVoid.mc.player.method_23318(); i > this.voidHeight.getValueInt() - 1; --i) {
-            if (AntiVoid.mc.world.method_8320((BlockPos)new BlockPosX(AntiVoid.mc.player.method_23317(), i, AntiVoid.mc.player.method_23321())).method_26204() == Blocks.AIR) continue;
+        for (int i = (int)AntiVoid.mc.player.getY(); i > this.voidHeight.getValueInt() - 1; --i) {
+            if (AntiVoid.mc.world.getBlockState((BlockPos)new BlockPosX(AntiVoid.mc.player.getX(), i, AntiVoid.mc.player.getZ())).getBlock() == Blocks.AIR) continue;
             isVoid = false;
             break;
         }
-        if (AntiVoid.mc.player.method_23318() < this.height.getValue() + this.voidHeight.getValue() && isVoid) {
+        if (AntiVoid.mc.player.getY() < this.height.getValue() + this.voidHeight.getValue() && isVoid) {
             MovementUtil.setMotionY(0.0);
         }
     }

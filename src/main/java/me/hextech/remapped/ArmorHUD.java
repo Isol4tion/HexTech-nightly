@@ -36,7 +36,7 @@ extends Tab {
                 Render2DUtil.drawRect(drawContext.getMatrices(), (float)this.x, (float)this.y, (float)this.width, (float)this.height, new Color(0, 0, 0, 70));
             }
             int xOff = 0;
-            for (ItemStack armor : this.mc.player.method_31548().armor) {
+            for (ItemStack armor : this.mc.player.getInventory().armor) {
                 xOff += 20;
                 if (armor.isEmpty()) continue;
                 MatrixStack matrixStack = drawContext.getMatrices();

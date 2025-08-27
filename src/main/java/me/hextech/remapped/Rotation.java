@@ -49,9 +49,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (e.isPre()) {
             this.prevYaw = Rotation.mc.player.method_36454();
-            Rotation.mc.player.method_36456(fixRotation);
+            Rotation.mc.player.setYaw(fixRotation);
         } else {
-            Rotation.mc.player.method_36456(this.prevYaw);
+            Rotation.mc.player.setYaw(this.prevYaw);
         }
     }
 

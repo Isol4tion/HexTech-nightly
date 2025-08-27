@@ -39,7 +39,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static int getEmptySlots() {
         int emptySlots = 0;
         for (int i = 0; i < 36; ++i) {
-            ItemStack itemStack = BedCrafter.mc.player.method_31548().method_5438(i);
+            ItemStack itemStack = BedCrafter.mc.player.getInventory().method_5438(i);
             if (itemStack != null && !(itemStack.getItem() instanceof AirBlockItem)) continue;
             ++emptySlots;
         }
@@ -101,14 +101,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double distance = 100.0;
         boolean place = true;
         for (BlockPos pos : BlockUtil.getSphere(this.range.getValueFloat())) {
-            if (BedCrafter.mc.world.method_8320(pos).method_26204() == Blocks.CRAFTING_TABLE && BlockUtil.getClickSideStrict(pos) != null) {
+            if (BedCrafter.mc.world.getBlockState(pos).getBlock() == Blocks.CRAFTING_TABLE && BlockUtil.getClickSideStrict(pos) != null) {
                 place = false;
                 bestPos = pos;
                 break;
             }
-            if (!BlockUtil.canPlace(pos) || bestPos != null && !((double)MathHelper.sqrt((float)((float)BedCrafter.mc.player.method_5707(pos.toCenterPos()))) < distance)) continue;
+            if (!BlockUtil.canPlace(pos) || bestPos != null && !((double)MathHelper.sqrt((float)((float)BedCrafter.mc.player.squaredDistanceTo(pos.toCenterPos()))) < distance)) continue;
             bestPos = pos;
-            distance = MathHelper.sqrt((float)((float)BedCrafter.mc.player.method_5707(pos.toCenterPos())));
+            distance = MathHelper.sqrt((float)((float)BedCrafter.mc.player.squaredDistanceTo(pos.toCenterPos())));
         }
         if (bestPos != null) {
             if (!place) {
@@ -117,7 +117,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (InventoryUtil.findItem(Item.fromBlock((Block)Blocks.CRAFTING_TABLE)) == -1) {
                     return;
                 }
-                int old = BedCrafter.mc.player.method_31548().selectedSlot;
+                int old = BedCrafter.mc.player.getInventory().selectedSlot;
                 InventoryUtil.switchToSlot(InventoryUtil.findItem(Item.fromBlock((Block)Blocks.CRAFTING_TABLE)));
                 BlockUtil.placeBlock(bestPos, this.rotate.getValue());
                 InventoryUtil.switchToSlot(old);

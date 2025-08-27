@@ -105,7 +105,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         for (RecipeEntry recipe : recipeResultCollection.method_2648(true)) {
                             int i = 0;
                             while ((double)i < this.craftPackets.getValue()) {
-                                mc.getNetworkHandler().method_52787((Packet)new CraftRequestC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.syncId, recipe, true));
+                                mc.getNetworkHandler().sendPacket((Packet)new CraftRequestC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.syncId, recipe, true));
                                 ++i;
                             }
                         }
@@ -123,17 +123,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             case 2: {
                 int i = 0;
                 while ((double)i < this.sequencePackets.getValue()) {
-                    mc.getNetworkHandler().method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, -1));
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, -1));
                     ++i;
                 }
                 break;
             }
             case 3: {
-                Vec3d pos = new Vec3d(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23317(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23318(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23321());
+                Vec3d pos = new Vec3d(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ());
                 BlockHitResult bhr = new BlockHitResult(pos, Direction.DOWN, BlockPos.ofFloored((Position)pos), false);
                 int i = 0;
                 while ((double)i < this.sequencePackets.getValue()) {
-                    mc.getNetworkHandler().method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, bhr, -1));
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, bhr, -1));
                     ++i;
                 }
                 break;
@@ -147,7 +147,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     int i = 0;
                     while ((double)i < this.movementPackets.getValue()) {
                         PlayerMoveC2SPacket.Full move_packet = new PlayerMoveC2SPacket.Full(current_pos.x + this.getDistributedRandom(1.0), current_pos.y + this.getDistributedRandom(1.0), current_pos.z + this.getDistributedRandom(1.0), (float)ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(90.0), (float)ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(180.0), true);
-                        mc.getNetworkHandler().method_52787((Packet)move_packet);
+                        mc.getNetworkHandler().sendPacket((Packet)move_packet);
                         ++i;
                     }
                     break;
@@ -165,7 +165,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 String partialCommand = "msg @a[nbt={PAYLOAD}]".replace("{PAYLOAD}", overflow);
                 int i = 0;
                 while ((double)i < this.commandPackets.getValue()) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.method_52787((Packet)new RequestCommandCompletionsC2SPacket(0, partialCommand));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new RequestCommandCompletionsC2SPacket(0, partialCommand));
                     ++i;
                 }
                 if (!this.smartDisable.getValue()) break;
@@ -176,7 +176,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (!(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.currentScreen instanceof LecternScreen)) {
                     return;
                 }
-                mc.getNetworkHandler().method_52787((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.syncId, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.getRevision(), 0, 0, SlotActionType.QUICK_MOVE, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.getCursorStack().copy(), Int2ObjectMaps.emptyMap()));
+                mc.getNetworkHandler().sendPacket((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.syncId, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.getRevision(), 0, 0, SlotActionType.QUICK_MOVE, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.getCursorStack().copy(), Int2ObjectMaps.emptyMap()));
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
                 break;
@@ -185,20 +185,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 int i = 0;
                 while ((double)i < this.interactPackets.getValue()) {
                     Vec3d cpos = this.pickRandomPos();
-                    mc.getNetworkHandler().method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(cpos, Direction.DOWN, BlockPos.ofFloored((Position)cpos), false), 0));
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(cpos, Direction.DOWN, BlockPos.ofFloored((Position)cpos), false), 0));
                     ++i;
                 }
                 break;
             }
             case 7: {
                 Vec3d oob = new Vec3d(Double.POSITIVE_INFINITY, 255.0, Double.NEGATIVE_INFINITY);
-                mc.getNetworkHandler().method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(oob, Direction.DOWN, BlockPos.ofFloored((Position)oob), false), 0));
+                mc.getNetworkHandler().sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(oob, Direction.DOWN, BlockPos.ofFloored((Position)oob), false), 0));
                 break;
             }
             case 8: {
                 int i = 0;
                 while ((double)i < this.interactPackets.getValue()) {
-                    mc.getNetworkHandler().method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
                     ++i;
                 }
                 break;
@@ -208,14 +208,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 REAL.put(0, (Object)new ItemStack((ItemConvertible)Items.RED_DYE, 1));
                 int i = 0;
                 while ((double)i < this.clickSlotPackets.getValue()) {
-                    mc.getNetworkHandler().method_52787((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.syncId, 123344, 2957234, 2859623, SlotActionType.PICKUP, new ItemStack((ItemConvertible)Items.AIR, -1), (Int2ObjectMap)REAL));
+                    mc.getNetworkHandler().sendPacket((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.syncId, 123344, 2957234, 2859623, SlotActionType.PICKUP, new ItemStack((ItemConvertible)Items.AIR, -1), (Int2ObjectMap)REAL));
                     ++i;
                 }
                 break;
             }
             case 10: {
                 for (double i = 0.0; i < this.aacPackets.getValue(); i += 1.0) {
-                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23317() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23318() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23321() + 9412.0 * i, true));
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + 9412.0 * i, true));
                 }
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
@@ -223,7 +223,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             case 11: {
                 for (double i = 0.0; i < this.aacPackets.getValue(); i += 1.0) {
-                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23317() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23318() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23321() + 500000.0 * i, true));
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + 500000.0 * i, true));
                 }
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
@@ -231,7 +231,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             case 12: {
                 for (double i = 0.0; i < this.aacPackets.getValue(); i += 1.0) {
-                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, true));
+                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, true));
                 }
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
@@ -266,7 +266,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 the.method_7959("BlockEntityTag", (NbtElement)tag);
                 int i = 0;
                 while ((double)i < this.creativePackets.getValue()) {
-                    mc.getNetworkHandler().method_52787((Packet)new CreativeInventoryActionC2SPacket(1, the));
+                    mc.getNetworkHandler().sendPacket((Packet)new CreativeInventoryActionC2SPacket(1, the));
                     ++i;
                 }
                 break;
@@ -284,7 +284,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 int i = 0;
                 while ((double)i < this.vehiclePackets.getValue()) {
-                    mc.getNetworkHandler().method_52787((Packet)new BoatPaddleStateC2SPacket(true, true));
+                    mc.getNetworkHandler().sendPacket((Packet)new BoatPaddleStateC2SPacket(true, true));
                     ++i;
                 }
                 break;
@@ -297,12 +297,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                     return;
                 }
-                BlockPos start = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_24515();
+                BlockPos start = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getBlockPos();
                 Vec3d end = new Vec3d((double)start.method_10263() + 0.5, (double)(start.method_10264() + 1), (double)start.method_10260() + 0.5);
                 vehicle.updatePosition(end.x, end.y - 1.0, end.z);
                 int i = 0;
                 while ((double)i < this.vehiclePackets.getValue()) {
-                    mc.getNetworkHandler().method_52787((Packet)new VehicleMoveC2SPacket(vehicle));
+                    mc.getNetworkHandler().sendPacket((Packet)new VehicleMoveC2SPacket(vehicle));
                     ++i;
                 }
                 break;
@@ -310,8 +310,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             case 20: {
                 int index = 0;
                 while ((double)index < this.offhandPackets.getValue()) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.method_52787((Packet)new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.SWAP_ITEM_WITH_OFFHAND, BlockPos.ORIGIN, Direction.UP));
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.OnGroundOnly(true));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.SWAP_ITEM_WITH_OFFHAND, BlockPos.ORIGIN, Direction.UP));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.OnGroundOnly(true));
                     ++index;
                 }
                 break;
@@ -323,11 +323,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 break;
             }
             case 19: {
-                for (double yPos = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23318(); yPos < 255.0; yPos += 5.0) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23317(), yPos, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23321(), true));
+                for (double yPos = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY(); yPos < 255.0; yPos += 5.0) {
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX(), yPos, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ(), true));
                 }
                 for (double i = 0.0; i < 6685.0; i += 5.0) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23317() + i, 255.0, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_23321() + i, true));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + i, 255.0, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + i, true));
                 }
                 break;
             }
@@ -360,7 +360,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (int i = 0; i < 50; ++i) {
                     pages.add(mm255);
                 }
-                mc.getNetworkHandler().method_52787((Packet)new BookUpdateC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_31548().selectedSlot, pages, Optional.of(title)));
+                mc.getNetworkHandler().sendPacket((Packet)new BookUpdateC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getInventory().selectedSlot, pages, Optional.of(title)));
                 break;
             }
             case 14: {
@@ -380,7 +380,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     tag.put("title", (NbtElement)NbtString.of((String)RandomStringUtils.randomAlphabetic((int)25564)));
                     tag.put("pages", (NbtElement)list);
                     book.method_7980(tag);
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.method_52787((Packet)new CreativeInventoryActionC2SPacket(this.slot, book));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new CreativeInventoryActionC2SPacket(this.slot, book));
                 }
                 break;
             }

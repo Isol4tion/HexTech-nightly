@@ -33,12 +33,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.cancelPacket = false;
         if (this.clipIn.getValue()) {
             Direction f = BugClip.mc.player.method_5735();
-            BugClip.mc.player.method_5814(BugClip.mc.player.method_23317() + (double)f.getOffsetX() * 0.5, BugClip.mc.player.method_23318(), BugClip.mc.player.method_23321() + (double)f.getOffsetZ() * 0.5);
-            BugClip.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(BugClip.mc.player.method_23317(), BugClip.mc.player.method_23318(), BugClip.mc.player.method_23321(), true));
+            BugClip.mc.player.setPosition(BugClip.mc.player.getX() + (double)f.getOffsetX() * 0.5, BugClip.mc.player.getY(), BugClip.mc.player.getZ() + (double)f.getOffsetZ() * 0.5);
+            BugClip.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(BugClip.mc.player.getX(), BugClip.mc.player.getY(), BugClip.mc.player.getZ(), true));
         } else {
-            BugClip.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(BugClip.mc.player.method_23317(), BugClip.mc.player.method_23318(), BugClip.mc.player.method_23321(), true));
-            BugClip.mc.player.method_5814(this.roundToClosest(BugClip.mc.player.method_23317(), Math.floor(BugClip.mc.player.method_23317()) + 0.23, Math.floor(BugClip.mc.player.method_23317()) + 0.77), BugClip.mc.player.method_23318(), this.roundToClosest(BugClip.mc.player.method_23321(), Math.floor(BugClip.mc.player.method_23321()) + 0.23, Math.floor(BugClip.mc.player.method_23321()) + 0.77));
-            BugClip.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(this.roundToClosest(BugClip.mc.player.method_23317(), Math.floor(BugClip.mc.player.method_23317()) + 0.23, Math.floor(BugClip.mc.player.method_23317()) + 0.77), BugClip.mc.player.method_23318(), this.roundToClosest(BugClip.mc.player.method_23321(), Math.floor(BugClip.mc.player.method_23321()) + 0.23, Math.floor(BugClip.mc.player.method_23321()) + 0.77), true));
+            BugClip.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(BugClip.mc.player.getX(), BugClip.mc.player.getY(), BugClip.mc.player.getZ(), true));
+            BugClip.mc.player.setPosition(this.roundToClosest(BugClip.mc.player.getX(), Math.floor(BugClip.mc.player.getX()) + 0.23, Math.floor(BugClip.mc.player.getX()) + 0.77), BugClip.mc.player.getY(), this.roundToClosest(BugClip.mc.player.getZ(), Math.floor(BugClip.mc.player.getZ()) + 0.23, Math.floor(BugClip.mc.player.getZ()) + 0.77));
+            BugClip.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(this.roundToClosest(BugClip.mc.player.getX(), Math.floor(BugClip.mc.player.getX()) + 0.23, Math.floor(BugClip.mc.player.getX()) + 0.77), BugClip.mc.player.getY(), this.roundToClosest(BugClip.mc.player.getZ(), Math.floor(BugClip.mc.player.getZ()) + 0.23, Math.floor(BugClip.mc.player.getZ()) + 0.77), true));
         }
         this.cancelPacket = true;
     }
@@ -76,7 +76,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float packetPitch = packet.getPitch(0.0f);
                 if (this.timer.passedMs(this.delay.getValue())) {
                     this.cancelPacket = false;
-                    BugClip.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.Full(BugClip.mc.player.method_23317(), BugClip.mc.player.method_23318() + 1337.0, BugClip.mc.player.method_23321(), packetYaw, packetPitch, false));
+                    BugClip.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.Full(BugClip.mc.player.getX(), BugClip.mc.player.getY() + 1337.0, BugClip.mc.player.getZ(), packetYaw, packetPitch, false));
                     this.cancelPacket = true;
                     this.timer.reset();
                 }
@@ -91,7 +91,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (int yOffset = -1; yOffset <= 1; ++yOffset) {
                 for (int zOffset = -1; zOffset <= 1; ++zOffset) {
                     BlockPos offsetPos = playerBlockPos.add(xOffset, yOffset, zOffset);
-                    if (BugClip.mc.world.method_8320(offsetPos).method_26204() != Blocks.BEDROCK || !BugClip.mc.player.method_5829().intersects(new Box(offsetPos))) continue;
+                    if (BugClip.mc.world.getBlockState(offsetPos).getBlock() != Blocks.BEDROCK || !BugClip.mc.player.getBoundingBox().intersects(new Box(offsetPos))) continue;
                     return true;
                 }
             }

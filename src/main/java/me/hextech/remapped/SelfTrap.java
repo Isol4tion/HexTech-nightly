@@ -58,7 +58,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static boolean selfIntersectPos(BlockPos pos) {
-        return SelfTrap.mc.player.method_5829().intersects(new Box(pos));
+        return SelfTrap.mc.player.getBoundingBox().intersects(new Box(pos));
     }
 
     public static Vec2f getRotationTo(Vec3d posFrom, Vec3d posTo) {
@@ -98,9 +98,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             return;
         }
-        this.startX = SelfTrap.mc.player.method_23317();
-        this.startY = SelfTrap.mc.player.method_23318();
-        this.startZ = SelfTrap.mc.player.method_23321();
+        this.startX = SelfTrap.mc.player.getX();
+        this.startY = SelfTrap.mc.player.getY();
+        this.startZ = SelfTrap.mc.player.getZ();
         this.shouldCenter = true;
     }
 
@@ -117,8 +117,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         BlockPos blockPos = EntityUtil.getPlayerPos(true);
-        if (SelfTrap.mc.player.method_23317() - (double)blockPos.method_10263() - 0.5 <= 0.2 && SelfTrap.mc.player.method_23317() - (double)blockPos.method_10263() - 0.5 >= -0.2 && SelfTrap.mc.player.method_23321() - (double)blockPos.method_10260() - 0.5 <= 0.2 && SelfTrap.mc.player.method_23321() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
-            if (this.shouldCenter && (SelfTrap.mc.player.method_24828() || MovementUtil.isMoving())) {
+        if (SelfTrap.mc.player.getX() - (double)blockPos.method_10263() - 0.5 <= 0.2 && SelfTrap.mc.player.getX() - (double)blockPos.method_10263() - 0.5 >= -0.2 && SelfTrap.mc.player.getZ() - (double)blockPos.method_10260() - 0.5 <= 0.2 && SelfTrap.mc.player.getZ() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
+            if (this.shouldCenter && (SelfTrap.mc.player.isOnGround() || MovementUtil.isMoving())) {
                 event.setX(0.0);
                 event.setZ(0.0);
                 this.shouldCenter = false;
@@ -127,7 +127,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Vec3d centerPos = EntityUtil.getPlayerPos(true).toCenterPos();
             float rotation = SelfTrap.getRotationTo((Vec3d)SelfTrap.mc.player.method_19538(), (Vec3d)centerPos).x;
             float yawRad = rotation / 180.0f * (float)Math.PI;
-            double dist = SelfTrap.mc.player.method_19538().distanceTo(new Vec3d(centerPos.x, SelfTrap.mc.player.method_23318(), centerPos.z));
+            double dist = SelfTrap.mc.player.method_19538().distanceTo(new Vec3d(centerPos.x, SelfTrap.mc.player.getY(), centerPos.z));
             double cappedSpeed = Math.min(0.2873, dist);
             double x = (double)(-((float)Math.sin(yawRad))) * cappedSpeed;
             double z = (double)((float)Math.cos(yawRad)) * cappedSpeed;
@@ -143,9 +143,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.progress = 0;
         if (!MovementUtil.isMoving() && !SelfTrap.mc.options.jumpKey.isPressed()) {
-            this.startX = SelfTrap.mc.player.method_23317();
-            this.startY = SelfTrap.mc.player.method_23318();
-            this.startZ = SelfTrap.mc.player.method_23321();
+            this.startX = SelfTrap.mc.player.getX();
+            this.startY = SelfTrap.mc.player.getY();
+            this.startZ = SelfTrap.mc.player.getZ();
         }
         BlockPos pos = EntityUtil.getPlayerPos(true);
         double distanceToStart = MathHelper.sqrt((float)((float)SelfTrap.mc.player.method_5649(this.startX, this.startY, this.startZ)));
@@ -154,14 +154,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        if (this.moveDisable.getValue() && distanceToStart > 1.0 || this.jumpDisable.getValue() && Math.abs(this.startY - SelfTrap.mc.player.method_23318()) > 0.5) {
+        if (this.moveDisable.getValue() && distanceToStart > 1.0 || this.jumpDisable.getValue() && Math.abs(this.startY - SelfTrap.mc.player.getY()) > 0.5) {
             this.disable();
             return;
         }
-        if (this.usingPause.getValue() && SelfTrap.mc.player.method_6115()) {
+        if (this.usingPause.getValue() && SelfTrap.mc.player.isUsingItem()) {
             return;
         }
-        if (!this.inAir.getValue() && !SelfTrap.mc.player.method_24828()) {
+        if (!this.inAir.getValue() && !SelfTrap.mc.player.isOnGround()) {
             return;
         }
         if (this.head.getValue()) {
@@ -223,7 +223,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         } else if (BlockUtil.hasEntity(pos, false)) {
             return;
         }
-        int old = SelfTrap.mc.player.method_31548().selectedSlot;
+        int old = SelfTrap.mc.player.getInventory().selectedSlot;
         this.doSwap(block);
         BlockUtil.placeBlock(pos, this.rotate.getValue(), this.packetPlace.getValue());
         if (this.inventory.getValue()) {
@@ -238,7 +238,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, SelfTrap.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, SelfTrap.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

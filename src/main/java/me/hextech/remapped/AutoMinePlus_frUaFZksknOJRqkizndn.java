@@ -61,7 +61,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         BlockPos pos = EntityUtil.getEntityPos((Entity)player);
-        if (AutoMinePlus_frUaFZksknOJRqkizndn.mc.world.method_8320(pos).method_26204() == Blocks.BEDROCK && this.checkBedrock.getValue()) {
+        if (AutoMinePlus_frUaFZksknOJRqkizndn.mc.world.getBlockState(pos).getBlock() == Blocks.BEDROCK && this.checkBedrock.getValue()) {
             return;
         }
         this.doBreak(player);
@@ -81,7 +81,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (double y2 : dArray) {
                 for (double x : xzOffset) {
                     for (double z : xzOffset) {
-                        BlockPosX offsetPos = new BlockPosX(playerEntity.method_23317() + x, playerEntity.method_23318() + y2, playerEntity.method_23321() + z);
+                        BlockPosX offsetPos = new BlockPosX(playerEntity.getX() + x, playerEntity.getY() + y2, playerEntity.getZ() + z);
                         if (!this.canBreak(offsetPos) || !offsetPos.equals(SpeedMine.getBreakPos())) continue;
                         return;
                     }
@@ -90,7 +90,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         ArrayList<Float> yList = new ArrayList<Float>();
         if (this.down.getValue()) {
-            if (this.smart.getValue() && (double)(player.method_24515().method_10264() - AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_24515().method_10264()) > this.yandy.getValue()) {
+            if (this.smart.getValue() && (double)(player.getBlockPos().method_10264() - AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getBlockPos().method_10264()) > this.yandy.getValue()) {
                 yList.add(Float.valueOf(-0.8f));
             } else if (!this.smart.getValue()) {
                 yList.add(Float.valueOf(-0.8f));
@@ -106,7 +106,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         while (iterator.hasNext()) {
             y = ((Float)iterator.next()).floatValue();
             for (double offset : xzOffset) {
-                BlockPosX offsetPos = new BlockPosX(player.method_23317() + offset, player.method_23318() + y, player.method_23321() + offset);
+                BlockPosX offsetPos = new BlockPosX(player.getX() + offset, player.getY() + y, player.getZ() + offset);
                 if (!this.canBreak(offsetPos)) continue;
                 SpeedMine.INSTANCE.mine(offsetPos);
                 this.mineBur = true;
@@ -118,7 +118,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             y = ((Float)iterator2.next()).floatValue();
             for (double offset : xzOffset) {
                 for (double offset2 : xzOffset) {
-                    BlockPosX offsetPos = new BlockPosX(player.method_23317() + offset2, player.method_23318() + y, player.method_23321() + offset);
+                    BlockPosX offsetPos = new BlockPosX(player.getX() + offset2, player.getY() + y, player.getZ() + offset);
                     if (!this.canBreak(offsetPos)) continue;
                     SpeedMine.INSTANCE.mine(offsetPos);
                     this.mineBur = true;
@@ -130,7 +130,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.mineMode.getValue() == AutoMinePlus.Normal) {
                 void var6_24;
                 for (Direction direction : Direction.values()) {
-                    if (direction == Direction.UP || direction == Direction.DOWN || Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571().squaredDistanceTo(pos.offset(direction).toCenterPos())) > this.range.getValue() || !AutoMinePlus_frUaFZksknOJRqkizndn.mc.world.method_22347(pos.offset(direction)) && !pos.offset(direction).equals((Object)SpeedMine.getBreakPos()) || !this.canPlaceCrystal(pos.offset(direction), false)) continue;
+                    if (direction == Direction.UP || direction == Direction.DOWN || Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.method_33571().squaredDistanceTo(pos.offset(direction).toCenterPos())) > this.range.getValue() || !AutoMinePlus_frUaFZksknOJRqkizndn.mc.world.isAir(pos.offset(direction)) && !pos.offset(direction).equals((Object)SpeedMine.getBreakPos()) || !this.canPlaceCrystal(pos.offset(direction), false)) continue;
                     return;
                 }
                 ArrayList<BlockPos> arrayList = new ArrayList<BlockPos>();

@@ -41,7 +41,7 @@ implements Wrapper {
     public static Box extrapolate(PlayerEntity p, int extrapTicks, int smoothTicks) {
         List<Vec3d> hist = motionHistory.get(p);
         if (hist == null || hist.isEmpty()) {
-            return p.method_5829();
+            return p.getBoundingBox();
         }
         Vec3d motion = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.getAverageMotion(hist, smoothTicks);
         return ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.simulate(p, motion, extrapTicks);
@@ -52,11 +52,11 @@ implements Wrapper {
         Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
         ExtrapolationUtil_GIipvtNGRWEFrnWjqFrx fake = null;
         if (ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world != null) {
-            fake = new ExtrapolationUtil_GIipvtNGRWEFrnWjqFrx((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.method_24515(), p.method_36454(), new GameProfile(UUID.randomUUID(), "Predict"));
+            fake = new ExtrapolationUtil_GIipvtNGRWEFrnWjqFrx((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.method_36454(), new GameProfile(UUID.randomUUID(), "Predict"));
         }
         fake.method_33574(center);
         fake.method_6033(p.method_6032());
-        fake.method_24830(p.method_24828());
+        fake.method_24830(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
         p.method_6026().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
         return fake;
@@ -79,7 +79,7 @@ implements Wrapper {
         double x = motion.x;
         double y = motion.y;
         double z = motion.z;
-        Box box = p.method_5829();
+        Box box = p.getBoundingBox();
         double stepHeight = 0.6;
         boolean onGround = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.inside(p, box.offset(0.0, -0.04, 0.0));
         for (int i = 0; i < ticks; ++i) {
@@ -117,7 +117,7 @@ implements Wrapper {
     public static List<Vec3d> simulate(PlayerEntity p, int ticks) {
         ArrayList<Vec3d> path = new ArrayList<Vec3d>(ticks + 1);
         Vec3d motion = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.getAverageMotion(motionHistory.getOrDefault(p, Collections.emptyList()), PredictionSetting.INSTANCE.smoothTicks.getValueInt());
-        Box box = p.method_5829();
+        Box box = p.getBoundingBox();
         double stepHeight = 0.6;
         boolean onGround = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.inside(p, box.offset(0.0, -0.04, 0.0));
         path.add(new Vec3d((box.minX + box.maxX) / 2.0, box.minY, (box.minZ + box.maxZ) / 2.0));
@@ -160,10 +160,10 @@ implements Wrapper {
     public static PlayerEntity createSelfPredict(PlayerEntity p, int ticks) {
         Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(p, ticks, PredictionSetting.INSTANCE.smoothTicks.getValueInt());
         Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
-        ExtrapolationUtil fake = new ExtrapolationUtil((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.method_24515(), p.method_36454(), new GameProfile(UUID.randomUUID(), "SelfPredict"));
+        ExtrapolationUtil fake = new ExtrapolationUtil((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.method_36454(), new GameProfile(UUID.randomUUID(), "SelfPredict"));
         fake.method_33574(center);
         fake.method_6033(p.method_6032());
-        fake.method_24830(p.method_24828());
+        fake.method_24830(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
         p.method_6026().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
         return fake;

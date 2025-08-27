@@ -84,7 +84,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int n = 0;
         int n2 = 44;
         for (int i = 0; i <= n2; ++i) {
-            ItemStack itemStack = ItemHUD.mc.player.method_31548().method_5438(i);
+            ItemStack itemStack = ItemHUD.mc.player.getInventory().method_5438(i);
             if (itemStack.getItem() != item) continue;
             n += itemStack.getCount();
         }

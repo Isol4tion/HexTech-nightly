@@ -18,13 +18,13 @@ implements Wrapper {
     private static float circleStep;
 
     public static void drawJello(MatrixStack matrix, Entity target, Color color) {
-        double cs = prevCircleStep + (circleStep - prevCircleStep) * mc.method_1488();
+        double cs = prevCircleStep + (circleStep - prevCircleStep) * mc.getTickDelta();
         double prevSinAnim = JelloUtil.absSinAnimation(cs - (double)0.45f);
         double sinAnim = JelloUtil.absSinAnimation(cs);
-        double x = target.prevX + (target.getX() - target.prevX) * (double)mc.method_1488() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10216();
-        double y = target.prevY + (target.getY() - target.prevY) * (double)mc.method_1488() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10214() + prevSinAnim * (double)target.getHeight();
-        double z = target.prevZ + (target.getZ() - target.prevZ) * (double)mc.method_1488() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10215();
-        double nextY = target.prevY + (target.getY() - target.prevY) * (double)mc.method_1488() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10214() + sinAnim * (double)target.getHeight();
+        double x = target.prevX + (target.getX() - target.prevX) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10216();
+        double y = target.prevY + (target.getY() - target.prevY) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10214() + prevSinAnim * (double)target.getHeight();
+        double z = target.prevZ + (target.getZ() - target.prevZ) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10215();
+        double nextY = target.prevY + (target.getY() - target.prevY) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10214() + sinAnim * (double)target.getHeight();
         matrix.push();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -34,8 +34,8 @@ implements Wrapper {
         RenderSystem.setShader(GameRenderer::method_34540);
         bufferBuilder.method_1328(VertexFormat.DrawMode.TRIANGLE_STRIP, VertexFormats.POSITION_COLOR);
         for (int i = 0; i <= 30; ++i) {
-            float cos = (float)(x + Math.cos((double)i * 6.28 / 30.0) * (target.method_5829().maxX - target.method_5829().minX + (target.method_5829().maxZ - target.method_5829().minZ)) * 0.5);
-            float sin = (float)(z + Math.sin((double)i * 6.28 / 30.0) * (target.method_5829().maxX - target.method_5829().minX + (target.method_5829().maxZ - target.method_5829().minZ)) * 0.5);
+            float cos = (float)(x + Math.cos((double)i * 6.28 / 30.0) * (target.getBoundingBox().maxX - target.getBoundingBox().minX + (target.getBoundingBox().maxZ - target.getBoundingBox().minZ)) * 0.5);
+            float sin = (float)(z + Math.sin((double)i * 6.28 / 30.0) * (target.getBoundingBox().maxX - target.getBoundingBox().minX + (target.getBoundingBox().maxZ - target.getBoundingBox().minZ)) * 0.5);
             bufferBuilder.method_22918(matrix.peek().getPositionMatrix(), cos, (float)nextY, sin).color(color.getRGB()).method_1344();
             bufferBuilder.method_22918(matrix.peek().getPositionMatrix(), cos, (float)y, sin).color(ColorUtil.injectAlpha(color, 0).getRGB()).method_1344();
         }

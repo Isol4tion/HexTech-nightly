@@ -60,10 +60,10 @@ implements Wrapper {
         ((IExplosion)explosion).setY(explosionPos.y);
         ((IExplosion)explosion).setZ(explosionPos.z);
         ((IExplosion)explosion).setPower(power);
-        if (!new Box((double)MathHelper.floor((double)(explosionPos.x - 11.0)), (double)MathHelper.floor((double)(explosionPos.y - 11.0)), (double)MathHelper.floor((double)(explosionPos.z - 11.0)), (double)MathHelper.floor((double)(explosionPos.x + 13.0)), (double)MathHelper.floor((double)(explosionPos.y + 13.0)), (double)MathHelper.floor((double)(explosionPos.z + 13.0))).intersects(predict.method_5829())) {
+        if (!new Box((double)MathHelper.floor((double)(explosionPos.x - 11.0)), (double)MathHelper.floor((double)(explosionPos.y - 11.0)), (double)MathHelper.floor((double)(explosionPos.z - 11.0)), (double)MathHelper.floor((double)(explosionPos.x + 13.0)), (double)MathHelper.floor((double)(explosionPos.y + 13.0)), (double)MathHelper.floor((double)(explosionPos.z + 13.0))).intersects(predict.getBoundingBox())) {
             return 0.0f;
         }
-        if (!target.method_5659(explosion) && !target.method_5655() && (distExposure = (double)MathHelper.sqrt((float)((float)predict.method_5707(explosionPos))) / 12.0) <= 1.0 && (diff = (double)MathHelper.sqrt((float)((float)((xDiff = predict.method_23317() - explosionPos.x) * xDiff + (yDiff = predict.method_23318() - explosionPos.y) * yDiff + (zDiff = predict.method_23317() - explosionPos.z) * zDiff)))) != 0.0) {
+        if (!target.method_5659(explosion) && !target.method_5655() && (distExposure = (double)MathHelper.sqrt((float)((float)predict.squaredDistanceTo(explosionPos))) / 12.0) <= 1.0 && (diff = (double)MathHelper.sqrt((float)((float)((xDiff = predict.getX() - explosionPos.x) * xDiff + (yDiff = predict.getY() - explosionPos.y) * yDiff + (zDiff = predict.getX() - explosionPos.z) * zDiff)))) != 0.0) {
             double exposure = Explosion.method_17752((Vec3d)explosionPos, (Entity)predict);
             double finalExposure = (1.0 - distExposure) * exposure;
             float toDamage = (float)Math.floor((finalExposure * finalExposure + finalExposure) / 2.0 * 7.0 * 12.0 + 1.0);

@@ -57,7 +57,7 @@ implements Wrapper {
         ArrayList<EndCrystalEntity> list = new ArrayList<EndCrystalEntity>();
         for (Entity entity : BlockUtil.mc.world.getEntities()) {
             EndCrystalEntity crystal;
-            if (!(entity instanceof EndCrystalEntity) || !(crystal = (EndCrystalEntity)entity).method_5829().intersects(box)) continue;
+            if (!(entity instanceof EndCrystalEntity) || !(crystal = (EndCrystalEntity)entity).getBoundingBox().intersects(box)) continue;
             list.add(crystal);
         }
         return list;
@@ -66,14 +66,14 @@ implements Wrapper {
     public static List<Entity> getEntities(Box box) {
         ArrayList<Entity> list = new ArrayList<Entity>();
         for (Entity entity : BlockUtil.mc.world.getEntities()) {
-            if (entity == null || !entity.method_5829().intersects(box)) continue;
+            if (entity == null || !entity.getBoundingBox().intersects(box)) continue;
             list.add(entity);
         }
         return list;
     }
 
     public static boolean isAir(BlockPos pos) {
-        return BlockUtil.mc.world.method_22347(pos);
+        return BlockUtil.mc.world.isAir(pos);
     }
 
     public static boolean isMining(BlockPos pos) {
@@ -121,7 +121,7 @@ implements Wrapper {
     }
 
     public static boolean hasEntity(BlockPos pos, boolean ignoreCrystal) {
-        for (Entity entity : BlockUtil.mc.world.method_18467(Entity.class, new Box(pos))) {
+        for (Entity entity : BlockUtil.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
             if (!entity.isAlive() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || ignoreCrystal && entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
             return true;
         }
@@ -129,7 +129,7 @@ implements Wrapper {
     }
 
     public static boolean hasCrystal(BlockPos pos) {
-        for (Entity entity : BlockUtil.mc.world.method_18467(EndCrystalEntity.class, new Box(pos))) {
+        for (Entity entity : BlockUtil.mc.world.getNonSpectatingEntities(EndCrystalEntity.class, new Box(pos))) {
             if (!entity.isAlive() || !(entity instanceof EndCrystalEntity)) continue;
             return true;
         }
@@ -137,7 +137,7 @@ implements Wrapper {
     }
 
     public static boolean hasEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal) {
-        for (Entity entity : BlockUtil.mc.world.method_18467(Entity.class, new Box(pos))) {
+        for (Entity entity : BlockUtil.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
             if (!entity.isAlive() || ignoreCrystal && entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
             return true;
         }
@@ -145,7 +145,7 @@ implements Wrapper {
     }
 
     public static boolean hasEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
-        for (Entity entity : BlockUtil.mc.world.method_18467(Entity.class, new Box(pos))) {
+        for (Entity entity : BlockUtil.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
             if (!entity.isAlive() || ignoreItem && entity instanceof ItemEntity || ignoreCrystal && entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
             return true;
         }
@@ -160,9 +160,9 @@ implements Wrapper {
         Direction bestFacing = null;
         double distance = 0.0;
         for (Direction i : Direction.values()) {
-            if (facing != null && pos.offset(i).equals((Object)pos.offset(facing, -1)) || i == Direction.DOWN || BlockUtil.getPlaceSide(pos) == null || bestFacing != null && !(BlockUtil.mc.player.method_5707(pos.offset(i).toCenterPos()) < distance)) continue;
+            if (facing != null && pos.offset(i).equals((Object)pos.offset(facing, -1)) || i == Direction.DOWN || BlockUtil.getPlaceSide(pos) == null || bestFacing != null && !(BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()) < distance)) continue;
             bestFacing = i;
-            distance = BlockUtil.mc.player.method_5707(pos.offset(i).toCenterPos());
+            distance = BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos());
         }
         return bestFacing;
     }
@@ -206,7 +206,7 @@ implements Wrapper {
         Direction side;
         if (BlockUtil.airPlace()) {
             for (Direction i : Direction.values()) {
-                if (!BlockUtil.mc.world.method_22347(pos.offset(i))) continue;
+                if (!BlockUtil.mc.world.isAir(pos.offset(i))) continue;
                 BlockUtil.clickBlock(pos, i, rotate, Hand.MAIN_HAND, packet);
                 return;
             }
@@ -227,20 +227,20 @@ implements Wrapper {
         }
         boolean sneak = false;
         if (BlockUtil.mc.world != null) {
-            boolean bl = sneak = BlockUtil.needSneak(BlockUtil.mc.world.method_8320(result.getBlockPos()).method_26204()) && !BlockUtil.mc.player.method_5715();
+            boolean bl = sneak = BlockUtil.needSneak(BlockUtil.mc.world.getBlockState(result.getBlockPos()).getBlock()) && !BlockUtil.mc.player.method_5715();
         }
         if (sprint) {
-            BlockUtil.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
+            BlockUtil.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
         }
         if (sneak) {
-            BlockUtil.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY));
+            BlockUtil.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY));
         }
         BlockUtil.clickBlock(pos.offset(side), side.getOpposite(), rotate, Hand.MAIN_HAND, packet);
         if (sneak) {
-            BlockUtil.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY));
+            BlockUtil.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY));
         }
         if (sprint) {
-            BlockUtil.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
+            BlockUtil.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
         }
         if (bypass) {
             EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
@@ -254,7 +254,7 @@ implements Wrapper {
     public static boolean isHole(BlockPos pos, boolean canStand, boolean checkTrap, boolean anyBlock) {
         int blockProgress = 0;
         for (Direction i : Direction.values()) {
-            if (i == Direction.UP || i == Direction.DOWN || (!anyBlock || BlockUtil.mc.world.method_22347(pos.offset(i))) && !CombatUtil.isHard(pos.offset(i))) continue;
+            if (i == Direction.UP || i == Direction.DOWN || (!anyBlock || BlockUtil.mc.world.isAir(pos.offset(i))) && !CombatUtil.isHard(pos.offset(i))) continue;
             ++blockProgress;
         }
         return (!checkTrap || BlockUtil.getBlock(pos) == Blocks.AIR && BlockUtil.getBlock(pos.add(0, 1, 0)) == Blocks.AIR && BlockUtil.getBlock(pos.add(0, 2, 0)) == Blocks.AIR) && blockProgress > 3 && (!canStand || BlockUtil.getState(pos.add(0, -1, 0)).method_51366());
@@ -280,7 +280,7 @@ implements Wrapper {
         EntityUtil.swingHand(hand, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         if (packet) {
-            BlockUtil.mc.player.networkHandler.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(BlockUtil.mc.world)));
+            BlockUtil.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(BlockUtil.mc.world)));
         } else {
             BlockUtil.mc.interactionManager.interactBlock(BlockUtil.mc.player, hand, result);
         }
@@ -293,7 +293,7 @@ implements Wrapper {
         }
         EntityUtil.swingHand(hand, swingSide);
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
-        BlockUtil.mc.player.networkHandler.method_52787((Packet)new PlayerInteractBlockC2SPacket(hand, result, BlockUtil.getWorldActionId(BlockUtil.mc.world)));
+        BlockUtil.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractBlockC2SPacket(hand, result, BlockUtil.getWorldActionId(BlockUtil.mc.world)));
     }
 
     public static Direction getPlaceSide(BlockPos pos) {
@@ -305,14 +305,14 @@ implements Wrapper {
         Direction side = null;
         for (Direction i : Direction.values()) {
             if (!BlockUtil.canClick(pos.offset(i)) || BlockUtil.canReplace(pos.offset(i)) || legit && !EntityUtil.canSee(pos.offset(i), i.getOpposite()) || strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite())) continue;
-            double vecDis = BlockUtil.mc.player.method_5707(pos.toCenterPos().add((double)i.method_10163().getX() * 0.5, (double)i.method_10163().getY() * 0.5, (double)i.method_10163().getZ() * 0.5));
+            double vecDis = BlockUtil.mc.player.squaredDistanceTo(pos.toCenterPos().add((double)i.method_10163().getX() * 0.5, (double)i.method_10163().getY() * 0.5, (double)i.method_10163().getZ() * 0.5));
             if (side != null && !(vecDis < dis)) continue;
             side = i;
             dis = vecDis;
         }
         if (side == null && BlockUtil.airPlace()) {
             for (Direction i : Direction.values()) {
-                if (!BlockUtil.mc.world.method_22347(pos.offset(i))) continue;
+                if (!BlockUtil.mc.world.isAir(pos.offset(i))) continue;
                 return i;
             }
         }
@@ -320,8 +320,8 @@ implements Wrapper {
     }
 
     public static double distanceToXZ(double x, double z) {
-        double dx = BlockUtil.mc.player.method_23317() - x;
-        double dz = BlockUtil.mc.player.method_23321() - z;
+        double dx = BlockUtil.mc.player.getX() - x;
+        double dz = BlockUtil.mc.player.getZ() - z;
         return Math.sqrt(dx * dx + dz * dz);
     }
 
@@ -330,14 +330,14 @@ implements Wrapper {
         Direction side = null;
         for (Direction i : Direction.values()) {
             if (!BlockUtil.canClick(pos.offset(i)) || BlockUtil.canReplace(pos.offset(i)) || (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() != Placement.Legit ? CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite()) : !EntityUtil.canSee(pos.offset(i), i.getOpposite()))) continue;
-            double vecDis = BlockUtil.mc.player.method_5707(pos.toCenterPos().add((double)i.method_10163().getX() * 0.5, (double)i.method_10163().getY() * 0.5, (double)i.method_10163().getZ() * 0.5));
+            double vecDis = BlockUtil.mc.player.squaredDistanceTo(pos.toCenterPos().add((double)i.method_10163().getX() * 0.5, (double)i.method_10163().getY() * 0.5, (double)i.method_10163().getZ() * 0.5));
             if ((double)MathHelper.sqrt((float)((float)vecDis)) > distance || side != null && !(vecDis < dis)) continue;
             side = i;
             dis = vecDis;
         }
         if (side == null && BlockUtil.airPlace()) {
             for (Direction i : Direction.values()) {
-                if (!BlockUtil.mc.world.method_22347(pos.offset(i))) continue;
+                if (!BlockUtil.mc.world.isAir(pos.offset(i))) continue;
                 return i;
             }
         }
@@ -351,18 +351,18 @@ implements Wrapper {
         Direction side = null;
         double range = 100.0;
         for (Direction i : Direction.values()) {
-            if (!EntityUtil.canSee(pos, i) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.method_5707(pos.offset(i).toCenterPos()))) > range) continue;
+            if (!EntityUtil.canSee(pos, i) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()))) > range) continue;
             side = i;
-            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.method_5707(pos.offset(i).toCenterPos())));
+            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())));
         }
         if (side != null) {
             return side;
         }
         side = Direction.UP;
         for (Direction i : Direction.values()) {
-            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.method_5707(pos.offset(i).toCenterPos()))) > range) continue;
+            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()))) > range) continue;
             side = i;
-            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.method_5707(pos.offset(i).toCenterPos())));
+            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())));
         }
         return side;
     }
@@ -371,24 +371,24 @@ implements Wrapper {
         Direction side = null;
         double range = 100.0;
         for (Direction i : Direction.values()) {
-            if (!EntityUtil.canSee(pos, i) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.method_5707(pos.offset(i).toCenterPos()))) > range) continue;
+            if (!EntityUtil.canSee(pos, i) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()))) > range) continue;
             side = i;
-            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.method_5707(pos.offset(i).toCenterPos())));
+            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())));
         }
         if (side != null) {
             return side;
         }
         side = null;
         for (Direction i : Direction.values()) {
-            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.method_5707(pos.offset(i).toCenterPos()))) > range) continue;
+            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()))) > range) continue;
             side = i;
-            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.method_5707(pos.offset(i).toCenterPos())));
+            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())));
         }
         return side;
     }
 
     public static boolean isStrictDirection(BlockPos pos, Direction side) {
-        BlockState blockState = BlockUtil.mc.world.method_8320(pos);
+        BlockState blockState = BlockUtil.mc.world.getBlockState(pos);
         boolean isFullBox = blockState.method_26215() || blockState.method_26234((BlockView)BlockUtil.mc.world, pos) || BlockUtil.getBlock(pos) == Blocks.COBWEB;
         return BlockUtil.isStrictDirection(pos, side, isFullBox);
     }
@@ -482,25 +482,25 @@ implements Wrapper {
     }
 
     public static BlockState getState(BlockPos pos) {
-        return BlockUtil.mc.world.method_8320(pos);
+        return BlockUtil.mc.world.getBlockState(pos);
     }
 
     public static Block getBlock(BlockPos pos) {
-        return BlockUtil.getState(pos).method_26204();
+        return BlockUtil.getState(pos).getBlock();
     }
 
     public static boolean canReplace(BlockPos pos) {
         if (pos.method_10264() >= 320) {
             return false;
         }
-        if (BlockUtil.mc.world.method_8320(pos).method_26204() == Blocks.COBWEB && WebAuraTick_gaIdrzDzsbegzNTtPQoV.ignore && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.replace.getValue()) {
+        if (BlockUtil.mc.world.getBlockState(pos).getBlock() == Blocks.COBWEB && WebAuraTick_gaIdrzDzsbegzNTtPQoV.ignore && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.replace.getValue()) {
             return true;
         }
         return BlockUtil.getState(pos).method_45474();
     }
 
     public static boolean canClick(BlockPos pos) {
-        return BlockUtil.mc.world.method_8320(pos).method_51367() && (!shiftBlocks.contains(BlockUtil.getBlock(pos)) && !(BlockUtil.getBlock(pos) instanceof BedBlock) || BlockUtil.mc.player.method_5715());
+        return BlockUtil.mc.world.getBlockState(pos).method_51367() && (!shiftBlocks.contains(BlockUtil.getBlock(pos)) && !(BlockUtil.getBlock(pos) instanceof BedBlock) || BlockUtil.mc.player.method_5715());
     }
 
     public static boolean airPlace() {

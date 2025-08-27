@@ -70,7 +70,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     public void onStrafe(MoveEvent event) {
-        if (this.stopGround.getValue() && Speed.mc.player.method_24828()) {
+        if (this.stopGround.getValue() && Speed.mc.player.isOnGround()) {
             return;
         }
         if (HoleKickTest.isInWeb((PlayerEntity)Speed.mc.player) || Speed.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().flying) {
@@ -184,7 +184,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (!MovementUtil.isMoving() || HoleSnap.INSTANCE.isOn()) {
                 return;
             }
-            if (this.stopGround.getValue() && Speed.mc.player.method_24828()) {
+            if (this.stopGround.getValue() && Speed.mc.player.isOnGround()) {
                 return;
             }
             if (Speed.mc.player.method_6128()) {
@@ -195,7 +195,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (this.stage == 1 && MovementUtil.isMoving()) {
                 this.speed = 1.35 * MovementUtil.getSpeed(this.slow.getValue(), this.strafeSpeed.getValue() / 1000.0) - 0.01;
-            } else if (this.stage == 2 && Speed.mc.player.method_24828() && MovementUtil.isMoving() && (Speed.mc.options.jumpKey.isPressed() || this.jump.getValue())) {
+            } else if (this.stage == 2 && Speed.mc.player.isOnGround() && MovementUtil.isMoving() && (Speed.mc.options.jumpKey.isPressed() || this.jump.getValue())) {
                 double yMotion = 0.3999 + MovementUtil.getJumpSpeed();
                 MovementUtil.setMotionY(yMotion);
                 event.setY(yMotion);
@@ -204,7 +204,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.speed = this.distance - 0.66 * (this.distance - MovementUtil.getSpeed(this.slow.getValue(), this.strafeSpeed.getValue() / 1000.0));
                 this.boost = !this.boost;
             } else {
-                if ((Speed.mc.world.method_39454(null, Speed.mc.player.method_5829().offset(0.0, MovementUtil.getMotionY(), 0.0)) || Speed.mc.player.field_34927) && this.stage > 0) {
+                if ((Speed.mc.world.method_39454(null, Speed.mc.player.getBoundingBox().offset(0.0, MovementUtil.getMotionY(), 0.0)) || Speed.mc.player.field_34927) && this.stage > 0) {
                     this.stage = MovementUtil.isMoving() ? 1 : 0;
                 }
                 this.speed = this.distance - this.distance / 159.0;

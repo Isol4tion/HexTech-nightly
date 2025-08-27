@@ -18,24 +18,24 @@ extends Screen {
         this.parent = parent;
     }
 
-    public void method_25426() {
+    public void init() {
         super.init();
-        this.textFieldAltUsername = new TextFieldWidget(this.field_22793, this.field_22789 / 2 - 100, this.field_22790 / 2 - 76, 200, 20, Text.of((String)"Enter Name"));
-        this.method_37063((Element)this.textFieldAltUsername);
-        ButtonWidget buttonLoginAlt = ButtonWidget.builder((Text)Text.of((String)"Login"), b -> this.onButtonLoginPressed()).dimensions(this.field_22789 / 2 - 100, this.field_22790 / 2 + 24, 200, 20).build();
-        this.method_37063((Element)buttonLoginAlt);
-        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.field_22787.setScreen(this.parent)).dimensions(this.field_22789 / 2 - 100, this.field_22790 / 2 + 46, 200, 20).build());
+        this.textFieldAltUsername = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 76, 200, 20, Text.of((String)"Enter Name"));
+        this.addDrawableChild((Element)this.textFieldAltUsername);
+        ButtonWidget buttonLoginAlt = ButtonWidget.builder((Text)Text.of((String)"Login"), b -> this.onButtonLoginPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 24, 200, 20).build();
+        this.addDrawableChild((Element)buttonLoginAlt);
+        this.addDrawableChild((Element)ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.client.setScreen(this.parent)).dimensions(this.width / 2 - 100, this.height / 2 + 46, 200, 20).build());
     }
 
     private void onButtonLoginPressed() {
         HexTech.ALT.loginCracked(this.textFieldAltUsername.getText());
-        this.field_22787.setScreen(this.parent);
+        this.client.setScreen(this.parent);
     }
 
-    public void method_25394(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
-        drawContext.drawCenteredTextWithShadow(this.field_22793, this.field_22785.getString(), this.field_22789 / 2, 20, 0xFFFFFF);
-        drawContext.drawTextWithShadow(this.field_22793, "Enter Username", this.field_22789 / 2 - 100, this.field_22790 / 2 - 90, 0xFFFFFF);
-        this.textFieldAltUsername.method_25394(drawContext, mouseX, mouseY, partialTicks);
-        super.method_25394(drawContext, mouseX, mouseY, partialTicks);
+    public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+        drawContext.drawCenteredTextWithShadow(this.textRenderer, this.field_22785.getString(), this.width / 2, 20, 0xFFFFFF);
+        drawContext.drawTextWithShadow(this.textRenderer, "Enter Username", this.width / 2 - 100, this.height / 2 - 90, 0xFFFFFF);
+        this.textFieldAltUsername.render(drawContext, mouseX, mouseY, partialTicks);
+        super.render(drawContext, mouseX, mouseY, partialTicks);
     }
 }

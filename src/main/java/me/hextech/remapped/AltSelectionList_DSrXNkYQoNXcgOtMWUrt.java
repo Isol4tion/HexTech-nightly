@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 public class AltSelectionList_DSrXNkYQoNXcgOtMWUrt
 extends ElementListWidget<AltSelectionList_MlYuzYrWmNSiQOBPfePW> {
     private final AltScreen owner;
-    private final List<AltSelectionList> altList = new ArrayList<AltSelectionList>();
+    private final List<AltSelectionList> altList = new ArrayList<>();
 
     public AltSelectionList_DSrXNkYQoNXcgOtMWUrt(AltScreen ownerIn, MinecraftClient minecraftClient, int i, int j, int k, int l) {
         super(minecraftClient, i, j, k, l);
@@ -23,7 +23,7 @@ extends ElementListWidget<AltSelectionList_MlYuzYrWmNSiQOBPfePW> {
     }
 
     public void updateAlts() {
-        this.method_25339();
+        this.clearEntries();
         for (Alt alt : HexTech.ALT.getAlts()) {
             AltSelectionList entry = new AltSelectionList(this, this.owner, alt);
             this.altList.add(entry);
@@ -32,15 +32,15 @@ extends ElementListWidget<AltSelectionList_MlYuzYrWmNSiQOBPfePW> {
     }
 
     private void setList() {
-        this.altList.forEach(x$0 -> this.method_25321((EntryListWidget.Entry)x$0));
+        this.altList.forEach(this::addEntry);
     }
 
     public void setSelected(@Nullable AltSelectionList_MlYuzYrWmNSiQOBPfePW entry) {
-        super.method_25313((EntryListWidget.Entry)entry);
+        super.setSelected(entry);
     }
 
-    public boolean method_25404(int keyCode, int scanCode, int modifiers) {
-        AltSelectionList_MlYuzYrWmNSiQOBPfePW AltSelectionList$entry = (AltSelectionList_MlYuzYrWmNSiQOBPfePW)this.method_25334();
-        return AltSelectionList$entry != null && AltSelectionList$entry.method_25404(keyCode, scanCode, modifiers) || super.method_25404(keyCode, scanCode, modifiers);
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        AltSelectionList_MlYuzYrWmNSiQOBPfePW AltSelectionList$entry = this.getSelectedOrNull();
+        return AltSelectionList$entry != null && AltSelectionList$entry.keyPressed(keyCode, scanCode, modifiers) || super.keyPressed(keyCode, scanCode, modifiers);
     }
 }

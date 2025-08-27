@@ -41,8 +41,8 @@ implements Wrapper {
         for (float x : new float[]{0.0f, 0.3f, -0.3f}) {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
                 for (int y : new int[]{-1, 0, 1, 2}) {
-                    BlockPos pos = new BlockPosX(player.method_23317() + (double)x, player.method_23318(), player.method_23321() + (double)z).method_10086(y);
-                    if (!new Box(pos).intersects(player.method_5829()) || PlayerManager_fDCPIpFeekihQpSyxOff.mc.world.method_8320(pos).method_26204() != Blocks.COBWEB) continue;
+                    BlockPos pos = new BlockPosX(player.getX() + (double)x, player.getY(), player.getZ() + (double)z).up(y);
+                    if (!new Box(pos).intersects(player.getBoundingBox()) || PlayerManager_fDCPIpFeekihQpSyxOff.mc.world.getBlockState(pos).getBlock() != Blocks.COBWEB) continue;
                     this.inWebPlayers.add(player);
                     return;
                 }

@@ -69,12 +69,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static boolean selfIntersectPos(BlockPos pos) {
-        return Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_5829().intersects(new Box(pos));
+        return Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getBoundingBox().intersects(new Box(pos));
     }
 
     public static boolean otherIntersectPos(BlockPos pos) {
         for (PlayerEntity player : Surround_BjIoVRziuWIfEWTJHPVz.mc.world.method_18456()) {
-            if (!player.method_5829().intersects(new Box(pos))) continue;
+            if (!player.getBoundingBox().intersects(new Box(pos))) continue;
             return true;
         }
         return false;
@@ -131,9 +131,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             return;
         }
-        this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23317();
-        this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23318();
-        this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23321();
+        this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX();
+        this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY();
+        this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ();
         this.shouldCenter = true;
     }
 
@@ -143,8 +143,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         BlockPos blockPos = EntityUtil.getPlayerPos(true);
-        if (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23317() - (double)blockPos.method_10263() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23317() - (double)blockPos.method_10263() - 0.5 >= -0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23321() - (double)blockPos.method_10260() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23321() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
-            if (this.shouldCenter && (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_24828() || MovementUtil.isMoving())) {
+        if (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX() - (double)blockPos.method_10263() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX() - (double)blockPos.method_10263() - 0.5 >= -0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ() - (double)blockPos.method_10260() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
+            if (this.shouldCenter && (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.isOnGround() || MovementUtil.isMoving())) {
                 event.setX(0.0);
                 event.setZ(0.0);
                 this.shouldCenter = false;
@@ -153,7 +153,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Vec3d centerPos = EntityUtil.getPlayerPos(true).toCenterPos();
             float rotation = Surround_BjIoVRziuWIfEWTJHPVz.getRotationTo((Vec3d)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_19538(), (Vec3d)centerPos).x;
             float yawRad = rotation / 180.0f * (float)Math.PI;
-            double dist = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_19538().distanceTo(new Vec3d(centerPos.x, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23318(), centerPos.z));
+            double dist = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_19538().distanceTo(new Vec3d(centerPos.x, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY(), centerPos.z));
             double cappedSpeed = Math.min(0.2873, dist);
             double x = (double)(-((float)Math.sin(yawRad))) * cappedSpeed;
             double z = (double)((float)Math.cos(yawRad)) * cappedSpeed;
@@ -170,9 +170,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.directionVec = null;
         this.progress = 0;
         if (!MovementUtil.isMoving() && !Surround_BjIoVRziuWIfEWTJHPVz.mc.options.jumpKey.isPressed()) {
-            this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23317();
-            this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23318();
-            this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23321();
+            this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX();
+            this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY();
+            this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ();
         }
         BlockPos pos = EntityUtil.getPlayerPos(true);
         double distanceToStart = MathHelper.sqrt((float)((float)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_5649(this.startX, this.startY, this.startZ)));
@@ -181,14 +181,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        if (this.moveDisable.getValue() && distanceToStart > 1.0 || this.jumpDisable.getValue() && Math.abs(this.startY - Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23318()) > 0.5) {
+        if (this.moveDisable.getValue() && distanceToStart > 1.0 || this.jumpDisable.getValue() && Math.abs(this.startY - Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY()) > 0.5) {
             this.disable();
             return;
         }
-        if (this.usingPause.getValue() && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_6115()) {
+        if (this.usingPause.getValue() && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.isUsingItem()) {
             return;
         }
-        if (!this.inAir.getValue() && !Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_24828()) {
+        if (!this.inAir.getValue() && !Surround_BjIoVRziuWIfEWTJHPVz.mc.player.isOnGround()) {
             return;
         }
         for (Direction i : Direction.values()) {
@@ -246,7 +246,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         } else if (BlockUtil.hasEntity(pos, false)) {
             return;
         }
-        int old = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_31548().selectedSlot;
+        int old = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getInventory().selectedSlot;
         this.doSwap(block);
         if (BlockUtil.airPlace()) {
             BlockUtil.placedPos.add(pos);
@@ -279,7 +279,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(slot, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

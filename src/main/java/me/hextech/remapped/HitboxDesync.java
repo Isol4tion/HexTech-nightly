@@ -23,11 +23,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Direction f = HitboxDesync.mc.player.method_5735();
-        Box bb = HitboxDesync.mc.player.method_5829();
+        Box bb = HitboxDesync.mc.player.getBoundingBox();
         Vec3d center = bb.getCenter();
         Vec3d offset = new Vec3d(f.getUnitVector());
         Vec3d fin = this.merge(Vec3d.of((Vec3i)BlockPos.ofFloored((Position)center)).add(0.5, 0.0, 0.5).add(offset.multiply(0.20000996883537)), f);
-        HitboxDesync.mc.player.method_5814(fin.x == 0.0 ? HitboxDesync.mc.player.method_23317() : fin.x, HitboxDesync.mc.player.method_23318(), fin.z == 0.0 ? HitboxDesync.mc.player.method_23321() : fin.z);
+        HitboxDesync.mc.player.setPosition(fin.x == 0.0 ? HitboxDesync.mc.player.getX() : fin.x, HitboxDesync.mc.player.getY(), fin.z == 0.0 ? HitboxDesync.mc.player.getZ() : fin.z);
         this.disable();
     }
 

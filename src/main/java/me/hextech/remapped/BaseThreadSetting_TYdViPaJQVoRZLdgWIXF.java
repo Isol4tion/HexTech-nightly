@@ -226,7 +226,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return;
             }
             packet = (PlayerInteractBlockC2SPacket)t;
-            Block block = BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.world.method_8320(packet.getBlockHitResult().getBlockPos()).method_26204();
+            Block block = BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.world.getBlockState(packet.getBlockHitResult().getBlockPos()).getBlock();
             if (!BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.method_5715() && (block instanceof ChestBlock || block instanceof EnderChestBlock)) {
                 event.cancel();
             }
@@ -271,7 +271,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.delayTimer.passedMs((long)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.calcdelay.getValue())) {
             return;
         }
-        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.eatingPause.getValue() && BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.method_6115()) {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.eatingPause.getValue() && BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.isUsingItem()) {
             this.tempPos = null;
             return;
         }

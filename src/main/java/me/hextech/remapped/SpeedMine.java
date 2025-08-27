@@ -166,7 +166,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static boolean canPlaceCrystal(BlockPos pos, boolean ignoreItem) {
         BlockPos obsPos = pos.down();
         BlockPos boost = obsPos.up();
-        return !(BlockUtil.getBlock(obsPos) != Blocks.BEDROCK && BlockUtil.getBlock(obsPos) != Blocks.OBSIDIAN || BlockUtil.getClickSideStrict(obsPos) == null || !SpeedMine.noEntity(boost, ignoreItem) || !SpeedMine.noEntity(boost.up(), ignoreItem) || CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.lowVersion.getValue() && !SpeedMine.mc.world.method_22347(boost.up()));
+        return !(BlockUtil.getBlock(obsPos) != Blocks.BEDROCK && BlockUtil.getBlock(obsPos) != Blocks.OBSIDIAN || BlockUtil.getClickSideStrict(obsPos) == null || !SpeedMine.noEntity(boost, ignoreItem) || !SpeedMine.noEntity(boost.up(), ignoreItem) || CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.lowVersion.getValue() && !SpeedMine.mc.world.isAir(boost.up()));
     }
 
     public static boolean noEntity(BlockPos pos, boolean ignoreItem) {
@@ -210,7 +210,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.hotBar.getValue()) {
             InventoryUtil.switchToSlot(slot);
         } else {
-            InventoryUtil.inventorySwap(inv, SpeedMine.mc.player.method_31548().selectedSlot);
+            InventoryUtil.inventorySwap(inv, SpeedMine.mc.player.getInventory().selectedSlot);
         }
     }
 
@@ -223,7 +223,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (secondPos != null) {
                 slot = this.getTool(secondPos);
                 if (slot == -1) {
-                    slot = SpeedMine.mc.player.method_31548().selectedSlot;
+                    slot = SpeedMine.mc.player.getInventory().selectedSlot;
                 }
                 breakTime = this.getBreakTime(secondPos, slot);
                 secondProgress = (double)this.secondTimer.getPassedTimeMs() / breakTime;
@@ -246,7 +246,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double iProgress;
                 slot = this.getTool(breakPos);
                 if (slot == -1) {
-                    slot = SpeedMine.mc.player.method_31548().selectedSlot;
+                    slot = SpeedMine.mc.player.getInventory().selectedSlot;
                 }
                 breakTime = this.getBreakTime(breakPos, slot);
                 progress = (double)this.mineTimer.getPassedTimeMs() / breakTime;
@@ -293,7 +293,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (this.usingPause.getValue() && SpeedMine.mc.player.method_6115()) {
+        if (this.usingPause.getValue() && SpeedMine.mc.player.isUsingItem()) {
             return;
         }
         if (this.skip) {
@@ -304,7 +304,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             secondPos = null;
         }
         if (secondPos != null) {
-            double time = this.getBreakTime(secondPos, SpeedMine.mc.player.method_31548().selectedSlot, 1.1);
+            double time = this.getBreakTime(secondPos, SpeedMine.mc.player.getInventory().selectedSlot, 1.1);
             if (this.secondTimer.passed(time)) {
                 secondPos = null;
             } else if (this.stopPacket.getValue()) {
@@ -337,7 +337,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             breakPos = null;
             return;
         }
-        if (godBlocks.contains(SpeedMine.mc.world.method_8320(breakPos).method_26204())) {
+        if (godBlocks.contains(SpeedMine.mc.world.getBlockState(breakPos).getBlock())) {
             breakPos = null;
             this.startPacket = false;
             return;
@@ -358,7 +358,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         int slot = this.getTool(breakPos);
         if (slot == -1) {
-            slot = SpeedMine.mc.player.method_31548().selectedSlot;
+            slot = SpeedMine.mc.player.getInventory().selectedSlot;
         }
         if (this.isAir(breakPos)) {
             if (this.shouldCrystal()) {
@@ -374,7 +374,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (this.enderChest.isPressed()) {
                     int eChest = this.findBlock(Blocks.ENDER_CHEST);
                     if (eChest != -1) {
-                        int oldSlot = SpeedMine.mc.player.method_31548().selectedSlot;
+                        int oldSlot = SpeedMine.mc.player.getInventory().selectedSlot;
                         this.doSwap(eChest, eChest);
                         BlockUtil.placeBlock(breakPos, this.rotate.getValue(), true);
                         this.doSwap(oldSlot, eChest);
@@ -390,7 +390,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         }
                     }
                     if (hasCrystal == 0 || this.spamPlace.getValue()) {
-                        int oldSlot = SpeedMine.mc.player.method_31548().selectedSlot;
+                        int oldSlot = SpeedMine.mc.player.getInventory().selectedSlot;
                         this.doSwap(obsidian, obsidian);
                         BlockUtil.placeBlock(breakPos, this.rotate.getValue(), true);
                         this.doSwap(oldSlot, obsidian);
@@ -416,7 +416,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.isAir(breakPos)) {
                 return;
             }
-            if (this.onlyGround.getValue() && !SpeedMine.mc.player.method_24828()) {
+            if (this.onlyGround.getValue() && !SpeedMine.mc.player.isOnGround()) {
                 return;
             }
             this.done = this.mineTimer.passedMs((long)this.getBreakTime(breakPos, slot));
@@ -428,7 +428,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         return;
                     }
                 }
-                int old = SpeedMine.mc.player.method_31548().selectedSlot;
+                int old = SpeedMine.mc.player.getInventory().selectedSlot;
                 if (this.hotBar.getValue()) {
                     shouldSwitch = slot != old;
                 } else {
@@ -526,7 +526,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean placeCrystal() {
         int crystal = this.findCrystal();
         if (crystal != -1) {
-            int oldSlot = SpeedMine.mc.player.method_31548().selectedSlot;
+            int oldSlot = SpeedMine.mc.player.getInventory().selectedSlot;
             this.doSwap(crystal, crystal);
             BlockUtil.placeCrystal(breakPos.up(), this.rotate.getValue());
             this.doSwap(oldSlot, crystal);
@@ -549,7 +549,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (pos.equals((Object)breakPos)) {
             return;
         }
-        if (godBlocks.contains(SpeedMine.mc.world.method_8320(pos).method_26204())) {
+        if (godBlocks.contains(SpeedMine.mc.world.getBlockState(pos).getBlock())) {
             return;
         }
         if (breakPos != null && this.preferWeb.getValue() && BlockUtil.getBlock(breakPos) == Blocks.COBWEB) {
@@ -588,7 +588,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (secondPos == null || this.isAir(secondPos)) {
                 int slot = this.getTool(breakPos);
                 if (slot == -1) {
-                    slot = SpeedMine.mc.player.method_31548().selectedSlot;
+                    slot = SpeedMine.mc.player.getInventory().selectedSlot;
                 }
                 double breakTime = this.getBreakTime(breakPos, slot, 1.0);
                 this.secondAnim.reset();
@@ -634,7 +634,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (pos.equals((Object)breakPos)) {
             return;
         }
-        if (godBlocks.contains(SpeedMine.mc.world.method_8320(pos).method_26204())) {
+        if (godBlocks.contains(SpeedMine.mc.world.getBlockState(pos).getBlock())) {
             return;
         }
         if (breakPos != null && this.preferWeb.getValue() && BlockUtil.getBlock(breakPos) == Blocks.COBWEB) {
@@ -682,8 +682,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (int i = 0; i < 9; ++i) {
                 float destroySpeed;
                 float digSpeed;
-                ItemStack stack = SpeedMine.mc.player.method_31548().method_5438(i);
-                if (stack == ItemStack.EMPTY || !((digSpeed = (float)EnchantmentHelper.method_8225((Enchantment)Enchantments.field_9131, (ItemStack)stack)) + (destroySpeed = stack.getMiningSpeedMultiplier(SpeedMine.mc.world.method_8320(pos))) > CurrentFastest)) continue;
+                ItemStack stack = SpeedMine.mc.player.getInventory().method_5438(i);
+                if (stack == ItemStack.EMPTY || !((digSpeed = (float)EnchantmentHelper.method_8225((Enchantment)Enchantments.field_9131, (ItemStack)stack)) + (destroySpeed = stack.getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
                 CurrentFastest = digSpeed + destroySpeed;
                 index = i;
             }
@@ -695,7 +695,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
             float destroySpeed;
             float digSpeed;
-            if (entry.getValue().getItem() instanceof AirBlockItem || !((digSpeed = (float)EnchantmentHelper.method_8225((Enchantment)Enchantments.field_9131, (ItemStack)entry.getValue())) + (destroySpeed = entry.getValue().getMiningSpeedMultiplier(SpeedMine.mc.world.method_8320(pos))) > CurrentFastest)) continue;
+            if (entry.getValue().getItem() instanceof AirBlockItem || !((digSpeed = (float)EnchantmentHelper.method_8225((Enchantment)Enchantments.field_9131, (ItemStack)entry.getValue())) + (destroySpeed = entry.getValue().getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
             CurrentFastest = digSpeed + destroySpeed;
             slot.set(entry.getKey());
         }
@@ -711,7 +711,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.bypassGround.getValue() && !SpeedMine.mc.player.method_6128() && breakPos != null && (!this.isAir(breakPos) || secondPos != null) && this.bypassTime.getValue() > 0.0 && MathHelper.sqrt((float)((float)breakPos.toCenterPos().squaredDistanceTo(EntityUtil.getEyesPos()))) <= this.range.getValueFloat() + 2.0f) {
                 int slot = this.getTool(breakPos);
                 if (slot == -1) {
-                    slot = SpeedMine.mc.player.method_31548().selectedSlot;
+                    slot = SpeedMine.mc.player.getInventory().selectedSlot;
                 }
                 double breakTime = this.getBreakTime(breakPos, slot) - this.bypassTime.getValue();
                 if (secondPos == null) {
@@ -768,11 +768,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public final double getBreakTime(BlockPos pos, int slot, double damage) {
-        return (double)(1.0f / this.getBlockStrength(pos, SpeedMine.mc.player.method_31548().method_5438(slot)) / 20.0f * 1000.0f) * damage;
+        return (double)(1.0f / this.getBlockStrength(pos, SpeedMine.mc.player.getInventory().method_5438(slot)) / 20.0f * 1000.0f) * damage;
     }
 
     public float getBlockStrength(BlockPos position, ItemStack itemStack) {
-        BlockState state = SpeedMine.mc.world.method_8320(position);
+        BlockState state = SpeedMine.mc.world.getBlockState(position);
         float hardness = state.method_26214((BlockView)SpeedMine.mc.world, position);
         if (hardness < 0.0f) {
             return 0.0f;
@@ -801,8 +801,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (SpeedMine.mc.player.method_5869() && !EnchantmentHelper.method_8200((LivingEntity)SpeedMine.mc.player)) {
             digSpeed /= 5.0f;
         }
-        boolean bl = inWeb = HexTech.PLAYER.isInWeb((PlayerEntity)SpeedMine.mc.player) && SpeedMine.mc.world.method_8320(breakPos).method_26204() == Blocks.COBWEB;
-        if ((!SpeedMine.mc.player.method_24828() || inWeb) && SpeedMine.INSTANCE.checkGround.getValue() && (!this.smart.getValue() || SpeedMine.mc.player.method_6128() || inWeb)) {
+        boolean bl = inWeb = HexTech.PLAYER.isInWeb((PlayerEntity)SpeedMine.mc.player) && SpeedMine.mc.world.getBlockState(breakPos).getBlock() == Blocks.COBWEB;
+        if ((!SpeedMine.mc.player.isOnGround() || inWeb) && SpeedMine.INSTANCE.checkGround.getValue() && (!this.smart.getValue() || SpeedMine.mc.player.method_6128() || inWeb)) {
             digSpeed /= 5.0f;
         }
         return digSpeed < 0.0f ? 0.0f : digSpeed;
@@ -817,7 +817,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean isAir(BlockPos breakPos) {
-        return SpeedMine.mc.world.method_22347(breakPos) || BlockUtil.getBlock(breakPos) == Blocks.FIRE && BlockUtil.hasCrystal(breakPos);
+        return SpeedMine.mc.world.isAir(breakPos) || BlockUtil.getBlock(breakPos) == Blocks.FIRE && BlockUtil.hasCrystal(breakPos);
     }
 
     static {
