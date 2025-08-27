@@ -32,7 +32,7 @@ implements Wrapper {
 
     public void updatePlayers() {
         for (PlayerEntity player : SpeedManager.mc.world.method_18456()) {
-            if (!((double)SpeedManager.mc.player.method_5739((Entity)player) < 400.0)) continue;
+            if (!((double)SpeedManager.mc.player.distanceTo((Entity)player) < 400.0)) continue;
             double distTraveledLastTickX = player.getX() - player.field_6014;
             double distTraveledLastTickZ = player.getZ() - player.field_5969;
             double playerSpeed = distTraveledLastTickX * distTraveledLastTickX + distTraveledLastTickZ * distTraveledLastTickZ;

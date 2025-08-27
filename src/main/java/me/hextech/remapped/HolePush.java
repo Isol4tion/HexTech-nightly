@@ -132,11 +132,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (float z : offset) {
                     playerPos = new BlockPosX(player.getX() + (double)x, player.getY() + 0.5, player.getZ() + (double)z);
                     for (Direction i : Direction.values()) {
-                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.method_10093(i), (Entity)player) || !HolePush.mc.world.method_39454((Entity)player, new Box(pos))) continue;
-                        if (this.tryPush(playerPos.method_10093(i.getOpposite()), i)) {
+                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), (Entity)player) || !HolePush.mc.world.method_39454((Entity)player, new Box(pos))) continue;
+                        if (this.tryPush(playerPos.offset(i.getOpposite()), i)) {
                             this.timer.reset();
                         }
-                        if (!this.tryPush(playerPos.method_10093(i.getOpposite()).up(), i)) continue;
+                        if (!this.tryPush(playerPos.offset(i.getOpposite()).up(), i)) continue;
                         this.timer.reset();
                         return;
                     }
@@ -161,12 +161,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (float z : offset) {
                     playerPos = new BlockPosX(player.getX() + (double)x, player.getY() + 0.5, player.getZ() + (double)z);
                     for (Direction i : Direction.values()) {
-                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.method_10093(i), (Entity)player)) continue;
-                        if (this.tryPush(playerPos.method_10093(i.getOpposite()).up(), i)) {
+                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), (Entity)player)) continue;
+                        if (this.tryPush(playerPos.offset(i.getOpposite()).up(), i)) {
                             this.timer.reset();
                             return;
                         }
-                        if (!this.tryPush(playerPos.method_10093(i.getOpposite()), i)) continue;
+                        if (!this.tryPush(playerPos.offset(i.getOpposite()), i)) continue;
                         this.timer.reset();
                         return;
                     }
@@ -442,7 +442,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 BlockPosX playerPos = new BlockPosX(player.getX() + (double)x, player.getY() + 0.5, player.getZ() + (double)z);
                 for (Direction i : Direction.values()) {
                     BlockPos pos;
-                    if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.method_10093(i), (Entity)player)) continue;
+                    if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), (Entity)player)) continue;
                     if (HolePush.mc.world.method_39454((Entity)player, new Box(pos))) {
                         return true;
                     }

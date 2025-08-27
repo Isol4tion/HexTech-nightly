@@ -2,12 +2,6 @@ package me.hextech.remapped;
 
 import io.netty.buffer.Unpooled;
 import me.hextech.asm.accessors.IPlayerMoveC2SPacket;
-import me.hextech.remapped.AntiHunger_zYbEBAOiuFfDBojQHScp;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PacketEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
@@ -51,5 +45,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (event.getPacket() instanceof PlayerMoveC2SPacket && this.ground.getValue() && AntiHunger.mc.player.fallDistance <= 0.0f && !AntiHunger.mc.interactionManager.isBreakingBlock()) {
             ((IPlayerMoveC2SPacket)event.getPacket()).setOnGround(false);
         }
+    }
+
+    public enum AntiHunger_zYbEBAOiuFfDBojQHScp {
+        INTERACT,
+        ATTACK,
+        INTERACT_AT
     }
 }

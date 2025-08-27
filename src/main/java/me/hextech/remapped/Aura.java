@@ -4,25 +4,6 @@ import java.awt.Color;
 import me.hextech.HexTech;
 import me.hextech.asm.accessors.IEntity;
 import me.hextech.asm.accessors.ILivingEntity;
-import me.hextech.remapped.Aura_nurTqHTNjexQmuWdDgIn;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.Criticals;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.JelloUtil;
-import me.hextech.remapped.MathUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Render3DUtil;
-import me.hextech.remapped.RotateEvent;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.SwingSide;
-import me.hextech.remapped.Timer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -93,7 +74,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static float getAttackCooldownProgressPerTick() {
-        return (float)(1.0 / Aura.mc.player.method_26825(EntityAttributes.field_23723) * 20.0);
+        return (float)(1.0 / Aura.mc.player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_SPEED) * 20.0);
     }
 
     @Override
@@ -208,10 +189,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double distance = this.range.getValue();
         double maxHealth = 36.0;
         for (Entity entity : Aura.mc.world.getEntities()) {
-            if (!this.isEnemy(entity) || !Aura.mc.player.canSee(entity) && (double)Aura.mc.player.method_5739(entity) > this.wallRange.getValue() || !CombatUtil.isValid(entity, this.range.getValue())) continue;
+            if (!this.isEnemy(entity) || !Aura.mc.player.canSee(entity) && (double)Aura.mc.player.distanceTo(entity) > this.wallRange.getValue() || !CombatUtil.isValid(entity, this.range.getValue())) continue;
             if (target == null) {
                 target = entity;
-                distance = Aura.mc.player.method_5739(entity);
+                distance = Aura.mc.player.distanceTo(entity);
                 maxHealth = EntityUtil.getHealth(entity);
                 continue;
             }
@@ -224,9 +205,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 maxHealth = EntityUtil.getHealth(entity);
                 continue;
             }
-            if (this.targetMode.getValue() != _EhoXCPdRwyZMhABJnmhT.DISTANCE || !((double)Aura.mc.player.method_5739(entity) < distance)) continue;
+            if (this.targetMode.getValue() != _EhoXCPdRwyZMhABJnmhT.DISTANCE || !((double)Aura.mc.player.distanceTo(entity) < distance)) continue;
             target = entity;
-            distance = Aura.mc.player.method_5739(entity);
+            distance = Aura.mc.player.distanceTo(entity);
         }
         return target;
     }
@@ -268,7 +249,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return new float[]{angle[0], angle[1]};
     }
 
-    public static enum _PJzsesCBLMlruCifoKuT {
+    public enum _PJzsesCBLMlruCifoKuT {
         General,
         Rotate,
         Target,
@@ -276,15 +257,22 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     }
 
-    public static enum _VwTXxsLfDdMNyKpyAwyl {
+    public enum _VwTXxsLfDdMNyKpyAwyl {
         Vanilla,
         Delay;
 
     }
 
-    private static enum _EhoXCPdRwyZMhABJnmhT {
+    private enum _EhoXCPdRwyZMhABJnmhT {
         DISTANCE,
         HEALTH;
 
+    }
+
+    public enum Aura_nurTqHTNjexQmuWdDgIn {
+        Box,
+        Jello,
+        NurikZapen,
+        None
     }
 }

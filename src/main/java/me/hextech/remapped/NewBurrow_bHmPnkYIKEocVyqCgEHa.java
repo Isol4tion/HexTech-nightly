@@ -154,7 +154,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.isOnGround()) {
             return;
         }
-        if (this.antiLag.getValue() && !NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.getBlockState(EntityUtil.getPlayerPos().method_10074()).method_51366()) {
+        if (this.antiLag.getValue() && !NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.getBlockState(EntityUtil.getPlayerPos().down()).method_51366()) {
             return;
         }
         if (Blink.INSTANCE.isOn()) {
@@ -210,7 +210,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.needAntiLag = false;
             this.moveAntiLag = true;
         }
-        if (headFill || NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.isCrawling() || this.trapped(headPos) || this.trapped(headPos.method_10069(1, 0, 0)) || this.trapped(headPos.method_10069(-1, 0, 0)) || this.trapped(headPos.method_10069(0, 0, 1)) || this.trapped(headPos.method_10069(0, 0, -1)) || this.trapped(headPos.method_10069(1, 0, -1)) || this.trapped(headPos.method_10069(-1, 0, -1)) || this.trapped(headPos.method_10069(1, 0, 1)) || this.trapped(headPos.method_10069(-1, 0, 1))) {
+        if (headFill || NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.isCrawling() || this.trapped(headPos) || this.trapped(headPos.add(1, 0, 0)) || this.trapped(headPos.add(-1, 0, 0)) || this.trapped(headPos.add(0, 0, 1)) || this.trapped(headPos.add(0, 0, -1)) || this.trapped(headPos.add(1, 0, -1)) || this.trapped(headPos.add(-1, 0, -1)) || this.trapped(headPos.add(1, 0, 1)) || this.trapped(headPos.add(-1, 0, 1))) {
             this.above = true;
             if (!this.fakeMove.getValue()) {
                 if (!this.wait.getValue() && this.disable.getValue()) {

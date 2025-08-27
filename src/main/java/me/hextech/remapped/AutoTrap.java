@@ -4,27 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import me.hextech.HexTech;
-import me.hextech.remapped.AutoTrap_RYPZUKNZXVloqcMUfNgc;
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.ColorUtil;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.FadeUtils;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.OffTrackEvent;
-import me.hextech.remapped.Placement;
-import me.hextech.remapped.Render3DEvent;
-import me.hextech.remapped.Render3DUtil;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Timer;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -151,41 +130,30 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void doTrap(BlockPos pos) {
-        BlockPos offsetPos;
-        Object z;
-        int n;
-        Object offsetPos2;
-        int n2;
-        int n3;
-        Object[] objectArray;
         if (this.trapList.contains(pos)) {
             return;
         }
         this.trapList.add(pos);
         if (this.legs.getValue()) {
-            objectArray = Direction.values();
-            n3 = objectArray.length;
-            for (n2 = 0; n2 < n3; ++n2) {
-                Direction i = objectArray[n2];
-                if (i == Direction.DOWN || i == Direction.UP) continue;
-                offsetPos2 = pos.offset(i);
-                this.tryPlaceBlock((BlockPos)offsetPos2, this.legAnchor.getValue());
-                if (BlockUtil.getPlaceSide(offsetPos2) != null || !BlockUtil.clientCanPlace(offsetPos2, this.breakCrystal.getValue()) || this.getHelper((BlockPos)offsetPos2) == null) continue;
-                this.tryPlaceObsidian(this.getHelper((BlockPos)offsetPos2));
+            for (final Direction i : Direction.values()) {
+                if (i != Direction.DOWN) {
+                    if (i != Direction.UP) {
+                        final BlockPos offsetPos = pos.offset(i);
+                        this.tryPlaceBlock(offsetPos, this.legAnchor.getValue());
+                        if (BlockUtil.getPlaceSide(offsetPos) == null && BlockUtil.clientCanPlace(offsetPos, this.breakCrystal.getValue()) && this.getHelper(offsetPos) != null) {
+                            this.tryPlaceObsidian(this.getHelper(offsetPos));
+                        }
+                    }
+                }
             }
         }
         if (this.headExtend.getValue()) {
-            objectArray = new int[]{1, 0, -1};
-            n3 = objectArray.length;
-            for (n2 = 0; n2 < n3; ++n2) {
-                Direction x = objectArray[n2];
-                offsetPos2 = new int[]{1, 0, -1};
-                int n4 = ((BlockPos)offsetPos2).length;
-                for (n = 0; n < n4; ++n) {
-                    z = offsetPos2[n];
-                    offsetPos = pos.add((int)z, 0, (int)x);
-                    if (!this.checkEntity(new BlockPos((Vec3i)offsetPos))) continue;
-                    this.tryPlaceBlock(offsetPos.up(2), this.headAnchor.getValue());
+            for (final int x : new int[] { 1, 0, -1 }) {
+                for (final int z : new int[] { 1, 0, -1 }) {
+                    final BlockPos offsetPos2 = pos.add(z, 0, x);
+                    if (this.checkEntity(new BlockPos(offsetPos2))) {
+                        this.tryPlaceBlock(offsetPos2.up(2), this.headAnchor.getValue());
+                    }
                 }
             }
         }
@@ -197,38 +165,42 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     trapChest = false;
                 }
                 if (trapChest) {
-                    Direction i;
-                    int x;
-                    Direction[] directionArray = Direction.values();
-                    n2 = directionArray.length;
-                    for (x = 0; x < n2; ++x) {
-                        BlockPos offsetPos3;
-                        i = directionArray[x];
-                        if (i == Direction.DOWN || i == Direction.UP || !BlockUtil.clientCanPlace((offsetPos3 = pos.offset(i).up()).up(), this.breakCrystal.getValue()) || !BlockUtil.canPlace(offsetPos3, this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
-                        this.tryPlaceObsidian(offsetPos3);
-                        trapChest = false;
-                        break;
+                    for (final Direction j : Direction.values()) {
+                        if (j != Direction.DOWN) {
+                            if (j != Direction.UP) {
+                                final BlockPos offsetPos3 = pos.offset(j).up();
+                                if (BlockUtil.clientCanPlace(offsetPos3.up(), this.breakCrystal.getValue()) && BlockUtil.canPlace(offsetPos3, this.placeRange.getValue(), this.breakCrystal.getValue())) {
+                                    this.tryPlaceObsidian(offsetPos3);
+                                    trapChest = false;
+                                    break;
+                                }
+                            }
+                        }
                     }
                     if (trapChest) {
-                        directionArray = Direction.values();
-                        n2 = directionArray.length;
-                        for (x = 0; x < n2; ++x) {
-                            BlockPos offsetPos4;
-                            i = directionArray[x];
-                            if (i == Direction.DOWN || i == Direction.UP || !BlockUtil.clientCanPlace((offsetPos4 = pos.offset(i).up()).up(), this.breakCrystal.getValue()) || BlockUtil.getPlaceSide(offsetPos4) != null || !BlockUtil.clientCanPlace(offsetPos4, this.breakCrystal.getValue()) || this.getHelper(offsetPos4) == null) continue;
-                            this.tryPlaceObsidian(this.getHelper(offsetPos4));
-                            trapChest = false;
-                            break;
+                        for (final Direction j : Direction.values()) {
+                            if (j != Direction.DOWN) {
+                                if (j != Direction.UP) {
+                                    final BlockPos offsetPos3 = pos.offset(j).up();
+                                    if (BlockUtil.clientCanPlace(offsetPos3.up(), this.breakCrystal.getValue()) && BlockUtil.getPlaceSide(offsetPos3) == null && BlockUtil.clientCanPlace(offsetPos3, this.breakCrystal.getValue()) && this.getHelper(offsetPos3) != null) {
+                                        this.tryPlaceObsidian(this.getHelper(offsetPos3));
+                                        trapChest = false;
+                                        break;
+                                    }
+                                }
+                            }
                         }
                         if (trapChest) {
-                            directionArray = Direction.values();
-                            n2 = directionArray.length;
-                            for (x = 0; x < n2; ++x) {
-                                BlockPos offsetPos5;
-                                i = directionArray[x];
-                                if (i == Direction.DOWN || i == Direction.UP || !BlockUtil.clientCanPlace((offsetPos5 = pos.offset(i).up()).up(), this.breakCrystal.getValue()) || BlockUtil.getPlaceSide(offsetPos5) != null || !BlockUtil.clientCanPlace(offsetPos5, this.breakCrystal.getValue()) || this.getHelper(offsetPos5) == null || BlockUtil.getPlaceSide(offsetPos5.down()) != null || !BlockUtil.clientCanPlace(offsetPos5.down(), this.breakCrystal.getValue()) || this.getHelper(offsetPos5.down()) == null) continue;
-                                this.tryPlaceObsidian(this.getHelper(offsetPos5.down()));
-                                break;
+                            for (final Direction j : Direction.values()) {
+                                if (j != Direction.DOWN) {
+                                    if (j != Direction.UP) {
+                                        final BlockPos offsetPos3 = pos.offset(j).up();
+                                        if (BlockUtil.clientCanPlace(offsetPos3.up(), this.breakCrystal.getValue()) && BlockUtil.getPlaceSide(offsetPos3) == null && BlockUtil.clientCanPlace(offsetPos3, this.breakCrystal.getValue()) && this.getHelper(offsetPos3) != null && BlockUtil.getPlaceSide(offsetPos3.down()) == null && BlockUtil.clientCanPlace(offsetPos3.down(), this.breakCrystal.getValue()) && this.getHelper(offsetPos3.down()) != null) {
+                                            this.tryPlaceObsidian(this.getHelper(offsetPos3.down()));
+                                            break;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -243,56 +215,57 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.tryPlaceObsidian(pos.up(3));
         }
         if (this.down.getValue()) {
-            BlockPos offsetPos6 = pos.down();
-            this.tryPlaceObsidian(offsetPos6);
-            if (BlockUtil.getPlaceSide(offsetPos6) == null && BlockUtil.clientCanPlace(offsetPos6, this.breakCrystal.getValue()) && this.getHelper(offsetPos6) != null) {
-                this.tryPlaceObsidian(this.getHelper(offsetPos6));
+            final BlockPos offsetPos4 = pos.down();
+            this.tryPlaceObsidian(offsetPos4);
+            if (BlockUtil.getPlaceSide(offsetPos4) == null && BlockUtil.clientCanPlace(offsetPos4, this.breakCrystal.getValue()) && this.getHelper(offsetPos4) != null) {
+                this.tryPlaceObsidian(this.getHelper(offsetPos4));
             }
         }
         if (this.chestUp.getValue()) {
-            Direction[] directionArray = Direction.values();
-            int n5 = directionArray.length;
-            for (n2 = 0; n2 < n5; ++n2) {
-                Direction i = directionArray[n2];
-                if (i == Direction.DOWN || i == Direction.UP) continue;
-                offsetPos2 = pos.offset(i).up(2);
-                if (this.onlyBreaking.getValue() && !BlockUtil.isMining(pos.up(2))) continue;
-                this.tryPlaceObsidian((BlockPos)offsetPos2);
-                if (BlockUtil.getPlaceSide(offsetPos2) != null || !BlockUtil.clientCanPlace(offsetPos2, this.breakCrystal.getValue())) continue;
-                if (this.getHelper((BlockPos)offsetPos2) != null) {
-                    this.tryPlaceObsidian(this.getHelper((BlockPos)offsetPos2));
-                    continue;
+            for (final Direction i : Direction.values()) {
+                if (i != Direction.DOWN) {
+                    if (i != Direction.UP) {
+                        final BlockPos offsetPos = pos.offset(i).up(2);
+                        if (!this.onlyBreaking.getValue() || BlockUtil.isMining(pos.up(2))) {
+                            this.tryPlaceObsidian(offsetPos);
+                            if (BlockUtil.getPlaceSide(offsetPos) == null && BlockUtil.clientCanPlace(offsetPos, this.breakCrystal.getValue())) {
+                                if (this.getHelper(offsetPos) != null) {
+                                    this.tryPlaceObsidian(this.getHelper(offsetPos));
+                                }
+                                else if (BlockUtil.getPlaceSide(offsetPos.down()) == null && BlockUtil.clientCanPlace(offsetPos.down(), this.breakCrystal.getValue()) && this.getHelper(offsetPos.down()) != null) {
+                                    this.tryPlaceObsidian(this.getHelper(offsetPos.down()));
+                                }
+                            }
+                        }
+                    }
                 }
-                if (BlockUtil.getPlaceSide(offsetPos2.down()) != null || !BlockUtil.clientCanPlace(offsetPos2.down(), this.breakCrystal.getValue()) || this.getHelper(offsetPos2.down()) == null) continue;
-                this.tryPlaceObsidian(this.getHelper(offsetPos2.down()));
             }
         }
         if (this.chest.getValue() && (!this.onlyGround.getValue() || this.target.isOnGround())) {
-            Direction[] directionArray = Direction.values();
-            int n6 = directionArray.length;
-            for (n2 = 0; n2 < n6; ++n2) {
-                Direction i = directionArray[n2];
-                if (i == Direction.DOWN || i == Direction.UP) continue;
-                offsetPos2 = pos.offset(i).up();
-                this.tryPlaceObsidian((BlockPos)offsetPos2);
-                if (BlockUtil.getPlaceSide(offsetPos2) != null || !BlockUtil.clientCanPlace(offsetPos2, this.breakCrystal.getValue())) continue;
-                if (this.getHelper((BlockPos)offsetPos2) != null) {
-                    this.tryPlaceObsidian(this.getHelper((BlockPos)offsetPos2));
-                    continue;
+            for (final Direction i : Direction.values()) {
+                if (i != Direction.DOWN) {
+                    if (i != Direction.UP) {
+                        final BlockPos offsetPos = pos.offset(i).up();
+                        this.tryPlaceObsidian(offsetPos);
+                        if (BlockUtil.getPlaceSide(offsetPos) == null && BlockUtil.clientCanPlace(offsetPos, this.breakCrystal.getValue())) {
+                            if (this.getHelper(offsetPos) != null) {
+                                this.tryPlaceObsidian(this.getHelper(offsetPos));
+                            }
+                            else if (BlockUtil.getPlaceSide(offsetPos.down()) == null && BlockUtil.clientCanPlace(offsetPos.down(), this.breakCrystal.getValue()) && this.getHelper(offsetPos.down()) != null) {
+                                this.tryPlaceObsidian(this.getHelper(offsetPos.down()));
+                            }
+                        }
+                    }
                 }
-                if (BlockUtil.getPlaceSide(offsetPos2.down()) != null || !BlockUtil.clientCanPlace(offsetPos2.down(), this.breakCrystal.getValue()) || this.getHelper(offsetPos2.down()) == null) continue;
-                this.tryPlaceObsidian(this.getHelper(offsetPos2.down()));
             }
         }
         if (this.extend.getValue()) {
-            for (int x : new int[]{1, 0, -1}) {
-                int[] nArray = new int[]{1, 0, -1};
-                int n7 = nArray.length;
-                for (n = 0; n < n7; ++n) {
-                    z = nArray[n];
-                    offsetPos = pos.add(x, 0, (int)z);
-                    if (!this.checkEntity(new BlockPos((Vec3i)offsetPos))) continue;
-                    this.doTrap(offsetPos);
+            for (final int x : new int[] { 1, 0, -1 }) {
+                for (final int z : new int[] { 1, 0, -1 }) {
+                    final BlockPos offsetPos2 = pos.add(x, 0, z);
+                    if (this.checkEntity(new BlockPos(offsetPos2))) {
+                        this.doTrap(offsetPos2);
+                    }
                 }
             }
         }
@@ -507,6 +480,26 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (shouldClear) {
                 PlaceMap.clear();
             }
+        }
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public static class AutoTrap_RYPZUKNZXVloqcMUfNgc {
+        public final FadeUtils_DPfHthPqEJdfXfNYhDbG firstFade;
+        public final BlockPos pos;
+        public final Color posColor;
+        public final Timer timer;
+        public boolean isAir;
+
+        public AutoTrap_RYPZUKNZXVloqcMUfNgc(BlockPos placePos) {
+            this.firstFade = new FadeUtils_DPfHthPqEJdfXfNYhDbG((long) INSTANCE.fadeTime.getValue());
+            this.pos = placePos;
+            this.posColor = INSTANCE.color.getValue();
+            this.timer = new Timer();
+            this.isAir = true;
+            this.timer.reset();
         }
     }
 }

@@ -32,7 +32,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onDeath(DeathEvent event) {
         PlayerEntity player = event.getPlayer();
         if (AutoEZ.mc.player != null && player != AutoEZ.mc.player && !HexTech.FRIEND.isFriend(player)) {
-            if (this.range.getValue() > 0.0 && (double)AutoEZ.mc.player.method_5739((Entity)player) > this.range.getValue()) {
+            if (this.range.getValue() > 0.0 && (double)AutoEZ.mc.player.distanceTo((Entity)player) > this.range.getValue()) {
                 return;
             }
             switch (this.type.getValue().ordinal()) {

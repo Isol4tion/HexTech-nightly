@@ -71,7 +71,7 @@ implements Wrapper {
         float damage = damageI;
         if (entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
-            damage = ExplosionUtil.getDamageAfterAbsorb(damage, player.method_6096(), (float)player.method_26825(EntityAttributes.field_23725));
+            damage = ExplosionUtil.getDamageAfterAbsorb(damage, player.method_6096(), (float)player.getAttributeValue(EntityAttributes.field_23725));
             int k = ExplosionUtil.getProtectionAmount(player.method_5661());
             float f = MathHelper.clamp((float)k, (float)0.0f, (float)20.0f);
             damage *= 1.0f - f / 25.0f;
@@ -80,7 +80,7 @@ implements Wrapper {
             }
             return Math.max(damage, 0.0f);
         }
-        damage = ExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float)entity.method_26825(EntityAttributes.field_23725));
+        damage = ExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float)entity.getAttributeValue(EntityAttributes.field_23725));
         return Math.max(damage, 0.0f);
     }
 

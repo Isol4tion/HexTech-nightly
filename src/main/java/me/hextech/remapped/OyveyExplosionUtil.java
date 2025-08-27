@@ -64,7 +64,7 @@ implements Wrapper {
         if (entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
             DamageSource ds = OyveyExplosionUtil.mc.world.method_48963().explosion(explosion);
-            damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, player.method_6096(), (float)player.method_26825(EntityAttributes.field_23725));
+            damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, player.method_6096(), (float)player.getAttributeValue(EntityAttributes.field_23725));
             int k = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)ds);
             float f = MathHelper.clamp((float)k, (float)0.0f, (float)20.0f);
             damage *= 1.0f - f / 25.0f;
@@ -74,7 +74,7 @@ implements Wrapper {
             damage = Math.max(damage, 0.0f);
             return damage;
         }
-        damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float)entity.method_26825(EntityAttributes.field_23725));
+        damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float)entity.getAttributeValue(EntityAttributes.field_23725));
         return damage;
     }
 

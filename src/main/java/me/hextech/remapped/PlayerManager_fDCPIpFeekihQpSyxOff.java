@@ -28,7 +28,7 @@ implements Wrapper {
         this.inWebPlayers.clear();
         this.insideBlock = EntityUtil.isInsideBlock();
         for (PlayerEntity player : new ArrayList(PlayerManager_fDCPIpFeekihQpSyxOff.mc.world.method_18456())) {
-            this.map.put(player, new PlayerManager(player.method_6096(), player.method_26825(EntityAttributes.field_23725)));
+            this.map.put(player, new PlayerManager(player.method_6096(), player.getAttributeValue(EntityAttributes.field_23725)));
             this.webUpdate(player);
         }
     }

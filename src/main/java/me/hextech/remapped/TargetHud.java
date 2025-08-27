@@ -140,7 +140,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         drawContext.getMatrices().push();
         float posX = 114514.0f;
         float posY = 114514.0f;
-        if (this.move.getValue() && (double)target.method_5739((Entity)TargetHud.mc.player) <= this.moveDis.getValue()) {
+        if (this.move.getValue() && (double)target.distanceTo((Entity)TargetHud.mc.player) <= this.moveDis.getValue()) {
             double x = target.field_6014 + (target.getX() - target.field_6014) * (double)mc.getTickDelta();
             double y = target.field_6036 + (target.getY() - target.field_6036) * (double)mc.getTickDelta();
             double z = target.field_5969 + (target.getZ() - target.field_5969) * (double)mc.getTickDelta();
@@ -311,8 +311,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float min = 1000000.0f;
         PlayerEntity best = null;
         for (PlayerEntity player : TargetHud.mc.world.method_18456()) {
-            if (!(player.method_5739((Entity)TargetHud.mc.player) < min) || player.method_29504() || player == TargetHud.mc.player || HexTech.FRIEND.isFriend(player)) continue;
-            min = player.method_5739((Entity)TargetHud.mc.player);
+            if (!(player.distanceTo((Entity)TargetHud.mc.player) < min) || player.method_29504() || player == TargetHud.mc.player || HexTech.FRIEND.isFriend(player)) continue;
+            min = player.distanceTo((Entity)TargetHud.mc.player);
             best = player;
         }
         return best;

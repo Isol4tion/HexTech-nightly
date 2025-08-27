@@ -64,7 +64,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static float getAttackCooldownProgressPerTick() {
-        return (float)(1.0 / TPAura_LycLkxHLQeGfgqfryvmV.mc.player.method_26825(EntityAttributes.field_23723) * 20.0);
+        return (float)(1.0 / TPAura_LycLkxHLQeGfgqfryvmV.mc.player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_SPEED) * 20.0);
     }
 
     @Override
@@ -121,7 +121,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (!(e instanceof LivingEntity) || !this.isEnemy((Entity)(entity = (LivingEntity)e)) || !CombatUtil.isValid((Entity)entity, this.range.getValue())) continue;
             if (target == null) {
                 target = entity;
-                distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.method_5739((Entity)entity);
+                distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo((Entity)entity);
                 maxHealth = EntityUtil.getHealth((Entity)entity);
                 continue;
             }
@@ -134,9 +134,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 maxHealth = EntityUtil.getHealth((Entity)entity);
                 continue;
             }
-            if (this.targetMode.getValue() != TPAura_XzEqwIDEtUaoPqXpLXTU.DISTANCE || !((double)TPAura_LycLkxHLQeGfgqfryvmV.mc.player.method_5739((Entity)entity) < distance)) continue;
+            if (this.targetMode.getValue() != TPAura_XzEqwIDEtUaoPqXpLXTU.DISTANCE || !((double)TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo((Entity)entity) < distance)) continue;
             target = entity;
-            distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.method_5739((Entity)entity);
+            distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo((Entity)entity);
         }
         return target;
     }

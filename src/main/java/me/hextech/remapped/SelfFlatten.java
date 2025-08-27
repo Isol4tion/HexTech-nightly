@@ -81,10 +81,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!EntityUtil.isInsideBlock()) {
             return;
         }
-        BlockPos pos1 = new BlockPosX(SelfFlatten.mc.player.getX() + 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() + 0.6).method_10074();
-        BlockPos pos2 = new BlockPosX(SelfFlatten.mc.player.getX() - 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() + 0.6).method_10074();
-        BlockPos pos3 = new BlockPosX(SelfFlatten.mc.player.getX() + 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() - 0.6).method_10074();
-        BlockPos pos4 = new BlockPosX(SelfFlatten.mc.player.getX() - 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() - 0.6).method_10074();
+        BlockPos pos1 = new BlockPosX(SelfFlatten.mc.player.getX() + 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() + 0.6).down();
+        BlockPos pos2 = new BlockPosX(SelfFlatten.mc.player.getX() - 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() + 0.6).down();
+        BlockPos pos3 = new BlockPosX(SelfFlatten.mc.player.getX() + 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() - 0.6).down();
+        BlockPos pos4 = new BlockPosX(SelfFlatten.mc.player.getX() - 0.6, SelfFlatten.mc.player.getY() + 0.5, SelfFlatten.mc.player.getZ() - 0.6).down();
         if (!(this.canPlace(pos1) || this.canPlace(pos2) || this.canPlace(pos3) || this.canPlace(pos4))) {
             return;
         }

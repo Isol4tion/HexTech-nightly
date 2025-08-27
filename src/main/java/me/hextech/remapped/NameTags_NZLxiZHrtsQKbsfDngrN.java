@@ -124,7 +124,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 final_string = (String)final_string + " " + String.valueOf(this.getHealthColor(ent)) + NameTags_NZLxiZHrtsQKbsfDngrN.round2(ent.getAbsorptionAmount() + ent.getHealth());
             }
             if (this.distance.getValue()) {
-                final_string = (String)final_string + " " + String.valueOf(Formatting.RESET) + String.format("%.1f", Float.valueOf(NameTags_NZLxiZHrtsQKbsfDngrN.mc.player.method_5739((Entity)ent))) + "m";
+                final_string = (String)final_string + " " + String.valueOf(Formatting.RESET) + String.format("%.1f", Float.valueOf(NameTags_NZLxiZHrtsQKbsfDngrN.mc.player.distanceTo((Entity)ent))) + "m";
             }
             if (this.pops.getValue() && HexTech.POP.getPop(ent.getName().getString()) != 0) {
                 final_string = (String)final_string + " \u00a7bPop " + String.valueOf(Formatting.LIGHT_PURPLE) + HexTech.POP.getPop(ent.getName().getString());

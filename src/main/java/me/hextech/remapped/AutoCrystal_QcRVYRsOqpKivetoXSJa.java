@@ -119,7 +119,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final SliderSetting OnlySyncTime = this.add(new SliderSetting("OnlySyncTime", 10.0, 0.0, 10.0, 0.1, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.SyncHronize));
     public final SliderSetting SpamSyncTime = this.add(new SliderSetting("SpamSyncTime", 100.0, 0.0, 1000.0, 1.0, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.SyncHronize));
     public final BooleanSetting syncdebug = this.add(new BooleanSetting("SyncDebug", false, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.SyncHronize));
-    public final EnumSetting<Aura_nurTqHTNjexQmuWdDgIn> mode = this.add(new EnumSetting<Aura_nurTqHTNjexQmuWdDgIn>("TargetESP", Aura_nurTqHTNjexQmuWdDgIn.Jello, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Render));
+    public final EnumSetting<Aura.Aura_nurTqHTNjexQmuWdDgIn> mode = this.add(new EnumSetting<Aura.Aura_nurTqHTNjexQmuWdDgIn>("TargetESP", Aura.Aura_nurTqHTNjexQmuWdDgIn.Jello, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Render));
     public final ColorSetting color = this.add(new ColorSetting("TargetColor", new Color(255, 255, 255, 250), v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Render));
     public final ColorSetting text = this.add(new ColorSetting("Text", new Color(-1), v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Render).injectBoolean(false));
     public final ColorSetting misscatext = this.add(new ColorSetting("MissText", new Color(-1), v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Render).injectBoolean(true));
@@ -402,8 +402,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public void doRender(MatrixStack matrixStack, float partialTicks, Entity entity, Aura_nurTqHTNjexQmuWdDgIn mode) {
-        if (Objects.requireNonNull(mode) == Aura_nurTqHTNjexQmuWdDgIn.Jello) {
+    public void doRender(MatrixStack matrixStack, float partialTicks, Entity entity, Aura.Aura_nurTqHTNjexQmuWdDgIn mode) {
+        if (Objects.requireNonNull(mode) == Aura.Aura_nurTqHTNjexQmuWdDgIn.Jello) {
             JelloUtil.drawJello(matrixStack, entity, this.color.getValue());
         }
     }
@@ -551,7 +551,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.tempDamage = 0.0f;
         breakPos = null;
         this.breakDamage = 0.0f;
-        ArrayList<PredictionSetting._XBpBEveLWEKUGQPHCCIS> targets = new ArrayList<PredictionSetting._XBpBEveLWEKUGQPHCCIS>();
+        ArrayList<PredictionSetting._XBpBEveLWEKUGQPHCCIS> targets = new ArrayList<>();
         for (PlayerEntity target : CombatUtil.getEnemies(this.targetRange.getValueFloat())) {
             if (target.hurtTime > this.HurtTime.getValueInt()) continue;
             targets.add(new PredictionSetting._XBpBEveLWEKUGQPHCCIS(target));
@@ -560,7 +560,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.lastBreakTimer.reset();
             return;
         }
-        PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player);
+        PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player);
         for (BlockPos pos : BlockUtil.getSphere((float)this.range.getValue() + 1.0f)) {
             if (WallCheck.behindWall(pos) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos().distanceTo(pos.toCenterPos().add(0.0, -0.5, 0.0)) > this.range.getValue() || !this.canTouch(pos.down()) || !CanPlaceCrystal.canPlaceCrystal(pos, true, false)) continue;
             for (PredictionSetting._XBpBEveLWEKUGQPHCCIS target : targets) {

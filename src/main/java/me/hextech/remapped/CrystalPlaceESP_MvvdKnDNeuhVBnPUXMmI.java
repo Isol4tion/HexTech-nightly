@@ -72,7 +72,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         for (Entity e2 : new CrystalPlaceESP_cIUDDoAQRmgkqQqHhomK(this)) {
-            if (!(e2 instanceof EndCrystalEntity) || this.range.getValue() && (double)CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.player.method_5739(e2) > this.rangeValue.getValue() || this.cryList.containsKey(e2)) continue;
+            if (!(e2 instanceof EndCrystalEntity) || this.range.getValue() && (double)CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.player.distanceTo(e2) > this.rangeValue.getValue() || this.cryList.containsKey(e2)) continue;
             this.cryList.put((EndCrystalEntity)e2, new CrystalPlaceESP((EndCrystalEntity)e2, System.currentTimeMillis()));
         }
         if (((Enum)this.mode.getValue()).equals((Object)CrystalPlaceESP_KzUakBpdzbLUIKutBXtY.Normal)) {
@@ -93,7 +93,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if ((double)(System.currentTimeMillis() - renderInfo.time) > this.animationTime.getValue() && !e.method_5805()) {
                 this.cryList.remove(e);
             }
-            if ((double)(System.currentTimeMillis() - renderInfo.time) > this.animationTime.getValue() && (double)CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.player.method_5739((Entity)e) > this.rangeValue.getValue()) {
+            if ((double)(System.currentTimeMillis() - renderInfo.time) > this.animationTime.getValue() && (double)CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.player.distanceTo((Entity)e) > this.rangeValue.getValue()) {
                 this.cryList.remove(e);
             }
         });
