@@ -45,7 +45,7 @@ implements Wrapper {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    public boolean method_25402(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == 0) {
             hoverClicked = false;
             clicked = true;
@@ -56,7 +56,7 @@ implements Wrapper {
         } else if (button == 4) {
             MOUSE_BUTTON_5 = true;
         }
-        return super.method_25402(mouseX, mouseY, button);
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     public boolean method_25406(double mouseX, double mouseY, int button) {

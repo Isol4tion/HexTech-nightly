@@ -48,7 +48,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
             List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
-                if (effect.method_5579() != targetEffect) continue;
+                if (effect.getEffectType() != targetEffect) continue;
                 return i < 9 ? i + 36 : i;
             }
         }
@@ -61,7 +61,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
             List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
-                if (effect.method_5579() != targetEffect) continue;
+                if (effect.getEffectType() != targetEffect) continue;
                 return i;
             }
         }

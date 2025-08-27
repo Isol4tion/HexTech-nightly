@@ -107,6 +107,6 @@ public class MathUtil {
                 return Direction.DOWN;
             }
         }
-        return entity.method_5735().getOpposite();
+        return entity.getHorizontalFacing().getOpposite();
     }
 }

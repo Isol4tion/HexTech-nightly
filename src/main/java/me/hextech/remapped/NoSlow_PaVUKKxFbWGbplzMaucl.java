@@ -70,7 +70,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     break;
                 }
                 case 2: {
-                    if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_6058() == Hand.OFF_HAND) {
+                    if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getActiveHand() == Hand.OFF_HAND) {
                         mc.getNetworkHandler().sendPacket((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getInventory().selectedSlot % 8 + 1));
                         mc.getNetworkHandler().sendPacket((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getInventory().selectedSlot % 7 + 2));
                         mc.getNetworkHandler().sendPacket((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getInventory().selectedSlot));

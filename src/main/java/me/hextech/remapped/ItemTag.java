@@ -19,11 +19,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         for (Entity entity : ItemTag.mc.world.getEntities()) {
-            if (!(entity instanceof ItemEntity)) continue;
-            ItemEntity itemEntity = (ItemEntity)entity;
+            if (!(entity instanceof ItemEntity itemEntity)) continue;
             String s = this.count.getValue() ? " x" + itemEntity.getStack().getCount() : "";
-            itemEntity.method_5665(Text.of((String)((this.customName.getValue() ? itemEntity.getStack().getName() : itemEntity.getStack().getItem().method_7848()).getString() + s)));
-            itemEntity.method_5880(true);
+            itemEntity.setCustomName(Text.of((String)((this.customName.getValue() ? itemEntity.getStack().getName() : itemEntity.getStack().getItem().getName()).getString() + s)));
+            itemEntity.setCustomNameVisible(true);
         }
     }
 
@@ -33,9 +32,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         for (Entity entity : ItemTag.mc.world.getEntities()) {
-            if (!(entity instanceof ItemEntity)) continue;
-            ItemEntity itemEntity = (ItemEntity)entity;
-            itemEntity.method_5880(false);
+            if (!(entity instanceof ItemEntity itemEntity)) continue;
+            itemEntity.setCustomNameVisible(false);
         }
     }
 }

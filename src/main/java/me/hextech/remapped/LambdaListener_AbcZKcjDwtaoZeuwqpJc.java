@@ -5,12 +5,10 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.function.Consumer;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.IListener;
-import me.hextech.remapped.LambdaListener;
 
 public class LambdaListener_AbcZKcjDwtaoZeuwqpJc
 implements IListener {
@@ -22,7 +20,7 @@ implements IListener {
     private final int priority;
     private Consumer<Object> executor;
 
-    public LambdaListener_AbcZKcjDwtaoZeuwqpJc(LambdaListener factory, Class<?> klass, Object object, Method method) {
+    public LambdaListener_AbcZKcjDwtaoZeuwqpJc(Factory factory, Class<?> klass, Object object, Method method) {
         this.target = method.getParameters()[0].getType();
         this.isStatic = Modifier.isStatic(method.getModifiers());
         this.priority = method.getAnnotation(EventHandler.class).priority();
@@ -47,8 +45,13 @@ implements IListener {
                 methodHandle = lookup.findVirtual(klass, name, methodType);
                 invokedType = MethodType.methodType(Consumer.class, klass);
             }
-            MethodHandle lambdaFactory = LambdaMetafactory.metafactory(lookup, "accept", invokedType, MethodType.methodType(Void.TYPE, Object.class), methodHandle, methodType).getTarget();
-            this.executor = this.isStatic ? lambdaFactory.invoke() : lambdaFactory.invoke(object);
+            final MethodHandle lambdaFactory = LambdaMetafactory.metafactory(lookup, "accept", invokedType, MethodType.methodType(Void.TYPE, Object.class), methodHandle, methodType).getTarget();
+            if (this.isStatic) {
+                this.executor = (Consumer<Object>)lambdaFactory.invoke();
+            }
+            else {
+                this.executor = (Consumer<Object>)lambdaFactory.invoke(object);
+            }
         }
         catch (Throwable throwable) {
             throwable.printStackTrace();
@@ -76,10 +79,21 @@ implements IListener {
     }
 
     static {
-        if (isJava1dot8) {
-            me.rebirthclient.api.events.eventbus.LambdaListener.lookupConstructor = MethodHandles.Lookup.class.getDeclaredConstructor(Class.class);
-        } else {
-            privateLookupInMethod = MethodHandles.class.getDeclaredMethod("privateLookupIn", Class.class, MethodHandles.Lookup.class);
+        try {
+            if (isJava1dot8) {
+                lookupConstructor = MethodHandles.Lookup.class.getDeclaredConstructor(Class.class);
+            } else {
+                privateLookupInMethod = MethodHandles.class.getDeclaredMethod("privateLookupIn", Class.class, MethodHandles.Lookup.class);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
         }
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public interface Factory {
+        MethodHandles.Lookup create(Method var1, Class<?> var2) throws InvocationTargetException, IllegalAccessException;
     }
 }

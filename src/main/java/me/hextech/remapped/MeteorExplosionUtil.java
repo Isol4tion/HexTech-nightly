@@ -3,7 +3,6 @@ package me.hextech.remapped;
 import me.hextech.asm.accessors.IExplosion;
 import me.hextech.remapped.BlockUtil;
 import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.MeteorExplosionUtil_zRIRZRqrriuJQOCbEfNs;
 import me.hextech.remapped.Wrapper;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -72,10 +71,10 @@ implements Wrapper {
     }
 
     private static double getDamageForDifficulty(double damage) {
-        return switch (MeteorExplosionUtil_zRIRZRqrriuJQOCbEfNs.$SwitchMap$net$minecraft$world$Difficulty[MeteorExplosionUtil.mc.world.getDifficulty().ordinal()]) {
-            case 1 -> 0.0;
-            case 2 -> Math.min(damage / 2.0 + 1.0, damage);
-            case 3 -> damage * 3.0 / 2.0;
+        return switch (MeteorExplosionUtil.mc.world.getDifficulty()) {
+            case PEACEFUL -> 0.0;
+            case EASY -> Math.min(damage / 2.0 + 1.0, damage);
+            case NORMAL -> damage * 3.0 / 2.0;
             default -> damage;
         };
     }

@@ -35,9 +35,9 @@ extends Screen {
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         LogoDrawer.draw(context, this.width / 4, this.height / 4, 1.0f);
-        context.method_25302(moon, 50, 15, 0, 0, this.width, this.height);
-        context.method_25291(sky, 0, 0, 0, 0.0f, 0.0f, this.width, this.height, this.width, this.height);
-        context.method_25291(station, (mouseX - this.width) / 48, 30 + (mouseY - this.height / 2) / 80, 0, 0.0f, 0.0f, this.width, this.height, this.width, this.height);
+        context.drawTexture(moon, 50, 15, 0, 0, this.width, this.height);
+        context.drawTexture(sky, 0, 0, 0, 0.0f, 0.0f, this.width, this.height, this.width, this.height);
+        context.drawTexture(station, (mouseX - this.width) / 48, 30 + (mouseY - this.height / 2) / 80, 0, 0.0f, 0.0f, this.width, this.height, this.width, this.height);
         MatrixStack matrices = context.getMatrices();
         RenderSystem.defaultBlendFunc();
         float maxButtonWidth = (float)this.width / 2.0f;
@@ -64,7 +64,7 @@ extends Screen {
         RenderSystem.setShaderTexture((int)0, (Identifier)single);
         RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
         RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
-        context.method_25291(single, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
+        context.drawTexture(single, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
         matrices.pop();
         matrices.push();
         if (this.zoomSingle > 1.0f) {
@@ -90,7 +90,7 @@ extends Screen {
         RenderSystem.setShaderTexture((int)0, (Identifier)multi);
         RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
         RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
-        context.method_25291(multi, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
+        context.drawTexture(multi, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
         matrices.pop();
         matrices.push();
         if (this.zoomMulti > 1.0f) {
@@ -116,7 +116,7 @@ extends Screen {
         RenderSystem.setShaderTexture((int)0, (Identifier)setting);
         RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
         RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
-        context.method_25291(setting, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
+        context.drawTexture(setting, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
         matrices.pop();
         matrices.push();
         if (this.zoomSetting > 1.0f) {
@@ -142,7 +142,7 @@ extends Screen {
         RenderSystem.setShaderTexture((int)0, (Identifier)exit);
         RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
         RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
-        context.method_25291(exit, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
+        context.drawTexture(exit, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
         matrices.pop();
         matrices.push();
         if (this.zoomExit > 1.0f) {
@@ -163,7 +163,7 @@ extends Screen {
         return mouseX >= (double)x && mouseY >= (double)y && mouseX <= (double)(x + (float)width) && mouseY <= (double)(y + (float)width);
     }
 
-    public boolean method_25402(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         float maxButtonWidth = (float)this.width / 2.0f;
         int buttonWidth = this.height / 12;
         float scaled = 1.2f;
@@ -189,6 +189,6 @@ extends Screen {
                 Wrapper.mc.stop();
             }
         }
-        return super.method_25402(mouseX, mouseY, button);
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 }

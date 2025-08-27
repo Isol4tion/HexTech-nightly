@@ -169,7 +169,7 @@ implements Wrapper {
             if (!(entry.getValue().getItem() instanceof SplashPotionItem)) continue;
             ArrayList effects = new ArrayList(PotionContentsComponent.method_8067((ItemStack)entry.getValue()));
             for (StatusEffectInstance potionEffect : effects) {
-                if (potionEffect.method_5579() != potion) continue;
+                if (potionEffect.getEffectType() != potion) continue;
                 count += entry.getValue().getCount();
                 continue block0;
             }
@@ -199,7 +199,7 @@ implements Wrapper {
             if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof SplashPotionItem)) continue;
             ArrayList effects = new ArrayList(PotionContentsComponent.method_8067((ItemStack)stack));
             for (StatusEffectInstance potionEffect : effects) {
-                if (potionEffect.method_5579() != potion) continue;
+                if (potionEffect.getEffectType() != potion) continue;
                 return i;
             }
         }
@@ -243,7 +243,7 @@ implements Wrapper {
             if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof SplashPotionItem)) continue;
             ArrayList effects = new ArrayList(PotionContentsComponent.method_8067((ItemStack)stack));
             for (StatusEffectInstance potionEffect : effects) {
-                if (potionEffect.method_5579() != potion) continue;
+                if (potionEffect.getEffectType() != potion) continue;
                 return i < 9 ? i + 36 : i;
             }
         }

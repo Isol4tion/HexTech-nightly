@@ -169,7 +169,7 @@ implements Wrapper {
                     this.predict.method_24830(player.isOnGround());
                     this.predict.getInventory().clone(player.getInventory());
                     this.predict.method_18380(player.getPose());
-                    player.method_6026().forEach(arg_0 -> ((PlayerEntity)this.predict).addStatusEffect(arg_0));
+                    player.getStatusEffects().forEach(arg_0 -> ((PlayerEntity)this.predict).addStatusEffect(arg_0));
                 } else if (PredictionSetting.INSTANCE.mode.getValue() == _mJSQReswTiaqOSqkjOmh.HexTech) {
                     this.predict.method_33574(player.getPos().add(CombatUtil.getMotionVec((Entity)player, PredictionSetting.INSTANCE.breakextrap.getValueInt(), true)));
                     this.predict.method_6033(player.getHealth());
@@ -179,7 +179,7 @@ implements Wrapper {
                     this.predict.method_24830(player.isOnGround());
                     this.predict.getInventory().clone(player.getInventory());
                     this.predict.method_18380(player.getPose());
-                    for (StatusEffectInstance se : new ArrayList(player.method_6026())) {
+                    for (StatusEffectInstance se : new ArrayList(player.getStatusEffects())) {
                         this.predict.addStatusEffect(se);
                     }
                 }

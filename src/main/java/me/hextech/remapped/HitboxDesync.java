@@ -22,7 +22,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (HitboxDesync.nullCheck()) {
             return;
         }
-        Direction f = HitboxDesync.mc.player.method_5735();
+        Direction f = HitboxDesync.mc.player.getHorizontalFacing();
         Box bb = HitboxDesync.mc.player.getBoundingBox();
         Vec3d center = bb.getCenter();
         Vec3d offset = new Vec3d(f.getUnitVector());

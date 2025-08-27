@@ -7,7 +7,7 @@ import me.hextech.remapped.AltManager;
 import me.hextech.remapped.BlurManager;
 import me.hextech.remapped.CommandManager;
 import me.hextech.remapped.ConfigManager;
-import me.hextech.remapped.EventBus_bcCTmtyubWDfbrlTrSdl;
+import me.hextech.remapped.EventBus;
 import me.hextech.remapped.FPSManager;
 import me.hextech.remapped.FriendManager;
 import me.hextech.remapped.GuiManager;
@@ -29,7 +29,7 @@ implements ModInitializer {
     public static final String LOG_NAME;
     public static final String CHAT_NAME;
     public static final String VERSION;
-    public static final EventBus_bcCTmtyubWDfbrlTrSdl EVENT_BUS;
+    public static final EventBus EVENT_BUS;
     public static final Queue<String> MESSAGE_QUEUE;
     public static final Queue<String> COMMAND_QUEUE;
     public static Thread thread;
@@ -67,9 +67,7 @@ implements ModInitializer {
                     }
                     catch (Exception e) {
                         e.printStackTrace();
-                        continue;
                     }
-                    break;
                 }
             });
             thread.start();
@@ -150,9 +148,7 @@ implements ModInitializer {
                 }
                 catch (Exception e) {
                     e.printStackTrace();
-                    continue;
                 }
-                break;
             }
         });
         thread.start();
@@ -163,7 +159,7 @@ implements ModInitializer {
         CHAT_NAME = "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c";
         LOG_NAME = "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c";
         NAME = "HexTech";
-        EVENT_BUS = new EventBus_bcCTmtyubWDfbrlTrSdl();
+        EVENT_BUS = new EventBus();
         MESSAGE_QUEUE = new LinkedList<String>();
         COMMAND_QUEUE = new LinkedList<String>();
         PREFIX = ".";

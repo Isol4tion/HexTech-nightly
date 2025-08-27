@@ -113,11 +113,11 @@ extends EntityRenderer<EndCrystalEntity> {
         BlockPos blockPos = endCrystalEntity.getBeamTarget();
         if (blockPos != null) {
             float m = (float)blockPos.method_10263() + 0.5f;
-            float n = (float)blockPos.method_10264() + 0.5f;
+            float n = (float)blockPos.getY() + 0.5f;
             float o = (float)blockPos.method_10260() + 0.5f;
-            float p = (float)((double)m - endCrystalEntity.method_23317());
-            float q = (float)((double)n - endCrystalEntity.method_23318());
-            float r = (float)((double)o - endCrystalEntity.method_23321());
+            float p = (float)((double)m - endCrystalEntity.getX());
+            float q = (float)((double)n - endCrystalEntity.getY());
+            float r = (float)((double)o - endCrystalEntity.getZ());
             matrixStack.translate(p, q, r);
             EnderDragonEntityRenderer.method_3917((float)(-p), (float)(-q + h), (float)(-r), (float)g, (int)endCrystalEntity.endCrystalAge, (MatrixStack)matrixStack, (VertexConsumerProvider)vertexConsumerProvider, (int)i);
         }

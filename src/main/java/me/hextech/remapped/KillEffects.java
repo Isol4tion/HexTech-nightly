@@ -39,11 +39,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.LightningBolt.getValue()) {
             this.renderEntities.forEach((entity, time) -> {
                 LightningEntity lightningEntity = new LightningEntity(EntityType.LIGHTNING_BOLT, (World)KillEffects.mc.world);
-                lightningEntity.method_24203(entity.getX(), entity.getY(), entity.getZ());
+                lightningEntity.refreshPositionAfterTeleport(entity.getX(), entity.getY(), entity.getZ());
                 EntitySpawnS2CPacket pac = new EntitySpawnS2CPacket((Entity)lightningEntity);
                 pac.apply((ClientPlayPacketListener)mc.getNetworkHandler());
-                KillEffects.mc.world.method_43128((PlayerEntity)KillEffects.mc.player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 10000.0f, 0.16000001f);
-                KillEffects.mc.world.method_43128((PlayerEntity)KillEffects.mc.player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.WEATHER, 2.0f, 0.1f);
+                KillEffects.mc.world.playSound((PlayerEntity)KillEffects.mc.player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 10000.0f, 0.16000001f);
+                KillEffects.mc.world.playSound((PlayerEntity)KillEffects.mc.player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.WEATHER, 2.0f, 0.1f);
                 this.renderEntities.remove(entity);
                 this.lightingEntities.put((Entity)entity, System.currentTimeMillis());
             });

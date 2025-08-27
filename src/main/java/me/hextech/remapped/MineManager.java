@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class MineManager {
+public class MineManager {
     public final BlockPos pos;
     public final int entityId;
     public final FadeUtils_DPfHthPqEJdfXfNYhDbG fade;

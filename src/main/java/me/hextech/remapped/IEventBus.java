@@ -1,11 +1,7 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.ICancellable;
-import me.hextech.remapped.IListener;
-import me.hextech.remapped.LambdaListener;
-
 public interface IEventBus {
-    public void registerLambdaFactory(LambdaListener var1);
+    public void registerLambdaFactory(LambdaListener_AbcZKcjDwtaoZeuwqpJc.Factory var1);
 
     public <T> T post(T var1);
 

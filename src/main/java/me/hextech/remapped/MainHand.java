@@ -92,7 +92,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.handSlot && this.totemPause.getValue()) {
             return;
         }
-        if (this.pauseEat.getValue() && MainHand.mc.player.isUsingItem() && MainHand.mc.player.method_6058() == Hand.MAIN_HAND) {
+        if (this.pauseEat.getValue() && MainHand.mc.player.isUsingItem() && MainHand.mc.player.getActiveHand() == Hand.MAIN_HAND) {
             return;
         }
         if (this.mode.getValue() == _TQxYHQLcjCDwbwqUjIlv.All) {

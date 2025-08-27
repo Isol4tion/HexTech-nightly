@@ -58,7 +58,7 @@ implements Wrapper {
         fake.method_6033(p.getHealth());
         fake.method_24830(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
-        p.method_6026().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
+        p.getStatusEffects().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
         return fake;
     }
 
@@ -165,7 +165,7 @@ implements Wrapper {
         fake.method_6033(p.getHealth());
         fake.method_24830(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
-        p.method_6026().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
+        p.getStatusEffects().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
         return fake;
     }
 

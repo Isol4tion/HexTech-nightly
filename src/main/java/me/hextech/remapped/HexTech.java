@@ -43,7 +43,7 @@ implements Wrapper {
         }
         float offsetX = ((float)mouseX - (float)this.width / 2.0f) / 48.0f;
         float offsetY = ((float)mouseY - (float)this.height / 2.0f) / 80.0f;
-        drawContext.method_25291(this.bg, (int)offsetX, (int)offsetY, 0, 0.0f, 0.0f, this.width, this.height, this.width, this.height);
+        drawContext.drawTexture(this.bg, (int)offsetX, (int)offsetY, 0, 0.0f, 0.0f, this.width, this.height, this.width, this.height);
         float buttonSpacing = 8.0f;
         float baseX = (float)(this.width / 2) - this.buttonWidth / 2.0f;
         float baseY = (float)(this.height / 2) - 2.0f * this.buttonHeight;
@@ -69,7 +69,7 @@ implements Wrapper {
                 case 5 -> this.exit;
                 default -> this.single;
             };
-            drawContext.method_25290(iconTex, (int)(baseX + (float)iconSize + 8.0f), (int)(y + (30.0f - (float)iconSize) / 2.0f), 0.0f, 0.0f, iconSize, iconSize, iconSize, iconSize);
+            drawContext.drawTexture(iconTex, (int)(baseX + (float)iconSize + 8.0f), (int)(y + (30.0f - (float)iconSize) / 2.0f), 0.0f, 0.0f, iconSize, iconSize, iconSize, iconSize);
             String label = switch (i) {
                 case 0 -> "Singleplayer";
                 case 1 -> "Multiplayer";
@@ -84,11 +84,11 @@ implements Wrapper {
             matrices.pop();
         }
         int logoSize = this.height / 8;
-        drawContext.method_25291(this.logo, this.width / 2 - logoSize / 2, (int)(baseY - (float)logoSize - 30.0f), 0, 0.0f, 0.0f, logoSize, logoSize, logoSize, logoSize);
+        drawContext.drawTexture(this.logo, this.width / 2 - logoSize / 2, (int)(baseY - (float)logoSize - 30.0f), 0, 0.0f, 0.0f, logoSize, logoSize, logoSize, logoSize);
         FontRenderers.ui.drawString(drawContext.getMatrices(), "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c-8", 5.0f, (float)this.height - FontRenderers.ui.getFontHeight(), Color.WHITE.getRGB());
     }
 
-    public boolean method_25402(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         float buttonSpacing = 8.0f;
         float x = (float)(this.width / 2) - this.buttonWidth / 2.0f;
         float y = (float)(this.height / 2) - 2.0f * this.buttonHeight;
@@ -145,7 +145,7 @@ implements Wrapper {
                 mc.stop();
             }
         }
-        return super.method_25402(mouseX, mouseY, button);
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     public boolean isMouseHoveringRect(double x, double y, double w, double h, double mouseX, double mouseY) {

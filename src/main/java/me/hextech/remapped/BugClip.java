@@ -32,7 +32,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onEnable() {
         this.cancelPacket = false;
         if (this.clipIn.getValue()) {
-            Direction f = BugClip.mc.player.method_5735();
+            Direction f = BugClip.mc.player.getHorizontalFacing();
             BugClip.mc.player.setPosition(BugClip.mc.player.getX() + (double)f.getOffsetX() * 0.5, BugClip.mc.player.getY(), BugClip.mc.player.getZ() + (double)f.getOffsetZ() * 0.5);
             BugClip.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(BugClip.mc.player.getX(), BugClip.mc.player.getY(), BugClip.mc.player.getZ(), true));
         } else {

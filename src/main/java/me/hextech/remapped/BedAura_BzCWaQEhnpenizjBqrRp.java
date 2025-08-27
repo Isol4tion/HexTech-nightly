@@ -176,7 +176,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             placePos = null;
             return;
         }
-        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.method_27983().equals(World.OVERWORLD)) {
+        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.getRegistryKey().equals(World.OVERWORLD)) {
             placePos = null;
             return;
         }

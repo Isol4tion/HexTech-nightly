@@ -53,7 +53,7 @@ extends AltSelectionList_MlYuzYrWmNSiQOBPfePW {
         return Collections.emptyList();
     }
 
-    public boolean method_25402(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         double d0 = mouseX - (double)this.this$0.method_25342();
         if (d0 <= 32.0 && d0 < 32.0 && d0 > 16.0) {
             this.owner.setSelected(this);
