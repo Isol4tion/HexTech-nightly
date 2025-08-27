@@ -42,7 +42,7 @@ public abstract class MixinLivingEntityRenderer<T extends LivingEntity, M extend
 
     @Inject(method={"render"}, at={@At(value="HEAD")})
     public void onRenderPre(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
-        if (MinecraftClient.method_1551().field_1724 != null && livingEntity == MinecraftClient.method_1551().field_1724 && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotations.getValue()) {
+        if (MinecraftClient.method_1551().player != null && livingEntity == MinecraftClient.method_1551().player && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotations.getValue()) {
             this.originalYaw = livingEntity.method_36454();
             this.originalHeadYaw = ((LivingEntity)livingEntity).field_6241;
             this.originalBodyYaw = ((LivingEntity)livingEntity).field_6283;
@@ -64,7 +64,7 @@ public abstract class MixinLivingEntityRenderer<T extends LivingEntity, M extend
 
     @Inject(method={"render"}, at={@At(value="TAIL")})
     public void onRenderPost(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
-        if (MinecraftClient.method_1551().field_1724 != null && livingEntity == MinecraftClient.method_1551().field_1724 && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotations.getValue()) {
+        if (MinecraftClient.method_1551().player != null && livingEntity == MinecraftClient.method_1551().player && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotations.getValue()) {
             livingEntity.method_36456(this.originalYaw);
             ((LivingEntity)livingEntity).field_6241 = this.originalHeadYaw;
             ((LivingEntity)livingEntity).field_6283 = this.originalBodyYaw;
@@ -79,8 +79,8 @@ public abstract class MixinLivingEntityRenderer<T extends LivingEntity, M extend
     @Redirect(method={"render"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/render/entity/model/EntityModel;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;IIFFFF)V"))
     private void onRenderModel(EntityModel entityModel, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
         Color newColor = new Color(red, green, blue, alpha);
-        if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.antiPlayerCollision.getValue() && this.lastEntity != Wrapper.mc.field_1724) {
-            float overrideAlpha = (float)(Wrapper.mc.field_1724.method_5707(this.lastEntity.method_19538()) / 3.0) + 0.07f;
+        if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.antiPlayerCollision.getValue() && this.lastEntity != Wrapper.mc.player) {
+            float overrideAlpha = (float)(Wrapper.mc.player.method_5707(this.lastEntity.method_19538()) / 3.0) + 0.07f;
             newColor = ColorUtil.injectAlpha(newColor, (int)(255.0f * MathUtil.clamp(overrideAlpha, 0.0f, 1.0f)));
         }
         entityModel.method_2828(matrices, vertices, light, overlay, (float)newColor.getRed() / 255.0f, (float)newColor.getGreen() / 255.0f, (float)newColor.getBlue() / 255.0f, (float)newColor.getAlpha() / 255.0f);

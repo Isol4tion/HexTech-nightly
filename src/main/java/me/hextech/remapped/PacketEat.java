@@ -23,8 +23,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (this.deSync.getValue() && PacketEat.mc.field_1724.method_6115() && PacketEat.mc.field_1724.method_6030().method_7909().method_19263()) {
-            PacketEat.mc.field_1724.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, BlockUtil.getWorldActionId(PacketEat.mc.field_1687)));
+        if (this.deSync.getValue() && PacketEat.mc.player.method_6115() && PacketEat.mc.player.method_6030().method_7909().method_19263()) {
+            PacketEat.mc.player.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, BlockUtil.getWorldActionId(PacketEat.mc.world)));
         }
     }
 
@@ -32,7 +32,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onPacket(PacketEvent event) {
         PlayerActionC2SPacket packet;
         Object t = event.getPacket();
-        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).method_12363() == PlayerActionC2SPacket.Action.field_12974 && PacketEat.mc.field_1724.method_6030().method_7909().method_19263()) {
+        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).method_12363() == PlayerActionC2SPacket.Action.field_12974 && PacketEat.mc.player.method_6030().method_7909().method_19263()) {
             event.cancel();
         }
     }

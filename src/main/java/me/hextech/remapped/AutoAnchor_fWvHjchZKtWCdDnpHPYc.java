@@ -24,7 +24,7 @@ public static class AutoAnchor_fWvHjchZKtWCdDnpHPYc {
     public void onRender3D(Render3DEvent event) {
         if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.currentPos != null) {
             this.this$0.noPosTimer.reset();
-            AutoAnchor_MDcwoWYRcPYheLZJWRZK.placeVec3d = AutoAnchor_MDcwoWYRcPYheLZJWRZK.currentPos.method_46558();
+            AutoAnchor_MDcwoWYRcPYheLZJWRZK.placeVec3d = AutoAnchor_MDcwoWYRcPYheLZJWRZK.currentPos.toCenterPos();
         }
         if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.placeVec3d == null) {
             return;

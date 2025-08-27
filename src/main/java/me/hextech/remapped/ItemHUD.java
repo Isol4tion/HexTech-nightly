@@ -78,13 +78,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public int getItemCount(Item item) {
-        if (ItemHUD.mc.field_1724 == null) {
+        if (ItemHUD.mc.player == null) {
             return 0;
         }
         int n = 0;
         int n2 = 44;
         for (int i = 0; i <= n2; ++i) {
-            ItemStack itemStack = ItemHUD.mc.field_1724.method_31548().method_5438(i);
+            ItemStack itemStack = ItemHUD.mc.player.method_31548().method_5438(i);
             if (itemStack.method_7909() != item) continue;
             n += itemStack.method_7947();
         }

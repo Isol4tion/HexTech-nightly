@@ -21,9 +21,9 @@ extends Command {
     @Override
     public void runCommand(String[] parameters) {
         mc.method_18859(() -> {
-            if (RejoinCommand.mc.field_1687 != null && mc.method_1558() != null) {
+            if (RejoinCommand.mc.world != null && mc.method_1558() != null) {
                 ServerInfo lastestServerEntry = mc.method_1558();
-                new DisconnectS2CPacket(Text.method_30163((String)"Self kick")).method_11467((ClientCommonPacketListener)RejoinCommand.mc.field_1724.field_3944);
+                new DisconnectS2CPacket(Text.method_30163((String)"Self kick")).method_11467((ClientCommonPacketListener)RejoinCommand.mc.player.field_3944);
                 ConnectScreen.method_36877((Screen)new TitleScreen(), (MinecraftClient)mc, (ServerAddress)ServerAddress.method_2950((String)lastestServerEntry.field_3761), (ServerInfo)lastestServerEntry, (boolean)false);
             }
         });

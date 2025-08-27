@@ -50,10 +50,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.ignore) {
             return;
         }
-        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.method_6112(StatusEffects.field_5911) == null) {
+        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.method_6112(StatusEffects.field_5911) == null) {
             return;
         }
-        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.method_6047().method_7909() instanceof SwordItem) {
+        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.method_6047().method_7909() instanceof SwordItem) {
             return;
         }
         if (!this.delayTimer.passedMs(this.delay.getValue())) {
@@ -81,19 +81,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (strong == -1) {
             return;
         }
-        int old = AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.method_31548().field_7545;
+        int old = AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.method_31548().field_7545;
         if (this.swapMode.getValue() != AntiWeakness.Inventory) {
             InventoryUtil.switchToSlot(strong);
         } else {
-            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1761.method_2906(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.field_7512.field_7763, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.method_31548().field_7545, SlotActionType.field_7791, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724);
+            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1761.method_2906(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.field_7512.field_7763, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.method_31548().field_7545, SlotActionType.field_7791, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
         }
-        AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.field_3944.method_52787((Packet)this.lastPacket);
+        AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.field_3944.method_52787((Packet)this.lastPacket);
         if (this.swapMode.getValue() != AntiWeakness.Inventory) {
             if (this.swapMode.getValue() != AntiWeakness.Normal) {
                 InventoryUtil.switchToSlot(old);
             }
         } else {
-            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1761.method_2906(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.field_7512.field_7763, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.method_31548().field_7545, SlotActionType.field_7791, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724);
+            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1761.method_2906(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.field_7512.field_7763, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.method_31548().field_7545, SlotActionType.field_7791, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
             EntityUtil.syncInventory();
         }
     }

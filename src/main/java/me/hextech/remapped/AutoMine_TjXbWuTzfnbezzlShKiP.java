@@ -53,7 +53,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724 != null && this.eatpause.getValue() && AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724.method_6115()) {
+        if (AutoMine_TjXbWuTzfnbezzlShKiP.mc.player != null && this.eatpause.getValue() && AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.method_6115()) {
             return;
         }
         if (this.noblink.getValue() && Blink.INSTANCE.isOn()) {
@@ -82,7 +82,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (double y2 : dArray) {
                 for (double x : xzOffset6222) {
                     for (double z : xzOffset6222) {
-                        offsetPos = new BlockPosX(playerEntity.method_23317() + x, playerEntity.method_23318() + y2, playerEntity.method_23321() + z);
+                        offsetPos = new BlockPosX(playerEntity.getX() + x, playerEntity.getY() + y2, playerEntity.getZ() + z);
                         if (!this.canBreak(offsetPos) || !offsetPos.equals(SpeedMine.getBreakPos())) continue;
                         return;
                     }
@@ -103,7 +103,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         while (iterator.hasNext()) {
             y = ((Float)iterator.next()).floatValue();
             for (double offset : xzOffset6222) {
-                BlockPosX offsetPos2 = new BlockPosX(player.method_23317() + offset, player.method_23318() + y, player.method_23321() + offset);
+                BlockPosX offsetPos2 = new BlockPosX(player.getX() + offset, player.getY() + y, player.getZ() + offset);
                 if (!this.canBreak(offsetPos2)) continue;
                 SpeedMine.INSTANCE.mine(offsetPos2);
                 return;
@@ -114,7 +114,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             y = ((Float)iterator2.next()).floatValue();
             for (double offset : xzOffset6222) {
                 for (double offset2 : xzOffset6222) {
-                    BlockPosX offsetPos3 = new BlockPosX(player.method_23317() + offset2, player.method_23318() + y, player.method_23321() + offset);
+                    BlockPosX offsetPos3 = new BlockPosX(player.getX() + offset2, player.getY() + y, player.getZ() + offset);
                     if (!this.canBreak(offsetPos3)) continue;
                     SpeedMine.INSTANCE.mine(offsetPos3);
                     return;
@@ -130,7 +130,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 boolean bl = false;
                 while (var5_24 < xzOffset6222) {
                     Direction direction = directionArray[var5_24];
-                    if (direction != Direction.field_11036 && direction != Direction.field_11033 && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724 == null || !(Math.sqrt(AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724.method_33571().method_1025(pos.method_10093(direction).method_46558())) > this.range.getValue())) && AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1687 != null && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1687.method_22347(pos.method_10093(direction)) || pos.method_10093(direction).equals((Object)SpeedMine.getBreakPos())) && this.canPlaceCrystal(pos.method_10093(direction), false)) {
+                    if (direction != Direction.UP && direction != Direction.DOWN && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.player == null || !(Math.sqrt(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos().squaredDistanceTo(pos.offset(direction).toCenterPos())) > this.range.getValue())) && AutoMine_TjXbWuTzfnbezzlShKiP.mc.world != null && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.world.isAir(pos.offset(direction)) || pos.offset(direction).equals((Object)SpeedMine.getBreakPos())) && this.canPlaceCrystal(pos.offset(direction), false)) {
                         return;
                     }
                     ++var5_24;
@@ -141,13 +141,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 boolean bl2 = false;
                 while (var6_44 < n) {
                     i = xzOffset6222[var6_44];
-                    if (i != Direction.field_11036 && i != Direction.field_11033 && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724 == null || !(Math.sqrt(AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724.method_33571().method_1025(pos.method_10093(i).method_46558())) > this.range.getValue())) && this.canBreak(pos.method_10093(i)) && this.canPlaceCrystal(pos.method_10093(i), true)) {
-                        arrayList2.add(pos.method_10093(i));
+                    if (i != Direction.UP && i != Direction.DOWN && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.player == null || !(Math.sqrt(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue())) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), true)) {
+                        arrayList2.add(pos.offset(i));
                     }
                     ++var6_44;
                 }
                 if (!arrayList2.isEmpty()) {
-                    SpeedMine.INSTANCE.mine(arrayList2.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724.method_33571()))).get());
+                    SpeedMine.INSTANCE.mine(arrayList2.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance((Position)AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos()))).get());
                 } else {
                     void var6_46;
                     xzOffset6222 = Direction.values();
@@ -155,13 +155,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     boolean bl3 = false;
                     while (var6_46 < n2) {
                         i = xzOffset6222[var6_46];
-                        if (i != Direction.field_11036 && i != Direction.field_11033 && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724 == null || !(Math.sqrt(AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724.method_33571().method_1025(pos.method_10093(i).method_46558())) > this.range.getValue())) && this.canBreak(pos.method_10093(i)) && this.canPlaceCrystal(pos.method_10093(i), false)) {
-                            arrayList2.add(pos.method_10093(i));
+                        if (i != Direction.UP && i != Direction.DOWN && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.player == null || !(Math.sqrt(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue())) && this.canBreak(pos.offset(i)) && this.canPlaceCrystal(pos.offset(i), false)) {
+                            arrayList2.add(pos.offset(i));
                         }
                         ++var6_46;
                     }
                     if (!arrayList2.isEmpty()) {
-                        SpeedMine.INSTANCE.mine(arrayList2.stream().min(Comparator.comparingDouble(E -> E.method_19770((Position)AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724.method_33571()))).get());
+                        SpeedMine.INSTANCE.mine(arrayList2.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance((Position)AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos()))).get());
                     }
                 }
             } else {
@@ -173,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 boolean bl = false;
                 while (var5_28 < xzOffset6222) {
                     Direction direction = directionArray[var5_28];
-                    if (direction != Direction.field_11036 && direction != Direction.field_11033 && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724 == null || !(AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724.method_33571().method_1022(pos.method_10093(direction).method_46558()) > this.range.getValue())) && AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1687 != null && AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1687.method_22347(pos.method_10093(direction)) && AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1687.method_22347(pos.method_10093(direction).method_10084()) && this.canPlaceCrystal(pos.method_10093(direction), false)) {
+                    if (direction != Direction.UP && direction != Direction.DOWN && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.player == null || !(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos().method_1022(pos.offset(direction).toCenterPos()) > this.range.getValue())) && AutoMine_TjXbWuTzfnbezzlShKiP.mc.world != null && AutoMine_TjXbWuTzfnbezzlShKiP.mc.world.isAir(pos.offset(direction)) && AutoMine_TjXbWuTzfnbezzlShKiP.mc.world.isAir(pos.offset(direction).up()) && this.canPlaceCrystal(pos.offset(direction), false)) {
                         return;
                     }
                     ++var5_28;
@@ -184,8 +184,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 boolean bl4 = false;
                 while (var6_50 < n) {
                     i = xzOffset6222[var6_50];
-                    if (i != Direction.field_11036 && i != Direction.field_11033 && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724 == null || !(Math.sqrt(AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724.method_33571().method_1025(pos.method_10093(i).method_46558())) > this.range.getValue())) && this.canCrystal(pos.method_10093(i))) {
-                        arrayList3.add(pos.method_10093(i));
+                    if (i != Direction.UP && i != Direction.DOWN && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.player == null || !(Math.sqrt(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) > this.range.getValue())) && this.canCrystal(pos.offset(i))) {
+                        arrayList3.add(pos.offset(i));
                     }
                     ++var6_50;
                 }
@@ -210,7 +210,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     for (double y2 : dArray3) {
                         for (double x : xzOffset3) {
                             for (double z : xzOffset3) {
-                                offsetPos = new BlockPosX(playerEntity.method_23317() + x, playerEntity.method_23318() + y2, playerEntity.method_23321() + z);
+                                offsetPos = new BlockPosX(playerEntity.getX() + x, playerEntity.getY() + y2, playerEntity.getZ() + z);
                                 if (!this.isObsidian(offsetPos) || !offsetPos.equals(SpeedMine.breakPos)) continue;
                                 return;
                             }
@@ -222,10 +222,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (int i = 0; i < n; ++i) {
                     double y3 = dArray4[i];
                     for (double offset : xzOffset3) {
-                        BlockPosX offsetPos5 = new BlockPosX(player.method_23317() + offset, player.method_23318() + y3, player.method_23321() + offset);
+                        BlockPosX offsetPos5 = new BlockPosX(player.getX() + offset, player.getY() + y3, player.getZ() + offset);
                         if (!this.isObsidian(offsetPos5)) continue;
                         for (MineManager breakData : new HashMap<Integer, MineManager>(HexTech.BREAK.breakMap).values()) {
-                            if (breakData == null || breakData.getEntity() == null || !breakData.pos.equals((Object)offsetPos5) || breakData.getEntity() == AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724) continue;
+                            if (breakData == null || breakData.getEntity() == null || !breakData.pos.equals((Object)offsetPos5) || breakData.getEntity() == AutoMine_TjXbWuTzfnbezzlShKiP.mc.player) continue;
                             return;
                         }
                         SpeedMine.INSTANCE.mine(offsetPos5);
@@ -235,10 +235,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (double y3 : dArray2) {
                     for (double offset : xzOffset3) {
                         for (double offset2 : xzOffset3) {
-                            BlockPosX offsetPos2 = new BlockPosX(player.method_23317() + offset2, player.method_23318() + y3, player.method_23321() + offset);
+                            BlockPosX offsetPos2 = new BlockPosX(player.getX() + offset2, player.getY() + y3, player.getZ() + offset);
                             if (!this.isObsidian(offsetPos2)) continue;
                             for (MineManager breakData : new HashMap<Integer, MineManager>(HexTech.BREAK.breakMap).values()) {
-                                if (breakData == null || breakData.getEntity() == null || !breakData.pos.equals((Object)offsetPos2) || breakData.getEntity() == AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724) continue;
+                                if (breakData == null || breakData.getEntity() == null || !breakData.pos.equals((Object)offsetPos2) || breakData.getEntity() == AutoMine_TjXbWuTzfnbezzlShKiP.mc.player) continue;
                                 return;
                             }
                             SpeedMine.INSTANCE.mine(offsetPos2);
@@ -255,7 +255,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (int i = 0; i < n; ++i) {
                     double y3 = dArray6[i];
                     for (double offset : xzOffset4) {
-                        BlockPosX offsetPos6 = new BlockPosX(player.method_23317() + offset, player.method_23318() + y3, player.method_23321() + offset);
+                        BlockPosX offsetPos6 = new BlockPosX(player.getX() + offset, player.getY() + y3, player.getZ() + offset);
                         if (!this.isObsidian(offsetPos6)) continue;
                         SpeedMine.INSTANCE.mine(offsetPos6);
                         return;
@@ -264,7 +264,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (double y3 : dArray5) {
                     for (double offset : xzOffset4) {
                         for (double offset2 : xzOffset4) {
-                            BlockPosX offsetPos4 = new BlockPosX(player.method_23317() + offset2, player.method_23318() + y3, player.method_23321() + offset);
+                            BlockPosX offsetPos4 = new BlockPosX(player.getX() + offset2, player.getY() + y3, player.getZ() + offset);
                             if (!this.isObsidian(offsetPos4)) continue;
                             SpeedMine.INSTANCE.mine(offsetPos4);
                             return;
@@ -278,8 +278,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void doMine(BlockPos pos) {
         if (this.canBreak(pos)) {
             SpeedMine.INSTANCE.mine(pos);
-        } else if (this.canBreak(pos.method_10084())) {
-            SpeedMine.INSTANCE.mine(pos.method_10084());
+        } else if (this.canBreak(pos.up())) {
+            SpeedMine.INSTANCE.mine(pos.up());
         }
     }
 
@@ -287,7 +287,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (SpeedMine.godBlocks.contains(BlockUtil.getBlock(pos)) || BlockUtil.getBlock(pos) instanceof BedBlock || BlockUtil.getBlock(pos) instanceof CobwebBlock || !this.canPlaceCrystal(pos, true) || BlockUtil.getClickSideStrict(pos) == null) {
             return false;
         }
-        return !SpeedMine.godBlocks.contains(BlockUtil.getBlock(pos.method_10084())) && !(BlockUtil.getBlock(pos.method_10084()) instanceof BedBlock) && !(BlockUtil.getBlock(pos.method_10084()) instanceof CobwebBlock) && BlockUtil.getClickSideStrict(pos.method_10084()) != null;
+        return !SpeedMine.godBlocks.contains(BlockUtil.getBlock(pos.up())) && !(BlockUtil.getBlock(pos.up()) instanceof BedBlock) && !(BlockUtil.getBlock(pos.up()) instanceof CobwebBlock) && BlockUtil.getClickSideStrict(pos.up()) != null;
     }
 
     private int getAir(BlockPos pos) {
@@ -295,32 +295,32 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.canBreak(pos)) {
             ++value;
         }
-        if (!this.canBreak(pos.method_10084())) {
+        if (!this.canBreak(pos.up())) {
             ++value;
         }
         return value;
     }
 
     public boolean canPlaceCrystal(BlockPos pos, boolean block) {
-        if (pos == null || AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1687 == null) {
+        if (pos == null || AutoMine_TjXbWuTzfnbezzlShKiP.mc.world == null) {
             return false;
         }
         BlockPos obsPos = pos.method_10074();
-        BlockPos boost = obsPos.method_10084();
-        return !(BlockUtil.getBlock(obsPos) != Blocks.field_9987 && BlockUtil.getBlock(obsPos) != Blocks.field_10540 && block || BlockUtil.hasEntityBlockCrystal(boost, true, true) || BlockUtil.hasEntityBlockCrystal(boost.method_10084(), true, true) || this.lowVersion.getValue() && !AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1687.method_22347(boost.method_10084()));
+        BlockPos boost = obsPos.up();
+        return !(BlockUtil.getBlock(obsPos) != Blocks.field_9987 && BlockUtil.getBlock(obsPos) != Blocks.field_10540 && block || BlockUtil.hasEntityBlockCrystal(boost, true, true) || BlockUtil.hasEntityBlockCrystal(boost.up(), true, true) || this.lowVersion.getValue() && !AutoMine_TjXbWuTzfnbezzlShKiP.mc.world.isAir(boost.up()));
     }
 
     private boolean isObsidian(BlockPos pos) {
-        if (pos == null || AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724 == null || AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1687 == null) {
+        if (pos == null || AutoMine_TjXbWuTzfnbezzlShKiP.mc.player == null || AutoMine_TjXbWuTzfnbezzlShKiP.mc.world == null) {
             return false;
         }
-        return AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724.method_33571().method_1022(pos.method_46558()) <= this.range.getValue() && (BlockUtil.getBlock(pos) == Blocks.field_10540 || BlockUtil.getBlock(pos) == Blocks.field_10443 || BlockUtil.getBlock(pos) == Blocks.field_22108 || BlockUtil.getBlock(pos) == Blocks.field_23152) && BlockUtil.getClickSideStrict(pos) != null;
+        return AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos().method_1022(pos.toCenterPos()) <= this.range.getValue() && (BlockUtil.getBlock(pos) == Blocks.field_10540 || BlockUtil.getBlock(pos) == Blocks.field_10443 || BlockUtil.getBlock(pos) == Blocks.field_22108 || BlockUtil.getBlock(pos) == Blocks.field_23152) && BlockUtil.getClickSideStrict(pos) != null;
     }
 
     private boolean canBreak(BlockPos pos) {
-        if (pos == null || AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724 == null) {
+        if (pos == null || AutoMine_TjXbWuTzfnbezzlShKiP.mc.player == null) {
             return false;
         }
-        return this.isObsidian(pos) && (BlockUtil.getClickSideStrict(pos) != null || Objects.equals(SpeedMine.getBreakPos(), pos)) && (!pos.equals((Object)SpeedMine.secondPos) || !(AutoMine_TjXbWuTzfnbezzlShKiP.mc.field_1724.method_6047().method_7909() instanceof PickaxeItem) && !SilentDouble.INSTANCE.isOn());
+        return this.isObsidian(pos) && (BlockUtil.getClickSideStrict(pos) != null || Objects.equals(SpeedMine.getBreakPos(), pos)) && (!pos.equals((Object)SpeedMine.secondPos) || !(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.method_6047().method_7909() instanceof PickaxeItem) && !SilentDouble.INSTANCE.isOn());
     }
 }

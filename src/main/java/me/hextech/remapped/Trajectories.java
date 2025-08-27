@@ -76,8 +76,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Trajectories.nullCheck()) {
             return;
         }
-        ItemStack mainHand = Trajectories.mc.field_1724.method_6047();
-        ItemStack offHand = Trajectories.mc.field_1724.method_6079();
+        ItemStack mainHand = Trajectories.mc.player.method_6047();
+        ItemStack offHand = Trajectories.mc.player.method_6079();
         if (mainHand.method_7909() instanceof BowItem || mainHand.method_7909() instanceof CrossbowItem || this.isThrowable(mainHand.method_7909())) {
             hand = Hand.field_5808;
         } else if (offHand.method_7909() instanceof BowItem || offHand.method_7909() instanceof CrossbowItem || this.isThrowable(offHand.method_7909())) {
@@ -88,21 +88,21 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         boolean prev_bob = (Boolean)Trajectories.mc.field_1690.method_42448().method_41753();
         Trajectories.mc.field_1690.method_42448().method_41748((Object)false);
         if (mainHand.method_7909() instanceof CrossbowItem && EnchantmentHelper.method_8225((Enchantment)Enchantments.field_9108, (ItemStack)mainHand) != 0) {
-            this.calcTrajectory(matrixStack, hand == Hand.field_5810 ? offHand.method_7909() : mainHand.method_7909(), Trajectories.mc.field_1724.method_36454() - 10.0f);
-            this.calcTrajectory(matrixStack, hand == Hand.field_5810 ? offHand.method_7909() : mainHand.method_7909(), Trajectories.mc.field_1724.method_36454());
-            this.calcTrajectory(matrixStack, hand == Hand.field_5810 ? offHand.method_7909() : mainHand.method_7909(), Trajectories.mc.field_1724.method_36454() + 10.0f);
+            this.calcTrajectory(matrixStack, hand == Hand.field_5810 ? offHand.method_7909() : mainHand.method_7909(), Trajectories.mc.player.method_36454() - 10.0f);
+            this.calcTrajectory(matrixStack, hand == Hand.field_5810 ? offHand.method_7909() : mainHand.method_7909(), Trajectories.mc.player.method_36454());
+            this.calcTrajectory(matrixStack, hand == Hand.field_5810 ? offHand.method_7909() : mainHand.method_7909(), Trajectories.mc.player.method_36454() + 10.0f);
         } else {
-            this.calcTrajectory(matrixStack, hand == Hand.field_5810 ? offHand.method_7909() : mainHand.method_7909(), Trajectories.mc.field_1724.method_36454());
+            this.calcTrajectory(matrixStack, hand == Hand.field_5810 ? offHand.method_7909() : mainHand.method_7909(), Trajectories.mc.player.method_36454());
         }
         Trajectories.mc.field_1690.method_42448().method_41748((Object)prev_bob);
     }
 
     private void calcTrajectory(MatrixStack matrixStack, Item item, float yaw) {
-        double x = MathUtil.interpolate(Trajectories.mc.field_1724.field_6014, Trajectories.mc.field_1724.method_23317(), mc.method_1488());
-        double y = MathUtil.interpolate(Trajectories.mc.field_1724.field_6036, Trajectories.mc.field_1724.method_23318(), mc.method_1488());
-        double z = MathUtil.interpolate(Trajectories.mc.field_1724.field_5969, Trajectories.mc.field_1724.method_23321(), mc.method_1488());
-        y = y + (double)Trajectories.mc.field_1724.method_18381(Trajectories.mc.field_1724.method_18376()) - 0.1000000014901161;
-        if (item == Trajectories.mc.field_1724.method_6047().method_7909()) {
+        double x = MathUtil.interpolate(Trajectories.mc.player.field_6014, Trajectories.mc.player.getX(), mc.getTickDelta());
+        double y = MathUtil.interpolate(Trajectories.mc.player.field_6036, Trajectories.mc.player.getY(), mc.getTickDelta());
+        double z = MathUtil.interpolate(Trajectories.mc.player.field_5969, Trajectories.mc.player.getZ(), mc.getTickDelta());
+        y = y + (double)Trajectories.mc.player.method_18381(Trajectories.mc.player.method_18376()) - 0.1000000014901161;
+        if (item == Trajectories.mc.player.method_6047().method_7909()) {
             x -= (double)(MathHelper.method_15362((float)(yaw / 180.0f * (float)Math.PI)) * 0.16f);
             z -= (double)(MathHelper.method_15374((float)(yaw / 180.0f * (float)Math.PI)) * 0.16f);
         } else {
@@ -110,10 +110,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             z += (double)(MathHelper.method_15374((float)(yaw / 180.0f * (float)Math.PI)) * 0.16f);
         }
         float maxDist = this.getDistance(item);
-        double motionX = -MathHelper.method_15374((float)(yaw / 180.0f * (float)Math.PI)) * MathHelper.method_15362((float)(Trajectories.mc.field_1724.method_36455() / 180.0f * (float)Math.PI)) * maxDist;
-        double motionY = -MathHelper.method_15374((float)((Trajectories.mc.field_1724.method_36455() - (float)this.getThrowPitch(item)) / 180.0f * 3.141593f)) * maxDist;
-        double motionZ = MathHelper.method_15362((float)(yaw / 180.0f * (float)Math.PI)) * MathHelper.method_15362((float)(Trajectories.mc.field_1724.method_36455() / 180.0f * (float)Math.PI)) * maxDist;
-        float power = (float)Trajectories.mc.field_1724.method_6048() / 20.0f;
+        double motionX = -MathHelper.method_15374((float)(yaw / 180.0f * (float)Math.PI)) * MathHelper.method_15362((float)(Trajectories.mc.player.method_36455() / 180.0f * (float)Math.PI)) * maxDist;
+        double motionY = -MathHelper.method_15374((float)((Trajectories.mc.player.method_36455() - (float)this.getThrowPitch(item)) / 180.0f * 3.141593f)) * maxDist;
+        double motionZ = MathHelper.method_15362((float)(yaw / 180.0f * (float)Math.PI)) * MathHelper.method_15362((float)(Trajectories.mc.player.method_36455() / 180.0f * (float)Math.PI)) * maxDist;
+        float power = (float)Trajectories.mc.player.method_6048() / 20.0f;
         power = (power * power + power * 2.0f) / 3.0f;
         if (power > 1.0f) {
             power = 1.0f;
@@ -126,13 +126,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         motionX *= (double)pow;
         motionY *= (double)pow;
         motionZ *= (double)pow;
-        if (!Trajectories.mc.field_1724.method_24828()) {
-            motionY += Trajectories.mc.field_1724.method_18798().method_10214();
+        if (!Trajectories.mc.player.method_24828()) {
+            motionY += Trajectories.mc.player.method_18798().method_10214();
         }
         for (int i = 0; i < 300; ++i) {
             BlockHitResult bhr;
             Vec3d lastPos = new Vec3d(x, y, z);
-            if (Trajectories.mc.field_1687.method_8320(new BlockPos((int)(x += motionX), (int)(y += motionY), (int)(z += motionZ))).method_26204() == Blocks.field_10382) {
+            if (Trajectories.mc.world.getBlockState(new BlockPos((int)(x += motionX), (int)(y += motionY), (int)(z += motionZ))).getBlock() == Blocks.field_10382) {
                 motionX *= 0.8;
                 motionY *= 0.8;
                 motionZ *= 0.8;
@@ -141,14 +141,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 motionY *= 0.99;
                 motionZ *= 0.99;
             }
-            motionY = item instanceof BowItem ? (motionY -= (double)0.05f) : (Trajectories.mc.field_1724.method_6047().method_7909() instanceof CrossbowItem ? (motionY -= (double)0.05f) : (motionY -= (double)0.03f));
+            motionY = item instanceof BowItem ? (motionY -= (double)0.05f) : (Trajectories.mc.player.method_6047().method_7909() instanceof CrossbowItem ? (motionY -= (double)0.05f) : (motionY -= (double)0.03f));
             Vec3d pos = new Vec3d(x, y, z);
-            for (Entity ent : Trajectories.mc.field_1687.method_18112()) {
-                if (ent instanceof ArrowEntity || ent.equals((Object)Trajectories.mc.field_1724) || !ent.method_5829().method_994(new Box(x - 0.4, y - 0.4, z - 0.4, x + 0.4, y + 0.4, z + 0.4))) continue;
+            for (Entity ent : Trajectories.mc.world.method_18112()) {
+                if (ent instanceof ArrowEntity || ent.equals((Object)Trajectories.mc.player) || !ent.method_5829().method_994(new Box(x - 0.4, y - 0.4, z - 0.4, x + 0.4, y + 0.4, z + 0.4))) continue;
                 Render3DUtil.draw3DBox(matrixStack, ent.method_5829(), this.lcolor.getValue());
                 break;
             }
-            if ((bhr = Trajectories.mc.field_1687.method_17742(new RaycastContext(lastPos, pos, RaycastContext.ShapeType.field_17559, RaycastContext.FluidHandling.field_1348, (Entity)Trajectories.mc.field_1724))) != null && bhr.method_17783() == HitResult.Type.field_1332) {
+            if ((bhr = Trajectories.mc.world.raycast(new RaycastContext(lastPos, pos, RaycastContext.ShapeType.field_17559, RaycastContext.FluidHandling.field_1348, (Entity)Trajectories.mc.player))) != null && bhr.method_17783() == HitResult.Type.field_1332) {
                 Render3DUtil.draw3DBox(matrixStack, new Box(bhr.method_17777()), this.lcolor.getValue());
                 break;
             }

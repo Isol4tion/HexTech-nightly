@@ -50,11 +50,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onEnable() {
-        if (ElytraFly.mc.field_1724 != null) {
-            if (!ElytraFly.mc.field_1724.method_7337()) {
-                ElytraFly.mc.field_1724.method_31549().field_7478 = false;
+        if (ElytraFly.mc.player != null) {
+            if (!ElytraFly.mc.player.method_7337()) {
+                ElytraFly.mc.player.method_31549().field_7478 = false;
             }
-            ElytraFly.mc.field_1724.method_31549().field_7479 = false;
+            ElytraFly.mc.player.method_31549().field_7479 = false;
         }
         this.hasElytra = false;
     }
@@ -63,11 +63,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onDisable() {
         HexTech.TIMER.reset();
         this.hasElytra = false;
-        if (ElytraFly.mc.field_1724 != null) {
-            if (!ElytraFly.mc.field_1724.method_7337()) {
-                ElytraFly.mc.field_1724.method_31549().field_7478 = false;
+        if (ElytraFly.mc.player != null) {
+            if (!ElytraFly.mc.player.method_7337()) {
+                ElytraFly.mc.player.method_31549().field_7478 = false;
             }
-            ElytraFly.mc.field_1724.method_31549().field_7479 = false;
+            ElytraFly.mc.player.method_31549().field_7479 = false;
         }
     }
 
@@ -76,10 +76,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (ElytraFly.nullCheck()) {
             return;
         }
-        if (ElytraFly.mc.field_1724.method_24828()) {
+        if (ElytraFly.mc.player.method_24828()) {
             this.hasTouchedGround = true;
         }
-        for (ItemStack is : ElytraFly.mc.field_1724.method_5661()) {
+        for (ItemStack is : ElytraFly.mc.player.method_5661()) {
             if (is.method_7909() instanceof ElytraItem) {
                 this.hasElytra = true;
                 break;
@@ -89,16 +89,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.strictTimer.passedMs(1500L) && !this.strictTimer.passedMs(2000L) || EntityUtil.isElytraFlying() && (double)HexTech.TIMER.get() == 0.3) {
             HexTech.TIMER.reset();
         }
-        if (!ElytraFly.mc.field_1724.method_6128()) {
-            if (this.hasTouchedGround && this.boostTimer.getValue() && !ElytraFly.mc.field_1724.method_24828()) {
+        if (!ElytraFly.mc.player.method_6128()) {
+            if (this.hasTouchedGround && this.boostTimer.getValue() && !ElytraFly.mc.player.method_24828()) {
                 HexTech.TIMER.set(0.3f);
             }
-            if (!ElytraFly.mc.field_1724.method_24828() && this.instantFly.getValue() && ElytraFly.mc.field_1724.method_18798().method_10214() < 0.0) {
+            if (!ElytraFly.mc.player.method_24828() && this.instantFly.getValue() && ElytraFly.mc.player.method_18798().method_10214() < 0.0) {
                 if (!this.instantFlyTimer.passedMs((long)(1000.0 * this.timeout.getValue()))) {
                     return;
                 }
                 this.instantFlyTimer.reset();
-                ElytraFly.mc.field_1724.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)ElytraFly.mc.field_1724, ClientCommandC2SPacket.Mode.field_12982));
+                ElytraFly.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)ElytraFly.mc.player, ClientCommandC2SPacket.Mode.field_12982));
                 this.hasTouchedGround = false;
                 this.strictTimer.reset();
             }
@@ -116,24 +116,24 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public final Vec3d getRotationVec(float tickDelta) {
-        return this.getRotationVector(-this.upPitch.getValueFloat(), ElytraFly.mc.field_1724.method_5705(tickDelta));
+        return this.getRotationVector(-this.upPitch.getValueFloat(), ElytraFly.mc.player.method_5705(tickDelta));
     }
 
     @EventHandler
     public void onMove(TravelEvent event) {
         double[] dir;
-        if (ElytraFly.nullCheck() || !this.hasElytra || !ElytraFly.mc.field_1724.method_6128()) {
+        if (ElytraFly.nullCheck() || !this.hasElytra || !ElytraFly.mc.player.method_6128()) {
             return;
         }
-        Vec3d lookVec = this.getRotationVec(mc.method_1488());
+        Vec3d lookVec = this.getRotationVec(mc.getTickDelta());
         double lookDist = Math.sqrt(lookVec.field_1352 * lookVec.field_1352 + lookVec.field_1350 * lookVec.field_1350);
         double motionDist = Math.sqrt(this.getX() * this.getX() + this.getZ() * this.getZ());
         if (ElytraFly.mc.field_1690.field_1832.method_1434()) {
             this.setY(-this.sneakDownSpeed.getValue());
-        } else if (!ElytraFly.mc.field_1724.field_3913.field_3904) {
+        } else if (!ElytraFly.mc.player.field_3913.field_3904) {
             this.setY(-3.0E-14 * this.downFactor.getValue());
         }
-        if (ElytraFly.mc.field_1724.field_3913.field_3904) {
+        if (ElytraFly.mc.player.field_3913.field_3904) {
             if (motionDist > this.upFactor.getValue() / this.upFactor.getMaximum()) {
                 double rawUpSpeed = motionDist * 0.01325;
                 this.setY(this.getY() + rawUpSpeed * 3.2);
@@ -149,7 +149,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.setX(this.getX() + (lookVec.field_1352 / lookDist * motionDist - this.getX()) * 0.1);
             this.setZ(this.getZ() + (lookVec.field_1350 / lookDist * motionDist - this.getZ()) * 0.1);
         }
-        if (!ElytraFly.mc.field_1724.field_3913.field_3904) {
+        if (!ElytraFly.mc.player.field_3913.field_3904) {
             dir = MovementUtil.directionSpeed(this.speed.getValue());
             this.setX(dir[0]);
             this.setZ(dir[1]);
@@ -165,7 +165,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.setZ(this.getZ() * this.maxSpeed.getValue() / finalDist);
         }
         event.cancel();
-        ElytraFly.mc.field_1724.method_5784(MovementType.field_6308, ElytraFly.mc.field_1724.method_18798());
+        ElytraFly.mc.player.method_5784(MovementType.field_6308, ElytraFly.mc.player.method_18798());
     }
 
     private double getX() {

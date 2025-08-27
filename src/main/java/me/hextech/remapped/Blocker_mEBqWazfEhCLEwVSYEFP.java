@@ -70,31 +70,31 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.bevelCev.getValue()) {
             for (Object i : Direction.values()) {
                 BlockPos blockerPos;
-                if (i == Direction.field_11033 || this.isBedrock(this.playerBP.method_10093(i).method_10084()) || !this.crystalHere(blockerPos = this.playerBP.method_10093(i).method_10086(2)) || this.placePos.contains(blockerPos)) continue;
+                if (i == Direction.DOWN || this.isBedrock(this.playerBP.offset(i).up()) || !this.crystalHere(blockerPos = this.playerBP.offset(i).method_10086(2)) || this.placePos.contains(blockerPos)) continue;
                 this.placePos.add(blockerPos);
             }
         }
         if (this.getObsidian() == -1) {
             return;
         }
-        if (this.inAirPause.getValue() && !Blocker_mEBqWazfEhCLEwVSYEFP.mc.field_1724.method_24828()) {
+        if (this.inAirPause.getValue() && !Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.method_24828()) {
             return;
         }
         this.placePos.removeIf(pos -> !BlockUtil.clientCanPlace(pos, true));
         if (this.feet.getValue() && (!this.onlySurround.getValue() || Surround_BjIoVRziuWIfEWTJHPVz.INSTANCE.isOn())) {
             for (Object i : Direction.values()) {
                 BlockPos surroundPos;
-                if (i == Direction.field_11033 || i == Direction.field_11036 || this.isBedrock(surroundPos = this.playerBP.method_10093(i)) || !BlockUtil.isMining(surroundPos)) continue;
+                if (i == Direction.DOWN || i == Direction.UP || this.isBedrock(surroundPos = this.playerBP.offset(i)) || !BlockUtil.isMining(surroundPos)) continue;
                 for (Direction direction : Direction.values()) {
-                    if (direction == Direction.field_11033 || direction == Direction.field_11036) continue;
-                    BlockPos defensePos = this.playerBP.method_10093(i).method_10093(direction);
+                    if (direction == Direction.DOWN || direction == Direction.UP) continue;
+                    BlockPos defensePos = this.playerBP.offset(i).offset(direction);
                     if (this.breakCrystal.getValue()) {
                         CombatUtil.attackCrystal(defensePos, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.injblock.getValue(), false);
                     }
                     if (!BlockUtil.canPlace(defensePos, 6.0, this.breakCrystal.getValue())) continue;
                     this.tryPlaceObsidian(defensePos);
                 }
-                BlockPos defensePos = this.playerBP.method_10093(i).method_10084();
+                BlockPos defensePos = this.playerBP.offset(i).up();
                 if (this.breakCrystal.getValue()) {
                     CombatUtil.attackCrystal(defensePos, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.injblock.getValue(), false);
                 }
@@ -112,11 +112,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean crystalHere(BlockPos pos) {
-        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.field_1687.method_18467(EndCrystalEntity.class, new Box(pos)).stream().anyMatch(entity -> entity.method_24515().equals((Object)pos));
+        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.world.method_18467(EndCrystalEntity.class, new Box(pos)).stream().anyMatch(entity -> entity.method_24515().equals((Object)pos));
     }
 
     private boolean isBedrock(BlockPos pos) {
-        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.field_1687.method_8320(pos).method_26204() == Blocks.field_9987;
+        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.world.getBlockState(pos).getBlock() == Blocks.field_9987;
     }
 
     private void tryPlaceObsidian(BlockPos pos) {
@@ -126,7 +126,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.detectMining.getValue() && BlockUtil.isMining(pos)) {
             return;
         }
-        int oldSlot = Blocker_mEBqWazfEhCLEwVSYEFP.mc.field_1724.method_31548().field_7545;
+        int oldSlot = Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.method_31548().field_7545;
         int block = this.getObsidian();
         if (block == -1) {
             return;
@@ -146,7 +146,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventorySwap.getValue()) {
-            InventoryUtil.inventorySwap(slot, Blocker_mEBqWazfEhCLEwVSYEFP.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.method_31548().field_7545);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

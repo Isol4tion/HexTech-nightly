@@ -25,10 +25,10 @@ public static class MineManager {
     }
 
     public Entity getEntity() {
-        if (Wrapper.mc.field_1687 == null) {
+        if (Wrapper.mc.world == null) {
             return null;
         }
-        Entity entity = Wrapper.mc.field_1687.method_8469(this.entityId);
+        Entity entity = Wrapper.mc.world.method_8469(this.entityId);
         return entity instanceof PlayerEntity ? entity : null;
     }
 }

@@ -31,7 +31,7 @@ implements Wrapper {
         if (Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck()) {
             return;
         }
-        for (PlayerEntity player : PopManager.mc.field_1687.method_18456()) {
+        for (PlayerEntity player : PopManager.mc.world.method_18456()) {
             if (player == null || player.method_5805()) {
                 this.deadPlayer.remove(player);
                 continue;
@@ -51,7 +51,7 @@ implements Wrapper {
             return;
         }
         Object t = event.getPacket();
-        if (t instanceof EntityStatusS2CPacket && (packet = (EntityStatusS2CPacket)t).method_11470() == 35 && (entity = packet.method_11469((World)PopManager.mc.field_1687)) instanceof PlayerEntity) {
+        if (t instanceof EntityStatusS2CPacket && (packet = (EntityStatusS2CPacket)t).method_11470() == 35 && (entity = packet.method_11469((World)PopManager.mc.world)) instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
             this.onTotemPop(player);
         }

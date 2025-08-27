@@ -59,12 +59,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        fakePlayer = new OtherClientPlayerEntity(FakePlayer.mc.field_1687, new GameProfile(UUID.fromString("11451466-6666-6666-6666-666666666600"), this.name.getValue()));
-        fakePlayer.method_31548().method_7377(FakePlayer.mc.field_1724.method_31548());
-        FakePlayer.mc.field_1687.method_53875((Entity)fakePlayer);
-        fakePlayer.method_5719((Entity)FakePlayer.mc.field_1724);
-        FakePlayer.fakePlayer.field_6283 = FakePlayer.mc.field_1724.field_6283;
-        FakePlayer.fakePlayer.field_6241 = FakePlayer.mc.field_1724.field_6241;
+        fakePlayer = new OtherClientPlayerEntity(FakePlayer.mc.world, new GameProfile(UUID.fromString("11451466-6666-6666-6666-666666666600"), this.name.getValue()));
+        fakePlayer.method_31548().method_7377(FakePlayer.mc.player.method_31548());
+        FakePlayer.mc.world.method_53875((Entity)fakePlayer);
+        fakePlayer.method_5719((Entity)FakePlayer.mc.player);
+        FakePlayer.fakePlayer.field_6283 = FakePlayer.mc.player.field_6283;
+        FakePlayer.fakePlayer.field_6241 = FakePlayer.mc.player.field_6241;
         fakePlayer.method_6092(new StatusEffectInstance(StatusEffects.field_5924, 9999, 2));
         fakePlayer.method_6092(new StatusEffectInstance(StatusEffects.field_5898, 9999, 4));
         fakePlayer.method_6092(new StatusEffectInstance(StatusEffects.field_5907, 9999, 1));
@@ -72,7 +72,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (fakePlayer == null || fakePlayer.method_29504() || FakePlayer.fakePlayer.field_17892 != FakePlayer.mc.field_1687) {
+        if (fakePlayer == null || fakePlayer.method_29504() || FakePlayer.fakePlayer.field_17892 != FakePlayer.mc.world) {
             this.disable();
             return;
         }
@@ -87,9 +87,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             HexTech.POP.onTotemPop((PlayerEntity)fakePlayer);
             fakePlayer.method_6122(Hand.field_5810, new ItemStack((ItemConvertible)Items.field_8288));
         }
-        if (fakePlayer.method_29504() && fakePlayer.method_6095(FakePlayer.mc.field_1687.method_48963().method_48830())) {
+        if (fakePlayer.method_29504() && fakePlayer.method_6095(FakePlayer.mc.world.method_48963().method_48830())) {
             fakePlayer.method_6033(10.0f);
-            new EntityStatusS2CPacket((Entity)fakePlayer, 35).method_11471((ClientPlayPacketListener)FakePlayer.mc.field_1724.field_3944);
+            new EntityStatusS2CPacket((Entity)fakePlayer, 35).method_11471((ClientPlayPacketListener)FakePlayer.mc.player.field_3944);
         }
     }
 
@@ -114,11 +114,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if ((t = event.getPacket()) instanceof ExplosionS2CPacket) {
                 ExplosionS2CPacket explosion = (ExplosionS2CPacket)t;
                 Vec3d vec3d = new Vec3d(explosion.method_11475(), explosion.method_11477(), explosion.method_11478());
-                if (MathHelper.method_15355((float)((float)vec3d.method_1025(fakePlayer.method_19538()))) > 10.0f) {
+                if (MathHelper.method_15355((float)((float)vec3d.squaredDistanceTo(fakePlayer.method_19538()))) > 10.0f) {
                     return;
                 }
                 float damage = BlockUtil.getBlock(new BlockPosX(explosion.method_11475(), explosion.method_11477(), explosion.method_11478())) == Blocks.field_23152 ? (float)AutoAnchor_MDcwoWYRcPYheLZJWRZK.INSTANCE.getAnchorDamage(new BlockPosX(explosion.method_11475(), explosion.method_11477(), explosion.method_11478()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer) : CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateCrystalDamage(new Vec3d(explosion.method_11475(), explosion.method_11477(), explosion.method_11478()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer);
-                fakePlayer.method_48922(FakePlayer.mc.field_1687.method_48963().method_48830());
+                fakePlayer.method_48922(FakePlayer.mc.world.method_48963().method_48830());
                 if (fakePlayer.method_6067() >= damage) {
                     fakePlayer.method_6073(fakePlayer.method_6067() - damage);
                 } else {
@@ -127,9 +127,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     fakePlayer.method_6033(fakePlayer.method_6032() - damage2);
                 }
             }
-            if (fakePlayer.method_29504() && fakePlayer.method_6095(FakePlayer.mc.field_1687.method_48963().method_48830())) {
+            if (fakePlayer.method_29504() && fakePlayer.method_6095(FakePlayer.mc.world.method_48963().method_48830())) {
                 fakePlayer.method_6033(10.0f);
-                new EntityStatusS2CPacket((Entity)fakePlayer, 35).method_11471((ClientPlayPacketListener)FakePlayer.mc.field_1724.field_3944);
+                new EntityStatusS2CPacket((Entity)fakePlayer, 35).method_11471((ClientPlayPacketListener)FakePlayer.mc.player.field_3944);
             }
         }
     }

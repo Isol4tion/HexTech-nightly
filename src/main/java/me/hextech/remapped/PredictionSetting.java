@@ -55,16 +55,16 @@ implements Wrapper {
 
     @Override
     public void onRender3D(MatrixStack matrices, float pt) {
-        if (PredictionSetting.mc.field_1687 == null || PredictionSetting.mc.field_1724 == null) {
+        if (PredictionSetting.mc.world == null || PredictionSetting.mc.player == null) {
             return;
         }
         this.pathCache.clear();
         if (this.drawnSelf.getValue()) {
-            this.pathCache.put((PlayerEntity)PredictionSetting.mc.field_1724, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.simulate((PlayerEntity)PredictionSetting.mc.field_1724, this.selfExtrap.getValueInt()));
+            this.pathCache.put((PlayerEntity)PredictionSetting.mc.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.simulate((PlayerEntity)PredictionSetting.mc.player, this.selfExtrap.getValueInt()));
         }
         if (this.drawnTarget.getValue()) {
-            for (PlayerEntity p : PredictionSetting.mc.field_1687.method_18456()) {
-                if (p == PredictionSetting.mc.field_1724 || p.method_5858((Entity)PredictionSetting.mc.field_1724) > 4096.0) continue;
+            for (PlayerEntity p : PredictionSetting.mc.world.method_18456()) {
+                if (p == PredictionSetting.mc.player || p.method_5858((Entity)PredictionSetting.mc.player) > 4096.0) continue;
                 int ticks = Math.max(this.placeExtrap.getValueInt(), this.breakExtrap.getValueInt());
                 this.pathCache.put(p, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.simulate(p, ticks));
             }

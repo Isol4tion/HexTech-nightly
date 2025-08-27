@@ -19,7 +19,7 @@ public class MixinPlayerEntity
 implements Wrapper {
     @Inject(method={"canChangeIntoPose"}, at={@At(value="RETURN")}, cancellable=true)
     private void poseNotCollide(EntityPose pose, CallbackInfoReturnable<Boolean> cir) {
-        if (this == MixinPlayerEntity.mc.field_1724 && !AntiCrawl.INSTANCE.crawl.getValue() && pose == EntityPose.field_18079) {
+        if (this == MixinPlayerEntity.mc.player && !AntiCrawl.INSTANCE.crawl.getValue() && pose == EntityPose.field_18079) {
             cir.setReturnValue((Object)false);
         }
     }
@@ -27,7 +27,7 @@ implements Wrapper {
     @Inject(method={"travel"}, at={@At(value="HEAD")}, cancellable=true)
     private void onTravelPre(Vec3d movementInput, CallbackInfo ci) {
         PlayerEntity player = (PlayerEntity)this;
-        if (player != MixinPlayerEntity.mc.field_1724) {
+        if (player != MixinPlayerEntity.mc.player) {
             return;
         }
         TravelEvent event = new TravelEvent(Event.Pre, player);
@@ -40,7 +40,7 @@ implements Wrapper {
     @Inject(method={"travel"}, at={@At(value="RETURN")}, cancellable=true)
     private void onTravelPost(Vec3d movementInput, CallbackInfo ci) {
         PlayerEntity player = (PlayerEntity)this;
-        if (player != MixinPlayerEntity.mc.field_1724) {
+        if (player != MixinPlayerEntity.mc.player) {
             return;
         }
         TravelEvent event = new TravelEvent(Event.Post, player);

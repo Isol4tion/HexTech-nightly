@@ -98,7 +98,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static Block getBlock(BlockPos pos) {
-        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1687.method_8320(pos).method_26204();
+        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock();
     }
 
     @Override
@@ -130,7 +130,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
                 for (int y : new int[]{0, 1, 2}) {
                     BlockPos pos = new BlockPosX(playerPos.method_10216() + (double)x, playerPos.method_10214(), playerPos.method_10215() + (double)z).method_10086(y);
-                    if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1687 != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1687.method_8320(pos).method_26204() != Blocks.field_10343) continue;
+                    if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock() != Blocks.field_10343) continue;
                     qzw.add(pos);
                 }
             }
@@ -153,27 +153,27 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.checkBurrow.getValue() && !Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.isOn()) {
             return;
         }
-        if (this.selfGround.getValue() && !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_24828() && !HexTech.PLAYER.insideBlock) {
+        if (this.selfGround.getValue() && !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_24828() && !HexTech.PLAYER.insideBlock) {
             return;
         }
         if (this.state != 2.0f) {
             return;
         }
-        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724 != null && this.eatingPause.getValue() && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_6115()) {
+        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player != null && this.eatingPause.getValue() && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6115()) {
             return;
         }
         this.delayTimer.reset();
-        List<BlockPos> webPos = this.getWebPos((PlayerEntity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724);
+        List<BlockPos> webPos = this.getWebPos((PlayerEntity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player);
         if (webPos.size() >= 1) {
             for (BlockPos pos : BlockUtil.getSphere(this.range.getValueFloat())) {
-                if (this.behindWall(pos) || !this.canExplodeReach(pos, webPos.get(0), 6.1f) || !((double)this.calculateDamage(pos.method_46558(), (PlayerEntity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724, (PlayerEntity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724) <= this.maxSelf.getValue())) continue;
+                if (this.behindWall(pos) || !this.canExplodeReach(pos, webPos.get(0), 6.1f) || !((double)this.calculateDamage(pos.toCenterPos(), (PlayerEntity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player, (PlayerEntity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player) <= this.maxSelf.getValue())) continue;
                 if (this.attack.getValue()) {
                     this.doBreak(pos);
                 }
                 if (this.fireFix.getValue()) {
                     CombatUtil.terrainIgnore = false;
                 }
-                if (!((double)pos.method_10264() - Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_23318() <= 1.0) || !this.canTouch(pos.method_10074()) || !this.canPlaceCrystal(pos, false, false) || !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1687.method_22347(pos) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1687.method_8320(pos).method_26204() == Blocks.field_10036 || !this.place.getValue()) continue;
+                if (!((double)pos.method_10264() - Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getY() <= 1.0) || !this.canTouch(pos.method_10074()) || !this.canPlaceCrystal(pos, false, false) || !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.isAir(pos) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock() == Blocks.field_10036 || !this.place.getValue()) continue;
                 this.doPlace(pos);
             }
         }
@@ -187,7 +187,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doPlace(BlockPos pos) {
         this.noPosTimer.reset();
-        if (!(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_6047().method_7909().equals(Items.field_8301) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_6079().method_7909().equals(Items.field_8301) || this.findCrystal())) {
+        if (!(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6047().method_7909().equals(Items.field_8301) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().method_7909().equals(Items.field_8301) || this.findCrystal())) {
             return;
         }
         if (!this.canTouch(pos.method_10074())) {
@@ -195,8 +195,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         BlockPos obsPos = pos.method_10074();
         Direction facing = BlockUtil.getClickSide(obsPos);
-        Vec3d vec = obsPos.method_46558().method_1031((double)facing.method_10163().method_10263() * 0.5, (double)facing.method_10163().method_10264() * 0.5, (double)facing.method_10163().method_10260() * 0.5);
-        if (facing != Direction.field_11036 && facing != Direction.field_11033) {
+        Vec3d vec = obsPos.toCenterPos().method_1031((double)facing.method_10163().method_10263() * 0.5, (double)facing.method_10163().method_10264() * 0.5, (double)facing.method_10163().method_10260() * 0.5);
+        if (facing != Direction.UP && facing != Direction.DOWN) {
             vec = vec.method_1031(0.0, 0.45, 0.0);
         }
         if (this.rotate.getValue() && !this.faceVector(vec)) {
@@ -205,14 +205,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.placeTimer.passedMs((long)this.placeDelay.getValue())) {
             return;
         }
-        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_6047().method_7909().equals(Items.field_8301) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_6079().method_7909().equals(Items.field_8301)) {
+        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6047().method_7909().equals(Items.field_8301) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().method_7909().equals(Items.field_8301)) {
             this.placeTimer.reset();
             this.syncPos = pos;
             this.placeCrystal(pos);
         } else {
             this.placeTimer.reset();
             this.syncPos = pos;
-            int old = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_31548().field_7545;
+            int old = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_31548().field_7545;
             int crystal = this.getCrystal();
             if (crystal == -1) {
                 return;
@@ -249,12 +249,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Silent || this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Normal) {
             InventoryUtil.switchToSlot(slot);
         } else if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
-            InventoryUtil.inventorySwap(slot, Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_31548().field_7545);
         }
     }
 
     private void placeCrystal(BlockPos pos) {
-        boolean offhand = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_6079().method_7909() == Items.field_8301;
+        boolean offhand = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().method_7909() == Items.field_8301;
         BlockPos obsPos = pos.method_10074();
         Direction facing = BlockUtil.getClickSide(obsPos);
         BlockUtil.clickBlock(obsPos, facing, false, offhand ? Hand.field_5810 : Hand.field_5808, this.swingMode.getValue());
@@ -274,10 +274,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             CombatUtil.breakTimer.reset();
             this.syncPos = pos;
-            mc.method_1562().method_52787((Packet)PlayerInteractEntityC2SPacket.method_34206((Entity)entity, (boolean)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_5715()));
-            Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_7350();
+            mc.method_1562().method_52787((Packet)PlayerInteractEntityC2SPacket.method_34206((Entity)entity, (boolean)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_5715()));
+            Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_7350();
             EntityUtil.swingHand(Hand.field_5808, this.swingMode.getValue());
-            if (pos != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724 != null && this.afterBreak.getValue() && (!this.yawStep.getValue() || !this.checkFov.getValue() || HexTech.ROTATE.inFov(entity.method_19538(), this.fov.getValueFloat()))) {
+            if (pos != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player != null && this.afterBreak.getValue() && (!this.yawStep.getValue() || !this.checkFov.getValue() || HexTech.ROTATE.inFov(entity.method_19538(), this.fov.getValueFloat()))) {
                 this.doPlace(pos);
             }
             if (this.forceWeb.getValue() && WebAuraTick_gaIdrzDzsbegzNTtPQoV.INSTANCE.isOn()) {
@@ -289,11 +289,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public boolean behindWall(BlockPos pos) {
         Vec3d testVec = new Vec3d((double)pos.method_10263() + 0.5, (double)pos.method_10264() + 1.7, (double)pos.method_10260() + 0.5);
-        BlockHitResult result = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1687.method_17742(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.field_17558, RaycastContext.FluidHandling.field_1348, (Entity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724));
+        BlockHitResult result = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.field_17558, RaycastContext.FluidHandling.field_1348, (Entity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player));
         if (result == null || result.method_17783() == HitResult.Type.field_1333) {
             return false;
         }
-        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_33571().method_1022(pos.method_46558().method_1031(0.0, -0.5, 0.0)) > this.wallRange.getValue();
+        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getEyePos().method_1022(pos.toCenterPos().method_1031(0.0, -0.5, 0.0)) > this.wallRange.getValue();
     }
 
     /*
@@ -304,15 +304,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Direction side = BlockUtil.getClickSideStrict(pos);
         if (side == null) return false;
         Vec3d vec3d = new Vec3d((double)side.method_10163().method_10263() * 0.5, (double)side.method_10163().method_10264() * 0.5, (double)side.method_10163().method_10260() * 0.5);
-        if (!(pos.method_46558().method_1019(vec3d).method_1022(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_33571()) <= this.range.getValue())) return false;
+        if (!(pos.toCenterPos().method_1019(vec3d).method_1022(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getEyePos()) <= this.range.getValue())) return false;
         return true;
     }
 
     public boolean canPlaceCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
         BlockPos obsPos = pos.method_10074();
-        BlockPos boost = obsPos.method_10084();
-        BlockPos boost2 = boost.method_10084();
-        return (Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.field_9987 || Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.field_10540) && BlockUtil.getClickSideStrict(obsPos) != null && this.noEntityBlockCrystal(boost, ignoreCrystal, ignoreItem) && this.noEntityBlockCrystal(boost2, ignoreCrystal, ignoreItem) && (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1687.method_22347(boost) || BlockUtil.hasCrystal(boost) && Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(boost) == Blocks.field_10036);
+        BlockPos boost = obsPos.up();
+        BlockPos boost2 = boost.up();
+        return (Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.field_9987 || Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.field_10540) && BlockUtil.getClickSideStrict(obsPos) != null && this.noEntityBlockCrystal(boost, ignoreCrystal, ignoreItem) && this.noEntityBlockCrystal(boost2, ignoreCrystal, ignoreItem) && (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.isAir(boost) || BlockUtil.hasCrystal(boost) && Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(boost) == Blocks.field_10036);
     }
 
     private boolean noEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
@@ -322,7 +322,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (!ignoreCrystal) {
                     return false;
                 }
-                if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_6057(entity) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1724.method_33571().method_1022(entity.method_19538()) <= this.wallRange.getValue()) continue;
+                if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6057(entity) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getEyePos().method_1022(entity.method_19538()) <= this.wallRange.getValue()) continue;
             }
             return false;
         }
@@ -343,10 +343,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Vec3d currentPos = start.method_1019(direction.method_1021(d));
             BlockPosX currentBlockPos = new BlockPosX(currentPos);
             BlockState blockState = null;
-            if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1687 != null) {
-                blockState = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1687.method_8320((BlockPos)currentBlockPos);
+            if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null) {
+                blockState = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState((BlockPos)currentBlockPos);
             }
-            if (!(blockState == null || !blockState.method_26215() && (resistance = blockState.method_26204().method_9520()) > power)) continue;
+            if (!(blockState == null || !blockState.method_26215() && (resistance = blockState.getBlock().method_9520()) > power)) continue;
             return false;
         }
         return true;
@@ -356,11 +356,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float blastResistance;
         float exposure;
         Explosion explosion = new Explosion(world, null, (double)explosionPos.method_10263(), (double)explosionPos.method_10264(), (double)explosionPos.method_10260(), power, false, Explosion.DestructionType.field_18687);
-        BlockState blockState = world.method_8320(pos2);
+        BlockState blockState = world.getBlockState(pos2);
         float doubleExplosionSize = 2.0f * explosion.method_55107();
         double distancedsize = (double)MathHelper.method_15355((float)((float)explosionPos.method_10262((Vec3i)pos2))) / (double)doubleExplosionSize;
-        float damage = (float)((1.0 - distancedsize) * (double)(exposure = this.getExposure(explosionPos.method_46558(), pos2)));
-        return (double)damage > (double)(blastResistance = blockState.method_26204().method_9520()) * 3.5;
+        float damage = (float)((1.0 - distancedsize) * (double)(exposure = this.getExposure(explosionPos.toCenterPos(), pos2)));
+        return (double)damage > (double)(blastResistance = blockState.getBlock().method_9520()) * 3.5;
     }
 
     public float getExposure(Vec3d source, BlockPos pos2) {
@@ -380,7 +380,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         double o = MathHelper.method_16436((double)l, (double)box.field_1322, (double)box.field_1325);
                         double p = MathHelper.method_16436((double)m, (double)box.field_1321, (double)box.field_1324);
                         Vec3d vec3d = new Vec3d(n + g, o, p + h);
-                        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1687 != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.field_1687.method_17742(new RaycastContext(vec3d, source, RaycastContext.ShapeType.field_17558, RaycastContext.FluidHandling.field_1348, (Entity)new Cleaner_KppopygwsrtGITfPgSgG((Cleaner_iFwqnooxsJEmHoVteFeQ)this, (Cleaner_iFwqnooxsJEmHoVteFeQ)this, (BlockPos)pos2).predict)).method_17783() == HitResult.Type.field_1333) {
+                        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.raycast(new RaycastContext(vec3d, source, RaycastContext.ShapeType.field_17558, RaycastContext.FluidHandling.field_1348, (Entity)new Cleaner_KppopygwsrtGITfPgSgG((Cleaner_iFwqnooxsJEmHoVteFeQ)this, (Cleaner_iFwqnooxsJEmHoVteFeQ)this, (BlockPos)pos2).predict)).method_17783() == HitResult.Type.field_1333) {
                             ++i;
                         }
                         ++j;

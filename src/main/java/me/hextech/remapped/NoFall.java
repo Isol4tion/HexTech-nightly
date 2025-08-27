@@ -29,14 +29,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (NoFall.nullCheck()) {
             return;
         }
-        for (ItemStack is : NoFall.mc.field_1724.method_5661()) {
+        for (ItemStack is : NoFall.mc.player.method_5661()) {
             if (is.method_7909() != Items.field_8833) continue;
             return;
         }
         Object t = event.getPacket();
         if (t instanceof PlayerMoveC2SPacket) {
             PlayerMoveC2SPacket packet = (PlayerMoveC2SPacket)t;
-            if (NoFall.mc.field_1724.field_6017 >= (float)this.distance.getValue()) {
+            if (NoFall.mc.player.field_6017 >= (float)this.distance.getValue()) {
                 ((IPlayerMoveC2SPacket)packet).setOnGround(true);
             }
         }

@@ -55,34 +55,34 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.timer.passedMs(200L)) {
             return;
         }
-        if ((double)(OffHand.mc.field_1724.method_6032() + OffHand.mc.field_1724.method_6067()) > this.health.getValue()) {
+        if ((double)(OffHand.mc.player.method_6032() + OffHand.mc.player.method_6067()) > this.health.getValue()) {
             int itemSlot;
-            if (!this.mainHand.getValue() && this.crystal.getValue() && OffHand.mc.field_1724.method_6079().method_7909() != Items.field_8301 && (itemSlot = InventoryUtil.findItemInventorySlot(Items.field_8301)) != -1) {
-                OffHand.mc.field_1761.method_2906(OffHand.mc.field_1724.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.field_1724);
-                OffHand.mc.field_1761.method_2906(OffHand.mc.field_1724.field_7512.field_7763, 45, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.field_1724);
-                OffHand.mc.field_1761.method_2906(OffHand.mc.field_1724.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.field_1724);
+            if (!this.mainHand.getValue() && this.crystal.getValue() && OffHand.mc.player.method_6079().method_7909() != Items.field_8301 && (itemSlot = InventoryUtil.findItemInventorySlot(Items.field_8301)) != -1) {
+                OffHand.mc.field_1761.method_2906(OffHand.mc.player.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.player);
+                OffHand.mc.field_1761.method_2906(OffHand.mc.player.field_7512.field_7763, 45, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.player);
+                OffHand.mc.field_1761.method_2906(OffHand.mc.player.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.player);
                 EntityUtil.syncInventory();
                 this.timer.reset();
             }
             return;
         }
-        if (OffHand.mc.field_1724.method_6047().method_7909() == Items.field_8288 || OffHand.mc.field_1724.method_6079().method_7909() == Items.field_8288) {
+        if (OffHand.mc.player.method_6047().method_7909() == Items.field_8288 || OffHand.mc.player.method_6079().method_7909() == Items.field_8288) {
             return;
         }
         int itemSlot = InventoryUtil.findItemInventorySlot(Items.field_8288);
         if (itemSlot != -1) {
             if (this.mainHand.getValue()) {
                 InventoryUtil.switchToSlot(0);
-                if (OffHand.mc.field_1724.method_31548().method_5438(0).method_7909() != Items.field_8288) {
-                    OffHand.mc.field_1761.method_2906(OffHand.mc.field_1724.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.field_1724);
-                    OffHand.mc.field_1761.method_2906(OffHand.mc.field_1724.field_7512.field_7763, 36, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.field_1724);
-                    OffHand.mc.field_1761.method_2906(OffHand.mc.field_1724.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.field_1724);
+                if (OffHand.mc.player.method_31548().method_5438(0).method_7909() != Items.field_8288) {
+                    OffHand.mc.field_1761.method_2906(OffHand.mc.player.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.player);
+                    OffHand.mc.field_1761.method_2906(OffHand.mc.player.field_7512.field_7763, 36, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.player);
+                    OffHand.mc.field_1761.method_2906(OffHand.mc.player.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.player);
                     EntityUtil.syncInventory();
                 }
             } else {
-                OffHand.mc.field_1761.method_2906(OffHand.mc.field_1724.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.field_1724);
-                OffHand.mc.field_1761.method_2906(OffHand.mc.field_1724.field_7512.field_7763, 45, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.field_1724);
-                OffHand.mc.field_1761.method_2906(OffHand.mc.field_1724.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.field_1724);
+                OffHand.mc.field_1761.method_2906(OffHand.mc.player.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.player);
+                OffHand.mc.field_1761.method_2906(OffHand.mc.player.field_7512.field_7763, 45, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.player);
+                OffHand.mc.field_1761.method_2906(OffHand.mc.player.field_7512.field_7763, itemSlot, 0, SlotActionType.field_7790, (PlayerEntity)OffHand.mc.player);
                 EntityUtil.syncInventory();
             }
             this.timer.reset();

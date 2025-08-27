@@ -61,8 +61,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     return;
                 }
                 PlayerListEntry playerListEntry = (PlayerListEntry)list.get(this.random.nextInt(size));
-                if (Spammer.mc.field_1724 != null) {
-                    while (this.checkSelf.getValue() && Objects.equals(playerListEntry.method_2966().getName(), Spammer.mc.field_1724.method_7334().getName())) {
+                if (Spammer.mc.player != null) {
+                    while (this.checkSelf.getValue() && Objects.equals(playerListEntry.method_2966().getName(), Spammer.mc.player.method_7334().getName())) {
                         playerListEntry = (PlayerListEntry)list.get(this.random.nextInt(size));
                     }
                 }

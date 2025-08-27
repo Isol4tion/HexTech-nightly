@@ -422,7 +422,7 @@ implements Wrapper {
     }
 
     public void render2D(DrawContext drawContext) {
-        this.modules.stream().filter(Module_eSdgMXWuzcxgQVaJFmKZ::isOn).forEach(module -> module.onRender2D(drawContext, MinecraftClient.method_1551().method_1488()));
+        this.modules.stream().filter(Module_eSdgMXWuzcxgQVaJFmKZ::isOn).forEach(module -> module.onRender2D(drawContext, MinecraftClient.method_1551().getTickDelta()));
     }
 
     public void render3D(MatrixStack matrixStack) {
@@ -434,14 +434,14 @@ implements Wrapper {
         matrixStack.method_22903();
         this.modules.stream().filter(Module_eSdgMXWuzcxgQVaJFmKZ::isOn).forEach(module -> {
             try {
-                module.onRender3D(matrixStack, mc.method_1488());
+                module.onRender3D(matrixStack, mc.getTickDelta());
             }
             catch (Exception e) {
                 CommandManager.sendChatMessage("\u00a74[!] " + e.getMessage());
             }
         });
         try {
-            HexTech.EVENT_BUS.post(new Render3DEvent(matrixStack, mc.method_1488()));
+            HexTech.EVENT_BUS.post(new Render3DEvent(matrixStack, mc.getTickDelta()));
         }
         catch (Exception e) {
             CommandManager.sendChatMessage("\u00a74[!] " + e.getMessage());

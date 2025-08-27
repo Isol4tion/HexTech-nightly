@@ -29,19 +29,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!EntityUtil.isInsideBlock()) {
             return;
         }
-        double speed = AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null ? (HoleKickTest.isInWeb((PlayerEntity)BurrowMove.mc.field_1724) ? this.wspeed.getValue() : this.aSpeed.getValue()) : this.bSpeed.getValue();
+        double speed = AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null ? (HoleKickTest.isInWeb((PlayerEntity)BurrowMove.mc.player) ? this.wspeed.getValue() : this.aSpeed.getValue()) : this.bSpeed.getValue();
         double moveSpeed = 0.002873 * speed;
         double n = 0.0;
-        if (BurrowMove.mc.field_1724 != null) {
-            n = BurrowMove.mc.field_1724.field_3913.field_3905;
+        if (BurrowMove.mc.player != null) {
+            n = BurrowMove.mc.player.field_3913.field_3905;
         }
         double n2 = 0.0;
-        if (BurrowMove.mc.field_1724 != null) {
-            n2 = BurrowMove.mc.field_1724.field_3913.field_3907;
+        if (BurrowMove.mc.player != null) {
+            n2 = BurrowMove.mc.player.field_3913.field_3907;
         }
         double n3 = 0.0;
-        if (BurrowMove.mc.field_1724 != null) {
-            n3 = BurrowMove.mc.field_1724.method_36454();
+        if (BurrowMove.mc.player != null) {
+            n3 = BurrowMove.mc.player.method_36454();
         }
         if (n == 0.0 && n2 == 0.0) {
             if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.currentPos == null) {

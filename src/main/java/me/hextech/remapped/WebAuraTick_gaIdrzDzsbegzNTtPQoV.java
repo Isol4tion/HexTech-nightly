@@ -160,7 +160,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.getWebSlot() == -1) {
             return;
         }
-        if (this.usingPause.getValue() && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.field_1724.method_6115()) {
+        if (this.usingPause.getValue() && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.player.method_6115()) {
             return;
         }
         block0: for (PlayerEntity player : CombatUtil.getEnemies(this.targetRange.getValue())) {
@@ -180,7 +180,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         BlockPosX pos = new BlockPosX(playerPos.method_10216() + (double)x, playerPos.method_10214() + (double)y, playerPos.method_10215() + (double)z);
                         if (list.contains((Object)pos)) continue;
                         list.add(pos);
-                        if (!this.isTargetHere(pos, player) || WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.field_1687.method_8320((BlockPos)pos).method_26204() != Blocks.field_10343 || HexTech.BREAK.isMining(pos)) continue;
+                        if (!this.isTargetHere(pos, player) || WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.field_10343 || HexTech.BREAK.isMining(pos)) continue;
                         ++webs;
                     }
                 }
@@ -225,8 +225,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || !this.noMine.getValue() && pos.equals((Object)SpeedMine.breakPos))) {
             return false;
         }
-        if (BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) != null && (WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.field_1687.method_22347(pos) || ignore && BlockUtil.getBlock(pos) == Blocks.field_10343) && pos.method_10264() < 320) {
-            int oldSlot = WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.field_1724.method_31548().field_7545;
+        if (BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) != null && (WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.isAir(pos) || ignore && BlockUtil.getBlock(pos) == Blocks.field_10343) && pos.method_10264() < 320) {
+            int oldSlot = WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.player.method_31548().field_7545;
             int webSlot = this.getWebSlot();
             if (!this.placeBlock(pos, this.rotate.getValue(), webSlot)) {
                 return false;
@@ -253,8 +253,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public boolean isInBurrow(PlayerEntity player) {
         for (float x : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
             for (float z : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
-                BlockPosX pos = new BlockPosX(player.method_23317() + (double)x, player.method_23318() + (double)0.15f, player.method_23321() + (double)z);
-                if (WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.field_1687.method_8320((BlockPos)pos).method_26204() != Blocks.field_10540 && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.field_1687.method_8320((BlockPos)pos).method_26204() != Blocks.field_9987 && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.field_1687.method_8320((BlockPos)pos).method_26204() != Blocks.field_10443 && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.field_1687.method_8320((BlockPos)pos).method_26204() != Blocks.field_23152) continue;
+                BlockPosX pos = new BlockPosX(player.getX() + (double)x, player.getY() + (double)0.15f, player.getZ() + (double)z);
+                if (WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.field_10540 && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.field_9987 && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.field_10443 && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.field_23152) continue;
                 return true;
             }
         }
@@ -265,11 +265,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Direction side = BlockUtil.getPlaceSide(pos);
         if (side == null) {
             if (BlockUtil.airPlace()) {
-                return this.clickBlock(pos, Direction.field_11033, rotate, slot);
+                return this.clickBlock(pos, Direction.DOWN, rotate, slot);
             }
             return false;
         }
-        return this.clickBlock(pos.method_10093(side), side.method_10153(), rotate, slot);
+        return this.clickBlock(pos.offset(side), side.method_10153(), rotate, slot);
     }
 
     public boolean clickBlock(BlockPos pos, Direction side, boolean rotate, int slot) {
@@ -281,7 +281,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         EntityUtil.swingHand(Hand.field_5808, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         if (this.interact.getValue()) {
-            WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.field_1724.field_3944.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, result, BlockUtil.getWorldActionId(WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.field_1687)));
+            WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.player.field_3944.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, result, BlockUtil.getWorldActionId(WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world)));
         }
         if (this.seqpack.getValue()) {
             Module_eSdgMXWuzcxgQVaJFmKZ.sendSequencedPacket(id -> new PlayerInteractBlockC2SPacket(Hand.field_5808, result, id));
@@ -303,7 +303,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventorySwap.getValue()) {
-            InventoryUtil.inventorySwap(slot, WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.player.method_31548().field_7545);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

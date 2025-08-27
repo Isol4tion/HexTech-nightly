@@ -30,7 +30,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean replenish(int slot) {
-        ItemStack stack = Replenish.mc.field_1724.method_31548().method_5438(slot);
+        ItemStack stack = Replenish.mc.player.method_31548().method_5438(slot);
         if (stack.method_7960()) {
             return false;
         }
@@ -44,12 +44,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return false;
         }
         for (int i = 9; i < 36; ++i) {
-            ItemStack item = Replenish.mc.field_1724.method_31548().method_5438(i);
+            ItemStack item = Replenish.mc.player.method_31548().method_5438(i);
             if (item.method_7960() || !this.canMerge(stack, item)) continue;
             if ((float)stack.method_7947() > this.forceMin.getValueFloat() ? !this.timer.passedS(this.delay.getValue()) : !this.timer.passedS(this.forceDelay.getValue())) {
                 return false;
             }
-            Replenish.mc.field_1761.method_2906(Replenish.mc.field_1724.field_7498.field_7763, i, 0, SlotActionType.field_7794, (PlayerEntity)Replenish.mc.field_1724);
+            Replenish.mc.field_1761.method_2906(Replenish.mc.player.field_7498.field_7763, i, 0, SlotActionType.field_7794, (PlayerEntity)Replenish.mc.player);
             return true;
         }
         return false;

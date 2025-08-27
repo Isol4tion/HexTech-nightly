@@ -129,7 +129,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             target = AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget;
             this.direction = true;
         } else if (TargetHud.mc.field_1755 instanceof ChatScreen) {
-            target = TargetHud.mc.field_1724;
+            target = TargetHud.mc.player;
             this.direction = true;
         } else {
             this.direction = false;
@@ -140,10 +140,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         drawContext.method_51448().method_22903();
         float posX = 114514.0f;
         float posY = 114514.0f;
-        if (this.move.getValue() && (double)target.method_5739((Entity)TargetHud.mc.field_1724) <= this.moveDis.getValue()) {
-            double x = target.field_6014 + (target.method_23317() - target.field_6014) * (double)mc.method_1488();
-            double y = target.field_6036 + (target.method_23318() - target.field_6036) * (double)mc.method_1488();
-            double z = target.field_5969 + (target.method_23321() - target.field_5969) * (double)mc.method_1488();
+        if (this.move.getValue() && (double)target.method_5739((Entity)TargetHud.mc.player) <= this.moveDis.getValue()) {
+            double x = target.field_6014 + (target.getX() - target.field_6014) * (double)mc.getTickDelta();
+            double y = target.field_6036 + (target.getY() - target.field_6036) * (double)mc.getTickDelta();
+            double z = target.field_5969 + (target.getZ() - target.field_5969) * (double)mc.getTickDelta();
             Vec3d vector = new Vec3d(x, y + target.method_5829().method_17940() + (double)this.moveY.getValueInt(), z);
             vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.field_1352, vector.field_1351, vector.field_1350));
             if (vector.field_1350 > 0.0 && vector.field_1350 < 1.0) {
@@ -310,9 +310,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public PlayerEntity getTarget() {
         float min = 1000000.0f;
         PlayerEntity best = null;
-        for (PlayerEntity player : TargetHud.mc.field_1687.method_18456()) {
-            if (!(player.method_5739((Entity)TargetHud.mc.field_1724) < min) || player.method_29504() || player == TargetHud.mc.field_1724 || HexTech.FRIEND.isFriend(player)) continue;
-            min = player.method_5739((Entity)TargetHud.mc.field_1724);
+        for (PlayerEntity player : TargetHud.mc.world.method_18456()) {
+            if (!(player.method_5739((Entity)TargetHud.mc.player) < min) || player.method_29504() || player == TargetHud.mc.player || HexTech.FRIEND.isFriend(player)) continue;
+            min = player.method_5739((Entity)TargetHud.mc.player);
             best = player;
         }
         return best;

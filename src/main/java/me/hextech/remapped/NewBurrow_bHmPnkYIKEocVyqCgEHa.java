@@ -130,15 +130,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.needStep && this.rotater.passed(100L)) {
             this.needStep = false;
         }
-        if (HexTech.PLAYER.isInWeb((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724)) {
+        if (HexTech.PLAYER.isInWeb((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player)) {
             this.webTimer.reset();
             this.needAntiLag = true;
             return;
         }
-        if (this.usingPause.getValue() && NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_6115()) {
+        if (this.usingPause.getValue() && NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_6115()) {
             return;
         }
-        if (this.checkClimb.getValue() && NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_20448()) {
+        if (this.checkClimb.getValue() && NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_20448()) {
             return;
         }
         if (this.pauseStep.getValue() && Step_EShajbhvQeYkCdreEeNY.INSTANCE.isOn()) {
@@ -151,16 +151,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.Force = false;
-        if (!NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_24828()) {
+        if (!NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_24828()) {
             return;
         }
-        if (this.antiLag.getValue() && !NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1687.method_8320(EntityUtil.getPlayerPos().method_10074()).method_51366()) {
+        if (this.antiLag.getValue() && !NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.getBlockState(EntityUtil.getPlayerPos().method_10074()).method_51366()) {
             return;
         }
         if (Blink.INSTANCE.isOn()) {
             return;
         }
-        int oldSlot = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_31548().field_7545;
+        int oldSlot = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_31548().field_7545;
         int block = this.getBlock();
         if (block == -1) {
             CommandManager.sendChatMessageWidthId("\u00a7c\u00a7oObsidian" + (this.enderChest.getValue() ? "/EnderChest" : "") + "?", this.hashCode());
@@ -170,18 +170,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.progress = 0;
         this.placePos.clear();
         double offset = CombatSetting_kxXrLvbWbduSuFoeBUsC.getOffset();
-        BlockPosX pos1 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 0.15, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() + offset);
-        BlockPosX pos2 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 0.15, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() + offset);
-        BlockPosX pos3 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 0.15, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() - offset);
-        BlockPosX pos4 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 0.15, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() - offset);
-        BlockPosX pos5 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() + offset);
-        BlockPosX pos6 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() + offset);
-        BlockPosX pos7 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() - offset);
-        BlockPosX pos8 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() - offset);
-        BlockPosX pos9 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() - 1.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() + offset);
-        BlockPosX pos10 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() - 1.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() + offset);
-        BlockPosX pos11 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() - 1.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() - offset);
-        BlockPosX pos12 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() - 1.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() - offset);
+        BlockPosX pos1 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.15, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + offset);
+        BlockPosX pos2 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.15, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + offset);
+        BlockPosX pos3 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.15, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() - offset);
+        BlockPosX pos4 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.15, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() - offset);
+        BlockPosX pos5 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + offset);
+        BlockPosX pos6 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + offset);
+        BlockPosX pos7 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() - offset);
+        BlockPosX pos8 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() - offset);
+        BlockPosX pos9 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() - 1.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + offset);
+        BlockPosX pos10 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() - 1.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + offset);
+        BlockPosX pos11 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() + offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() - 1.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() - offset);
+        BlockPosX pos12 = new BlockPosX(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() - offset, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() - 1.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() - offset);
         BlockPos playerPos = EntityUtil.getPlayerPos();
         boolean headFill = false;
         if (!(this.canPlace(pos1) || this.canPlace(pos2) || this.canPlace(pos3) || this.canPlace(pos4))) {
@@ -210,7 +210,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.needAntiLag = false;
             this.moveAntiLag = true;
         }
-        if (headFill || NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_20448() || this.trapped(headPos) || this.trapped(headPos.method_10069(1, 0, 0)) || this.trapped(headPos.method_10069(-1, 0, 0)) || this.trapped(headPos.method_10069(0, 0, 1)) || this.trapped(headPos.method_10069(0, 0, -1)) || this.trapped(headPos.method_10069(1, 0, -1)) || this.trapped(headPos.method_10069(-1, 0, -1)) || this.trapped(headPos.method_10069(1, 0, 1)) || this.trapped(headPos.method_10069(-1, 0, 1))) {
+        if (headFill || NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_20448() || this.trapped(headPos) || this.trapped(headPos.method_10069(1, 0, 0)) || this.trapped(headPos.method_10069(-1, 0, 0)) || this.trapped(headPos.method_10069(0, 0, 1)) || this.trapped(headPos.method_10069(0, 0, -1)) || this.trapped(headPos.method_10069(1, 0, -1)) || this.trapped(headPos.method_10069(-1, 0, -1)) || this.trapped(headPos.method_10069(1, 0, 1)) || this.trapped(headPos.method_10069(-1, 0, 1))) {
             this.above = true;
             if (!this.fakeMove.getValue()) {
                 if (!this.wait.getValue() && this.disable.getValue()) {
@@ -220,18 +220,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             boolean moved = false;
             BlockPos offPos = playerPos;
-            if (!(!this.checkSelf(offPos) || BlockUtil.canReplace(offPos) || this.headFill.getValue() && BlockUtil.canReplace(offPos.method_10084()))) {
+            if (!(!this.checkSelf(offPos) || BlockUtil.canReplace(offPos) || this.headFill.getValue() && BlockUtil.canReplace(offPos.up()))) {
                 this.gotoPos(offPos);
             } else {
                 for (Direction direction : Direction.values()) {
-                    if (direction == Direction.field_11036 || direction == Direction.field_11033 || !this.checkSelf(offPos = playerPos.method_10093(direction)) || BlockUtil.canReplace(offPos) || this.headFill.getValue() && BlockUtil.canReplace(offPos.method_10084())) continue;
+                    if (direction == Direction.UP || direction == Direction.DOWN || !this.checkSelf(offPos = playerPos.offset(direction)) || BlockUtil.canReplace(offPos) || this.headFill.getValue() && BlockUtil.canReplace(offPos.up())) continue;
                     this.gotoPos(offPos);
                     moved = true;
                     break;
                 }
                 if (!moved) {
                     for (Direction direction : Direction.values()) {
-                        if (direction == Direction.field_11036 || direction == Direction.field_11033 || !this.checkSelf(offPos = playerPos.method_10093(direction))) continue;
+                        if (direction == Direction.UP || direction == Direction.DOWN || !this.checkSelf(offPos = playerPos.offset(direction))) continue;
                         this.gotoPos(offPos);
                         moved = true;
                         break;
@@ -241,7 +241,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                             return;
                         }
                         for (Direction direction : Direction.values()) {
-                            if (direction == Direction.field_11036 || direction == Direction.field_11033 || !this.canMove(offPos = playerPos.method_10093(direction))) continue;
+                            if (direction == Direction.UP || direction == Direction.DOWN || !this.canMove(offPos = playerPos.offset(direction))) continue;
                             this.gotoPos(offPos);
                             moved = true;
                             break;
@@ -256,14 +256,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
         } else {
-            mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 0.4199999868869781, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
-            mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 0.7531999805212017, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
-            mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 0.9999957640154541, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
-            mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.1661092609382138, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
+            mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.4199999868869781, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+            mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.7531999805212017, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+            mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.9999957640154541, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+            mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.1661092609382138, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
         }
         this.doSwap(block);
         if (this.rotate.getValue() == NewBurrow_qqQhaOJZqeVGcFBKpQgd.Bypass) {
-            EntityUtil.sendYawAndPitch(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_36454(), 90.0f);
+            EntityUtil.sendYawAndPitch(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_36454(), 90.0f);
         }
         this.placeBlock(playerPos, rotate);
         this.placeBlock(pos1, rotate);
@@ -291,9 +291,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         switch ((this.above ? this.aboveLagMode.getValue() : this.lagMode.getValue()).ordinal()) {
             case 0: {
                 ArrayList<BlockPosX> list = new ArrayList<BlockPosX>();
-                for (double x = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_19538().method_10216() - this.smartX.getValue(); x < NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_19538().method_10216() + this.smartX.getValue(); x += 1.0) {
-                    for (double z = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_19538().method_10215() - this.smartX.getValue(); z < NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_19538().method_10215() + this.smartX.getValue(); z += 1.0) {
-                        for (double y = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_19538().method_10214() - this.smartDown.getValue(); y < NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_19538().method_10214() + this.smartUp.getValue(); y += 1.0) {
+                for (double x = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_19538().method_10216() - this.smartX.getValue(); x < NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_19538().method_10216() + this.smartX.getValue(); x += 1.0) {
+                    for (double z = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_19538().method_10215() - this.smartX.getValue(); z < NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_19538().method_10215() + this.smartX.getValue(); z += 1.0) {
+                        for (double y = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_19538().method_10214() - this.smartDown.getValue(); y < NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_19538().method_10214() + this.smartUp.getValue(); y += 1.0) {
                             list.add(new BlockPosX(x, y, z));
                         }
                     }
@@ -301,9 +301,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double distance = 0.0;
                 BlockPos bestPos = null;
                 for (BlockPos blockPos : list) {
-                    if (!this.canMove(blockPos) || (double)MathHelper.method_15355((float)((float)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_5707(blockPos.method_46558().method_1031(0.0, -0.5, 0.0)))) < this.smartDistance.getValue() || bestPos != null && !(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_5707(blockPos.method_46558()) < distance)) continue;
+                    if (!this.canMove(blockPos) || (double)MathHelper.method_15355((float)((float)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_5707(blockPos.toCenterPos().method_1031(0.0, -0.5, 0.0)))) < this.smartDistance.getValue() || bestPos != null && !(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_5707(blockPos.toCenterPos()) < distance)) continue;
                     bestPos = blockPos;
-                    distance = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_5707(blockPos.method_46558());
+                    distance = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_5707(blockPos.toCenterPos());
                 }
                 if (bestPos == null) break;
                 mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.method_10263() + 0.5, (double)bestPos.method_10264(), (double)bestPos.method_10260() + 0.5, false));
@@ -312,44 +312,44 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             case 1: {
                 int i = 0;
                 while ((double)i < this.invalids.getValue()) {
-                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1337.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
+                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1337.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                     ++i;
                 }
                 break;
             }
             case 7: {
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.16610926093821, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.170005801788139, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.2426308013947485, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 2.640088003576279, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.16610926093821, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.170005801788139, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.2426308013947485, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.640088003576279, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 8: {
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.0001, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.0405, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.0802, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.1027, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0001, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0405, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0802, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.1027, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 2: {
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 5: {
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + 1.9, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.9, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 3: {
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), -70.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), -70.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 4: {
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), -7.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), -7.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 9: {
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + this.height.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.height.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 6: {
@@ -373,9 +373,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 ++this.progress;
                 BlockUtil.placedPos.add(pos);
                 if (this.sound.getValue()) {
-                    NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1687.method_8396((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724, pos, SoundEvents.field_14574, SoundCategory.field_15245, 1.0f, 0.8f);
+                    NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.method_8396((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, pos, SoundEvents.field_14574, SoundCategory.field_15245, 1.0f, 0.8f);
                 }
-                BlockUtil.clickBlock(pos, Direction.field_11033, rotate, this.packetPlace.getValue());
+                BlockUtil.clickBlock(pos, Direction.DOWN, rotate, this.packetPlace.getValue());
             }
             if ((side = BlockUtil.getPlaceSide(pos)) == null) {
                 return;
@@ -383,16 +383,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             ++this.progress;
             BlockUtil.placedPos.add(pos);
             if (this.sound.getValue()) {
-                NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1687.method_8396((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724, pos, SoundEvents.field_14574, SoundCategory.field_15245, 1.0f, 0.8f);
+                NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.method_8396((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, pos, SoundEvents.field_14574, SoundCategory.field_15245, 1.0f, 0.8f);
             }
-            BlockUtil.clickBlock(pos.method_10093(side), side.method_10153(), rotate, this.packetPlace.getValue());
+            BlockUtil.clickBlock(pos.offset(side), side.method_10153(), rotate, this.packetPlace.getValue());
             this.timer.reset();
         }
     }
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_31548().field_7545);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -401,19 +401,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void gotoPos(BlockPos offPos) {
         if (this.gotoMode.is(NewBurrow.Alien)) {
             if (this.rotate.getValue() == NewBurrow_qqQhaOJZqeVGcFBKpQgd.None) {
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)offPos.method_10263() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + this.moveUp.getValue(), (double)offPos.method_10260() + 0.5, false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)offPos.method_10263() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), (double)offPos.method_10260() + 0.5, false));
             } else {
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.Full((double)offPos.method_10263() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + this.moveUp.getValue(), (double)offPos.method_10260() + 0.5, HexTech.ROTATE.rotateYaw, 90.0f, false));
+                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.Full((double)offPos.method_10263() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), (double)offPos.method_10260() + 0.5, HexTech.ROTATE.rotateYaw, 90.0f, false));
             }
-        } else if (Math.abs((double)offPos.method_10263() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317()) < Math.abs((double)offPos.method_10260() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321())) {
-            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321() + ((double)offPos.method_10260() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321()), true));
+        } else if (Math.abs((double)offPos.method_10263() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX()) < Math.abs((double)offPos.method_10260() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ())) {
+            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + ((double)offPos.method_10260() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ()), true));
         } else {
-            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317() + ((double)offPos.method_10263() + 0.2 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23317()), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23318() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_23321(), true));
+            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() + ((double)offPos.method_10263() + 0.2 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX()), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), true));
         }
     }
 
     private boolean canMove(BlockPos pos) {
-        return NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1687.method_22347(pos) && NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1687.method_22347(pos.method_10084());
+        return NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.isAir(pos) && NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.isAir(pos.up());
     }
 
     private boolean canPlace(BlockPos pos) {
@@ -431,18 +431,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private boolean hasEntity(BlockPos pos) {
         for (Entity entity : BlockUtil.getEntities(new Box(pos))) {
-            if (entity == NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724 || !entity.method_5805() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || entity instanceof EndCrystalEntity && this.breakCrystal.getValue() || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
+            if (entity == NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player || !entity.method_5805() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || entity instanceof EndCrystalEntity && this.breakCrystal.getValue() || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
             return true;
         }
         return false;
     }
 
     private boolean checkSelf(BlockPos pos) {
-        return NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724.method_5829().method_994(new Box(pos));
+        return NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.method_5829().method_994(new Box(pos));
     }
 
     private boolean trapped(BlockPos pos) {
-        return (NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1687.method_39454((Entity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.field_1724, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.field_10343) && this.checkSelf(pos.method_10087(2));
+        return (NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.method_39454((Entity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.field_10343) && this.checkSelf(pos.down(2));
     }
 
     private int getBlock() {

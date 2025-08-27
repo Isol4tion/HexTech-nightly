@@ -33,13 +33,13 @@ extends Command {
                 return;
             }
             if (this.isNumeric(parameters[0].replace("~", ""))) {
-                x = AimCommand.mc.field_1724.method_23317() + Double.parseDouble(parameters[0].replace("~", ""));
+                x = AimCommand.mc.player.getX() + Double.parseDouble(parameters[0].replace("~", ""));
             } else {
                 if (!parameters[0].replace("~", "").equals("")) {
                     this.sendUsage();
                     return;
                 }
-                x = AimCommand.mc.field_1724.method_23317();
+                x = AimCommand.mc.player.getX();
             }
         }
         if (this.isNumeric(parameters[1])) {
@@ -50,13 +50,13 @@ extends Command {
                 return;
             }
             if (this.isNumeric(parameters[1].replace("~", ""))) {
-                y = AimCommand.mc.field_1724.method_23318() + Double.parseDouble(parameters[1].replace("~", ""));
+                y = AimCommand.mc.player.getY() + Double.parseDouble(parameters[1].replace("~", ""));
             } else {
                 if (!parameters[1].replace("~", "").equals("")) {
                     this.sendUsage();
                     return;
                 }
-                y = AimCommand.mc.field_1724.method_23318();
+                y = AimCommand.mc.player.getY();
             }
         }
         if (this.isNumeric(parameters[2])) {
@@ -67,18 +67,18 @@ extends Command {
                 return;
             }
             if (this.isNumeric(parameters[2].replace("~", ""))) {
-                z = AimCommand.mc.field_1724.method_23321() + Double.parseDouble(parameters[2].replace("~", ""));
+                z = AimCommand.mc.player.getZ() + Double.parseDouble(parameters[2].replace("~", ""));
             } else {
                 if (!parameters[2].replace("~", "").equals("")) {
                     this.sendUsage();
                     return;
                 }
-                z = AimCommand.mc.field_1724.method_23321();
+                z = AimCommand.mc.player.getZ();
             }
         }
         float[] angle = EntityUtil.getLegitRotations(new Vec3d(x, y, z));
-        AimCommand.mc.field_1724.method_36456(angle[0]);
-        AimCommand.mc.field_1724.method_36457(angle[1]);
+        AimCommand.mc.player.method_36456(angle[0]);
+        AimCommand.mc.player.method_36457(angle[1]);
         DecimalFormat df = new DecimalFormat("0.0");
         CommandManager.sendChatMessage("\u00a7a[\u221a] \u00a7fAim to \u00a7eX:" + df.format(x) + " Y:" + df.format(y) + " Z:" + df.format(z));
     }

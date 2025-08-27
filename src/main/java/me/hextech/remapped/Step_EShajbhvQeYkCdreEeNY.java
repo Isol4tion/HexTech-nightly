@@ -33,7 +33,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Step_EShajbhvQeYkCdreEeNY.nullCheck()) {
             return;
         }
-        Step_EShajbhvQeYkCdreEeNY.mc.field_1724.method_49477(0.6f);
+        Step_EShajbhvQeYkCdreEeNY.mc.player.method_49477(0.6f);
         HexTech.TIMER.reset();
     }
 
@@ -44,11 +44,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (this.inWebPause.getValue() && HoleKickTest.isInWeb((PlayerEntity)Step_EShajbhvQeYkCdreEeNY.mc.field_1724) || !Step_EShajbhvQeYkCdreEeNY.mc.field_1724.method_24828() || this.onlyMoving.getValue() && !MovementUtil.isMoving()) {
-            Step_EShajbhvQeYkCdreEeNY.mc.field_1724.method_49477(0.6f);
+        if (this.inWebPause.getValue() && HoleKickTest.isInWeb((PlayerEntity)Step_EShajbhvQeYkCdreEeNY.mc.player) || !Step_EShajbhvQeYkCdreEeNY.mc.player.method_24828() || this.onlyMoving.getValue() && !MovementUtil.isMoving()) {
+            Step_EShajbhvQeYkCdreEeNY.mc.player.method_49477(0.6f);
             return;
         }
-        Step_EShajbhvQeYkCdreEeNY.mc.field_1724.method_49477(this.height.getValueFloat());
+        Step_EShajbhvQeYkCdreEeNY.mc.player.method_49477(this.height.getValueFloat());
     }
 
     @EventHandler

@@ -69,11 +69,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static boolean selfIntersectPos(BlockPos pos) {
-        return Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_5829().method_994(new Box(pos));
+        return Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_5829().method_994(new Box(pos));
     }
 
     public static boolean otherIntersectPos(BlockPos pos) {
-        for (PlayerEntity player : Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1687.method_18456()) {
+        for (PlayerEntity player : Surround_BjIoVRziuWIfEWTJHPVz.mc.world.method_18456()) {
             if (!player.method_5829().method_994(new Box(pos))) continue;
             return true;
         }
@@ -131,29 +131,29 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             return;
         }
-        this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23317();
-        this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23318();
-        this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23321();
+        this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX();
+        this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY();
+        this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ();
         this.shouldCenter = true;
     }
 
     @EventHandler(priority=-1)
     public void onMove(MoveEvent event) {
-        if (Surround_BjIoVRziuWIfEWTJHPVz.nullCheck() || !this.center.getValue() || Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_6128()) {
+        if (Surround_BjIoVRziuWIfEWTJHPVz.nullCheck() || !this.center.getValue() || Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_6128()) {
             return;
         }
         BlockPos blockPos = EntityUtil.getPlayerPos(true);
-        if (Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23317() - (double)blockPos.method_10263() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23317() - (double)blockPos.method_10263() - 0.5 >= -0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23321() - (double)blockPos.method_10260() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23321() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
-            if (this.shouldCenter && (Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_24828() || MovementUtil.isMoving())) {
+        if (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX() - (double)blockPos.method_10263() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX() - (double)blockPos.method_10263() - 0.5 >= -0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ() - (double)blockPos.method_10260() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
+            if (this.shouldCenter && (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_24828() || MovementUtil.isMoving())) {
                 event.setX(0.0);
                 event.setZ(0.0);
                 this.shouldCenter = false;
             }
         } else if (this.shouldCenter) {
-            Vec3d centerPos = EntityUtil.getPlayerPos(true).method_46558();
-            float rotation = Surround_BjIoVRziuWIfEWTJHPVz.getRotationTo((Vec3d)Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_19538(), (Vec3d)centerPos).field_1343;
+            Vec3d centerPos = EntityUtil.getPlayerPos(true).toCenterPos();
+            float rotation = Surround_BjIoVRziuWIfEWTJHPVz.getRotationTo((Vec3d)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_19538(), (Vec3d)centerPos).field_1343;
             float yawRad = rotation / 180.0f * (float)Math.PI;
-            double dist = Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_19538().method_1022(new Vec3d(centerPos.field_1352, Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23318(), centerPos.field_1350));
+            double dist = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_19538().method_1022(new Vec3d(centerPos.field_1352, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY(), centerPos.field_1350));
             double cappedSpeed = Math.min(0.2873, dist);
             double x = (double)(-((float)Math.sin(yawRad))) * cappedSpeed;
             double z = (double)((float)Math.cos(yawRad)) * cappedSpeed;
@@ -170,30 +170,30 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.directionVec = null;
         this.progress = 0;
         if (!MovementUtil.isMoving() && !Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1690.field_1903.method_1434()) {
-            this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23317();
-            this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23318();
-            this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23321();
+            this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX();
+            this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY();
+            this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ();
         }
         BlockPos pos = EntityUtil.getPlayerPos(true);
-        double distanceToStart = MathHelper.method_15355((float)((float)Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_5649(this.startX, this.startY, this.startZ)));
+        double distanceToStart = MathHelper.method_15355((float)((float)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_5649(this.startX, this.startY, this.startZ)));
         if (this.getBlock() == -1) {
             CommandManager.sendChatMessageWidthId("\u00a7c\u00a7oObsidian" + (this.enderChest.getValue() ? "/EnderChest" : "") + "?", this.hashCode());
             this.disable();
             return;
         }
-        if (this.moveDisable.getValue() && distanceToStart > 1.0 || this.jumpDisable.getValue() && Math.abs(this.startY - Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_23318()) > 0.5) {
+        if (this.moveDisable.getValue() && distanceToStart > 1.0 || this.jumpDisable.getValue() && Math.abs(this.startY - Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY()) > 0.5) {
             this.disable();
             return;
         }
-        if (this.usingPause.getValue() && Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_6115()) {
+        if (this.usingPause.getValue() && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_6115()) {
             return;
         }
-        if (!this.inAir.getValue() && !Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_24828()) {
+        if (!this.inAir.getValue() && !Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_24828()) {
             return;
         }
         for (Direction i : Direction.values()) {
-            if (i == Direction.field_11036) continue;
-            BlockPos offsetPos = pos.method_10093(i);
+            if (i == Direction.UP) continue;
+            BlockPos offsetPos = pos.offset(i);
             if (BlockUtil.getPlaceSide(offsetPos) != null) {
                 this.tryPlaceBlock(offsetPos);
             } else if (BlockUtil.canReplace(offsetPos)) {
@@ -201,13 +201,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (!Surround_BjIoVRziuWIfEWTJHPVz.selfIntersectPos(offsetPos) && (this.onlySelf.getValue() || !Surround_BjIoVRziuWIfEWTJHPVz.otherIntersectPos(offsetPos)) || !this.extend.getValue()) continue;
             for (Direction i2 : Direction.values()) {
-                if (i2 == Direction.field_11036) continue;
-                BlockPos offsetPos2 = offsetPos.method_10093(i2);
+                if (i2 == Direction.UP) continue;
+                BlockPos offsetPos2 = offsetPos.offset(i2);
                 if (Surround_BjIoVRziuWIfEWTJHPVz.selfIntersectPos(offsetPos2) || !this.onlySelf.getValue() && Surround_BjIoVRziuWIfEWTJHPVz.otherIntersectPos(offsetPos2)) {
                     for (Direction i3 : Direction.values()) {
-                        if (i3 == Direction.field_11036) continue;
+                        if (i3 == Direction.UP) continue;
                         this.tryPlaceBlock(offsetPos2);
-                        BlockPos offsetPos3 = offsetPos2.method_10093(i3);
+                        BlockPos offsetPos3 = offsetPos2.offset(i3);
                         this.tryPlaceBlock(BlockUtil.getPlaceSide(offsetPos3) != null || !BlockUtil.canReplace(offsetPos3) ? offsetPos3 : this.getHelperPos(offsetPos3));
                     }
                 }
@@ -246,14 +246,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         } else if (BlockUtil.hasEntity(pos, false)) {
             return;
         }
-        int old = Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_31548().field_7545;
+        int old = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_31548().field_7545;
         this.doSwap(block);
         if (BlockUtil.airPlace()) {
             BlockUtil.placedPos.add(pos);
-            BlockUtil.clickBlock(pos, Direction.field_11033, false, Hand.field_5808, this.packetPlace.getValue());
+            BlockUtil.clickBlock(pos, Direction.DOWN, false, Hand.field_5808, this.packetPlace.getValue());
         } else {
             BlockUtil.placedPos.add(pos);
-            BlockUtil.clickBlock(pos.method_10093(side), side.method_10153(), false, Hand.field_5808, this.packetPlace.getValue());
+            BlockUtil.clickBlock(pos.offset(side), side.method_10153(), false, Hand.field_5808, this.packetPlace.getValue());
         }
         if (this.inventory.getValue()) {
             this.doSwap(block);
@@ -279,7 +279,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_31548().field_7545);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -300,8 +300,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public BlockPos getHelperPos(BlockPos pos) {
         for (Direction i : Direction.values()) {
-            if (this.detectMining.getValue() && HexTech.BREAK.isMining(pos.method_10093(i)) || !BlockUtil.isStrictDirection(pos.method_10093(i), i.method_10153()) || !BlockUtil.canPlace(pos.method_10093(i))) continue;
-            return pos.method_10093(i);
+            if (this.detectMining.getValue() && HexTech.BREAK.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.method_10153()) || !BlockUtil.canPlace(pos.offset(i))) continue;
+            return pos.offset(i);
         }
         return null;
     }

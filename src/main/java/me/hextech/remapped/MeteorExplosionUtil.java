@@ -21,10 +21,10 @@ import net.minecraft.world.explosion.Explosion;
 
 public class MeteorExplosionUtil
 implements Wrapper {
-    public static final Explosion explosion = new Explosion((World)MeteorExplosionUtil.mc.field_1687, null, 0.0, 0.0, 0.0, 6.0f, false, Explosion.DestructionType.field_18687);
+    public static final Explosion explosion = new Explosion((World)MeteorExplosionUtil.mc.world, null, 0.0, 0.0, 0.0, 6.0f, false, Explosion.DestructionType.field_18687);
 
     public static double crystalDamage(PlayerEntity player, BlockPos pos, PlayerEntity predict) {
-        return MeteorExplosionUtil.explosionDamage(player, pos.method_46558().method_1031(0.0, -0.5, 0.0), predict, 6.0f);
+        return MeteorExplosionUtil.explosionDamage(player, pos.toCenterPos().method_1031(0.0, -0.5, 0.0), predict, 6.0f);
     }
 
     public static double crystalDamage(PlayerEntity player, Vec3d pos, PlayerEntity predict) {
@@ -34,12 +34,12 @@ implements Wrapper {
     public static double anchorDamage(PlayerEntity player, BlockPos pos, PlayerEntity predict) {
         if (BlockUtil.getBlock(pos) == Blocks.field_23152) {
             CombatUtil.modifyPos = pos;
-            CombatUtil.modifyBlockState = Blocks.field_10124.method_9564();
-            double damage = MeteorExplosionUtil.explosionDamage(player, pos.method_46558(), predict, 5.0f);
+            CombatUtil.modifyBlockState = Blocks.AIR.method_9564();
+            double damage = MeteorExplosionUtil.explosionDamage(player, pos.toCenterPos(), predict, 5.0f);
             CombatUtil.modifyPos = null;
             return damage;
         }
-        return MeteorExplosionUtil.explosionDamage(player, pos.method_46558(), predict, 5.0f);
+        return MeteorExplosionUtil.explosionDamage(player, pos.toCenterPos(), predict, 5.0f);
     }
 
     public static double explosionDamage(PlayerEntity player, Vec3d pos, PlayerEntity predict, float power) {
@@ -59,7 +59,7 @@ implements Wrapper {
         damage = MeteorExplosionUtil.getDamageForDifficulty(damage);
         damage = MeteorExplosionUtil.resistanceReduction((LivingEntity)player, damage);
         damage = DamageUtil.method_5496((float)((float)damage), (float)player.method_6096(), (float)((float)player.method_5996(EntityAttributes.field_23725).method_6194()));
-        ((IExplosion)explosion).setWorld((World)MeteorExplosionUtil.mc.field_1687);
+        ((IExplosion)explosion).setWorld((World)MeteorExplosionUtil.mc.world);
         ((IExplosion)explosion).setX(pos.field_1352);
         ((IExplosion)explosion).setY(pos.field_1351);
         ((IExplosion)explosion).setZ(pos.field_1350);
@@ -72,7 +72,7 @@ implements Wrapper {
     }
 
     private static double getDamageForDifficulty(double damage) {
-        return switch (MeteorExplosionUtil_zRIRZRqrriuJQOCbEfNs.$SwitchMap$net$minecraft$world$Difficulty[MeteorExplosionUtil.mc.field_1687.method_8407().ordinal()]) {
+        return switch (MeteorExplosionUtil_zRIRZRqrriuJQOCbEfNs.$SwitchMap$net$minecraft$world$Difficulty[MeteorExplosionUtil.mc.world.method_8407().ordinal()]) {
             case 1 -> 0.0;
             case 2 -> Math.min(damage / 2.0 + 1.0, damage);
             case 3 -> damage * 3.0 / 2.0;
@@ -81,7 +81,7 @@ implements Wrapper {
     }
 
     private static double blastProtReduction(Entity player, double damage, Explosion explosion) {
-        int protLevel = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)MeteorExplosionUtil.mc.field_1687.method_48963().method_48807(explosion));
+        int protLevel = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)MeteorExplosionUtil.mc.world.method_48963().method_48807(explosion));
         if (protLevel > 20) {
             protLevel = 20;
         }

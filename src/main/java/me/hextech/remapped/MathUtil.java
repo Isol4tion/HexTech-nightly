@@ -29,7 +29,7 @@ public class MathUtil {
         float o = l * i;
         float p = n * i;
         Direction direction = bl ? Direction.field_11034 : Direction.field_11039;
-        Direction direction2 = bl2 ? Direction.field_11036 : Direction.field_11033;
+        Direction direction2 = bl2 ? Direction.UP : Direction.DOWN;
         Direction direction4 = direction3 = bl3 ? Direction.field_11035 : Direction.field_11043;
         if (l > n) {
             if (m > o) {
@@ -98,13 +98,13 @@ public class MathUtil {
     }
 
     public static Direction getDirectionFromEntityLiving(BlockPos pos, LivingEntity entity) {
-        if (Math.abs(entity.method_23317() - ((double)pos.method_10263() + 0.5)) < 2.0 && Math.abs(entity.method_23321() - ((double)pos.method_10260() + 0.5)) < 2.0) {
-            double d0 = entity.method_23318() + (double)entity.method_18381(entity.method_18376());
+        if (Math.abs(entity.getX() - ((double)pos.method_10263() + 0.5)) < 2.0 && Math.abs(entity.getZ() - ((double)pos.method_10260() + 0.5)) < 2.0) {
+            double d0 = entity.getY() + (double)entity.method_18381(entity.method_18376());
             if (d0 - (double)pos.method_10264() > 2.0) {
-                return Direction.field_11036;
+                return Direction.UP;
             }
             if ((double)pos.method_10264() - d0 > 0.0) {
-                return Direction.field_11033;
+                return Direction.DOWN;
             }
         }
         return entity.method_5735().method_10153();

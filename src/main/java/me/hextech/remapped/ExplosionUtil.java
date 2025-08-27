@@ -27,12 +27,12 @@ implements Wrapper {
     public static float anchorDamage(BlockPos pos, PlayerEntity target, PlayerEntity predict) {
         if (BlockUtil.getBlock(pos) == Blocks.field_23152) {
             CombatUtil.modifyPos = pos;
-            CombatUtil.modifyBlockState = Blocks.field_10124.method_9564();
-            float damage = ExplosionUtil.calculateDamage(pos.method_46558().method_10216(), pos.method_46558().method_10214(), pos.method_46558().method_10215(), (Entity)target, (Entity)predict, 5.0f);
+            CombatUtil.modifyBlockState = Blocks.AIR.method_9564();
+            float damage = ExplosionUtil.calculateDamage(pos.toCenterPos().method_10216(), pos.toCenterPos().method_10214(), pos.toCenterPos().method_10215(), (Entity)target, (Entity)predict, 5.0f);
             CombatUtil.modifyPos = null;
             return damage;
         }
-        return ExplosionUtil.calculateDamage(pos.method_46558().method_10216(), pos.method_46558().method_10214(), pos.method_46558().method_10215(), (Entity)target, (Entity)predict, 5.0f);
+        return ExplosionUtil.calculateDamage(pos.toCenterPos().method_10216(), pos.toCenterPos().method_10214(), pos.toCenterPos().method_10215(), (Entity)target, (Entity)predict, 5.0f);
     }
 
     public static float calculateDamage(double posX, double posY, double posZ, Entity entity, Entity predict, float power) {
@@ -107,11 +107,11 @@ implements Wrapper {
 
     private static HitResult.Type raycast(Vec3d start, Vec3d end) {
         return (HitResult.Type)BlockView.method_17744((Vec3d)start, (Vec3d)end, null, (_null, blockPos) -> {
-            BlockState blockState = ExplosionUtil.mc.field_1687.method_8320(blockPos);
-            if (blockState.method_26204().method_9520() < 600.0f) {
+            BlockState blockState = ExplosionUtil.mc.world.getBlockState(blockPos);
+            if (blockState.getBlock().method_9520() < 600.0f) {
                 return null;
             }
-            BlockHitResult hitResult = blockState.method_26220((BlockView)ExplosionUtil.mc.field_1687, blockPos).method_1092(start, end, blockPos);
+            BlockHitResult hitResult = blockState.method_26220((BlockView)ExplosionUtil.mc.world, blockPos).method_1092(start, end, blockPos);
             return hitResult == null ? null : hitResult.method_17783();
         }, _null -> HitResult.Type.field_1333);
     }
@@ -130,7 +130,7 @@ implements Wrapper {
     }
 
     public static float getDamageMultiplied(float damage) {
-        int diff = ExplosionUtil.mc.field_1687.method_8407().method_5461();
+        int diff = ExplosionUtil.mc.world.method_8407().method_5461();
         return damage * (diff == 0 ? 0.0f : (diff == 2 ? 1.0f : (diff == 1 ? 0.5f : 1.5f)));
     }
 

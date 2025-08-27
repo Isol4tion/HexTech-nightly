@@ -14,7 +14,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         if (AutoRespawn.mc.field_1755 instanceof DeathScreen) {
-            AutoRespawn.mc.field_1724.method_7331();
+            AutoRespawn.mc.player.method_7331();
             mc.method_1507(null);
         }
     }

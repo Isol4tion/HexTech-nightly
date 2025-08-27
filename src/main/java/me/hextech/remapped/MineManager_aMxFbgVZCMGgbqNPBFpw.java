@@ -33,7 +33,7 @@ implements Wrapper {
             if (breakData.getEntity() == null) {
                 return;
             }
-            if (MathHelper.method_15355((float)((float)breakData.getEntity().method_33571().method_1025(packet.method_11277().method_46558()))) > 8.0f) {
+            if (MathHelper.method_15355((float)((float)breakData.getEntity().getEyePos().squaredDistanceTo(packet.method_11277().toCenterPos()))) > 8.0f) {
                 return;
             }
             this.breakMap.put(packet.method_11280(), breakData);
@@ -42,7 +42,7 @@ implements Wrapper {
 
     public boolean isMining(BlockPos pos) {
         for (MineManager breakData : this.breakMap.values()) {
-            if (breakData.getEntity() == null || breakData.getEntity().method_33571().method_1022(pos.method_46558()) > 7.0 || !breakData.pos.equals((Object)pos)) continue;
+            if (breakData.getEntity() == null || breakData.getEntity().getEyePos().method_1022(pos.toCenterPos()) > 7.0 || !breakData.pos.equals((Object)pos)) continue;
             return true;
         }
         return false;

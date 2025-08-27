@@ -54,17 +54,17 @@ extends Mod {
     }
 
     public static void sendSequencedPacket(SequencedPacketCreator packetCreator) {
-        if (mc.method_1562() == null || Module_eSdgMXWuzcxgQVaJFmKZ.mc.field_1687 == null) {
+        if (mc.method_1562() == null || Module_eSdgMXWuzcxgQVaJFmKZ.mc.world == null) {
             return;
         }
-        try (PendingUpdateManager pendingUpdateManager = Module_eSdgMXWuzcxgQVaJFmKZ.mc.field_1687.method_41925().method_41937();){
+        try (PendingUpdateManager pendingUpdateManager = Module_eSdgMXWuzcxgQVaJFmKZ.mc.world.method_41925().method_41937();){
             int i = pendingUpdateManager.method_41942();
             mc.method_1562().method_52787(packetCreator.predict(i));
         }
     }
 
     public static boolean nullCheck() {
-        return Module_eSdgMXWuzcxgQVaJFmKZ.mc.field_1724 == null || Module_eSdgMXWuzcxgQVaJFmKZ.mc.field_1687 == null;
+        return Module_eSdgMXWuzcxgQVaJFmKZ.mc.player == null || Module_eSdgMXWuzcxgQVaJFmKZ.mc.world == null;
     }
 
     public String getDescription() {

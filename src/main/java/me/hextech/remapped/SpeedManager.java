@@ -24,17 +24,17 @@ implements Wrapper {
     }
 
     public void updateValues() {
-        double distTraveledLastTickX = SpeedManager.mc.field_1724.method_23317() - SpeedManager.mc.field_1724.field_6014;
-        double distTraveledLastTickZ = SpeedManager.mc.field_1724.method_23321() - SpeedManager.mc.field_1724.field_5969;
+        double distTraveledLastTickX = SpeedManager.mc.player.getX() - SpeedManager.mc.player.field_6014;
+        double distTraveledLastTickZ = SpeedManager.mc.player.getZ() - SpeedManager.mc.player.field_5969;
         this.speedometerCurrentSpeed = distTraveledLastTickX * distTraveledLastTickX + distTraveledLastTickZ * distTraveledLastTickZ;
         this.updatePlayers();
     }
 
     public void updatePlayers() {
-        for (PlayerEntity player : SpeedManager.mc.field_1687.method_18456()) {
-            if (!((double)SpeedManager.mc.field_1724.method_5739((Entity)player) < 400.0)) continue;
-            double distTraveledLastTickX = player.method_23317() - player.field_6014;
-            double distTraveledLastTickZ = player.method_23321() - player.field_5969;
+        for (PlayerEntity player : SpeedManager.mc.world.method_18456()) {
+            if (!((double)SpeedManager.mc.player.method_5739((Entity)player) < 400.0)) continue;
+            double distTraveledLastTickX = player.getX() - player.field_6014;
+            double distTraveledLastTickZ = player.getZ() - player.field_5969;
             double playerSpeed = distTraveledLastTickX * distTraveledLastTickX + distTraveledLastTickZ * distTraveledLastTickZ;
             this.playerSpeeds.put(player, playerSpeed);
         }

@@ -17,12 +17,12 @@ implements Wrapper {
         Vec3d WallVec = CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.lowVersion.getValue() ? new Vec3d((double)pos.method_10263() + 0.5, (double)pos.method_10264(), (double)pos.method_10260() + 0.5) : new Vec3d((double)pos.method_10263() + 0.5, (double)pos.method_10264() + 1.7, (double)pos.method_10260() + 0.5);
         WallVec = new Vec3d((double)pos.method_10263() + 0.5, (double)pos.method_10264() + 1.7, (double)pos.method_10260() + 0.5);
         BlockHitResult result = null;
-        if (WallCheck.mc.field_1687 != null && WallCheck.mc.field_1724 != null) {
-            result = WallCheck.mc.field_1687.method_17742(new RaycastContext(EntityUtil.getEyesPos(), WallVec, RaycastContext.ShapeType.field_17558, RaycastContext.FluidHandling.field_1348, (Entity)WallCheck.mc.field_1724));
+        if (WallCheck.mc.world != null && WallCheck.mc.player != null) {
+            result = WallCheck.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), WallVec, RaycastContext.ShapeType.field_17558, RaycastContext.FluidHandling.field_1348, (Entity)WallCheck.mc.player));
         }
         if (result == null || result.method_17783() == HitResult.Type.field_1333) {
             return false;
         }
-        return WallCheck.mc.field_1724.method_33571().method_1022(pos.method_46558().method_1031(0.0, -0.5, 0.0)) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue();
+        return WallCheck.mc.player.getEyePos().method_1022(pos.toCenterPos().method_1031(0.0, -0.5, 0.0)) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue();
     }
 }

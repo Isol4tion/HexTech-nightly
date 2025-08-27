@@ -65,21 +65,21 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
-        for (Entity ent : NoRender.mc.field_1687.method_18112()) {
+        for (Entity ent : NoRender.mc.world.method_18112()) {
             if (ent instanceof PotionEntity && this.potions.getValue()) {
-                NoRender.mc.field_1687.method_2945(ent.method_5628(), Entity.RemovalReason.field_26998);
+                NoRender.mc.world.method_2945(ent.method_5628(), Entity.RemovalReason.field_26998);
             }
             if (ent instanceof ExperienceBottleEntity && this.xp.getValue()) {
-                NoRender.mc.field_1687.method_2945(ent.method_5628(), Entity.RemovalReason.field_26998);
+                NoRender.mc.world.method_2945(ent.method_5628(), Entity.RemovalReason.field_26998);
             }
             if (ent instanceof ArrowEntity && this.arrows.getValue()) {
-                NoRender.mc.field_1687.method_2945(ent.method_5628(), Entity.RemovalReason.field_26998);
+                NoRender.mc.world.method_2945(ent.method_5628(), Entity.RemovalReason.field_26998);
             }
             if (ent instanceof EggEntity && this.eggs.getValue()) {
-                NoRender.mc.field_1687.method_2945(ent.method_5628(), Entity.RemovalReason.field_26998);
+                NoRender.mc.world.method_2945(ent.method_5628(), Entity.RemovalReason.field_26998);
             }
             if (!(ent instanceof ItemEntity) || !this.item.getValue()) continue;
-            NoRender.mc.field_1687.method_2945(ent.method_5628(), Entity.RemovalReason.field_26998);
+            NoRender.mc.world.method_2945(ent.method_5628(), Entity.RemovalReason.field_26998);
         }
     }
 

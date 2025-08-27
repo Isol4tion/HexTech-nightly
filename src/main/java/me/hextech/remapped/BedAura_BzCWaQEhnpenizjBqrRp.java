@@ -172,11 +172,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             placePos = null;
             return;
         }
-        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.field_1724.method_5715()) {
+        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_5715()) {
             placePos = null;
             return;
         }
-        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.field_1687.method_27983().equals(World.field_25179)) {
+        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.method_27983().equals(World.field_25179)) {
             placePos = null;
             return;
         }
@@ -193,13 +193,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (PlayerEntity target : CombatUtil.getEnemies(this.targetRange.getRange())) {
                 list.add(new PredictionSetting._XBpBEveLWEKUGQPHCCIS(target));
             }
-            PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)BedAura_BzCWaQEhnpenizjBqrRp.mc.field_1724);
+            PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)BedAura_BzCWaQEhnpenizjBqrRp.mc.player);
             for (BlockPos pos : BlockUtil.getSphere((float)this.range.getValue())) {
                 if (!this.canPlaceBed(pos) && !(BlockUtil.getBlock(pos) instanceof BedBlock)) continue;
                 for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
                     float damage = this.calculateDamage(pos, pap.player, pap.predict);
                     float selfDamage = this.calculateDamage(pos, self.player, self.predict);
-                    if ((double)selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BedAura_BzCWaQEhnpenizjBqrRp.mc.field_1724.method_6032() + BedAura_BzCWaQEhnpenizjBqrRp.mc.field_1724.method_6067()) - this.antiSuicide.getValue() || damage < EntityUtil.getHealth((Entity)pap.player) && (damage < this.placeMinDamage.getValueFloat() || this.smart.getValue() && damage < selfDamage) || placePos != null && !(damage > this.lastDamage)) continue;
+                    if ((double)selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_6032() + BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_6067()) - this.antiSuicide.getValue() || damage < EntityUtil.getHealth((Entity)pap.player) && (damage < this.placeMinDamage.getValueFloat() || this.smart.getValue() && damage < selfDamage) || placePos != null && !(damage > this.lastDamage)) continue;
                     this.displayTarget = pap.player;
                     placePos = pos;
                     this.lastDamage = damage;
@@ -234,7 +234,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.Break.getValue()) {
             return;
         }
-        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.field_1687.method_8320(pos).method_26204() instanceof BedBlock) {
+        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.getBlockState(pos).getBlock() instanceof BedBlock) {
             Direction side = BlockUtil.getClickSide(pos);
             Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().method_10263() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().method_10264() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().method_10260() * 0.5);
             if (this.rotate.getValue() && !this.faceVector(directionVec)) {
@@ -246,7 +246,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.breakTimer.reset();
             EntityUtil.swingHand(Hand.field_5808, this.swingMode.getValue());
             BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
-            BedAura_BzCWaQEhnpenizjBqrRp.mc.field_1724.field_3944.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, result, BlockUtil.getWorldActionId(BedAura_BzCWaQEhnpenizjBqrRp.mc.field_1687)));
+            BedAura_BzCWaQEhnpenizjBqrRp.mc.player.field_3944.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, result, BlockUtil.getWorldActionId(BedAura_BzCWaQEhnpenizjBqrRp.mc.world)));
         }
     }
 
@@ -259,15 +259,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             placePos = null;
             return;
         }
-        int oldSlot = BedAura_BzCWaQEhnpenizjBqrRp.mc.field_1724.method_31548().field_7545;
+        int oldSlot = BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_31548().field_7545;
         Direction facing = null;
         for (Direction i : Direction.values()) {
-            if (i == Direction.field_11036 || i == Direction.field_11033 || !BlockUtil.clientCanPlace(pos.method_10093(i), false) || !BlockUtil.canClick(pos.method_10093(i).method_10074()) || this.checkMine.getValue() && BlockUtil.isMining(pos.method_10093(i))) continue;
+            if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.clientCanPlace(pos.offset(i), false) || !BlockUtil.canClick(pos.offset(i).method_10074()) || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i))) continue;
             facing = i;
             break;
         }
         if (facing != null) {
-            Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)Direction.field_11036.method_10163().method_10263() * 0.5, (double)pos.method_10264() + 0.5 + (double)Direction.field_11036.method_10163().method_10264() * 0.5, (double)pos.method_10260() + 0.5 + (double)Direction.field_11036.method_10163().method_10260() * 0.5);
+            Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)Direction.UP.method_10163().method_10263() * 0.5, (double)pos.method_10264() + 0.5 + (double)Direction.UP.method_10163().method_10264() * 0.5, (double)pos.method_10260() + 0.5 + (double)Direction.UP.method_10163().method_10260() * 0.5);
             if (this.rotate.getValue() && !this.faceVector(directionVec)) {
                 return;
             }
@@ -279,7 +279,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.yawDeceive.getValue()) {
                 HoleKickTest.pistonFacing(facing.method_10153());
             }
-            BlockUtil.clickBlock(pos.method_10093(facing).method_10074(), Direction.field_11036, false);
+            BlockUtil.clickBlock(pos.offset(facing).method_10074(), Direction.UP, false);
             if (this.rotate.getValue() && this.sync.getValue()) {
                 EntityUtil.faceVector(directionVec);
             }
@@ -349,7 +349,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventorySwap.getValue()) {
-            InventoryUtil.inventorySwap(slot, BedAura_BzCWaQEhnpenizjBqrRp.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_31548().field_7545);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -357,8 +357,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public float calculateDamage(BlockPos pos, PlayerEntity player, PlayerEntity predict) {
         CombatUtil.modifyPos = pos;
-        CombatUtil.modifyBlockState = Blocks.field_10124.method_9564();
-        float damage = this.calculateDamage(pos.method_46558(), player, predict);
+        CombatUtil.modifyBlockState = Blocks.AIR.method_9564();
+        float damage = this.calculateDamage(pos.toCenterPos(), player, predict);
         CombatUtil.modifyPos = null;
         return damage;
     }
@@ -392,7 +392,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean canPlaceBed(BlockPos pos) {
         if (!(!BlockUtil.canReplace(pos) || this.checkMine.getValue() && BlockUtil.isMining(pos))) {
             for (Direction i : Direction.values()) {
-                if (i == Direction.field_11036 || i == Direction.field_11033 || !BlockUtil.isStrictDirection(pos.method_10093(i).method_10074(), Direction.field_11036) || !this.isTrueFacing(pos.method_10093(i), i.method_10153()) || !BlockUtil.clientCanPlace(pos.method_10093(i), false) || !BlockUtil.canClick(pos.method_10093(i).method_10074()) || this.checkMine.getValue() && BlockUtil.isMining(pos.method_10093(i))) continue;
+                if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.isStrictDirection(pos.offset(i).method_10074(), Direction.UP) || !this.isTrueFacing(pos.offset(i), i.method_10153()) || !BlockUtil.clientCanPlace(pos.offset(i), false) || !BlockUtil.canClick(pos.offset(i).method_10074()) || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i))) continue;
                 return true;
             }
         }
@@ -403,7 +403,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.yawDeceive.getValue()) {
             return true;
         }
-        Vec3d hitVec = pos.method_46558().method_1019(new Vec3d(0.0, -0.5, 0.0));
+        Vec3d hitVec = pos.toCenterPos().method_1019(new Vec3d(0.0, -0.5, 0.0));
         return Direction.method_10150((double)EntityUtil.getLegitRotations(hitVec)[0]) == facing;
     }
 

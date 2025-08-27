@@ -39,11 +39,11 @@ public abstract class MixinWorldRenderer {
 
     @Inject(method={"renderEntity"}, at={@At(value="HEAD")}, cancellable=true)
     private void renderEntityHook(Entity entity, double cameraX, double cameraY, double cameraZ, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, CallbackInfo ci) {
-        if (NoInterp.INSTANCE.isOn() && entity != MinecraftClient.method_1551().field_1724 && entity instanceof PlayerEntity) {
+        if (NoInterp.INSTANCE.isOn() && entity != MinecraftClient.method_1551().player && entity instanceof PlayerEntity) {
             ci.cancel();
-            double d = entity.method_23317();
-            double e = entity.method_23318();
-            double f = entity.method_23321();
+            double d = entity.getX();
+            double e = entity.getY();
+            double f = entity.getZ();
             float g = entity.method_36454();
             this.field_4109.method_3954(entity, d - cameraX, e - cameraY, f - cameraZ, g, NoInterp.INSTANCE.tickDelta.getValueFloat(), matrices, vertexConsumers, this.field_4109.method_23839(entity, tickDelta));
         }
@@ -52,7 +52,7 @@ public abstract class MixinWorldRenderer {
     @Redirect(method={"render"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/gl/PostEffectProcessor;render(F)V", ordinal=0))
     void replaceShaderHook(PostEffectProcessor instance, float tickDelta) {
         ShaderManager._nSIALuQmpuiGKWaEurQW shaders = Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.mode.getValue();
-        if (Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.isOn() && Wrapper.mc.field_1687 != null) {
+        if (Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.isOn() && Wrapper.mc.world != null) {
             HexTech.SHADER.setupShader(shaders, HexTech.SHADER.getShaderOutline(shaders));
         } else {
             instance.method_1258(tickDelta);

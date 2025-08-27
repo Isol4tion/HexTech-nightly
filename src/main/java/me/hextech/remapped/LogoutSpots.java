@@ -49,17 +49,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         PlayerEntity player = this.logoutCache.get(uuid);
                         if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Both) {
                             if (this.notify.getValue()) {
-                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
+                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
                             }
                             if (this.message.getValue()) {
-                                CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
+                                CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
                             }
                         } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Notify) {
                             if (this.notify.getValue()) {
-                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
+                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
                             }
                         } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Chat && this.message.getValue()) {
-                            CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
+                            CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
                         }
                         this.logoutCache.remove(uuid);
                     }
@@ -77,17 +77,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (this.logoutCache.containsKey(uuid)) continue;
                         if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Both) {
                             if (this.notify.getValue()) {
-                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
+                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
                             }
                             if (this.message.getValue()) {
-                                CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7clogged out at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
+                                CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7clogged out at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
                             }
                         } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Notify) {
                             if (this.notify.getValue()) {
-                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
+                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
                             }
                         } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Chat && this.message.getValue()) {
-                            CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7clogged out at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
+                            CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7clogged out at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
                         }
                         this.logoutCache.put(uuid, player);
                     }
@@ -105,8 +105,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        for (PlayerEntity player : LogoutSpots.mc.field_1687.method_18456()) {
-            if (player == null || player.equals((Object)LogoutSpots.mc.field_1724)) continue;
+        for (PlayerEntity player : LogoutSpots.mc.world.method_18456()) {
+            if (player == null || player.equals((Object)LogoutSpots.mc.player)) continue;
             this.playerCache.put(player.method_7334().getId(), player);
         }
     }
@@ -118,7 +118,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (data == null) continue;
             Render3DUtil.draw3DBox(matrixStack, ((IEntity)data).getDimensions().method_30757(data.method_19538()), this.color.getValue(), this.outline.getValue(), this.box.getValue());
             if (!this.text.getValue()) continue;
-            Render3DUtil.drawText3D(data.method_5477().getString(), new Vec3d(data.method_23317(), ((IEntity)data).getDimensions().method_30757((Vec3d)data.method_19538()).field_1325 + 0.5, data.method_23321()), ColorUtil.injectAlpha(this.color.getValue(), 255));
+            Render3DUtil.drawText3D(data.method_5477().getString(), new Vec3d(data.getX(), ((IEntity)data).getDimensions().method_30757((Vec3d)data.method_19538()).field_1325 + 0.5, data.getZ()), ColorUtil.injectAlpha(this.color.getValue(), 255));
         }
     }
 }

@@ -55,7 +55,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (PlaceRender_BKSSHzfecITsyTxUXmfE placePosition : renderMap.values()) {
             double quads;
             if (placePosition.isAir) {
-                if (!PlaceRender.mc.field_1687.method_22347(placePosition.pos)) {
+                if (!PlaceRender.mc.world.isAir(placePosition.pos)) {
                     placePosition.isAir = false;
                 } else {
                     if (placePosition.timer.passed(this.timeout.getValue())) continue;

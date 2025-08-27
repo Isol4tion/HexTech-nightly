@@ -55,13 +55,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.pos = EntityUtil.getPlayerPos(true);
         for (Direction i : Direction.values()) {
             BlockPos offsetPos;
-            if (i == Direction.field_11033 || this.isGod(this.pos.method_10093(i).method_10084()) || !this.crystalHere(offsetPos = this.pos.method_10093(i).method_10086(2)) || this.crystalPos.contains(offsetPos)) continue;
+            if (i == Direction.DOWN || this.isGod(this.pos.offset(i).up()) || !this.crystalHere(offsetPos = this.pos.offset(i).method_10086(2)) || this.crystalPos.contains(offsetPos)) continue;
             this.crystalPos.add(offsetPos);
         }
         if (this.getBlock() == -1) {
             return;
         }
-        if (this.onlyGround.getValue() && !Objects.requireNonNull(AntiCev.mc.field_1724).method_24828()) {
+        if (this.onlyGround.getValue() && !Objects.requireNonNull(AntiCev.mc.player).method_24828()) {
             return;
         }
         this.crystalPos.removeIf(pos -> !BlockUtil.clientCanPlace(pos, true));
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean crystalHere(BlockPos pos) {
-        for (Entity entity : Objects.requireNonNull(AntiCev.mc.field_1687).method_18467(EndCrystalEntity.class, new Box(pos))) {
+        for (Entity entity : Objects.requireNonNull(AntiCev.mc.world).method_18467(EndCrystalEntity.class, new Box(pos))) {
             if (!EntityUtil.getEntityPos(entity).equals((Object)pos)) continue;
             return true;
         }
@@ -83,7 +83,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean isGod(BlockPos pos) {
-        return Objects.requireNonNull(AntiCev.mc.field_1687).method_8320(pos).method_26204() == Blocks.field_9987;
+        return Objects.requireNonNull(AntiCev.mc.world).getBlockState(pos).getBlock() == Blocks.field_9987;
     }
 
     private void placeBlock(BlockPos pos) {
@@ -112,7 +112,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, AntiCev.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, AntiCev.mc.player.method_31548().field_7545);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

@@ -79,7 +79,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static void doRender(MatrixStack matrixStack, float partialTicks, Entity entity, Color color, Aura_nurTqHTNjexQmuWdDgIn mode) {
         switch (mode.ordinal()) {
             case 0: {
-                Render3DUtil.draw3DBox(matrixStack, ((IEntity)entity).getDimensions().method_30757(new Vec3d(MathUtil.interpolate(entity.field_6038, entity.method_23317(), partialTicks), MathUtil.interpolate(entity.field_5971, entity.method_23318(), partialTicks), MathUtil.interpolate(entity.field_5989, entity.method_23321(), partialTicks))).method_1009(0.0, 0.1, 0.0), color, false, true);
+                Render3DUtil.draw3DBox(matrixStack, ((IEntity)entity).getDimensions().method_30757(new Vec3d(MathUtil.interpolate(entity.field_6038, entity.getX(), partialTicks), MathUtil.interpolate(entity.field_5971, entity.getY(), partialTicks), MathUtil.interpolate(entity.field_5989, entity.getZ(), partialTicks))).method_1009(0.0, 0.1, 0.0), color, false, true);
                 break;
             }
             case 1: {
@@ -93,7 +93,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static float getAttackCooldownProgressPerTick() {
-        return (float)(1.0 / Aura.mc.field_1724.method_26825(EntityAttributes.field_23723) * 20.0);
+        return (float)(1.0 / Aura.mc.player.method_26825(EntityAttributes.field_23723) * 20.0);
     }
 
     @Override
@@ -118,7 +118,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             ++this.attackTicks;
             this.tick.reset();
         }
-        if (this.weaponOnly.getValue() && !EntityUtil.isHoldingWeapon((PlayerEntity)Aura.mc.field_1724)) {
+        if (this.weaponOnly.getValue() && !EntityUtil.isHoldingWeapon((PlayerEntity)Aura.mc.player)) {
             target = null;
             return;
         }
@@ -148,7 +148,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean check() {
         int at = this.attackTicks;
         if (this.cd.getValue() == _VwTXxsLfDdMNyKpyAwyl.Vanilla) {
-            at = ((ILivingEntity)Aura.mc.field_1724).getLastAttackedTicks();
+            at = ((ILivingEntity)Aura.mc.player).getLastAttackedTicks();
         }
         if (!((double)Math.max((float)at / Aura.getAttackCooldownProgressPerTick(), 0.0f) >= this.cooldown.getValue())) {
             return false;
@@ -161,7 +161,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return false;
             }
         }
-        return this.whileEating.getValue() || !Aura.mc.field_1724.method_6115();
+        return this.whileEating.getValue() || !Aura.mc.player.method_6115();
     }
 
     private void doAura() {
@@ -174,16 +174,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int slot = InventoryUtil.findItemInventorySlot(Items.field_22022);
         if (this.ghost.getValue()) {
             this.sweeping = true;
-            InventoryUtil.inventorySwap(slot, Aura.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Aura.mc.player.method_31548().field_7545);
         }
         this.ghostTimer.reset();
         if (!this.ghost.getValue() && Criticals.INSTANCE.isOn()) {
             Criticals.INSTANCE.doCrit();
         }
-        Aura.mc.field_1761.method_2918((PlayerEntity)Aura.mc.field_1724, target);
+        Aura.mc.field_1761.method_2918((PlayerEntity)Aura.mc.player, target);
         EntityUtil.swingHand(Hand.field_5808, this.swingMode.getValue());
         if (this.ghost.getValue()) {
-            InventoryUtil.inventorySwap(slot, Aura.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Aura.mc.player.method_31548().field_7545);
             this.sweeping = false;
         }
         this.attackTicks = 0;
@@ -207,11 +207,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Entity target = null;
         double distance = this.range.getValue();
         double maxHealth = 36.0;
-        for (Entity entity : Aura.mc.field_1687.method_18112()) {
-            if (!this.isEnemy(entity) || !Aura.mc.field_1724.method_6057(entity) && (double)Aura.mc.field_1724.method_5739(entity) > this.wallRange.getValue() || !CombatUtil.isValid(entity, this.range.getValue())) continue;
+        for (Entity entity : Aura.mc.world.method_18112()) {
+            if (!this.isEnemy(entity) || !Aura.mc.player.method_6057(entity) && (double)Aura.mc.player.method_5739(entity) > this.wallRange.getValue() || !CombatUtil.isValid(entity, this.range.getValue())) continue;
             if (target == null) {
                 target = entity;
-                distance = Aura.mc.field_1724.method_5739(entity);
+                distance = Aura.mc.player.method_5739(entity);
                 maxHealth = EntityUtil.getHealth(entity);
                 continue;
             }
@@ -224,9 +224,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 maxHealth = EntityUtil.getHealth(entity);
                 continue;
             }
-            if (this.targetMode.getValue() != _EhoXCPdRwyZMhABJnmhT.DISTANCE || !((double)Aura.mc.field_1724.method_5739(entity) < distance)) continue;
+            if (this.targetMode.getValue() != _EhoXCPdRwyZMhABJnmhT.DISTANCE || !((double)Aura.mc.player.method_5739(entity) < distance)) continue;
             target = entity;
-            distance = Aura.mc.field_1724.method_5739(entity);
+            distance = Aura.mc.player.method_5739(entity);
         }
         return target;
     }

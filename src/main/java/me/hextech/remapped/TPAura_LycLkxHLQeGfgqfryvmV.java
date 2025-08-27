@@ -64,7 +64,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static float getAttackCooldownProgressPerTick() {
-        return (float)(1.0 / TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724.method_26825(EntityAttributes.field_23723) * 20.0);
+        return (float)(1.0 / TPAura_LycLkxHLQeGfgqfryvmV.mc.player.method_26825(EntityAttributes.field_23723) * 20.0);
     }
 
     @Override
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (this.lastPath != null) {
             for (Vec3 vec3 : this.lastPath) {
-                Render3DUtil.draw3DBox(matrixStack, ((IEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724).getDimensions().method_30757(vec3.mc()), new Color(255, 255, 255, 150), true, true);
+                Render3DUtil.draw3DBox(matrixStack, ((IEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player).getDimensions().method_30757(vec3.mc()), new Color(255, 255, 255, 150), true, true);
             }
         }
     }
@@ -86,7 +86,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             ++this.attackTicks;
             this.tick.reset();
         }
-        if (this.weaponOnly.getValue() && !EntityUtil.isHoldingWeapon((PlayerEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724)) {
+        if (this.weaponOnly.getValue() && !EntityUtil.isHoldingWeapon((PlayerEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player)) {
             target = null;
             return;
         }
@@ -104,24 +104,24 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean auraReady() {
         int at = this.attackTicks;
         if (this.cd.getValue() == Aura._VwTXxsLfDdMNyKpyAwyl.Vanilla) {
-            at = ((ILivingEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724).getLastAttackedTicks();
+            at = ((ILivingEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player).getLastAttackedTicks();
         }
         if (!((double)Math.max((float)at / TPAura_LycLkxHLQeGfgqfryvmV.getAttackCooldownProgressPerTick(), 0.0f) >= this.cooldown.getValue())) {
             return false;
         }
-        return this.whileEating.getValue() || !TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724.method_6115();
+        return this.whileEating.getValue() || !TPAura_LycLkxHLQeGfgqfryvmV.mc.player.method_6115();
     }
 
     private LivingEntity getTarget() {
         LivingEntity target = null;
         double distance = this.range.getValue();
         double maxHealth = 36.0;
-        for (Entity e : TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1687.method_18112()) {
+        for (Entity e : TPAura_LycLkxHLQeGfgqfryvmV.mc.world.method_18112()) {
             LivingEntity entity;
             if (!(e instanceof LivingEntity) || !this.isEnemy((Entity)(entity = (LivingEntity)e)) || !CombatUtil.isValid((Entity)entity, this.range.getValue())) continue;
             if (target == null) {
                 target = entity;
-                distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724.method_5739((Entity)entity);
+                distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.method_5739((Entity)entity);
                 maxHealth = EntityUtil.getHealth((Entity)entity);
                 continue;
             }
@@ -134,27 +134,27 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 maxHealth = EntityUtil.getHealth((Entity)entity);
                 continue;
             }
-            if (this.targetMode.getValue() != TPAura_XzEqwIDEtUaoPqXpLXTU.DISTANCE || !((double)TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724.method_5739((Entity)entity) < distance)) continue;
+            if (this.targetMode.getValue() != TPAura_XzEqwIDEtUaoPqXpLXTU.DISTANCE || !((double)TPAura_LycLkxHLQeGfgqfryvmV.mc.player.method_5739((Entity)entity) < distance)) continue;
             target = entity;
-            distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724.method_5739((Entity)entity);
+            distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.method_5739((Entity)entity);
         }
         return target;
     }
 
     private void doTPHit(LivingEntity entity) {
         attacking = true;
-        List<Vec3> tpPath = PathUtils.computePath((LivingEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724, entity);
+        List<Vec3> tpPath = PathUtils.computePath((LivingEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player, entity);
         this.lastPath = new ArrayList<Vec3>(tpPath);
-        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
-        TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1761.method_2918((PlayerEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724, (Entity)target);
+        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
+        TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1761.method_2918((PlayerEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player, (Entity)target);
         EntityUtil.swingHand(Hand.field_5808, this.swingMode.getValue());
         tpPath = Lists.reverse(tpPath);
-        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
+        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
         if (this.test.getValue()) {
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.354844, 0.0, false));
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, 0.325488, 0.0, false));
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15441, 0.0, false));
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15444, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.354844, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, 0.325488, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15441, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15444, 0.0, false));
         }
         attacking = false;
         this.attackTicks = 0;

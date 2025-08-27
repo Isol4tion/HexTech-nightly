@@ -95,7 +95,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             VertexConsumerProvider.Immediate immediate = mc.method_22940().method_23000();
             RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)(1.0f - f2));
-            mc.method_1480().method_23178(this.floatingItem, ModelTransformationMode.field_4319, 0xF000F0, OverlayTexture.field_21444, matrixStack, (VertexConsumerProvider)immediate, (World)TotemAnimation.mc.field_1687, 0);
+            mc.method_1480().method_23178(this.floatingItem, ModelTransformationMode.field_4319, 0xF000F0, OverlayTexture.field_21444, matrixStack, (VertexConsumerProvider)immediate, (World)TotemAnimation.mc.world, 0);
             matrixStack.method_22909();
             immediate.method_22993();
             RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);

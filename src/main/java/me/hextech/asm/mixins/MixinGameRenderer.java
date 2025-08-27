@@ -152,7 +152,7 @@ public class MixinGameRenderer {
     @Unique
     public void update(float tickDelta) {
         Entity entity = this.field_4015.method_1560();
-        if (entity != null && this.field_4015.field_1687 != null) {
+        if (entity != null && this.field_4015.world != null) {
             EntityHitResult entityHitResult;
             this.field_4015.method_16011().method_15396("pick");
             this.field_4015.field_1692 = null;
@@ -170,7 +170,7 @@ public class MixinGameRenderer {
             }
             e *= e;
             if (this.field_4015.field_1765 != null) {
-                e = this.field_4015.field_1765.method_17784().method_1025(vec3d);
+                e = this.field_4015.field_1765.method_17784().squaredDistanceTo(vec3d);
             }
             Vec3d vec3d2 = entity.method_5828(1.0f);
             Vec3d vec3d3 = vec3d.method_1031(vec3d2.field_1352 * d, vec3d2.field_1351 * d, vec3d2.field_1350 * d);
@@ -183,7 +183,7 @@ public class MixinGameRenderer {
             if (!MineTweak.INSTANCE.noEntityTrace() && (entityHitResult = ProjectileUtil.method_18075((Entity)entity, (Vec3d)vec3d, (Vec3d)vec3d3, (Box)box, entityx -> !entityx.method_7325() && entityx.method_5863(), (double)e)) != null) {
                 Entity entity2 = entityHitResult.method_17782();
                 Vec3d vec3d4 = entityHitResult.method_17784();
-                double g = vec3d.method_1025(vec3d4);
+                double g = vec3d.squaredDistanceTo(vec3d4);
                 if (bl && g > 9.0) {
                     this.field_4015.field_1765 = BlockHitResult.method_17778((Vec3d)vec3d4, (Direction)Direction.method_10142((double)vec3d2.field_1352, (double)vec3d2.field_1351, (double)vec3d2.field_1350), (BlockPos)BlockPos.method_49638((Position)vec3d4));
                 } else if (g < e || this.field_4015.field_1765 == null) {

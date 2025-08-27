@@ -54,8 +54,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (!this.surround.getValue() || !BlockUtil.isHole(pos = EntityUtil.getEntityPos(entity, true))) continue;
             for (Direction i : Direction.values()) {
-                if (i == Direction.field_11036 || i == Direction.field_11033 || !this.isObsidian(pos.method_10093(i))) continue;
-                this.renderList.add(pos.method_10093(i));
+                if (i == Direction.UP || i == Direction.DOWN || !this.isObsidian(pos.offset(i))) continue;
+                this.renderList.add(pos.offset(i));
             }
         }
         for (BlockPos blockPos : this.renderList) {

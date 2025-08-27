@@ -46,10 +46,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        fakePlayer = new OtherClientPlayerEntity(Blink.mc.field_1687, new GameProfile(UUID.fromString("11451466-6666-6666-6666-666666666601"), Blink.mc.field_1724.method_5477().getString()));
-        fakePlayer.method_5719((Entity)Blink.mc.field_1724);
-        fakePlayer.method_31548().method_7377(Blink.mc.field_1724.method_31548());
-        Blink.mc.field_1687.method_53875((Entity)fakePlayer);
+        fakePlayer = new OtherClientPlayerEntity(Blink.mc.world, new GameProfile(UUID.fromString("11451466-6666-6666-6666-666666666601"), Blink.mc.player.method_5477().getString()));
+        fakePlayer.method_5719((Entity)Blink.mc.player);
+        fakePlayer.method_31548().method_7377(Blink.mc.player.method_31548());
+        Blink.mc.world.method_53875((Entity)fakePlayer);
         if (this.exp.getValue()) {
             AutoEXP.INSTANCE.enable();
         }
@@ -57,7 +57,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (Blink.mc.field_1724.method_29504()) {
+        if (Blink.mc.player.method_29504()) {
             this.packetsList.clear();
             this.disable();
         }
@@ -118,7 +118,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             fakePlayer = null;
         }
         for (Packet packet : this.packetsList) {
-            Blink.mc.field_1724.field_3944.method_52787(packet);
+            Blink.mc.player.field_3944.method_52787(packet);
         }
         if (this.bur.getValue() && !Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.isOn()) {
             Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.enable();

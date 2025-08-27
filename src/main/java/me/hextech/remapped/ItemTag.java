@@ -18,7 +18,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        for (Entity entity : ItemTag.mc.field_1687.method_18112()) {
+        for (Entity entity : ItemTag.mc.world.method_18112()) {
             if (!(entity instanceof ItemEntity)) continue;
             ItemEntity itemEntity = (ItemEntity)entity;
             String s = this.count.getValue() ? " x" + itemEntity.method_6983().method_7947() : "";
@@ -29,10 +29,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onDisable() {
-        if (ItemTag.mc.field_1687 == null) {
+        if (ItemTag.mc.world == null) {
             return;
         }
-        for (Entity entity : ItemTag.mc.field_1687.method_18112()) {
+        for (Entity entity : ItemTag.mc.world.method_18112()) {
             if (!(entity instanceof ItemEntity)) continue;
             ItemEntity itemEntity = (ItemEntity)entity;
             itemEntity.method_5880(false);

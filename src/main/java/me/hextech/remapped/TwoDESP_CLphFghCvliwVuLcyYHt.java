@@ -71,11 +71,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static float getRotations(Vec2f vec) {
-        if (TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1724 == null) {
+        if (TwoDESP_CLphFghCvliwVuLcyYHt.mc.player == null) {
             return 0.0f;
         }
-        double x = (double)vec.field_1343 - TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1724.method_19538().field_1352;
-        double z = (double)vec.field_1342 - TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1724.method_19538().field_1350;
+        double x = (double)vec.field_1343 - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.method_19538().field_1352;
+        double z = (double)vec.field_1342 - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.method_19538().field_1350;
         return (float)(-(Math.atan2(x, z) * 57.29577951308232));
     }
 
@@ -86,13 +86,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Render2DUtil.setupRender();
         RenderSystem.setShader(GameRenderer::method_34540);
         bufferBuilder.method_1328(VertexFormat.DrawMode.field_27382, VertexFormats.field_1576);
-        for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1687.method_18112()) {
+        for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.world.method_18112()) {
             if (!this.shouldRender(ent)) continue;
             this.drawBox(bufferBuilder, ent, matrix, context);
         }
         BufferRenderer.method_43433((BufferBuilder.BuiltBuffer)bufferBuilder.method_1326());
         Render2DUtil.endRender();
-        for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1687.method_18112()) {
+        for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.world.method_18112()) {
             if (!this.shouldRender(ent)) continue;
             this.drawText(ent, context);
         }
@@ -102,11 +102,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (entity == null) {
             return false;
         }
-        if (TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1724 == null) {
+        if (TwoDESP_CLphFghCvliwVuLcyYHt.mc.player == null) {
             return false;
         }
         if (entity instanceof PlayerEntity) {
-            if (entity == TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1724 && TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1690.method_31044().method_31034()) {
+            if (entity == TwoDESP_CLphFghCvliwVuLcyYHt.mc.player && TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1690.method_31044().method_31034()) {
                 return false;
             }
             if (HexTech.FRIEND.isFriend((PlayerEntity)entity)) {
@@ -147,11 +147,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void drawBox(BufferBuilder bufferBuilder, @NotNull Entity ent, Matrix4f matrix, DrawContext context) {
-        double x = ent.field_6014 + (ent.method_23317() - ent.field_6014) * (double)mc.method_1488();
-        double y = ent.field_6036 + (ent.method_23318() - ent.field_6036) * (double)mc.method_1488();
-        double z = ent.field_5969 + (ent.method_23321() - ent.field_5969) * (double)mc.method_1488();
+        double x = ent.field_6014 + (ent.getX() - ent.field_6014) * (double)mc.getTickDelta();
+        double y = ent.field_6036 + (ent.getY() - ent.field_6036) * (double)mc.getTickDelta();
+        double z = ent.field_5969 + (ent.getZ() - ent.field_5969) * (double)mc.getTickDelta();
         Box axisAlignedBB2 = ent.method_5829();
-        Box axisAlignedBB = new Box(axisAlignedBB2.field_1323 - ent.method_23317() + x - 0.05, axisAlignedBB2.field_1322 - ent.method_23318() + y, axisAlignedBB2.field_1321 - ent.method_23321() + z - 0.05, axisAlignedBB2.field_1320 - ent.method_23317() + x + 0.05, axisAlignedBB2.field_1325 - ent.method_23318() + y + 0.15, axisAlignedBB2.field_1324 - ent.method_23321() + z + 0.05);
+        Box axisAlignedBB = new Box(axisAlignedBB2.field_1323 - ent.getX() + x - 0.05, axisAlignedBB2.field_1322 - ent.getY() + y, axisAlignedBB2.field_1321 - ent.getZ() + z - 0.05, axisAlignedBB2.field_1320 - ent.getX() + x + 0.05, axisAlignedBB2.field_1325 - ent.getY() + y + 0.15, axisAlignedBB2.field_1324 - ent.getZ() + z + 0.05);
         Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1322, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1325, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1322, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1325, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1322, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1325, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1322, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1325, axisAlignedBB.field_1324)};
         Color col = this.getEntityColor(ent);
         Vector4d position = null;
@@ -211,11 +211,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void drawText(Entity ent, DrawContext context) {
-        double x = ent.field_6014 + (ent.method_23317() - ent.field_6014) * (double)mc.method_1488();
-        double y = ent.field_6036 + (ent.method_23318() - ent.field_6036) * (double)mc.method_1488();
-        double z = ent.field_5969 + (ent.method_23321() - ent.field_5969) * (double)mc.method_1488();
+        double x = ent.field_6014 + (ent.getX() - ent.field_6014) * (double)mc.getTickDelta();
+        double y = ent.field_6036 + (ent.getY() - ent.field_6036) * (double)mc.getTickDelta();
+        double z = ent.field_5969 + (ent.getZ() - ent.field_5969) * (double)mc.getTickDelta();
         Box axisAlignedBB2 = ent.method_5829();
-        Box axisAlignedBB = new Box(axisAlignedBB2.field_1323 - ent.method_23317() + x - 0.05, axisAlignedBB2.field_1322 - ent.method_23318() + y, axisAlignedBB2.field_1321 - ent.method_23321() + z - 0.05, axisAlignedBB2.field_1320 - ent.method_23317() + x + 0.05, axisAlignedBB2.field_1325 - ent.method_23318() + y + 0.15, axisAlignedBB2.field_1324 - ent.method_23321() + z + 0.05);
+        Box axisAlignedBB = new Box(axisAlignedBB2.field_1323 - ent.getX() + x - 0.05, axisAlignedBB2.field_1322 - ent.getY() + y, axisAlignedBB2.field_1321 - ent.getZ() + z - 0.05, axisAlignedBB2.field_1320 - ent.getX() + x + 0.05, axisAlignedBB2.field_1325 - ent.getY() + y + 0.15, axisAlignedBB2.field_1324 - ent.getZ() + z + 0.05);
         Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1322, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1325, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1322, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1325, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1322, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1325, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1322, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1325, axisAlignedBB.field_1324)};
         Color col = this.getEntityColor(ent);
         Vector4d position = null;

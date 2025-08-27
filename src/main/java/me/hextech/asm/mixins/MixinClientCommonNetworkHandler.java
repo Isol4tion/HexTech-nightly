@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinClientCommonNetworkHandler {
     @Inject(method={"onDisconnected"}, at={@At(value="HEAD")}, cancellable=true)
     private void onDisconnected(Text reason, CallbackInfo ci) {
-        if (Wrapper.mc.field_1724 != null && Wrapper.mc.field_1687 != null && SilentDisconnect.INSTANCE.isOn()) {
+        if (Wrapper.mc.player != null && Wrapper.mc.world != null && SilentDisconnect.INSTANCE.isOn()) {
             CommandManager.sendChatMessage("\u00a74[!] \u00a7cDisconnect! reason: \u00a77" + reason.getString());
             ci.cancel();
         }

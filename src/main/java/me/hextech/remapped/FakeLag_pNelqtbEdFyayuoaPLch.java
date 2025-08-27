@@ -48,14 +48,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Object t = event.getPacket();
-        if (t instanceof EntityS2CPacket && (entity = (entityS2CPacket = (EntityS2CPacket)t).method_11645((World)FakeLag_pNelqtbEdFyayuoaPLch.mc.field_1687)) instanceof PlayerEntity) {
+        if (t instanceof EntityS2CPacket && (entity = (entityS2CPacket = (EntityS2CPacket)t).method_11645((World)FakeLag_pNelqtbEdFyayuoaPLch.mc.world)) instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
-            if (player == FakeLag_pNelqtbEdFyayuoaPLch.mc.field_1724) {
+            if (player == FakeLag_pNelqtbEdFyayuoaPLch.mc.player) {
                 return;
             }
             if (map.containsKey(player) && this.entity.getValue()) {
                 Vec3d vec3d = new Vec3d((double)entityS2CPacket.method_36150(), (double)entityS2CPacket.method_36151(), (double)entityS2CPacket.method_36152());
-                if (map.get(player).method_1022(FakeLag_pNelqtbEdFyayuoaPLch.mc.field_1724.method_19538()) < vec3d.method_1022(FakeLag_pNelqtbEdFyayuoaPLch.mc.field_1724.method_19538())) {
+                if (map.get(player).method_1022(FakeLag_pNelqtbEdFyayuoaPLch.mc.player.method_19538()) < vec3d.method_1022(FakeLag_pNelqtbEdFyayuoaPLch.mc.player.method_19538())) {
                     this.packet.add(new FakeLag(this, (Packet)entityS2CPacket));
                     event.cancel();
                 }
@@ -80,7 +80,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.entity.getValue()) {
             for (Vec3d vec3d : map.values()) {
                 Color color = new Color(255, 255, 255, 100);
-                Render3DUtil.draw3DBox(matrixStack, ((IEntity)FakeLag_pNelqtbEdFyayuoaPLch.mc.field_1724).getDimensions().method_30757(vec3d).method_1009(0.0, 0.1, 0.0), color, false, true);
+                Render3DUtil.draw3DBox(matrixStack, ((IEntity)FakeLag_pNelqtbEdFyayuoaPLch.mc.player).getDimensions().method_30757(vec3d).method_1009(0.0, 0.1, 0.0), color, false, true);
             }
         }
     }

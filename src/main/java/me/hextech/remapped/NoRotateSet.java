@@ -37,12 +37,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (packet.method_11733().contains(PositionFlag.field_12401)) {
                 ((IPlayerPositionLookS2CPacket)packet).setYaw(0.0f);
             } else {
-                ((IPlayerPositionLookS2CPacket)packet).setYaw(NoRotateSet.mc.field_1724.method_36454());
+                ((IPlayerPositionLookS2CPacket)packet).setYaw(NoRotateSet.mc.player.method_36454());
             }
             if (packet.method_11733().contains(PositionFlag.field_12397)) {
                 ((IPlayerPositionLookS2CPacket)packet).setPitch(0.0f);
             } else {
-                ((IPlayerPositionLookS2CPacket)packet).setPitch(NoRotateSet.mc.field_1724.method_36455());
+                ((IPlayerPositionLookS2CPacket)packet).setPitch(NoRotateSet.mc.player.method_36455());
             }
             if (event.getPacket() instanceof PlayerPositionLookS2CPacket) {
                 this.lagTimer.reset();

@@ -103,7 +103,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.timer.passedMs(this.delay.getValueInt())) {
             return;
         }
-        if (this.usingPause.getValue() && HoleFiller.mc.field_1724.method_6115()) {
+        if (this.usingPause.getValue() && HoleFiller.mc.player.method_6115()) {
             return;
         }
         this.progress = 0;
@@ -123,12 +123,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (PlayerEntity target : CombatUtil.getEnemies(this.targetRange.getRange())) {
             list.add(new PredictionSetting._XBpBEveLWEKUGQPHCCIS(target));
         }
-        PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)HoleFiller.mc.field_1724);
+        PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)HoleFiller.mc.player);
         if (!list.isEmpty()) {
             for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
                 for (BlockPos pos : BlockUtil.getSphere(this.range.getValueFloat(), pap.player.method_19538())) {
-                    if (!BlockUtil.isHole(pos, true, true, this.any.getValue()) && (!this.doubleHole.getValue() || !CombatUtil.isDoubleHole(pos)) || HoleFiller.mc.field_1724.method_5707(pos.method_46558()) < this.saferange.getValue() || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals((Object)SpeedMine.breakPos)) || this.progress >= this.blocksPer.getValueInt() || !BlockUtil.canPlace(pos, this.placeRange.getValue()) || BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) == null || !HoleFiller.mc.field_1687.method_22347(pos)) continue;
-                    int oldSlot = HoleFiller.mc.field_1724.method_31548().field_7545;
+                    if (!BlockUtil.isHole(pos, true, true, this.any.getValue()) && (!this.doubleHole.getValue() || !CombatUtil.isDoubleHole(pos)) || HoleFiller.mc.player.method_5707(pos.toCenterPos()) < this.saferange.getValue() || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals((Object)SpeedMine.breakPos)) || this.progress >= this.blocksPer.getValueInt() || !BlockUtil.canPlace(pos, this.placeRange.getValue()) || BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) == null || !HoleFiller.mc.world.isAir(pos)) continue;
+                    int oldSlot = HoleFiller.mc.player.method_31548().field_7545;
                     this.doSwap(block);
                     this.placeBlock(pos, this.rotate.getValue());
                     ++this.progress;
@@ -148,7 +148,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Direction side;
         if (BlockUtil.airPlace()) {
             for (Direction i : Direction.values()) {
-                if (!HoleFiller.mc.field_1687.method_22347(pos.method_10093(i))) continue;
+                if (!HoleFiller.mc.world.isAir(pos.offset(i))) continue;
                 return this.clickBlock(pos, i, rotate);
             }
         }
@@ -159,25 +159,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         BlockUtil.placedPos.add(pos);
         boolean sprint = false;
-        if (HoleFiller.mc.field_1724 != null) {
-            sprint = HoleFiller.mc.field_1724.method_5624();
+        if (HoleFiller.mc.player != null) {
+            sprint = HoleFiller.mc.player.method_5624();
         }
         boolean sneak = false;
-        if (HoleFiller.mc.field_1687 != null) {
-            boolean bl = sneak = HoleFiller.needSneak(HoleFiller.mc.field_1687.method_8320(result.method_17777()).method_26204()) && !HoleFiller.mc.field_1724.method_5715();
+        if (HoleFiller.mc.world != null) {
+            boolean bl = sneak = HoleFiller.needSneak(HoleFiller.mc.world.getBlockState(result.method_17777()).getBlock()) && !HoleFiller.mc.player.method_5715();
         }
         if (sprint) {
-            HoleFiller.mc.field_1724.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.field_1724, ClientCommandC2SPacket.Mode.field_12985));
+            HoleFiller.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.field_12985));
         }
         if (sneak) {
-            HoleFiller.mc.field_1724.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.field_1724, ClientCommandC2SPacket.Mode.field_12979));
+            HoleFiller.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.field_12979));
         }
-        this.clickBlock(pos.method_10093(side), side.method_10153(), rotate);
+        this.clickBlock(pos.offset(side), side.method_10153(), rotate);
         if (sneak) {
-            HoleFiller.mc.field_1724.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.field_1724, ClientCommandC2SPacket.Mode.field_12984));
+            HoleFiller.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.field_12984));
         }
         if (sprint) {
-            HoleFiller.mc.field_1724.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.field_1724, ClientCommandC2SPacket.Mode.field_12981));
+            HoleFiller.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.field_12981));
         }
         EntityUtil.swingHand(Hand.field_5808, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         return true;
@@ -190,7 +190,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         EntityUtil.swingHand(Hand.field_5808, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
-        HoleFiller.mc.field_1724.field_3944.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, result, BlockUtil.getWorldActionId(HoleFiller.mc.field_1687)));
+        HoleFiller.mc.player.field_3944.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, result, BlockUtil.getWorldActionId(HoleFiller.mc.world)));
         return true;
     }
 
@@ -238,7 +238,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, HoleFiller.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, HoleFiller.mc.player.method_31548().field_7545);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

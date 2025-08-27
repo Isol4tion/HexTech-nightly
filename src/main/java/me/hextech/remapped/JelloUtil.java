@@ -18,13 +18,13 @@ implements Wrapper {
     private static float circleStep;
 
     public static void drawJello(MatrixStack matrix, Entity target, Color color) {
-        double cs = prevCircleStep + (circleStep - prevCircleStep) * mc.method_1488();
+        double cs = prevCircleStep + (circleStep - prevCircleStep) * mc.getTickDelta();
         double prevSinAnim = JelloUtil.absSinAnimation(cs - (double)0.45f);
         double sinAnim = JelloUtil.absSinAnimation(cs);
-        double x = target.field_6014 + (target.method_23317() - target.field_6014) * (double)mc.method_1488() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10216();
-        double y = target.field_6036 + (target.method_23318() - target.field_6036) * (double)mc.method_1488() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10214() + prevSinAnim * (double)target.method_17682();
-        double z = target.field_5969 + (target.method_23321() - target.field_5969) * (double)mc.method_1488() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10215();
-        double nextY = target.field_6036 + (target.method_23318() - target.field_6036) * (double)mc.method_1488() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10214() + sinAnim * (double)target.method_17682();
+        double x = target.field_6014 + (target.getX() - target.field_6014) * (double)mc.getTickDelta() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10216();
+        double y = target.field_6036 + (target.getY() - target.field_6036) * (double)mc.getTickDelta() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10214() + prevSinAnim * (double)target.method_17682();
+        double z = target.field_5969 + (target.getZ() - target.field_5969) * (double)mc.getTickDelta() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10215();
+        double nextY = target.field_6036 + (target.getY() - target.field_6036) * (double)mc.getTickDelta() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10214() + sinAnim * (double)target.method_17682();
         matrix.method_22903();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();

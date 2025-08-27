@@ -42,10 +42,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (boat == null) {
             return;
         }
-        if (boat.method_5642() != EntityControl.mc.field_1724) {
+        if (boat.method_5642() != EntityControl.mc.player) {
             return;
         }
-        boat.method_36456(EntityControl.mc.field_1724.method_36454());
+        boat.method_36456(EntityControl.mc.player.method_36454());
         Vec3d vel = MovementUtil.getHorizontalVelocity(this.speed.getValue());
         double velX = vel.method_10216();
         double velZ = vel.method_10215();
@@ -67,11 +67,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (EntityControl.nullCheck() || !this.fly.getValue()) {
             return;
         }
-        Entity boat = EntityControl.mc.field_1724.method_5854();
+        Entity boat = EntityControl.mc.player.method_5854();
         if (boat == null) {
             return;
         }
-        boat.method_36456(EntityControl.mc.field_1724.method_36454());
+        boat.method_36456(EntityControl.mc.player.method_36454());
         Vec3d vel = MovementUtil.getHorizontalVelocity(this.speed.getValue());
         double velX = vel.method_10216();
         double velZ = vel.method_10215();

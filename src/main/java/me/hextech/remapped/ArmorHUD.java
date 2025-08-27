@@ -31,12 +31,12 @@ extends Tab {
 
     @Override
     public void draw(DrawContext drawContext, float partialTicks, Color color) {
-        if (HUD_ssNtBhEveKlCmIccBvAN.INSTANCE.armor.getValue() && this.mc.field_1724 != null) {
+        if (HUD_ssNtBhEveKlCmIccBvAN.INSTANCE.armor.getValue() && this.mc.player != null) {
             if (HexTech.GUI.isClickGuiOpen()) {
                 Render2DUtil.drawRect(drawContext.method_51448(), (float)this.x, (float)this.y, (float)this.width, (float)this.height, new Color(0, 0, 0, 70));
             }
             int xOff = 0;
-            for (ItemStack armor : this.mc.field_1724.method_31548().field_7548) {
+            for (ItemStack armor : this.mc.player.method_31548().field_7548) {
                 xOff += 20;
                 if (armor.method_7960()) continue;
                 MatrixStack matrixStack = drawContext.method_51448();

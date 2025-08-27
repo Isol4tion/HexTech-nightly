@@ -52,7 +52,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (mc.method_1542()) {
             return;
         }
-        String server = AntiCheat.mc.field_1724.field_3944.method_45734().field_3761.toLowerCase();
+        String server = AntiCheat.mc.player.field_3944.method_45734().field_3761.toLowerCase();
         if (this.xin.getValue()) {
             if (server.equals("2b2t.xin")) {
                 CommandManager.sendChatMessage("\u00a76\u914d\u7f6e\u540c\u6b65\uff1a2B2T.Xin");

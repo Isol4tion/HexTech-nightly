@@ -103,7 +103,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.directionVec = null;
         this.placeList.clear();
         this.progress = 0;
-        if (this.selfGround.getValue() && !AutoTrap.mc.field_1724.method_24828()) {
+        if (this.selfGround.getValue() && !AutoTrap.mc.player.method_24828()) {
             this.target = null;
             return;
         }
@@ -163,8 +163,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             n3 = objectArray.length;
             for (n2 = 0; n2 < n3; ++n2) {
                 Direction i = objectArray[n2];
-                if (i == Direction.field_11033 || i == Direction.field_11036) continue;
-                offsetPos2 = pos.method_10093(i);
+                if (i == Direction.DOWN || i == Direction.UP) continue;
+                offsetPos2 = pos.offset(i);
                 this.tryPlaceBlock((BlockPos)offsetPos2, this.legAnchor.getValue());
                 if (BlockUtil.getPlaceSide(offsetPos2) != null || !BlockUtil.clientCanPlace(offsetPos2, this.breakCrystal.getValue()) || this.getHelper((BlockPos)offsetPos2) == null) continue;
                 this.tryPlaceObsidian(this.getHelper((BlockPos)offsetPos2));
@@ -200,7 +200,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     for (x = 0; x < n2; ++x) {
                         BlockPos offsetPos3;
                         i = directionArray[x];
-                        if (i == Direction.field_11033 || i == Direction.field_11036 || !BlockUtil.clientCanPlace((offsetPos3 = pos.method_10093(i).method_10084()).method_10084(), this.breakCrystal.getValue()) || !BlockUtil.canPlace(offsetPos3, this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
+                        if (i == Direction.DOWN || i == Direction.UP || !BlockUtil.clientCanPlace((offsetPos3 = pos.offset(i).up()).up(), this.breakCrystal.getValue()) || !BlockUtil.canPlace(offsetPos3, this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
                         this.tryPlaceObsidian(offsetPos3);
                         trapChest = false;
                         break;
@@ -211,7 +211,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         for (x = 0; x < n2; ++x) {
                             BlockPos offsetPos4;
                             i = directionArray[x];
-                            if (i == Direction.field_11033 || i == Direction.field_11036 || !BlockUtil.clientCanPlace((offsetPos4 = pos.method_10093(i).method_10084()).method_10084(), this.breakCrystal.getValue()) || BlockUtil.getPlaceSide(offsetPos4) != null || !BlockUtil.clientCanPlace(offsetPos4, this.breakCrystal.getValue()) || this.getHelper(offsetPos4) == null) continue;
+                            if (i == Direction.DOWN || i == Direction.UP || !BlockUtil.clientCanPlace((offsetPos4 = pos.offset(i).up()).up(), this.breakCrystal.getValue()) || BlockUtil.getPlaceSide(offsetPos4) != null || !BlockUtil.clientCanPlace(offsetPos4, this.breakCrystal.getValue()) || this.getHelper(offsetPos4) == null) continue;
                             this.tryPlaceObsidian(this.getHelper(offsetPos4));
                             trapChest = false;
                             break;
@@ -222,7 +222,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                             for (x = 0; x < n2; ++x) {
                                 BlockPos offsetPos5;
                                 i = directionArray[x];
-                                if (i == Direction.field_11033 || i == Direction.field_11036 || !BlockUtil.clientCanPlace((offsetPos5 = pos.method_10093(i).method_10084()).method_10084(), this.breakCrystal.getValue()) || BlockUtil.getPlaceSide(offsetPos5) != null || !BlockUtil.clientCanPlace(offsetPos5, this.breakCrystal.getValue()) || this.getHelper(offsetPos5) == null || BlockUtil.getPlaceSide(offsetPos5.method_10074()) != null || !BlockUtil.clientCanPlace(offsetPos5.method_10074(), this.breakCrystal.getValue()) || this.getHelper(offsetPos5.method_10074()) == null) continue;
+                                if (i == Direction.DOWN || i == Direction.UP || !BlockUtil.clientCanPlace((offsetPos5 = pos.offset(i).up()).up(), this.breakCrystal.getValue()) || BlockUtil.getPlaceSide(offsetPos5) != null || !BlockUtil.clientCanPlace(offsetPos5, this.breakCrystal.getValue()) || this.getHelper(offsetPos5) == null || BlockUtil.getPlaceSide(offsetPos5.method_10074()) != null || !BlockUtil.clientCanPlace(offsetPos5.method_10074(), this.breakCrystal.getValue()) || this.getHelper(offsetPos5.method_10074()) == null) continue;
                                 this.tryPlaceObsidian(this.getHelper(offsetPos5.method_10074()));
                                 break;
                             }
@@ -233,7 +233,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.tryPlaceBlock(pos.method_10086(2), this.headAnchor.getValue());
         }
         if (this.antiStep.getValue() && (BlockUtil.isMining(pos.method_10086(2)) || !this.onlyBreak.getValue())) {
-            if (BlockUtil.getPlaceSide(pos.method_10086(3)) == null && BlockUtil.clientCanPlace(pos.method_10086(3), this.breakCrystal.getValue()) && this.getHelper(pos.method_10086(3), Direction.field_11033) != null) {
+            if (BlockUtil.getPlaceSide(pos.method_10086(3)) == null && BlockUtil.clientCanPlace(pos.method_10086(3), this.breakCrystal.getValue()) && this.getHelper(pos.method_10086(3), Direction.DOWN) != null) {
                 this.tryPlaceObsidian(this.getHelper(pos.method_10086(3)));
             }
             this.tryPlaceObsidian(pos.method_10086(3));
@@ -250,8 +250,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             int n5 = directionArray.length;
             for (n2 = 0; n2 < n5; ++n2) {
                 Direction i = directionArray[n2];
-                if (i == Direction.field_11033 || i == Direction.field_11036) continue;
-                offsetPos2 = pos.method_10093(i).method_10086(2);
+                if (i == Direction.DOWN || i == Direction.UP) continue;
+                offsetPos2 = pos.offset(i).method_10086(2);
                 if (this.onlyBreaking.getValue() && !BlockUtil.isMining(pos.method_10086(2))) continue;
                 this.tryPlaceObsidian((BlockPos)offsetPos2);
                 if (BlockUtil.getPlaceSide(offsetPos2) != null || !BlockUtil.clientCanPlace(offsetPos2, this.breakCrystal.getValue())) continue;
@@ -268,8 +268,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             int n6 = directionArray.length;
             for (n2 = 0; n2 < n6; ++n2) {
                 Direction i = directionArray[n2];
-                if (i == Direction.field_11033 || i == Direction.field_11036) continue;
-                offsetPos2 = pos.method_10093(i).method_10084();
+                if (i == Direction.DOWN || i == Direction.UP) continue;
+                offsetPos2 = pos.offset(i).up();
                 this.tryPlaceObsidian((BlockPos)offsetPos2);
                 if (BlockUtil.getPlaceSide(offsetPos2) != null || !BlockUtil.clientCanPlace(offsetPos2, this.breakCrystal.getValue())) continue;
                 if (this.getHelper((BlockPos)offsetPos2) != null) {
@@ -307,8 +307,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return null;
         }
         for (Direction i : Direction.values()) {
-            if (this.checkMine.getValue() && BlockUtil.isMining(pos.method_10093(i)) || CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && !BlockUtil.isStrictDirection(pos.method_10093(i), i.method_10153(), true) || !BlockUtil.canPlace(pos.method_10093(i), this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
-            return pos.method_10093(i);
+            if (this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)) || CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && !BlockUtil.isStrictDirection(pos.offset(i), i.method_10153(), true) || !BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
+            return pos.offset(i);
         }
         return null;
     }
@@ -318,17 +318,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return null;
         }
         for (Direction i : Direction.values()) {
-            if (i == ignore || this.checkMine.getValue() && BlockUtil.isMining(pos.method_10093(i)) || !BlockUtil.isStrictDirection(pos.method_10093(i), i.method_10153(), true) || !BlockUtil.canPlace(pos.method_10093(i), this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
-            return pos.method_10093(i);
+            if (i == ignore || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.method_10153(), true) || !BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
+            return pos.offset(i);
         }
         return null;
     }
 
     private boolean checkEntity(BlockPos pos) {
-        if (AutoTrap.mc.field_1724.method_5829().method_994(new Box(pos))) {
+        if (AutoTrap.mc.player.method_5829().method_994(new Box(pos))) {
             return false;
         }
-        for (Entity entity : AutoTrap.mc.field_1687.method_18467(PlayerEntity.class, new Box(pos))) {
+        for (Entity entity : AutoTrap.mc.world.method_18467(PlayerEntity.class, new Box(pos))) {
             if (!entity.method_5805()) continue;
             return true;
         }
@@ -355,10 +355,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!((double)this.progress < this.blocksPer.getValue())) {
             return;
         }
-        if ((double)MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().method_1025(pos.method_46558()))) > this.placeRange.getValue()) {
+        if ((double)MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.placeRange.getValue()) {
             return;
         }
-        int old = AutoTrap.mc.field_1724.method_31548().field_7545;
+        int old = AutoTrap.mc.player.method_31548().field_7545;
         int n = block = anchor && this.getAnchor() != -1 ? this.getAnchor() : this.getBlock();
         if (block == -1) {
             return;
@@ -399,10 +399,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!((double)this.progress < this.blocksPer.getValue())) {
             return;
         }
-        if ((double)MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().method_1025(pos.method_46558()))) > this.placeRange.getValue()) {
+        if ((double)MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.placeRange.getValue()) {
             return;
         }
-        int old = AutoTrap.mc.field_1724.method_31548().field_7545;
+        int old = AutoTrap.mc.player.method_31548().field_7545;
         int block = this.getBlock();
         if (block == -1) {
             return;
@@ -426,7 +426,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, AutoTrap.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, AutoTrap.mc.player.method_31548().field_7545);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

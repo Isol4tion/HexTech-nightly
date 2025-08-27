@@ -47,21 +47,21 @@ implements Wrapper {
             mc.method_1562().method_52787((Packet)new PickFromInventoryC2SPacket(slot));
             return;
         }
-        InventoryUtil.mc.field_1761.method_2906(InventoryUtil.mc.field_1724.field_7512.field_7763, slot, selectedSlot, SlotActionType.field_7791, (PlayerEntity)InventoryUtil.mc.field_1724);
+        InventoryUtil.mc.field_1761.method_2906(InventoryUtil.mc.player.field_7512.field_7763, slot, selectedSlot, SlotActionType.field_7791, (PlayerEntity)InventoryUtil.mc.player);
     }
 
     public static void doSwap(int slot) {
-        InventoryUtil.inventorySwap(slot, InventoryUtil.mc.field_1724.method_31548().field_7545);
+        InventoryUtil.inventorySwap(slot, InventoryUtil.mc.player.method_31548().field_7545);
         InventoryUtil.switchToSlot(slot);
     }
 
     public static void switchToSlot(int slot) {
-        InventoryUtil.mc.field_1724.method_31548().field_7545 = slot;
+        InventoryUtil.mc.player.method_31548().field_7545 = slot;
         mc.method_1562().method_52787((Packet)new UpdateSelectedSlotC2SPacket(slot));
     }
 
     public static boolean holdingItem(Class clazz) {
-        ItemStack stack = InventoryUtil.mc.field_1724.method_6047();
+        ItemStack stack = InventoryUtil.mc.player.method_6047();
         boolean result = InventoryUtil.isInstanceOf(stack, clazz);
         if (!result) {
             result = InventoryUtil.isInstanceOf(stack, clazz);
@@ -85,7 +85,7 @@ implements Wrapper {
     }
 
     public static ItemStack getStackInSlot(int i) {
-        return InventoryUtil.mc.field_1724.method_31548().method_5438(i);
+        return InventoryUtil.mc.player.method_31548().method_5438(i);
     }
 
     public static int findItem(Item input) {
@@ -143,7 +143,7 @@ implements Wrapper {
 
     public static int findClassInventorySlot(Class clazz) {
         for (int i = 0; i < 45; ++i) {
-            ItemStack stack = InventoryUtil.mc.field_1724.method_31548().method_5438(i);
+            ItemStack stack = InventoryUtil.mc.player.method_31548().method_5438(i);
             if (stack == ItemStack.field_8037) continue;
             if (clazz.isInstance(stack.method_7909())) {
                 return i < 9 ? i + 36 : i;
@@ -230,7 +230,7 @@ implements Wrapper {
 
     public static int findItemInventorySlot(Item item) {
         for (int i = 0; i < 45; ++i) {
-            ItemStack stack = InventoryUtil.mc.field_1724.method_31548().method_5438(i);
+            ItemStack stack = InventoryUtil.mc.player.method_31548().method_5438(i);
             if (stack.method_7909() != item) continue;
             return i < 9 ? i + 36 : i;
         }
@@ -239,7 +239,7 @@ implements Wrapper {
 
     public static int findPotInventorySlot(StatusEffect potion) {
         for (int i = 0; i < 45; ++i) {
-            ItemStack stack = InventoryUtil.mc.field_1724.method_31548().method_5438(i);
+            ItemStack stack = InventoryUtil.mc.player.method_31548().method_5438(i);
             if (stack == ItemStack.field_8037 || !(stack.method_7909() instanceof SplashPotionItem)) continue;
             ArrayList effects = new ArrayList(PotionUtil.method_8067((ItemStack)stack));
             for (StatusEffectInstance potionEffect : effects) {
@@ -253,7 +253,7 @@ implements Wrapper {
     public static Map<Integer, ItemStack> getInventoryAndHotbarSlots() {
         HashMap<Integer, ItemStack> fullInventorySlots = new HashMap<Integer, ItemStack>();
         for (int current = 0; current <= 44; ++current) {
-            fullInventorySlots.put(current, InventoryUtil.mc.field_1724.method_31548().method_5438(current));
+            fullInventorySlots.put(current, InventoryUtil.mc.player.method_31548().method_5438(current));
         }
         return fullInventorySlots;
     }
@@ -261,7 +261,7 @@ implements Wrapper {
     public static Map<Integer, ItemStack> getNoArmorInventoryAndHotbarSlots() {
         HashMap<Integer, ItemStack> fullInventorySlots = new HashMap<Integer, ItemStack>();
         for (int current = 0; current <= 35; ++current) {
-            fullInventorySlots.put(current, InventoryUtil.mc.field_1724.method_31548().method_5438(current));
+            fullInventorySlots.put(current, InventoryUtil.mc.player.method_31548().method_5438(current));
         }
         return fullInventorySlots;
     }

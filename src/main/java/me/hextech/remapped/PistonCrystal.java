@@ -114,13 +114,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (BlockUtil.canReplace(pos.method_10074())) {
             return false;
         }
-        if (PistonCrystal.mc.field_1687 != null && !PistonCrystal.mc.field_1687.method_22347(pos)) {
+        if (PistonCrystal.mc.world != null && !PistonCrystal.mc.world.isAir(pos)) {
             return false;
         }
-        if (!BlockUtil.canClick(pos.method_10093(Direction.field_11033))) {
+        if (!BlockUtil.canClick(pos.offset(Direction.DOWN))) {
             return false;
         }
-        return BlockUtil.isStrictDirection(pos.method_10074(), Direction.field_11036);
+        return BlockUtil.isStrictDirection(pos.method_10074(), Direction.UP);
     }
 
     @EventHandler
@@ -197,7 +197,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.noEating.getValue() && EntityUtil.isUsing()) {
             return;
         }
-        if (PistonCrystal.mc.field_1724 != null && this.check(this.onlyStatic.getValue(), !PistonCrystal.mc.field_1724.method_24828(), this.onlyGround.getValue())) {
+        if (PistonCrystal.mc.player != null && this.check(this.onlyStatic.getValue(), !PistonCrystal.mc.player.method_24828(), this.onlyGround.getValue())) {
             return;
         }
         BlockPos pos = EntityUtil.getEntityPos((Entity)this.target, true);
@@ -212,15 +212,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.attackCrystal(pos.method_10086(2), this.rotate.getValue(), false);
             }
         }
-        if (PistonCrystal.mc.field_1687 != null && this.bestPos != null) {
-            PistonCrystal.mc.field_1687.method_8320(this.bestPos).method_26204();
+        if (PistonCrystal.mc.world != null && this.bestPos != null) {
+            PistonCrystal.mc.world.getBlockState(this.bestPos).getBlock();
         }
         if (this.crystalTimer.passedMs(this.posUpdateDelay.getValueInt())) {
             this.stage = 0;
             this.distance = 100.0;
             this.getPos = false;
             this.getBestPos(pos.method_10086(2));
-            this.getBestPos(pos.method_10084());
+            this.getBestPos(pos.up());
         }
         if (!this.timer.passedMs(this.updateDelay.getValueInt())) {
             return;
@@ -228,9 +228,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.getPos && this.bestPos != null) {
             this.timer.reset();
             if (this.debug.getValue()) {
-                CommandManager.sendChatMessage("[Debug] PistonPos:" + String.valueOf(this.bestPos) + " Facing:" + String.valueOf(this.bestFacing) + " CrystalPos:" + String.valueOf(this.bestOPos.method_10093(this.bestFacing)));
+                CommandManager.sendChatMessage("[Debug] PistonPos:" + String.valueOf(this.bestPos) + " Facing:" + String.valueOf(this.bestFacing) + " CrystalPos:" + String.valueOf(this.bestOPos.offset(this.bestFacing)));
             }
-            if (this.check(this.onlyStatic.getValue(), !PistonCrystal.mc.field_1724.method_24828(), this.onlyGround.getValue())) {
+            if (this.check(this.onlyStatic.getValue(), !PistonCrystal.mc.player.method_24828(), this.onlyGround.getValue())) {
                 return;
             }
             this.doPistonAura(this.bestPos, this.bestFacing, this.bestOPos);
@@ -239,7 +239,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public void attackCrystal(BlockPos pos, boolean rotate, boolean eatingPause) {
         block0: {
-            Iterator iterator = PistonCrystal.mc.field_1687.method_18467(EndCrystalEntity.class, new Box(pos)).iterator();
+            Iterator iterator = PistonCrystal.mc.world.method_18467(EndCrystalEntity.class, new Box(pos)).iterator();
             if (!iterator.hasNext()) break block0;
             EndCrystalEntity entity = (EndCrystalEntity)iterator.next();
             this.attackCrystal((Entity)entity, rotate, eatingPause);
@@ -255,11 +255,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (crystal != null) {
             CombatUtil.breakTimer.reset();
-            if (rotate && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.attackRotate.getValue() && !this.faceVector(new Vec3d(crystal.method_23317(), crystal.method_23318() + 0.25, crystal.method_23321()))) {
+            if (rotate && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.attackRotate.getValue() && !this.faceVector(new Vec3d(crystal.getX(), crystal.getY() + 0.25, crystal.getZ()))) {
                 return;
             }
-            PistonCrystal.mc.field_1724.field_3944.method_52787((Packet)PlayerInteractEntityC2SPacket.method_34206((Entity)crystal, (boolean)PistonCrystal.mc.field_1724.method_5715()));
-            PistonCrystal.mc.field_1724.method_7350();
+            PistonCrystal.mc.player.field_3944.method_52787((Packet)PlayerInteractEntityC2SPacket.method_34206((Entity)crystal, (boolean)PistonCrystal.mc.player.method_5715()));
+            PistonCrystal.mc.player.method_7350();
             EntityUtil.swingHand(Hand.field_5808, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         }
     }
@@ -281,8 +281,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean checkCrystal(BlockPos pos) {
-        if (PistonCrystal.mc.field_1687 != null) {
-            for (Entity entity : PistonCrystal.mc.field_1687.method_18467(EndCrystalEntity.class, new Box(pos))) {
+        if (PistonCrystal.mc.world != null) {
+            for (Entity entity : PistonCrystal.mc.world.method_18467(EndCrystalEntity.class, new Box(pos))) {
                 float damage = ThunderExplosionUtil.calculateDamage(entity.method_19538(), this.target, this.target, 6.0f);
                 if (!(damage > 6.0f)) continue;
                 return true;
@@ -292,8 +292,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean checkCrystal2(BlockPos pos) {
-        if (PistonCrystal.mc.field_1687 != null) {
-            for (Entity entity : PistonCrystal.mc.field_1687.method_18467(Entity.class, new Box(pos))) {
+        if (PistonCrystal.mc.world != null) {
+            for (Entity entity : PistonCrystal.mc.world.method_18467(Entity.class, new Box(pos))) {
                 if (!(entity instanceof EndCrystalEntity) || !EntityUtil.getEntityPos(entity).equals((Object)pos)) continue;
                 return true;
             }
@@ -311,25 +311,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void getBestPos(BlockPos pos) {
         for (Direction i : Direction.values()) {
-            if (i == Direction.field_11033 || i == Direction.field_11036) continue;
+            if (i == Direction.DOWN || i == Direction.UP) continue;
             this.getPos(pos, i);
         }
     }
 
     private void getPos(BlockPos pos, Direction i) {
-        if (!BlockUtil.canPlaceCrystal(pos.method_10093(i)) && !this.checkCrystal2(pos.method_10093(i))) {
+        if (!BlockUtil.canPlaceCrystal(pos.offset(i)) && !this.checkCrystal2(pos.offset(i))) {
             return;
         }
         this.getPos(pos.method_10079(i, 3), i, pos);
-        this.getPos(pos.method_10079(i, 3).method_10084(), i, pos);
-        int offsetX = pos.method_10093(i).method_10263() - pos.method_10263();
-        int offsetZ = pos.method_10093(i).method_10260() - pos.method_10260();
+        this.getPos(pos.method_10079(i, 3).up(), i, pos);
+        int offsetX = pos.offset(i).method_10263() - pos.method_10263();
+        int offsetZ = pos.offset(i).method_10260() - pos.method_10260();
         this.getPos(pos.method_10079(i, 3).method_10069(offsetZ, 0, offsetX), i, pos);
         this.getPos(pos.method_10079(i, 3).method_10069(-offsetZ, 0, -offsetX), i, pos);
         this.getPos(pos.method_10079(i, 3).method_10069(offsetZ, 1, offsetX), i, pos);
         this.getPos(pos.method_10079(i, 3).method_10069(-offsetZ, 1, -offsetX), i, pos);
         this.getPos(pos.method_10079(i, 2), i, pos);
-        this.getPos(pos.method_10079(i, 2).method_10084(), i, pos);
+        this.getPos(pos.method_10079(i, 2).up(), i, pos);
         this.getPos(pos.method_10079(i, 2).method_10069(offsetZ, 0, offsetX), i, pos);
         this.getPos(pos.method_10079(i, 2).method_10069(-offsetZ, 0, -offsetX), i, pos);
         this.getPos(pos.method_10079(i, 2).method_10069(offsetZ, 1, offsetX), i, pos);
@@ -337,7 +337,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void getPos(BlockPos pos, Direction facing, BlockPos oPos) {
-        if (PistonCrystal.mc.field_1687 != null && this.switchPos.getValue() && this.bestPos != null && this.bestPos.equals((Object)pos) && PistonCrystal.mc.field_1687.method_22347(this.bestPos)) {
+        if (PistonCrystal.mc.world != null && this.switchPos.getValue() && this.bestPos != null && this.bestPos.equals((Object)pos) && PistonCrystal.mc.world.isAir(this.bestPos)) {
             return;
         }
         if (!BlockUtil.canPlace(pos, this.placeRange.getValue()) && !(this.getBlock(pos) instanceof PistonBlock)) {
@@ -347,26 +347,26 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (!(this.getBlock(pos) instanceof PistonBlock)) {
-            if (PistonCrystal.mc.field_1724 != null && (PistonCrystal.mc.field_1724.method_23318() - (double)pos.method_10264() <= -2.0 || PistonCrystal.mc.field_1724.method_23318() - (double)pos.method_10264() >= 3.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) {
+            if (PistonCrystal.mc.player != null && (PistonCrystal.mc.player.getY() - (double)pos.method_10264() <= -2.0 || PistonCrystal.mc.player.getY() - (double)pos.method_10264() >= 3.0) && BlockUtil.distanceToXZ((double)pos.method_10263() + 0.5, (double)pos.method_10260() + 0.5) < 2.6) {
                 return;
             }
             if (!this.isTrueFacing(pos, facing)) {
                 return;
             }
         }
-        if (!PistonCrystal.mc.field_1687.method_22347(pos.method_10079(facing, -1)) || PistonCrystal.mc.field_1687.method_8320(pos.method_10079(facing, -1)).method_26204() == Blocks.field_10036 || this.getBlock(pos.method_10093(facing.method_10153())) == Blocks.field_10008 && !this.checkCrystal2(pos.method_10093(facing.method_10153()))) {
+        if (!PistonCrystal.mc.world.isAir(pos.method_10079(facing, -1)) || PistonCrystal.mc.world.getBlockState(pos.method_10079(facing, -1)).getBlock() == Blocks.field_10036 || this.getBlock(pos.offset(facing.method_10153())) == Blocks.field_10008 && !this.checkCrystal2(pos.offset(facing.method_10153()))) {
             return;
         }
         if (!BlockUtil.canPlace(pos, this.placeRange.getValue()) && !this.isPiston(pos, facing)) {
             return;
         }
-        if (!((double)MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().method_1025(pos.method_46558()))) < this.distance) && this.bestPos != null) {
+        if (!((double)MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) < this.distance) && this.bestPos != null) {
             return;
         }
         this.bestPos = pos;
         this.bestOPos = oPos;
         this.bestFacing = facing;
-        this.distance = MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().method_1025(pos.method_46558())));
+        this.distance = MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())));
         this.getPos = true;
         this.crystalTimer.reset();
     }
@@ -376,7 +376,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.stage = 0;
         }
         ++this.stage;
-        if (PistonCrystal.mc.field_1687 != null && PistonCrystal.mc.field_1687.method_22347(pos)) {
+        if (PistonCrystal.mc.world != null && PistonCrystal.mc.world.isAir(pos)) {
             if (BlockUtil.canPlace(pos)) {
                 if ((double)this.stage >= this.pistonStage.getValue() && (double)this.stage <= this.pistonMaxStage.getValue()) {
                     Vec3d hitVec;
@@ -385,12 +385,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         return;
                     }
                     int old = 0;
-                    if (PistonCrystal.mc.field_1724 != null) {
-                        old = PistonCrystal.mc.field_1724.method_31548().field_7545;
+                    if (PistonCrystal.mc.player != null) {
+                        old = PistonCrystal.mc.player.method_31548().field_7545;
                     }
-                    BlockPos neighbour = pos.method_10093(side);
+                    BlockPos neighbour = pos.offset(side);
                     Direction opposite = side.method_10153();
-                    if (this.rotate.getValue() && !this.faceVector(hitVec = pos.method_46558().method_1019(new Vec3d((double)side.method_10163().method_10263() * 0.5, (double)side.method_10163().method_10264() * 0.5, (double)side.method_10163().method_10260() * 0.5)))) {
+                    if (this.rotate.getValue() && !this.faceVector(hitVec = pos.toCenterPos().method_1019(new Vec3d((double)side.method_10163().method_10263() * 0.5, (double)side.method_10163().method_10264() * 0.5, (double)side.method_10163().method_10260() * 0.5)))) {
                         return;
                     }
                     if (this.shouldYawCheck()) {
@@ -414,7 +414,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         if ((double)this.stage >= this.powerStage.getValue() && (double)this.stage <= this.powerMaxStage.getValue()) {
-            this.doRedStone(pos, facing, oPos.method_10093(facing));
+            this.doRedStone(pos, facing, oPos.offset(facing));
         }
         if ((double)this.stage >= this.crystalStage.getValue() && (double)this.stage <= this.crystalMaxStage.getValue()) {
             this.placeCrystal(oPos, facing);
@@ -425,7 +425,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void placeCrystal(BlockPos pos, Direction facing) {
-        if (!BlockUtil.canPlaceCrystal(pos.method_10093(facing))) {
+        if (!BlockUtil.canPlaceCrystal(pos.offset(facing))) {
             return;
         }
         int crystal = this.findItem(Items.field_8301);
@@ -433,11 +433,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         int old = 0;
-        if (PistonCrystal.mc.field_1724 != null) {
-            old = PistonCrystal.mc.field_1724.method_31548().field_7545;
+        if (PistonCrystal.mc.player != null) {
+            old = PistonCrystal.mc.player.method_31548().field_7545;
         }
         this.doSwap(crystal);
-        this.placeCrystal(pos.method_10093(facing), this.rotate.getValue());
+        this.placeCrystal(pos.offset(facing), this.rotate.getValue());
         if (this.inventory.getValue()) {
             this.doSwap(crystal);
             EntityUtil.syncInventory();
@@ -453,13 +453,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean isPiston(BlockPos pos, Direction facing) {
-        if (PistonCrystal.mc.field_1687 != null && !(PistonCrystal.mc.field_1687.method_8320(pos).method_26204() instanceof PistonBlock)) {
+        if (PistonCrystal.mc.world != null && !(PistonCrystal.mc.world.getBlockState(pos).getBlock() instanceof PistonBlock)) {
             return false;
         }
-        if (((Direction)PistonCrystal.mc.field_1687.method_8320(pos).method_11654((Property)FacingBlock.field_10927)).method_10153() != facing) {
+        if (((Direction)PistonCrystal.mc.world.getBlockState(pos).method_11654((Property)FacingBlock.field_10927)).method_10153() != facing) {
             return false;
         }
-        return PistonCrystal.mc.field_1687.method_22347(pos.method_10079(facing, -1)) || this.getBlock(pos.method_10079(facing, -1)) == Blocks.field_10036 || this.getBlock(pos.method_10093(facing.method_10153())) == Blocks.field_10008;
+        return PistonCrystal.mc.world.isAir(pos.method_10079(facing, -1)) || this.getBlock(pos.method_10079(facing, -1)) == Blocks.field_10036 || this.getBlock(pos.offset(facing.method_10153())) == Blocks.field_10008;
     }
 
     private void doFire(BlockPos pos, Direction facing) {
@@ -471,8 +471,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         int old = 0;
-        if (PistonCrystal.mc.field_1724 != null) {
-            old = PistonCrystal.mc.field_1724.method_31548().field_7545;
+        if (PistonCrystal.mc.player != null) {
+            old = PistonCrystal.mc.player.method_31548().field_7545;
         }
         int[] xOffset = new int[]{0, facing.method_10165(), -facing.method_10165()};
         int[] yOffset = new int[]{0, 1};
@@ -504,17 +504,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void placeFire(BlockPos pos) {
-        BlockPos neighbour = pos.method_10093(Direction.field_11033);
-        this.clickBlock(neighbour, Direction.field_11036, this.rotate.getValue());
+        BlockPos neighbour = pos.offset(Direction.DOWN);
+        this.clickBlock(neighbour, Direction.UP, this.rotate.getValue());
     }
 
     private void doRedStone(BlockPos pos, Direction facing, BlockPos crystalPos) {
         Direction bestNeighboring;
-        if (PistonCrystal.mc.field_1687 != null && !PistonCrystal.mc.field_1687.method_22347(pos.method_10079(facing, -1)) && this.getBlock(pos.method_10079(facing, -1)) != Blocks.field_10036 && this.getBlock(pos.method_10093(facing.method_10153())) != Blocks.field_10008) {
+        if (PistonCrystal.mc.world != null && !PistonCrystal.mc.world.isAir(pos.method_10079(facing, -1)) && this.getBlock(pos.method_10079(facing, -1)) != Blocks.field_10036 && this.getBlock(pos.offset(facing.method_10153())) != Blocks.field_10008) {
             return;
         }
         for (Direction i : Direction.values()) {
-            if (this.getBlock(pos.method_10093(i)) != Blocks.field_10002) continue;
+            if (this.getBlock(pos.offset(i)) != Blocks.field_10002) continue;
             return;
         }
         int power = this.findBlock(Blocks.field_10002);
@@ -522,12 +522,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         int old = 0;
-        if (PistonCrystal.mc.field_1724 != null) {
-            old = PistonCrystal.mc.field_1724.method_31548().field_7545;
+        if (PistonCrystal.mc.player != null) {
+            old = PistonCrystal.mc.player.method_31548().field_7545;
         }
-        if ((bestNeighboring = BlockUtil.getBestNeighboring(pos, facing)) != null && bestNeighboring != facing.method_10153() && BlockUtil.canPlace(pos.method_10093(bestNeighboring), this.placeRange.getValue()) && !pos.method_10093(bestNeighboring).equals((Object)crystalPos)) {
+        if ((bestNeighboring = BlockUtil.getBestNeighboring(pos, facing)) != null && bestNeighboring != facing.method_10153() && BlockUtil.canPlace(pos.offset(bestNeighboring), this.placeRange.getValue()) && !pos.offset(bestNeighboring).equals((Object)crystalPos)) {
             this.doSwap(power);
-            this.placeBlock(pos.method_10093(bestNeighboring), this.rotate.getValue(), this.endSwing.getValue());
+            this.placeBlock(pos.offset(bestNeighboring), this.rotate.getValue(), this.endSwing.getValue());
             if (this.inventory.getValue()) {
                 this.doSwap(power);
                 EntityUtil.syncInventory();
@@ -537,9 +537,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         for (Direction i : Direction.values()) {
-            if (!BlockUtil.canPlace(pos.method_10093(i), this.placeRange.getValue()) || pos.method_10093(i).equals((Object)crystalPos) || i == facing.method_10153()) continue;
+            if (!BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue()) || pos.offset(i).equals((Object)crystalPos) || i == facing.method_10153()) continue;
             this.doSwap(power);
-            this.placeBlock(pos.method_10093(i), this.rotate.getValue(), this.endSwing.getValue());
+            this.placeBlock(pos.offset(i), this.rotate.getValue(), this.endSwing.getValue());
             if (this.inventory.getValue()) {
                 this.doSwap(power);
                 EntityUtil.syncInventory();
@@ -561,15 +561,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         Direction side = BlockUtil.getPlaceSide(pos);
         if (side == null) {
-            side = Direction.field_11036;
+            side = Direction.UP;
         }
-        return Direction.method_10150((double)EntityUtil.getLegitRotations(hitVec = pos.method_10093((side = side.method_10153()).method_10153()).method_46558().method_1019(new Vec3d((double)side.method_10163().method_10263() * 0.5, (double)side.method_10163().method_10264() * 0.5, (double)side.method_10163().method_10260() * 0.5)))[0]) == facing;
+        return Direction.method_10150((double)EntityUtil.getLegitRotations(hitVec = pos.offset((side = side.method_10153()).method_10153()).toCenterPos().method_1019(new Vec3d((double)side.method_10163().method_10263() * 0.5, (double)side.method_10163().method_10264() * 0.5, (double)side.method_10163().method_10260() * 0.5)))[0]) == facing;
     }
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            if (PistonCrystal.mc.field_1724 != null) {
-                InventoryUtil.inventorySwap(slot, PistonCrystal.mc.field_1724.method_31548().field_7545);
+            if (PistonCrystal.mc.player != null) {
+                InventoryUtil.inventorySwap(slot, PistonCrystal.mc.player.method_31548().field_7545);
             }
         } else {
             InventoryUtil.switchToSlot(slot);
@@ -598,8 +598,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private Block getBlock(BlockPos pos) {
-        if (PistonCrystal.mc.field_1687 != null) {
-            return PistonCrystal.mc.field_1687.method_8320(pos).method_26204();
+        if (PistonCrystal.mc.world != null) {
+            return PistonCrystal.mc.world.getBlockState(pos).getBlock();
         }
         return null;
     }
@@ -608,7 +608,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Direction side;
         if (BlockUtil.airPlace()) {
             for (Direction i : Direction.values()) {
-                if (PistonCrystal.mc.field_1687 == null || !PistonCrystal.mc.field_1687.method_22347(pos.method_10093(i))) continue;
+                if (PistonCrystal.mc.world == null || !PistonCrystal.mc.world.isAir(pos.offset(i))) continue;
                 this.clickBlock(pos, i, rotate);
                 return;
             }
@@ -621,25 +621,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         BlockUtil.placedPos.add(pos);
         boolean sprint = false;
-        if (PistonCrystal.mc.field_1724 != null) {
-            sprint = PistonCrystal.mc.field_1724.method_5624();
+        if (PistonCrystal.mc.player != null) {
+            sprint = PistonCrystal.mc.player.method_5624();
         }
         boolean sneak = false;
-        if (PistonCrystal.mc.field_1687 != null) {
-            boolean bl = sneak = BlockUtil.needSneak(PistonCrystal.mc.field_1687.method_8320(result.method_17777()).method_26204()) && !PistonCrystal.mc.field_1724.method_5715();
+        if (PistonCrystal.mc.world != null) {
+            boolean bl = sneak = BlockUtil.needSneak(PistonCrystal.mc.world.getBlockState(result.method_17777()).getBlock()) && !PistonCrystal.mc.player.method_5715();
         }
         if (sprint) {
-            PistonCrystal.mc.field_1724.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.field_1724, ClientCommandC2SPacket.Mode.field_12985));
+            PistonCrystal.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.field_12985));
         }
         if (sneak) {
-            PistonCrystal.mc.field_1724.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.field_1724, ClientCommandC2SPacket.Mode.field_12979));
+            PistonCrystal.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.field_12979));
         }
-        this.clickBlock(pos.method_10093(side), side.method_10153(), rotate);
+        this.clickBlock(pos.offset(side), side.method_10153(), rotate);
         if (sneak) {
-            PistonCrystal.mc.field_1724.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.field_1724, ClientCommandC2SPacket.Mode.field_12984));
+            PistonCrystal.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.field_12984));
         }
         if (sprint) {
-            PistonCrystal.mc.field_1724.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.field_1724, ClientCommandC2SPacket.Mode.field_12981));
+            PistonCrystal.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)PistonCrystal.mc.player, ClientCommandC2SPacket.Mode.field_12981));
         }
         if (bypass) {
             EntityUtil.swingHand(Hand.field_5808, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
@@ -677,8 +677,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         EntityUtil.swingHand(Hand.field_5808, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
-        if (PistonCrystal.mc.field_1724 != null) {
-            PistonCrystal.mc.field_1724.field_3944.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, result, BlockUtil.getWorldActionId(PistonCrystal.mc.field_1687)));
+        if (PistonCrystal.mc.player != null) {
+            PistonCrystal.mc.player.field_3944.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, result, BlockUtil.getWorldActionId(PistonCrystal.mc.world)));
         }
         return true;
     }

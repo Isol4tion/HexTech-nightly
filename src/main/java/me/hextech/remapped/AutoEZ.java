@@ -31,25 +31,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onDeath(DeathEvent event) {
         PlayerEntity player = event.getPlayer();
-        if (AutoEZ.mc.field_1724 != null && player != AutoEZ.mc.field_1724 && !HexTech.FRIEND.isFriend(player)) {
-            if (this.range.getValue() > 0.0 && (double)AutoEZ.mc.field_1724.method_5739((Entity)player) > this.range.getValue()) {
+        if (AutoEZ.mc.player != null && player != AutoEZ.mc.player && !HexTech.FRIEND.isFriend(player)) {
+            if (this.range.getValue() > 0.0 && (double)AutoEZ.mc.player.method_5739((Entity)player) > this.range.getValue()) {
                 return;
             }
             switch (this.type.getValue().ordinal()) {
                 case 1: {
-                    AutoEZ.mc.field_1724.field_3944.method_45729(this.ALEXJONNY.get(this.random.nextInt(this.ALEXJONNY.size() - 1)) + " " + String.valueOf(player.method_5477()));
+                    AutoEZ.mc.player.field_3944.method_45729(this.ALEXJONNY.get(this.random.nextInt(this.ALEXJONNY.size() - 1)) + " " + String.valueOf(player.method_5477()));
                     break;
                 }
                 case 0: {
-                    AutoEZ.mc.field_1724.field_3944.method_45729(this.HEXTECH.get(this.random.nextInt(this.HEXTECH.size() - 1)) + " " + player.method_5477().getString());
+                    AutoEZ.mc.player.field_3944.method_45729(this.HEXTECH.get(this.random.nextInt(this.HEXTECH.size() - 1)) + " " + player.method_5477().getString());
                     break;
                 }
                 case 2: {
-                    AutoEZ.mc.field_1724.field_3944.method_45729(player.method_5477().getString() + " " + this.GUAZIGEGE.get(this.random.nextInt(this.GUAZIGEGE.size() - 1)));
+                    AutoEZ.mc.player.field_3944.method_45729(player.method_5477().getString() + " " + this.GUAZIGEGE.get(this.random.nextInt(this.GUAZIGEGE.size() - 1)));
                     break;
                 }
                 case 3: {
-                    AutoEZ.mc.field_1724.field_3944.method_45729(this.msg.getValue().replaceAll("%player%", player.method_5477().getString()));
+                    AutoEZ.mc.player.field_3944.method_45729(this.msg.getValue().replaceAll("%player%", player.method_5477().getString()));
                 }
             }
         }

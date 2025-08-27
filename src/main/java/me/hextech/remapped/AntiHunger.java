@@ -29,7 +29,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Entity getEntity(@NotNull PlayerInteractEntityC2SPacket packet) {
         PacketByteBuf packetBuf = new PacketByteBuf(Unpooled.buffer());
         packet.method_11052(packetBuf);
-        return AntiHunger.mc.field_1687.method_8469(packetBuf.method_10816());
+        return AntiHunger.mc.world.method_8469(packetBuf.method_10816());
     }
 
     public static AntiHunger_zYbEBAOiuFfDBojQHScp getInteractType(@NotNull PlayerInteractEntityC2SPacket packet) {
@@ -48,7 +48,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 event.cancel();
             }
         }
-        if (event.getPacket() instanceof PlayerMoveC2SPacket && this.ground.getValue() && AntiHunger.mc.field_1724.field_6017 <= 0.0f && !AntiHunger.mc.field_1761.method_2923()) {
+        if (event.getPacket() instanceof PlayerMoveC2SPacket && this.ground.getValue() && AntiHunger.mc.player.field_6017 <= 0.0f && !AntiHunger.mc.field_1761.method_2923()) {
             ((IPlayerMoveC2SPacket)event.getPacket()).setOnGround(false);
         }
     }

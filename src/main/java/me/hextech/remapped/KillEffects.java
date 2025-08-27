@@ -38,12 +38,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onRender(Render3DEvent event) {
         if (this.LightningBolt.getValue()) {
             this.renderEntities.forEach((entity, time) -> {
-                LightningEntity lightningEntity = new LightningEntity(EntityType.field_6112, (World)KillEffects.mc.field_1687);
-                lightningEntity.method_24203(entity.method_23317(), entity.method_23318(), entity.method_23321());
+                LightningEntity lightningEntity = new LightningEntity(EntityType.field_6112, (World)KillEffects.mc.world);
+                lightningEntity.method_24203(entity.getX(), entity.getY(), entity.getZ());
                 EntitySpawnS2CPacket pac = new EntitySpawnS2CPacket((Entity)lightningEntity);
                 pac.method_11178((ClientPlayPacketListener)mc.method_1562());
-                KillEffects.mc.field_1687.method_43128((PlayerEntity)KillEffects.mc.field_1724, entity.method_23317(), entity.method_23318(), entity.method_23321(), SoundEvents.field_14865, SoundCategory.field_15252, 10000.0f, 0.16000001f);
-                KillEffects.mc.field_1687.method_43128((PlayerEntity)KillEffects.mc.field_1724, entity.method_23317(), entity.method_23318(), entity.method_23321(), SoundEvents.field_14956, SoundCategory.field_15252, 2.0f, 0.1f);
+                KillEffects.mc.world.method_43128((PlayerEntity)KillEffects.mc.player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.field_14865, SoundCategory.field_15252, 10000.0f, 0.16000001f);
+                KillEffects.mc.world.method_43128((PlayerEntity)KillEffects.mc.player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.field_14956, SoundCategory.field_15252, 2.0f, 0.1f);
                 this.renderEntities.remove(entity);
                 this.lightingEntities.put((Entity)entity, System.currentTimeMillis());
             });
@@ -52,11 +52,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     public void onTick(UpdateWalkingEvent event) {
-        KillEffects.mc.field_1687.method_18112().forEach(entity -> {
+        KillEffects.mc.world.method_18112().forEach(entity -> {
             if (!(entity instanceof PlayerEntity)) {
                 return;
             }
-            if (entity == KillEffects.mc.field_1724 || this.renderEntities.containsKey(entity) || this.lightingEntities.containsKey(entity)) {
+            if (entity == KillEffects.mc.player || this.renderEntities.containsKey(entity) || this.lightingEntities.containsKey(entity)) {
                 return;
             }
             if (((PlayerEntity)entity).method_6032() > this.gethealth.getValueFloat()) {

@@ -22,12 +22,12 @@ implements Wrapper {
     public static float anchorDamage(BlockPos pos, PlayerEntity target, PlayerEntity predict) {
         if (BlockUtil.getBlock(pos) == Blocks.field_23152) {
             CombatUtil.modifyPos = pos;
-            CombatUtil.modifyBlockState = Blocks.field_10124.method_9564();
-            float damage = OyveyExplosionUtil.calculateDamage(pos.method_46558().method_10216(), pos.method_46558().method_10214(), pos.method_46558().method_10215(), (Entity)target, (Entity)predict, 5.0f);
+            CombatUtil.modifyBlockState = Blocks.AIR.method_9564();
+            float damage = OyveyExplosionUtil.calculateDamage(pos.toCenterPos().method_10216(), pos.toCenterPos().method_10214(), pos.toCenterPos().method_10215(), (Entity)target, (Entity)predict, 5.0f);
             CombatUtil.modifyPos = null;
             return damage;
         }
-        return OyveyExplosionUtil.calculateDamage(pos.method_46558().method_10216(), pos.method_46558().method_10214(), pos.method_46558().method_10215(), (Entity)target, (Entity)predict, 5.0f);
+        return OyveyExplosionUtil.calculateDamage(pos.toCenterPos().method_10216(), pos.toCenterPos().method_10214(), pos.toCenterPos().method_10215(), (Entity)target, (Entity)predict, 5.0f);
     }
 
     public static float calculateDamage(double posX, double posY, double posZ, Entity entity, Entity predict, float power) {
@@ -48,7 +48,7 @@ implements Wrapper {
         float damage = (int)((v * v + v) / 2.0 * 7.0 * (double)doubleExplosionSize + 1.0);
         double finald = 1.0;
         if (entity instanceof LivingEntity) {
-            finald = OyveyExplosionUtil.getBlastReduction((LivingEntity)entity, OyveyExplosionUtil.getDamageMultiplied(damage), new Explosion((World)OyveyExplosionUtil.mc.field_1687, entity, posX, posY, posZ, power, false, Explosion.DestructionType.field_18687));
+            finald = OyveyExplosionUtil.getBlastReduction((LivingEntity)entity, OyveyExplosionUtil.getDamageMultiplied(damage), new Explosion((World)OyveyExplosionUtil.mc.world, entity, posX, posY, posZ, power, false, Explosion.DestructionType.field_18687));
         }
         return (float)finald;
     }
@@ -63,7 +63,7 @@ implements Wrapper {
         float damage = damageI;
         if (entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
-            DamageSource ds = OyveyExplosionUtil.mc.field_1687.method_48963().method_48807(explosion);
+            DamageSource ds = OyveyExplosionUtil.mc.world.method_48963().method_48807(explosion);
             damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, player.method_6096(), (float)player.method_26825(EntityAttributes.field_23725));
             int k = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)ds);
             float f = MathHelper.method_15363((float)k, (float)0.0f, (float)20.0f);
@@ -79,7 +79,7 @@ implements Wrapper {
     }
 
     public static float getDamageMultiplied(float damage) {
-        int diff = OyveyExplosionUtil.mc.field_1687.method_8407().method_5461();
+        int diff = OyveyExplosionUtil.mc.world.method_8407().method_5461();
         return damage * (diff == 0 ? 0.0f : (diff == 2 ? 1.0f : (diff == 1 ? 0.5f : 1.5f)));
     }
 }

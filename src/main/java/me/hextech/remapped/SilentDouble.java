@@ -38,42 +38,42 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public void update() {
         if (this.mode.getValue().equals((Object)_JPSoqiNZyGTsyFDufNku.SilentDouble)) {
-            if (this.pause.getValue() && SilentDouble.mc.field_1724.method_6115()) {
+            if (this.pause.getValue() && SilentDouble.mc.player.method_6115()) {
                 return;
             }
-            if (this.groundcheck.getValue() && !SilentDouble.mc.field_1724.method_24828()) {
+            if (this.groundcheck.getValue() && !SilentDouble.mc.player.method_24828()) {
                 return;
             }
-            if (SpeedMine.secondPos != null && !SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.getTool(SpeedMine.secondPos) == -1 ? SilentDouble.mc.field_1724.method_31548().field_7545 : this.getTool(SpeedMine.secondPos), this.dmg.getValueFloat()))) {
-                slotMain = SilentDouble.mc.field_1724.method_31548().field_7545;
+            if (SpeedMine.secondPos != null && !SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.getTool(SpeedMine.secondPos) == -1 ? SilentDouble.mc.player.method_31548().field_7545 : this.getTool(SpeedMine.secondPos), this.dmg.getValueFloat()))) {
+                slotMain = SilentDouble.mc.player.method_31548().field_7545;
             }
             if (SpeedMine.secondPos != null && SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.getTool(SpeedMine.secondPos), this.lastdmg.getValueFloat()))) {
-                if (SilentDouble.mc.field_1724.method_6047().method_7909() == Items.field_8367) {
+                if (SilentDouble.mc.player.method_6047().method_7909() == Items.field_8367) {
                     if (!SilentDouble.mc.field_1690.field_1904.method_1434()) {
-                        SilentDouble.mc.field_1724.field_3944.method_52787((Packet)new UpdateSelectedSlotC2SPacket(this.getTool(SpeedMine.secondPos)));
+                        SilentDouble.mc.player.field_3944.method_52787((Packet)new UpdateSelectedSlotC2SPacket(this.getTool(SpeedMine.secondPos)));
                         swithc2 = 1;
                     } else if (swithc2 == 1) {
-                        SilentDouble.mc.field_1724.field_3944.method_52787((Packet)new UpdateSelectedSlotC2SPacket(slotMain));
+                        SilentDouble.mc.player.field_3944.method_52787((Packet)new UpdateSelectedSlotC2SPacket(slotMain));
                         if (this.syncinv.getValue()) {
                             EntityUtil.syncInventory();
                         }
                     }
                 } else {
-                    SilentDouble.mc.field_1724.field_3944.method_52787((Packet)new UpdateSelectedSlotC2SPacket(this.getTool(SpeedMine.secondPos)));
+                    SilentDouble.mc.player.field_3944.method_52787((Packet)new UpdateSelectedSlotC2SPacket(this.getTool(SpeedMine.secondPos)));
                     swithc2 = 1;
                 }
             }
             if (SpeedMine.secondPos != null && SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.getTool(SpeedMine.secondPos), this.enddmg.getValueFloat())) && swithc2 == 1) {
-                SilentDouble.mc.field_1724.field_3944.method_52787((Packet)new UpdateSelectedSlotC2SPacket(slotMain));
+                SilentDouble.mc.player.field_3944.method_52787((Packet)new UpdateSelectedSlotC2SPacket(slotMain));
                 if (this.syncinv.getValue()) {
                     EntityUtil.syncInventory();
                 }
             }
         }
         if (this.mode.getValue().equals((Object)_JPSoqiNZyGTsyFDufNku.Switch)) {
-            this.sendPacket((Packet<?>)new UpdateSelectedSlotC2SPacket(SilentDouble.mc.field_1724.method_31548().field_7545));
+            this.sendPacket((Packet<?>)new UpdateSelectedSlotC2SPacket(SilentDouble.mc.player.method_31548().field_7545));
         } else if (this.mode.getValue() == _JPSoqiNZyGTsyFDufNku.Switch && SpeedMine.INSTANCE.lastSlot != -1) {
-            SilentDouble.mc.field_1724.method_31548().field_7545 = SpeedMine.INSTANCE.lastSlot;
+            SilentDouble.mc.player.method_31548().field_7545 = SpeedMine.INSTANCE.lastSlot;
             ((IClientPlayerInteractionManager)SilentDouble.mc.field_1761).syncSelected();
             SpeedMine.INSTANCE.lastSlot = -1;
         }
@@ -81,7 +81,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public int getTool(BlockPos pos) {
-        return SpeedMine.INSTANCE.getTool(pos) == -1 ? SilentDouble.mc.field_1724.method_31548().field_7545 : SpeedMine.INSTANCE.getTool(pos);
+        return SpeedMine.INSTANCE.getTool(pos) == -1 ? SilentDouble.mc.player.method_31548().field_7545 : SpeedMine.INSTANCE.getTool(pos);
     }
 
     public static final class _JPSoqiNZyGTsyFDufNku

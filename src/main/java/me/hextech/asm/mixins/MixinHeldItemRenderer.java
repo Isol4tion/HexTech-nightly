@@ -65,7 +65,7 @@ public abstract class MixinHeldItemRenderer {
                     matrices.method_22907(RotationAxis.field_40714.rotationDegrees(-11.935f));
                     matrices.method_22907(RotationAxis.field_40716.rotationDegrees((float)i * 65.3f));
                     matrices.method_22907(RotationAxis.field_40718.rotationDegrees((float)i * -9.785f));
-                    float f = (float)item.method_7935() - ((float)Wrapper.mc.field_1724.method_6014() - tickDelta + 1.0f);
+                    float f = (float)item.method_7935() - ((float)Wrapper.mc.player.method_6014() - tickDelta + 1.0f);
                     float g = f / (float)CrossbowItem.method_7775((ItemStack)item);
                     if (g > 1.0f) {
                         g = 1.0f;
@@ -115,7 +115,7 @@ public abstract class MixinHeldItemRenderer {
                         matrices.method_22907(RotationAxis.field_40714.rotationDegrees(-13.935f));
                         matrices.method_22907(RotationAxis.field_40716.rotationDegrees((float)l * 35.3f));
                         matrices.method_22907(RotationAxis.field_40718.rotationDegrees((float)l * -9.785f));
-                        float m = (float)item.method_7935() - ((float)Wrapper.mc.field_1724.method_6014() - tickDelta + 1.0f);
+                        float m = (float)item.method_7935() - ((float)Wrapper.mc.player.method_6014() - tickDelta + 1.0f);
                         float f = m / 20.0f;
                         f = (f * f + f * 2.0f) / 3.0f;
                         if (f > 1.0f) {
@@ -136,7 +136,7 @@ public abstract class MixinHeldItemRenderer {
                         matrices.method_22907(RotationAxis.field_40714.rotationDegrees(-55.0f));
                         matrices.method_22907(RotationAxis.field_40716.rotationDegrees((float)l * 35.3f));
                         matrices.method_22907(RotationAxis.field_40718.rotationDegrees((float)l * -9.785f));
-                        float m = (float)item.method_7935() - ((float)Wrapper.mc.field_1724.method_6014() - tickDelta + 1.0f);
+                        float m = (float)item.method_7935() - ((float)Wrapper.mc.player.method_6014() - tickDelta + 1.0f);
                         float f = m / 10.0f;
                         if (f > 1.0f) {
                             f = 1.0f;
@@ -189,7 +189,7 @@ public abstract class MixinHeldItemRenderer {
 
     private void applyEatOrDrinkTransformationCustom(MatrixStack matrices, float tickDelta, Arm arm, @NotNull ItemStack stack) {
         float h;
-        float f = (float)Wrapper.mc.field_1724.method_6014() - tickDelta + 1.0f;
+        float f = (float)Wrapper.mc.player.method_6014() - tickDelta + 1.0f;
         float g = f / (float)stack.method_7935();
         if (g < 0.8f) {
             h = MathHelper.method_15379((float)(MathHelper.method_15362((float)(f / 4.0f * (float)Math.PI)) * 0.005f));
@@ -213,7 +213,7 @@ public abstract class MixinHeldItemRenderer {
 
     private void applyBrushTransformation(MatrixStack matrices, float tickDelta, Arm arm, @NotNull ItemStack stack, float equipProgress) {
         this.applyEquipOffset(matrices, arm, equipProgress);
-        float f = (float)Wrapper.mc.field_1724.method_6014() - tickDelta + 1.0f;
+        float f = (float)Wrapper.mc.player.method_6014() - tickDelta + 1.0f;
         float g = 1.0f - f / (float)stack.method_7935();
         float m = -15.0f + 75.0f * MathHelper.method_15362((float)(g * 45.0f * (float)Math.PI));
         if (arm != Arm.field_6183) {

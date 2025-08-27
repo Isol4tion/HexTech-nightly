@@ -61,7 +61,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onEnable() {
-        if (Speed.mc.field_1724 != null) {
+        if (Speed.mc.player != null) {
             this.speed = MovementUtil.getSpeed(false);
             this.distance = MovementUtil.getDistance2D();
         }
@@ -70,10 +70,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     public void onStrafe(MoveEvent event) {
-        if (this.stopGround.getValue() && Speed.mc.field_1724.method_24828()) {
+        if (this.stopGround.getValue() && Speed.mc.player.method_24828()) {
             return;
         }
-        if (HoleKickTest.isInWeb((PlayerEntity)Speed.mc.field_1724) || Speed.mc.field_1724.method_5715() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.field_1724.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.field_1724.method_5771() || Speed.mc.field_1724.method_5799() || Speed.mc.field_1724.method_31549().field_7479) {
+        if (HoleKickTest.isInWeb((PlayerEntity)Speed.mc.player) || Speed.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().field_7479) {
             return;
         }
         if (!MovementUtil.isMoving()) {
@@ -94,7 +94,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Object t = event.getPacket();
             if (t instanceof EntityVelocityUpdateS2CPacket) {
                 EntityVelocityUpdateS2CPacket packet = (EntityVelocityUpdateS2CPacket)t;
-                if (Speed.mc.field_1724 != null && packet.method_11818() == Speed.mc.field_1724.method_5628() && this.velocity.getValue()) {
+                if (Speed.mc.player != null && packet.method_11818() == Speed.mc.player.method_5628() && this.velocity.getValue()) {
                     double speed = Math.sqrt(packet.method_11815() * packet.method_11815() + packet.method_11819() * packet.method_11819()) / 8000.0;
                     double d = this.lastExp = this.expTimer.passedMs(this.coolDown.getValueInt()) ? speed : speed - this.lastExp;
                     if (this.lastExp > 0.0) {
@@ -110,7 +110,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             } else if (event.getPacket() instanceof PlayerPositionLookS2CPacket) {
                 this.lagTimer.reset();
-                if (Speed.mc.field_1724 != null) {
+                if (Speed.mc.player != null) {
                     this.distance = 0.0;
                 }
                 this.speed = 0.0;
@@ -119,7 +119,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 t = event.getPacket();
                 if (t instanceof ExplosionS2CPacket) {
                     ExplosionS2CPacket packet = (ExplosionS2CPacket)t;
-                    if (this.explosions.getValue() && MovementUtil.isMoving() && Speed.mc.field_1724.method_5649(packet.method_11475(), packet.method_11477(), packet.method_11478()) < 200.0) {
+                    if (this.explosions.getValue() && MovementUtil.isMoving() && Speed.mc.player.method_5649(packet.method_11475(), packet.method_11477(), packet.method_11478()) < 200.0) {
                         double speed = Math.sqrt(Math.abs(packet.method_11472() * packet.method_11472()) + Math.abs(packet.method_11474() * packet.method_11474()));
                         double d = this.lastExp = this.expTimer.passedMs(this.coolDown.getValueInt()) ? speed : speed - this.lastExp;
                         if (this.lastExp > 0.0) {
@@ -149,8 +149,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public double getBaseMoveSpeed() {
         double n = 0.2873;
-        if (!(!Speed.mc.field_1724.method_6059(StatusEffects.field_5904) || this.slowCheck.getValue() && Speed.mc.field_1724.method_6059(StatusEffects.field_5909))) {
-            n *= 1.0 + 0.2 * (double)(Objects.requireNonNull(Speed.mc.field_1724.method_6112(StatusEffects.field_5904)).method_5578() + 1);
+        if (!(!Speed.mc.player.method_6059(StatusEffects.field_5904) || this.slowCheck.getValue() && Speed.mc.player.method_6059(StatusEffects.field_5909))) {
+            n *= 1.0 + 0.2 * (double)(Objects.requireNonNull(Speed.mc.player.method_6112(StatusEffects.field_5904)).method_5578() + 1);
         }
         return n;
     }
@@ -158,7 +158,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void invoke(MoveEvent event) {
         if (this.mode.is(_hIXwTMQyjavijZllSIBF.Strafe)) {
-            if (Speed.mc.field_1724.method_5715() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.field_1724.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.field_1724.method_5771() || Speed.mc.field_1724.method_5799() || Speed.mc.field_1724.method_31549().field_7479) {
+            if (Speed.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().field_7479) {
                 return;
             }
             if (!MovementUtil.isMoving()) {
@@ -173,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             event.setZ(dir[1]);
         }
         if (this.mode.is(_hIXwTMQyjavijZllSIBF.Instant)) {
-            if (!this.inWater.getValue() && (Speed.mc.field_1724.method_5869() || Speed.mc.field_1724.method_5799() || Speed.mc.field_1724.method_5771()) || Speed.mc.field_1724.method_21754() || !this.inBlock.getValue() && EntityUtil.isInsideBlock() || Speed.mc.field_1724.method_31549().field_7479) {
+            if (!this.inWater.getValue() && (Speed.mc.player.method_5869() || Speed.mc.player.method_5799() || Speed.mc.player.method_5771()) || Speed.mc.player.method_21754() || !this.inBlock.getValue() && EntityUtil.isInsideBlock() || Speed.mc.player.method_31549().field_7479) {
                 this.stop = true;
                 return;
             }
@@ -184,10 +184,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (!MovementUtil.isMoving() || HoleSnap.INSTANCE.isOn()) {
                 return;
             }
-            if (this.stopGround.getValue() && Speed.mc.field_1724.method_24828()) {
+            if (this.stopGround.getValue() && Speed.mc.player.method_24828()) {
                 return;
             }
-            if (Speed.mc.field_1724.method_6128()) {
+            if (Speed.mc.player.method_6128()) {
                 return;
             }
             if (!this.lagTimer.passedMs(this.lagTime.getValueInt())) {
@@ -195,7 +195,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (this.stage == 1 && MovementUtil.isMoving()) {
                 this.speed = 1.35 * MovementUtil.getSpeed(this.slow.getValue(), this.strafeSpeed.getValue() / 1000.0) - 0.01;
-            } else if (this.stage == 2 && Speed.mc.field_1724.method_24828() && MovementUtil.isMoving() && (Speed.mc.field_1690.field_1903.method_1434() || this.jump.getValue())) {
+            } else if (this.stage == 2 && Speed.mc.player.method_24828() && MovementUtil.isMoving() && (Speed.mc.field_1690.field_1903.method_1434() || this.jump.getValue())) {
                 double yMotion = 0.3999 + MovementUtil.getJumpSpeed();
                 MovementUtil.setMotionY(yMotion);
                 event.setY(yMotion);
@@ -204,7 +204,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.speed = this.distance - 0.66 * (this.distance - MovementUtil.getSpeed(this.slow.getValue(), this.strafeSpeed.getValue() / 1000.0));
                 this.boost = !this.boost;
             } else {
-                if ((Speed.mc.field_1687.method_39454(null, Speed.mc.field_1724.method_5829().method_989(0.0, MovementUtil.getMotionY(), 0.0)) || Speed.mc.field_1724.field_34927) && this.stage > 0) {
+                if ((Speed.mc.world.method_39454(null, Speed.mc.player.method_5829().method_989(0.0, MovementUtil.getMotionY(), 0.0)) || Speed.mc.player.field_34927) && this.stage > 0) {
                     this.stage = MovementUtil.isMoving() ? 1 : 0;
                 }
                 this.speed = this.distance - this.distance / 159.0;
@@ -213,7 +213,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.speed = Math.max(this.speed, MovementUtil.getSpeed(this.slow.getValue(), this.strafeSpeed.getValue() / 1000.0));
             double n = MovementUtil.getMoveForward();
             double n2 = MovementUtil.getMoveStrafe();
-            double n3 = Speed.mc.field_1724.method_36454();
+            double n3 = Speed.mc.player.method_36454();
             if (n == 0.0 && n2 == 0.0) {
                 event.setX(0.0);
                 event.setZ(0.0);

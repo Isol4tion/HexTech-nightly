@@ -27,7 +27,7 @@ implements Wrapper {
         }
         this.inWebPlayers.clear();
         this.insideBlock = EntityUtil.isInsideBlock();
-        for (PlayerEntity player : new ArrayList(PlayerManager_fDCPIpFeekihQpSyxOff.mc.field_1687.method_18456())) {
+        for (PlayerEntity player : new ArrayList(PlayerManager_fDCPIpFeekihQpSyxOff.mc.world.method_18456())) {
             this.map.put(player, new PlayerManager(player.method_6096(), player.method_26825(EntityAttributes.field_23725)));
             this.webUpdate(player);
         }
@@ -41,8 +41,8 @@ implements Wrapper {
         for (float x : new float[]{0.0f, 0.3f, -0.3f}) {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
                 for (int y : new int[]{-1, 0, 1, 2}) {
-                    BlockPos pos = new BlockPosX(player.method_23317() + (double)x, player.method_23318(), player.method_23321() + (double)z).method_10086(y);
-                    if (!new Box(pos).method_994(player.method_5829()) || PlayerManager_fDCPIpFeekihQpSyxOff.mc.field_1687.method_8320(pos).method_26204() != Blocks.field_10343) continue;
+                    BlockPos pos = new BlockPosX(player.getX() + (double)x, player.getY(), player.getZ() + (double)z).method_10086(y);
+                    if (!new Box(pos).method_994(player.method_5829()) || PlayerManager_fDCPIpFeekihQpSyxOff.mc.world.getBlockState(pos).getBlock() != Blocks.field_10343) continue;
                     this.inWebPlayers.add(player);
                     return;
                 }

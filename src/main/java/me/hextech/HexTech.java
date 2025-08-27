@@ -69,7 +69,6 @@ implements ModInitializer {
                         e.printStackTrace();
                         continue;
                     }
-                    break;
                 }
             });
             thread.start();
@@ -152,7 +151,6 @@ implements ModInitializer {
                     e.printStackTrace();
                     continue;
                 }
-                break;
             }
         });
         thread.start();

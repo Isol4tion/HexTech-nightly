@@ -64,7 +64,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.tempBedrockList.clear();
             this.tempNormalList.clear();
             this.tempAirList.clear();
-            for (BlockPos pos : BlockUtil.getSphere(this.distance.getValueFloat(), HoleESP_uLDVZuHQKEvOMTkALgRO.mc.field_1724.method_19538())) {
+            for (BlockPos pos : BlockUtil.getSphere(this.distance.getValueFloat(), HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.method_19538())) {
                 HoleESP type = this.isHole(pos);
                 if (type == HoleESP.Bedrock) {
                     this.tempBedrockList.add(pos);
@@ -81,19 +81,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     HoleESP isHole(BlockPos pos) {
-        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.field_1687.method_22347(pos) && (!this.airYCheck.getValue() || pos.method_10264() == HoleESP_uLDVZuHQKEvOMTkALgRO.mc.field_1724.method_31478() - 1) && CombatUtil.isHard(pos.method_10084())) {
+        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && (!this.airYCheck.getValue() || pos.method_10264() == HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.method_31478() - 1) && CombatUtil.isHard(pos.up())) {
             return HoleESP.Air;
         }
         int blockProgress = 0;
         boolean bedRock = true;
         for (Direction i : Direction.values()) {
-            if (i == Direction.field_11036 || i == Direction.field_11033 || !CombatUtil.isHard(pos.method_10093(i))) continue;
-            if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.field_1687.method_8320(pos.method_10093(i)).method_26204() != Blocks.field_9987) {
+            if (i == Direction.UP || i == Direction.DOWN || !CombatUtil.isHard(pos.offset(i))) continue;
+            if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.getBlockState(pos.offset(i)).getBlock() != Blocks.field_9987) {
                 bedRock = false;
             }
             ++blockProgress;
         }
-        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.field_1687.method_22347(pos) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.field_1687.method_22347(pos.method_10084()) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.field_1687.method_22347(pos.method_10086(2)) && blockProgress > 3 && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.field_1687.method_39454((Entity)HoleESP_uLDVZuHQKEvOMTkALgRO.mc.field_1724, new Box(pos.method_10074()))) {
+        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.up()) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.method_10086(2)) && blockProgress > 3 && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.method_39454((Entity)HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player, new Box(pos.method_10074()))) {
             if (bedRock) {
                 return HoleESP.Bedrock;
             }
@@ -116,7 +116,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void draw(MatrixStack matrixStack, List<BlockPos> list, ColorSetting fill, ColorSetting fade, ColorSetting box, double height) {
         for (BlockPos pos : list) {
-            double distance = HoleESP_uLDVZuHQKEvOMTkALgRO.mc.field_1724.method_19538().method_1022(pos.method_46558());
+            double distance = HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.method_19538().method_1022(pos.toCenterPos());
             double alpha = distance > this.startFade.getValue() ? Math.max(Math.min(1.0, 1.0 - (distance - this.startFade.getValue()) / (this.distance.getValue() - this.startFade.getValue())), 0.0) : 1.0;
             Box espBox = new Box((double)pos.method_10263(), (double)pos.method_10264(), (double)pos.method_10260(), (double)(pos.method_10263() + 1), (double)pos.method_10264() + height, (double)(pos.method_10260() + 1));
             if (fill.booleanValue) {

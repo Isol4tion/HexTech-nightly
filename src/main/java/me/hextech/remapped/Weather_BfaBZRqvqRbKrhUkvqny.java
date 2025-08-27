@@ -120,7 +120,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     float dLength = (float)Math.sqrt(xOffset * xOffset + yOffset * yOffset) / (float)expand;
                     weatherAlpha = ((1.0f - dLength * dLength) * 0.5f + 0.5f) * f;
                     mutable.method_10103(xRange, maxRenderY, zRange);
-                    int lightmapCoord = WorldRenderer.method_23794((BlockRenderView)Weather_BfaBZRqvqRbKrhUkvqny.mc.field_1687, (BlockPos)mutable);
+                    int lightmapCoord = WorldRenderer.method_23794((BlockRenderView)Weather_BfaBZRqvqRbKrhUkvqny.mc.world, (BlockPos)mutable);
                     bufferBuilder.method_22912((double)xRange - cameraX - xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ - zCoord + 0.5).method_22913(0.0f, (float)minIntY * 0.25f + texTextureV).method_22915(red, green, blue, weatherAlpha).method_22916(lightmapCoord).method_1344();
                     bufferBuilder.method_22912((double)xRange - cameraX + xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).method_22913(1.0f, (float)minIntY * 0.25f + texTextureV).method_22915(red, green, blue, weatherAlpha).method_22916(lightmapCoord).method_1344();
                     bufferBuilder.method_22912((double)xRange - cameraX + xCoord + 0.5, (double)minIntY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).method_22913(1.0f, (float)expandedCameraY * 0.25f + texTextureV).method_22915(red, green, blue, weatherAlpha).method_22916(lightmapCoord).method_1344();
@@ -144,7 +144,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 weatherAlpha = (float)Math.sqrt(xOffset * xOffset + yOffset * yOffset) / (float)expand;
                 float snowAlpha = ((1.0f - weatherAlpha * weatherAlpha) * 0.3f + 0.5f) * f;
                 mutable.method_10103(xRange, maxRenderY, zRange);
-                int lightMapCoord = WorldRenderer.method_23794((BlockRenderView)Weather_BfaBZRqvqRbKrhUkvqny.mc.field_1687, (BlockPos)mutable);
+                int lightMapCoord = WorldRenderer.method_23794((BlockRenderView)Weather_BfaBZRqvqRbKrhUkvqny.mc.world, (BlockPos)mutable);
                 int lightmapCalcV = lightMapCoord >> 16 & 0xFFFF;
                 int lightmapCalcU = lightMapCoord & 0xFFFF;
                 int lightmapV = (lightmapCalcV * 3 + 240) / 4;

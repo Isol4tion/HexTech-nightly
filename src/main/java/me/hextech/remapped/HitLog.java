@@ -65,7 +65,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onPlayerDeath(DeathEvent event) {
         PlayerEntity player = event.getPlayer();
-        if (player == HitLog.mc.field_1724 || player.method_5739((Entity)HitLog.mc.field_1724) > 20.0f) {
+        if (player == HitLog.mc.player || player.method_5739((Entity)HitLog.mc.player) > 20.0f) {
             return;
         }
         int popCount = HexTech.POP.popContainer.getOrDefault(player.method_5477().getString(), 0);
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onTotem(TotemEvent event) {
         PlayerEntity player = event.getPlayer();
-        if (player == HitLog.mc.field_1724 || player.method_5739((Entity)HitLog.mc.field_1724) > 20.0f) {
+        if (player == HitLog.mc.player || player.method_5739((Entity)HitLog.mc.player) > 20.0f) {
             return;
         }
         int popCount = HexTech.POP.popContainer.getOrDefault(player.method_5477().getString(), 1);

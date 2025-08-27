@@ -146,9 +146,9 @@ extends AbstractClientPlayerEntity {
                 }
                 if (this.method_3134()) {
                     boolean bl3;
-                    double d = this.method_23317() - this.field_3926;
-                    double e = this.method_23318() - this.field_3940;
-                    double f = this.method_23321() - this.field_3924;
+                    double d = this.getX() - this.field_3926;
+                    double e = this.getY() - this.field_3940;
+                    double f = this.getZ() - this.field_3924;
                     float yaw = this.method_36454();
                     float pitch = this.method_36455();
                     RotateEvent rotateEvent = new RotateEvent(yaw, pitch);
@@ -173,18 +173,18 @@ extends AbstractClientPlayerEntity {
                         this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.Full(vec3d.field_1352, -999.0, vec3d.field_1350, yaw, pitch, this.method_24828()));
                         bl2 = false;
                     } else if (bl2 && bl3) {
-                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.Full(this.method_23317(), this.method_23318(), this.method_23321(), yaw, pitch, this.method_24828()));
+                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.Full(this.getX(), this.getY(), this.getZ(), yaw, pitch, this.method_24828()));
                     } else if (bl2) {
-                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(this.method_23317(), this.method_23318(), this.method_23321(), this.method_24828()));
+                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(this.getX(), this.getY(), this.getZ(), this.method_24828()));
                     } else if (bl3) {
                         this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, this.method_24828()));
                     } else if (this.field_3920 != this.method_24828()) {
                         this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.OnGroundOnly(this.method_24828()));
                     }
                     if (bl2) {
-                        this.field_3926 = this.method_23317();
-                        this.field_3940 = this.method_23318();
-                        this.field_3924 = this.method_23321();
+                        this.field_3926 = this.getX();
+                        this.field_3940 = this.getY();
+                        this.field_3924 = this.getZ();
                         this.field_3923 = 0;
                     }
                     if (bl3) {

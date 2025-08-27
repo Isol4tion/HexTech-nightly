@@ -35,8 +35,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Debug.nullCheck()) {
             return;
         }
-        if (Debug.mc.field_1687 != null) {
-            for (AbstractClientPlayerEntity player : Debug.mc.field_1687.method_18456()) {
+        if (Debug.mc.world != null) {
+            for (AbstractClientPlayerEntity player : Debug.mc.world.method_18456()) {
                 Vec3d vec3d = CombatUtil.getEntityPosVec((PlayerEntity)player, this.ticks.getValueInt());
                 if (this.prerender.getValue()) {
                     Render3DUtil.draw3DBox(matrixStack, new Box(BlockPos.method_49638((Position)vec3d)), this.color.getValue());

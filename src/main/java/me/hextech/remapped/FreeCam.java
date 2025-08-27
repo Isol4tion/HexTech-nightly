@@ -43,15 +43,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         FreeCam.mc.field_1730 = false;
-        this.preYaw = FreeCam.mc.field_1724.method_36454();
-        this.prePitch = FreeCam.mc.field_1724.method_36455();
-        this.fakePitch = FreeCam.mc.field_1724.method_36455();
-        this.fakeYaw = FreeCam.mc.field_1724.method_36454();
+        this.preYaw = FreeCam.mc.player.method_36454();
+        this.prePitch = FreeCam.mc.player.method_36455();
+        this.fakePitch = FreeCam.mc.player.method_36455();
+        this.fakeYaw = FreeCam.mc.player.method_36454();
         this.prevFakePitch = this.fakePitch;
         this.prevFakeYaw = this.fakeYaw;
-        this.fakeX = FreeCam.mc.field_1724.method_23317();
-        this.fakeY = FreeCam.mc.field_1724.method_23318() + (double)FreeCam.mc.field_1724.method_18381(FreeCam.mc.field_1724.method_18376());
-        this.fakeZ = FreeCam.mc.field_1724.method_23321();
+        this.fakeX = FreeCam.mc.player.getX();
+        this.fakeY = FreeCam.mc.player.getY() + (double)FreeCam.mc.player.method_18381(FreeCam.mc.player.method_18376());
+        this.fakeZ = FreeCam.mc.player.getZ();
         this.prevFakeX = this.fakeX;
         this.prevFakeY = this.fakeY;
         this.prevFakeZ = this.fakeZ;
@@ -81,13 +81,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         this.prevFakeYaw = this.fakeYaw;
         this.prevFakePitch = this.fakePitch;
-        this.fakeYaw = FreeCam.mc.field_1724.method_36454();
-        this.fakePitch = FreeCam.mc.field_1724.method_36455();
+        this.fakeYaw = FreeCam.mc.player.method_36454();
+        this.fakePitch = FreeCam.mc.player.method_36455();
     }
 
     @EventHandler
     public void onKeyboardInput(KeyboardInputEvent event) {
-        if (FreeCam.mc.field_1724 == null) {
+        if (FreeCam.mc.player == null) {
             return;
         }
         double[] motion = MovementUtil.directionSpeed(this.speed.getValue());
@@ -102,29 +102,29 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (FreeCam.mc.field_1690.field_1832.method_1434()) {
             this.fakeY -= this.hspeed.getValue();
         }
-        FreeCam.mc.field_1724.field_3913.field_3905 = 0.0f;
-        FreeCam.mc.field_1724.field_3913.field_3907 = 0.0f;
-        FreeCam.mc.field_1724.field_3913.field_3904 = false;
-        FreeCam.mc.field_1724.field_3913.field_3903 = false;
+        FreeCam.mc.player.field_3913.field_3905 = 0.0f;
+        FreeCam.mc.player.field_3913.field_3907 = 0.0f;
+        FreeCam.mc.player.field_3913.field_3904 = false;
+        FreeCam.mc.player.field_3913.field_3903 = false;
     }
 
     public float getFakeYaw() {
-        return (float)MathUtil.interpolate(this.prevFakeYaw, this.fakeYaw, mc.method_1488());
+        return (float)MathUtil.interpolate(this.prevFakeYaw, this.fakeYaw, mc.getTickDelta());
     }
 
     public float getFakePitch() {
-        return (float)MathUtil.interpolate(this.prevFakePitch, this.fakePitch, mc.method_1488());
+        return (float)MathUtil.interpolate(this.prevFakePitch, this.fakePitch, mc.getTickDelta());
     }
 
     public double getFakeX() {
-        return MathUtil.interpolate(this.prevFakeX, this.fakeX, mc.method_1488());
+        return MathUtil.interpolate(this.prevFakeX, this.fakeX, mc.getTickDelta());
     }
 
     public double getFakeY() {
-        return MathUtil.interpolate(this.prevFakeY, this.fakeY, mc.method_1488());
+        return MathUtil.interpolate(this.prevFakeY, this.fakeY, mc.getTickDelta());
     }
 
     public double getFakeZ() {
-        return MathUtil.interpolate(this.prevFakeZ, this.fakeZ, mc.method_1488());
+        return MathUtil.interpolate(this.prevFakeZ, this.fakeZ, mc.getTickDelta());
     }
 }

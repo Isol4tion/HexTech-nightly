@@ -47,7 +47,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (breakData == null || breakData.getEntity() == null) {
                 return;
             }
-            if (this.noSelf.getValue() && breakData.getEntity() == BreakESP.mc.field_1724) {
+            if (this.noSelf.getValue() && breakData.getEntity() == BreakESP.mc.player) {
                 return;
             }
             if (breakData.fade == null || breakData.timer == null) {
@@ -62,11 +62,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 Render3DUtil.drawBox(matrixStack, cbox, this.box.getValue());
             }
             if (this.name.getValue()) {
-                Render3DUtil.drawText3DBreak(breakData.getEntity().method_5477().getString(), breakData.pos.method_46558().method_1031(0.0, (double)this.nameY.getValueFloat(), 0.0), -1);
+                Render3DUtil.drawText3DBreak(breakData.getEntity().method_5477().getString(), breakData.pos.toCenterPos().method_1031(0.0, (double)this.nameY.getValueFloat(), 0.0), -1);
             }
             double breakTimeMs = this.breakTime.getValue() * 1000.0;
             if (this.breakName.getValue()) {
-                Render3DUtil.drawText3DBreakMine(Text.method_30163((String)this.df.format(Math.min(1.0, (double)breakData.timer.getPassedTimeMs() / breakTimeMs) * 100.0)), breakData.pos.method_46558().method_1031(0.0, (double)(-this.mineY.getValueFloat()), 0.0), 0.0, 0.0, this.minescale.getValueFloat(), ColorUtil.fadeColor(new Color(235, 235, 235), new Color(235, 235, 235), (double)breakData.timer.getPassedTimeMs() / breakTimeMs));
+                Render3DUtil.drawText3DBreakMine(Text.method_30163((String)this.df.format(Math.min(1.0, (double)breakData.timer.getPassedTimeMs() / breakTimeMs) * 100.0)), breakData.pos.toCenterPos().method_1031(0.0, (double)(-this.mineY.getValueFloat()), 0.0), 0.0, 0.0, this.minescale.getValueFloat(), ColorUtil.fadeColor(new Color(235, 235, 235), new Color(235, 235, 235), (double)breakData.timer.getPassedTimeMs() / breakTimeMs));
             }
         });
     }

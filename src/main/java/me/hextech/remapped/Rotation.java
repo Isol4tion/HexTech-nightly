@@ -44,14 +44,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (HoleSnap.INSTANCE.isOn()) {
             return;
         }
-        if (Rotation.mc.field_1724.method_3144()) {
+        if (Rotation.mc.player.method_3144()) {
             return;
         }
         if (e.isPre()) {
-            this.prevYaw = Rotation.mc.field_1724.method_36454();
-            Rotation.mc.field_1724.method_36456(fixRotation);
+            this.prevYaw = Rotation.mc.player.method_36454();
+            Rotation.mc.player.method_36456(fixRotation);
         } else {
-            Rotation.mc.field_1724.method_36456(this.prevYaw);
+            Rotation.mc.player.method_36456(this.prevYaw);
         }
     }
 
@@ -63,7 +63,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (HoleSnap.INSTANCE.isOn()) {
             return;
         }
-        if (Rotation.mc.field_1724.method_3144()) {
+        if (Rotation.mc.player.method_3144()) {
             return;
         }
         event.setVelocity(Rotation.movementInputToVelocity(event.getMovementInput(), event.getSpeed(), fixRotation));
@@ -77,15 +77,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (HoleSnap.INSTANCE.isOn()) {
             return;
         }
-        if (Rotation.mc.field_1724.method_3144() || FreeCam.INSTANCE.isOn()) {
+        if (Rotation.mc.player.method_3144() || FreeCam.INSTANCE.isOn()) {
             return;
         }
-        float mF = Rotation.mc.field_1724.field_3913.field_3905;
-        float mS = Rotation.mc.field_1724.field_3913.field_3907;
-        float delta = (Rotation.mc.field_1724.method_36454() - fixRotation) * ((float)Math.PI / 180);
+        float mF = Rotation.mc.player.field_3913.field_3905;
+        float mS = Rotation.mc.player.field_3913.field_3907;
+        float delta = (Rotation.mc.player.method_36454() - fixRotation) * ((float)Math.PI / 180);
         float cos = MathHelper.method_15362((float)delta);
         float sin = MathHelper.method_15374((float)delta);
-        Rotation.mc.field_1724.field_3913.field_3907 = Math.round(mS * cos - mF * sin);
-        Rotation.mc.field_1724.field_3913.field_3905 = Math.round(mF * cos + mS * sin);
+        Rotation.mc.player.field_3913.field_3907 = Math.round(mS * cos - mF * sin);
+        Rotation.mc.player.field_3913.field_3905 = Math.round(mF * cos + mS * sin);
     }
 }

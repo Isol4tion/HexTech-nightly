@@ -173,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        if (!HoleSnap.mc.field_1724.method_5805() || HoleSnap.mc.field_1724.method_6128()) {
+        if (!HoleSnap.mc.player.method_5805() || HoleSnap.mc.player.method_6128()) {
             this.disable();
             return;
         }
@@ -185,8 +185,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        Vec3d playerPos = HoleSnap.mc.field_1724.method_19538();
-        this.targetPos = new Vec3d((double)this.holePos.method_10263() + 0.5, HoleSnap.mc.field_1724.method_23318(), (double)this.holePos.method_10260() + 0.5);
+        Vec3d playerPos = HoleSnap.mc.player.method_19538();
+        this.targetPos = new Vec3d((double)this.holePos.method_10263() + 0.5, HoleSnap.mc.player.getY(), (double)this.holePos.method_10260() + 0.5);
         if (CombatUtil.isDoubleHole(this.holePos) && (facing = CombatUtil.is3Block(this.holePos)) != null) {
             this.targetPos = this.targetPos.method_1019(new Vec3d((double)facing.method_10163().method_10263() * 0.5, (double)facing.method_10163().method_10264() * 0.5, (double)facing.method_10163().method_10260() * 0.5));
         }
@@ -203,7 +203,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Math.abs(x) < 0.1 && Math.abs(z) < 0.1 && playerPos.field_1351 <= (double)this.holePos.method_10264() + 0.5) {
             this.disable();
         }
-        this.stuckTicks = HoleSnap.mc.field_1724.field_5976 ? ++this.stuckTicks : 0;
+        this.stuckTicks = HoleSnap.mc.player.field_5976 ? ++this.stuckTicks : 0;
     }
 
     @Override

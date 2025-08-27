@@ -176,7 +176,7 @@ implements Wrapper {
 
     public static void drawFadingBox(MatrixStack matrixStack, Box pos, Color startColor, Color endColor, double height) {
         for (Direction face : Direction.values()) {
-            if (face == Direction.field_11036) continue;
+            if (face == Direction.UP) continue;
             Render3DUtil.drawFadingSide(matrixStack, pos, face, startColor, endColor, height);
         }
     }
@@ -206,14 +206,14 @@ implements Wrapper {
         double x2 = 0.0;
         double y2 = 0.0;
         double z2 = 0.0;
-        if (face == Direction.field_11033) {
+        if (face == Direction.DOWN) {
             x1 = bb.field_1323;
             x2 = bb.field_1320;
             y1 = bb.field_1322;
             y2 = bb.field_1322;
             z1 = bb.field_1321;
             z2 = bb.field_1324;
-        } else if (face == Direction.field_11036) {
+        } else if (face == Direction.UP) {
             x1 = bb.field_1323;
             x2 = bb.field_1320;
             y1 = bb.field_1325 + height;
@@ -251,9 +251,9 @@ implements Wrapper {
         }
         if (face == Direction.field_11034 || face == Direction.field_11039 || face == Direction.field_11043 || face == Direction.field_11035) {
             Render3DUtil.buildPosColor(matrix, bufferBuilder, red, green, blue, alpha, red2, green2, blue2, alpha2, x1, y1, z1, x2, y2, z2);
-        } else if (face == Direction.field_11036) {
+        } else if (face == Direction.UP) {
             Render3DUtil.buildPosColor(matrix, bufferBuilder, red2, green2, blue2, alpha2, x1, y1, z1, x2, y2, z2);
-        } else if (face == Direction.field_11033) {
+        } else if (face == Direction.DOWN) {
             Render3DUtil.buildPosColor(matrix, bufferBuilder, red, green, blue, alpha, x1, y1, z1, x2, y2, z2);
         }
         tessellator.method_1350();
@@ -339,9 +339,9 @@ implements Wrapper {
     public static void drawSphere(MatrixStack matrix, EndCrystalEntity entity, Float radius, Float height, Float lineWidth, Color color) {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        double x = entity.field_6038 + (entity.method_23317() - entity.field_6038) * (double)mc.method_1488();
-        double y = entity.field_5971 + (entity.method_23318() - entity.field_5971) * (double)mc.method_1488();
-        double z = entity.field_5989 + (entity.method_23321() - entity.field_5989) * (double)mc.method_1488();
+        double x = entity.field_6038 + (entity.getX() - entity.field_6038) * (double)mc.getTickDelta();
+        double y = entity.field_5971 + (entity.getY() - entity.field_5971) * (double)mc.getTickDelta();
+        double z = entity.field_5989 + (entity.getZ() - entity.field_5989) * (double)mc.getTickDelta();
         double pix2 = Math.PI * 2;
         Tessellator tessellator = Tessellator.method_1348();
         BufferBuilder bufferBuilder = tessellator.method_1349();

@@ -30,21 +30,21 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Quiver.nullCheck()) {
             return;
         }
-        oldSlot = Quiver.mc.field_1724.method_31548().field_7545;
+        oldSlot = Quiver.mc.player.method_31548().field_7545;
         slot = this.findItem(Items.field_8102);
         if (slot == -1) {
             return;
         }
         this.doSwap(slot);
         Quiver.mc.field_1690.field_1904.method_23481(true);
-        Quiver.mc.field_1761.method_2919((PlayerEntity)Quiver.mc.field_1724, Hand.field_5808);
+        Quiver.mc.field_1761.method_2919((PlayerEntity)Quiver.mc.player, Hand.field_5808);
     }
 
     @Override
     public void onDisable() {
         if (Quiver.mc.field_1690.field_1904.method_1434()) {
             Quiver.mc.field_1690.field_1904.method_23481(false);
-            Quiver.mc.field_1761.method_2897((PlayerEntity)Quiver.mc.field_1724);
+            Quiver.mc.field_1761.method_2897((PlayerEntity)Quiver.mc.player);
             if (this.inventory.getValue()) {
                 this.doSwap(slot);
                 EntityUtil.syncInventory();
@@ -60,9 +60,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if ((double)BowItem.method_7722((int)Quiver.mc.field_1724.method_6048()) >= 0.13) {
+        if ((double)BowItem.method_7722((int)Quiver.mc.player.method_6048()) >= 0.13) {
             Quiver.mc.field_1690.field_1904.method_23481(false);
-            Quiver.mc.field_1761.method_2897((PlayerEntity)Quiver.mc.field_1724);
+            Quiver.mc.field_1761.method_2897((PlayerEntity)Quiver.mc.player);
             if (this.inventory.getValue()) {
                 this.doSwap(slot);
                 EntityUtil.syncInventory();
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler(priority=-101)
     public void onRotate(RotateEvent event) {
-        if (Quiver.mc.field_1724.method_6115() && Quiver.mc.field_1724.method_6030().method_7909() instanceof BowItem) {
+        if (Quiver.mc.player.method_6115() && Quiver.mc.player.method_6030().method_7909() instanceof BowItem) {
             event.setPitch(-90.0f);
         }
     }
@@ -89,7 +89,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, Quiver.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Quiver.mc.player.method_31548().field_7545);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

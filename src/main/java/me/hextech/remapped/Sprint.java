@@ -36,15 +36,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             case 1: {
                 Sprint.mc.field_1690.field_1867.method_23481(true);
                 shouldSprint = false;
-                if (Sprint.mc.field_1724.method_7344().method_7586() <= 6 && !Sprint.mc.field_1724.method_7337()) {
+                if (Sprint.mc.player.method_7344().method_7586() <= 6 && !Sprint.mc.player.method_7337()) {
                     return;
                 }
-                Sprint.mc.field_1724.method_5728(MovementUtil.isMoving() && !Sprint.mc.field_1724.method_5715());
+                Sprint.mc.player.method_5728(MovementUtil.isMoving() && !Sprint.mc.player.method_5715());
                 break;
             }
             case 2: {
-                shouldSprint = (Sprint.mc.field_1724.method_7344().method_7586() > 6 || Sprint.mc.field_1724.method_7337()) && !Sprint.mc.field_1724.method_5715();
-                Sprint.mc.field_1724.method_5728(shouldSprint);
+                shouldSprint = (Sprint.mc.player.method_7344().method_7586() > 6 || Sprint.mc.player.method_7337()) && !Sprint.mc.player.method_5715();
+                Sprint.mc.player.method_5728(shouldSprint);
             }
         }
     }

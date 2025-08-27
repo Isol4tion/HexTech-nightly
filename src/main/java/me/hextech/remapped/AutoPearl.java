@@ -42,26 +42,26 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.shouldThrow = true;
             return;
         }
-        this.throwPearl(AutoPearl.mc.field_1724.method_36454(), AutoPearl.mc.field_1724.method_36455());
+        this.throwPearl(AutoPearl.mc.player.method_36454(), AutoPearl.mc.player.method_36455());
         this.disable();
     }
 
     @Override
     public void onUpdate() {
-        if (this.rotation.getValue() && HexTech.ROTATE.inFov(AutoPearl.mc.field_1724.method_36454(), AutoPearl.mc.field_1724.method_36455(), this.fov.getValueFloat())) {
+        if (this.rotation.getValue() && HexTech.ROTATE.inFov(AutoPearl.mc.player.method_36454(), AutoPearl.mc.player.method_36455(), this.fov.getValueFloat())) {
             int pearl;
             throwing = true;
-            if (AutoPearl.mc.field_1724.method_6047().method_7909() == Items.field_8634) {
+            if (AutoPearl.mc.player.method_6047().method_7909() == Items.field_8634) {
                 AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
             } else if (this.inventory.getValue() && (pearl = InventoryUtil.findItemInventorySlot(Items.field_8634)) != -1) {
-                InventoryUtil.inventorySwap(pearl, AutoPearl.mc.field_1724.method_31548().field_7545);
+                InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.method_31548().field_7545);
                 AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
-                InventoryUtil.inventorySwap(pearl, AutoPearl.mc.field_1724.method_31548().field_7545);
+                InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.method_31548().field_7545);
                 EntityUtil.syncInventory();
             } else {
                 pearl = InventoryUtil.findItem(Items.field_8634);
                 if (pearl != -1) {
-                    int old = AutoPearl.mc.field_1724.method_31548().field_7545;
+                    int old = AutoPearl.mc.player.method_31548().field_7545;
                     InventoryUtil.switchToSlot(pearl);
                     AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
                     InventoryUtil.switchToSlot(old);
@@ -75,26 +75,26 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onRotate(OffTrackEvent event) {
         if (this.rotation.getValue()) {
-            event.setRotation(AutoPearl.mc.field_1724.method_36454(), AutoPearl.mc.field_1724.method_36455(), this.steps.getValueFloat(), this.priority.getValueFloat());
+            event.setRotation(AutoPearl.mc.player.method_36454(), AutoPearl.mc.player.method_36455(), this.steps.getValueFloat(), this.priority.getValueFloat());
         }
     }
 
     public void throwPearl(float yaw, float pitch) {
         int pearl;
         throwing = true;
-        if (AutoPearl.mc.field_1724.method_6047().method_7909() == Items.field_8634) {
+        if (AutoPearl.mc.player.method_6047().method_7909() == Items.field_8634) {
             EntityUtil.sendYawAndPitch(yaw, pitch);
             AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
         } else if (this.inventory.getValue() && (pearl = InventoryUtil.findItemInventorySlot(Items.field_8634)) != -1) {
-            InventoryUtil.inventorySwap(pearl, AutoPearl.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.method_31548().field_7545);
             EntityUtil.sendYawAndPitch(yaw, pitch);
             AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
-            InventoryUtil.inventorySwap(pearl, AutoPearl.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(pearl, AutoPearl.mc.player.method_31548().field_7545);
             EntityUtil.syncInventory();
         } else {
             pearl = InventoryUtil.findItem(Items.field_8634);
             if (pearl != -1) {
-                int old = AutoPearl.mc.field_1724.method_31548().field_7545;
+                int old = AutoPearl.mc.player.method_31548().field_7545;
                 InventoryUtil.switchToSlot(pearl);
                 EntityUtil.sendYawAndPitch(yaw, pitch);
                 AutoPearl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
@@ -111,7 +111,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (this.shouldThrow && this.getBind().isHoldEnable()) {
             this.shouldThrow = false;
-            this.throwPearl(AutoPearl.mc.field_1724.method_36454(), AutoPearl.mc.field_1724.method_36455());
+            this.throwPearl(AutoPearl.mc.player.method_36454(), AutoPearl.mc.player.method_36455());
         }
     }
 }

@@ -22,12 +22,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (HitboxDesync.nullCheck()) {
             return;
         }
-        Direction f = HitboxDesync.mc.field_1724.method_5735();
-        Box bb = HitboxDesync.mc.field_1724.method_5829();
+        Direction f = HitboxDesync.mc.player.method_5735();
+        Box bb = HitboxDesync.mc.player.method_5829();
         Vec3d center = bb.method_1005();
         Vec3d offset = new Vec3d(f.method_23955());
         Vec3d fin = this.merge(Vec3d.method_24954((Vec3i)BlockPos.method_49638((Position)center)).method_1031(0.5, 0.0, 0.5).method_1019(offset.method_1021(0.20000996883537)), f);
-        HitboxDesync.mc.field_1724.method_5814(fin.field_1352 == 0.0 ? HitboxDesync.mc.field_1724.method_23317() : fin.field_1352, HitboxDesync.mc.field_1724.method_23318(), fin.field_1350 == 0.0 ? HitboxDesync.mc.field_1724.method_23321() : fin.field_1350);
+        HitboxDesync.mc.player.method_5814(fin.field_1352 == 0.0 ? HitboxDesync.mc.player.getX() : fin.field_1352, HitboxDesync.mc.player.getY(), fin.field_1350 == 0.0 ? HitboxDesync.mc.player.getZ() : fin.field_1350);
         this.disable();
     }
 

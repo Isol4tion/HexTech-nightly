@@ -64,14 +64,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (entity == null) {
             return false;
         }
-        if (Shader_CLqIXXaHSdAoBoxRSgjR.mc.field_1724 == null) {
+        if (Shader_CLqIXXaHSdAoBoxRSgjR.mc.player == null) {
             return false;
         }
-        if ((double)MathHelper.method_15355((float)((float)Shader_CLqIXXaHSdAoBoxRSgjR.mc.field_1724.method_5707(entity.method_19538()))) > this.maxRange.getValue()) {
+        if ((double)MathHelper.method_15355((float)((float)Shader_CLqIXXaHSdAoBoxRSgjR.mc.player.method_5707(entity.method_19538()))) > this.maxRange.getValue()) {
             return false;
         }
         if (entity instanceof PlayerEntity) {
-            if (entity == Shader_CLqIXXaHSdAoBoxRSgjR.mc.field_1724) {
+            if (entity == Shader_CLqIXXaHSdAoBoxRSgjR.mc.player) {
                 return this.self.getValue();
             }
             if (HexTech.FRIEND.isFriend((PlayerEntity)entity)) {
@@ -96,7 +96,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         if (this.hands.getValue()) {
-            HexTech.SHADER.renderShader(() -> Shader_CLqIXXaHSdAoBoxRSgjR.mc.field_1773.method_3172(matrixStack, Shader_CLqIXXaHSdAoBoxRSgjR.mc.field_1773.method_19418(), mc.method_1488()), this.mode.getValue());
+            HexTech.SHADER.renderShader(() -> Shader_CLqIXXaHSdAoBoxRSgjR.mc.field_1773.method_3172(matrixStack, Shader_CLqIXXaHSdAoBoxRSgjR.mc.field_1773.method_19418(), mc.getTickDelta()), this.mode.getValue());
         }
     }
 

@@ -99,12 +99,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        for (PlayerEntity ent : NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1687.method_18456()) {
+        for (PlayerEntity ent : NameTags_NZLxiZHrtsQKbsfDngrN.mc.world.method_18456()) {
             Vec3d vector;
-            if (ent == NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1724 && NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1690.method_31044().method_31034() && FreeCam.INSTANCE.isOff()) continue;
-            double x = ent.field_6014 + (ent.method_23317() - ent.field_6014) * (double)mc.method_1488();
-            double y = ent.field_6036 + (ent.method_23318() - ent.field_6036) * (double)mc.method_1488();
-            double z = ent.field_5969 + (ent.method_23321() - ent.field_5969) * (double)mc.method_1488();
+            if (ent == NameTags_NZLxiZHrtsQKbsfDngrN.mc.player && NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1690.method_31044().method_31034() && FreeCam.INSTANCE.isOff()) continue;
+            double x = ent.field_6014 + (ent.getX() - ent.field_6014) * (double)mc.getTickDelta();
+            double y = ent.field_6036 + (ent.getY() - ent.field_6036) * (double)mc.getTickDelta();
+            double z = ent.field_5969 + (ent.getZ() - ent.field_5969) * (double)mc.getTickDelta();
             Vec3d preVec = vector = new Vec3d(x, y + this.height.getValue() + ent.method_5829().method_17940() + 0.3, z);
             vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.field_1352, vector.field_1351, vector.field_1350));
             if (!(vector.field_1350 > 0.0) || !(vector.field_1350 < 1.0)) continue;
@@ -124,7 +124,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 final_string = (String)final_string + " " + String.valueOf(this.getHealthColor(ent)) + NameTags_NZLxiZHrtsQKbsfDngrN.round2(ent.method_6067() + ent.method_6032());
             }
             if (this.distance.getValue()) {
-                final_string = (String)final_string + " " + String.valueOf(Formatting.field_1070) + String.format("%.1f", Float.valueOf(NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1724.method_5739((Entity)ent))) + "m";
+                final_string = (String)final_string + " " + String.valueOf(Formatting.field_1070) + String.format("%.1f", Float.valueOf(NameTags_NZLxiZHrtsQKbsfDngrN.mc.player.method_5739((Entity)ent))) + "m";
             }
             if (this.pops.getValue() && HexTech.POP.getPop(ent.method_5477().getString()) != 0) {
                 final_string = (String)final_string + " \u00a7bPop " + String.valueOf(Formatting.field_1076) + HexTech.POP.getPop(ent.method_5477().getString());
@@ -146,7 +146,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             context.method_51448().method_46416(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float)(posY - 13.0) + 6.5f, 0.0f);
             float size = (float)Math.max(1.0 - (double)MathHelper.method_15355((float)((float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1719.method_5707(preVec))) * 0.01 * this.scaled.getValue(), 0.0);
             context.method_51448().method_22905(Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), 1.0f);
-            context.method_51448().method_46416(0.0f, this.offset.getValueFloat() * MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().method_1025(preVec))), 0.0f);
+            context.method_51448().method_46416(0.0f, this.offset.getValueFloat() * MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(preVec))), 0.0f);
             context.method_51448().method_46416(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float)(posY - 13.0 + 6.5)), 0.0f);
             float item_offset = 0.0f;
             if (this.armorMode.getValue() != NameTags_AuEMiXPlywKMVYDJMcAR.None) {

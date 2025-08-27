@@ -18,7 +18,7 @@ public class Util {
             while ((double)y < Math.ceil(box.field_1325)) {
                 int z = (int)Math.floor(box.field_1321);
                 while ((double)z < Math.ceil(box.field_1324)) {
-                    if (Wrapper.mc.field_1687.method_8320(new BlockPos(x, y, z)).method_26204() == Blocks.field_10540 || Wrapper.mc.field_1687.method_8320(new BlockPos(x, y, z)).method_26204() == Blocks.field_9987 || Wrapper.mc.field_1687.method_8320(new BlockPos(x, y, z)).method_26204() == Blocks.field_10443 && Echest || Wrapper.mc.field_1687.method_8320(new BlockPos(x, y, z)).method_26204() == Blocks.field_23152) {
+                    if (Wrapper.mc.world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.field_10540 || Wrapper.mc.world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.field_9987 || Wrapper.mc.world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.field_10443 && Echest || Wrapper.mc.world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.field_23152) {
                         return true;
                     }
                     ++z;

@@ -73,17 +73,17 @@ implements Wrapper {
     }
 
     public int getPing() {
-        PlayerListEntry playerListEntry = mc.method_1562().method_2871(ServerManager.mc.field_1724.method_5667());
+        PlayerListEntry playerListEntry = mc.method_1562().method_2871(ServerManager.mc.player.method_5667());
         int ping = playerListEntry == null ? 0 : playerListEntry.method_2959();
         return ping;
     }
 
     public void onUpdate() {
         JelloUtil.updateJello();
-        if (this.worldNull && ServerManager.mc.field_1687 != null) {
+        if (this.worldNull && ServerManager.mc.world != null) {
             HexTech.MODULE.onLogin();
             this.worldNull = false;
-        } else if (!this.worldNull && ServerManager.mc.field_1687 == null) {
+        } else if (!this.worldNull && ServerManager.mc.world == null) {
             HexTech.save();
             HexTech.MODULE.onLogout();
             this.worldNull = true;
@@ -92,10 +92,10 @@ implements Wrapper {
 
     public void run() {
         JelloUtil.updateJello();
-        if (this.worldNull && ServerManager.mc.field_1687 != null) {
+        if (this.worldNull && ServerManager.mc.world != null) {
             HexTech.MODULE.onLogin();
             this.worldNull = false;
-        } else if (!this.worldNull && ServerManager.mc.field_1687 == null) {
+        } else if (!this.worldNull && ServerManager.mc.world == null) {
             HexTech.MODULE.onLogout();
             this.worldNull = true;
         }

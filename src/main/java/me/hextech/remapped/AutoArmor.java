@@ -42,7 +42,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!(AutoArmor.mc.field_1755 == null || AutoArmor.mc.field_1755 instanceof ChatScreen || AutoArmor.mc.field_1755 instanceof InventoryScreen || AutoArmor.mc.field_1755 instanceof ClickGuiScreen)) {
             return;
         }
-        if (AutoArmor.mc.field_1724.field_7498 != AutoArmor.mc.field_1724.field_7512) {
+        if (AutoArmor.mc.player.field_7498 != AutoArmor.mc.player.field_7512) {
             return;
         }
         if (MovementUtil.isMoving() && this.noMove.getValue()) {
@@ -54,17 +54,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.tickDelay = this.delay.getValueInt();
         HashMap<EquipmentSlot, int[]> armorMap = new HashMap<EquipmentSlot, int[]>(4);
-        armorMap.put(EquipmentSlot.field_6166, new int[]{36, this.getProtection(AutoArmor.mc.field_1724.method_31548().method_5438(36)), -1, -1});
-        armorMap.put(EquipmentSlot.field_6172, new int[]{37, this.getProtection(AutoArmor.mc.field_1724.method_31548().method_5438(37)), -1, -1});
-        armorMap.put(EquipmentSlot.field_6174, new int[]{38, this.getProtection(AutoArmor.mc.field_1724.method_31548().method_5438(38)), -1, -1});
-        armorMap.put(EquipmentSlot.field_6169, new int[]{39, this.getProtection(AutoArmor.mc.field_1724.method_31548().method_5438(39)), -1, -1});
+        armorMap.put(EquipmentSlot.field_6166, new int[]{36, this.getProtection(AutoArmor.mc.player.method_31548().method_5438(36)), -1, -1});
+        armorMap.put(EquipmentSlot.field_6172, new int[]{37, this.getProtection(AutoArmor.mc.player.method_31548().method_5438(37)), -1, -1});
+        armorMap.put(EquipmentSlot.field_6174, new int[]{38, this.getProtection(AutoArmor.mc.player.method_31548().method_5438(38)), -1, -1});
+        armorMap.put(EquipmentSlot.field_6169, new int[]{39, this.getProtection(AutoArmor.mc.player.method_31548().method_5438(39)), -1, -1});
         for (int s = 0; s < 36; ++s) {
-            if (!(AutoArmor.mc.field_1724.method_31548().method_5438(s).method_7909() instanceof ArmorItem) && AutoArmor.mc.field_1724.method_31548().method_5438(s).method_7909() != Items.field_8833) continue;
-            int protection = this.getProtection(AutoArmor.mc.field_1724.method_31548().method_5438(s));
-            EquipmentSlot slot = AutoArmor.mc.field_1724.method_31548().method_5438(s).method_7909() instanceof ElytraItem ? EquipmentSlot.field_6174 : ((ArmorItem)AutoArmor.mc.field_1724.method_31548().method_5438(s).method_7909()).method_7685();
+            if (!(AutoArmor.mc.player.method_31548().method_5438(s).method_7909() instanceof ArmorItem) && AutoArmor.mc.player.method_31548().method_5438(s).method_7909() != Items.field_8833) continue;
+            int protection = this.getProtection(AutoArmor.mc.player.method_31548().method_5438(s));
+            EquipmentSlot slot = AutoArmor.mc.player.method_31548().method_5438(s).method_7909() instanceof ElytraItem ? EquipmentSlot.field_6174 : ((ArmorItem)AutoArmor.mc.player.method_31548().method_5438(s).method_7909()).method_7685();
             for (Map.Entry e : armorMap.entrySet()) {
                 if (this.autoElytra.getValue() && ElytraFly.INSTANCE.isOn() && e.getKey() == EquipmentSlot.field_6174) {
-                    if (!AutoArmor.mc.field_1724.method_31548().method_5438(38).method_7960() && AutoArmor.mc.field_1724.method_31548().method_5438(38).method_7909() instanceof ElytraItem && ElytraItem.method_7804((ItemStack)AutoArmor.mc.field_1724.method_31548().method_5438(38)) || ((int[])e.getValue())[2] != -1 && !AutoArmor.mc.field_1724.method_31548().method_5438(((int[])e.getValue())[2]).method_7960() && AutoArmor.mc.field_1724.method_31548().method_5438(((int[])e.getValue())[2]).method_7909() instanceof ElytraItem && ElytraItem.method_7804((ItemStack)AutoArmor.mc.field_1724.method_31548().method_5438(((int[])e.getValue())[2])) || AutoArmor.mc.field_1724.method_31548().method_5438(s).method_7960() || !(AutoArmor.mc.field_1724.method_31548().method_5438(s).method_7909() instanceof ElytraItem) || !ElytraItem.method_7804((ItemStack)AutoArmor.mc.field_1724.method_31548().method_5438(s))) continue;
+                    if (!AutoArmor.mc.player.method_31548().method_5438(38).method_7960() && AutoArmor.mc.player.method_31548().method_5438(38).method_7909() instanceof ElytraItem && ElytraItem.method_7804((ItemStack)AutoArmor.mc.player.method_31548().method_5438(38)) || ((int[])e.getValue())[2] != -1 && !AutoArmor.mc.player.method_31548().method_5438(((int[])e.getValue())[2]).method_7960() && AutoArmor.mc.player.method_31548().method_5438(((int[])e.getValue())[2]).method_7909() instanceof ElytraItem && ElytraItem.method_7804((ItemStack)AutoArmor.mc.player.method_31548().method_5438(((int[])e.getValue())[2])) || AutoArmor.mc.player.method_31548().method_5438(s).method_7960() || !(AutoArmor.mc.player.method_31548().method_5438(s).method_7909() instanceof ElytraItem) || !ElytraItem.method_7804((ItemStack)AutoArmor.mc.player.method_31548().method_5438(s))) continue;
                     ((int[])e.getValue())[2] = s;
                     continue;
                 }
@@ -76,19 +76,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (Map.Entry equipmentSlotEntry : armorMap.entrySet()) {
             if (((int[])equipmentSlotEntry.getValue())[2] == -1) continue;
             if (((int[])equipmentSlotEntry.getValue())[1] == -1 && ((int[])equipmentSlotEntry.getValue())[2] < 9) {
-                if (((int[])equipmentSlotEntry.getValue())[2] != AutoArmor.mc.field_1724.method_31548().field_7545) {
-                    AutoArmor.mc.field_1724.method_31548().field_7545 = ((int[])equipmentSlotEntry.getValue())[2];
-                    AutoArmor.mc.field_1724.field_3944.method_52787((Packet)new UpdateSelectedSlotC2SPacket(((int[])equipmentSlotEntry.getValue())[2]));
+                if (((int[])equipmentSlotEntry.getValue())[2] != AutoArmor.mc.player.method_31548().field_7545) {
+                    AutoArmor.mc.player.method_31548().field_7545 = ((int[])equipmentSlotEntry.getValue())[2];
+                    AutoArmor.mc.player.field_3944.method_52787((Packet)new UpdateSelectedSlotC2SPacket(((int[])equipmentSlotEntry.getValue())[2]));
                 }
-                AutoArmor.mc.field_1761.method_2906(AutoArmor.mc.field_1724.field_7512.field_7763, 36 + ((int[])equipmentSlotEntry.getValue())[2], 1, SlotActionType.field_7794, (PlayerEntity)AutoArmor.mc.field_1724);
+                AutoArmor.mc.field_1761.method_2906(AutoArmor.mc.player.field_7512.field_7763, 36 + ((int[])equipmentSlotEntry.getValue())[2], 1, SlotActionType.field_7794, (PlayerEntity)AutoArmor.mc.player);
                 EntityUtil.syncInventory();
-            } else if (AutoArmor.mc.field_1724.field_7498 == AutoArmor.mc.field_1724.field_7512) {
+            } else if (AutoArmor.mc.player.field_7498 == AutoArmor.mc.player.field_7512) {
                 int armorSlot = ((int[])equipmentSlotEntry.getValue())[0] - 34 + (39 - ((int[])equipmentSlotEntry.getValue())[0]) * 2;
                 int newArmorSlot = ((int[])equipmentSlotEntry.getValue())[2] < 9 ? 36 + ((int[])equipmentSlotEntry.getValue())[2] : ((int[])equipmentSlotEntry.getValue())[2];
-                AutoArmor.mc.field_1761.method_2906(AutoArmor.mc.field_1724.field_7512.field_7763, newArmorSlot, 0, SlotActionType.field_7790, (PlayerEntity)AutoArmor.mc.field_1724);
-                AutoArmor.mc.field_1761.method_2906(AutoArmor.mc.field_1724.field_7512.field_7763, armorSlot, 0, SlotActionType.field_7790, (PlayerEntity)AutoArmor.mc.field_1724);
+                AutoArmor.mc.field_1761.method_2906(AutoArmor.mc.player.field_7512.field_7763, newArmorSlot, 0, SlotActionType.field_7790, (PlayerEntity)AutoArmor.mc.player);
+                AutoArmor.mc.field_1761.method_2906(AutoArmor.mc.player.field_7512.field_7763, armorSlot, 0, SlotActionType.field_7790, (PlayerEntity)AutoArmor.mc.player);
                 if (((int[])equipmentSlotEntry.getValue())[1] != -1) {
-                    AutoArmor.mc.field_1761.method_2906(AutoArmor.mc.field_1724.field_7512.field_7763, newArmorSlot, 0, SlotActionType.field_7790, (PlayerEntity)AutoArmor.mc.field_1724);
+                    AutoArmor.mc.field_1761.method_2906(AutoArmor.mc.player.field_7512.field_7763, newArmorSlot, 0, SlotActionType.field_7790, (PlayerEntity)AutoArmor.mc.player);
                 }
                 EntityUtil.syncInventory();
             }

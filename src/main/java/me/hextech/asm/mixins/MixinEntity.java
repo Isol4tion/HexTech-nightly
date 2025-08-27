@@ -54,11 +54,11 @@ public abstract class MixinEntity {
         if (Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck()) {
             return;
         }
-        if (this == Wrapper.mc.field_1724) {
+        if (this == Wrapper.mc.player) {
             ci.cancel();
-            inVelocityEvent event = new inVelocityEvent(movementInput, speed, Wrapper.mc.field_1724.method_36454(), MixinEntity.method_18795(movementInput, speed, Wrapper.mc.field_1724.method_36454()));
+            inVelocityEvent event = new inVelocityEvent(movementInput, speed, Wrapper.mc.player.method_36454(), MixinEntity.method_18795(movementInput, speed, Wrapper.mc.player.method_36454()));
             HexTech.EVENT_BUS.post(event);
-            Wrapper.mc.field_1724.method_18799(Wrapper.mc.field_1724.method_18798().method_1019(event.getVelocity()));
+            Wrapper.mc.player.method_18799(Wrapper.mc.player.method_18798().method_1019(event.getVelocity()));
         }
     }
 
@@ -71,7 +71,7 @@ public abstract class MixinEntity {
 
     @ModifyArgs(method={"pushAwayFrom"}, at=@At(value="INVOKE", target="Lnet/minecraft/entity/Entity;addVelocity(DDD)V"))
     private void pushAwayFromHook(Args args) {
-        if (this == MinecraftClient.method_1551().field_1724) {
+        if (this == MinecraftClient.method_1551().player) {
             double value = 1.0;
             if (Velocity.INSTANCE.isOn() && Velocity.INSTANCE.entityPush.getValue()) {
                 value = 0.0;

@@ -47,10 +47,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         if (this.fullBright.getValue()) {
-            Ambience.mc.field_1724.method_6092(new StatusEffectInstance(StatusEffects.field_5925, 100000, 0));
+            Ambience.mc.player.method_6092(new StatusEffectInstance(StatusEffects.field_5925, 100000, 0));
         }
         if (this.customTime.getValue()) {
-            Ambience.mc.field_1687.method_8435((long)this.time.getValue());
+            Ambience.mc.world.method_8435((long)this.time.getValue());
         }
     }
 
@@ -59,7 +59,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Ambience.nullCheck()) {
             return;
         }
-        this.oldTime = Ambience.mc.field_1687.method_8532();
+        this.oldTime = Ambience.mc.world.method_8532();
     }
 
     @Override
@@ -67,8 +67,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Ambience.nullCheck()) {
             return;
         }
-        Ambience.mc.field_1724.method_6016(StatusEffects.field_5925);
-        Ambience.mc.field_1687.method_8435(this.oldTime);
+        Ambience.mc.player.method_6016(StatusEffects.field_5925);
+        Ambience.mc.world.method_8435(this.oldTime);
     }
 
     @EventHandler

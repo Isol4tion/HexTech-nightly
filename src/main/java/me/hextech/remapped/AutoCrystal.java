@@ -31,7 +31,7 @@ public static class AutoCrystal {
     public void onRender3D(Render3DEvent event) {
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null) {
             this.this$0.noPosTimer.reset();
-            AutoCrystal_QcRVYRsOqpKivetoXSJa.placeVec3d = AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos.method_10074().method_46558();
+            AutoCrystal_QcRVYRsOqpKivetoXSJa.placeVec3d = AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos.method_10074().toCenterPos();
         }
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.placeVec3d == null) {
             return;

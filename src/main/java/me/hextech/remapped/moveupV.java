@@ -28,29 +28,29 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (this.movecheck.getValue() && moveupV.mc.field_1724 != null && MovementUtil.isMoving()) {
+        if (this.movecheck.getValue() && moveupV.mc.player != null && MovementUtil.isMoving()) {
             return;
         }
-        if (moveupV.mc.field_1724 != null && this.noWeb.getValue() && HoleKickTest.isInWeb((PlayerEntity)moveupV.mc.field_1724)) {
+        if (moveupV.mc.player != null && this.noWeb.getValue() && HoleKickTest.isInWeb((PlayerEntity)moveupV.mc.player)) {
             return;
         }
-        if (moveupV.mc.field_1724 != null && (!this.onlyburrow.getValue() || Util.isBurrowed((PlayerEntity)moveupV.mc.field_1724, !this.pEndChest.getValue()))) {
+        if (moveupV.mc.player != null && (!this.onlyburrow.getValue() || Util.isBurrowed((PlayerEntity)moveupV.mc.player, !this.pEndChest.getValue()))) {
             switch (this.mode.getValue().ordinal()) {
                 case 1: {
-                    moveupV.mc.field_1724.method_5814(moveupV.mc.field_1724.method_23317(), moveupV.mc.field_1724.method_23318() + 3.0, moveupV.mc.field_1724.method_23321());
-                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(moveupV.mc.field_1724.method_23317(), moveupV.mc.field_1724.method_23318(), moveupV.mc.field_1724.method_23321(), true));
+                    moveupV.mc.player.method_5814(moveupV.mc.player.getX(), moveupV.mc.player.getY() + 3.0, moveupV.mc.player.getZ());
+                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(moveupV.mc.player.getX(), moveupV.mc.player.getY(), moveupV.mc.player.getZ(), true));
                     break;
                 }
                 case 0: {
-                    double posX = moveupV.mc.field_1724.method_23317();
-                    double posY = Math.round(moveupV.mc.field_1724.method_23318());
-                    double posZ = moveupV.mc.field_1724.method_23321();
-                    boolean onGround = moveupV.mc.field_1724.method_24828();
+                    double posX = moveupV.mc.player.getX();
+                    double posY = Math.round(moveupV.mc.player.getY());
+                    double posZ = moveupV.mc.player.getZ();
+                    boolean onGround = moveupV.mc.player.method_24828();
                     mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
                     double halfY = 0.005;
-                    moveupV.mc.field_1724.method_5814(posX, posY -= halfY, posZ);
+                    moveupV.mc.player.method_5814(posX, posY -= halfY, posZ);
                     mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
-                    moveupV.mc.field_1724.method_5814(posX, posY -= halfY * 300.0, posZ);
+                    moveupV.mc.player.method_5814(posX, posY -= halfY * 300.0, posZ);
                     mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
                 }
             }

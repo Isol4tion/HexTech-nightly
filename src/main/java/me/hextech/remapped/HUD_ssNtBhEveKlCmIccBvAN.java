@@ -149,7 +149,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int n = HUD_ssNtBhEveKlCmIccBvAN.mc.field_1755 instanceof ChatScreen && this.renderingUp.getValue() ? 13 : (i = this.renderingUp.getValue() ? -2 : 0);
         if (this.renderingUp.getValue()) {
             if (this.potions.getValue()) {
-                effects = new ArrayList(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_6026());
+                effects = new ArrayList(HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_6026());
                 for (StatusEffectInstance potionEffect : effects) {
                     str = this.getColoredPotionString(potionEffect);
                     drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, this.lowerCase.getValue() ? str.toLowerCase() : str, width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str)) - 2, height - 2 - (i += 10), this.potionColor.getValue() ? potionEffect.method_5579().method_5556() : this.getColor(this.counter));
@@ -192,7 +192,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         } else {
             if (this.potions.getValue()) {
-                effects = new ArrayList(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_6026());
+                effects = new ArrayList(HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_6026());
                 for (StatusEffectInstance potionEffect : effects) {
                     str = this.getColoredPotionString(potionEffect);
                     drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, this.lowerCase.getValue() ? str.toLowerCase() : str, width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str)) - 2, 2 + i++ * 10, this.potionColor.getValue() ? potionEffect.method_5579().method_5556() : this.getColor(this.counter));
@@ -234,14 +234,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
         }
-        boolean inHell = HUD_ssNtBhEveKlCmIccBvAN.mc.field_1687.method_27983().equals(World.field_25180);
-        int posX = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_23317();
-        int posY = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_23318();
-        int posZ = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_23321();
+        boolean inHell = HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_27983().equals(World.field_25180);
+        int posX = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getX();
+        int posY = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getY();
+        int posZ = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getZ();
         float nether = !inHell ? 0.125f : 8.0f;
-        int hposX = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_23317() * (double)nether);
-        int hposZ = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_23321() * (double)nether);
-        int yawPitch = (int)MathHelper.method_15393((float)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_36454());
+        int hposX = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getX() * (double)nether);
+        int hposZ = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getZ() * (double)nether);
+        int yawPitch = (int)MathHelper.method_15393((float)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_36454());
         int p = this.coords.getValue() ? 0 : 11;
         i = HUD_ssNtBhEveKlCmIccBvAN.mc.field_1755 instanceof ChatScreen ? 14 : 0;
         String coordinates = (this.lowerCase.getValue() ? "XYZ: ".toLowerCase() : "XYZ: ") + "\u00a7f" + (inHell ? posX + ", " + posY + ", " + posZ + "\u00a77 [\u00a7f" + hposX + ", " + hposZ + "\u00a77]\u00a7f" : posX + ", " + posY + ", " + posZ + "\u00a77 [\u00a7f" + hposX + ", " + hposZ + "\u00a77]");
@@ -292,7 +292,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         String A1 = "\u00a74[\u64cd\u63a7\u529b] | \u00a78\u538b\u5236";
         String D1 = "\u00a73[\u538b\u5236] | \u00a78\u64cd\u63a7\u529b";
         String t4 = "\u9759\u6001\u540c\u6b65";
-        ArrayList effects = new ArrayList(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_6026());
+        ArrayList effects = new ArrayList(HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_6026());
         if (this.totemtext.getValue()) {
             drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, t1, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(t1) / 2)), (int)y, this.getColor(this.counter));
             ++this.counter;
@@ -358,9 +358,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         DecimalFormat dfDistance = new DecimalFormat("#.#");
         dfDistance.setRoundingMode(RoundingMode.CEILING);
         StringBuilder distanceSB = new StringBuilder();
-        for (PlayerEntity player : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1687.method_18456()) {
-            if (player.method_5767() || player.method_5477().equals((Object)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_5477())) continue;
-            int distanceInt = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_5739((Entity)player);
+        for (PlayerEntity player : HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_18456()) {
+            if (player.method_5767() || player.method_5477().equals((Object)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_5477())) continue;
+            int distanceInt = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_5739((Entity)player);
             String distance = dfDistance.format(distanceInt);
             if (distanceInt >= 25) {
                 distanceSB.append(Formatting.field_1060);
@@ -370,7 +370,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 distanceSB.append(Formatting.field_1061);
             }
             distanceSB.append(distance);
-            retval.put((String)(this.health.getValue() ? String.valueOf(this.getHealthColor(player)) + String.valueOf(HUD_ssNtBhEveKlCmIccBvAN.round2(player.method_6067() + player.method_6032())) + " " : "") + String.valueOf(HexTech.FRIEND.isFriend(player) ? Formatting.field_1075 : Formatting.field_1070) + player.method_5477().getString() + " " + String.valueOf(Formatting.field_1068) + "[" + String.valueOf(Formatting.field_1070) + String.valueOf(distanceSB) + "m" + String.valueOf(Formatting.field_1068) + "] " + String.valueOf(Formatting.field_1060), (int)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1724.method_5739((Entity)player));
+            retval.put((String)(this.health.getValue() ? String.valueOf(this.getHealthColor(player)) + String.valueOf(HUD_ssNtBhEveKlCmIccBvAN.round2(player.method_6067() + player.method_6032())) + " " : "") + String.valueOf(HexTech.FRIEND.isFriend(player) ? Formatting.field_1075 : Formatting.field_1070) + player.method_5477().getString() + " " + String.valueOf(Formatting.field_1068) + "[" + String.valueOf(Formatting.field_1070) + String.valueOf(distanceSB) + "m" + String.valueOf(Formatting.field_1068) + "] " + String.valueOf(Formatting.field_1060), (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_5739((Entity)player));
             distanceSB.setLength(0);
         }
         if (!retval.isEmpty()) {
@@ -398,11 +398,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private String getColoredPotionString(StatusEffectInstance effect) {
         StatusEffect potion = effect.method_5579();
-        return potion.method_5560().getString() + " " + (effect.method_5578() + 1) + " \u00a7f" + StatusEffectUtil.method_5577((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1687.method_54719().method_54748()).getString();
+        return potion.method_5560().getString() + " " + (effect.method_5578() + 1) + " \u00a7f" + StatusEffectUtil.method_5577((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_54719().method_54748()).getString();
     }
 
     private String getColoredPotionTimeString(StatusEffectInstance effect) {
-        return StatusEffectUtil.method_5577((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1687.method_54719().method_54748()).getString();
+        return StatusEffectUtil.method_5577((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_54719().method_54748()).getString();
     }
 
     private int getColor(int counter) {

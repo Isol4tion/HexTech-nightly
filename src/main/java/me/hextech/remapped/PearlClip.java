@@ -59,7 +59,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void updatePos() {
-        this.targetPos = new Vec3d(PearlClip.mc.field_1724.method_23317() + MathHelper.method_15350((double)(this.roundToClosest(PearlClip.mc.field_1724.method_23317(), Math.floor(PearlClip.mc.field_1724.method_23317()) + 0.241, Math.floor(PearlClip.mc.field_1724.method_23317()) + 0.759) - PearlClip.mc.field_1724.method_23317()), (double)-0.2, (double)0.2), PearlClip.mc.field_1724.method_23318() - 0.5, PearlClip.mc.field_1724.method_23321() + MathHelper.method_15350((double)(this.roundToClosest(PearlClip.mc.field_1724.method_23321(), Math.floor(PearlClip.mc.field_1724.method_23321()) + 0.241, Math.floor(PearlClip.mc.field_1724.method_23321()) + 0.759) - PearlClip.mc.field_1724.method_23321()), (double)-0.2, (double)0.2));
+        this.targetPos = new Vec3d(PearlClip.mc.player.getX() + MathHelper.method_15350((double)(this.roundToClosest(PearlClip.mc.player.getX(), Math.floor(PearlClip.mc.player.getX()) + 0.241, Math.floor(PearlClip.mc.player.getX()) + 0.759) - PearlClip.mc.player.getX()), (double)-0.2, (double)0.2), PearlClip.mc.player.getY() - 0.5, PearlClip.mc.player.getZ() + MathHelper.method_15350((double)(this.roundToClosest(PearlClip.mc.player.getZ(), Math.floor(PearlClip.mc.player.getZ()) + 0.241, Math.floor(PearlClip.mc.player.getZ()) + 0.759) - PearlClip.mc.player.getZ()), (double)-0.2, (double)0.2));
     }
 
     @EventHandler
@@ -69,7 +69,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (this.sync.getValue()) {
-            AutoPearl.INSTANCE.throwPearl(this.autoYaw.getValue() ? HexTech.ROTATE.getRotation(this.targetPos)[0] : PearlClip.mc.field_1724.method_36454(), this.bypass.getValue() ? 89.0f : 80.0f);
+            AutoPearl.INSTANCE.throwPearl(this.autoYaw.getValue() ? HexTech.ROTATE.getRotation(this.targetPos)[0] : PearlClip.mc.player.method_36454(), this.bypass.getValue() ? 89.0f : 80.0f);
         } else {
             this.throwPearl();
         }
@@ -89,17 +89,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void throwPearl() {
         int pearl;
         AutoPearl.throwing = true;
-        if (PearlClip.mc.field_1724.method_6047().method_7909() == Items.field_8634) {
+        if (PearlClip.mc.player.method_6047().method_7909() == Items.field_8634) {
             PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
         } else if (AutoPearl.INSTANCE.inventory.getValue() && (pearl = InventoryUtil.findItemInventorySlot(Items.field_8634)) != -1) {
-            InventoryUtil.inventorySwap(pearl, PearlClip.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(pearl, PearlClip.mc.player.method_31548().field_7545);
             PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
-            InventoryUtil.inventorySwap(pearl, PearlClip.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(pearl, PearlClip.mc.player.method_31548().field_7545);
             EntityUtil.syncInventory();
         } else {
             pearl = InventoryUtil.findItem(Items.field_8634);
             if (pearl != -1) {
-                int old = PearlClip.mc.field_1724.method_31548().field_7545;
+                int old = PearlClip.mc.player.method_31548().field_7545;
                 InventoryUtil.switchToSlot(pearl);
                 PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
                 InventoryUtil.switchToSlot(old);
@@ -120,7 +120,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (this.sync.getValue()) {
-            AutoPearl.INSTANCE.throwPearl(this.autoYaw.getValue() ? HexTech.ROTATE.getRotation(this.targetPos)[0] : PearlClip.mc.field_1724.method_36454(), this.bypass.getValue() ? 89.0f : 80.0f);
+            AutoPearl.INSTANCE.throwPearl(this.autoYaw.getValue() ? HexTech.ROTATE.getRotation(this.targetPos)[0] : PearlClip.mc.player.method_36454(), this.bypass.getValue() ? 89.0f : 80.0f);
         } else {
             this.throwPearl();
         }

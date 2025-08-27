@@ -52,7 +52,7 @@ extends Entity {
 
     @Inject(method={"setSprinting"}, at={@At(value="HEAD")}, cancellable=true)
     public void setSprintingHook(boolean sprinting, CallbackInfo ci) {
-        if (this == MinecraftClient.method_1551().field_1724 && Sprint.INSTANCE.isOn() && Sprint.INSTANCE.mode.getValue() == Sprint._kIBjeDSbfTeuMDPgEQgD.Rage) {
+        if (this == MinecraftClient.method_1551().player && Sprint.INSTANCE.isOn() && Sprint.INSTANCE.mode.getValue() == Sprint._kIBjeDSbfTeuMDPgEQgD.Rage) {
             ci.cancel();
             sprinting = Sprint.shouldSprint;
             super.method_5728(sprinting);

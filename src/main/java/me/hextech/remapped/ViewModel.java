@@ -64,11 +64,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         if (!this.mainhandSwap.getValue() && ((IHeldItemRenderer)mc.method_1561().method_43336()).getEquippedProgressMainHand() <= 1.0f) {
             ((IHeldItemRenderer)mc.method_1561().method_43336()).setEquippedProgressMainHand(1.0f);
-            ((IHeldItemRenderer)mc.method_1561().method_43336()).setItemStackMainHand(ViewModel.mc.field_1724.method_6047());
+            ((IHeldItemRenderer)mc.method_1561().method_43336()).setItemStackMainHand(ViewModel.mc.player.method_6047());
         }
         if (!this.offhandSwap.getValue() && ((IHeldItemRenderer)mc.method_1561().method_43336()).getEquippedProgressOffHand() <= 1.0f) {
             ((IHeldItemRenderer)mc.method_1561().method_43336()).setEquippedProgressOffHand(1.0f);
-            ((IHeldItemRenderer)mc.method_1561().method_43336()).setItemStackOffHand(ViewModel.mc.field_1724.method_6079());
+            ((IHeldItemRenderer)mc.method_1561().method_43336()).setItemStackOffHand(ViewModel.mc.player.method_6079());
         }
     }
 

@@ -52,9 +52,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         RenderSystem.setShader(GameRenderer::method_34540);
         bufferBuilder.method_1328(VertexFormat.DrawMode.field_29345, VertexFormats.field_1576);
         GL11.glLineWidth((float)2.0f);
-        double x = ent.field_6014 + (ent.method_23317() - ent.field_6014) * (double)mc.method_1488() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.method_1561().field_4686.method_19326().method_10216();
-        double y = ent.field_6036 + (double)height + (ent.method_23318() - ent.field_6036) * (double)mc.method_1488() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.method_1561().field_4686.method_19326().method_10214();
-        double z = ent.field_5969 + (ent.method_23321() - ent.field_5969) * (double)mc.method_1488() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.method_1561().field_4686.method_19326().method_10215();
+        double x = ent.field_6014 + (ent.getX() - ent.field_6014) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.method_1561().field_4686.method_19326().method_10216();
+        double y = ent.field_6036 + (double)height + (ent.getY() - ent.field_6036) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.method_1561().field_4686.method_19326().method_10214();
+        double z = ent.field_5969 + (ent.getZ() - ent.field_5969) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.method_1561().field_4686.method_19326().method_10215();
         stack.method_22903();
         stack.method_22904(x, y, z);
         Matrix4f matrix = stack.method_23760().method_23761();
@@ -72,7 +72,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         for (Entity e2 : new CrystalPlaceESP_cIUDDoAQRmgkqQqHhomK(this)) {
-            if (!(e2 instanceof EndCrystalEntity) || this.range.getValue() && (double)CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.field_1724.method_5739(e2) > this.rangeValue.getValue() || this.cryList.containsKey(e2)) continue;
+            if (!(e2 instanceof EndCrystalEntity) || this.range.getValue() && (double)CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.player.method_5739(e2) > this.rangeValue.getValue() || this.cryList.containsKey(e2)) continue;
             this.cryList.put((EndCrystalEntity)e2, new CrystalPlaceESP((EndCrystalEntity)e2, System.currentTimeMillis()));
         }
         if (((Enum)this.mode.getValue()).equals((Object)CrystalPlaceESP_KzUakBpdzbLUIKutBXtY.Normal)) {
@@ -93,7 +93,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if ((double)(System.currentTimeMillis() - renderInfo.time) > this.animationTime.getValue() && !e.method_5805()) {
                 this.cryList.remove(e);
             }
-            if ((double)(System.currentTimeMillis() - renderInfo.time) > this.animationTime.getValue() && (double)CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.field_1724.method_5739((Entity)e) > this.rangeValue.getValue()) {
+            if ((double)(System.currentTimeMillis() - renderInfo.time) > this.animationTime.getValue() && (double)CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.player.method_5739((Entity)e) > this.rangeValue.getValue()) {
                 this.cryList.remove(e);
             }
         });

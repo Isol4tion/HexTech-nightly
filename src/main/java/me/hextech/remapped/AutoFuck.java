@@ -25,14 +25,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (AutoFuck.mc.field_1724 == null || mc.method_1562() == null) {
+        if (AutoFuck.mc.player == null || mc.method_1562() == null) {
             return;
         }
         long now = System.currentTimeMillis();
         if ((double)(now - this.lastTime) >= this.delay.getValue()) {
             this.sneaking = !this.sneaking;
             ClientCommandC2SPacket.Mode mode = this.sneaking ? ClientCommandC2SPacket.Mode.field_12979 : ClientCommandC2SPacket.Mode.field_12984;
-            mc.method_1562().method_52787((Packet)new ClientCommandC2SPacket((Entity)AutoFuck.mc.field_1724, mode));
+            mc.method_1562().method_52787((Packet)new ClientCommandC2SPacket((Entity)AutoFuck.mc.player, mode));
             this.lastTime = now;
         }
     }

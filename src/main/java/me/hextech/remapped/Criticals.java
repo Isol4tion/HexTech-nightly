@@ -30,7 +30,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Entity getEntity(PlayerInteractEntityC2SPacket packet) {
         PacketByteBuf packetBuf = new PacketByteBuf(Unpooled.buffer());
         packet.method_11052(packetBuf);
-        return Criticals.mc.field_1687 == null ? null : Criticals.mc.field_1687.method_8469(packetBuf.method_10816());
+        return Criticals.mc.world == null ? null : Criticals.mc.world.method_8469(packetBuf.method_10816());
     }
 
     public static Criticals_QenzavIULhSqCVPmsILH getInteractType(PlayerInteractEntityC2SPacket packet) {
@@ -51,28 +51,28 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         PlayerInteractEntityC2SPacket packet;
         Object t;
         if (!Aura.INSTANCE.sweeping && !TPAura_LycLkxHLQeGfgqfryvmV.attacking && (t = event.getPacket()) instanceof PlayerInteractEntityC2SPacket && Criticals.getInteractType(packet = (PlayerInteractEntityC2SPacket)t) == Criticals_QenzavIULhSqCVPmsILH.ATTACK && !((entity = Criticals.getEntity(packet)) instanceof EndCrystalEntity)) {
-            Criticals.mc.field_1724.method_7277(entity);
+            Criticals.mc.player.method_7277(entity);
             this.doCrit();
         }
     }
 
     public void doCrit() {
-        if (Aura.INSTANCE.isOn() && (Criticals.mc.field_1724.method_24828() || Criticals.mc.field_1724.method_31549().field_7479) && !Criticals.mc.field_1724.method_5771() && !Criticals.mc.field_1724.method_5869()) {
-            if (this.mode.getValue() == _llXqHCnomcmaIkSSIBHS.Strict && Criticals.mc.field_1687.method_8320(Criticals.mc.field_1724.method_24515()).method_26204() != Blocks.field_10343) {
-                Criticals.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.field_1724.method_23317(), Criticals.mc.field_1724.method_23318() + 0.062600301692775, Criticals.mc.field_1724.method_23321(), false));
-                Criticals.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.field_1724.method_23317(), Criticals.mc.field_1724.method_23318() + 0.07260029960661, Criticals.mc.field_1724.method_23321(), false));
-                Criticals.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.field_1724.method_23317(), Criticals.mc.field_1724.method_23318(), Criticals.mc.field_1724.method_23321(), false));
-                Criticals.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.field_1724.method_23317(), Criticals.mc.field_1724.method_23318(), Criticals.mc.field_1724.method_23321(), false));
+        if (Aura.INSTANCE.isOn() && (Criticals.mc.player.method_24828() || Criticals.mc.player.method_31549().field_7479) && !Criticals.mc.player.method_5771() && !Criticals.mc.player.method_5869()) {
+            if (this.mode.getValue() == _llXqHCnomcmaIkSSIBHS.Strict && Criticals.mc.world.getBlockState(Criticals.mc.player.method_24515()).getBlock() != Blocks.field_10343) {
+                Criticals.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 0.062600301692775, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 0.07260029960661, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
             } else if (this.mode.getValue() == _llXqHCnomcmaIkSSIBHS.NCP) {
-                Criticals.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.field_1724.method_23317(), Criticals.mc.field_1724.method_23318() + 0.0625, Criticals.mc.field_1724.method_23321(), false));
-                Criticals.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.field_1724.method_23317(), Criticals.mc.field_1724.method_23318(), Criticals.mc.field_1724.method_23321(), false));
+                Criticals.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 0.0625, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
             } else if (this.mode.getValue() == _llXqHCnomcmaIkSSIBHS.Packet) {
-                Criticals.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.field_1724.method_23317(), Criticals.mc.field_1724.method_23318() + 1.058293536E-5, Criticals.mc.field_1724.method_23321(), false));
-                Criticals.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.field_1724.method_23317(), Criticals.mc.field_1724.method_23318() + 9.16580235E-6, Criticals.mc.field_1724.method_23321(), false));
-                Criticals.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.field_1724.method_23317(), Criticals.mc.field_1724.method_23318() + 1.0371854E-7, Criticals.mc.field_1724.method_23321(), false));
+                Criticals.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 1.058293536E-5, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 9.16580235E-6, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 1.0371854E-7, Criticals.mc.player.getZ(), false));
             } else if (this.mode.getValue() == _llXqHCnomcmaIkSSIBHS.LowPacket) {
-                Criticals.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.field_1724.method_23317(), Criticals.mc.field_1724.method_23318() + 2.71875E-7, Criticals.mc.field_1724.method_23321(), false));
-                Criticals.mc.field_1724.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.field_1724.method_23317(), Criticals.mc.field_1724.method_23318(), Criticals.mc.field_1724.method_23321(), false));
+                Criticals.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 2.71875E-7, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
             }
         }
     }

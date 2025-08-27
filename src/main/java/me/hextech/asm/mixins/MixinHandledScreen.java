@@ -43,7 +43,7 @@ implements ScreenHandlerProvider<T> {
 
     @Inject(method={"render"}, at={@At(value="TAIL")})
     private void onRender(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (this.field_2787 != null && !this.field_2787.method_7677().method_7960() && this.field_22787.field_1724.field_7498.method_34255().method_7960() && this.hasItems(this.field_2787.method_7677()) && ShulkerViewer.INSTANCE.isOn()) {
+        if (this.field_2787 != null && !this.field_2787.method_7677().method_7960() && this.field_22787.player.field_7498.method_34255().method_7960() && this.hasItems(this.field_2787.method_7677()) && ShulkerViewer.INSTANCE.isOn()) {
             this.renderShulkerToolTip(context, mouseX, mouseY, this.field_2787.method_7677());
         }
     }

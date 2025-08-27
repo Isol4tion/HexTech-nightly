@@ -21,7 +21,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (SpeedMine.breakPos != null && AntiRegear.mc.field_1687.method_8320(SpeedMine.breakPos).method_26204() instanceof ShulkerBoxBlock) {
+        if (SpeedMine.breakPos != null && AntiRegear.mc.world.getBlockState(SpeedMine.breakPos).getBlock() instanceof ShulkerBoxBlock) {
             return;
         }
         if (this.getBlock() != null) {
@@ -32,7 +32,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private ShulkerBoxBlockEntity getBlock() {
         for (BlockEntity entity : BlockUtil.getTileEntities()) {
             ShulkerBoxBlockEntity shulker;
-            if (!(entity instanceof ShulkerBoxBlockEntity) || (double)MathHelper.method_15355((float)((float)AntiRegear.mc.field_1724.method_5707((shulker = (ShulkerBoxBlockEntity)entity).method_11016().method_46558()))) <= this.safeRange.getValue() || !((double)MathHelper.method_15355((float)((float)AntiRegear.mc.field_1724.method_5707(shulker.method_11016().method_46558()))) <= this.range.getValue())) continue;
+            if (!(entity instanceof ShulkerBoxBlockEntity) || (double)MathHelper.method_15355((float)((float)AntiRegear.mc.player.method_5707((shulker = (ShulkerBoxBlockEntity)entity).method_11016().toCenterPos()))) <= this.safeRange.getValue() || !((double)MathHelper.method_15355((float)((float)AntiRegear.mc.player.method_5707(shulker.method_11016().toCenterPos()))) <= this.range.getValue())) continue;
             return shulker;
         }
         return null;

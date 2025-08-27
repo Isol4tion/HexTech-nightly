@@ -43,7 +43,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         BlockHitResult hitResult2 = (BlockHitResult)hitResult;
         if (BlockHighLight.mc.field_1765.method_17783() == HitResult.Type.field_1332) {
             this.noPosTimer.reset();
-            Vec3d vec3d = placeVec3d = this.center.getValue() ? hitResult2.method_17777().method_46558() : BlockHighLight.mc.field_1765.method_17784();
+            Vec3d vec3d = placeVec3d = this.center.getValue() ? hitResult2.method_17777().toCenterPos() : BlockHighLight.mc.field_1765.method_17784();
         }
         if (placeVec3d == null) {
             return;

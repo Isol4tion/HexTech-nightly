@@ -30,16 +30,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (MCP.mc.field_1729.method_35707()) {
             if (!this.click) {
-                if (MCP.mc.field_1724.method_6047().method_7909() == Items.field_8634) {
-                    EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(MCP.mc.field_1724.method_36454(), MCP.mc.field_1724.method_36455(), MCP.mc.field_1724.method_24828()));
-                    MCP.mc.field_1724.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, 0));
+                if (MCP.mc.player.method_6047().method_7909() == Items.field_8634) {
+                    EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(MCP.mc.player.method_36454(), MCP.mc.player.method_36455(), MCP.mc.player.method_24828()));
+                    MCP.mc.player.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, 0));
                 } else {
                     int pearl = this.findItem(Items.field_8634);
                     if (pearl != -1) {
-                        int old = MCP.mc.field_1724.method_31548().field_7545;
+                        int old = MCP.mc.player.method_31548().field_7545;
                         this.doSwap(pearl);
-                        EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(MCP.mc.field_1724.method_36454(), MCP.mc.field_1724.method_36455(), MCP.mc.field_1724.method_24828()));
-                        MCP.mc.field_1724.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, 0));
+                        EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(MCP.mc.player.method_36454(), MCP.mc.player.method_36455(), MCP.mc.player.method_24828()));
+                        MCP.mc.player.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, 0));
                         if (this.inventory.getValue()) {
                             this.doSwap(pearl);
                             EntityUtil.syncInventory();
@@ -57,7 +57,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, MCP.mc.field_1724.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, MCP.mc.player.method_31548().field_7545);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
