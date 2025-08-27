@@ -48,7 +48,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (e.isPre()) {
-            this.prevYaw = Rotation.mc.player.method_36454();
+            this.prevYaw = Rotation.mc.player.getYaw();
             Rotation.mc.player.setYaw(fixRotation);
         } else {
             Rotation.mc.player.setYaw(this.prevYaw);
@@ -82,7 +82,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         float mF = Rotation.mc.player.input.movementForward;
         float mS = Rotation.mc.player.input.movementSideways;
-        float delta = (Rotation.mc.player.method_36454() - fixRotation) * ((float)Math.PI / 180);
+        float delta = (Rotation.mc.player.getYaw() - fixRotation) * ((float)Math.PI / 180);
         float cos = MathHelper.cos((float)delta);
         float sin = MathHelper.sin((float)delta);
         Rotation.mc.player.input.movementSideways = Math.round(mS * cos - mF * sin);

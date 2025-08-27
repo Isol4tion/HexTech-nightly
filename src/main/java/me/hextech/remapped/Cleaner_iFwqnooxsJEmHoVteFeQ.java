@@ -129,7 +129,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (float x : new float[]{0.0f, 0.3f, -0.3f}) {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
                 for (int y : new int[]{0, 1, 2}) {
-                    BlockPos pos = new BlockPosX(playerPos.method_10216() + (double)x, playerPos.method_10214(), playerPos.method_10215() + (double)z).up(y);
+                    BlockPos pos = new BlockPosX(playerPos.getX() + (double)x, playerPos.getY(), playerPos.getZ() + (double)z).up(y);
                     if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock() != Blocks.COBWEB) continue;
                     qzw.add(pos);
                 }
@@ -180,7 +180,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public float calculateDamage(Vec3d pos, PlayerEntity player, PlayerEntity predict) {
-        float damage = OyveyExplosionUtil.calculateDamage(pos.method_10216(), pos.method_10214(), pos.method_10215(), (Entity)player, (Entity)predict, 6.0f);
+        float damage = OyveyExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), (Entity)player, (Entity)predict, 6.0f);
         CombatUtil.modifyPos = null;
         return damage;
     }

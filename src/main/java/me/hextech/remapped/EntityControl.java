@@ -45,10 +45,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (boat.getControllingPassenger() != EntityControl.mc.player) {
             return;
         }
-        boat.setYaw(EntityControl.mc.player.method_36454());
+        boat.setYaw(EntityControl.mc.player.getYaw());
         Vec3d vel = MovementUtil.getHorizontalVelocity(this.speed.getValue());
-        double velX = vel.method_10216();
-        double velZ = vel.method_10215();
+        double velX = vel.getX();
+        double velZ = vel.getZ();
         if (EntityControl.mc.currentScreen instanceof ChatScreen || EntityControl.mc.currentScreen != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.isOff()) {
             velY = -this.fallSpeed.getValue() / 20.0;
         } else {
@@ -71,10 +71,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (boat == null) {
             return;
         }
-        boat.setYaw(EntityControl.mc.player.method_36454());
+        boat.setYaw(EntityControl.mc.player.getYaw());
         Vec3d vel = MovementUtil.getHorizontalVelocity(this.speed.getValue());
-        double velX = vel.method_10216();
-        double velZ = vel.method_10215();
+        double velX = vel.getX();
+        double velZ = vel.getZ();
         if (EntityControl.mc.currentScreen instanceof ChatScreen || EntityControl.mc.currentScreen != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.isOff()) {
             velY = -this.fallSpeed.getValue() / 20.0;
         } else {

@@ -48,7 +48,7 @@ implements Wrapper {
         if (BlockUtil.getBlock(EntityUtil.getPlayerPos(true)) == Blocks.ENDER_CHEST) {
             return true;
         }
-        return EntityUtil.mc.world.method_39454((Entity)EntityUtil.mc.player, EntityUtil.mc.player.getBoundingBox());
+        return EntityUtil.mc.world.canCollide((Entity)EntityUtil.mc.player, EntityUtil.mc.player.getBoundingBox());
     }
 
     public static int getDamagePercent(ItemStack stack) {

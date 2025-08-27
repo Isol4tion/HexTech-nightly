@@ -10,7 +10,7 @@ import me.hextech.remapped.MineTweak;
 import me.hextech.remapped.NoRender;
 import me.hextech.remapped.TextUtil;
 import me.hextech.remapped.TotemAnimation;
-import me.hextech.remapped.Zoom_qxASoURSmqLSKrnTPdNq;
+import me.hextech.remapped.Zoom;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
@@ -123,8 +123,8 @@ public class MixinGameRenderer {
             if ((Double)cb.getReturnValue() == 70.0) {
                 return;
             }
-            if (Zoom_qxASoURSmqLSKrnTPdNq.on) {
-                cb.setReturnValue((Object)Math.min(Math.max((Double)cb.getReturnValue() - Zoom_qxASoURSmqLSKrnTPdNq.INSTANCE.currentFov, 1.0), 177.0));
+            if (Zoom.on) {
+                cb.setReturnValue((Object)Math.min(Math.max((Double)cb.getReturnValue() - Zoom.INSTANCE.currentFov, 1.0), 177.0));
             }
         }
     }

@@ -257,7 +257,7 @@ implements Wrapper {
             if (i == Direction.UP || i == Direction.DOWN || (!anyBlock || BlockUtil.mc.world.isAir(pos.offset(i))) && !CombatUtil.isHard(pos.offset(i))) continue;
             ++blockProgress;
         }
-        return (!checkTrap || BlockUtil.getBlock(pos) == Blocks.AIR && BlockUtil.getBlock(pos.add(0, 1, 0)) == Blocks.AIR && BlockUtil.getBlock(pos.add(0, 2, 0)) == Blocks.AIR) && blockProgress > 3 && (!canStand || BlockUtil.getState(pos.add(0, -1, 0)).method_51366());
+        return (!checkTrap || BlockUtil.getBlock(pos) == Blocks.AIR && BlockUtil.getBlock(pos.add(0, 1, 0)) == Blocks.AIR && BlockUtil.getBlock(pos.add(0, 2, 0)) == Blocks.AIR) && blockProgress > 3 && (!canStand || BlockUtil.getState(pos.add(0, -1, 0)).blocksMovement());
     }
 
     public static void clickBlock(BlockPos pos, Direction side, boolean rotate) {
@@ -397,7 +397,7 @@ implements Wrapper {
         if (EntityUtil.getPlayerPos().getY() - pos.getY() >= 0 && side == Direction.DOWN) {
             return false;
         }
-        if (BypassSetting_RInKGmTQYgWFRhsUOiJP.INSTANCE.grim.getValue() ? side == Direction.UP && (double)(pos.getY() + 1) > BlockUtil.mc.player.getEyePos().method_10214() : side == Direction.UP && (double)pos.getY() > BlockUtil.mc.player.getEyePos().method_10214()) {
+        if (BypassSetting_RInKGmTQYgWFRhsUOiJP.INSTANCE.grim.getValue() ? side == Direction.UP && (double)(pos.getY() + 1) > BlockUtil.mc.player.getEyePos().getY() : side == Direction.UP && (double)pos.getY() > BlockUtil.mc.player.getEyePos().getY()) {
             return false;
         }
         if (BlockUtil.getBlock(pos.offset(side)) == Blocks.OBSIDIAN || BlockUtil.getBlock(pos.offset(side)) == Blocks.BEDROCK || BlockUtil.getBlock(pos.offset(side)) == Blocks.RESPAWN_ANCHOR) {
@@ -469,9 +469,9 @@ implements Wrapper {
 
     public static ArrayList<BlockPos> getSphere(float range, Vec3d pos) {
         ArrayList<BlockPos> list = new ArrayList<BlockPos>();
-        for (double x = pos.method_10216() - (double)range; x < pos.method_10216() + (double)range; x += 1.0) {
-            for (double y = pos.method_10214() - (double)range; y < pos.method_10214() + (double)range; y += 1.0) {
-                for (double z = pos.method_10215() - (double)range; z < pos.method_10215() + (double)range; z += 1.0) {
+        for (double x = pos.getX() - (double)range; x < pos.getX() + (double)range; x += 1.0) {
+            for (double y = pos.getY() - (double)range; y < pos.getY() + (double)range; y += 1.0) {
+                for (double z = pos.getZ() - (double)range; z < pos.getZ() + (double)range; z += 1.0) {
                     BlockPosX curPos = new BlockPosX(x, y, z);
                     if (list.contains((Object)curPos)) continue;
                     list.add(curPos);

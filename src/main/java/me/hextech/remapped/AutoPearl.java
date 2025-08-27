@@ -42,13 +42,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.shouldThrow = true;
             return;
         }
-        this.throwPearl(AutoPearl.mc.player.method_36454(), AutoPearl.mc.player.method_36455());
+        this.throwPearl(AutoPearl.mc.player.getYaw(), AutoPearl.mc.player.method_36455());
         this.disable();
     }
 
     @Override
     public void onUpdate() {
-        if (this.rotation.getValue() && HexTech.ROTATE.inFov(AutoPearl.mc.player.method_36454(), AutoPearl.mc.player.method_36455(), this.fov.getValueFloat())) {
+        if (this.rotation.getValue() && HexTech.ROTATE.inFov(AutoPearl.mc.player.getYaw(), AutoPearl.mc.player.method_36455(), this.fov.getValueFloat())) {
             int pearl;
             throwing = true;
             if (AutoPearl.mc.player.getMainHandStack().getItem() == Items.ENDER_PEARL) {
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onRotate(OffTrackEvent event) {
         if (this.rotation.getValue()) {
-            event.setRotation(AutoPearl.mc.player.method_36454(), AutoPearl.mc.player.method_36455(), this.steps.getValueFloat(), this.priority.getValueFloat());
+            event.setRotation(AutoPearl.mc.player.getYaw(), AutoPearl.mc.player.method_36455(), this.steps.getValueFloat(), this.priority.getValueFloat());
         }
     }
 
@@ -111,7 +111,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (this.shouldThrow && this.getBind().isHoldEnable()) {
             this.shouldThrow = false;
-            this.throwPearl(AutoPearl.mc.player.method_36454(), AutoPearl.mc.player.method_36455());
+            this.throwPearl(AutoPearl.mc.player.getYaw(), AutoPearl.mc.player.method_36455());
         }
     }
 }

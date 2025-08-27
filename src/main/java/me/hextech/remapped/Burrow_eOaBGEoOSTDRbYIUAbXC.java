@@ -133,7 +133,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (this.antiLag.getValue()) {
-            BlockUtil.getState(EntityUtil.getPlayerPos(true).down()).method_51366();
+            BlockUtil.getState(EntityUtil.getPlayerPos(true).down()).blocksMovement();
         }
         this.timer.reset();
         int oldSlot = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getInventory().selectedSlot;
@@ -216,7 +216,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.progress = 0;
         this.placePos.clear();
         if (this.rotate.getValue() == Enum_HAljcKfxHffzpuFTAOaQ.Bypass) {
-            EntityUtil.sendYawAndPitch(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_36454(), 90.0f);
+            EntityUtil.sendYawAndPitch(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getYaw(), 90.0f);
         }
         this.placeBlock(playerPos, rotate);
         this.placeBlock(pos1, rotate);
@@ -285,9 +285,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             case 6: {
                 ArrayList<BlockPosX> list = new ArrayList<BlockPosX>();
-                for (double x = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().method_10216() - this.AutoXZ.getValue(); x < Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().method_10216() + this.AutoXZ.getValue(); x += 1.0) {
-                    for (double z = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().method_10215() - this.AutoXZ.getValue(); z < Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().method_10215() + this.AutoXZ.getValue(); z += 1.0) {
-                        for (double y = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().method_10214() - this.AutoDown.getValue(); y < Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().method_10214() + this.AutoUp.getValue(); y += 1.0) {
+                for (double x = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().getX() - this.AutoXZ.getValue(); x < Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().getX() + this.AutoXZ.getValue(); x += 1.0) {
+                    for (double z = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().getZ() - this.AutoXZ.getValue(); z < Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().getZ() + this.AutoXZ.getValue(); z += 1.0) {
+                        for (double y = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().getY() - this.AutoDown.getValue(); y < Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getPos().getY() + this.AutoUp.getValue(); y += 1.0) {
                             list.add(new BlockPosX(x, y, z));
                         }
                     }
@@ -387,7 +387,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean canGoto(BlockPos pos) {
-        return !BlockUtil.getState(pos).method_51366() && !BlockUtil.getState(pos.up()).method_51366();
+        return !BlockUtil.getState(pos).blocksMovement() && !BlockUtil.getState(pos.up()).blocksMovement();
     }
 
     private boolean canAbove(BlockPos pos) {
@@ -426,7 +426,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean Trapped(BlockPos pos) {
-        return (Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.method_39454((Entity)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.COBWEB) && this.checkSelf(pos.down(2));
+        return (Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.canCollide((Entity)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.COBWEB) && this.checkSelf(pos.down(2));
     }
 
     private int getBlock() {

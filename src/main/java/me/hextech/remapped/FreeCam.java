@@ -43,10 +43,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         FreeCam.mc.chunkCullingEnabled = false;
-        this.preYaw = FreeCam.mc.player.method_36454();
+        this.preYaw = FreeCam.mc.player.getYaw();
         this.prePitch = FreeCam.mc.player.method_36455();
         this.fakePitch = FreeCam.mc.player.method_36455();
-        this.fakeYaw = FreeCam.mc.player.method_36454();
+        this.fakeYaw = FreeCam.mc.player.getYaw();
         this.prevFakePitch = this.fakePitch;
         this.prevFakeYaw = this.fakeYaw;
         this.fakeX = FreeCam.mc.player.getX();
@@ -81,7 +81,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         this.prevFakeYaw = this.fakeYaw;
         this.prevFakePitch = this.fakePitch;
-        this.fakeYaw = FreeCam.mc.player.method_36454();
+        this.fakeYaw = FreeCam.mc.player.getYaw();
         this.fakePitch = FreeCam.mc.player.method_36455();
     }
 

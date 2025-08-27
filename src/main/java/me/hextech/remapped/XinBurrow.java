@@ -89,7 +89,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!XinBurrow.mc.player.isOnGround()) {
             return;
         }
-        if (this.antiLag.getValue() && !XinBurrow.mc.world.getBlockState(EntityUtil.getPlayerPos(true).down()).method_51366()) {
+        if (this.antiLag.getValue() && !XinBurrow.mc.world.getBlockState(EntityUtil.getPlayerPos(true).down()).blocksMovement()) {
             return;
         }
         if (Blink.INSTANCE.isOn()) {
@@ -194,7 +194,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.timer.reset();
         this.doSwap(block);
         if (this.rotate.getValue() == _uPHLOgEUPRaLZqLkrbQU.Bypass) {
-            EntityUtil.sendYawAndPitch(XinBurrow.mc.player.method_36454(), 90.0f);
+            EntityUtil.sendYawAndPitch(XinBurrow.mc.player.getYaw(), 90.0f);
         }
         this.placeBlock(playerPos, rotate);
         this.placeBlock(pos1, rotate);
@@ -222,9 +222,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         switch ((above ? this.aboveLagMode.getValue() : this.lagMode.getValue()).ordinal()) {
             case 0: {
                 ArrayList<BlockPosX> list = new ArrayList<BlockPosX>();
-                for (double x = XinBurrow.mc.player.getPos().method_10216() - this.smartX.getValue(); x < XinBurrow.mc.player.getPos().method_10216() + this.smartX.getValue(); x += 1.0) {
-                    for (double z = XinBurrow.mc.player.getPos().method_10215() - this.smartX.getValue(); z < XinBurrow.mc.player.getPos().method_10215() + this.smartX.getValue(); z += 1.0) {
-                        for (double y = XinBurrow.mc.player.getPos().method_10214() - this.smartDown.getValue(); y < XinBurrow.mc.player.getPos().method_10214() + this.smartUp.getValue(); y += 1.0) {
+                for (double x = XinBurrow.mc.player.getPos().getX() - this.smartX.getValue(); x < XinBurrow.mc.player.getPos().getX() + this.smartX.getValue(); x += 1.0) {
+                    for (double z = XinBurrow.mc.player.getPos().getZ() - this.smartX.getValue(); z < XinBurrow.mc.player.getPos().getZ() + this.smartX.getValue(); z += 1.0) {
+                        for (double y = XinBurrow.mc.player.getPos().getY() - this.smartDown.getValue(); y < XinBurrow.mc.player.getPos().getY() + this.smartUp.getValue(); y += 1.0) {
                             list.add(new BlockPosX(x, y, z));
                         }
                     }
@@ -295,7 +295,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 ++this.progress;
                 BlockUtil.placedPos.add(pos);
                 if (this.sound.getValue()) {
-                    XinBurrow.mc.world.method_8396((PlayerEntity)XinBurrow.mc.player, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0f, 0.8f);
+                    XinBurrow.mc.world.playSound((PlayerEntity)XinBurrow.mc.player, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0f, 0.8f);
                 }
                 BlockUtil.clickBlock(pos, Direction.DOWN, rotate, this.packetPlace.getValue());
             }
@@ -305,7 +305,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             ++this.progress;
             BlockUtil.placedPos.add(pos);
             if (this.sound.getValue()) {
-                XinBurrow.mc.world.method_8396((PlayerEntity)XinBurrow.mc.player, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0f, 0.8f);
+                XinBurrow.mc.world.playSound((PlayerEntity)XinBurrow.mc.player, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0f, 0.8f);
             }
             BlockUtil.clickBlock(pos.offset(side), side.getOpposite(), rotate, this.packetPlace.getValue());
         }
@@ -360,7 +360,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean trapped(BlockPos pos) {
-        return (XinBurrow.mc.world.method_39454((Entity)XinBurrow.mc.player, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.COBWEB) && this.checkSelf(pos.down(2));
+        return (XinBurrow.mc.world.canCollide((Entity)XinBurrow.mc.player, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.COBWEB) && this.checkSelf(pos.down(2));
     }
 
     private int getBlock() {

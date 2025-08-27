@@ -93,7 +93,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.hasTouchedGround && this.boostTimer.getValue() && !ElytraFly.mc.player.isOnGround()) {
                 HexTech.TIMER.set(0.3f);
             }
-            if (!ElytraFly.mc.player.isOnGround() && this.instantFly.getValue() && ElytraFly.mc.player.method_18798().method_10214() < 0.0) {
+            if (!ElytraFly.mc.player.isOnGround() && this.instantFly.getValue() && ElytraFly.mc.player.method_18798().getY() < 0.0) {
                 if (!this.instantFlyTimer.passedMs((long)(1000.0 * this.timeout.getValue()))) {
                     return;
                 }

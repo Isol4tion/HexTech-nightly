@@ -204,7 +204,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.speed = this.distance - 0.66 * (this.distance - MovementUtil.getSpeed(this.slow.getValue(), this.strafeSpeed.getValue() / 1000.0));
                 this.boost = !this.boost;
             } else {
-                if ((Speed.mc.world.method_39454(null, Speed.mc.player.getBoundingBox().offset(0.0, MovementUtil.getMotionY(), 0.0)) || Speed.mc.player.field_34927) && this.stage > 0) {
+                if ((Speed.mc.world.canCollide(null, Speed.mc.player.getBoundingBox().offset(0.0, MovementUtil.getMotionY(), 0.0)) || Speed.mc.player.field_34927) && this.stage > 0) {
                     this.stage = MovementUtil.isMoving() ? 1 : 0;
                 }
                 this.speed = this.distance - this.distance / 159.0;
@@ -213,7 +213,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.speed = Math.max(this.speed, MovementUtil.getSpeed(this.slow.getValue(), this.strafeSpeed.getValue() / 1000.0));
             double n = MovementUtil.getMoveForward();
             double n2 = MovementUtil.getMoveStrafe();
-            double n3 = Speed.mc.player.method_36454();
+            double n3 = Speed.mc.player.getYaw();
             if (n == 0.0 && n2 == 0.0) {
                 event.setX(0.0);
                 event.setZ(0.0);

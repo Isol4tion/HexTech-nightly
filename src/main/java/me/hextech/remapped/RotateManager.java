@@ -168,7 +168,7 @@ implements Wrapper {
     @EventHandler(priority=-200)
     public void update(UpdateWalkingEvent event) {
         if (Rotation.INSTANCE.isOn() && event.isPost()) {
-            RotateEvent rotateEvent = new RotateEvent(RotateManager.mc.player.method_36454(), RotateManager.mc.player.method_36455());
+            RotateEvent rotateEvent = new RotateEvent(RotateManager.mc.player.getYaw(), RotateManager.mc.player.method_36455());
             HexTech.EVENT_BUS.post(rotateEvent);
             if (rotateEvent.isModified()) {
                 this.nextYaw = rotateEvent.getYaw();
@@ -225,7 +225,7 @@ implements Wrapper {
                     if (!EntityUtil.rotating && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotateSync.getValue()) {
                         float yaw = packet.getYaw(this.lastYaw);
                         float pitch = packet.getPitch(lastPitch);
-                        if (yaw == RotateManager.mc.player.method_36454() && pitch == RotateManager.mc.player.method_36455()) {
+                        if (yaw == RotateManager.mc.player.getYaw() && pitch == RotateManager.mc.player.method_36455()) {
                             ((IPlayerMoveC2SPacket)event.getPacket()).setYaw(this.rotateYaw);
                             ((IPlayerMoveC2SPacket)event.getPacket()).setPitch(this.rotatePitch);
                         }

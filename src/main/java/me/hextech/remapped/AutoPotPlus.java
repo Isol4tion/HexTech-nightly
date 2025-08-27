@@ -145,7 +145,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.throwPos != null) {
                 this.snapAt(this.throwPos.toCenterPos());
             } else {
-                EntityUtil.sendYawAndPitch(AutoPotPlus.mc.player.method_36454(), 90.0f);
+                EntityUtil.sendYawAndPitch(AutoPotPlus.mc.player.getYaw(), 90.0f);
             }
             InventoryUtil.inventorySwap(newSlot, AutoPotPlus.mc.player.getInventory().selectedSlot);
             AutoPotPlus.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
@@ -158,7 +158,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (this.throwPos != null) {
                     this.snapAt(this.throwPos.toCenterPos());
                 } else {
-                    EntityUtil.sendYawAndPitch(AutoPotPlus.mc.player.method_36454(), 90.0f);
+                    EntityUtil.sendYawAndPitch(AutoPotPlus.mc.player.getYaw(), 90.0f);
                 }
                 InventoryUtil.switchToSlot(newSlot);
                 AutoPotPlus.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));

@@ -41,7 +41,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         double n3 = 0.0;
         if (BurrowMove.mc.player != null) {
-            n3 = BurrowMove.mc.player.method_36454();
+            n3 = BurrowMove.mc.player.getYaw();
         }
         if (n == 0.0 && n2 == 0.0) {
             if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.currentPos == null) {

@@ -88,11 +88,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         boolean prev_bob = (Boolean)Trajectories.mc.options.getBobView().getValue();
         Trajectories.mc.options.getBobView().setValue((Object)false);
         if (mainHand.getItem() instanceof CrossbowItem && EnchantmentHelper.method_8225((Enchantment)Enchantments.field_9108, (ItemStack)mainHand) != 0) {
-            this.calcTrajectory(matrixStack, hand == Hand.OFF_HAND ? offHand.getItem() : mainHand.getItem(), Trajectories.mc.player.method_36454() - 10.0f);
-            this.calcTrajectory(matrixStack, hand == Hand.OFF_HAND ? offHand.getItem() : mainHand.getItem(), Trajectories.mc.player.method_36454());
-            this.calcTrajectory(matrixStack, hand == Hand.OFF_HAND ? offHand.getItem() : mainHand.getItem(), Trajectories.mc.player.method_36454() + 10.0f);
+            this.calcTrajectory(matrixStack, hand == Hand.OFF_HAND ? offHand.getItem() : mainHand.getItem(), Trajectories.mc.player.getYaw() - 10.0f);
+            this.calcTrajectory(matrixStack, hand == Hand.OFF_HAND ? offHand.getItem() : mainHand.getItem(), Trajectories.mc.player.getYaw());
+            this.calcTrajectory(matrixStack, hand == Hand.OFF_HAND ? offHand.getItem() : mainHand.getItem(), Trajectories.mc.player.getYaw() + 10.0f);
         } else {
-            this.calcTrajectory(matrixStack, hand == Hand.OFF_HAND ? offHand.getItem() : mainHand.getItem(), Trajectories.mc.player.method_36454());
+            this.calcTrajectory(matrixStack, hand == Hand.OFF_HAND ? offHand.getItem() : mainHand.getItem(), Trajectories.mc.player.getYaw());
         }
         Trajectories.mc.options.getBobView().setValue((Object)prev_bob);
     }
@@ -127,7 +127,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         motionY *= (double)pow;
         motionZ *= (double)pow;
         if (!Trajectories.mc.player.isOnGround()) {
-            motionY += Trajectories.mc.player.method_18798().method_10214();
+            motionY += Trajectories.mc.player.method_18798().getY();
         }
         for (int i = 0; i < 300; ++i) {
             BlockHitResult bhr;

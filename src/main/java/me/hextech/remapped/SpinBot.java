@@ -32,7 +32,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         PlayerActionC2SPacket packet;
         Object t = event.getPacket();
         if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).getAction() == PlayerActionC2SPacket.Action.RELEASE_USE_ITEM && SpinBot.mc.player.method_6030().getItem() instanceof BowItem) {
-            EntityUtil.sendYawAndPitch(SpinBot.mc.player.method_36454(), SpinBot.mc.player.method_36455());
+            EntityUtil.sendYawAndPitch(SpinBot.mc.player.getYaw(), SpinBot.mc.player.method_36455());
         }
     }
 
@@ -67,7 +67,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.rotationPitch = MathUtil.clamp(this.rotationPitch, -90.0f, 90.0f);
         }
         if (this.yawMode.getValue() == _YiToqkCkUTOMQxneHmRR.Static) {
-            this.rotationYaw = SpinBot.mc.player.method_36454() % 360.0f + this.yawDelta.getValueFloat();
+            this.rotationYaw = SpinBot.mc.player.getYaw() % 360.0f + this.yawDelta.getValueFloat();
         }
         if (this.allowInteract.getValue() && (SpinBot.mc.options.useKey.isPressed() && !EntityUtil.isUsing() || SpinBot.mc.options.attackKey.isPressed())) {
             return;

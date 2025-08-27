@@ -114,7 +114,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean checkHitBoxes() {
-        return PacketFly.mc.world.method_39454((Entity)PacketFly.mc.player, PacketFly.mc.player.getBoundingBox().expand(-0.0625, -0.0625, -0.0625));
+        return PacketFly.mc.world.canCollide((Entity)PacketFly.mc.player, PacketFly.mc.player.getBoundingBox().expand(-0.0625, -0.0625, -0.0625));
     }
 
     private boolean resetCounter(int counter) {
@@ -128,7 +128,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private double[] getMotion(double speed) {
         float moveForward = MovementUtil.getMoveForward();
         float moveStrafe = MovementUtil.getMoveStrafe();
-        float rotationYaw = PacketFly.mc.player.field_5982 + (PacketFly.mc.player.method_36454() - PacketFly.mc.player.field_5982) * mc.getTickDelta();
+        float rotationYaw = PacketFly.mc.player.field_5982 + (PacketFly.mc.player.getYaw() - PacketFly.mc.player.field_5982) * mc.getTickDelta();
         if (moveForward != 0.0f) {
             if (moveStrafe > 0.0f) {
                 rotationYaw += (float)(moveForward > 0.0f ? -45 : 45);

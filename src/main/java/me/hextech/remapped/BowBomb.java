@@ -67,7 +67,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
             if (this.exploit.getValue() == _rjdFZKIVfyUHfSoAeHLl.Strict) {
-                double[] strict_direction = new double[]{100.0 * -Math.sin(Math.toRadians(BowBomb.mc.player.method_36454())), 100.0 * Math.cos(Math.toRadians(BowBomb.mc.player.method_36454()))};
+                double[] strict_direction = new double[]{100.0 * -Math.sin(Math.toRadians(BowBomb.mc.player.getYaw())), 100.0 * Math.cos(Math.toRadians(BowBomb.mc.player.getYaw()))};
                 for (int i = 0; i < this.getRuns(); ++i) {
                     if (this.random.nextBoolean()) {
                         this.spoof(BowBomb.mc.player.getX() - strict_direction[0], BowBomb.mc.player.getY(), BowBomb.mc.player.getZ() - strict_direction[1], false);
@@ -82,7 +82,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void spoof(double x, double y, double z, boolean ground) {
         if (this.rotation.getValue()) {
-            BowBomb.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.Full(x, y, z, BowBomb.mc.player.method_36454(), BowBomb.mc.player.method_36455(), ground));
+            BowBomb.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.Full(x, y, z, BowBomb.mc.player.getYaw(), BowBomb.mc.player.method_36455(), ground));
         } else {
             BowBomb.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(x, y, z, ground));
         }

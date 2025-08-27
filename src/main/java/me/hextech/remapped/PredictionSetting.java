@@ -156,7 +156,7 @@ implements Wrapper {
         public _XBpBEveLWEKUGQPHCCIS(PlayerEntity player) {
             this.player = player;
             if (PredictionSetting.INSTANCE.prediction.getValue()) {
-                this.predict = new PredictionSetting_JKvMiRXQVAwkYSSmKMez(this, (World)Wrapper.mc.world, player.getBlockPos(), player.method_36454(), new GameProfile(UUID.fromString("66123666-1234-5432-6666-667563866600"), "PredictEntity339"));
+                this.predict = new PredictionSetting_JKvMiRXQVAwkYSSmKMez(this, (World)Wrapper.mc.world, player.getBlockPos(), player.getYaw(), new GameProfile(UUID.fromString("66123666-1234-5432-6666-667563866600"), "PredictEntity339"));
                 if (PredictionSetting.INSTANCE.mode.getValue() == _mJSQReswTiaqOSqkjOmh.Aurora) {
                     int ticks = PredictionSetting.INSTANCE.breakExtrap.getValueInt();
                     Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(player, ticks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());

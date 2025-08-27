@@ -44,7 +44,7 @@ implements Wrapper {
     }
 
     public static Vec3d getHorizontalVelocity(double bps) {
-        float yaw = MovementUtil.mc.player.method_36454();
+        float yaw = MovementUtil.mc.player.getYaw();
         Vec3d forward = Vec3d.fromPolar((float)0.0f, (float)yaw);
         Vec3d right = Vec3d.fromPolar((float)0.0f, (float)(yaw + 90.0f));
         double velX = 0.0;
@@ -83,7 +83,7 @@ implements Wrapper {
     public static double[] directionSpeed(double speed) {
         float forward = MovementUtil.mc.player.input.movementForward;
         float side = MovementUtil.mc.player.input.movementSideways;
-        float yaw = MovementUtil.mc.player.field_5982 + (MovementUtil.mc.player.method_36454() - MovementUtil.mc.player.field_5982) * mc.getTickDelta();
+        float yaw = MovementUtil.mc.player.field_5982 + (MovementUtil.mc.player.getYaw() - MovementUtil.mc.player.field_5982) * mc.getTickDelta();
         if (forward != 0.0f) {
             if (side > 0.0f) {
                 yaw += (float)(forward > 0.0f ? -45 : 45);

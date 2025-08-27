@@ -37,7 +37,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (packet.method_11733().contains(PositionFlag.Y_ROT)) {
                 ((IPlayerPositionLookS2CPacket)packet).setYaw(0.0f);
             } else {
-                ((IPlayerPositionLookS2CPacket)packet).setYaw(NoRotateSet.mc.player.method_36454());
+                ((IPlayerPositionLookS2CPacket)packet).setYaw(NoRotateSet.mc.player.getYaw());
             }
             if (packet.method_11733().contains(PositionFlag.X_ROT)) {
                 ((IPlayerPositionLookS2CPacket)packet).setPitch(0.0f);

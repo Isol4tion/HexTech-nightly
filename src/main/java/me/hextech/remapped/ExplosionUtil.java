@@ -28,11 +28,11 @@ implements Wrapper {
         if (BlockUtil.getBlock(pos) == Blocks.RESPAWN_ANCHOR) {
             CombatUtil.modifyPos = pos;
             CombatUtil.modifyBlockState = Blocks.AIR.getDefaultState();
-            float damage = ExplosionUtil.calculateDamage(pos.toCenterPos().method_10216(), pos.toCenterPos().method_10214(), pos.toCenterPos().method_10215(), (Entity)target, (Entity)predict, 5.0f);
+            float damage = ExplosionUtil.calculateDamage(pos.toCenterPos().getX(), pos.toCenterPos().getY(), pos.toCenterPos().getZ(), (Entity)target, (Entity)predict, 5.0f);
             CombatUtil.modifyPos = null;
             return damage;
         }
-        return ExplosionUtil.calculateDamage(pos.toCenterPos().method_10216(), pos.toCenterPos().method_10214(), pos.toCenterPos().method_10215(), (Entity)target, (Entity)predict, 5.0f);
+        return ExplosionUtil.calculateDamage(pos.toCenterPos().getX(), pos.toCenterPos().getY(), pos.toCenterPos().getZ(), (Entity)target, (Entity)predict, 5.0f);
     }
 
     public static float calculateDamage(double posX, double posY, double posZ, Entity entity, Entity predict, float power) {

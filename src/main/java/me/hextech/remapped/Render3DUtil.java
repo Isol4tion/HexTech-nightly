@@ -107,7 +107,7 @@ implements Wrapper {
         RenderSystem.disableCull();
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(camera.getPitch()));
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(camera.getYaw() + 180.0f));
-        matrices.translate(pos.method_10216() - camera.getPos().x, pos.method_10214() - camera.getPos().y, pos.method_10215() - camera.getPos().z);
+        matrices.translate(pos.getX() - camera.getPos().x, pos.getY() - camera.getPos().y, pos.getZ() - camera.getPos().z);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-camera.getYaw()));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(camera.getPitch()));
         RenderSystem.enableBlend();
@@ -129,12 +129,12 @@ implements Wrapper {
         RenderSystem.setShader(GameRenderer::method_34540);
         buffer.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
         Matrix4f posMatrix = stack.peek().getPositionMatrix();
-        float minX = (float)(box.minX - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10216());
-        float minY = (float)(box.minY - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10214());
-        float minZ = (float)(box.minZ - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10215());
-        float maxX = (float)(box.maxX - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10216());
-        float maxY = (float)(box.maxY - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10214());
-        float maxZ = (float)(box.maxZ - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10215());
+        float minX = (float)(box.minX - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().getX());
+        float minY = (float)(box.minY - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().getY());
+        float minZ = (float)(box.minZ - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().getZ());
+        float maxX = (float)(box.maxX - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().getX());
+        float maxY = (float)(box.maxY - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().getY());
+        float maxZ = (float)(box.maxZ - Render3DUtil.mc.getEntityRenderDispatcher().camera.getPos().getZ());
         buffer.method_22918(posMatrix, minX, minY, minZ).color(c.getRGB()).method_1344();
         buffer.method_22918(posMatrix, maxX, minY, minZ).color(c.getRGB()).method_1344();
         buffer.method_22918(posMatrix, maxX, minY, maxZ).color(c.getRGB()).method_1344();

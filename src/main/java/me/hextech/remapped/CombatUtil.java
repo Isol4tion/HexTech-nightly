@@ -167,7 +167,7 @@ implements Wrapper {
         double entityMotionPosX = 0.0;
         double entityMotionPosZ = 0.0;
         if (collision) {
-            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.method_39454(entity, entity.getBoundingBox().offset(new Vec3d(dX * i, 0.0, dZ * i))); i += 0.5) {
+            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.canCollide(entity, entity.getBoundingBox().offset(new Vec3d(dX * i, 0.0, dZ * i))); i += 0.5) {
                 entityMotionPosX = dX * i;
                 entityMotionPosZ = dZ * i;
             }
@@ -193,7 +193,7 @@ implements Wrapper {
         double entityMotionPosY = 0.0;
         double entityMotionPosZ = 0.0;
         if (collision) {
-            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.method_39454(entity, entity.getBoundingBox().offset(new Vec3d(dX * i, dY * i, dZ * i))); i += 0.5) {
+            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.canCollide(entity, entity.getBoundingBox().offset(new Vec3d(dX * i, dY * i, dZ * i))); i += 0.5) {
                 entityMotionPosX = dX * i;
                 entityMotionPosY = dY * i;
                 entityMotionPosZ = dZ * i;

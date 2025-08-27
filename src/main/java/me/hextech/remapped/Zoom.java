@@ -1,30 +1,38 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.AnimateUtil;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Render3DEvent;
-import me.hextech.remapped.Zoom_qxASoURSmqLSKrnTPdNq;
+import me.hextech.HexTech;
 
-/*
- * Exception performing whole class analysis ignored.
- */
-public static class Zoom {
-    final /* synthetic */ Zoom_qxASoURSmqLSKrnTPdNq this$0;
+public class Zoom
+extends Module_eSdgMXWuzcxgQVaJFmKZ {
+    public static Zoom INSTANCE;
+    public static boolean on;
+    final SliderSetting animSpeed = this.add(new SliderSetting("AnimSpeed", 0.1, 0.0, 1.0, 0.01));
+    final SliderSetting fov = this.add(new SliderSetting("Fov", 60.0, -130.0, 130.0, 1.0));
+    public double currentFov;
 
-    public Zoom(Zoom_qxASoURSmqLSKrnTPdNq this$0) {
-        this.this$0 = this$0;
+    public Zoom() {
+        super("Zoom", Module_JlagirAibYQgkHtbRnhw.Render);
+        INSTANCE = this;
+        HexTech.EVENT_BUS.subscribe(new Zoom());
     }
 
     @EventHandler
     public void onRender3D(Render3DEvent event) {
-        if (this.this$0.isOn()) {
-            this.this$0.currentFov = AnimateUtil.animate(this.this$0.currentFov, this.this$0.fov.getValue(), this.this$0.animSpeed.getValue());
-            Zoom_qxASoURSmqLSKrnTPdNq.on = true;
-        } else if (Zoom_qxASoURSmqLSKrnTPdNq.on) {
-            this.this$0.currentFov = AnimateUtil.animate(this.this$0.currentFov, 0.0, this.this$0.animSpeed.getValue());
-            if ((int)this.this$0.currentFov == 0) {
-                Zoom_qxASoURSmqLSKrnTPdNq.on = false;
+        if (this.isOn()) {
+            this.currentFov = AnimateUtil.animate(this.currentFov, this.fov.getValue(), this.animSpeed.getValue());
+            Zoom.on = true;
+        } else if (Zoom.on) {
+            this.currentFov = AnimateUtil.animate(this.currentFov, 0.0, this.animSpeed.getValue());
+            if ((int)this.currentFov == 0) {
+                Zoom.on = false;
             }
+        }
+    }
+    
+    @Override
+    public void onEnable() {
+        if ((Integer) Zoom.mc.options.getFov().getValue() == 70) {
+            Zoom.mc.options.getFov().setValue(71);
         }
     }
 }

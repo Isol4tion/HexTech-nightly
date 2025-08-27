@@ -52,9 +52,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         RenderSystem.setShader(GameRenderer::method_34540);
         bufferBuilder.method_1328(VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION_COLOR);
         GL11.glLineWidth((float)2.0f);
-        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().method_10216();
-        double y = ent.prevY + (double)height + (ent.getY() - ent.prevY) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().method_10214();
-        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().method_10215();
+        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().getX();
+        double y = ent.prevY + (double)height + (ent.getY() - ent.prevY) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().getY();
+        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().getZ();
         stack.push();
         stack.translate(x, y, z);
         Matrix4f matrix = stack.peek().getPositionMatrix();

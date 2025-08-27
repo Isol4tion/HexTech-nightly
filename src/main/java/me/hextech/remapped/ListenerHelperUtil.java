@@ -44,7 +44,7 @@ implements Wrapper {
     public static float calculateObsidian(BlockPos obs, Vec3d pos, PlayerEntity player, PlayerEntity predict) {
         CombatUtil.modifyPos = obs;
         CombatUtil.modifyBlockState = Blocks.OBSIDIAN.getDefaultState();
-        float damage = ExplosionUtil.calculateDamage(pos.method_10216(), pos.method_10214(), pos.method_10215(), (Entity)player, (Entity)predict, 6.0f);
+        float damage = ExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), (Entity)player, (Entity)predict, 6.0f);
         CombatUtil.modifyPos = null;
         CombatUtil.terrainIgnore = false;
         return damage;

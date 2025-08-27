@@ -213,7 +213,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         GL11.glEnable((int)3042);
         Color color = this.color.getValue();
-        Vec3d pos = new Vec3d(this.targetPos.x, (double)this.holePos.getY(), this.targetPos.method_10215());
+        Vec3d pos = new Vec3d(this.targetPos.x, (double)this.holePos.getY(), this.targetPos.getZ());
         if (this.fade.getValue()) {
             double temp = 0.01;
             for (double i = 0.0; i < this.circleSize.getValue(); i += temp) {

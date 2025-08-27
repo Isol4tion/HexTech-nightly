@@ -93,7 +93,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             ++blockProgress;
         }
-        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.up()) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.up(2)) && blockProgress > 3 && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.method_39454((Entity)HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player, new Box(pos.down()))) {
+        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.up()) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.up(2)) && blockProgress > 3 && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.canCollide((Entity)HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player, new Box(pos.down()))) {
             if (bedRock) {
                 return HoleESP.Bedrock;
             }

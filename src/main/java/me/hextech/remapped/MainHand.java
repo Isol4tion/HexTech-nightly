@@ -161,7 +161,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public float calculateDamage(Vec3d pos, PlayerEntity player, PlayerEntity predict) {
-        float damage = OyveyExplosionUtil.calculateDamage(pos.method_10216(), pos.method_10214(), pos.method_10215(), (Entity)player, (Entity)predict, 6.0f);
+        float damage = OyveyExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), (Entity)player, (Entity)predict, 6.0f);
         return damage;
     }
 

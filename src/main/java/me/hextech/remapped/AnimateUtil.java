@@ -1,8 +1,6 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.AnimateUtil_AcLZzRdHWZkNeKEYTOwI;
-import me.hextech.remapped.Wrapper;
 
 public class AnimateUtil
 implements Wrapper {
@@ -111,5 +109,14 @@ implements Wrapper {
             return endPoint;
         }
         return current + (shouldContinueAnimation ? speed : -speed);
+    }
+
+    public enum AnimateUtil_AcLZzRdHWZkNeKEYTOwI {
+        Thunder,
+        Mio,
+        My,
+        Old,
+        Normal,
+        None
     }
 }

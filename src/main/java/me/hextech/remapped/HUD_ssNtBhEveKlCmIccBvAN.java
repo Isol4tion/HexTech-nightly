@@ -241,7 +241,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float nether = !inHell ? 0.125f : 8.0f;
         int hposX = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getX() * (double)nether);
         int hposZ = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getZ() * (double)nether);
-        int yawPitch = (int)MathHelper.wrapDegrees((float)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_36454());
+        int yawPitch = (int)MathHelper.wrapDegrees((float)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getYaw());
         int p = this.coords.getValue() ? 0 : 11;
         i = HUD_ssNtBhEveKlCmIccBvAN.mc.currentScreen instanceof ChatScreen ? 14 : 0;
         String coordinates = (this.lowerCase.getValue() ? "XYZ: ".toLowerCase() : "XYZ: ") + "\u00a7f" + (inHell ? posX + ", " + posY + ", " + posZ + "\u00a77 [\u00a7f" + hposX + ", " + hposZ + "\u00a77]\u00a7f" : posX + ", " + posY + ", " + posZ + "\u00a77 [\u00a7f" + hposX + ", " + hposZ + "\u00a77]");

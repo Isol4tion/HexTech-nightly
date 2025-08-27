@@ -171,13 +171,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Vec3d playerPos = this.predictTicks.getValue() > 0.0 ? CombatUtil.getEntityPosVec(player, this.predictTicks.getValueInt()) : player.getPos();
             int webs = 0;
             if (this.down.getValue()) {
-                this.placeWeb(new BlockPosX(playerPos.method_10216(), playerPos.method_10214() - 0.8, playerPos.method_10215()));
+                this.placeWeb(new BlockPosX(playerPos.getX(), playerPos.getY() - 0.8, playerPos.getZ()));
             }
             ArrayList<BlockPosX> list = new ArrayList<BlockPosX>();
             for (float x : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
                 for (float z : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
                     for (float y : new float[]{0.0f, 1.0f, -1.0f}) {
-                        BlockPosX pos = new BlockPosX(playerPos.method_10216() + (double)x, playerPos.method_10214() + (double)y, playerPos.method_10215() + (double)z);
+                        BlockPosX pos = new BlockPosX(playerPos.getX() + (double)x, playerPos.getY() + (double)y, playerPos.getZ() + (double)z);
                         if (list.contains((Object)pos)) continue;
                         list.add(pos);
                         if (!this.isTargetHere(pos, player) || WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.COBWEB || HexTech.BREAK.isMining(pos)) continue;
@@ -190,7 +190,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.feet.getValue()) {
                 block4: for (float x : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
                     for (float z : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
-                        BlockPosX pos = new BlockPosX(playerPos.method_10216() + (double)x, playerPos.method_10214(), playerPos.method_10215() + (double)z);
+                        BlockPosX pos = new BlockPosX(playerPos.getX() + (double)x, playerPos.getY(), playerPos.getZ() + (double)z);
                         if (!this.isTargetHere(pos, player) || !this.placeWeb(pos) || ++webs < this.tempMaxWebs) continue;
                         skip = true;
                         break block4;
@@ -200,7 +200,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (skip || !this.face.getValue()) continue;
             for (float x : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
                 for (float z : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
-                    BlockPosX pos = new BlockPosX(playerPos.method_10216() + (double)x, playerPos.method_10214() + 1.1, playerPos.method_10215() + (double)z);
+                    BlockPosX pos = new BlockPosX(playerPos.getX() + (double)x, playerPos.getY() + 1.1, playerPos.getZ() + (double)z);
                     if (this.isTargetHere(pos, player) && this.placeWeb(pos) && ++webs >= this.tempMaxWebs) continue block0;
                 }
             }

@@ -21,10 +21,10 @@ implements Wrapper {
         double cs = prevCircleStep + (circleStep - prevCircleStep) * mc.getTickDelta();
         double prevSinAnim = JelloUtil.absSinAnimation(cs - (double)0.45f);
         double sinAnim = JelloUtil.absSinAnimation(cs);
-        double x = target.prevX + (target.getX() - target.prevX) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10216();
-        double y = target.prevY + (target.getY() - target.prevY) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10214() + prevSinAnim * (double)target.getHeight();
-        double z = target.prevZ + (target.getZ() - target.prevZ) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10215();
-        double nextY = target.prevY + (target.getY() - target.prevY) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10214() + sinAnim * (double)target.getHeight();
+        double x = target.prevX + (target.getX() - target.prevX) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().getX();
+        double y = target.prevY + (target.getY() - target.prevY) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().getY() + prevSinAnim * (double)target.getHeight();
+        double z = target.prevZ + (target.getZ() - target.prevZ) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().getZ();
+        double nextY = target.prevY + (target.getY() - target.prevY) * (double)mc.getTickDelta() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().getY() + sinAnim * (double)target.getHeight();
         matrix.push();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();

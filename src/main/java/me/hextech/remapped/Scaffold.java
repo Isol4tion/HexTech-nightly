@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (this.pos != null) {
                 Vec3d cur = this.pos.toCenterPos();
-                lastVec3d = lastVec3d == null ? cur : new Vec3d(AnimateUtil.animate(lastVec3d.method_10216(), cur.x, this.sliderSpeed.getValue()), AnimateUtil.animate(lastVec3d.method_10214(), cur.y, this.sliderSpeed.getValue()), AnimateUtil.animate(lastVec3d.method_10215(), cur.z, this.sliderSpeed.getValue()));
+                lastVec3d = lastVec3d == null ? cur : new Vec3d(AnimateUtil.animate(lastVec3d.getX(), cur.x, this.sliderSpeed.getValue()), AnimateUtil.animate(lastVec3d.getY(), cur.y, this.sliderSpeed.getValue()), AnimateUtil.animate(lastVec3d.getZ(), cur.z, this.sliderSpeed.getValue()));
                 Render3DUtil.draw3DBox(matrixStack, new Box(lastVec3d.add(0.5, 0.5, 0.5), lastVec3d.add(-0.5, -0.5, -0.5)), ColorUtil.injectAlpha(this.color.getValue(), this.color.getValue().getAlpha()), this.outline.getValue(), this.box.getValue());
             }
         }

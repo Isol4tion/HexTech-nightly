@@ -96,7 +96,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int newSlot;
         int oldSlot = AutoPot.mc.player.getInventory().selectedSlot;
         if (this.inventory.getValue() && (newSlot = AutoPot.findPotionInventorySlot(targetEffect)) != -1) {
-            EntityUtil.sendYawAndPitch(AutoPot.mc.player.method_36454(), 90.0f);
+            EntityUtil.sendYawAndPitch(AutoPot.mc.player.getYaw(), 90.0f);
             InventoryUtil.inventorySwap(newSlot, AutoPot.mc.player.getInventory().selectedSlot);
             AutoPot.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
             InventoryUtil.inventorySwap(newSlot, AutoPot.mc.player.getInventory().selectedSlot);
@@ -105,7 +105,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         } else {
             newSlot = AutoPot.findPotion(targetEffect);
             if (newSlot != -1) {
-                EntityUtil.sendYawAndPitch(AutoPot.mc.player.method_36454(), 90.0f);
+                EntityUtil.sendYawAndPitch(AutoPot.mc.player.getYaw(), 90.0f);
                 InventoryUtil.switchToSlot(newSlot);
                 AutoPot.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
                 InventoryUtil.switchToSlot(oldSlot);

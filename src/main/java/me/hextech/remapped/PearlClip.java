@@ -69,7 +69,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (this.sync.getValue()) {
-            AutoPearl.INSTANCE.throwPearl(this.autoYaw.getValue() ? HexTech.ROTATE.getRotation(this.targetPos)[0] : PearlClip.mc.player.method_36454(), this.bypass.getValue() ? 89.0f : 80.0f);
+            AutoPearl.INSTANCE.throwPearl(this.autoYaw.getValue() ? HexTech.ROTATE.getRotation(this.targetPos)[0] : PearlClip.mc.player.getYaw(), this.bypass.getValue() ? 89.0f : 80.0f);
         } else {
             this.throwPearl();
         }
@@ -120,7 +120,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (this.sync.getValue()) {
-            AutoPearl.INSTANCE.throwPearl(this.autoYaw.getValue() ? HexTech.ROTATE.getRotation(this.targetPos)[0] : PearlClip.mc.player.method_36454(), this.bypass.getValue() ? 89.0f : 80.0f);
+            AutoPearl.INSTANCE.throwPearl(this.autoYaw.getValue() ? HexTech.ROTATE.getRotation(this.targetPos)[0] : PearlClip.mc.player.getYaw(), this.bypass.getValue() ? 89.0f : 80.0f);
         } else {
             this.throwPearl();
         }
