@@ -27,9 +27,9 @@ implements Wrapper {
             return;
         }
         HashMap<AbstractClientPlayerEntity, List> newMap = new HashMap<AbstractClientPlayerEntity, List>();
-        for (AbstractClientPlayerEntity p : ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.method_18456()) {
+        for (AbstractClientPlayerEntity p : ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.getPlayers()) {
             List list = motionHistory.computeIfAbsent((PlayerEntity)p, k -> new ArrayList());
-            list.add(0, p.getPos().subtract(p.field_6014, p.field_6036, p.field_5969));
+            list.add(0, p.getPos().subtract(p.prevX, p.prevY, p.prevZ));
             if (list.size() > 20) {
                 list.remove(20);
             }

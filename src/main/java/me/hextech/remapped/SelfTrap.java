@@ -77,11 +77,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return new Vec2f((float)yaw, (float)pitch);
     }
 
-    private static double normalizeAngle(double angleIn) {
-        double d;
+    private static double normalizeAngle(final double angleIn) {
         double angle = angleIn;
-        angle %= 360.0;
-        if (d >= 180.0) {
+        if ((angle %= 360.0) >= 180.0) {
             angle -= 360.0;
         }
         if (angle < -180.0) {
@@ -113,7 +111,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler(priority=-1)
     public void onMove(MoveEvent event) {
-        if (SelfTrap.nullCheck() || !this.center.getValue() || SelfTrap.mc.player.method_6128()) {
+        if (SelfTrap.nullCheck() || !this.center.getValue() || SelfTrap.mc.player.isFallFlying()) {
             return;
         }
         BlockPos blockPos = EntityUtil.getPlayerPos(true);
@@ -148,7 +146,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.startZ = SelfTrap.mc.player.getZ();
         }
         BlockPos pos = EntityUtil.getPlayerPos(true);
-        double distanceToStart = MathHelper.sqrt((float)((float)SelfTrap.mc.player.method_5649(this.startX, this.startY, this.startZ)));
+        double distanceToStart = MathHelper.sqrt((float)((float)SelfTrap.mc.player.squaredDistanceTo(this.startX, this.startY, this.startZ)));
         if (this.getBlock() == -1) {
             CommandManager.sendChatMessageWidthId("\u00a7c\u00a7oObsidian" + (this.enderChest.getValue() ? "/EnderChest" : "") + "?", this.hashCode());
             this.disable();

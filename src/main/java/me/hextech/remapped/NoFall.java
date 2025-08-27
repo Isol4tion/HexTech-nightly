@@ -29,7 +29,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (NoFall.nullCheck()) {
             return;
         }
-        for (ItemStack is : NoFall.mc.player.method_5661()) {
+        for (ItemStack is : NoFall.mc.player.getArmorItems()) {
             if (is.getItem() != Items.ELYTRA) continue;
             return;
         }

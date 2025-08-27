@@ -67,7 +67,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (EntityControl.nullCheck() || !this.fly.getValue()) {
             return;
         }
-        Entity boat = EntityControl.mc.player.method_5854();
+        Entity boat = EntityControl.mc.player.getVehicle();
         if (boat == null) {
             return;
         }

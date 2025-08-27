@@ -47,7 +47,7 @@ implements Wrapper {
             mc.getNetworkHandler().sendPacket((Packet)new class_2838(slot));
             return;
         }
-        InventoryUtil.mc.interactionManager.clickSlot(InventoryUtil.mc.player.field_7512.syncId, slot, selectedSlot, SlotActionType.SWAP, (PlayerEntity)InventoryUtil.mc.player);
+        InventoryUtil.mc.interactionManager.clickSlot(InventoryUtil.mc.player.currentScreenHandler.syncId, slot, selectedSlot, SlotActionType.SWAP, (PlayerEntity)InventoryUtil.mc.player);
     }
 
     public static void doSwap(int slot) {
@@ -85,7 +85,7 @@ implements Wrapper {
     }
 
     public static ItemStack getStackInSlot(int i) {
-        return InventoryUtil.mc.player.getInventory().method_5438(i);
+        return InventoryUtil.mc.player.getInventory().getStack(i);
     }
 
     public static int findItem(Item input) {
@@ -143,7 +143,7 @@ implements Wrapper {
 
     public static int findClassInventorySlot(Class clazz) {
         for (int i = 0; i < 45; ++i) {
-            ItemStack stack = InventoryUtil.mc.player.getInventory().method_5438(i);
+            ItemStack stack = InventoryUtil.mc.player.getInventory().getStack(i);
             if (stack == ItemStack.EMPTY) continue;
             if (clazz.isInstance(stack.getItem())) {
                 return i < 9 ? i + 36 : i;
@@ -230,7 +230,7 @@ implements Wrapper {
 
     public static int findItemInventorySlot(Item item) {
         for (int i = 0; i < 45; ++i) {
-            ItemStack stack = InventoryUtil.mc.player.getInventory().method_5438(i);
+            ItemStack stack = InventoryUtil.mc.player.getInventory().getStack(i);
             if (stack.getItem() != item) continue;
             return i < 9 ? i + 36 : i;
         }
@@ -239,7 +239,7 @@ implements Wrapper {
 
     public static int findPotInventorySlot(StatusEffect potion) {
         for (int i = 0; i < 45; ++i) {
-            ItemStack stack = InventoryUtil.mc.player.getInventory().method_5438(i);
+            ItemStack stack = InventoryUtil.mc.player.getInventory().getStack(i);
             if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof SplashPotionItem)) continue;
             ArrayList effects = new ArrayList(PotionContentsComponent.method_8067((ItemStack)stack));
             for (StatusEffectInstance potionEffect : effects) {
@@ -253,7 +253,7 @@ implements Wrapper {
     public static Map<Integer, ItemStack> getInventoryAndHotbarSlots() {
         HashMap<Integer, ItemStack> fullInventorySlots = new HashMap<Integer, ItemStack>();
         for (int current = 0; current <= 44; ++current) {
-            fullInventorySlots.put(current, InventoryUtil.mc.player.getInventory().method_5438(current));
+            fullInventorySlots.put(current, InventoryUtil.mc.player.getInventory().getStack(current));
         }
         return fullInventorySlots;
     }
@@ -261,7 +261,7 @@ implements Wrapper {
     public static Map<Integer, ItemStack> getNoArmorInventoryAndHotbarSlots() {
         HashMap<Integer, ItemStack> fullInventorySlots = new HashMap<Integer, ItemStack>();
         for (int current = 0; current <= 35; ++current) {
-            fullInventorySlots.put(current, InventoryUtil.mc.player.getInventory().method_5438(current));
+            fullInventorySlots.put(current, InventoryUtil.mc.player.getInventory().getStack(current));
         }
         return fullInventorySlots;
     }

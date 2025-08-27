@@ -51,7 +51,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (event.isPost()) {
             return;
         }
-        PacketFly.mc.player.method_18800(0.0, 0.0, 0.0);
+        PacketFly.mc.player.setMaxLength0(0.0, 0.0, 0.0);
         boolean checkCollisionBoxes = this.checkHitBoxes();
         double d = PacketFly.mc.player.input.field_3904 && (checkCollisionBoxes || !MovementUtil.isMoving()) ? (this.flight.getValue() && !checkCollisionBoxes ? (this.flightMode.getValue() == 0.0 ? (this.resetCounter(10) ? -0.032 : 0.062) : (this.resetCounter(20) ? -0.032 : 0.062)) : 0.062) : (PacketFly.mc.player.input.field_3903 ? -0.062 : (!checkCollisionBoxes ? (this.resetCounter(4) ? (this.flight.getValue() ? -0.04 : 0.0) : 0.0) : (speed = 0.0)));
         if (checkCollisionBoxes && MovementUtil.isMoving() && speed != 0.0) {

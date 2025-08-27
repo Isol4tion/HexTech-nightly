@@ -36,15 +36,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             case 1: {
                 Sprint.mc.options.sprintKey.setPressed(true);
                 shouldSprint = false;
-                if (Sprint.mc.player.method_7344().getFoodLevel() <= 6 && !Sprint.mc.player.method_7337()) {
+                if (Sprint.mc.player.getHungerManager().getFoodLevel() <= 6 && !Sprint.mc.player.isCreative()) {
                     return;
                 }
-                Sprint.mc.player.method_5728(MovementUtil.isMoving() && !Sprint.mc.player.isSneaking());
+                Sprint.mc.player.setSprinting(MovementUtil.isMoving() && !Sprint.mc.player.isSneaking());
                 break;
             }
             case 2: {
-                shouldSprint = (Sprint.mc.player.method_7344().getFoodLevel() > 6 || Sprint.mc.player.method_7337()) && !Sprint.mc.player.isSneaking();
-                Sprint.mc.player.method_5728(shouldSprint);
+                shouldSprint = (Sprint.mc.player.getHungerManager().getFoodLevel() > 6 || Sprint.mc.player.isCreative()) && !Sprint.mc.player.isSneaking();
+                Sprint.mc.player.setSprinting(shouldSprint);
             }
         }
     }

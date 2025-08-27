@@ -55,7 +55,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public static int findPotionInventorySlot(StatusEffect targetEffect) {
         for (int i = 0; i < 45; ++i) {
-            ItemStack itemStack = AutoPotPlus.mc.player.getInventory().method_5438(i);
+            ItemStack itemStack = AutoPotPlus.mc.player.getInventory().getStack(i);
             if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
             List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
@@ -95,21 +95,21 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.throwPos = null;
         this.throwPos = this.findPos();
-        if (!(this.checkFly.getValue() && AutoPotPlus.mc.player.method_6128() || this.smartCheckGround.getValue() && this.throwPos == null)) {
-            if (this.speed.getValue() && !AutoPotPlus.mc.player.method_6059(StatusEffects.field_5904)) {
-                this.throwing = this.checkThrow(StatusEffects.field_5904);
+        if (!(this.checkFly.getValue() && AutoPotPlus.mc.player.isFallFlying() || this.smartCheckGround.getValue() && this.throwPos == null)) {
+            if (this.speed.getValue() && !AutoPotPlus.mc.player.hasStatusEffect(StatusEffects.SPEED)) {
+                this.throwing = this.checkThrow(StatusEffects.SPEED);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
-                    this.throwPotion(StatusEffects.field_5904);
+                    this.throwPotion(StatusEffects.SPEED);
                     return;
                 }
             }
-            if (this.resistance.getValue() && (!AutoPotPlus.mc.player.method_6059(StatusEffects.field_5907) || AutoPotPlus.mc.player.method_6112(StatusEffects.field_5907).getAmplifier() < 2)) {
-                this.throwing = this.checkThrow(StatusEffects.field_5907);
+            if (this.resistance.getValue() && (!AutoPotPlus.mc.player.hasStatusEffect(StatusEffects.RESISTANCE) || AutoPotPlus.mc.player.getStatusEffect(StatusEffects.RESISTANCE).getAmplifier() < 2)) {
+                this.throwing = this.checkThrow(StatusEffects.RESISTANCE);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
-                    this.throwPotion(StatusEffects.field_5907);
+                    this.throwPotion(StatusEffects.RESISTANCE);
                 }
             }
-            if (this.strength.getValue() && !AutoPotPlus.mc.player.method_6059(StatusEffects.field_5910)) {
+            if (this.strength.getValue() && !AutoPotPlus.mc.player.hasStatusEffect(StatusEffects.field_5910)) {
                 this.throwing = this.checkThrow(StatusEffects.field_5910);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
                     this.throwPotion(StatusEffects.field_5910);

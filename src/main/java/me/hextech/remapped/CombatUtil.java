@@ -35,7 +35,7 @@ implements Wrapper {
     public static List<PlayerEntity> getEnemies(double range) {
         ArrayList<PlayerEntity> list = new ArrayList<PlayerEntity>();
         if (CombatUtil.mc.world != null) {
-            for (PlayerEntity player : CombatUtil.mc.world.method_18456()) {
+            for (PlayerEntity player : CombatUtil.mc.world.getPlayers()) {
                 if (!CombatUtil.isValid((Entity)player, range)) continue;
                 list.add(player);
             }
@@ -93,7 +93,7 @@ implements Wrapper {
         double bestDistance = range + 1.0f;
         for (BlockPos pos : BlockUtil.getSphere(range)) {
             if (CombatUtil.mc.player == null || pos.getX() == CombatUtil.mc.player.method_31477() && pos.getZ() == CombatUtil.mc.player.method_31479() || !BlockUtil.isHole(pos, true, true, any) && (!doubleHole || !CombatUtil.isDoubleHole(pos)) || pos.getY() - CombatUtil.mc.player.method_31478() > 1) continue;
-            double distance = MathHelper.sqrt((float)((float)CombatUtil.mc.player.method_5649((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5)));
+            double distance = MathHelper.sqrt((float)((float)CombatUtil.mc.player.squaredDistanceTo((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5)));
             if (bestPos != null && !(distance < bestDistance)) continue;
             bestPos = pos;
             bestDistance = distance;

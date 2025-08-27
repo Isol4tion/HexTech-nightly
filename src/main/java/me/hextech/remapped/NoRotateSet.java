@@ -42,7 +42,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (packet.method_11733().contains(PositionFlag.X_ROT)) {
                 ((IPlayerPositionLookS2CPacket)packet).setPitch(0.0f);
             } else {
-                ((IPlayerPositionLookS2CPacket)packet).setPitch(NoRotateSet.mc.player.method_36455());
+                ((IPlayerPositionLookS2CPacket)packet).setPitch(NoRotateSet.mc.player.getPitch());
             }
             if (event.getPacket() instanceof PlayerPositionLookS2CPacket) {
                 this.lagTimer.reset();

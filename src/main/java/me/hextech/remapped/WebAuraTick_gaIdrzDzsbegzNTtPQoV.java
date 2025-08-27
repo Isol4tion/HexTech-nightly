@@ -2,29 +2,6 @@ package me.hextech.remapped;
 
 import java.util.ArrayList;
 import me.hextech.HexTech;
-import me.hextech.remapped.AutoAnchor_MDcwoWYRcPYheLZJWRZK;
-import me.hextech.remapped.AutoTrap;
-import me.hextech.remapped.BlockPosX;
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.Burrow_eOaBGEoOSTDRbYIUAbXC;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.FinalHoleKick;
-import me.hextech.remapped.HoleKickTest;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.OffTrackEvent;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.SpeedMine;
-import me.hextech.remapped.Timer;
-import me.hextech.remapped.UpdateWalkingEvent;
-import me.hextech.remapped.WebAuraTick;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
@@ -314,5 +291,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return InventoryUtil.findBlockInventorySlot(Blocks.COBWEB);
         }
         return InventoryUtil.findBlock(Blocks.COBWEB);
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public enum WebAuraTick {
+        General,
+        Rotate
     }
 }

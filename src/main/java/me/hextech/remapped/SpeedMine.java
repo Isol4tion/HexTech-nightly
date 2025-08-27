@@ -217,7 +217,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         this.onUpdate();
-        if (SpeedMine.mc.player != null && !SpeedMine.mc.player.method_7337()) {
+        if (SpeedMine.mc.player != null && !SpeedMine.mc.player.isCreative()) {
             double breakTime;
             int slot;
             if (secondPos != null) {
@@ -300,7 +300,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.skip = false;
             return;
         }
-        if (SpeedMine.mc.player.method_29504()) {
+        if (SpeedMine.mc.player.isDead()) {
             secondPos = null;
         }
         if (secondPos != null) {
@@ -314,7 +314,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (secondPos != null && this.isAir(secondPos)) {
             secondPos = null;
         }
-        if (SpeedMine.mc.player.method_7337()) {
+        if (SpeedMine.mc.player.isCreative()) {
             this.startPacket = false;
             this.breakNumber = 0;
             breakPos = null;
@@ -443,7 +443,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     } else if (this.invSwapBypass.getValue()) {
                         InventoryUtil.inventorySwap(slot, old);
                     } else {
-                        SpeedMine.mc.interactionManager.clickSlot(SpeedMine.mc.player.field_7512.syncId, slot, old, SlotActionType.SWAP, (PlayerEntity)SpeedMine.mc.player);
+                        SpeedMine.mc.interactionManager.clickSlot(SpeedMine.mc.player.currentScreenHandler.syncId, slot, old, SlotActionType.SWAP, (PlayerEntity)SpeedMine.mc.player);
                     }
                 }
                 if (this.endSwing.getValue()) {
@@ -457,7 +457,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (this.invSwapBypass.getValue()) {
                             InventoryUtil.inventorySwap(slot, old);
                         } else {
-                            SpeedMine.mc.interactionManager.clickSlot(SpeedMine.mc.player.field_7512.syncId, slot, old, SlotActionType.SWAP, (PlayerEntity)SpeedMine.mc.player);
+                            SpeedMine.mc.interactionManager.clickSlot(SpeedMine.mc.player.currentScreenHandler.syncId, slot, old, SlotActionType.SWAP, (PlayerEntity)SpeedMine.mc.player);
                         }
                         EntityUtil.syncInventory();
                     }
@@ -470,7 +470,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
                 if (this.setAir.getValue()) {
-                    SpeedMine.mc.world.method_8501(breakPos, Blocks.AIR.getDefaultState());
+                    SpeedMine.mc.world.setBlockState(breakPos, Blocks.AIR.getDefaultState());
                 }
                 this.skip = true;
             }
@@ -541,7 +541,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (SpeedMine.nullCheck()) {
             return;
         }
-        if (SpeedMine.mc.player.method_7337()) {
+        if (SpeedMine.mc.player.isCreative()) {
             return;
         }
         event.cancel();
@@ -623,7 +623,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (SpeedMine.nullCheck()) {
             return;
         }
-        if (SpeedMine.mc.player.method_7337()) {
+        if (SpeedMine.mc.player.isCreative()) {
             SpeedMine.mc.interactionManager.attackBlock(pos, BlockUtil.getClickSide(pos));
             return;
         }
@@ -682,8 +682,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (int i = 0; i < 9; ++i) {
                 float destroySpeed;
                 float digSpeed;
-                ItemStack stack = SpeedMine.mc.player.getInventory().method_5438(i);
-                if (stack == ItemStack.EMPTY || !((digSpeed = (float)EnchantmentHelper.method_8225((Enchantment)Enchantments.field_9131, (ItemStack)stack)) + (destroySpeed = stack.getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
+                ItemStack stack = SpeedMine.mc.player.getInventory().getStack(i);
+                if (stack == ItemStack.EMPTY || !((digSpeed = (float)EnchantmentHelper.getLevel((Enchantment)Enchantments.EFFICIENCY, (ItemStack)stack)) + (destroySpeed = stack.getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
                 CurrentFastest = digSpeed + destroySpeed;
                 index = i;
             }
@@ -695,7 +695,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
             float destroySpeed;
             float digSpeed;
-            if (entry.getValue().getItem() instanceof AirBlockItem || !((digSpeed = (float)EnchantmentHelper.method_8225((Enchantment)Enchantments.field_9131, (ItemStack)entry.getValue())) + (destroySpeed = entry.getValue().getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
+            if (entry.getValue().getItem() instanceof AirBlockItem || !((digSpeed = (float)EnchantmentHelper.getLevel((Enchantment)Enchantments.EFFICIENCY, (ItemStack)entry.getValue())) + (destroySpeed = entry.getValue().getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
             CurrentFastest = digSpeed + destroySpeed;
             slot.set(entry.getKey());
         }
@@ -704,11 +704,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler(priority=-200)
     public void onPacketSend(PacketEvent event) {
-        if (SpeedMine.nullCheck() || SpeedMine.mc.player.method_7337()) {
+        if (SpeedMine.nullCheck() || SpeedMine.mc.player.isCreative()) {
             return;
         }
         if (event.getPacket() instanceof PlayerMoveC2SPacket) {
-            if (this.bypassGround.getValue() && !SpeedMine.mc.player.method_6128() && breakPos != null && (!this.isAir(breakPos) || secondPos != null) && this.bypassTime.getValue() > 0.0 && MathHelper.sqrt((float)((float)breakPos.toCenterPos().squaredDistanceTo(EntityUtil.getEyesPos()))) <= this.range.getValueFloat() + 2.0f) {
+            if (this.bypassGround.getValue() && !SpeedMine.mc.player.isFallFlying() && breakPos != null && (!this.isAir(breakPos) || secondPos != null) && this.bypassTime.getValue() > 0.0 && MathHelper.sqrt((float)((float)breakPos.toCenterPos().squaredDistanceTo(EntityUtil.getEyesPos()))) <= this.range.getValueFloat() + 2.0f) {
                 int slot = this.getTool(breakPos);
                 if (slot == -1) {
                     slot = SpeedMine.mc.player.getInventory().selectedSlot;
@@ -768,12 +768,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public final double getBreakTime(BlockPos pos, int slot, double damage) {
-        return (double)(1.0f / this.getBlockStrength(pos, SpeedMine.mc.player.getInventory().method_5438(slot)) / 20.0f * 1000.0f) * damage;
+        return (double)(1.0f / this.getBlockStrength(pos, SpeedMine.mc.player.getInventory().getStack(slot)) / 20.0f * 1000.0f) * damage;
     }
 
     public float getBlockStrength(BlockPos position, ItemStack itemStack) {
         BlockState state = SpeedMine.mc.world.getBlockState(position);
-        float hardness = state.method_26214((BlockView)SpeedMine.mc.world, position);
+        float hardness = state.getHardness((BlockView)SpeedMine.mc.world, position);
         if (hardness < 0.0f) {
             return 0.0f;
         }
@@ -784,25 +784,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         boolean inWeb;
         int efficiencyModifier;
         float digSpeed = this.getDestroySpeed(state, itemStack);
-        if (digSpeed > 1.0f && (efficiencyModifier = EnchantmentHelper.method_8225((Enchantment)Enchantments.field_9131, (ItemStack)itemStack)) > 0 && !itemStack.isEmpty()) {
+        if (digSpeed > 1.0f && (efficiencyModifier = EnchantmentHelper.getLevel((Enchantment)Enchantments.EFFICIENCY, (ItemStack)itemStack)) > 0 && !itemStack.isEmpty()) {
             digSpeed += (float)(StrictMath.pow(efficiencyModifier, 2.0) + 1.0);
         }
-        if (SpeedMine.mc.player.method_6059(StatusEffects.field_5917)) {
-            digSpeed *= 1.0f + (float)(SpeedMine.mc.player.method_6112(StatusEffects.field_5917).getAmplifier() + 1) * 0.2f;
+        if (SpeedMine.mc.player.hasStatusEffect(StatusEffects.HASTE)) {
+            digSpeed *= 1.0f + (float)(SpeedMine.mc.player.getStatusEffect(StatusEffects.HASTE).getAmplifier() + 1) * 0.2f;
         }
-        if (SpeedMine.mc.player.method_6059(StatusEffects.field_5901)) {
-            digSpeed *= (switch (SpeedMine.mc.player.method_6112(StatusEffects.field_5901).getAmplifier()) {
+        if (SpeedMine.mc.player.hasStatusEffect(StatusEffects.MINING_FATIGUE)) {
+            digSpeed *= (switch (SpeedMine.mc.player.getStatusEffect(StatusEffects.MINING_FATIGUE).getAmplifier()) {
                 case 0 -> 0.3f;
                 case 1 -> 0.09f;
                 case 2 -> 0.0027f;
                 default -> 8.1E-4f;
             });
         }
-        if (SpeedMine.mc.player.method_5869() && !EnchantmentHelper.method_8200((LivingEntity)SpeedMine.mc.player)) {
+        if (SpeedMine.mc.player.isSubmergedInWater() && !EnchantmentHelper.hasAquaAffinity((LivingEntity)SpeedMine.mc.player)) {
             digSpeed /= 5.0f;
         }
         boolean bl = inWeb = HexTech.PLAYER.isInWeb((PlayerEntity)SpeedMine.mc.player) && SpeedMine.mc.world.getBlockState(breakPos).getBlock() == Blocks.COBWEB;
-        if ((!SpeedMine.mc.player.isOnGround() || inWeb) && SpeedMine.INSTANCE.checkGround.getValue() && (!this.smart.getValue() || SpeedMine.mc.player.method_6128() || inWeb)) {
+        if ((!SpeedMine.mc.player.isOnGround() || inWeb) && SpeedMine.INSTANCE.checkGround.getValue() && (!this.smart.getValue() || SpeedMine.mc.player.isFallFlying() || inWeb)) {
             digSpeed /= 5.0f;
         }
         return digSpeed < 0.0f ? 0.0f : digSpeed;

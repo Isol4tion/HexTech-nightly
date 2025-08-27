@@ -324,7 +324,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler(priority=-1)
     public void onMove(MoveEvent event) {
-        if (Burrow_eOaBGEoOSTDRbYIUAbXC.nullCheck() || !this.autocenter.getValue() || Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_6128()) {
+        if (Burrow_eOaBGEoOSTDRbYIUAbXC.nullCheck() || !this.autocenter.getValue() || Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.isFallFlying()) {
             return;
         }
         BlockPos blockPos = EntityUtil.getPlayerPos(true);

@@ -44,7 +44,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public static int findPotionInventorySlot(StatusEffect targetEffect) {
         for (int i = 0; i < 45; ++i) {
-            ItemStack itemStack = AutoPot.mc.player.getInventory().method_5438(i);
+            ItemStack itemStack = AutoPot.mc.player.getInventory().getStack(i);
             if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
             List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
@@ -76,17 +76,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         if (!this.onlyGround.getValue() || AutoPot.mc.player.isOnGround() && !AutoPot.mc.world.isAir((BlockPos)new BlockPosX(AutoPot.mc.player.getPos().add(0.0, -1.0, 0.0)))) {
-            if (this.speed.getValue() && !AutoPot.mc.player.method_6059(StatusEffects.field_5904)) {
-                this.throwing = this.checkThrow(StatusEffects.field_5904);
+            if (this.speed.getValue() && !AutoPot.mc.player.hasStatusEffect(StatusEffects.SPEED)) {
+                this.throwing = this.checkThrow(StatusEffects.SPEED);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
-                    this.throwPotion(StatusEffects.field_5904);
+                    this.throwPotion(StatusEffects.SPEED);
                     return;
                 }
             }
-            if (this.resistance.getValue() && (!AutoPot.mc.player.method_6059(StatusEffects.field_5907) || AutoPot.mc.player.method_6112(StatusEffects.field_5907).getAmplifier() < 2)) {
-                this.throwing = this.checkThrow(StatusEffects.field_5907);
+            if (this.resistance.getValue() && (!AutoPot.mc.player.hasStatusEffect(StatusEffects.RESISTANCE) || AutoPot.mc.player.getStatusEffect(StatusEffects.RESISTANCE).getAmplifier() < 2)) {
+                this.throwing = this.checkThrow(StatusEffects.RESISTANCE);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
-                    this.throwPotion(StatusEffects.field_5907);
+                    this.throwPotion(StatusEffects.RESISTANCE);
                 }
             }
         }

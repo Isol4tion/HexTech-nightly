@@ -55,10 +55,10 @@ implements DimensionRenderingRegistry.SkyRenderer {
         if (!this.initialised) {
             this.initStars();
             CheckedRandom random = new CheckedRandom(131L);
-            this.axis1 = new Vector3f(random.method_43057(), random.method_43057(), random.method_43057());
-            this.axis2 = new Vector3f(random.method_43057(), random.method_43057(), random.method_43057());
-            this.axis3 = new Vector3f(random.method_43057(), random.method_43057(), random.method_43057());
-            this.axis4 = new Vector3f(random.method_43057(), random.method_43057(), random.method_43057());
+            this.axis1 = new Vector3f(random.nextFloat(), random.nextFloat(), random.nextFloat());
+            this.axis2 = new Vector3f(random.nextFloat(), random.nextFloat(), random.nextFloat());
+            this.axis3 = new Vector3f(random.nextFloat(), random.nextFloat(), random.nextFloat());
+            this.axis4 = new Vector3f(random.nextFloat(), random.nextFloat(), random.nextFloat());
             this.axis1.normalize();
             this.axis2.normalize();
             this.axis3.normalize();
@@ -77,7 +77,7 @@ implements DimensionRenderingRegistry.SkyRenderer {
         float time = ((float)context.world().getTimeOfDay() + context.tickDelta()) % 360000.0f * 1.7453292E-5f;
         float time2 = time * 2.0f;
         float time3 = time * 3.0f;
-        BackgroundRenderer.method_3212();
+        BackgroundRenderer.applyFogColor();
         RenderSystem.depthMask((boolean)false);
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
@@ -146,15 +146,15 @@ implements DimensionRenderingRegistry.SkyRenderer {
         RenderSystem.setShaderColor((float)r, (float)g, (float)b, (float)a);
         buffer.bind();
         if (format == VertexFormats.POSITION) {
-            buffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.method_34539());
+            buffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionProgram());
         } else {
-            buffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.method_34542());
+            buffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionTexProgram());
         }
         VertexBuffer.unbind();
     }
 
     private void initStars() {
-        BufferBuilder buffer = Tessellator.getInstance().method_1349();
+        BufferBuilder buffer = Tessellator.getInstance().getBuffer();
         if (Skybox.INSTANCE.stars.getValue()) {
             this.stars1 = this.buildBuffer(buffer, this.stars1, 0.1, 0.3, 3500, 41315L, this::makeStars);
             this.stars2 = this.buildBuffer(buffer, this.stars2, 0.1, 0.35, 2000, 35151L, this::makeStars);
@@ -171,11 +171,11 @@ implements DimensionRenderingRegistry.SkyRenderer {
         if (buffer != null) {
             buffer.close();
         }
-        buffer = new VertexBuffer(VertexBuffer.class_8555.field_44793);
+        buffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
         fkt.make(bufferBuilder, minSize, maxSize, count, seed);
-        BufferBuilder.class_7433 renderedBuffer = bufferBuilder.method_1326();
+        BufferBuilder.BuiltBuffer renderedBuffer = bufferBuilder.end();
         buffer.bind();
-        buffer.method_1352(renderedBuffer);
+        buffer.upload(renderedBuffer);
         return buffer;
     }
 
@@ -189,12 +189,12 @@ implements DimensionRenderingRegistry.SkyRenderer {
 
     private void makeStars(BufferBuilder buffer, double minSize, double maxSize, int count, long seed) {
         CheckedRandom random = new CheckedRandom(seed);
-        RenderSystem.setShader(GameRenderer::method_34539);
-        buffer.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
+        RenderSystem.setShader(GameRenderer::getPositionProgram);
+        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
         for (int i = 0; i < count; ++i) {
-            double posX = random.method_43058() * 2.0 - 1.0;
-            double posY = random.method_43058() * 2.0 - 1.0;
-            double posZ = random.method_43058() * 2.0 - 1.0;
+            double posX = random.nextDouble() * 2.0 - 1.0;
+            double posY = random.nextDouble() * 2.0 - 1.0;
+            double posZ = random.nextDouble() * 2.0 - 1.0;
             double size = CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq.randRange(minSize, maxSize, (Random)random);
             double length = posX * posX + posY * posY + posZ * posZ;
             if (!(length < 1.0) || !(length > 0.001)) continue;
@@ -208,7 +208,7 @@ implements DimensionRenderingRegistry.SkyRenderer {
             angle = Math.atan2(Math.sqrt(posX * posX + posZ * posZ), posY);
             double sin2 = Math.sin(angle);
             double cos2 = Math.cos(angle);
-            angle = random.method_43058() * Math.PI * 2.0;
+            angle = random.nextDouble() * Math.PI * 2.0;
             double sin3 = Math.sin(angle);
             double cos3 = Math.cos(angle);
             for (int index = 0; index < 4; ++index) {
@@ -220,19 +220,19 @@ implements DimensionRenderingRegistry.SkyRenderer {
                 double ae = 0.0 * sin2 - aa * cos2;
                 double dx = ae * sin1 - ab * cos1;
                 double dz = ab * sin1 + ae * cos1;
-                buffer.method_22912(px + dx, py + dy, pz + dz).method_1344();
+                buffer.vertex(px + dx, py + dy, pz + dz).next();
             }
         }
     }
 
     private void makeUVStars(BufferBuilder buffer, double minSize, double maxSize, int count, long seed) {
         CheckedRandom random = new CheckedRandom(seed);
-        RenderSystem.setShader(GameRenderer::method_34542);
-        buffer.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
         for (int i = 0; i < count; ++i) {
-            double posX = random.method_43058() * 2.0 - 1.0;
-            double posY = random.method_43058() * 2.0 - 1.0;
-            double posZ = random.method_43058() * 2.0 - 1.0;
+            double posX = random.nextDouble() * 2.0 - 1.0;
+            double posY = random.nextDouble() * 2.0 - 1.0;
+            double posZ = random.nextDouble() * 2.0 - 1.0;
             double size = CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq.randRange(minSize, maxSize, (Random)random);
             double length = posX * posX + posY * posY + posZ * posZ;
             if (!(length < 1.0) || !(length > 0.001)) continue;
@@ -246,10 +246,10 @@ implements DimensionRenderingRegistry.SkyRenderer {
             angle = Math.atan2(Math.sqrt(posX * posX + posZ * posZ), posY);
             double sin2 = Math.sin(angle);
             double cos2 = Math.cos(angle);
-            angle = random.method_43058() * Math.PI * 2.0;
+            angle = random.nextDouble() * Math.PI * 2.0;
             double sin3 = Math.sin(angle);
             double cos3 = Math.cos(angle);
-            float minV = (float)random.method_43048(4) / 4.0f;
+            float minV = (float)random.nextInt(4) / 4.0f;
             for (int index = 0; index < 4; ++index) {
                 double x = (double)((index & 2) - 1) * size;
                 double y = (double)((index + 1 & 2) - 1) * size;
@@ -261,19 +261,19 @@ implements DimensionRenderingRegistry.SkyRenderer {
                 double dz = ab * sin1 + ae * cos1;
                 float texU = index >> 1 & 1;
                 float texV = (float)(index + 1 >> 1 & 1) / 4.0f + minV;
-                buffer.method_22912(px + dx, py + dy, pz + dz).texture(texU, texV).method_1344();
+                buffer.vertex(px + dx, py + dy, pz + dz).texture(texU, texV).next();
             }
         }
     }
 
     private void makeFarFog(BufferBuilder buffer, double minSize, double maxSize, int count, long seed) {
         CheckedRandom random = new CheckedRandom(seed);
-        RenderSystem.setShader(GameRenderer::method_34542);
-        buffer.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
         for (int i = 0; i < count; ++i) {
-            double posX = random.method_43058() * 2.0 - 1.0;
-            double posY = random.method_43058() - 0.5;
-            double posZ = random.method_43058() * 2.0 - 1.0;
+            double posX = random.nextDouble() * 2.0 - 1.0;
+            double posY = random.nextDouble() - 0.5;
+            double posZ = random.nextDouble() * 2.0 - 1.0;
             double size = CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq.randRange(minSize, maxSize, (Random)random);
             double length = posX * posX + posY * posY + posZ * posZ;
             double distance = 2.0;
@@ -289,7 +289,7 @@ implements DimensionRenderingRegistry.SkyRenderer {
             angle = Math.atan2(Math.sqrt(posX * posX + posZ * posZ), posY);
             double sin2 = Math.sin(angle);
             double cos2 = Math.cos(angle);
-            angle = random.method_43058() * Math.PI * 2.0;
+            angle = random.nextDouble() * Math.PI * 2.0;
             double sin3 = Math.sin(angle);
             double cos3 = Math.cos(angle);
             for (int index = 0; index < 4; ++index) {
@@ -303,14 +303,14 @@ implements DimensionRenderingRegistry.SkyRenderer {
                 double dz = ab * sin1 + ae * cos1;
                 float texU = index >> 1 & 1;
                 float texV = index + 1 >> 1 & 1;
-                buffer.method_22912(px + dx, py + dy, pz + dz).texture(texU, texV).method_1344();
+                buffer.vertex(px + dx, py + dy, pz + dz).texture(texU, texV).next();
             }
         }
     }
 
     private void makeCylinder(BufferBuilder buffer, int segments, double height, double radius) {
-        RenderSystem.setShader(GameRenderer::method_34542);
-        buffer.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
         for (int i = 0; i < segments; ++i) {
             double a1 = (double)i * Math.PI * 2.0 / (double)segments;
             double a2 = (double)(i + 1) * Math.PI * 2.0 / (double)segments;
@@ -320,10 +320,10 @@ implements DimensionRenderingRegistry.SkyRenderer {
             double pz2 = Math.cos(a2) * radius;
             float u0 = (float)i / (float)segments;
             float u1 = (float)(i + 1) / (float)segments;
-            buffer.method_22912(px1, -height, pz1).texture(u0, 0.0f).method_1344();
-            buffer.method_22912(px1, height, pz1).texture(u0, 1.0f).method_1344();
-            buffer.method_22912(px2, height, pz2).texture(u1, 1.0f).method_1344();
-            buffer.method_22912(px2, -height, pz2).texture(u1, 0.0f).method_1344();
+            buffer.vertex(px1, -height, pz1).texture(u0, 0.0f).next();
+            buffer.vertex(px1, height, pz1).texture(u0, 1.0f).next();
+            buffer.vertex(px2, height, pz2).texture(u1, 1.0f).next();
+            buffer.vertex(px2, -height, pz2).texture(u1, 0.0f).next();
         }
     }
 }

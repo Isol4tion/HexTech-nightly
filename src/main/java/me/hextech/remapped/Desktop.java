@@ -61,7 +61,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         catch (Exception exception) {
             // empty catch block
         }
-        this.players = Desktop.mc.world.method_18456().stream().filter(Objects::nonNull).collect(Collectors.toList());
+        this.players = Desktop.mc.world.getPlayers().stream().filter(Objects::nonNull).collect(Collectors.toList());
         try {
             for (Entity entity2 : this.players) {
                 if (!(entity2 instanceof PlayerEntity) || entity2.getName().equals((Object)Desktop.mc.player.getName()) || this.knownPlayers.contains(entity2) || FriendManager.isFriend(entity2.getName().getString())) continue;

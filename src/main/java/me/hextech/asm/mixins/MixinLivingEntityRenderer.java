@@ -46,7 +46,7 @@ public abstract class MixinLivingEntityRenderer<T extends LivingEntity, M extend
             this.originalYaw = livingEntity.method_36454();
             this.originalHeadYaw = ((LivingEntity)livingEntity).headYaw;
             this.originalBodyYaw = ((LivingEntity)livingEntity).bodyYaw;
-            this.originalPitch = livingEntity.method_36455();
+            this.originalPitch = livingEntity.getPitch();
             this.originalPrevYaw = ((LivingEntity)livingEntity).field_5982;
             this.originalPrevHeadYaw = ((LivingEntity)livingEntity).prevHeadYaw;
             this.originalPrevBodyYaw = ((LivingEntity)livingEntity).prevBodyYaw;

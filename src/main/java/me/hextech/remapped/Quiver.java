@@ -60,7 +60,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if ((double)BowItem.getPullProgress((int)Quiver.mc.player.method_6048()) >= 0.13) {
+        if ((double)BowItem.getPullProgress((int)Quiver.mc.player.getItemUseTime()) >= 0.13) {
             Quiver.mc.options.useKey.setPressed(false);
             Quiver.mc.interactionManager.stopUsingItem((PlayerEntity)Quiver.mc.player);
             if (this.inventory.getValue()) {
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler(priority=-101)
     public void onRotate(RotateEvent event) {
-        if (Quiver.mc.player.isUsingItem() && Quiver.mc.player.method_6030().getItem() instanceof BowItem) {
+        if (Quiver.mc.player.isUsingItem() && Quiver.mc.player.getActiveItem().getItem() instanceof BowItem) {
             event.setPitch(-90.0f);
         }
     }

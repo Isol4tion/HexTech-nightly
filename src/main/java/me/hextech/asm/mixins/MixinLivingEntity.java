@@ -34,7 +34,7 @@ extends Entity {
 
     @Shadow
     @Nullable
-    public EntityAttributeInstance method_5996(EntityAttribute attribute) {
+    public EntityAttributeInstance getAttributeInstance(EntityAttribute attribute) {
         return this.method_6127().method_26842(attribute);
     }
 
@@ -56,7 +56,7 @@ extends Entity {
             ci.cancel();
             sprinting = Sprint.shouldSprint;
             super.setSprinting(sprinting);
-            EntityAttributeInstance entityAttributeInstance = this.method_5996(EntityAttributes.field_23719);
+            EntityAttributeInstance entityAttributeInstance = this.getAttributeInstance(EntityAttributes.field_23719);
             entityAttributeInstance.method_6200(field_6231.method_6189());
             if (sprinting) {
                 entityAttributeInstance.addTemporaryModifier(field_6231);

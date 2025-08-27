@@ -53,12 +53,12 @@ implements Wrapper {
         if ((modDistance = Math.sqrt(predict.squaredDistanceTo(pos))) > 10.0) {
             return 0.0;
         }
-        double exposure = Explosion.method_17752((Vec3d)pos, (Entity)predict);
+        double exposure = Explosion.getExposure((Vec3d)pos, (Entity)predict);
         double impact = (1.0 - modDistance / 10.0) * exposure;
         double damage = (impact * impact + impact) / 2.0 * 7.0 * 10.0 + 1.0;
         damage = MeteorExplosionUtil.getDamageForDifficulty(damage);
         damage = MeteorExplosionUtil.resistanceReduction((LivingEntity)player, damage);
-        damage = DamageUtil.method_5496((float)((float)damage), (float)player.method_6096(), (float)((float)player.method_5996(EntityAttributes.field_23725).getValue()));
+        damage = DamageUtil.getDamageLeft((float)((float)damage), (float)player.getArmor(), (float)((float)player.getAttributeInstance(EntityAttributes.GENERIC_ARMOR_TOUGHNESS).getValue()));
         ((IExplosion)explosion).setWorld((World)MeteorExplosionUtil.mc.world);
         ((IExplosion)explosion).setX(pos.x);
         ((IExplosion)explosion).setY(pos.y);
@@ -72,7 +72,7 @@ implements Wrapper {
     }
 
     private static double getDamageForDifficulty(double damage) {
-        return switch (MeteorExplosionUtil_zRIRZRqrriuJQOCbEfNs.$SwitchMap$net$minecraft$world$Difficulty[MeteorExplosionUtil.mc.world.method_8407().ordinal()]) {
+        return switch (MeteorExplosionUtil_zRIRZRqrriuJQOCbEfNs.$SwitchMap$net$minecraft$world$Difficulty[MeteorExplosionUtil.mc.world.getDifficulty().ordinal()]) {
             case 1 -> 0.0;
             case 2 -> Math.min(damage / 2.0 + 1.0, damage);
             case 3 -> damage * 3.0 / 2.0;
@@ -81,7 +81,7 @@ implements Wrapper {
     }
 
     private static double blastProtReduction(Entity player, double damage, Explosion explosion) {
-        int protLevel = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)MeteorExplosionUtil.mc.world.method_48963().explosion(explosion));
+        int protLevel = EnchantmentHelper.getProtectionAmount((Iterable)player.getArmorItems(), (DamageSource)MeteorExplosionUtil.mc.world.getDamageSources().explosion(explosion));
         if (protLevel > 20) {
             protLevel = 20;
         }
@@ -89,8 +89,8 @@ implements Wrapper {
     }
 
     private static double resistanceReduction(LivingEntity player, double damage) {
-        if (player.method_6059(StatusEffects.field_5907)) {
-            int lvl = player.method_6112(StatusEffects.field_5907).getAmplifier() + 1;
+        if (player.hasStatusEffect(StatusEffects.RESISTANCE)) {
+            int lvl = player.getStatusEffect(StatusEffects.RESISTANCE).getAmplifier() + 1;
             damage *= 1.0 - (double)lvl * 0.2;
         }
         return damage < 0.0 ? 0.0 : damage;

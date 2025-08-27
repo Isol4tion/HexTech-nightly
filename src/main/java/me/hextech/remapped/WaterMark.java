@@ -137,14 +137,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float h = (float)(color >> 8 & 0xFF) / 255.0f;
         float k = (float)(color & 0xFF) / 255.0f;
         Render2DUtil.setupRender();
-        RenderSystem.setShader(GameRenderer::method_34540);
+        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         this.renderRoundedQuadInternal(matrix, g, h, k, f, fromX, fromY, toX, toY, radC1, radC2, radC3, radC4, samples);
         Render2DUtil.endRender();
     }
 
     private void renderRoundedQuadInternal(Matrix4f matrix, float cr, float cg, float cb, float ca, double fromX, double fromY, double toX, double toY, double radC1, double radC2, double radC3, double radC4, double samples) {
-        BufferBuilder bufferBuilder = Tessellator.getInstance().method_1349();
-        bufferBuilder.method_1328(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
+        BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
+        bufferBuilder.begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
         double[][] map = new double[][]{{toX - radC4, toY - radC4, radC4}, {toX - radC2, fromY + radC2, radC2}, {fromX + radC1, fromY + radC1, radC1}, {fromX + radC3, toY - radC3, radC3}};
         for (int i = 0; i < 4; ++i) {
             double[] current = map[i];
@@ -153,13 +153,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float rad1 = (float)Math.toRadians(r);
                 float sin = (float)(Math.sin(rad1) * rad);
                 float cos = (float)(Math.cos(rad1) * rad);
-                bufferBuilder.method_22918(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).method_1344();
+                bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
             }
             float rad1 = (float)Math.toRadians(90.0 + (double)i * 90.0);
             float sin = (float)(Math.sin(rad1) * rad);
             float cos = (float)(Math.cos(rad1) * rad);
-            bufferBuilder.method_22918(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).method_1344();
+            bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
         }
-        BufferRenderer.method_43433((BufferBuilder.class_7433)bufferBuilder.method_1326());
+        BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
     }
 }

@@ -289,7 +289,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public boolean behindWall(BlockPos pos) {
         Vec3d testVec = new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() + 1.7, (double)pos.getZ() + 0.5);
-        BlockHitResult result = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_17742(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player));
+        BlockHitResult result = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player));
         if (result == null || result.getType() == HitResult.Type.MISS) {
             return false;
         }
@@ -380,7 +380,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         double o = MathHelper.lerp((double)l, (double)box.minY, (double)box.maxY);
                         double p = MathHelper.lerp((double)m, (double)box.minZ, (double)box.maxZ);
                         Vec3d vec3d = new Vec3d(n + g, o, p + h);
-                        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_17742(new RaycastContext(vec3d, source, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)new Cleaner_KppopygwsrtGITfPgSgG((Cleaner_iFwqnooxsJEmHoVteFeQ)this, (Cleaner_iFwqnooxsJEmHoVteFeQ)this, (BlockPos)pos2).predict)).method_17783() == HitResult.Type.MISS) {
+                        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.raycast(new RaycastContext(vec3d, source, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)new Cleaner_KppopygwsrtGITfPgSgG((Cleaner_iFwqnooxsJEmHoVteFeQ)this, (Cleaner_iFwqnooxsJEmHoVteFeQ)this, (BlockPos)pos2).predict)).getType() == HitResult.Type.MISS) {
                             ++i;
                         }
                         ++j;

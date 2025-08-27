@@ -99,12 +99,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        for (PlayerEntity ent : NameTags_NZLxiZHrtsQKbsfDngrN.mc.world.method_18456()) {
+        for (PlayerEntity ent : NameTags_NZLxiZHrtsQKbsfDngrN.mc.world.getPlayers()) {
             Vec3d vector;
             if (ent == NameTags_NZLxiZHrtsQKbsfDngrN.mc.player && NameTags_NZLxiZHrtsQKbsfDngrN.mc.options.getPerspective().isFirstPerson() && FreeCam.INSTANCE.isOff()) continue;
-            double x = ent.field_6014 + (ent.getX() - ent.field_6014) * (double)mc.getTickDelta();
-            double y = ent.field_6036 + (ent.getY() - ent.field_6036) * (double)mc.getTickDelta();
-            double z = ent.field_5969 + (ent.getZ() - ent.field_5969) * (double)mc.getTickDelta();
+            double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.getTickDelta();
+            double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.getTickDelta();
+            double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.getTickDelta();
             Vec3d preVec = vector = new Vec3d(x, y + this.height.getValue() + ent.getBoundingBox().getLengthY() + 0.3, z);
             vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
             if (!(vector.z > 0.0) || !(vector.z < 1.0)) continue;

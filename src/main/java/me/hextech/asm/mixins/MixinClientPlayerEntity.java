@@ -150,7 +150,7 @@ extends AbstractClientPlayerEntity {
                     double e = this.method_23318() - this.field_3940;
                     double f = this.method_23321() - this.field_3924;
                     float yaw = this.method_36454();
-                    float pitch = this.method_36455();
+                    float pitch = this.getPitch();
                     RotateEvent rotateEvent = new RotateEvent(yaw, pitch);
                     HexTech.EVENT_BUS.post(rotateEvent);
                     if (rotateEvent.isModified() && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.random.getValue() && new Random().nextBoolean() && new Random().nextBoolean()) {
@@ -169,7 +169,7 @@ extends AbstractClientPlayerEntity {
                         bl3 = PacketControl.INSTANCE.full;
                     }
                     if (this.method_5765()) {
-                        Vec3d vec3d = this.method_18798();
+                        Vec3d vec3d = this.getVelocity();
                         this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.Full(vec3d.x, -999.0, vec3d.z, yaw, pitch, this.method_24828()));
                         bl2 = false;
                     } else if (bl2 && bl3) {
@@ -215,7 +215,7 @@ extends AbstractClientPlayerEntity {
             HexTech.EVENT_BUS.post(pre);
             if (!pre.isCancelRotate()) {
                 float yaw = this.method_36454();
-                float pitch = this.method_36455();
+                float pitch = this.getPitch();
                 RotateEvent rot = new RotateEvent(yaw, pitch);
                 HexTech.EVENT_BUS.post(rot);
                 if (rot.isModified() && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.random.getValue() && new Random().nextBoolean() && new Random().nextBoolean()) {

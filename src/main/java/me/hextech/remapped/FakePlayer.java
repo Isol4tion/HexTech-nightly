@@ -67,19 +67,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         FakePlayer.fakePlayer.field_6241 = FakePlayer.mc.player.field_6241;
         fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 9999, 2));
         fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5898, 9999, 4));
-        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5907, 9999, 1));
+        fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 9999, 1));
     }
 
     @Override
     public void onUpdate() {
-        if (fakePlayer == null || fakePlayer.method_29504() || FakePlayer.fakePlayer.field_17892 != FakePlayer.mc.world) {
+        if (fakePlayer == null || fakePlayer.isDead() || FakePlayer.fakePlayer.field_17892 != FakePlayer.mc.world) {
             this.disable();
             return;
         }
         fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5924, 9999, 2));
         fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5898, 9999, 4));
         if (this.gApple.getValue() && this.timer.passedMs(4000L)) {
-            fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.field_5907, 9999, 1));
+            fakePlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 9999, 1));
             this.timer.reset();
             fakePlayer.method_6073(16.0f);
         }
@@ -87,7 +87,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             HexTech.POP.onTotemPop((PlayerEntity)fakePlayer);
             fakePlayer.method_6122(Hand.OFF_HAND, new ItemStack((ItemConvertible)Items.TOTEM_OF_UNDYING));
         }
-        if (fakePlayer.method_29504() && fakePlayer.method_6095(FakePlayer.mc.world.method_48963().generic())) {
+        if (fakePlayer.isDead() && fakePlayer.method_6095(FakePlayer.mc.world.getDamageSources().generic())) {
             fakePlayer.method_6033(10.0f);
             new EntityStatusS2CPacket((Entity)fakePlayer, 35).apply((ClientPlayPacketListener)FakePlayer.mc.player.networkHandler);
         }
@@ -113,12 +113,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if ((t = event.getPacket()) instanceof ExplosionS2CPacket) {
                 ExplosionS2CPacket explosion = (ExplosionS2CPacket)t;
-                Vec3d vec3d = new Vec3d(explosion.method_11475(), explosion.method_11477(), explosion.method_11478());
+                Vec3d vec3d = new Vec3d(explosion.getX(), explosion.getY(), explosion.getZ());
                 if (MathHelper.sqrt((float)((float)vec3d.squaredDistanceTo(fakePlayer.getPos()))) > 10.0f) {
                     return;
                 }
-                float damage = BlockUtil.getBlock(new BlockPosX(explosion.method_11475(), explosion.method_11477(), explosion.method_11478())) == Blocks.RESPAWN_ANCHOR ? (float)AutoAnchor_MDcwoWYRcPYheLZJWRZK.INSTANCE.getAnchorDamage(new BlockPosX(explosion.method_11475(), explosion.method_11477(), explosion.method_11478()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer) : CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateCrystalDamage(new Vec3d(explosion.method_11475(), explosion.method_11477(), explosion.method_11478()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer);
-                fakePlayer.method_48922(FakePlayer.mc.world.method_48963().generic());
+                float damage = BlockUtil.getBlock(new BlockPosX(explosion.getX(), explosion.getY(), explosion.getZ())) == Blocks.RESPAWN_ANCHOR ? (float)AutoAnchor_MDcwoWYRcPYheLZJWRZK.INSTANCE.getAnchorDamage(new BlockPosX(explosion.getX(), explosion.getY(), explosion.getZ()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer) : CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateCrystalDamage(new Vec3d(explosion.getX(), explosion.getY(), explosion.getZ()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer);
+                fakePlayer.method_48922(FakePlayer.mc.world.getDamageSources().generic());
                 if (fakePlayer.getAbsorptionAmount() >= damage) {
                     fakePlayer.method_6073(fakePlayer.getAbsorptionAmount() - damage);
                 } else {
@@ -127,7 +127,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     fakePlayer.method_6033(fakePlayer.getHealth() - damage2);
                 }
             }
-            if (fakePlayer.method_29504() && fakePlayer.method_6095(FakePlayer.mc.world.method_48963().generic())) {
+            if (fakePlayer.isDead() && fakePlayer.method_6095(FakePlayer.mc.world.getDamageSources().generic())) {
                 fakePlayer.method_6033(10.0f);
                 new EntityStatusS2CPacket((Entity)fakePlayer, 35).apply((ClientPlayPacketListener)FakePlayer.mc.player.networkHandler);
             }

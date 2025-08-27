@@ -73,7 +73,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.stopGround.getValue() && Speed.mc.player.isOnGround()) {
             return;
         }
-        if (HoleKickTest.isInWeb((PlayerEntity)Speed.mc.player) || Speed.mc.player.isSneaking() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().flying) {
+        if (HoleKickTest.isInWeb((PlayerEntity)Speed.mc.player) || Speed.mc.player.isSneaking() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.isFallFlying() || EntityUtil.isInsideBlock() || Speed.mc.player.isInLava() || Speed.mc.player.isTouchingWater() || Speed.mc.player.getAbilities().flying) {
             return;
         }
         if (!MovementUtil.isMoving()) {
@@ -91,15 +91,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler(priority=100)
     public void invoke(PacketEvent_YXFfxdDjQAfjBumqRbBu event) {
         if (this.mode.is(_hIXwTMQyjavijZllSIBF.Instant)) {
-            Object t = event.getPacket();
-            if (t instanceof EntityVelocityUpdateS2CPacket) {
-                EntityVelocityUpdateS2CPacket packet = (EntityVelocityUpdateS2CPacket)t;
-                if (Speed.mc.player != null && packet.getEntityId() == Speed.mc.player.getId() && this.velocity.getValue()) {
-                    double speed = Math.sqrt(packet.method_11815() * packet.method_11815() + packet.method_11819() * packet.method_11819()) / 8000.0;
-                    double d = this.lastExp = this.expTimer.passedMs(this.coolDown.getValueInt()) ? speed : speed - this.lastExp;
+            final EntityVelocityUpdateS2CPacket packet3 = event.getPacket();
+            if (packet3 instanceof EntityVelocityUpdateS2CPacket) {
+                final EntityVelocityUpdateS2CPacket packet = packet3;
+                if (Speed.mc.player != null && packet.getId() == Speed.mc.player.getId() && this.velocity.getValue()) {
+                    final double speed = Math.sqrt(packet.getVelocityX() * packet.getVelocityX() + packet.getVelocityZ() * packet.getVelocityZ()) / 8000.0;
+                    this.lastExp = (this.expTimer.passedMs(this.coolDown.getValueInt()) ? speed : (speed - this.lastExp));
                     if (this.lastExp > 0.0) {
                         this.expTimer.reset();
-                        mc.method_18859(() -> {
+                        Speed.mc.executeTask(() -> {
                             this.speed += this.lastExp * this.multiplier.getValue();
                             this.distance += this.lastExp * this.multiplier.getValue();
                             if (MovementUtil.getMotionY() > 0.0 && this.vertical.getValue() != 0.0) {
@@ -108,20 +108,22 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         });
                     }
                 }
-            } else if (event.getPacket() instanceof PlayerPositionLookS2CPacket) {
+            }
+            else if (event.getPacket() instanceof PlayerPositionLookS2CPacket) {
                 this.lagTimer.reset();
                 if (Speed.mc.player != null) {
                     this.distance = 0.0;
                 }
                 this.speed = 0.0;
                 this.stage = 4;
-            } else {
-                t = event.getPacket();
-                if (t instanceof ExplosionS2CPacket) {
-                    ExplosionS2CPacket packet = (ExplosionS2CPacket)t;
-                    if (this.explosions.getValue() && MovementUtil.isMoving() && Speed.mc.player.method_5649(packet.method_11475(), packet.method_11477(), packet.method_11478()) < 200.0) {
-                        double speed = Math.sqrt(Math.abs(packet.method_11472() * packet.method_11472()) + Math.abs(packet.method_11474() * packet.method_11474()));
-                        double d = this.lastExp = this.expTimer.passedMs(this.coolDown.getValueInt()) ? speed : speed - this.lastExp;
+            }
+            else {
+                final ExplosionS2CPacket packet4 = event.getPacket();
+                if (packet4 instanceof ExplosionS2CPacket) {
+                    final ExplosionS2CPacket packet2 = packet4;
+                    if (this.explosions.getValue() && MovementUtil.isMoving() && Speed.mc.player.squaredDistanceTo(packet2.getX(), packet2.getY(), packet2.getZ()) < 200.0) {
+                        final double speed = Math.sqrt(Math.abs(packet2.getPlayerVelocityX() * packet2.getPlayerVelocityX()) + Math.abs(packet2.getPlayerVelocityZ() * packet2.getPlayerVelocityZ()));
+                        this.lastExp = (this.expTimer.passedMs(this.coolDown.getValueInt()) ? speed : (speed - this.lastExp));
                         if (this.lastExp > 0.0) {
                             this.expTimer.reset();
                             this.speed += this.lastExp * this.multiplier.getValue();
@@ -149,8 +151,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public double getBaseMoveSpeed() {
         double n = 0.2873;
-        if (!(!Speed.mc.player.method_6059(StatusEffects.field_5904) || this.slowCheck.getValue() && Speed.mc.player.method_6059(StatusEffects.field_5909))) {
-            n *= 1.0 + 0.2 * (double)(Objects.requireNonNull(Speed.mc.player.method_6112(StatusEffects.field_5904)).getAmplifier() + 1);
+        if (!(!Speed.mc.player.hasStatusEffect(StatusEffects.SPEED) || this.slowCheck.getValue() && Speed.mc.player.hasStatusEffect(StatusEffects.SLOWNESS))) {
+            n *= 1.0 + 0.2 * (double)(Objects.requireNonNull(Speed.mc.player.getStatusEffect(StatusEffects.SPEED)).getAmplifier() + 1);
         }
         return n;
     }
@@ -158,7 +160,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void invoke(MoveEvent event) {
         if (this.mode.is(_hIXwTMQyjavijZllSIBF.Strafe)) {
-            if (Speed.mc.player.isSneaking() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().flying) {
+            if (Speed.mc.player.isSneaking() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.isFallFlying() || EntityUtil.isInsideBlock() || Speed.mc.player.isInLava() || Speed.mc.player.isTouchingWater() || Speed.mc.player.getAbilities().flying) {
                 return;
             }
             if (!MovementUtil.isMoving()) {
@@ -173,7 +175,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             event.setZ(dir[1]);
         }
         if (this.mode.is(_hIXwTMQyjavijZllSIBF.Instant)) {
-            if (!this.inWater.getValue() && (Speed.mc.player.method_5869() || Speed.mc.player.method_5799() || Speed.mc.player.method_5771()) || Speed.mc.player.method_21754() || !this.inBlock.getValue() && EntityUtil.isInsideBlock() || Speed.mc.player.method_31549().flying) {
+            if (!this.inWater.getValue() && (Speed.mc.player.isSubmergedInWater() || Speed.mc.player.isTouchingWater() || Speed.mc.player.isInLava()) || Speed.mc.player.isHoldingOntoLadder() || !this.inBlock.getValue() && EntityUtil.isInsideBlock() || Speed.mc.player.getAbilities().flying) {
                 this.stop = true;
                 return;
             }
@@ -187,7 +189,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.stopGround.getValue() && Speed.mc.player.isOnGround()) {
                 return;
             }
-            if (Speed.mc.player.method_6128()) {
+            if (Speed.mc.player.isFallFlying()) {
                 return;
             }
             if (!this.lagTimer.passedMs(this.lagTime.getValueInt())) {
@@ -204,7 +206,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.speed = this.distance - 0.66 * (this.distance - MovementUtil.getSpeed(this.slow.getValue(), this.strafeSpeed.getValue() / 1000.0));
                 this.boost = !this.boost;
             } else {
-                if ((Speed.mc.world.canCollide(null, Speed.mc.player.getBoundingBox().offset(0.0, MovementUtil.getMotionY(), 0.0)) || Speed.mc.player.field_34927) && this.stage > 0) {
+                if ((Speed.mc.world.canCollide(null, Speed.mc.player.getBoundingBox().offset(0.0, MovementUtil.getMotionY(), 0.0)) || Speed.mc.player.collidedSoftly) && this.stage > 0) {
                     this.stage = MovementUtil.isMoving() ? 1 : 0;
                 }
                 this.speed = this.distance - this.distance / 159.0;

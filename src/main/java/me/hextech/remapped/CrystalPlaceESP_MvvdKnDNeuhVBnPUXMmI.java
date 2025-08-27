@@ -48,9 +48,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Render3DUtil.setupRender();
         GL11.glDisable((int)2929);
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.method_1349();
-        RenderSystem.setShader(GameRenderer::method_34540);
-        bufferBuilder.method_1328(VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION_COLOR);
+        BufferBuilder bufferBuilder = tessellator.getBuffer();
+        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION_COLOR);
         GL11.glLineWidth((float)2.0f);
         double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().getX();
         double y = ent.prevY + (double)height + (ent.getY() - ent.prevY) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().getY();
@@ -59,9 +59,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         stack.translate(x, y, z);
         Matrix4f matrix = stack.peek().getPositionMatrix();
         for (int i = 0; i <= 180; ++i) {
-            bufferBuilder.method_22918(matrix, (float)((double)radius * Math.cos((double)i * 6.28 / 45.0)), up, (float)((double)radius * Math.sin((double)i * 6.28 / 45.0))).color(color.getRGB()).method_1344();
+            bufferBuilder.vertex(matrix, (float)((double)radius * Math.cos((double)i * 6.28 / 45.0)), up, (float)((double)radius * Math.sin((double)i * 6.28 / 45.0))).color(color.getRGB()).next();
         }
-        tessellator.method_1350();
+        tessellator.draw();
         Render3DUtil.endRender();
         stack.translate(-x, -y + (double)height, -z);
         GL11.glEnable((int)2929);

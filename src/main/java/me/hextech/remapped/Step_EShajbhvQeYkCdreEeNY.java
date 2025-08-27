@@ -33,7 +33,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Step_EShajbhvQeYkCdreEeNY.nullCheck()) {
             return;
         }
-        Step_EShajbhvQeYkCdreEeNY.mc.player.method_49477(0.6f);
+        Step_EShajbhvQeYkCdreEeNY.mc.player.setStepHeight(0.6f);
         HexTech.TIMER.reset();
     }
 
@@ -45,10 +45,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         if (this.inWebPause.getValue() && HoleKickTest.isInWeb((PlayerEntity)Step_EShajbhvQeYkCdreEeNY.mc.player) || !Step_EShajbhvQeYkCdreEeNY.mc.player.isOnGround() || this.onlyMoving.getValue() && !MovementUtil.isMoving()) {
-            Step_EShajbhvQeYkCdreEeNY.mc.player.method_49477(0.6f);
+            Step_EShajbhvQeYkCdreEeNY.mc.player.setStepHeight(0.6f);
             return;
         }
-        Step_EShajbhvQeYkCdreEeNY.mc.player.method_49477(this.height.getValueFloat());
+        Step_EShajbhvQeYkCdreEeNY.mc.player.setStepHeight(this.height.getValueFloat());
     }
 
     @EventHandler

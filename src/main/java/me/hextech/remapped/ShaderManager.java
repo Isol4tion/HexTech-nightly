@@ -6,11 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ladysnake.satin.api.managed.ManagedShaderEffect;
 import ladysnake.satin.api.managed.ShaderEffectManager;
-import me.hextech.remapped.IShaderEffect;
-import me.hextech.remapped.ShaderManager_YQoYchTCnXxJpEjCFEPm;
-import me.hextech.remapped.ShaderManager_nSIALuQmpuiGKWaEurQW;
-import me.hextech.remapped.Shader_CLqIXXaHSdAoBoxRSgjR;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.RenderTask;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
@@ -19,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ShaderManager
 implements Wrapper {
-    private static final List<ShaderManager_YQoYchTCnXxJpEjCFEPm> tasks = new ArrayList<ShaderManager_YQoYchTCnXxJpEjCFEPm>();
+    private static final List<RenderTask> tasks = new ArrayList<RenderTask>();
     public static ManagedShaderEffect DEFAULT_OUTLINE;
     public static ManagedShaderEffect SMOKE_OUTLINE;
     public static ManagedShaderEffect GRADIENT_OUTLINE;
@@ -35,12 +31,12 @@ implements Wrapper {
     public float time = 0.0f;
     private _WNhDoPXLcRvHUWNoquud shaderBuffer;
 
-    public void renderShader(Runnable runnable, ShaderManager_nSIALuQmpuiGKWaEurQW mode) {
-        tasks.add(new ShaderManager_YQoYchTCnXxJpEjCFEPm(runnable, mode));
+    public void renderShader(Runnable runnable, Mode mode) {
+        tasks.add(new RenderTask(runnable, mode));
     }
 
     public void renderShaders() {
-        tasks.forEach(t -> this.applyShader(t.task(), t.shader()));
+        tasks.forEach(t -> this.applyShader(t.task(), t.mode()));
         tasks.clear();
     }
 
@@ -80,7 +76,7 @@ implements Wrapper {
         RenderSystem.disableBlend();
     }
 
-    public void applyShader(Runnable runnable, ShaderManager_nSIALuQmpuiGKWaEurQW mode) {
+    public void applyShader(Runnable runnable, Mode mode) {
         if (this.fullNullCheck()) {
             return;
         }
@@ -114,7 +110,7 @@ implements Wrapper {
         RenderSystem.disableBlend();
     }
 
-    public ManagedShaderEffect getShader(@NotNull ShaderManager_nSIALuQmpuiGKWaEurQW mode) {
+    public ManagedShaderEffect getShader(@NotNull ShaderManager.Mode mode) {
         return switch (mode.ordinal()) {
             case 2 -> GRADIENT;
             case 1 -> SMOKE;
@@ -125,7 +121,7 @@ implements Wrapper {
         };
     }
 
-    public ManagedShaderEffect getShaderOutline(@NotNull ShaderManager_nSIALuQmpuiGKWaEurQW mode) {
+    public ManagedShaderEffect getShaderOutline(@NotNull ShaderManager.Mode mode) {
         return switch (mode.ordinal()) {
             case 2 -> GRADIENT_OUTLINE;
             case 1 -> SMOKE_OUTLINE;
@@ -136,9 +132,9 @@ implements Wrapper {
         };
     }
 
-    public void setupShader(ShaderManager_nSIALuQmpuiGKWaEurQW shader, ManagedShaderEffect effect) {
+    public void setupShader(Mode mode, ManagedShaderEffect effect) {
         Shader_CLqIXXaHSdAoBoxRSgjR shaderChams = Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE;
-        if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Rainbow) {
+        if (mode == Mode.Rainbow) {
             effect.setUniformValue("alpha2", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
             effect.setUniformValue("radius", shaderChams.radius.getValueFloat());
             effect.setUniformValue("quality", shaderChams.smoothness.getValueFloat());
@@ -148,7 +144,7 @@ implements Wrapper {
             effect.setUniformValue("time", this.time);
             effect.render(mc.getTickDelta());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
-        } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Gradient) {
+        } else if (mode == Mode.Gradient) {
             effect.setUniformValue("alpha2", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
             effect.setUniformValue("oct", (int)shaderChams.octaves.getValue());
             effect.setUniformValue("radius", shaderChams.radius.getValueFloat());
@@ -161,7 +157,7 @@ implements Wrapper {
             effect.setUniformValue("time", this.time);
             effect.render(mc.getTickDelta());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
-        } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Smoke) {
+        } else if (mode == Mode.Smoke) {
             effect.setUniformValue("alpha1", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
             effect.setUniformValue("radius", shaderChams.radius.getValueFloat());
             effect.setUniformValue("quality", shaderChams.smoothness.getValueFloat());
@@ -175,7 +171,7 @@ implements Wrapper {
             effect.setUniformValue("time", this.time);
             effect.render(mc.getTickDelta());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
-        } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Solid) {
+        } else if (mode == Mode.Solid) {
             effect.setUniformValue("mixFactor", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
             effect.setUniformValue("minAlpha", shaderChams.alpha.getValueFloat() / 255.0f);
             effect.setUniformValue("radius", shaderChams.radius.getValueFloat());
@@ -185,7 +181,7 @@ implements Wrapper {
             effect.setUniformValue("color", (float)shaderChams.fill.getValue().getRed() / 255.0f, (float)shaderChams.fill.getValue().getGreen() / 255.0f, (float)shaderChams.fill.getValue().getBlue() / 255.0f);
             effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
             effect.render(mc.getTickDelta());
-        } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Snow) {
+        } else if (mode == Mode.Snow) {
             effect.setUniformValue("color", (float)shaderChams.fill.getValue().getRed() / 255.0f, (float)shaderChams.fill.getValue().getGreen() / 255.0f, (float)shaderChams.fill.getValue().getBlue() / 255.0f, (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
             effect.setUniformValue("radius", shaderChams.radius.getValueFloat());
             effect.setUniformValue("quality", shaderChams.smoothness.getValueFloat());
@@ -195,7 +191,7 @@ implements Wrapper {
             effect.setUniformValue("time", this.time);
             effect.render(mc.getTickDelta());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
-        } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Flow) {
+        } else if (mode == Mode.Flow) {
             effect.setUniformValue("mixFactor", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
             effect.setUniformValue("radius", shaderChams.radius.getValueFloat());
             effect.setUniformValue("quality", shaderChams.smoothness.getValueFloat());
@@ -286,4 +282,16 @@ implements Wrapper {
             this.method_1236(0.0f, 0.0f, 0.0f, 0.0f);
         }
     }
+
+    public enum Mode
+    {
+        Solid,
+        Smoke,
+        Gradient,
+        Snow,
+        Flow,
+        Rainbow;
+    }
+
+    record RenderTask(Runnable task, Mode mode) {}
 }

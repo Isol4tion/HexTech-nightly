@@ -46,7 +46,7 @@ implements Wrapper {
         double xDiff;
         double diff;
         double distExposure;
-        if (ThunderExplosionUtil.mc.world.method_8407() == Difficulty.PEACEFUL) {
+        if (ThunderExplosionUtil.mc.world.getDifficulty() == Difficulty.PEACEFUL) {
             return 0.0f;
         }
         if (target.getAbilities().creativeMode) {
@@ -63,25 +63,25 @@ implements Wrapper {
         if (!new Box((double)MathHelper.floor((double)(explosionPos.x - 11.0)), (double)MathHelper.floor((double)(explosionPos.y - 11.0)), (double)MathHelper.floor((double)(explosionPos.z - 11.0)), (double)MathHelper.floor((double)(explosionPos.x + 13.0)), (double)MathHelper.floor((double)(explosionPos.y + 13.0)), (double)MathHelper.floor((double)(explosionPos.z + 13.0))).intersects(predict.getBoundingBox())) {
             return 0.0f;
         }
-        if (!target.method_5659(explosion) && !target.method_5655() && (distExposure = (double)MathHelper.sqrt((float)((float)predict.squaredDistanceTo(explosionPos))) / 12.0) <= 1.0 && (diff = (double)MathHelper.sqrt((float)((float)((xDiff = predict.getX() - explosionPos.x) * xDiff + (yDiff = predict.getY() - explosionPos.y) * yDiff + (zDiff = predict.getX() - explosionPos.z) * zDiff)))) != 0.0) {
-            double exposure = Explosion.method_17752((Vec3d)explosionPos, (Entity)predict);
+        if (!target.isImmuneToExplosion(explosion) && !target.isInvulnerable() && (distExposure = (double)MathHelper.sqrt((float)((float)predict.squaredDistanceTo(explosionPos))) / 12.0) <= 1.0 && (diff = (double)MathHelper.sqrt((float)((float)((xDiff = predict.getX() - explosionPos.x) * xDiff + (yDiff = predict.getY() - explosionPos.y) * yDiff + (zDiff = predict.getX() - explosionPos.z) * zDiff)))) != 0.0) {
+            double exposure = Explosion.getExposure((Vec3d)explosionPos, (Entity)predict);
             double finalExposure = (1.0 - distExposure) * exposure;
             float toDamage = (float)Math.floor((finalExposure * finalExposure + finalExposure) / 2.0 * 7.0 * 12.0 + 1.0);
-            if (ThunderExplosionUtil.mc.world.method_8407() == Difficulty.EASY) {
+            if (ThunderExplosionUtil.mc.world.getDifficulty() == Difficulty.EASY) {
                 toDamage = Math.min(toDamage / 2.0f + 1.0f, toDamage);
-            } else if (ThunderExplosionUtil.mc.world.method_8407() == Difficulty.HARD) {
+            } else if (ThunderExplosionUtil.mc.world.getDifficulty() == Difficulty.HARD) {
                 toDamage = toDamage * 3.0f / 2.0f;
             }
-            toDamage = DamageUtil.method_5496((float)toDamage, (float)target.method_6096(), (float)((float)Objects.requireNonNull(target.method_5996(EntityAttributes.field_23725)).getValue()));
-            if (target.method_6059(StatusEffects.field_5907)) {
-                int resistance = 25 - (Objects.requireNonNull(target.method_6112(StatusEffects.field_5907)).getAmplifier() + 1) * 5;
+            toDamage = DamageUtil.getDamageLeft((float)toDamage, (float)target.getArmor(), (float)((float)Objects.requireNonNull(target.getAttributeInstance(EntityAttributes.GENERIC_ARMOR_TOUGHNESS)).getValue()));
+            if (target.hasStatusEffect(StatusEffects.RESISTANCE)) {
+                int resistance = 25 - (Objects.requireNonNull(target.getStatusEffect(StatusEffects.RESISTANCE)).getAmplifier() + 1) * 5;
                 float resistance_1 = toDamage * (float)resistance;
                 toDamage = Math.max(resistance_1 / 25.0f, 0.0f);
             }
             if (toDamage <= 0.0f) {
                 toDamage = 0.0f;
             } else {
-                int protAmount = EnchantmentHelper.method_8219((Iterable)target.method_5661(), (DamageSource)ThunderExplosionUtil.mc.world.method_48963().explosion(explosion));
+                int protAmount = EnchantmentHelper.getProtectionAmount((Iterable)target.getArmorItems(), (DamageSource)ThunderExplosionUtil.mc.world.getDamageSources().explosion(explosion));
                 if (protAmount > 0) {
                     toDamage = DamageUtil.getInflictedDamage((float)toDamage, (float)protAmount);
                 }

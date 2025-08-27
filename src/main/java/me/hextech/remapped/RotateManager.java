@@ -115,7 +115,7 @@ implements Wrapper {
 
     public float[] offtrackStep(Vec3d vec, float steps) {
         float yawDelta = MathHelper.wrapDegrees((float)((float)MathHelper.wrapDegrees((double)(Math.toDegrees(Math.atan2(vec.z - RotateManager.mc.player.getZ(), vec.x - RotateManager.mc.player.getX())) - 90.0)) - this.rotateYaw));
-        float pitchDelta = (float)(-Math.toDegrees(Math.atan2(vec.y - (RotateManager.mc.player.getPos().y + (double)RotateManager.mc.player.method_18381(RotateManager.mc.player.method_18376())), Math.sqrt(Math.pow(vec.x - RotateManager.mc.player.getX(), 2.0) + Math.pow(vec.z - RotateManager.mc.player.getZ(), 2.0))))) - this.rotatePitch;
+        float pitchDelta = (float)(-Math.toDegrees(Math.atan2(vec.y - (RotateManager.mc.player.getPos().y + (double)RotateManager.mc.player.getEyeHeight(RotateManager.mc.player.getPose())), Math.sqrt(Math.pow(vec.x - RotateManager.mc.player.getX(), 2.0) + Math.pow(vec.z - RotateManager.mc.player.getZ(), 2.0))))) - this.rotatePitch;
         float angleToRad = (float)Math.toRadians(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.minrad.getValueFloat() * (float)(RotateManager.mc.player.age % 30));
         yawDelta = (float)((double)yawDelta + Math.sin(angleToRad) * 3.0) + MathUtil.random(-1.0f, 1.0f);
         pitchDelta += MathUtil.random(-0.6f, 0.6f);
@@ -168,7 +168,7 @@ implements Wrapper {
     @EventHandler(priority=-200)
     public void update(UpdateWalkingEvent event) {
         if (Rotation.INSTANCE.isOn() && event.isPost()) {
-            RotateEvent rotateEvent = new RotateEvent(RotateManager.mc.player.getYaw(), RotateManager.mc.player.method_36455());
+            RotateEvent rotateEvent = new RotateEvent(RotateManager.mc.player.getYaw(), RotateManager.mc.player.getPitch());
             HexTech.EVENT_BUS.post(rotateEvent);
             if (rotateEvent.isModified()) {
                 this.nextYaw = rotateEvent.getYaw();
@@ -225,7 +225,7 @@ implements Wrapper {
                     if (!EntityUtil.rotating && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotateSync.getValue()) {
                         float yaw = packet.getYaw(this.lastYaw);
                         float pitch = packet.getPitch(lastPitch);
-                        if (yaw == RotateManager.mc.player.getYaw() && pitch == RotateManager.mc.player.method_36455()) {
+                        if (yaw == RotateManager.mc.player.getYaw() && pitch == RotateManager.mc.player.getPitch()) {
                             ((IPlayerMoveC2SPacket)event.getPacket()).setYaw(this.rotateYaw);
                             ((IPlayerMoveC2SPacket)event.getPacket()).setPitch(this.rotatePitch);
                         }
@@ -275,7 +275,7 @@ implements Wrapper {
     }
 
     public boolean inFov(Vec3d directionVec, float fov) {
-        float[] angle = this.getRotation(new Vec3d(RotateManager.mc.player.getX(), RotateManager.mc.player.getY() + (double)RotateManager.mc.player.method_18381(RotateManager.mc.player.method_18376()), RotateManager.mc.player.getZ()), directionVec);
+        float[] angle = this.getRotation(new Vec3d(RotateManager.mc.player.getX(), RotateManager.mc.player.getY() + (double)RotateManager.mc.player.getEyeHeight(RotateManager.mc.player.getPose()), RotateManager.mc.player.getZ()), directionVec);
         return this.inFov(angle[0], angle[1], fov);
     }
 
@@ -321,8 +321,8 @@ implements Wrapper {
         float offset;
         double zDif;
         float result = offsetIn;
-        double xDif = RotateManager.mc.player.getX() - RotateManager.mc.player.field_6014;
-        if (xDif * xDif + (zDif = RotateManager.mc.player.getZ() - RotateManager.mc.player.field_5969) * zDif > 0.002500000176951289) {
+        double xDif = RotateManager.mc.player.getX() - RotateManager.mc.player.prevX;
+        if (xDif * xDif + (zDif = RotateManager.mc.player.getZ() - RotateManager.mc.player.prevZ) * zDif > 0.002500000176951289) {
             offset = (float)MathHelper.atan2((double)zDif, (double)xDif) * 57.295776f - 90.0f;
             float wrap = MathHelper.abs((float)(MathHelper.wrapDegrees((float)yaw) - offset));
             result = 95.0f < wrap && wrap < 265.0f ? offset - 180.0f : offset;

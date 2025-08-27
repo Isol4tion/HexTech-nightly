@@ -51,7 +51,7 @@ public abstract class MixinWorldRenderer {
 
     @Redirect(method={"render"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/gl/PostEffectProcessor;render(F)V", ordinal=0))
     void replaceShaderHook(PostEffectProcessor instance, float tickDelta) {
-        ShaderManager._nSIALuQmpuiGKWaEurQW shaders = Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.mode.getValue();
+        ShaderManager.Mode shaders = Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.mode.getValue();
         if (Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.isOn() && Wrapper.mc.world != null) {
             HexTech.SHADER.setupShader(shaders, HexTech.SHADER.getShaderOutline(shaders));
         } else {

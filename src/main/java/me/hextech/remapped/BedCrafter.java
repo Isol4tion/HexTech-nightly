@@ -39,7 +39,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static int getEmptySlots() {
         int emptySlots = 0;
         for (int i = 0; i < 36; ++i) {
-            ItemStack itemStack = BedCrafter.mc.player.getInventory().method_5438(i);
+            ItemStack itemStack = BedCrafter.mc.player.getInventory().getStack(i);
             if (itemStack != null && !(itemStack.getItem() instanceof AirBlockItem)) continue;
             ++emptySlots;
         }
@@ -54,7 +54,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         if (BedCrafter.getEmptySlots() == 0) {
-            if (BedCrafter.mc.player.field_7512 instanceof CraftingScreenHandler) {
+            if (BedCrafter.mc.player.currentScreenHandler instanceof CraftingScreenHandler) {
                 BedCrafter.mc.player.method_7346();
             }
             if (this.disable.getValue()) {
@@ -62,25 +62,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             return;
         }
-        if (BedCrafter.mc.player.field_7512 instanceof CraftingScreenHandler) {
+        if (BedCrafter.mc.player.currentScreenHandler instanceof CraftingScreenHandler) {
             this.open = true;
             boolean craft = false;
             block0: for (RecipeResultCollection recipeResult : BedCrafter.mc.player.getRecipeBook().getOrderedResults()) {
-                for (RecipeEntry recipe : recipeResult.method_2648(true)) {
+                for (RecipeEntry recipe : recipeResult.getRecipes(true)) {
                     if (!(recipe.value().method_8110(BedCrafter.mc.world.method_30349()).getItem() instanceof BedItem)) continue;
                     int bed = 0;
                     for (int i = 0; i < BedCrafter.getEmptySlots(); ++i) {
                         craft = true;
                         if (bed >= this.beds.getValueInt()) continue block0;
                         ++bed;
-                        BedCrafter.mc.interactionManager.method_2912(BedCrafter.mc.player.field_7512.syncId, recipe, false);
-                        BedCrafter.mc.interactionManager.clickSlot(BedCrafter.mc.player.field_7512.syncId, 0, 1, SlotActionType.QUICK_MOVE, (PlayerEntity)BedCrafter.mc.player);
+                        BedCrafter.mc.interactionManager.method_2912(BedCrafter.mc.player.currentScreenHandler.syncId, recipe, false);
+                        BedCrafter.mc.interactionManager.clickSlot(BedCrafter.mc.player.currentScreenHandler.syncId, 0, 1, SlotActionType.QUICK_MOVE, (PlayerEntity)BedCrafter.mc.player);
                     }
                     continue block0;
                 }
             }
             if (!craft) {
-                if (BedCrafter.mc.player.field_7512 instanceof CraftingScreenHandler) {
+                if (BedCrafter.mc.player.currentScreenHandler instanceof CraftingScreenHandler) {
                     BedCrafter.mc.player.method_7346();
                 }
                 if (this.disable.getValue()) {

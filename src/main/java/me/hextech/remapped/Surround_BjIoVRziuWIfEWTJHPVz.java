@@ -73,7 +73,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static boolean otherIntersectPos(BlockPos pos) {
-        for (PlayerEntity player : Surround_BjIoVRziuWIfEWTJHPVz.mc.world.method_18456()) {
+        for (PlayerEntity player : Surround_BjIoVRziuWIfEWTJHPVz.mc.world.getPlayers()) {
             if (!player.getBoundingBox().intersects(new Box(pos))) continue;
             return true;
         }
@@ -97,10 +97,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private static double normalizeAngle(double angleIn) {
-        double d;
         double angle = angleIn;
-        angle %= 360.0;
-        if (d >= 180.0) {
+        if ((angle %= 360.0) >= 180.0) {
             angle -= 360.0;
         }
         if (angle < -180.0) {
@@ -139,7 +137,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler(priority=-1)
     public void onMove(MoveEvent event) {
-        if (Surround_BjIoVRziuWIfEWTJHPVz.nullCheck() || !this.center.getValue() || Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_6128()) {
+        if (Surround_BjIoVRziuWIfEWTJHPVz.nullCheck() || !this.center.getValue() || Surround_BjIoVRziuWIfEWTJHPVz.mc.player.isFallFlying()) {
             return;
         }
         BlockPos blockPos = EntityUtil.getPlayerPos(true);
@@ -175,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ();
         }
         BlockPos pos = EntityUtil.getPlayerPos(true);
-        double distanceToStart = MathHelper.sqrt((float)((float)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_5649(this.startX, this.startY, this.startZ)));
+        double distanceToStart = MathHelper.sqrt((float)((float)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.squaredDistanceTo(this.startX, this.startY, this.startZ)));
         if (this.getBlock() == -1) {
             CommandManager.sendChatMessageWidthId("\u00a7c\u00a7oObsidian" + (this.enderChest.getValue() ? "/EnderChest" : "") + "?", this.hashCode());
             this.disable();

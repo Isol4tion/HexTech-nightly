@@ -31,7 +31,7 @@ implements Wrapper {
         if (Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck()) {
             return;
         }
-        for (PlayerEntity player : PopManager.mc.world.method_18456()) {
+        for (PlayerEntity player : PopManager.mc.world.getPlayers()) {
             if (player == null || player.method_5805()) {
                 this.deadPlayer.remove(player);
                 continue;

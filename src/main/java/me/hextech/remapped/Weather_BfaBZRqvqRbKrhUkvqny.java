@@ -3,14 +3,7 @@ package me.hextech.remapped;
 import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
 import java.util.Objects;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Weather;
-import me.hextech.remapped.WeatherRenderEvent;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
@@ -32,7 +25,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private static final Identifier SNOW;
     private static final float[] weatherXCoords;
     private static final float[] weatherYCoords;
-    private final EnumSetting precipitationSetting = this.add(new EnumSetting<Weather>("Type", Weather.Rain));
+    private final EnumSetting precipitationSetting = this.add(new EnumSetting<>("Type", Weather.Rain));
     private final SliderSetting height = this.add(new SliderSetting("height", 0.0, 0.0, 320.0, 0.01));
     private final SliderSetting strength = this.add(new SliderSetting("Strength", 0.8, 0.0, 200.0, 0.01));
     private final ColorSetting weatherColor = this.add(new ColorSetting("WeatherColor", new Color(14473686)));
@@ -46,7 +39,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     private void onWeather(WeatherRenderEvent event) {
-        if (((Enum)this.precipitationSetting.getValue()).equals((Object)Weather.Both)) {
+        if (((Enum<?>)this.precipitationSetting.getValue()).equals((Object)Weather.Both)) {
             this.render(event, Weather.Rain);
             this.render(event, Weather.Snow);
             event.cancel();
@@ -70,12 +63,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int cameraIntY = MathHelper.floor((double)cameraY);
         int cameraIntZ = MathHelper.floor((double)cameraZ);
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.method_1349();
+        BufferBuilder bufferBuilder = tessellator.getBuffer();
         RenderSystem.disableCull();
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
         RenderSystem.depthMask((boolean)MinecraftClient.isFabulousGraphicsOrBetter());
-        RenderSystem.setShader(GameRenderer::method_34546);
+        RenderSystem.setShader(GameRenderer::getParticleProgram);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
         int expand = this.expandSize.getValueInt();
         int tessPosition = -1;
@@ -107,11 +100,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (precipitation == Biome.Precipitation.RAIN) {
                     if (tessPosition != 0) {
                         if (tessPosition >= 0) {
-                            tessellator.method_1350();
+                            tessellator.draw();
                         }
                         tessPosition = 0;
                         RenderSystem.setShaderTexture((int)0, (Identifier)RAIN);
-                        bufferBuilder.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
+                        bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
                     }
                     int randomSeed = this.ticks + xRange * xRange * 3121 + xRange * 45238971 + zRange * zRange * 418711 + zRange * 13761 & 0x1F;
                     texTextureV = -((float)randomSeed + tickDelta) / 32.0f * (3.0f + random.nextFloat());
@@ -121,20 +114,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     weatherAlpha = ((1.0f - dLength * dLength) * 0.5f + 0.5f) * f;
                     mutable.set(xRange, maxRenderY, zRange);
                     int lightmapCoord = WorldRenderer.getLightmapCoordinates((BlockRenderView)Weather_BfaBZRqvqRbKrhUkvqny.mc.world, (BlockPos)mutable);
-                    bufferBuilder.method_22912((double)xRange - cameraX - xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ - zCoord + 0.5).texture(0.0f, (float)minIntY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).method_22916(lightmapCoord).method_1344();
-                    bufferBuilder.method_22912((double)xRange - cameraX + xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f, (float)minIntY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).method_22916(lightmapCoord).method_1344();
-                    bufferBuilder.method_22912((double)xRange - cameraX + xCoord + 0.5, (double)minIntY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f, (float)expandedCameraY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).method_22916(lightmapCoord).method_1344();
-                    bufferBuilder.method_22912((double)xRange - cameraX - xCoord + 0.5, (double)minIntY - cameraY, (double)zRange - cameraZ - zCoord + 0.5).texture(0.0f, (float)expandedCameraY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).method_22916(lightmapCoord).method_1344();
+                    bufferBuilder.vertex((double)xRange - cameraX - xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ - zCoord + 0.5).texture(0.0f, (float)minIntY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).light(lightmapCoord).next();
+                    bufferBuilder.vertex((double)xRange - cameraX + xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f, (float)minIntY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).light(lightmapCoord).next();
+                    bufferBuilder.vertex((double)xRange - cameraX + xCoord + 0.5, (double)minIntY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f, (float)expandedCameraY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).light(lightmapCoord).next();
+                    bufferBuilder.vertex((double)xRange - cameraX - xCoord + 0.5, (double)minIntY - cameraY, (double)zRange - cameraZ - zCoord + 0.5).texture(0.0f, (float)expandedCameraY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).light(lightmapCoord).next();
                     continue;
                 }
                 if (precipitation != Biome.Precipitation.SNOW) continue;
                 if (tessPosition != 1) {
                     if (tessPosition == 0) {
-                        tessellator.method_1350();
+                        tessellator.draw();
                     }
                     tessPosition = 1;
                     RenderSystem.setShaderTexture((int)0, (Identifier)SNOW);
-                    bufferBuilder.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
+                    bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
                 }
                 float snowSmooth = -((float)(this.ticks & 0x1FF) + tickDelta) / 512.0f;
                 texTextureV = (float)(random.nextDouble() + (double)fallingValue * 0.01 * (double)((float)random.nextGaussian()));
@@ -149,17 +142,36 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 int lightmapCalcU = lightMapCoord & 0xFFFF;
                 int lightmapV = (lightmapCalcV * 3 + 240) / 4;
                 int lightmapU = (lightmapCalcU * 3 + 240) / 4;
-                bufferBuilder.method_22912((double)xRange - cameraX - xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ - zCoord + 0.5).texture(0.0f + texTextureV, (float)minIntY * 0.25f + snowSmooth + fallingSpeed).color(red, green, blue, snowAlpha).light(lightmapU, lightmapV).method_1344();
-                bufferBuilder.method_22912((double)xRange - cameraX + xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f + texTextureV, (float)minIntY * 0.25f + snowSmooth + fallingSpeed).color(red, green, blue, snowAlpha).light(lightmapU, lightmapV).method_1344();
-                bufferBuilder.method_22912((double)xRange - cameraX + xCoord + 0.5, (double)minIntY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f + texTextureV, (float)expandedCameraY * 0.25f + snowSmooth + fallingSpeed).color(red, green, blue, snowAlpha).light(lightmapU, lightmapV).method_1344();
-                bufferBuilder.method_22912((double)xRange - cameraX - xCoord + 0.5, (double)minIntY - cameraY, (double)zRange - cameraZ - zCoord + 0.5).texture(0.0f + texTextureV, (float)expandedCameraY * 0.25f + snowSmooth + fallingSpeed).color(red, green, blue, snowAlpha).light(lightmapU, lightmapV).method_1344();
+                bufferBuilder.vertex((double)xRange - cameraX - xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ - zCoord + 0.5).texture(0.0f + texTextureV, (float)minIntY * 0.25f + snowSmooth + fallingSpeed).color(red, green, blue, snowAlpha).light(lightmapU, lightmapV).next();
+                bufferBuilder.vertex((double)xRange - cameraX + xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f + texTextureV, (float)minIntY * 0.25f + snowSmooth + fallingSpeed).color(red, green, blue, snowAlpha).light(lightmapU, lightmapV).next();
+                bufferBuilder.vertex((double)xRange - cameraX + xCoord + 0.5, (double)minIntY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f + texTextureV, (float)expandedCameraY * 0.25f + snowSmooth + fallingSpeed).color(red, green, blue, snowAlpha).light(lightmapU, lightmapV).next();
+                bufferBuilder.vertex((double)xRange - cameraX - xCoord + 0.5, (double)minIntY - cameraY, (double)zRange - cameraZ - zCoord + 0.5).texture(0.0f + texTextureV, (float)expandedCameraY * 0.25f + snowSmooth + fallingSpeed).color(red, green, blue, snowAlpha).light(lightmapU, lightmapV).next();
             }
         }
         if (tessPosition >= 0) {
-            tessellator.method_1350();
+            tessellator.draw();
         }
         RenderSystem.enableCull();
         RenderSystem.disableBlend();
         manager.disable();
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public enum Weather {
+        None,
+        Rain,
+        Snow,
+        Both;
+
+
+        public Biome.Precipitation toMC() {
+            return switch (this) {
+                case None -> Biome.Precipitation.NONE;
+                case Rain -> Biome.Precipitation.RAIN;
+                case Snow, Both -> Biome.Precipitation.SNOW;
+            };
+        }
     }
 }

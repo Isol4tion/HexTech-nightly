@@ -51,10 +51,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onEnable() {
         if (ElytraFly.mc.player != null) {
-            if (!ElytraFly.mc.player.method_7337()) {
-                ElytraFly.mc.player.method_31549().allowFlying = false;
+            if (!ElytraFly.mc.player.isCreative()) {
+                ElytraFly.mc.player.getAbilities().allowFlying = false;
             }
-            ElytraFly.mc.player.method_31549().flying = false;
+            ElytraFly.mc.player.getAbilities().flying = false;
         }
         this.hasElytra = false;
     }
@@ -64,10 +64,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         HexTech.TIMER.reset();
         this.hasElytra = false;
         if (ElytraFly.mc.player != null) {
-            if (!ElytraFly.mc.player.method_7337()) {
-                ElytraFly.mc.player.method_31549().allowFlying = false;
+            if (!ElytraFly.mc.player.isCreative()) {
+                ElytraFly.mc.player.getAbilities().allowFlying = false;
             }
-            ElytraFly.mc.player.method_31549().flying = false;
+            ElytraFly.mc.player.getAbilities().flying = false;
         }
     }
 
@@ -79,7 +79,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (ElytraFly.mc.player.isOnGround()) {
             this.hasTouchedGround = true;
         }
-        for (ItemStack is : ElytraFly.mc.player.method_5661()) {
+        for (ItemStack is : ElytraFly.mc.player.getArmorItems()) {
             if (is.getItem() instanceof class_1770) {
                 this.hasElytra = true;
                 break;
@@ -89,11 +89,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.strictTimer.passedMs(1500L) && !this.strictTimer.passedMs(2000L) || EntityUtil.isElytraFlying() && (double)HexTech.TIMER.get() == 0.3) {
             HexTech.TIMER.reset();
         }
-        if (!ElytraFly.mc.player.method_6128()) {
+        if (!ElytraFly.mc.player.isFallFlying()) {
             if (this.hasTouchedGround && this.boostTimer.getValue() && !ElytraFly.mc.player.isOnGround()) {
                 HexTech.TIMER.set(0.3f);
             }
-            if (!ElytraFly.mc.player.isOnGround() && this.instantFly.getValue() && ElytraFly.mc.player.method_18798().getY() < 0.0) {
+            if (!ElytraFly.mc.player.isOnGround() && this.instantFly.getValue() && ElytraFly.mc.player.getVelocity().getY() < 0.0) {
                 if (!this.instantFlyTimer.passedMs((long)(1000.0 * this.timeout.getValue()))) {
                     return;
                 }
@@ -122,7 +122,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onMove(TravelEvent event) {
         double[] dir;
-        if (ElytraFly.nullCheck() || !this.hasElytra || !ElytraFly.mc.player.method_6128()) {
+        if (ElytraFly.nullCheck() || !this.hasElytra || !ElytraFly.mc.player.isFallFlying()) {
             return;
         }
         Vec3d lookVec = this.getRotationVec(mc.getTickDelta());
@@ -165,7 +165,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.setZ(this.getZ() * this.maxSpeed.getValue() / finalDist);
         }
         event.cancel();
-        ElytraFly.mc.player.method_5784(MovementType.SELF, ElytraFly.mc.player.method_18798());
+        ElytraFly.mc.player.method_5784(MovementType.SELF, ElytraFly.mc.player.getVelocity());
     }
 
     private double getX() {

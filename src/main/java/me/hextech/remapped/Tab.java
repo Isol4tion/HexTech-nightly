@@ -5,7 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 
 public abstract class Tab {
-    public static final int defaultHeight;
+    public static final int defaultHeight = 15;
     protected int x;
     protected int y;
     protected int width;

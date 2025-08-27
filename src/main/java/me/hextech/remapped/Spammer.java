@@ -23,7 +23,6 @@ import org.apache.commons.io.IOUtils;
 
 public class Spammer
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
-    private static final String CHARACTERS;
     public final BooleanSetting tellMode = this.add(new BooleanSetting("RandomMsg", false));
     public final BooleanSetting checkSelf = this.add(new BooleanSetting("CheckSelf", false));
     private final SliderSetting randoms = this.add(new SliderSetting("Random", 3.0, 0.0, 20.0, 1.0));
@@ -63,7 +62,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 PlayerListEntry playerListEntry = (PlayerListEntry)list.get(this.random.nextInt(size));
                 if (Spammer.mc.player != null) {
-                    while (this.checkSelf.getValue() && Objects.equals(playerListEntry.getProfile().getName(), Spammer.mc.player.method_7334().getName())) {
+                    while (this.checkSelf.getValue() && Objects.equals(playerListEntry.getProfile().getName(), Spammer.mc.player.getGameProfile().getName())) {
                         playerListEntry = (PlayerListEntry)list.get(this.random.nextInt(size));
                     }
                 }

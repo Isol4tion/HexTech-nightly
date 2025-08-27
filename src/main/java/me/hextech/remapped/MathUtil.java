@@ -99,7 +99,7 @@ public class MathUtil {
 
     public static Direction getDirectionFromEntityLiving(BlockPos pos, LivingEntity entity) {
         if (Math.abs(entity.getX() - ((double)pos.getX() + 0.5)) < 2.0 && Math.abs(entity.getZ() - ((double)pos.getZ() + 0.5)) < 2.0) {
-            double d0 = entity.getY() + (double)entity.method_18381(entity.method_18376());
+            double d0 = entity.getY() + (double)entity.getEyeHeight(entity.getPose());
             if (d0 - (double)pos.getY() > 2.0) {
                 return Direction.UP;
             }

@@ -287,7 +287,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Objects.requireNonNull(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer);
         int textHeight = 9 + 1;
         String t1 = "Totem " + String.valueOf(Formatting.YELLOW) + InventoryUtil.getItemCount(Items.TOTEM_OF_UNDYING);
-        String t2 = "Potion " + String.valueOf(Formatting.GRAY) + InventoryUtil.getPotCount(StatusEffects.field_5907);
+        String t2 = "Potion " + String.valueOf(Formatting.GRAY) + InventoryUtil.getPotCount(StatusEffects.RESISTANCE);
         String t3 = "Crystal " + String.valueOf(Formatting.WHITE) + InventoryUtil.getItemCount(Items.END_CRYSTAL);
         String A1 = "\u00a74[\u64cd\u63a7\u529b] | \u00a78\u538b\u5236";
         String D1 = "\u00a73[\u538b\u5236] | \u00a78\u64cd\u63a7\u529b";
@@ -319,7 +319,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             y += (double)textHeight;
         }
         for (StatusEffectInstance potionEffect : effects) {
-            if (potionEffect.method_5579() != StatusEffects.field_5907 || potionEffect.getAmplifier() + 1 <= 1) continue;
+            if (potionEffect.method_5579() != StatusEffects.RESISTANCE || potionEffect.getAmplifier() + 1 <= 1) continue;
             String str = this.getColoredPotionTimeString(potionEffect);
             String t31 = "PotionTime " + String.valueOf(Formatting.WHITE) + str;
             if (!this.potiontext.getValue()) continue;
@@ -358,7 +358,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         DecimalFormat dfDistance = new DecimalFormat("#.#");
         dfDistance.setRoundingMode(RoundingMode.CEILING);
         StringBuilder distanceSB = new StringBuilder();
-        for (PlayerEntity player : HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_18456()) {
+        for (PlayerEntity player : HUD_ssNtBhEveKlCmIccBvAN.mc.world.getPlayers()) {
             if (player.method_5767() || player.getName().equals((Object)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getName())) continue;
             int distanceInt = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.distanceTo((Entity)player);
             String distance = dfDistance.format(distanceInt);

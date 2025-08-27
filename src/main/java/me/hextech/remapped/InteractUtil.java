@@ -16,14 +16,14 @@ implements Wrapper {
     public static HitResult getRtxTarget(float yaw, float pitch, double x, double y, double z) {
         Box box;
         HitResult result = InteractUtil.rayTrace(5.0, yaw, pitch, x, y, z);
-        Vec3d vec3d = new Vec3d(x, y, z).add(0.0, (double)InteractUtil.mc.player.method_18381(InteractUtil.mc.player.method_18376()), 0.0);
+        Vec3d vec3d = new Vec3d(x, y, z).add(0.0, (double)InteractUtil.mc.player.getEyeHeight(InteractUtil.mc.player.getPose()), 0.0);
         double distancePow2 = 25.0;
         if (result != null) {
             distancePow2 = result.getPos().squaredDistanceTo(vec3d);
         }
         Vec3d vec3d2 = InteractUtil.getRotationVector(yaw, pitch);
         Vec3d vec3d3 = vec3d.add(vec3d2.x * 5.0, vec3d2.y * 5.0, vec3d2.z * 5.0);
-        EntityHitResult entityHitResult = ProjectileUtil.raycast((Entity)InteractUtil.mc.player, (Vec3d)vec3d, (Vec3d)vec3d3, (Box)(box = new Box(x - 0.3, y, z - 0.3, x + 0.3, y + (double)InteractUtil.mc.player.method_18381(InteractUtil.mc.player.method_18376()), z + 0.3).stretch(vec3d2.multiply(5.0)).expand(1.0, 1.0, 1.0)), entity -> !entity.isSpectator() && entity.canHit(), (double)distancePow2);
+        EntityHitResult entityHitResult = ProjectileUtil.raycast((Entity)InteractUtil.mc.player, (Vec3d)vec3d, (Vec3d)vec3d3, (Box)(box = new Box(x - 0.3, y, z - 0.3, x + 0.3, y + (double)InteractUtil.mc.player.getEyeHeight(InteractUtil.mc.player.getPose()), z + 0.3).stretch(vec3d2.multiply(5.0)).expand(1.0, 1.0, 1.0)), entity -> !entity.isSpectator() && entity.canHit(), (double)distancePow2);
         if (entityHitResult != null) {
             Entity entity2 = entityHitResult.getEntity();
             Vec3d vec3d4 = entityHitResult.method_17784();
@@ -39,7 +39,7 @@ implements Wrapper {
         Vec3d vec3d = new Vec3d(x, y, z);
         Vec3d vec3d2 = InteractUtil.getRotationVector(pitch, yaw);
         Vec3d vec3d3 = vec3d.add(vec3d2.x * dst, vec3d2.y * dst, vec3d2.z * dst);
-        return InteractUtil.mc.world.method_17742(new RaycastContext(vec3d, vec3d3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity)InteractUtil.mc.player));
+        return InteractUtil.mc.world.raycast(new RaycastContext(vec3d, vec3d3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity)InteractUtil.mc.player));
     }
 
     private static Vec3d getRotationVector(float yaw, float pitch) {

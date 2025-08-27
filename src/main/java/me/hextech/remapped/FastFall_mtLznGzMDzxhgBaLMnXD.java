@@ -52,7 +52,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (this.height.getValue() > 0.0 && (double)this.traceDown() > this.height.getValue() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_5757() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_5869() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_5771() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_21754() || !this.lagTimer.passedMs(1000L) || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_6128() || Flight.INSTANCE.isOn() || FastFall_mtLznGzMDzxhgBaLMnXD.nullCheck()) {
+        if (this.height.getValue() > 0.0 && (double)this.traceDown() > this.height.getValue() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_5757() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isSubmergedInWater() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isInLava() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isHoldingOntoLadder() || !this.lagTimer.passedMs(1000L) || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isFallFlying() || Flight.INSTANCE.isOn() || FastFall_mtLznGzMDzxhgBaLMnXD.nullCheck()) {
             return;
         }
         if (HoleKickTest.isInWeb((PlayerEntity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player)) {
@@ -107,7 +107,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int y;
         int retval = 0;
         for (int tracey = y = (int)Math.round(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getY()) - 1; tracey >= 0; --tracey) {
-            BlockHitResult trace = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.method_17742(new RaycastContext(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getPos(), new Vec3d(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getX(), (double)tracey, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player));
+            BlockHitResult trace = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.raycast(new RaycastContext(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getPos(), new Vec3d(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getX(), (double)tracey, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player));
             if (trace != null && trace.getType() == HitResult.Type.BLOCK) {
                 return retval;
             }
@@ -131,8 +131,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         positions.put(new Vec3d(maxX, basepos.y, maxZ), new Vec3d(maxX, basepos.y - 1.0, maxZ));
         for (Vec3d key : positions.keySet()) {
             RaycastContext context = new RaycastContext(key, (Vec3d)positions.get(key), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player);
-            BlockHitResult result = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.method_17742(context);
-            if (result == null || result.method_17783() != HitResult.Type.BLOCK) continue;
+            BlockHitResult result = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.raycast(context);
+            if (result == null || result.getType() != HitResult.Type.BLOCK) continue;
             return false;
         }
         BlockState state = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.getBlockState((BlockPos)new BlockPosX(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getX(), FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getY() - 1.0, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getZ()));

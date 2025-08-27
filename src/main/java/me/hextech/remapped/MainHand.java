@@ -48,7 +48,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public static int findItemInventorySlot(Item item) {
         for (int i = 35; i >= 0; --i) {
-            ItemStack stack = MainHand.mc.player.getInventory().method_5438(i);
+            ItemStack stack = MainHand.mc.player.getInventory().getStack(i);
             if (stack.getItem() != item) continue;
             return i < 9 ? i + 36 : i;
         }
@@ -83,7 +83,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void updateMine() {
-        if (MainHand.mc.player.method_29504()) {
+        if (MainHand.mc.player.isDead()) {
             this.needSwitch = false;
         }
         if (!this.mineSlot.getValue()) {

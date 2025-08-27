@@ -33,7 +33,7 @@ extends Screen {
     }
 
     public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
-        drawContext.drawCenteredTextWithShadow(this.textRenderer, this.field_22785.getString(), this.width / 2, 20, 0xFFFFFF);
+        drawContext.drawCenteredTextWithShadow(this.textRenderer, this.title.getString(), this.width / 2, 20, 0xFFFFFF);
         drawContext.drawTextWithShadow(this.textRenderer, "Enter Username", this.width / 2 - 100, this.height / 2 - 90, 0xFFFFFF);
         this.textFieldAltUsername.render(drawContext, mouseX, mouseY, partialTicks);
         super.render(drawContext, mouseX, mouseY, partialTicks);

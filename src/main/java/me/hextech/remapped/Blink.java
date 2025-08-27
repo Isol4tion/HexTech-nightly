@@ -57,7 +57,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (Blink.mc.player.method_29504()) {
+        if (Blink.mc.player.isDead()) {
             this.packetsList.clear();
             this.disable();
         }

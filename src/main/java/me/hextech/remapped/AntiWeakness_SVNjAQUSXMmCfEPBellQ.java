@@ -50,7 +50,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.ignore) {
             return;
         }
-        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.method_6112(StatusEffects.field_5911) == null) {
+        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getStatusEffect(StatusEffects.field_5911) == null) {
             return;
         }
         if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getMainHandStack().getItem() instanceof SwordItem) {
@@ -85,7 +85,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.swapMode.getValue() != AntiWeakness.Inventory) {
             InventoryUtil.switchToSlot(strong);
         } else {
-            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.field_7512.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot, SlotActionType.SWAP, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
+            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.currentScreenHandler.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot, SlotActionType.SWAP, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
         }
         AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.networkHandler.sendPacket((Packet)this.lastPacket);
         if (this.swapMode.getValue() != AntiWeakness.Inventory) {
@@ -93,7 +93,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 InventoryUtil.switchToSlot(old);
             }
         } else {
-            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.field_7512.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot, SlotActionType.SWAP, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
+            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.currentScreenHandler.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot, SlotActionType.SWAP, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
             EntityUtil.syncInventory();
         }
     }

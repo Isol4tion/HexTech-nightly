@@ -58,7 +58,7 @@ public abstract class MixinEntity {
             ci.cancel();
             inVelocityEvent event = new inVelocityEvent(movementInput, speed, Wrapper.mc.player.method_36454(), MixinEntity.method_18795(movementInput, speed, Wrapper.mc.player.method_36454()));
             HexTech.EVENT_BUS.post(event);
-            Wrapper.mc.player.method_18799(Wrapper.mc.player.method_18798().add(event.getVelocity()));
+            Wrapper.mc.player.method_18799(Wrapper.mc.player.getVelocity().add(event.getVelocity()));
         }
     }
 

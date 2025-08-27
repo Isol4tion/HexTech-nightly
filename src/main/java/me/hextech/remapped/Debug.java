@@ -36,7 +36,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (Debug.mc.world != null) {
-            for (AbstractClientPlayerEntity player : Debug.mc.world.method_18456()) {
+            for (AbstractClientPlayerEntity player : Debug.mc.world.getPlayers()) {
                 Vec3d vec3d = CombatUtil.getEntityPosVec((PlayerEntity)player, this.ticks.getValueInt());
                 if (this.prerender.getValue()) {
                     Render3DUtil.draw3DBox(matrixStack, new Box(BlockPos.ofFloored((Position)vec3d)), this.color.getValue());

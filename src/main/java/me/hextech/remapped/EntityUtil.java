@@ -59,7 +59,7 @@ implements Wrapper {
     }
 
     public static boolean isArmorLow(PlayerEntity player, int durability) {
-        for (ItemStack piece : player.method_5661()) {
+        for (ItemStack piece : player.getArmorItems()) {
             if (piece == null || piece.isEmpty()) {
                 return true;
             }
@@ -110,7 +110,7 @@ implements Wrapper {
 
     public static boolean canSee(BlockPos pos, Direction side) {
         Vec3d testVec = pos.toCenterPos().add((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5);
-        BlockHitResult result = EntityUtil.mc.world.method_17742(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)EntityUtil.mc.player));
+        BlockHitResult result = EntityUtil.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)EntityUtil.mc.player));
         return result == null || result.getType() == HitResult.Type.MISS;
     }
 
@@ -164,7 +164,7 @@ implements Wrapper {
     }
 
     public static boolean isElytraFlying() {
-        return EntityUtil.mc.player.method_6128();
+        return EntityUtil.mc.player.isFallFlying();
     }
 
     static PendingUpdateManager getUpdateManager(ClientWorld world) {
@@ -189,7 +189,7 @@ implements Wrapper {
 
     public static void syncInventory() {
         if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.inventorySync.getValue()) {
-            EntityUtil.mc.player.networkHandler.sendPacket((Packet)new CloseHandledScreenC2SPacket(EntityUtil.mc.player.field_7512.syncId));
+            EntityUtil.mc.player.networkHandler.sendPacket((Packet)new CloseHandledScreenC2SPacket(EntityUtil.mc.player.currentScreenHandler.syncId));
         }
     }
 }

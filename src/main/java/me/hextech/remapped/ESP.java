@@ -64,12 +64,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static void setTrianglePoints(BufferBuilder bufferBuilder, Matrix4f matrix, float x1, float y1, float x2, float y2, float x3, float y3, Color color) {
-        bufferBuilder.method_22918(matrix, x1, y1, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
-        bufferBuilder.method_22918(matrix, x2, y2, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
-        bufferBuilder.method_22918(matrix, x2, y2, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
-        bufferBuilder.method_22918(matrix, x3, y3, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
-        bufferBuilder.method_22918(matrix, x3, y3, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
-        bufferBuilder.method_22918(matrix, x1, y1, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
+        bufferBuilder.vertex(matrix, x1, y1, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(matrix, x2, y2, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(matrix, x2, y2, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(matrix, x3, y3, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(matrix, x3, y3, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(matrix, x1, y1, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
     }
 
     @Override
@@ -95,16 +95,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     float posY = (float)position.y;
                     float endPosX = (float)position.z;
                     float diff = (endPosX - posX) / 2.0f;
-                    float textWidth = FontRenderers.Arial.getStringWidth(entity.method_5476().getString()) * 1.0f;
+                    float textWidth = FontRenderers.Arial.getStringWidth(entity.getDisplayName().getString()) * 1.0f;
                     float tagX = (posX + diff - textWidth / 2.0f) * 1.0f;
-                    FontRenderers.Arial.drawString(context.getMatrices(), entity.method_5476().getString(), tagX, posY - 10.0f, this.textcolor.getValue().getRGB());
+                    FontRenderers.Arial.drawString(context.getMatrices(), entity.getDisplayName().getString(), tagX, posY - 10.0f, this.textcolor.getValue().getRGB());
                 }
             }
             Matrix4f matrix = context.getMatrices().peek().getPositionMatrix();
-            BufferBuilder bufferBuilder = Tessellator.getInstance().method_1349();
+            BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
             ESP.setupRender();
-            RenderSystem.setShader(GameRenderer::method_34540);
-            bufferBuilder.method_1328(VertexFormat.DrawMode.LINES, VertexFormats.POSITION_COLOR);
+            RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+            bufferBuilder.begin(VertexFormat.DrawMode.LINES, VertexFormats.POSITION_COLOR);
             for (Entity ent : ESP.mc.world.getEntities()) {
                 if (!(ent instanceof ItemEntity)) continue;
                 Vec3d[] vectors = ESP.getPoints(ent);
@@ -127,7 +127,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float endPosY = (float)position.w;
                 this.drawEquilateralTriangle(bufferBuilder, matrix, posX, posY, endPosX, endPosY, this.boxcolor.getValue());
             }
-            BufferRenderer.method_43433((BufferBuilder.class_7433)bufferBuilder.method_1326());
+            BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
             ESP.endRender();
         }
     }

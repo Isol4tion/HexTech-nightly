@@ -117,7 +117,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static boolean canSee(Vec3d from, Vec3d to) {
         BlockHitResult result = null;
         if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world != null) {
-            result = AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world.method_17742(new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player));
+            result = AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world.raycast(new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player));
         }
         return result == null || result.getType() == HitResult.Type.MISS;
     }

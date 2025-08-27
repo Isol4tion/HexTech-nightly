@@ -96,16 +96,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.ticks = 0;
         switch (this.mode.getValue().ordinal()) {
             case 1: {
-                if (!(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512 instanceof CraftingScreenHandler) || mc.getNetworkHandler() == null) {
+                if (ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player != null && (!(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler instanceof CraftingScreenHandler) || mc.getNetworkHandler() == null)) {
                     return;
                 }
                 try {
-                    List recipeResultCollectionList = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getRecipeBook().getOrderedResults();
+                    List<RecipeResultCollection> recipeResultCollectionList = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getRecipeBook().getOrderedResults();
                     for (RecipeResultCollection recipeResultCollection : recipeResultCollectionList) {
-                        for (RecipeEntry recipe : recipeResultCollection.method_2648(true)) {
+                        for (RecipeEntry recipe : recipeResultCollection.getRecipes(true)) {
                             int i = 0;
                             while ((double)i < this.craftPackets.getValue()) {
-                                mc.getNetworkHandler().sendPacket((Packet)new CraftRequestC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.syncId, recipe, true));
+                                mc.getNetworkHandler().sendPacket((Packet)new CraftRequestC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.syncId, recipe, true));
                                 ++i;
                             }
                         }
@@ -176,7 +176,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (!(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.currentScreen instanceof LecternScreen)) {
                     return;
                 }
-                mc.getNetworkHandler().sendPacket((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.syncId, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.getRevision(), 0, 0, SlotActionType.QUICK_MOVE, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.getCursorStack().copy(), Int2ObjectMaps.emptyMap()));
+                mc.getNetworkHandler().sendPacket((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.syncId, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.getRevision(), 0, 0, SlotActionType.QUICK_MOVE, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.getCursorStack().copy(), Int2ObjectMaps.emptyMap()));
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
                 break;
@@ -208,7 +208,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 REAL.put(0, (Object)new ItemStack((ItemConvertible)Items.RED_DYE, 1));
                 int i = 0;
                 while ((double)i < this.clickSlotPackets.getValue()) {
-                    mc.getNetworkHandler().sendPacket((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.field_7512.syncId, 123344, 2957234, 2859623, SlotActionType.PICKUP, new ItemStack((ItemConvertible)Items.AIR, -1), (Int2ObjectMap)REAL));
+                    mc.getNetworkHandler().sendPacket((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.syncId, 123344, 2957234, 2859623, SlotActionType.PICKUP, new ItemStack((ItemConvertible)Items.AIR, -1), (Int2ObjectMap)REAL));
                     ++i;
                 }
                 break;
@@ -249,7 +249,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 break;
             }
             case 15: {
-                if (!ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_31549().creativeMode) {
+                if (!ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getAbilities().creativeMode) {
                     if (this.smartDisable.getValue()) {
                         this.disable();
                     }
@@ -259,11 +259,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 NbtCompound tag = new NbtCompound();
                 NbtList list = new NbtList();
                 ItemStack the = new ItemStack((ItemConvertible)Items.CAMPFIRE);
-                list.add((Object)NbtDouble.of((double)pos.x));
-                list.add((Object)NbtDouble.of((double)pos.y));
-                list.add((Object)NbtDouble.of((double)pos.z));
+                list.add(NbtDouble.of((double)pos.x));
+                list.add(NbtDouble.of((double)pos.y));
+                list.add(NbtDouble.of((double)pos.z));
                 tag.put("Pos", (NbtElement)list);
-                the.method_7959("BlockEntityTag", (NbtElement)tag);
+                the.setSubNbt("BlockEntityTag", (NbtElement)tag);
                 int i = 0;
                 while ((double)i < this.creativePackets.getValue()) {
                     mc.getNetworkHandler().sendPacket((Packet)new CreativeInventoryActionC2SPacket(1, the));
@@ -272,7 +272,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 break;
             }
             case 16: {
-                Entity vehicle = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_5854();
+                Entity vehicle = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getVehicle();
                 if (vehicle == null) {
                     if (this.smartDisable.getValue()) {
                         this.disable();
@@ -290,7 +290,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 break;
             }
             case 17: {
-                Entity vehicle = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.method_5854();
+                Entity vehicle = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getVehicle();
                 if (vehicle == null) {
                     if (this.smartDisable.getValue()) {
                         this.disable();
@@ -374,12 +374,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     NbtCompound tag = new NbtCompound();
                     NbtList list = new NbtList();
                     for (int j = 0; j < 99; ++j) {
-                        list.add((Object)NbtString.of((String)("{\"text\":" + RandomStringUtils.randomAlphabetic((int)200) + "\"}")));
+                        list.add(NbtString.of((String)("{\"text\":" + RandomStringUtils.randomAlphabetic((int)200) + "\"}")));
                     }
                     tag.put("author", (NbtElement)NbtString.of((String)RandomStringUtils.randomAlphabetic((int)9000)));
                     tag.put("title", (NbtElement)NbtString.of((String)RandomStringUtils.randomAlphabetic((int)25564)));
                     tag.put("pages", (NbtElement)list);
-                    book.method_7980(tag);
+                    book.setNbt(tag);
                     ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new CreativeInventoryActionC2SPacket(this.slot, book));
                 }
                 break;

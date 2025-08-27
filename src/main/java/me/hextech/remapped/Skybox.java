@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 @Beta
 public class Skybox
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
-    public static final CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq skyRenderer;
+    public static final CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq skyRenderer = new CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq();
     public static Skybox INSTANCE;
     public final ColorSetting color = this.add(new ColorSetting("Color", new Color(0.77f, 0.31f, 0.73f)));
     public final ColorSetting color2 = this.add(new ColorSetting("Color2", new Color(0.77f, 0.31f, 0.73f)));

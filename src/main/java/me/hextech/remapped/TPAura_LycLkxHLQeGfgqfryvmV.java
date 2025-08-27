@@ -6,21 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import me.hextech.asm.accessors.IEntity;
 import me.hextech.asm.accessors.ILivingEntity;
-import me.hextech.remapped.Aura;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PathUtils;
-import me.hextech.remapped.Render3DUtil;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.SwingSide;
-import me.hextech.remapped.TPAura;
-import me.hextech.remapped.TPAura_XzEqwIDEtUaoPqXpLXTU;
-import me.hextech.remapped.Timer;
-import me.hextech.remapped.Vec3;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -174,5 +159,23 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return true;
         }
         return entity instanceof AnimalEntity && this.Animals.getValue();
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public enum TPAura_XzEqwIDEtUaoPqXpLXTU {
+        DISTANCE,
+        HEALTH;
+
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public enum TPAura {
+        General,
+        Target;
+
     }
 }

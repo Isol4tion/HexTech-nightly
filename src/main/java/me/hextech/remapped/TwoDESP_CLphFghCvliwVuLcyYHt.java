@@ -4,17 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
 import java.util.ArrayList;
 import me.hextech.HexTech;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.FontRenderers;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Render2DUtil;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.TextUtil;
-import me.hextech.remapped.TwoDESP;
-import me.hextech.remapped.TwoDESP_pAuUDPcZwSGmXQFRqNNy;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferRenderer;
@@ -37,7 +26,7 @@ import org.joml.Vector4d;
 
 public class TwoDESP_CLphFghCvliwVuLcyYHt
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
-    private final EnumSetting page = this.add(new EnumSetting<TwoDESP>("Settings", TwoDESP.Target));
+    private final EnumSetting page = this.add(new EnumSetting<>("Settings", TwoDESP.Target));
     public final ColorSetting armorDuraColor = this.add(new ColorSetting("Armor Dura Color", new Color(0x2FFF00), v -> this.page.getValue() == TwoDESP.Color));
     public final ColorSetting hHealth = this.add(new ColorSetting("High Health Color", new Color(0, 255, 0, 255), v -> this.page.getValue() == TwoDESP.Color));
     public final ColorSetting mHealth = this.add(new ColorSetting("Mid Health Color", new Color(255, 255, 0, 255), v -> this.page.getValue() == TwoDESP.Color));
@@ -82,15 +71,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
         Matrix4f matrix = context.getMatrices().peek().getPositionMatrix();
-        BufferBuilder bufferBuilder = Tessellator.getInstance().method_1349();
+        BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
         Render2DUtil.setupRender();
-        RenderSystem.setShader(GameRenderer::method_34540);
-        bufferBuilder.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
+        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
         for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.world.getEntities()) {
             if (!this.shouldRender(ent)) continue;
             this.drawBox(bufferBuilder, ent, matrix, context);
         }
-        BufferRenderer.method_43433((BufferBuilder.class_7433)bufferBuilder.method_1326());
+        BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
         Render2DUtil.endRender();
         for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.world.getEntities()) {
             if (!this.shouldRender(ent)) continue;
@@ -117,10 +106,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (entity instanceof EndCrystalEntity) {
             return this.crystals.getValue();
         }
-        return switch (TwoDESP_pAuUDPcZwSGmXQFRqNNy.$SwitchMap$net$minecraft$entity$SpawnGroup[entity.getType().getSpawnGroup().ordinal()]) {
-            case 1, 2 -> this.creatures.getValue();
-            case 3 -> this.monsters.getValue();
-            case 4, 5 -> this.ambients.getValue();
+        return switch (entity.getType().getSpawnGroup()) {
+            case CREATURE, WATER_CREATURE -> this.creatures.getValue();
+            case MONSTER -> this.monsters.getValue();
+            case AMBIENT, WATER_AMBIENT -> this.ambients.getValue();
             default -> this.others.getValue();
         };
     }
@@ -138,10 +127,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (entity instanceof EndCrystalEntity) {
             return this.crystalsC.getValue();
         }
-        return switch (TwoDESP_pAuUDPcZwSGmXQFRqNNy.$SwitchMap$net$minecraft$entity$SpawnGroup[entity.getType().getSpawnGroup().ordinal()]) {
-            case 1, 2 -> this.creaturesC.getValue();
-            case 3 -> this.monstersC.getValue();
-            case 4, 5 -> this.ambientsC.getValue();
+
+        return switch (entity.getType().getSpawnGroup()) {
+            case CREATURE, WATER_CREATURE -> this.creaturesC.getValue();
+            case MONSTER -> this.monstersC.getValue();
+            case AMBIENT, WATER_AMBIENT -> this.ambientsC.getValue();
             default -> this.othersC.getValue();
         };
     }
@@ -239,12 +229,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 ItemEntity entity = (ItemEntity)ent;
                 if (this.drawItem.getValue()) {
                     float diff = (float)((endPosX - posX) / 2.0);
-                    float textWidth = FontRenderers.Arial.getWidth(entity.method_5476().getString()) * 1.0f;
+                    float textWidth = FontRenderers.Arial.getWidth(entity.getDisplayName().getString()) * 1.0f;
                     float tagX = (float)((posX + (double)diff - (double)(textWidth / 2.0f)) * 1.0);
                     int count = entity.getStack().getCount();
-                    context.drawText(TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer, entity.method_5476().getString(), (int)tagX, (int)(posY - 10.0), this.textcolor.getValue().getRGB(), false);
+                    context.drawText(TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer, entity.getDisplayName().getString(), (int)tagX, (int)(posY - 10.0), this.textcolor.getValue().getRGB(), false);
                     if (this.drawItemC.getValue()) {
-                        context.drawText(TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer, "x" + count, (int)(tagX + (float)TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer.getWidth(entity.method_5476().getString() + " ")), (int)posY - 10, this.countColor.getValue().getRGB(), false);
+                        context.drawText(TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer, "x" + count, (int)(tagX + (float)TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer.getWidth(entity.getDisplayName().getString() + " ")), (int)posY - 10, this.countColor.getValue().getRGB(), false);
                     }
                 }
             }
@@ -279,5 +269,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return this.mHealth.getValue();
         }
         return this.lHealth.getValue();
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public enum TwoDESP {
+        Setting,
+        Target,
+        Color;
+
     }
 }

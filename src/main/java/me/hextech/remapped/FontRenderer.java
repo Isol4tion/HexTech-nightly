@@ -149,7 +149,7 @@ implements Closeable {
         GL11.glTexParameteri((int)3553, (int)10241, (int)9729);
         GL11.glTexParameteri((int)3553, (int)10240, (int)9729);
         RenderSystem.setShader(GameRenderer::method_34543);
-        BufferBuilder bb = Tessellator.getInstance().method_1349();
+        BufferBuilder bb = Tessellator.getInstance().getBuffer();
         Matrix4f mat = stack.peek().getPositionMatrix();
         char[] chars = s.toCharArray();
         float xOffset = 0.0f;
@@ -196,7 +196,7 @@ implements Closeable {
         for (Identifier identifier : GLYPH_PAGE_CACHE.keySet()) {
             RenderSystem.setShaderTexture((int)0, (Identifier)identifier);
             List objects = (List)GLYPH_PAGE_CACHE.get((Object)identifier);
-            bb.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+            bb.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
             for (_ZitfNZXjZiLiXZJDgFqm object : objects) {
                 float xo = object.atX;
                 float yo = object.atY;
@@ -211,12 +211,12 @@ implements Closeable {
                 float v1 = (float)glyph.v() / (float)owner.height;
                 float u2 = (float)(glyph.u() + glyph.width()) / (float)owner.width;
                 float v2 = (float)(glyph.v() + glyph.height()) / (float)owner.height;
-                bb.method_22918(mat, xo + 0.0f, yo + h, 0.0f).texture(u1, v2).color(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + w, yo + h, 0.0f).texture(u2, v2).color(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + w, yo + 0.0f, 0.0f).texture(u2, v1).color(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + 0.0f, yo + 0.0f, 0.0f).texture(u1, v1).color(cr, cg, cb, a).method_1344();
+                bb.vertex(mat, xo + 0.0f, yo + h, 0.0f).texture(u1, v2).color(cr, cg, cb, a).next();
+                bb.vertex(mat, xo + w, yo + h, 0.0f).texture(u2, v2).color(cr, cg, cb, a).next();
+                bb.vertex(mat, xo + w, yo + 0.0f, 0.0f).texture(u2, v1).color(cr, cg, cb, a).next();
+                bb.vertex(mat, xo + 0.0f, yo + 0.0f, 0.0f).texture(u1, v1).color(cr, cg, cb, a).next();
             }
-            BufferRenderer.method_43433((BufferBuilder.class_7433)bb.method_1326());
+            BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bb.end());
         }
         stack.pop();
         GLYPH_PAGE_CACHE.clear();
@@ -233,7 +233,7 @@ implements Closeable {
         GL11.glTexParameteri((int)3553, (int)10241, (int)9729);
         GL11.glTexParameteri((int)3553, (int)10240, (int)9729);
         RenderSystem.setShader(GameRenderer::method_34543);
-        BufferBuilder bb = Tessellator.getInstance().method_1349();
+        BufferBuilder bb = Tessellator.getInstance().getBuffer();
         Matrix4f mat = stack.peek().getPositionMatrix();
         char[] chars = s.toCharArray();
         float xOffset = 0.0f;
@@ -261,7 +261,7 @@ implements Closeable {
         for (Identifier identifier : GLYPH_PAGE_CACHE.keySet()) {
             RenderSystem.setShaderTexture((int)0, (Identifier)identifier);
             List objects = (List)GLYPH_PAGE_CACHE.get((Object)identifier);
-            bb.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+            bb.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
             for (_ZitfNZXjZiLiXZJDgFqm object : objects) {
                 float xo = object.atX;
                 float yo = object.atY;
@@ -276,12 +276,12 @@ implements Closeable {
                 float v1 = (float)glyph.v() / (float)owner.height;
                 float u2 = (float)(glyph.u() + glyph.width()) / (float)owner.width;
                 float v2 = (float)(glyph.v() + glyph.height()) / (float)owner.height;
-                bb.method_22918(mat, xo + 0.0f, yo + h, 0.0f).texture(u1, v2).color(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + w, yo + h, 0.0f).texture(u2, v2).color(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + w, yo + 0.0f, 0.0f).texture(u2, v1).color(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + 0.0f, yo + 0.0f, 0.0f).texture(u1, v1).color(cr, cg, cb, a).method_1344();
+                bb.vertex(mat, xo + 0.0f, yo + h, 0.0f).texture(u1, v2).color(cr, cg, cb, a).next();
+                bb.vertex(mat, xo + w, yo + h, 0.0f).texture(u2, v2).color(cr, cg, cb, a).next();
+                bb.vertex(mat, xo + w, yo + 0.0f, 0.0f).texture(u2, v1).color(cr, cg, cb, a).next();
+                bb.vertex(mat, xo + 0.0f, yo + 0.0f, 0.0f).texture(u1, v1).color(cr, cg, cb, a).next();
             }
-            BufferRenderer.method_43433((BufferBuilder.class_7433)bb.method_1326());
+            BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bb.end());
         }
         stack.pop();
         GLYPH_PAGE_CACHE.clear();

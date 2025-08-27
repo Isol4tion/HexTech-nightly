@@ -70,7 +70,7 @@ implements Wrapper {
             this.pathCache.put((PlayerEntity)PredictionSetting.mc.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.simulate((PlayerEntity)PredictionSetting.mc.player, this.selfExtrap.getValueInt()));
         }
         if (this.drawnTarget.getValue()) {
-            for (PlayerEntity p : PredictionSetting.mc.world.method_18456()) {
+            for (PlayerEntity p : PredictionSetting.mc.world.getPlayers()) {
                 if (p == PredictionSetting.mc.player || p.method_5858((Entity)PredictionSetting.mc.player) > 4096.0) continue;
                 int ticks = Math.max(this.placeExtrap.getValueInt(), this.breakExtrap.getValueInt());
                 this.pathCache.put(p, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.simulate(p, ticks));
@@ -163,22 +163,22 @@ implements Wrapper {
                     Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
                     this.predict.method_33574(center);
                     this.predict.method_6033(player.getHealth());
-                    this.predict.field_6014 = player.field_6014;
-                    this.predict.field_6036 = player.field_6036;
-                    this.predict.field_5969 = player.field_5969;
+                    this.predict.prevX = player.prevX;
+                    this.predict.prevY = player.prevY;
+                    this.predict.prevZ = player.prevZ;
                     this.predict.method_24830(player.isOnGround());
                     this.predict.getInventory().clone(player.getInventory());
-                    this.predict.method_18380(player.method_18376());
+                    this.predict.method_18380(player.getPose());
                     player.method_6026().forEach(arg_0 -> ((PlayerEntity)this.predict).addStatusEffect(arg_0));
                 } else if (PredictionSetting.INSTANCE.mode.getValue() == _mJSQReswTiaqOSqkjOmh.HexTech) {
                     this.predict.method_33574(player.getPos().add(CombatUtil.getMotionVec((Entity)player, PredictionSetting.INSTANCE.breakextrap.getValueInt(), true)));
                     this.predict.method_6033(player.getHealth());
-                    this.predict.field_6014 = player.field_6014;
-                    this.predict.field_5969 = player.field_5969;
-                    this.predict.field_6036 = player.field_6036;
+                    this.predict.prevX = player.prevX;
+                    this.predict.prevZ = player.prevZ;
+                    this.predict.prevY = player.prevY;
                     this.predict.method_24830(player.isOnGround());
                     this.predict.getInventory().clone(player.getInventory());
-                    this.predict.method_18380(player.method_18376());
+                    this.predict.method_18380(player.getPose());
                     for (StatusEffectInstance se : new ArrayList(player.method_6026())) {
                         this.predict.addStatusEffect(se);
                     }

@@ -21,14 +21,14 @@ implements Wrapper {
     }
 
     public static double getDistance2D() {
-        double xDist = MovementUtil.mc.player.getX() - MovementUtil.mc.player.field_6014;
-        double zDist = MovementUtil.mc.player.getZ() - MovementUtil.mc.player.field_5969;
+        double xDist = MovementUtil.mc.player.getX() - MovementUtil.mc.player.prevX;
+        double zDist = MovementUtil.mc.player.getZ() - MovementUtil.mc.player.prevZ;
         return Math.sqrt(xDist * xDist + zDist * zDist);
     }
 
     public static double getJumpSpeed() {
         double defaultSpeed = 0.0;
-        if (MovementUtil.mc.player.method_6059(StatusEffects.field_5913)) {
+        if (MovementUtil.mc.player.hasStatusEffect(StatusEffects.field_5913)) {
             int amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.field_5913)).getAmplifier();
             defaultSpeed += (double)(amplifier + 1) * 0.1;
         }
@@ -105,27 +105,27 @@ implements Wrapper {
     }
 
     public static double getMotionX() {
-        return MovementUtil.mc.player.method_18798().x;
+        return MovementUtil.mc.player.getVelocity().x;
     }
 
     public static void setMotionX(double x) {
-        ((IVec3d)MovementUtil.mc.player.method_18798()).setX(x);
+        ((IVec3d)MovementUtil.mc.player.getVelocity()).setX(x);
     }
 
     public static double getMotionY() {
-        return MovementUtil.mc.player.method_18798().y;
+        return MovementUtil.mc.player.getVelocity().y;
     }
 
     public static void setMotionY(double y) {
-        ((IVec3d)MovementUtil.mc.player.method_18798()).setY(y);
+        ((IVec3d)MovementUtil.mc.player.getVelocity()).setY(y);
     }
 
     public static double getMotionZ() {
-        return MovementUtil.mc.player.method_18798().z;
+        return MovementUtil.mc.player.getVelocity().z;
     }
 
     public static void setMotionZ(double z) {
-        ((IVec3d)MovementUtil.mc.player.method_18798()).setZ(z);
+        ((IVec3d)MovementUtil.mc.player.getVelocity()).setZ(z);
     }
 
     public static double getSpeed(boolean slowness) {
@@ -135,12 +135,12 @@ implements Wrapper {
 
     public static double getSpeed(boolean slowness, double defaultSpeed) {
         int amplifier;
-        if (MovementUtil.mc.player.method_6059(StatusEffects.field_5904)) {
-            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.field_5904)).getAmplifier();
+        if (MovementUtil.mc.player.hasStatusEffect(StatusEffects.SPEED)) {
+            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.SPEED)).getAmplifier();
             defaultSpeed *= 1.0 + 0.2 * (double)(amplifier + 1);
         }
-        if (slowness && MovementUtil.mc.player.method_6059(StatusEffects.field_5909)) {
-            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.field_5909)).getAmplifier();
+        if (slowness && MovementUtil.mc.player.hasStatusEffect(StatusEffects.SLOWNESS)) {
+            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.SLOWNESS)).getAmplifier();
             defaultSpeed /= 1.0 + 0.2 * (double)(amplifier + 1);
         }
         if (MovementUtil.mc.player.isSneaking()) {

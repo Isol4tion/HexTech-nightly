@@ -20,7 +20,7 @@ extends Command {
 
     @Override
     public void runCommand(String[] parameters) {
-        mc.method_18859(() -> {
+        mc.executeTask(() -> {
             if (RejoinCommand.mc.world != null && mc.getCurrentServerEntry() != null) {
                 ServerInfo lastestServerEntry = mc.getCurrentServerEntry();
                 new DisconnectS2CPacket(Text.of((String)"Self kick")).apply((ClientCommonPacketListener)RejoinCommand.mc.player.networkHandler);

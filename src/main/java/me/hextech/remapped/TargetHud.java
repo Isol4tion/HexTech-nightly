@@ -125,7 +125,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender2D(DrawContext drawContext, float tickDelta) {
         ClientPlayerEntity target = null;
-        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOn() && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget.method_29504()) {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOn() && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget.isDead()) {
             target = AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget;
             this.direction = true;
         } else if (TargetHud.mc.currentScreen instanceof ChatScreen) {
@@ -141,9 +141,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float posX = 114514.0f;
         float posY = 114514.0f;
         if (this.move.getValue() && (double)target.distanceTo((Entity)TargetHud.mc.player) <= this.moveDis.getValue()) {
-            double x = target.field_6014 + (target.getX() - target.field_6014) * (double)mc.getTickDelta();
-            double y = target.field_6036 + (target.getY() - target.field_6036) * (double)mc.getTickDelta();
-            double z = target.field_5969 + (target.getZ() - target.field_5969) * (double)mc.getTickDelta();
+            double x = target.prevX + (target.getX() - target.prevX) * (double)mc.getTickDelta();
+            double y = target.prevY + (target.getY() - target.prevY) * (double)mc.getTickDelta();
+            double z = target.prevZ + (target.getZ() - target.prevZ) * (double)mc.getTickDelta();
             Vec3d vector = new Vec3d(x, y + target.getBoundingBox().getLengthY() + (double)this.moveY.getValueInt(), z);
             vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
             if (vector.z > 0.0 && vector.z < 1.0) {
@@ -269,7 +269,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float h = (float)(color >> 8 & 0xFF) / 255.0f;
         float k = (float)(color & 0xFF) / 255.0f;
         TargetHud.setupRender();
-        RenderSystem.setShader(GameRenderer::method_34540);
+        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         this.renderRoundedQuadInternal(matrix, g, h, k, f, fromX, fromY, toX, toY, radC1, radC2, radC3, radC4, samples);
         if (blur) {
             // empty if block
@@ -283,8 +283,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void renderRoundedQuadInternal(Matrix4f matrix, float cr, float cg, float cb, float ca, double fromX, double fromY, double toX, double toY, double radC1, double radC2, double radC3, double radC4, double samples) {
-        BufferBuilder bufferBuilder = Tessellator.getInstance().method_1349();
-        bufferBuilder.method_1328(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
+        BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
+        bufferBuilder.begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
         double[][] map = new double[][]{{toX - radC4, toY - radC4, radC4}, {toX - radC2, fromY + radC2, radC2}, {fromX + radC1, fromY + radC1, radC1}, {fromX + radC3, toY - radC3, radC3}};
         for (int i = 0; i < 4; ++i) {
             double[] current = map[i];
@@ -293,14 +293,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float rad1 = (float)Math.toRadians((double)r);
                 float sin = (float)((double)Math.sin((float)rad1) * rad);
                 float cos = (float)((double)Math.cos((float)rad1) * rad);
-                bufferBuilder.method_22918(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).method_1344();
+                bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
             }
             float rad1 = (float)Math.toRadians((double)(90.0 + (double)i * 90.0));
             float sin = (float)((double)Math.sin((float)rad1) * rad);
             float cos = (float)((double)Math.cos((float)rad1) * rad);
-            bufferBuilder.method_22918(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).method_1344();
+            bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
         }
-        BufferRenderer.method_43433((BufferBuilder.class_7433)bufferBuilder.method_1326());
+        BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
     }
 
     public void renderRoundedQuad(MatrixStack stack, Color c, double x, double y, double x1, double y1, double rad, double samples, boolean blur) {
@@ -310,8 +310,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public PlayerEntity getTarget() {
         float min = 1000000.0f;
         PlayerEntity best = null;
-        for (PlayerEntity player : TargetHud.mc.world.method_18456()) {
-            if (!(player.distanceTo((Entity)TargetHud.mc.player) < min) || player.method_29504() || player == TargetHud.mc.player || HexTech.FRIEND.isFriend(player)) continue;
+        for (PlayerEntity player : TargetHud.mc.world.getPlayers()) {
+            if (!(player.distanceTo((Entity)TargetHud.mc.player) < min) || player.isDead() || player == TargetHud.mc.player || HexTech.FRIEND.isFriend(player)) continue;
             min = player.distanceTo((Entity)TargetHud.mc.player);
             best = player;
         }

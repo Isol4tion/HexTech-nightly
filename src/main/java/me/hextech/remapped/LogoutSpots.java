@@ -105,7 +105,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        for (PlayerEntity player : LogoutSpots.mc.world.method_18456()) {
+        for (PlayerEntity player : LogoutSpots.mc.world.getPlayers()) {
             if (player == null || player.equals((Object)LogoutSpots.mc.player)) continue;
             this.playerCache.put(player.getGameProfile().getId(), player);
         }

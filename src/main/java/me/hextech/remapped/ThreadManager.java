@@ -5,7 +5,7 @@ import me.hextech.HexTech;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class ThreadManager
+public class ThreadManager
 extends Thread {
     @Override
     public void run() {

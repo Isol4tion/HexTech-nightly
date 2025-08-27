@@ -10,6 +10,7 @@ import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.PacketEvent_YXFfxdDjQAfjBumqRbBu;
 import me.hextech.remapped.SliderSetting;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
@@ -40,42 +41,53 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     public void onReceivePacket(PacketEvent_YXFfxdDjQAfjBumqRbBu e) {
-        IExplosionS2CPacket packet;
-        FishingBobberEntity fishHook;
-        EntityStatusS2CPacket packet2;
-        Object object;
-        if (Velocity.nullCheck()) {
+        if (nullCheck()) {
             return;
         }
-        if (Velocity.mc.player != null && (Velocity.mc.player.method_5799() || Velocity.mc.player.method_5869() || Velocity.mc.player.method_5771()) && this.pauseInLiquid.getValue()) {
+        if (Velocity.mc.player != null && (Velocity.mc.player.isTouchingWater() || Velocity.mc.player.isSubmergedInWater() || Velocity.mc.player.isInLava()) && this.pauseInLiquid.getValue()) {
             return;
         }
-        if (this.hitboxpush.getValue() && (object = e.getPacket()) instanceof EntityStatusS2CPacket && (packet2 = (EntityStatusS2CPacket)object).getStatus() == 31 && (object = packet2.getEntity((World)Velocity.mc.world)) instanceof FishingBobberEntity && (fishHook = (FishingBobberEntity)object).getHookedEntity() == Velocity.mc.player) {
-            e.setCancelled(true);
+        if (this.hitboxpush.getValue()) {
+            final EntityStatusS2CPacket packet4 = e.getPacket();
+            if (packet4 instanceof EntityStatusS2CPacket) {
+                final EntityStatusS2CPacket packet = packet4;
+                if (packet.getStatus() == 31) {
+                    final Entity getEntity = packet.getEntity((World)Velocity.mc.world);
+                    if (getEntity instanceof final FishingBobberEntity fishHook) {
+                        if (fishHook.getHookedEntity() == Velocity.mc.player) {
+                            e.setCancelled(true);
+                        }
+                    }
+                }
+            }
         }
         if (BypassSetting_RInKGmTQYgWFRhsUOiJP.INSTANCE.grimvelocity.getValue() && !EntityUtil.isInsideBlock()) {
             return;
         }
-        float h = this.horizontal.getValueFloat() / 100.0f;
-        float v = this.vertical.getValueFloat() / 100.0f;
+        final float h = this.horizontal.getValueFloat() / 100.0f;
+        final float v = this.vertical.getValueFloat() / 100.0f;
         if (e.getPacket() instanceof ExplosionS2CPacket) {
-            packet = (IExplosionS2CPacket)e.getPacket();
-            packet.setX(packet.getX() * h);
-            packet.setY(packet.getY() * v);
-            packet.setZ(packet.getZ() * h);
+            final IExplosionS2CPacket packet2 = e.getPacket();
+            packet2.setX(packet2.getX() * h);
+            packet2.setY(packet2.getY() * v);
+            packet2.setZ(packet2.getZ() * h);
             if (this.noExplosions.getValue()) {
                 e.cancel();
             }
             return;
         }
-        Object t = e.getPacket();
-        if (t instanceof EntityVelocityUpdateS2CPacket && (packet = (EntityVelocityUpdateS2CPacket)t).getEntityId() == Velocity.mc.player.getId()) {
-            if (this.horizontal.getValue() == 0.0 && this.vertical.getValue() == 0.0) {
-                e.cancel();
-            } else {
-                ((IEntityVelocityUpdateS2CPacket)((Object)packet)).setX((int)((float)packet.method_11815() * h));
-                ((IEntityVelocityUpdateS2CPacket)((Object)packet)).setY((int)((float)packet.method_11816() * v));
-                ((IEntityVelocityUpdateS2CPacket)((Object)packet)).setZ((int)((float)packet.method_11819() * h));
+        final EntityVelocityUpdateS2CPacket packet5 = e.getPacket();
+        if (packet5 instanceof EntityVelocityUpdateS2CPacket) {
+            final EntityVelocityUpdateS2CPacket packet3 = packet5;
+            if (packet3.getId() == Velocity.mc.player.getId()) {
+                if (this.horizontal.getValue() == 0.0 && this.vertical.getValue() == 0.0) {
+                    e.cancel();
+                }
+                else {
+                    ((IEntityVelocityUpdateS2CPacket)packet3).setX((int)(packet3.getVelocityX() * h));
+                    ((IEntityVelocityUpdateS2CPacket)packet3).setY((int)(packet3.getVelocityY() * v));
+                    ((IEntityVelocityUpdateS2CPacket)packet3).setZ((int)(packet3.getVelocityZ() * h));
+                }
             }
         }
     }

@@ -34,7 +34,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (!BowBomb.mc.player.isUsingItem() || BowBomb.mc.player.method_6030().getItem() != Items.BOW) {
+        if (!BowBomb.mc.player.isUsingItem() || BowBomb.mc.player.getActiveItem().getItem() != Items.BOW) {
             this.activeTimer.reset();
         }
     }
@@ -82,7 +82,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void spoof(double x, double y, double z, boolean ground) {
         if (this.rotation.getValue()) {
-            BowBomb.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.Full(x, y, z, BowBomb.mc.player.getYaw(), BowBomb.mc.player.method_36455(), ground));
+            BowBomb.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.Full(x, y, z, BowBomb.mc.player.getYaw(), BowBomb.mc.player.getPitch(), ground));
         } else {
             BowBomb.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(x, y, z, ground));
         }

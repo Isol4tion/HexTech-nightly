@@ -68,7 +68,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 GL11.glEnable((int)3042);
                 double temp = 0.01;
                 for (double i = 0.0; i < 0.8; i += temp) {
-                    HoleSnap.doCircle(matrixStack, ColorUtil.injectAlpha(this.color.getValue(), (int)Math.min((double)(this.color.getValue().getAlpha() * 2) / (0.8 / temp), 255.0)), i, new Vec3d(MathUtil.interpolate(Scaffold.mc.player.field_6038, Scaffold.mc.player.getX(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.field_5971, Scaffold.mc.player.getY(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.field_5989, Scaffold.mc.player.getZ(), partialTicks)), 5);
+                    HoleSnap.doCircle(matrixStack, ColorUtil.injectAlpha(this.color.getValue(), (int)Math.min((double)(this.color.getValue().getAlpha() * 2) / (0.8 / temp), 255.0)), i, new Vec3d(MathUtil.interpolate(Scaffold.mc.player.lastRenderX, Scaffold.mc.player.getX(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.lastRenderY, Scaffold.mc.player.getY(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.lastRenderZ, Scaffold.mc.player.getZ(), partialTicks)), 5);
                 }
                 RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
                 GL11.glDisable((int)3042);

@@ -50,7 +50,7 @@ implements Wrapper {
         if ((modDistance = Math.sqrt(predict.squaredDistanceTo(pos))) > 10.0) {
             return 0.0;
         }
-        double exposure = Explosion.method_17752((Vec3d)pos, (Entity)predict);
+        double exposure = Explosion.getExposure((Vec3d)pos, (Entity)predict);
         double impact = (1.0 - modDistance / 10.0) * exposure;
         double damage = (impact * impact + impact) / 2.0 * 7.0 * 10.0 + 1.0000004;
         damage = MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.getDamageForDifficulty(damage);
@@ -58,7 +58,7 @@ implements Wrapper {
             damage = MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.resistanceReduction((LivingEntity)player, damage);
         }
         if (player != null) {
-            damage = DamageUtil.method_5496((float)((float)damage), (float)player.method_6096(), (float)((float)Objects.requireNonNull(player.method_5996(EntityAttributes.field_23725)).getValue()));
+            damage = DamageUtil.getDamageLeft((float)((float)damage), (float)player.getArmor(), (float)((float)Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_ARMOR_TOUGHNESS)).getValue()));
         }
         ((IExplosion)explosion).setWorld((World)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world);
         ((IExplosion)explosion).setX(pos.x);
@@ -76,7 +76,7 @@ implements Wrapper {
 
     public static double getDamageForDifficulty(double damage) {
         if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world != null) {
-            return switch (MioExplosionUtil.$SwitchMap$net$minecraft$world$Difficulty[MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_8407().ordinal()]) {
+            return switch (MioExplosionUtil.$SwitchMap$net$minecraft$world$Difficulty[MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.getDifficulty().ordinal()]) {
                 case 1 -> 0.0;
                 case 2 -> Math.min(damage / 2.0 + 1.0000004, damage);
                 case 3 -> damage * 3.0 / 2.0;
@@ -89,7 +89,7 @@ implements Wrapper {
     public static double blastProtReduction(Entity player, double damage, Explosion explosion) {
         int protLevel = 0;
         if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world != null) {
-            protLevel = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_48963().explosion(explosion));
+            protLevel = EnchantmentHelper.getProtectionAmount((Iterable)player.getArmorItems(), (DamageSource)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.getDamageSources().explosion(explosion));
         }
         if (protLevel > 20) {
             protLevel = 20;
@@ -98,8 +98,8 @@ implements Wrapper {
     }
 
     public static double resistanceReduction(LivingEntity player, double damage) {
-        if (player.method_6059(StatusEffects.field_5907)) {
-            int lvl = Objects.requireNonNull(player.method_6112(StatusEffects.field_5907)).getAmplifier() + 1;
+        if (player.hasStatusEffect(StatusEffects.RESISTANCE)) {
+            int lvl = Objects.requireNonNull(player.getStatusEffect(StatusEffects.RESISTANCE)).getAmplifier() + 1;
             damage *= 1.0 - (double)lvl * 0.200021;
         }
         return damage < 0.0 ? 0.0 : damage;
@@ -111,7 +111,7 @@ implements Wrapper {
         double xDiff;
         double diff;
         double distExposure;
-        if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world != null && MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_8407() == Difficulty.PEACEFUL) {
+        if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world != null && MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.getDifficulty() == Difficulty.PEACEFUL) {
             return 0.0f;
         }
         if (target.getAbilities().creativeMode) {
@@ -128,25 +128,25 @@ implements Wrapper {
         if (!new Box((double)MathHelper.floor((double)(explosionPos.x - 11.0)), (double)MathHelper.floor((double)(explosionPos.y - 11.0)), (double)MathHelper.floor((double)(explosionPos.z - 11.0)), (double)MathHelper.floor((double)(explosionPos.x + 13.0)), (double)MathHelper.floor((double)(explosionPos.y + 13.0)), (double)MathHelper.floor((double)(explosionPos.z + 13.0))).intersects(predict.getBoundingBox())) {
             return 0.0f;
         }
-        if (!target.method_5659(explosion) && !target.method_5655() && (distExposure = (double)MathHelper.sqrt((float)((float)predict.squaredDistanceTo(explosionPos))) / 12.0) <= 1.0 && (diff = (double)MathHelper.sqrt((float)((float)((xDiff = predict.getX() - explosionPos.x) * xDiff + (yDiff = predict.getY() - explosionPos.y) * yDiff + (zDiff = predict.getX() - explosionPos.z) * zDiff)))) != 0.0) {
-            double exposure = Explosion.method_17752((Vec3d)explosionPos, (Entity)predict);
+        if (!target.isImmuneToExplosion(explosion) && !target.isInvulnerable() && (distExposure = (double)MathHelper.sqrt((float)((float)predict.squaredDistanceTo(explosionPos))) / 12.0) <= 1.0 && (diff = (double)MathHelper.sqrt((float)((float)((xDiff = predict.getX() - explosionPos.x) * xDiff + (yDiff = predict.getY() - explosionPos.y) * yDiff + (zDiff = predict.getX() - explosionPos.z) * zDiff)))) != 0.0) {
+            double exposure = Explosion.getExposure((Vec3d)explosionPos, (Entity)predict);
             double finalExposure = (1.0 - distExposure) * exposure;
             float toDamage = (float)Math.floor((finalExposure * finalExposure + finalExposure) / 2.0 * 7.0 * 12.0 + 1.0);
-            if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_8407() == Difficulty.EASY) {
+            if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.getDifficulty() == Difficulty.EASY) {
                 toDamage = Math.min(toDamage / 2.0f + 1.0f, toDamage);
-            } else if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_8407() == Difficulty.HARD) {
+            } else if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.getDifficulty() == Difficulty.HARD) {
                 toDamage = toDamage * 3.0f / 2.0f;
             }
-            toDamage = DamageUtil.method_5496((float)toDamage, (float)target.method_6096(), (float)((float)Objects.requireNonNull(target.method_5996(EntityAttributes.field_23725)).getValue()));
-            if (target.method_6059(StatusEffects.field_5907)) {
-                int resistance = 25 - (Objects.requireNonNull(target.method_6112(StatusEffects.field_5907)).getAmplifier() + 1) * 5;
+            toDamage = DamageUtil.getDamageLeft((float)toDamage, (float)target.getArmor(), (float)((float)Objects.requireNonNull(target.getAttributeInstance(EntityAttributes.GENERIC_ARMOR_TOUGHNESS)).getValue()));
+            if (target.hasStatusEffect(StatusEffects.RESISTANCE)) {
+                int resistance = 25 - (Objects.requireNonNull(target.getStatusEffect(StatusEffects.RESISTANCE)).getAmplifier() + 1) * 5;
                 float resistance_1 = toDamage * (float)resistance;
                 toDamage = Math.max(resistance_1 / 25.0f, 0.0f);
             }
             if (toDamage <= 0.0f) {
                 toDamage = 0.0f;
             } else {
-                int protAmount = EnchantmentHelper.method_8219((Iterable)target.method_5661(), (DamageSource)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_48963().explosion(explosion));
+                int protAmount = EnchantmentHelper.getProtectionAmount((Iterable)target.getArmorItems(), (DamageSource)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.getDamageSources().explosion(explosion));
                 if (protAmount > 0) {
                     toDamage = DamageUtil.getInflictedDamage((float)toDamage, (float)protAmount);
                 }

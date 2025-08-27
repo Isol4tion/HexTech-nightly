@@ -39,7 +39,7 @@ implements Wrapper {
         Vec3d vec3d = new Vec3d(posX, posY, posZ);
         double blockDensity = 0.0;
         try {
-            blockDensity = Explosion.method_17752((Vec3d)vec3d, (Entity)predict);
+            blockDensity = Explosion.getExposure((Vec3d)vec3d, (Entity)predict);
         }
         catch (Exception exception) {
             // empty catch block
@@ -63,23 +63,23 @@ implements Wrapper {
         float damage = damageI;
         if (entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
-            DamageSource ds = OyveyExplosionUtil.mc.world.method_48963().explosion(explosion);
-            damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, player.method_6096(), (float)player.getAttributeValue(EntityAttributes.field_23725));
-            int k = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)ds);
+            DamageSource ds = OyveyExplosionUtil.mc.world.getDamageSources().explosion(explosion);
+            damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, player.getArmor(), (float)player.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
+            int k = EnchantmentHelper.getProtectionAmount((Iterable)player.getArmorItems(), (DamageSource)ds);
             float f = MathHelper.clamp((float)k, (float)0.0f, (float)20.0f);
             damage *= 1.0f - f / 25.0f;
-            if (player.method_6059(StatusEffects.field_5907)) {
+            if (player.hasStatusEffect(StatusEffects.RESISTANCE)) {
                 damage -= damage / 4.0f;
             }
             damage = Math.max(damage, 0.0f);
             return damage;
         }
-        damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float)entity.getAttributeValue(EntityAttributes.field_23725));
+        damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float)entity.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
         return damage;
     }
 
     public static float getDamageMultiplied(float damage) {
-        int diff = OyveyExplosionUtil.mc.world.method_8407().getId();
+        int diff = OyveyExplosionUtil.mc.world.getDifficulty().getId();
         return damage * (diff == 0 ? 0.0f : (diff == 2 ? 1.0f : (diff == 1 ? 0.5f : 1.5f)));
     }
 }

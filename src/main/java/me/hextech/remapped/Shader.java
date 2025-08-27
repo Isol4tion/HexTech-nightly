@@ -3,7 +3,7 @@ package me.hextech.remapped;
 /*
  * Exception performing whole class analysis ignored.
  */
-private static enum Shader {
+public enum Shader {
     Shader,
     Target,
     Legacy;

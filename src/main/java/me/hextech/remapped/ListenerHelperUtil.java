@@ -54,7 +54,7 @@ implements Wrapper {
         Vec3d testVec = new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() + 1.7, (double)pos.getZ() + 0.5);
         BlockHitResult result = null;
         if (ListenerHelperUtil.mc.world != null && ListenerHelperUtil.mc.player != null) {
-            result = ListenerHelperUtil.mc.world.method_17742(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)ListenerHelperUtil.mc.player));
+            result = ListenerHelperUtil.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)ListenerHelperUtil.mc.player));
         }
         if (result == null || result.getType() == HitResult.Type.MISS) {
             return false;
@@ -65,7 +65,7 @@ implements Wrapper {
     public static boolean canSee(Vec3d from, Vec3d to) {
         BlockHitResult result = null;
         if (ListenerHelperUtil.mc.world != null && ListenerHelperUtil.mc.player != null) {
-            result = ListenerHelperUtil.mc.world.method_17742(new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)ListenerHelperUtil.mc.player));
+            result = ListenerHelperUtil.mc.world.raycast(new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)ListenerHelperUtil.mc.player));
         }
         return result == null || result.getType() == HitResult.Type.MISS;
     }

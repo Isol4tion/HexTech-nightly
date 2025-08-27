@@ -71,16 +71,16 @@ implements Wrapper {
         float damage = damageI;
         if (entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
-            damage = ExplosionUtil.getDamageAfterAbsorb(damage, player.method_6096(), (float)player.getAttributeValue(EntityAttributes.field_23725));
-            int k = ExplosionUtil.getProtectionAmount(player.method_5661());
+            damage = ExplosionUtil.getDamageAfterAbsorb(damage, player.getArmor(), (float)player.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
+            int k = ExplosionUtil.getProtectionAmount(player.getArmorItems());
             float f = MathHelper.clamp((float)k, (float)0.0f, (float)20.0f);
             damage *= 1.0f - f / 25.0f;
-            if (player.method_6059(StatusEffects.field_5907)) {
+            if (player.hasStatusEffect(StatusEffects.RESISTANCE)) {
                 damage -= damage / 4.0f;
             }
             return Math.max(damage, 0.0f);
         }
-        damage = ExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float)entity.getAttributeValue(EntityAttributes.field_23725));
+        damage = ExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float)entity.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
         return Math.max(damage, 0.0f);
     }
 
@@ -112,16 +112,16 @@ implements Wrapper {
                 return null;
             }
             BlockHitResult hitResult = blockState.method_26220((BlockView)ExplosionUtil.mc.world, blockPos).raycast(start, end, blockPos);
-            return hitResult == null ? null : hitResult.method_17783();
+            return hitResult == null ? null : hitResult.getType();
         }, _null -> HitResult.Type.MISS);
     }
 
     public static int getProtectionAmount(Iterable<ItemStack> armorItems) {
         int value = 0;
         for (ItemStack itemStack : armorItems) {
-            int level = EnchantmentHelper.method_8225((Enchantment)Enchantments.field_9111, (ItemStack)itemStack);
+            int level = EnchantmentHelper.getLevel((Enchantment)Enchantments.field_9111, (ItemStack)itemStack);
             if (level == 0) {
-                value += EnchantmentHelper.method_8225((Enchantment)Enchantments.field_9107, (ItemStack)itemStack) * 2;
+                value += EnchantmentHelper.getLevel((Enchantment)Enchantments.field_9107, (ItemStack)itemStack) * 2;
                 continue;
             }
             value += level;
@@ -130,7 +130,7 @@ implements Wrapper {
     }
 
     public static float getDamageMultiplied(float damage) {
-        int diff = ExplosionUtil.mc.world.method_8407().getId();
+        int diff = ExplosionUtil.mc.world.getDifficulty().getId();
         return damage * (diff == 0 ? 0.0f : (diff == 2 ? 1.0f : (diff == 1 ? 0.5f : 1.5f)));
     }
 

@@ -165,7 +165,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.stealCountList[6] = (int)(this.glowstone.getValue() - (double)InventoryUtil.getItemCount(Item.fromBlock((Block)Blocks.GLOWSTONE)));
         this.stealCountList[7] = (int)(this.anchor.getValue() - (double)InventoryUtil.getItemCount(Item.fromBlock((Block)Blocks.RESPAWN_ANCHOR)));
         this.stealCountList[8] = (int)(this.pearl.getValue() - (double)InventoryUtil.getItemCount(Items.ENDER_PEARL));
-        this.stealCountList[9] = (int)(this.turtleMaster.getValue() - (double)InventoryUtil.getPotCount(StatusEffects.field_5907));
+        this.stealCountList[9] = (int)(this.turtleMaster.getValue() - (double)InventoryUtil.getPotCount(StatusEffects.RESISTANCE));
         this.stealCountList[10] = (int)(this.helmet.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.class_8051.field_41934));
         this.stealCountList[11] = (int)(this.chestplate.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.class_8051.field_41935));
         this.stealCountList[12] = (int)(this.leggings.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.class_8051.field_41936));
@@ -239,7 +239,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         boolean take = false;
-        ScreenHandler screenHandler = AutoRegear.mc.player.field_7512;
+        ScreenHandler screenHandler = AutoRegear.mc.player.currentScreenHandler;
         if (screenHandler instanceof ShulkerBoxScreenHandler) {
             ShulkerBoxScreenHandler shulker = (ShulkerBoxScreenHandler)screenHandler;
             for (Slot slot : shulker.field_7761) {
@@ -256,7 +256,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void disable2() {
         if (this.disableTimer.passedMs(this.disableTime.getValueInt())) {
             if (this.close.getValue()) {
-                AutoRegear.mc.player.networkHandler.sendPacket((Packet)new CloseHandledScreenC2SPacket(AutoRegear.mc.player.field_7512.syncId));
+                AutoRegear.mc.player.networkHandler.sendPacket((Packet)new CloseHandledScreenC2SPacket(AutoRegear.mc.player.currentScreenHandler.syncId));
                 AutoRegear.mc.player.method_7346();
             }
             this.disable();
@@ -303,7 +303,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (i.getItem().equals(Items.SPLASH_POTION) && this.stealCountList[9] > 0) {
             ArrayList effects = new ArrayList(PotionContentsComponent.method_8067((ItemStack)i));
             for (StatusEffectInstance potionEffect : effects) {
-                if (potionEffect.method_5579() != StatusEffects.field_5907) continue;
+                if (potionEffect.method_5579() != StatusEffects.RESISTANCE) continue;
                 this.stealCountList[9] = this.stealCountList[9] - i.getCount();
                 return true;
             }

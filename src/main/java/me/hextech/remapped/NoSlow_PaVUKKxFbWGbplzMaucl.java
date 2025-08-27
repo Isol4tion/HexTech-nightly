@@ -63,7 +63,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (event.isPost()) {
             return;
         }
-        if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isUsingItem() && !NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isRiding() && !NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_6128()) {
+        if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isUsingItem() && !NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isRiding() && !NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isFallFlying()) {
             switch (this.mode.getValue().ordinal()) {
                 case 1: {
                     mc.getNetworkHandler().sendPacket((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getInventory().selectedSlot));
@@ -125,7 +125,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             switch (this.clickBypass.getValue().ordinal()) {
                 case 2: {
                     if (click.getActionType() == SlotActionType.PICKUP || click.getActionType() == SlotActionType.PICKUP_ALL) break;
-                    int syncId = NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_7512.syncId;
+                    int syncId = NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.currentScreenHandler.syncId;
                     int closePacketCount = 2 + (int)(Math.random() * 2.0);
                     for (int i = 0; i < closePacketCount; ++i) {
                         mc.getNetworkHandler().sendPacket((Packet)new CloseHandledScreenC2SPacket(syncId));

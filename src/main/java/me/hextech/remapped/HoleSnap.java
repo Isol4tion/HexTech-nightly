@@ -68,17 +68,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         GL11.glDisable((int)2929);
         Matrix4f matrix = matrixStack.peek().getPositionMatrix();
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
-        BufferBuilder bufferBuilder = tessellator.method_1349();
-        RenderSystem.setShader(GameRenderer::method_34539);
+        BufferBuilder bufferBuilder = tessellator.getBuffer();
+        RenderSystem.setShader(GameRenderer::getPositionProgram);
         RenderSystem.setShaderColor((float)((float)color.getRed() / 255.0f), (float)((float)color.getGreen() / 255.0f), (float)((float)color.getBlue() / 255.0f), (float)((float)color.getAlpha() / 255.0f));
-        bufferBuilder.method_1328(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION);
+        bufferBuilder.begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION);
         for (double i = 0.0; i < 360.0; i += 360.0 / (double)segments) {
             double x = Math.sin(Math.toRadians(i)) * circleSize;
             double z = Math.cos(Math.toRadians(i)) * circleSize;
             Vec3d tempPos = new Vec3d(pos.x + x, pos.y, pos.z + z).add(-camPos.x, -camPos.y, -camPos.z);
-            bufferBuilder.method_22918(matrix, (float)tempPos.x, (float)tempPos.y, (float)tempPos.z).method_1344();
+            bufferBuilder.vertex(matrix, (float)tempPos.x, (float)tempPos.y, (float)tempPos.z).next();
         }
-        tessellator.method_1350();
+        tessellator.draw();
         GL11.glEnable((int)2929);
     }
 
@@ -173,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        if (!HoleSnap.mc.player.method_5805() || HoleSnap.mc.player.method_6128()) {
+        if (!HoleSnap.mc.player.method_5805() || HoleSnap.mc.player.isFallFlying()) {
             this.disable();
             return;
         }

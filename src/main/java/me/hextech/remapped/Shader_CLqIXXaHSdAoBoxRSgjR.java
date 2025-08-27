@@ -9,7 +9,6 @@ import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.Shader;
 import me.hextech.remapped.ShaderManager;
-import me.hextech.remapped.Shader_wgUNhhHMJWFzVAsdqlFd;
 import me.hextech.remapped.SliderSetting;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -22,8 +21,8 @@ public class Shader_CLqIXXaHSdAoBoxRSgjR
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Shader_CLqIXXaHSdAoBoxRSgjR INSTANCE;
     private final EnumSetting<Shader> page = this.add(new EnumSetting<Shader>("Page", Shader.Shader));
-    public final EnumSetting<ShaderManager._nSIALuQmpuiGKWaEurQW> mode = this.add(new EnumSetting<ShaderManager._nSIALuQmpuiGKWaEurQW>("Mode", ShaderManager._nSIALuQmpuiGKWaEurQW.Solid, v -> this.page.getValue() == Shader.Shader));
-    public final EnumSetting<ShaderManager._nSIALuQmpuiGKWaEurQW> skyMode = this.add(new EnumSetting<ShaderManager._nSIALuQmpuiGKWaEurQW>("SkyMode", ShaderManager._nSIALuQmpuiGKWaEurQW.Solid, v -> this.page.getValue() == Shader.Shader));
+    public final EnumSetting<ShaderManager.Mode> mode = this.add(new EnumSetting<ShaderManager.Mode>("Mode", ShaderManager.Mode.Solid, v -> this.page.getValue() == Shader.Shader));
+    public final EnumSetting<ShaderManager.Mode> skyMode = this.add(new EnumSetting<ShaderManager.Mode>("SkyMode", ShaderManager.Mode.Solid, v -> this.page.getValue() == Shader.Shader));
     public final SliderSetting speed = this.add(new SliderSetting("Speed", 4.0, 0.0, 20.0, 0.1, v -> this.page.getValue() == Shader.Shader));
     public final ColorSetting fill = this.add(new ColorSetting("Color", new Color(255, 255, 255), v -> this.page.getValue() == Shader.Shader));
     public final SliderSetting maxSample = this.add(new SliderSetting("MaxSample", 10.0, 0.0, 20.0, v -> this.page.getValue() == Shader.Shader));
@@ -85,10 +84,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (entity instanceof ItemEntity) {
             return this.items.getValue();
         }
-        return switch (Shader_wgUNhhHMJWFzVAsdqlFd.$SwitchMap$net$minecraft$entity$SpawnGroup[entity.getType().getSpawnGroup().ordinal()]) {
-            case 1, 2 -> this.creatures.getValue();
-            case 3 -> this.monsters.getValue();
-            case 4, 5 -> this.ambients.getValue();
+
+        return switch (entity.getType().getSpawnGroup()) {
+            case CREATURE, WATER_CREATURE -> this.creatures.getValue();
+            case MONSTER -> this.monsters.getValue();
+            case AMBIENT, WATER_AMBIENT -> this.ambients.getValue();
             default -> this.others.getValue();
         };
     }
@@ -96,7 +96,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         if (this.hands.getValue()) {
-            HexTech.SHADER.renderShader(() -> Shader_CLqIXXaHSdAoBoxRSgjR.mc.gameRenderer.method_3172(matrixStack, Shader_CLqIXXaHSdAoBoxRSgjR.mc.gameRenderer.getCamera(), mc.getTickDelta()), this.mode.getValue());
+            HexTech.SHADER.renderShader(() -> Shader_CLqIXXaHSdAoBoxRSgjR.mc.gameRenderer.renderHand(matrixStack, Shader_CLqIXXaHSdAoBoxRSgjR.mc.gameRenderer.getCamera(), mc.getTickDelta()), this.mode.getValue());
         }
     }
 

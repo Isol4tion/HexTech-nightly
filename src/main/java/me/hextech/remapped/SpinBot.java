@@ -31,8 +31,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onPacket(PacketEvent event) {
         PlayerActionC2SPacket packet;
         Object t = event.getPacket();
-        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).getAction() == PlayerActionC2SPacket.Action.RELEASE_USE_ITEM && SpinBot.mc.player.method_6030().getItem() instanceof BowItem) {
-            EntityUtil.sendYawAndPitch(SpinBot.mc.player.getYaw(), SpinBot.mc.player.method_36455());
+        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).getAction() == PlayerActionC2SPacket.Action.RELEASE_USE_ITEM && SpinBot.mc.player.getActiveItem().getItem() instanceof BowItem) {
+            EntityUtil.sendYawAndPitch(SpinBot.mc.player.getYaw(), SpinBot.mc.player.getPitch());
         }
     }
 
@@ -63,7 +63,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.rotationPitch = 90.0f;
         }
         if (this.pitchMode.getValue() == _YiToqkCkUTOMQxneHmRR.Static) {
-            this.rotationPitch = SpinBot.mc.player.method_36455() + this.pitchDelta.getValueFloat();
+            this.rotationPitch = SpinBot.mc.player.getPitch() + this.pitchDelta.getValueFloat();
             this.rotationPitch = MathUtil.clamp(this.rotationPitch, -90.0f, 90.0f);
         }
         if (this.yawMode.getValue() == _YiToqkCkUTOMQxneHmRR.Static) {

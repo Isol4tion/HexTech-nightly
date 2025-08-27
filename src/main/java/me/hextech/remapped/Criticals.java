@@ -57,7 +57,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void doCrit() {
-        if (Aura.INSTANCE.isOn() && (Criticals.mc.player.isOnGround() || Criticals.mc.player.method_31549().flying) && !Criticals.mc.player.method_5771() && !Criticals.mc.player.method_5869()) {
+        if (Aura.INSTANCE.isOn() && (Criticals.mc.player.isOnGround() || Criticals.mc.player.getAbilities().flying) && !Criticals.mc.player.isInLava() && !Criticals.mc.player.isSubmergedInWater()) {
             if (this.mode.getValue() == _llXqHCnomcmaIkSSIBHS.Strict && Criticals.mc.world.getBlockState(Criticals.mc.player.getBlockPos()).getBlock() != Blocks.COBWEB) {
                 Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 0.062600301692775, Criticals.mc.player.getZ(), false));
                 Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 0.07260029960661, Criticals.mc.player.getZ(), false));
