@@ -63,7 +63,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static enum _rlgNzzROxlnlLAUMICmS {
+    public enum _rlgNzzROxlnlLAUMICmS {
         Glitch,
         Teleport;
 

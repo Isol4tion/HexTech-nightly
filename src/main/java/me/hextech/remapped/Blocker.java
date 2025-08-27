@@ -17,7 +17,7 @@ import net.minecraft.util.math.Box;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class Blocker {
+public class Blocker {
     public static final HashMap<BlockPos, _FijMAnLaeintSRYqwSXS> renderMap = new HashMap();
     final /* synthetic */ Blocker_mEBqWazfEhCLEwVSYEFP this$0;
 
@@ -62,7 +62,7 @@ public static class Blocker {
     /*
      * Exception performing whole class analysis ignored.
      */
-    public static class _FijMAnLaeintSRYqwSXS {
+    public class _FijMAnLaeintSRYqwSXS {
         public final FadeUtils_DPfHthPqEJdfXfNYhDbG firstFade;
         public final BlockPos pos;
         public final Timer timer;

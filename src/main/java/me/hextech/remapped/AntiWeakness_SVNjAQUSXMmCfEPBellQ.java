@@ -22,6 +22,11 @@ import net.minecraft.screen.slot.SlotActionType;
 
 public class AntiWeakness_SVNjAQUSXMmCfEPBellQ
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
+    public enum AntiWeakness {
+        Normal,
+        Silent,
+        Inventory;
+    }
     private final SliderSetting delay = this.add(new SliderSetting("Delay", 100, 0, 500).setSuffix("ms"));
     private final EnumSetting<AntiWeakness> swapMode = this.add(new EnumSetting<AntiWeakness>("SwapMode", AntiWeakness.Inventory));
     private final BooleanSetting onlyCrystal = this.add(new BooleanSetting("OnlyCrystal", true));
@@ -50,7 +55,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.ignore) {
             return;
         }
-        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getStatusEffect(StatusEffects.field_5911) == null) {
+        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getStatusEffect(StatusEffects.WEAKNESS) == null) {
             return;
         }
         if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getMainHandStack().getItem() instanceof SwordItem) {

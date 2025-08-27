@@ -89,7 +89,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.needUpdate = false;
     }
 
-    public static enum _ylqyOfVuMcYIoHfjTCiI {
+    public enum _ylqyOfVuMcYIoHfjTCiI {
         Xin,
         XiaoSong;
 

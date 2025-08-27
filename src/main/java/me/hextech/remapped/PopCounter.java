@@ -80,7 +80,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static enum _jJlsegqwuwGfJNTYElis {
+    public enum _jJlsegqwuwGfJNTYElis {
         Notify,
         Chat,
         Both;

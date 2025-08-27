@@ -3,7 +3,7 @@ package me.hextech.remapped;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static enum Surround {
+public enum Surround {
     General,
     Rotate,
     Check;

@@ -256,7 +256,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
             } else {
-                void var7_23;
+                int var7_23=0;
                 Direction powerFacing = null;
                 Direction[] side = Direction.values();
                 int old = side.length;
@@ -478,7 +478,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return HolePush.mc.world.getBlockState(pos);
     }
 
-    private static enum _yzHmKDmPzgLjnTXAWdrq {
+    public enum _yzHmKDmPzgLjnTXAWdrq {
         General,
         Rotate,
         Check;

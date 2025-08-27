@@ -3,7 +3,7 @@ package me.hextech.remapped;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static enum NoSlow_dcwUNFGCrJDcinmdQVVo {
+public enum NoSlow_dcwUNFGCrJDcinmdQVVo {
     Vanilla,
     NCP,
     Grim,

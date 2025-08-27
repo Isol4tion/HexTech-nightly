@@ -3,34 +3,6 @@ package me.hextech.remapped;
 import java.util.ArrayList;
 import me.hextech.HexTech;
 import me.hextech.asm.accessors.IPlayerMoveC2SPacket;
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
-import me.hextech.remapped.BaseThreadSetting;
-import me.hextech.remapped.Blink;
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.Burrow_eOaBGEoOSTDRbYIUAbXC;
-import me.hextech.remapped.Cleaner_iFwqnooxsJEmHoVteFeQ;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.ComboBreaks;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn;
-import me.hextech.remapped.ListenerDamage;
-import me.hextech.remapped.ListenerHelper;
-import me.hextech.remapped.ListenerHelperUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.MovementUtil;
-import me.hextech.remapped.NoRotateSet;
-import me.hextech.remapped.PacketEvent;
-import me.hextech.remapped.PredictionSetting;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Timer;
-import me.hextech.remapped.UpdateWalkingEvent;
-import me.hextech.remapped.WebAuraTick_gaIdrzDzsbegzNTtPQoV;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
@@ -164,7 +136,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.setValue(ComboBreaks.INSTANCE.Arender.getValueFloat());
             }
             if (this.Aweb.getValue()) {
-                WebAuraTick_gaIdrzDzsbegzNTtPQoV.INSTANCE.placeDelay.setValue(ComboBreaks.INSTANCE.Aweb.getValueFloat());
+                WebAuraTick.INSTANCE.placeDelay.setValue(ComboBreaks.INSTANCE.Aweb.getValueFloat());
             }
             if (this.Async.getValue()) {
                 AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forceWeb.setValue(this.isOff());
@@ -185,7 +157,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.setValue(ComboBreaks.INSTANCE.Drender.getValueFloat());
             }
             if (this.Dweb.getValue()) {
-                WebAuraTick_gaIdrzDzsbegzNTtPQoV.INSTANCE.placeDelay.setValue(ComboBreaks.INSTANCE.Dweb.getValueFloat());
+                WebAuraTick.INSTANCE.placeDelay.setValue(ComboBreaks.INSTANCE.Dweb.getValueFloat());
             }
             if (this.Dsync.getValue()) {
                 AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forceWeb.setValue(this.isOn());

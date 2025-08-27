@@ -174,13 +174,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.updateMine();
     }
 
-    public static enum _TQxYHQLcjCDwbwqUjIlv {
+    public enum _TQxYHQLcjCDwbwqUjIlv {
         All,
         Double;
 
     }
 
-    public static enum _zejtTTXMdfbxiOFVgdxG {
+    public enum _zejtTTXMdfbxiOFVgdxG {
         Mine,
         Totem;
 

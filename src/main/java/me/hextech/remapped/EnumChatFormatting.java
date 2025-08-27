@@ -62,11 +62,11 @@ public enum EnumChatFormatting {
         return text == null ? null : formattingCodePattern.matcher(text).replaceAll("");
     }
 
-    public static EnumChatFormatting getValueByName(String friendlyName) {
+    public enumChatFormatting getValueByName(String friendlyName) {
         return friendlyName == null ? null : nameMapping.get(EnumChatFormatting.func_175745_c(friendlyName));
     }
 
-    public static EnumChatFormatting func_175744_a(int p_175744_0_) {
+    public enumChatFormatting func_175744_a(int p_175744_0_) {
         if (p_175744_0_ < 0) {
             return RESET;
         }

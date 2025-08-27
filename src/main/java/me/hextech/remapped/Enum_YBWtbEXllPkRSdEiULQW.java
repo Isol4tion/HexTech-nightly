@@ -3,7 +3,7 @@ package me.hextech.remapped;
 /*
  * Exception performing whole class analysis ignored.
  */
-static enum Enum_YBWtbEXllPkRSdEiULQW {
+public enum Enum_YBWtbEXllPkRSdEiULQW {
     Auto,
     TrollHack,
     Strict,

@@ -29,27 +29,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinChatInputSuggestor {
     @Final
     @Shadow
-    TextFieldWidget field_21599;
+    TextFieldWidget textField;
     @Shadow
-    private CompletableFuture<Suggestions> field_21611;
+    private CompletableFuture<Suggestions> pendingSuggestions;
     @Final
     @Shadow
-    private List<OrderedText> field_21607;
+    private List<OrderedText> messages;
     @Unique
     private boolean showOutline = false;
 
     @Shadow
-    public abstract void method_23920(boolean var1);
+    public abstract void show(boolean var1);
 
     @Inject(at={@At(value="HEAD")}, method={"render"})
     private void onRender(DrawContext context, int mouseX, int mouseY, CallbackInfo ci) {
         if (this.showOutline) {
-            int x = this.field_21599.method_46426() - 3;
-            int y = this.field_21599.method_46427() - 3;
-            Render2DUtil.drawRect(context.getMatrices(), (float)x, (float)y, (float)(this.field_21599.method_25368() + 1), 1.0f, ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
-            Render2DUtil.drawRect(context.getMatrices(), (float)x, (float)(y + this.field_21599.method_25364() + 1), (float)(this.field_21599.method_25368() + 1), 1.0f, ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
-            Render2DUtil.drawRect(context.getMatrices(), (float)x, (float)y, 1.0f, (float)(this.field_21599.method_25364() + 1), ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
-            Render2DUtil.drawRect(context.getMatrices(), (float)(x + this.field_21599.method_25368() + 1), (float)y, 1.0f, (float)(this.field_21599.method_25364() + 2), ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
+            int x = this.textField.getX() - 3;
+            int y = this.textField.getY() - 3;
+            Render2DUtil.drawRect(context.getMatrices(), (float)x, (float)y, (float)(this.textField.getWidth() + 1), 1.0f, ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
+            Render2DUtil.drawRect(context.getMatrices(), (float)x, (float)(y + this.textField.getHeight() + 1), (float)(this.textField.getWidth() + 1), 1.0f, ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
+            Render2DUtil.drawRect(context.getMatrices(), (float)x, (float)y, 1.0f, (float)(this.textField.getHeight() + 1), ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
+            Render2DUtil.drawRect(context.getMatrices(), (float)(x + this.textField.getWidth() + 1), (float)y, 1.0f, (float)(this.textField.getHeight() + 2), ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
         }
     }
 
@@ -62,9 +62,9 @@ public abstract class MixinChatInputSuggestor {
         int cursorPos;
         String string2;
         String prefix = HexTech.PREFIX;
-        String string = this.field_21599.getText();
+        String string = this.textField.getText();
         this.showOutline = string.startsWith(prefix);
-        if (string.length() <= 0 || !prefix.startsWith(string2 = string.substring(0, cursorPos = this.field_21599.getCursor())) && !string2.startsWith(prefix)) return;
+        if (string.length() <= 0 || !prefix.startsWith(string2 = string.substring(0, cursorPos = this.textField.getCursor())) && !string2.startsWith(prefix)) return;
         int j = 0;
         Matcher matcher = Pattern.compile("(\\s+)").matcher(string2);
         while (matcher.find()) {
@@ -89,7 +89,7 @@ public abstract class MixinChatInputSuggestor {
                 }
                 Command c = HexTech.COMMAND.getCommandBySyntax(seperated.get(0).substring(prefix.length()));
                 if (c == null) {
-                    this.field_21607.add(Text.of((String)("\u00a7cno commands found: \u00a7e" + seperated.get(0).substring(prefix.length()))).asOrderedText());
+                    this.messages.add(Text.of((String)("\u00a7cno commands found: \u00a7e" + seperated.get(0).substring(prefix.length()))).asOrderedText());
                     return;
                 }
                 String[] suggestions = c.getAutocorrect(count, seperated);
@@ -101,7 +101,7 @@ public abstract class MixinChatInputSuggestor {
                 }
             }
         }
-        this.field_21611 = builder.buildFuture();
-        this.method_23920(false);
+        this.pendingSuggestions = builder.buildFuture();
+        this.show(false);
     }
 }

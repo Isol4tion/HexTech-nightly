@@ -9,7 +9,7 @@ import net.minecraft.network.packet.Packet;
 /*
  * Exception performing whole class analysis ignored.
  */
-private static class FakeLag {
+public class FakeLag {
     final Timer timer;
     final int delay;
     Packet pp;

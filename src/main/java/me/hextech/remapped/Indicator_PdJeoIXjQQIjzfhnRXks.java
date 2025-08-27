@@ -1,22 +1,7 @@
 package me.hextech.remapped;
 
 import java.awt.Color;
-import me.hextech.remapped.AutoAnchor_MDcwoWYRcPYheLZJWRZK;
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
-import me.hextech.remapped.AutoTrap;
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.Burrow_eOaBGEoOSTDRbYIUAbXC;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.FontRenderers;
-import me.hextech.remapped.HoleKickTest;
-import me.hextech.remapped.Indicator;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Render2DUtil;
-import me.hextech.remapped.Speed;
-import me.hextech.remapped.Step_EShajbhvQeYkCdreEeNY;
-import me.hextech.remapped.Surround_BjIoVRziuWIfEWTJHPVz;
-import me.hextech.remapped.WebAuraTick_gaIdrzDzsbegzNTtPQoV;
+
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
@@ -62,7 +47,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (Step_EShajbhvQeYkCdreEeNY.INSTANCE.isOn()) {
                 this.draw("ST", Indicator.White);
             }
-            if (WebAuraTick_gaIdrzDzsbegzNTtPQoV.INSTANCE.isOn()) {
+            if (WebAuraTick.INSTANCE.isOn()) {
                 this.draw("AW", Indicator.White);
             }
             if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOn()) {

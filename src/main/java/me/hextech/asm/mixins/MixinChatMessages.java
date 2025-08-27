@@ -23,10 +23,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinChatMessages {
     @Final
     @Shadow
-    private static OrderedText field_25263;
+    private static OrderedText SPACES;
 
     @Shadow
-    private static String method_1849(String message) {
+    private static String getRenderedChatMessage(String message) {
         return "";
     }
 
@@ -34,16 +34,16 @@ public class MixinChatMessages {
     private static void breakRenderedChatMessageLinesHook(StringVisitable message, int width, TextRenderer textRenderer, CallbackInfoReturnable<List<OrderedText>> cir) {
         TextCollector textCollector = new TextCollector();
         message.visit((style, messagex) -> {
-            textCollector.add(StringVisitable.styled((String)MixinChatMessages.method_1849(messagex), (Style)style));
+            textCollector.add(StringVisitable.styled((String)MixinChatMessages.getRenderedChatMessage(messagex), (Style)style));
             return Optional.empty();
         }, Style.EMPTY);
         ArrayList list = Lists.newArrayList();
         textRenderer.getTextHandler().wrapLines(textCollector.getCombined(), width, Style.EMPTY, (text, lastLineWrapped) -> {
             OrderedText orderedText = Language.getInstance().reorder(text);
-            OrderedText o = lastLineWrapped != false ? OrderedText.concat((OrderedText)field_25263, (OrderedText)orderedText) : orderedText;
+            OrderedText o = lastLineWrapped != false ? OrderedText.concat((OrderedText)SPACES, (OrderedText)orderedText) : orderedText;
             list.add(o);
             ChatSetting_qVnAbgCzNciNTevKRovy.chatMessage.put(o, message);
         });
-        cir.setReturnValue((Object)(list.isEmpty() ? Lists.newArrayList((Object[])new OrderedText[]{OrderedText.EMPTY}) : list));
+        cir.setReturnValue((list.isEmpty() ? Lists.newArrayList() : list));
     }
 }

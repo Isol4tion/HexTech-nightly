@@ -14,17 +14,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value={BoatEntity.class})
 public class MixinBoatEntity {
     @Shadow
-    private boolean field_7710;
+    private boolean pressingLeft;
     @Shadow
-    private boolean field_7695;
+    private boolean pressingRight;
 
     @Inject(method={"tick"}, at={@At(value="INVOKE", target="Lnet/minecraft/entity/vehicle/BoatEntity;move(Lnet/minecraft/entity/MovementType;Lnet/minecraft/util/math/Vec3d;)V")}, cancellable=true)
     private void onTickInvokeMove(CallbackInfo info) {
-        BoatMoveEvent event = new BoatMoveEvent((BoatEntity)this);
-        HexTech.EVENT_BUS.post(event);
-        if (event.isCancelled()) {
-            info.cancel();
-        }
+//        BoatMoveEvent event = new BoatMoveEvent(this);
+//        HexTech.EVENT_BUS.post(event);
+//        if (event.isCancelled()) {
+//            info.cancel();
+//        }todo
     }
 
     @Redirect(method={"updatePaddles"}, at=@At(value="FIELD", target="Lnet/minecraft/entity/vehicle/BoatEntity;pressingLeft:Z"))
@@ -32,7 +32,7 @@ public class MixinBoatEntity {
         if (EntityControl.INSTANCE.isOn() && EntityControl.INSTANCE.fly.getValue()) {
             return false;
         }
-        return this.field_7710;
+        return this.pressingLeft;
     }
 
     @Redirect(method={"updatePaddles"}, at=@At(value="FIELD", target="Lnet/minecraft/entity/vehicle/BoatEntity;pressingRight:Z"))
@@ -40,6 +40,6 @@ public class MixinBoatEntity {
         if (EntityControl.INSTANCE.isOn() && EntityControl.INSTANCE.fly.getValue()) {
             return false;
         }
-        return this.field_7695;
+        return this.pressingRight;
     }
 }

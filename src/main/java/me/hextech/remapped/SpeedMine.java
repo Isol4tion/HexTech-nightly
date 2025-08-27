@@ -825,7 +825,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         godBlocks = Arrays.asList(Blocks.COMMAND_BLOCK, Blocks.LAVA_CAULDRON, Blocks.LAVA, Blocks.WATER_CAULDRON, Blocks.WATER, Blocks.BEDROCK, Blocks.BARRIER, Blocks.END_PORTAL, Blocks.NETHER_PORTAL, Blocks.END_PORTAL_FRAME);
     }
 
-    public static enum _uySyZpuFdxDcRzYECOEM {
+    public enum _uySyZpuFdxDcRzYECOEM {
         General,
         Check,
         Place,

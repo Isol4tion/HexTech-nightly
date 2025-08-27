@@ -114,7 +114,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return 40;
     }
 
-    public static enum _ZVxiGMTWPCIGCYyTrffL {
+    public enum _ZVxiGMTWPCIGCYyTrffL {
         FadeOut,
         Size,
         Otkisuli,

@@ -2,7 +2,6 @@ package me.hextech.remapped;
 
 import io.netty.buffer.Unpooled;
 import me.hextech.remapped.Aura;
-import me.hextech.remapped.Criticals_QenzavIULhSqCVPmsILH;
 import me.hextech.remapped.EnumSetting;
 import me.hextech.remapped.EventHandler;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
@@ -33,11 +32,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return Criticals.mc.world == null ? null : Criticals.mc.world.getEntityById(packetBuf.readVarInt());
     }
 
-    public static Criticals_QenzavIULhSqCVPmsILH getInteractType(PlayerInteractEntityC2SPacket packet) {
+    public static _QenzavIULhSqCVPmsILH getInteractType(PlayerInteractEntityC2SPacket packet) {
         PacketByteBuf packetBuf = new PacketByteBuf(Unpooled.buffer());
         packet.write(packetBuf);
         packetBuf.readVarInt();
-        return (Criticals_QenzavIULhSqCVPmsILH)packetBuf.readEnumConstant(Criticals_QenzavIULhSqCVPmsILH.class);
+        return (_QenzavIULhSqCVPmsILH)packetBuf.readEnumConstant(_QenzavIULhSqCVPmsILH.class);
     }
 
     @Override
@@ -50,8 +49,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Entity entity;
         PlayerInteractEntityC2SPacket packet;
         Object t;
-        if (!Aura.INSTANCE.sweeping && !TPAura_LycLkxHLQeGfgqfryvmV.attacking && (t = event.getPacket()) instanceof PlayerInteractEntityC2SPacket && Criticals.getInteractType(packet = (PlayerInteractEntityC2SPacket)t) == Criticals_QenzavIULhSqCVPmsILH.ATTACK && !((entity = Criticals.getEntity(packet)) instanceof EndCrystalEntity)) {
-            Criticals.mc.player.method_7277(entity);
+        if (!Aura.INSTANCE.sweeping && !TPAura_LycLkxHLQeGfgqfryvmV.attacking && (t = event.getPacket()) instanceof PlayerInteractEntityC2SPacket && Criticals.getInteractType(packet = (PlayerInteractEntityC2SPacket)t) == _QenzavIULhSqCVPmsILH.ATTACK && !((entity = Criticals.getEntity(packet)) instanceof EndCrystalEntity)) {
+            Criticals.mc.player.addCritParticles(entity);
             this.doCrit();
         }
     }
@@ -77,11 +76,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    private static enum _llXqHCnomcmaIkSSIBHS {
+    public enum _llXqHCnomcmaIkSSIBHS {
         NCP,
         Strict,
         Packet,
         LowPacket;
+
+    }
+    public enum _QenzavIULhSqCVPmsILH {
+        INTERACT,
+        ATTACK,
+        INTERACT_AT;
 
     }
 }

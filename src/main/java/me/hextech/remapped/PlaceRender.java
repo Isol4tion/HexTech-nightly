@@ -85,7 +85,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    private static enum _MgMtxnzmBTDvbcFtDFtE {
+    public enum _MgMtxnzmBTDvbcFtDFtE {
         Fade,
         Shrink,
         All;

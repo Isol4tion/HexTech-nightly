@@ -273,7 +273,7 @@ implements Wrapper {
         return false;
     }
 
-    public static class _WNhDoPXLcRvHUWNoquud
+    public class _WNhDoPXLcRvHUWNoquud
     extends Framebuffer {
         public _WNhDoPXLcRvHUWNoquud(int width, int height) {
             super(false);

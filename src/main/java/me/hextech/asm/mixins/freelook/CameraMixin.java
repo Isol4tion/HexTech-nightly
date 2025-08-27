@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(value={Camera.class})
 public abstract class CameraMixin {
     @Shadow
-    private float field_18721;
+    private float cameraY;
     @Unique
     private float lastUpdate;
 

@@ -1,8 +1,7 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Event;
-import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
-import net.minecraft.entity.player.BlockBreakingInfo;
+
+import net.minecraft.client.render.BlockBreakingInfo;
 import net.minecraft.util.math.BlockPos;
 
 public class WorldBreakEvent

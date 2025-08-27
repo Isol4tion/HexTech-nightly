@@ -9,7 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
 
 public class EventBus implements IEventBus {
-    private static class LambdaFactoryInfo {
+    public class LambdaFactoryInfo {
         public final LambdaListener_AbcZKcjDwtaoZeuwqpJc.Factory factory;
 
         public LambdaFactoryInfo(LambdaListener_AbcZKcjDwtaoZeuwqpJc.Factory factory) {

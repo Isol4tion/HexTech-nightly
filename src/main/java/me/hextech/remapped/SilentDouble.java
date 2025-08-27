@@ -84,7 +84,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return SpeedMine.INSTANCE.getTool(pos) == -1 ? SilentDouble.mc.player.getInventory().selectedSlot : SpeedMine.INSTANCE.getTool(pos);
     }
 
-    public static enum _JPSoqiNZyGTsyFDufNku {
+    public enum _JPSoqiNZyGTsyFDufNku {
         SilentDouble,
         Switch,
         None;

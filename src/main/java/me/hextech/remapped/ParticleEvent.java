@@ -6,7 +6,7 @@ import net.minecraft.client.particle.Particle;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class ParticleEvent
+public class ParticleEvent
 extends ParticleEvent_KqEBTPXRWHlYeOSnrLnf {
     public final Particle particle;
 

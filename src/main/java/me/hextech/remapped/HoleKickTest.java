@@ -1,25 +1,5 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.AutoAnchor_MDcwoWYRcPYheLZJWRZK;
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
-import me.hextech.remapped.Blink;
-import me.hextech.remapped.BlockPosX;
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.Burrow_eOaBGEoOSTDRbYIUAbXC;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.Enum_EeQOXZQmWkBIGBYWBifQ;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.MovementUtil;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.SpeedMine;
-import me.hextech.remapped.Timer;
-import me.hextech.remapped.WebAuraTick_gaIdrzDzsbegzNTtPQoV;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -148,7 +128,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.syncCrystal.getValue() && AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null) {
             return;
         }
-        if (this.syncweb.getValue() && WebAuraTick_gaIdrzDzsbegzNTtPQoV.INSTANCE.pos == null) {
+        if (this.syncweb.getValue() && WebAuraTick.INSTANCE.pos == null) {
             return;
         }
         if (this.findBlock(Blocks.REDSTONE_BLOCK) == -1 || this.findClass(PistonBlock.class) == -1) {

@@ -14,50 +14,50 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
-public class WebAuraTick_gaIdrzDzsbegzNTtPQoV
+public class WebAuraTick
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
-    public static WebAuraTick_gaIdrzDzsbegzNTtPQoV INSTANCE;
+    public static me.hextech.remapped.WebAuraTick INSTANCE;
     public static float lastYaw;
     public static float lastPitch;
     public static boolean force;
     public static boolean ignore;
-    public final EnumSetting<WebAuraTick> page = this.add(new EnumSetting<WebAuraTick>("Page", WebAuraTick.General));
-    public final SliderSetting placeDelay = this.add(new SliderSetting("PlaceDelay", 50, 0, 500, v -> this.page.getValue() == WebAuraTick.General));
-    public final SliderSetting blocksPer = this.add(new SliderSetting("BlocksPer", 2, 1, 10, v -> this.page.getValue() == WebAuraTick.General));
-    public final SliderSetting predictTicks = this.add(new SliderSetting("PredictTicks", 2.0, 0.0, 50.0, 1.0, v -> this.page.getValue() == WebAuraTick.General));
-    public final SliderSetting maxWebs = this.add(new SliderSetting("MaxWebs", 2.0, 1.0, 8.0, 1.0, v -> this.page.getValue() == WebAuraTick.General));
-    public final SliderSetting burrowMaxWebs = this.add(new SliderSetting("BurrowMaxWebs", 2.0, 1.0, 8.0, 1.0, v -> this.page.getValue() == WebAuraTick.General));
-    public final SliderSetting placeRange = this.add(new SliderSetting("PlaceRange", 5.0, 0.0, 6.0, 0.1, v -> this.page.getValue() == WebAuraTick.General));
-    public final SliderSetting targetRange = this.add(new SliderSetting("TargetRange", 8.0, 0.0, 8.0, 0.1, v -> this.page.getValue() == WebAuraTick.General));
-    public final SliderSetting offset = this.add(new SliderSetting("Offset", 0.25, 0.0, 0.3, 0.01, v -> this.page.getValue() == WebAuraTick.General));
+    public final EnumSetting<WebMode> page = this.add(new EnumSetting<WebMode>("Page", WebMode.General));
+    public final SliderSetting placeDelay = this.add(new SliderSetting("PlaceDelay", 50, 0, 500, v -> this.page.getValue() == WebMode.General));
+    public final SliderSetting blocksPer = this.add(new SliderSetting("BlocksPer", 2, 1, 10, v -> this.page.getValue() == WebMode.General));
+    public final SliderSetting predictTicks = this.add(new SliderSetting("PredictTicks", 2.0, 0.0, 50.0, 1.0, v -> this.page.getValue() == WebMode.General));
+    public final SliderSetting maxWebs = this.add(new SliderSetting("MaxWebs", 2.0, 1.0, 8.0, 1.0, v -> this.page.getValue() == WebMode.General));
+    public final SliderSetting burrowMaxWebs = this.add(new SliderSetting("BurrowMaxWebs", 2.0, 1.0, 8.0, 1.0, v -> this.page.getValue() == WebMode.General));
+    public final SliderSetting placeRange = this.add(new SliderSetting("PlaceRange", 5.0, 0.0, 6.0, 0.1, v -> this.page.getValue() == WebMode.General));
+    public final SliderSetting targetRange = this.add(new SliderSetting("TargetRange", 8.0, 0.0, 8.0, 0.1, v -> this.page.getValue() == WebMode.General));
+    public final SliderSetting offset = this.add(new SliderSetting("Offset", 0.25, 0.0, 0.3, 0.01, v -> this.page.getValue() == WebMode.General));
     public final ArrayList<BlockPos> pos = new ArrayList();
-    private final BooleanSetting detectMining = this.add(new BooleanSetting("DetectMining", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting noMine = this.add(new BooleanSetting("NoMine", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting interact = this.add(new BooleanSetting("InteractPacket", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting seqpack = this.add(new BooleanSetting("SequencedPacket", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting onlyTick = this.add(new BooleanSetting("OnlyTick", false, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting feet = this.add(new BooleanSetting("Feet", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting face = this.add(new BooleanSetting("Face", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting noPushFaceHT = this.add(new BooleanSetting("NoFacePush[HT]", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting noPushFaceFK = this.add(new BooleanSetting("NoFacePush[FK]", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting preferAnchor = this.add(new BooleanSetting("WaitAnchor", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting cancelBurrow = this.add(new BooleanSetting("CancelBurrow", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting waitTrap = this.add(new BooleanSetting("WaitTrap", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting down = this.add(new BooleanSetting("Down", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting inventorySwap = this.add(new BooleanSetting("InventorySwap", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting usingPause = this.add(new BooleanSetting("UsingPause", true, v -> this.page.getValue() == WebAuraTick.General));
-    private final BooleanSetting rotate = this.add(new BooleanSetting("Rotate", true, v -> this.page.getValue() == WebAuraTick.Rotate).setParent());
-    private final BooleanSetting yawStep = this.add(new BooleanSetting("YawStep", false, v -> this.rotate.isOpen() && this.page.getValue() == WebAuraTick.Rotate));
-    private final SliderSetting steps = this.add(new SliderSetting("Steps", 0.3, 0.1, 1.0, 0.01, v -> this.rotate.isOpen() && this.yawStep.getValue() && this.page.getValue() == WebAuraTick.Rotate));
-    private final BooleanSetting checkFov = this.add(new BooleanSetting("OnlyLooking", true, v -> this.rotate.isOpen() && this.yawStep.getValue() && this.page.getValue() == WebAuraTick.Rotate));
-    private final SliderSetting fov = this.add(new SliderSetting("Fov", 30, 0, 50, v -> this.rotate.isOpen() && this.yawStep.getValue() && this.checkFov.getValue() && this.page.getValue() == WebAuraTick.Rotate));
-    private final SliderSetting priority = this.add(new SliderSetting("Priority", 10, 0, 100, v -> this.rotate.isOpen() && this.yawStep.getValue() && this.page.getValue() == WebAuraTick.Rotate));
+    private final BooleanSetting detectMining = this.add(new BooleanSetting("DetectMining", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting noMine = this.add(new BooleanSetting("NoMine", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting interact = this.add(new BooleanSetting("InteractPacket", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting seqpack = this.add(new BooleanSetting("SequencedPacket", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting onlyTick = this.add(new BooleanSetting("OnlyTick", false, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting feet = this.add(new BooleanSetting("Feet", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting face = this.add(new BooleanSetting("Face", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting noPushFaceHT = this.add(new BooleanSetting("NoFacePush[HT]", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting noPushFaceFK = this.add(new BooleanSetting("NoFacePush[FK]", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting preferAnchor = this.add(new BooleanSetting("WaitAnchor", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting cancelBurrow = this.add(new BooleanSetting("CancelBurrow", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting waitTrap = this.add(new BooleanSetting("WaitTrap", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting down = this.add(new BooleanSetting("Down", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting inventorySwap = this.add(new BooleanSetting("InventorySwap", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting usingPause = this.add(new BooleanSetting("UsingPause", true, v -> this.page.getValue() == WebMode.General));
+    private final BooleanSetting rotate = this.add(new BooleanSetting("Rotate", true, v -> this.page.getValue() == WebMode.Rotate).setParent());
+    private final BooleanSetting yawStep = this.add(new BooleanSetting("YawStep", false, v -> this.rotate.isOpen() && this.page.getValue() == WebMode.Rotate));
+    private final SliderSetting steps = this.add(new SliderSetting("Steps", 0.3, 0.1, 1.0, 0.01, v -> this.rotate.isOpen() && this.yawStep.getValue() && this.page.getValue() == WebMode.Rotate));
+    private final BooleanSetting checkFov = this.add(new BooleanSetting("OnlyLooking", true, v -> this.rotate.isOpen() && this.yawStep.getValue() && this.page.getValue() == WebMode.Rotate));
+    private final SliderSetting fov = this.add(new SliderSetting("Fov", 30, 0, 50, v -> this.rotate.isOpen() && this.yawStep.getValue() && this.checkFov.getValue() && this.page.getValue() == WebMode.Rotate));
+    private final SliderSetting priority = this.add(new SliderSetting("Priority", 10, 0, 100, v -> this.rotate.isOpen() && this.yawStep.getValue() && this.page.getValue() == WebMode.Rotate));
     private final Timer timer = new Timer();
     public Vec3d directionVec = null;
     int progress = 0;
     int tempMaxWebs = 1;
 
-    public WebAuraTick_gaIdrzDzsbegzNTtPQoV() {
+    public WebAuraTick() {
         super("WebAuraTick", Module_JlagirAibYQgkHtbRnhw.Combat);
         INSTANCE = this;
     }
@@ -137,7 +137,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.getWebSlot() == -1) {
             return;
         }
-        if (this.usingPause.getValue() && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.player.isUsingItem()) {
+        if (this.usingPause.getValue() && me.hextech.remapped.WebAuraTick.mc.player.isUsingItem()) {
             return;
         }
         block0: for (PlayerEntity player : CombatUtil.getEnemies(this.targetRange.getValue())) {
@@ -157,7 +157,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         BlockPosX pos = new BlockPosX(playerPos.getX() + (double)x, playerPos.getY() + (double)y, playerPos.getZ() + (double)z);
                         if (list.contains((Object)pos)) continue;
                         list.add(pos);
-                        if (!this.isTargetHere(pos, player) || WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.COBWEB || HexTech.BREAK.isMining(pos)) continue;
+                        if (!this.isTargetHere(pos, player) || me.hextech.remapped.WebAuraTick.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.COBWEB || HexTech.BREAK.isMining(pos)) continue;
                         ++webs;
                     }
                 }
@@ -202,8 +202,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || !this.noMine.getValue() && pos.equals((Object)SpeedMine.breakPos))) {
             return false;
         }
-        if (BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) != null && (WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.isAir(pos) || ignore && BlockUtil.getBlock(pos) == Blocks.COBWEB) && pos.getY() < 320) {
-            int oldSlot = WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.player.getInventory().selectedSlot;
+        if (BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) != null && (me.hextech.remapped.WebAuraTick.mc.world.isAir(pos) || ignore && BlockUtil.getBlock(pos) == Blocks.COBWEB) && pos.getY() < 320) {
+            int oldSlot = me.hextech.remapped.WebAuraTick.mc.player.getInventory().selectedSlot;
             int webSlot = this.getWebSlot();
             if (!this.placeBlock(pos, this.rotate.getValue(), webSlot)) {
                 return false;
@@ -231,7 +231,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (float x : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
             for (float z : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
                 BlockPosX pos = new BlockPosX(player.getX() + (double)x, player.getY() + (double)0.15f, player.getZ() + (double)z);
-                if (WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.OBSIDIAN && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.BEDROCK && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.ENDER_CHEST && WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.RESPAWN_ANCHOR) continue;
+                if (me.hextech.remapped.WebAuraTick.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.OBSIDIAN && me.hextech.remapped.WebAuraTick.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.BEDROCK && me.hextech.remapped.WebAuraTick.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.ENDER_CHEST && me.hextech.remapped.WebAuraTick.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.RESPAWN_ANCHOR) continue;
                 return true;
             }
         }
@@ -258,7 +258,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         if (this.interact.getValue()) {
-            WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.world)));
+            me.hextech.remapped.WebAuraTick.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(me.hextech.remapped.WebAuraTick.mc.world)));
         }
         if (this.seqpack.getValue()) {
             Module_eSdgMXWuzcxgQVaJFmKZ.sendSequencedPacket(id -> new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, id));
@@ -280,7 +280,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventorySwap.getValue()) {
-            InventoryUtil.inventorySwap(slot, WebAuraTick_gaIdrzDzsbegzNTtPQoV.mc.player.getInventory().selectedSlot);
+            InventoryUtil.inventorySwap(slot, me.hextech.remapped.WebAuraTick.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -296,7 +296,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     /*
      * Exception performing whole class analysis ignored.
      */
-    public enum WebAuraTick {
+    public enum WebMode {
         General,
         Rotate
     }

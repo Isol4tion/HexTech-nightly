@@ -45,34 +45,34 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinClientPlayerEntity
 extends AbstractClientPlayerEntity {
     @Shadow
-    public Input field_3913;
+    public Input input;
     @Final
     @Shadow
-    public ClientPlayNetworkHandler field_3944;
+    public ClientPlayNetworkHandler networkHandler;
     @Final
     @Shadow
-    protected MinecraftClient field_3937;
+    protected MinecraftClient client;
     @Shadow
     @Final
-    private List<ClientPlayerTickable> field_3933;
+    private List<ClientPlayerTickable> tickables;
     @Shadow
-    private boolean field_3927;
+    private boolean autoJumpEnabled;
     @Shadow
-    private double field_3926;
+    private double lastX;
     @Shadow
-    private double field_3940;
+    private double lastBaseY;
     @Shadow
-    private double field_3924;
+    private double lastZ;
     @Shadow
-    private float field_3941;
+    private float lastYaw;
     @Shadow
-    private float field_3925;
+    private float lastPitch;
     @Shadow
-    private boolean field_3920;
+    private boolean lastOnGround;
     @Shadow
-    private boolean field_3936;
+    private boolean lastSneaking;
     @Shadow
-    private int field_3923;
+    private int ticksSinceLastPositionPacketSent;
 
     public MixinClientPlayerEntity(ClientWorld world, GameProfile profile) {
         super(world, profile);
@@ -90,7 +90,7 @@ extends AbstractClientPlayerEntity {
         if (NoSlow_PaVUKKxFbWGbplzMaucl.INSTANCE.isOn()) {
             return false;
         }
-        return player.method_6115();
+        return player.isUsingItem();
     }
 
     @Redirect(method={"updateNausea"}, at=@At(value="FIELD", target="Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;"))
@@ -108,26 +108,26 @@ extends AbstractClientPlayerEntity {
             HexTech.EVENT_BUS.post(event);
             ci.cancel();
             if (!event.isCancelled()) {
-                super.method_5784(movementType, new Vec3d(event.getX(), event.getY(), event.getZ()));
+                super.move(movementType, new Vec3d(event.getX(), event.getY(), event.getZ()));
             }
         }
     }
 
     @Shadow
-    private void method_46742() {
+    private void sendSprintingPacket() {
     }
 
     @Shadow
-    private void method_3136() {
+    private void sendMovementPackets() {
     }
 
     @Shadow
-    protected boolean method_3134() {
+    protected boolean isCamera() {
         return false;
     }
 
-    @Shadow
-    public abstract float method_5695(float var1);
+
+    @Shadow public abstract float getYaw(float tickDelta);
 
     @Inject(method={"sendMovementPackets"}, at={@At(value="HEAD")}, cancellable=true)
     private void sendMovementPacketsHook(CallbackInfo ci) {
@@ -137,19 +137,19 @@ extends AbstractClientPlayerEntity {
                 UpdateWalkingEvent updateEvent;
                 RotateManager.lastEvent = updateEvent = new UpdateWalkingEvent(Event.Pre);
                 HexTech.EVENT_BUS.post(updateEvent);
-                this.method_46742();
-                boolean bl = this.method_5715();
-                if (bl != this.field_3936) {
+                this.sendSprintingPacket();
+                boolean bl = this.isSneaking();
+                if (bl != this.lastSneaking) {
                     ClientCommandC2SPacket.Mode mode = bl ? ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY : ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY;
-                    this.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)this, mode));
-                    this.field_3936 = bl;
+                    this.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)this, mode));
+                    this.lastSneaking = bl;
                 }
-                if (this.method_3134()) {
+                if (this.isCamera()) {
                     boolean bl3;
-                    double d = this.getX() - this.field_3926;
-                    double e = this.getY() - this.field_3940;
-                    double f = this.getZ() - this.field_3924;
-                    float yaw = this.method_36454();
+                    double d = this.getX() - this.lastX;
+                    double e = this.getY() - this.lastBaseY;
+                    double f = this.getZ() - this.lastZ;
+                    float yaw = this.getYaw();
                     float pitch = this.getPitch();
                     RotateEvent rotateEvent = new RotateEvent(yaw, pitch);
                     HexTech.EVENT_BUS.post(rotateEvent);
@@ -162,37 +162,37 @@ extends AbstractClientPlayerEntity {
                     HexTech.ROTATE.rotatePitch = pitch;
                     double g = yaw - HexTech.ROTATE.lastYaw;
                     double h = pitch - RotateManager.lastPitch;
-                    ++this.field_3923;
-                    boolean bl2 = MathHelper.squaredMagnitude((double)d, (double)e, (double)f) > MathHelper.square((double)2.0E-4) || this.field_3923 >= 20 || ForceSync.INSTANCE.isOn() && ForceSync.INSTANCE.position.getValue();
+                    ++this.ticksSinceLastPositionPacketSent;
+                    boolean bl2 = MathHelper.squaredMagnitude((double)d, (double)e, (double)f) > MathHelper.square((double)2.0E-4) || this.ticksSinceLastPositionPacketSent >= 20 || ForceSync.INSTANCE.isOn() && ForceSync.INSTANCE.position.getValue();
                     boolean bl4 = bl3 = g != 0.0 || h != 0.0 || ForceSync.INSTANCE.isOn() && ForceSync.INSTANCE.rotate.getValue();
                     if (PacketControl.INSTANCE.isOn()) {
                         bl3 = PacketControl.INSTANCE.full;
                     }
-                    if (this.method_5765()) {
+                    if (this.hasVehicle()) {
                         Vec3d vec3d = this.getVelocity();
-                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.Full(vec3d.x, -999.0, vec3d.z, yaw, pitch, this.method_24828()));
+                        this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.Full(vec3d.x, -999.0, vec3d.z, yaw, pitch, this.isOnGround()));
                         bl2 = false;
                     } else if (bl2 && bl3) {
-                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.Full(this.getX(), this.getY(), this.getZ(), yaw, pitch, this.method_24828()));
+                        this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.Full(this.getX(), this.getY(), this.getZ(), yaw, pitch, this.isOnGround()));
                     } else if (bl2) {
-                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(this.getX(), this.getY(), this.getZ(), this.method_24828()));
+                        this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(this.getX(), this.getY(), this.getZ(), this.isOnGround()));
                     } else if (bl3) {
-                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, this.method_24828()));
-                    } else if (this.field_3920 != this.method_24828()) {
-                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.OnGroundOnly(this.method_24828()));
+                        this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, this.isOnGround()));
+                    } else if (this.lastOnGround != this.isOnGround()) {
+                        this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.OnGroundOnly(this.isOnGround()));
                     }
                     if (bl2) {
-                        this.field_3926 = this.getX();
-                        this.field_3940 = this.getY();
-                        this.field_3924 = this.getZ();
-                        this.field_3923 = 0;
+                        this.lastX = this.getX();
+                        this.lastBaseY = this.getY();
+                        this.lastZ = this.getZ();
+                        this.ticksSinceLastPositionPacketSent = 0;
                     }
                     if (bl3) {
-                        this.field_3941 = yaw;
-                        this.field_3925 = pitch;
+                        this.lastYaw = yaw;
+                        this.lastPitch = pitch;
                     }
-                    this.field_3920 = this.method_24828();
-                    this.field_3927 = (Boolean)this.field_3937.options.getAutoJump().getValue();
+                    this.lastOnGround = this.isOnGround();
+                    this.autoJumpEnabled = (Boolean)this.client.options.getAutoJump().getValue();
                 }
                 HexTech.EVENT_BUS.post(new UpdateWalkingEvent(Event.Post));
             }
@@ -205,16 +205,16 @@ extends AbstractClientPlayerEntity {
     @Inject(method={"tick"}, at={@At(value="HEAD")}, cancellable=true)
     private void tickHook(CallbackInfo ci) {
         ci.cancel();
-        if (!this.method_37908().method_33598(this.method_31477(), this.method_31479())) {
+        if (!this.getWorld().isPosLoaded(this.getBlockX(), this.getBlockZ())) {
             return;
         }
-        super.method_5773();
-        if (this.method_5765()) {
+        super.tick();
+        if (this.hasVehicle()) {
             UpdateWalkingEvent pre;
             RotateManager.lastEvent = pre = new UpdateWalkingEvent(Event.Pre);
             HexTech.EVENT_BUS.post(pre);
             if (!pre.isCancelRotate()) {
-                float yaw = this.method_36454();
+                float yaw = this.getYaw();
                 float pitch = this.getPitch();
                 RotateEvent rot = new RotateEvent(yaw, pitch);
                 HexTech.EVENT_BUS.post(rot);
@@ -225,19 +225,19 @@ extends AbstractClientPlayerEntity {
                 pitch = rot.getPitch();
                 HexTech.ROTATE.rotateYaw = yaw;
                 HexTech.ROTATE.rotatePitch = pitch;
-                this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, this.method_24828()));
+                this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, this.isOnGround()));
             }
             HexTech.EVENT_BUS.post(new UpdateWalkingEvent(Event.Post));
-            this.field_3944.method_52787((Packet)new PlayerInputC2SPacket(this.field_6212, this.field_6250, this.field_3913.field_3904, this.field_3913.field_3903));
-            Entity root = this.method_5668();
+            this.networkHandler.sendPacket((Packet)new PlayerInputC2SPacket(this.sidewaysSpeed, this.forwardSpeed, this.input.jumping, this.input.sneaking));
+            Entity root = this.getRootVehicle();
             if (root != this && root.isLogicalSideForUpdatingMovement()) {
-                this.field_3944.method_52787((Packet)new VehicleMoveC2SPacket(root));
-                this.method_46742();
+                this.networkHandler.sendPacket((Packet)new VehicleMoveC2SPacket(root));
+                this.sendSprintingPacket();
             }
         } else {
-            this.method_3136();
+            this.sendMovementPackets();
         }
-        for (ClientPlayerTickable tickable : this.field_3933) {
+        for (ClientPlayerTickable tickable : this.tickables) {
             tickable.tick();
         }
     }

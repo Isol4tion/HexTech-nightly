@@ -6,7 +6,7 @@ import me.hextech.remapped.AStarCustomPathFinder_GIsiOdvkuKbgFcjrKqrl;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class AStarCustomPathFinder
+public class AStarCustomPathFinder
 implements Comparator<AStarCustomPathFinder_GIsiOdvkuKbgFcjrKqrl> {
     @Override
     public int compare(AStarCustomPathFinder_GIsiOdvkuKbgFcjrKqrl o1, AStarCustomPathFinder_GIsiOdvkuKbgFcjrKqrl o2) {

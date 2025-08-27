@@ -231,7 +231,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static enum _hIXwTMQyjavijZllSIBF {
+    public enum _hIXwTMQyjavijZllSIBF {
         Instant,
         Strafe;
 

@@ -6,7 +6,7 @@ import net.minecraft.client.render.LightmapTextureManager;
 
 public class WeatherRenderEvent
 extends Event_auduwKaxKOWXRtyJkCPb {
-    private final WeatherRenderEvent INSTANCE;
+    public static WeatherRenderEvent INSTANCE;
     public LightmapTextureManager lightmapTextureManager;
     public float tickDelta;
     public double cameraX;

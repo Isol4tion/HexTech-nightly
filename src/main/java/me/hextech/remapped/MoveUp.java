@@ -72,7 +72,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static enum _FPLgygTQIdxRiYXqovqv {
+    public enum _FPLgygTQIdxRiYXqovqv {
         Packet,
         Jump;
 

@@ -49,7 +49,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static enum _kIBjeDSbfTeuMDPgEQgD {
+    public enum _kIBjeDSbfTeuMDPgEQgD {
         Legit,
         Normal,
         Rage;

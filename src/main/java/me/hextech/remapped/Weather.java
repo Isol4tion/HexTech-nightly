@@ -19,13 +19,13 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.biome.Biome;
 
-public class Weather_BfaBZRqvqRbKrhUkvqny
+public class Weather
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
-    private static final Identifier RAIN;
-    private static final Identifier SNOW;
-    private static final float[] weatherXCoords;
-    private static final float[] weatherYCoords;
-    private final EnumSetting precipitationSetting = this.add(new EnumSetting<>("Type", Weather.Rain));
+    private static Identifier RAIN;
+    private static Identifier SNOW;
+    private static float[] weatherXCoords;
+    private static float[] weatherYCoords;
+    private final EnumSetting precipitationSetting = this.add(new EnumSetting<>("Type", WeatherMode.Rain));
     private final SliderSetting height = this.add(new SliderSetting("height", 0.0, 0.0, 320.0, 0.01));
     private final SliderSetting strength = this.add(new SliderSetting("Strength", 0.8, 0.0, 200.0, 0.01));
     private final ColorSetting weatherColor = this.add(new ColorSetting("WeatherColor", new Color(14473686)));
@@ -33,22 +33,22 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final SliderSetting snowFallingSpeedMultiplier = this.add(new SliderSetting("Multi", 1.0, 1.0, 100.0, 0.01));
     private final int ticks = 0;
 
-    public Weather_BfaBZRqvqRbKrhUkvqny() {
+    public Weather() {
         super("Weather", Module_JlagirAibYQgkHtbRnhw.Render);
     }
 
     @EventHandler
     private void onWeather(WeatherRenderEvent event) {
-        if (((Enum<?>)this.precipitationSetting.getValue()).equals((Object)Weather.Both)) {
-            this.render(event, Weather.Rain);
-            this.render(event, Weather.Snow);
+        if (((Enum<?>)this.precipitationSetting.getValue()).equals((Object) WeatherMode.Both)) {
+            this.render(event, WeatherMode.Rain);
+            this.render(event, WeatherMode.Snow);
             event.cancel();
             return;
         }
         event.cancel();
     }
 
-    private void render(WeatherRenderEvent event, Weather precipitationType) {
+    private void render(WeatherRenderEvent event, WeatherMode precipitationType) {
         LightmapTextureManager manager = event.lightmapTextureManager;
         double cameraX = event.cameraX;
         double cameraY = event.cameraY;
@@ -113,7 +113,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     float dLength = (float)Math.sqrt(xOffset * xOffset + yOffset * yOffset) / (float)expand;
                     weatherAlpha = ((1.0f - dLength * dLength) * 0.5f + 0.5f) * f;
                     mutable.set(xRange, maxRenderY, zRange);
-                    int lightmapCoord = WorldRenderer.getLightmapCoordinates((BlockRenderView)Weather_BfaBZRqvqRbKrhUkvqny.mc.world, (BlockPos)mutable);
+                    int lightmapCoord = WorldRenderer.getLightmapCoordinates((BlockRenderView) Weather.mc.world, (BlockPos)mutable);
                     bufferBuilder.vertex((double)xRange - cameraX - xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ - zCoord + 0.5).texture(0.0f, (float)minIntY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).light(lightmapCoord).next();
                     bufferBuilder.vertex((double)xRange - cameraX + xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f, (float)minIntY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).light(lightmapCoord).next();
                     bufferBuilder.vertex((double)xRange - cameraX + xCoord + 0.5, (double)minIntY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f, (float)expandedCameraY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).light(lightmapCoord).next();
@@ -137,7 +137,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 weatherAlpha = (float)Math.sqrt(xOffset * xOffset + yOffset * yOffset) / (float)expand;
                 float snowAlpha = ((1.0f - weatherAlpha * weatherAlpha) * 0.3f + 0.5f) * f;
                 mutable.set(xRange, maxRenderY, zRange);
-                int lightMapCoord = WorldRenderer.getLightmapCoordinates((BlockRenderView)Weather_BfaBZRqvqRbKrhUkvqny.mc.world, (BlockPos)mutable);
+                int lightMapCoord = WorldRenderer.getLightmapCoordinates((BlockRenderView) Weather.mc.world, (BlockPos)mutable);
                 int lightmapCalcV = lightMapCoord >> 16 & 0xFFFF;
                 int lightmapCalcU = lightMapCoord & 0xFFFF;
                 int lightmapV = (lightmapCalcV * 3 + 240) / 4;
@@ -159,7 +159,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     /*
      * Exception performing whole class analysis ignored.
      */
-    public enum Weather {
+    public enum WeatherMode {
         None,
         Rain,
         Snow,

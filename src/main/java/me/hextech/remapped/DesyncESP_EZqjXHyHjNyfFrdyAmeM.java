@@ -10,11 +10,11 @@ import org.joml.Vector3f;
 /*
  * Exception performing whole class analysis ignored.
  */
-private static class DesyncESP_EZqjXHyHjNyfFrdyAmeM {
+public class DesyncESP_EZqjXHyHjNyfFrdyAmeM {
     private final PlayerEntityModel<PlayerEntity> modelPlayer;
 
     public DesyncESP_EZqjXHyHjNyfFrdyAmeM() {
         this.modelPlayer = new PlayerEntityModel(new EntityRendererFactory.Context(Wrapper.mc.getEntityRenderDispatcher(), Wrapper.mc.getItemRenderer(), Wrapper.mc.getBlockRenderManager(), Wrapper.mc.getEntityRenderDispatcher().getHeldItemRenderer(), Wrapper.mc.getResourceManager(), Wrapper.mc.getLoadedEntityModels(), Wrapper.mc.textRenderer).getPart(EntityModelLayers.PLAYER), false);
-        this.modelPlayer.method_2838().scale(new Vector3f(-0.3f, -0.3f, -0.3f));
+        this.modelPlayer.getHead().scale(new Vector3f(-0.3f, -0.3f, -0.3f));
     }
 }

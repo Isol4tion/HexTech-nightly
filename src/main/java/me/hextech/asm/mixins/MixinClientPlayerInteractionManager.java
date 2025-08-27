@@ -20,13 +20,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value={ClientPlayerInteractionManager.class})
 public class MixinClientPlayerInteractionManager {
-    @Shadow
-    private ItemStack field_3718;
-
-    @ModifyVariable(method={"isCurrentlyBreaking"}, at=@At(value="STORE"))
-    private ItemStack stack(ItemStack stack) {
-        return MineTweak.INSTANCE.noReset() ? this.field_3718 : stack;
-    }
+//    @Shadow
+//    private ItemStack selectedStack;
+//
+//    @ModifyVariable(method={"isCurrentlyBreaking"}, at=@At(value="STORE"))
+//    private ClientPlayerInteractionManager stack(ClientPlayerInteractionManager value) {
+//        return MineTweak.INSTANCE.noReset() ? this.selectedStack : value.getReachDistance();
+//    }todo
 
     @ModifyConstant(method={"updateBlockBreakingProgress"}, constant={@Constant(intValue=5)})
     private int MiningCooldownFix(int value) {
@@ -44,7 +44,7 @@ public class MixinClientPlayerInteractionManager {
     private void onGetReachDistance(CallbackInfoReturnable<Float> ci) {
         Reach reachHack = Reach.INSTANCE;
         if (reachHack.isOn()) {
-            ci.setReturnValue((Object)Float.valueOf(reachHack.distance.getValueFloat()));
+            ci.setReturnValue(Float.valueOf(reachHack.distance.getValueFloat()));
         }
     }
 
@@ -52,7 +52,7 @@ public class MixinClientPlayerInteractionManager {
     private void hasExtendedReach(CallbackInfoReturnable<Boolean> cir) {
         Reach reachHack = Reach.INSTANCE;
         if (reachHack.isOn()) {
-            cir.setReturnValue((Object)true);
+            cir.setReturnValue(true);
         }
     }
 
@@ -61,7 +61,7 @@ public class MixinClientPlayerInteractionManager {
         ClickBlockEvent event = new ClickBlockEvent(pos, direction);
         HexTech.EVENT_BUS.post(event);
         if (event.isCancelled()) {
-            cir.setReturnValue((Object)false);
+            cir.setReturnValue(false);
         }
     }
 }

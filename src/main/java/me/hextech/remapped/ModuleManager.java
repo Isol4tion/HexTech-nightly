@@ -38,7 +38,7 @@ implements Wrapper {
         this.addModule(new FastWeb_dehcwwTxEbDSnkFtZvNl());
         this.addModule(new BugClip());
         this.addModule(new AutoPearl());
-        this.addModule(new WebAuraTick_gaIdrzDzsbegzNTtPQoV());
+        this.addModule(new WebAuraTick());
         this.addModule(new XCarry());
         this.addModule(new HoleESP_uLDVZuHQKEvOMTkALgRO());
         this.addModule(new ElytraFly());
@@ -136,7 +136,7 @@ implements Wrapper {
         this.addModule(new BedCrafter());
         this.addModule(new BaseFinder());
         this.addModule(new TotemParticle());
-        this.addModule(new TwoDESP_CLphFghCvliwVuLcyYHt());
+        this.addModule(new TwoDESP());
         this.addModule(new BreakESP());
         this.addModule(new FakeLag_pNelqtbEdFyayuoaPLch());
         this.addModule(new FreeLook());
@@ -156,7 +156,7 @@ implements Wrapper {
         this.addModule(new IncreasesTime());
         this.addModule(new FinalHoleKick());
         this.addModule(new BaseThreadSetting_TYdViPaJQVoRZLdgWIXF());
-        this.addModule(new Weather_BfaBZRqvqRbKrhUkvqny());
+        this.addModule(new Weather());
         this.addModule(new Moratorium());
         this.addModule(new Rotation());
         this.addModule(new AutoQueue_kggvJAWJdfERirsncrmh());

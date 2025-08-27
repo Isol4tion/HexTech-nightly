@@ -123,7 +123,7 @@ implements Wrapper {
         return false;
     }
 
-    public static class _cScSUnWhWBxyFlTcoHKo
+    public class _cScSUnWhWBxyFlTcoHKo
     extends Framebuffer {
         public _cScSUnWhWBxyFlTcoHKo(int width, int height) {
             super(false);

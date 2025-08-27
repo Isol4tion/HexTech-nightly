@@ -3,7 +3,7 @@ package me.hextech.remapped;
 /*
  * Exception performing whole class analysis ignored.
  */
-private static enum NewBurrow_SzzqAKQBmpOchBNTHTUz {
+public enum NewBurrow_SzzqAKQBmpOchBNTHTUz {
     Smart,
     Invalid,
     TrollHack,

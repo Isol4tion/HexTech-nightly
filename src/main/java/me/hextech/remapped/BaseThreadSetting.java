@@ -3,7 +3,7 @@ package me.hextech.remapped;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static enum BaseThreadSetting {
+public enum BaseThreadSetting {
     Thread,
     Change,
     Mixin,

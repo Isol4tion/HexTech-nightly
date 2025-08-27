@@ -6,7 +6,7 @@ import net.minecraft.particle.ParticleEffect;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class ParticleEvent_nCuHsVGACULnIozEhCmM
+public class ParticleEvent_nCuHsVGACULnIozEhCmM
 extends ParticleEvent_KqEBTPXRWHlYeOSnrLnf {
     public final ParticleEffect emmiter;
 

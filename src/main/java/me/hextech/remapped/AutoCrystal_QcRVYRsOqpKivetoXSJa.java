@@ -242,8 +242,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.misscatext.booleanValue && this.lastDamage > 0.0f && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
             ListenerText.drawText3D2(String.format("%.1f Sync", Float.valueOf(this.tempDamage)), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.misscatext.getValue());
         }
-        if (this.spamtext.booleanValue && WebAuraTick_gaIdrzDzsbegzNTtPQoV.INSTANCE.isOn() && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
-            ListenerText.drawText3D3(String.format("[Web > %.0f > %.0f]", Float.valueOf(WebAuraTick_gaIdrzDzsbegzNTtPQoV.lastYaw), Float.valueOf(WebAuraTick_gaIdrzDzsbegzNTtPQoV.lastPitch)), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.15, 0.0), this.spamtext.getValue());
+        if (this.spamtext.booleanValue && WebAuraTick.INSTANCE.isOn() && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
+            ListenerText.drawText3D3(String.format("[Web > %.0f > %.0f]", Float.valueOf(WebAuraTick.lastYaw), Float.valueOf(WebAuraTick.lastPitch)), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.15, 0.0), this.spamtext.getValue());
         }
         if (this.nullpostext.booleanValue && AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
             ListenerText.drawText3D2(String.format("WaitSync", AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.nullpostext.getValue());
@@ -705,10 +705,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.updateCrystalPos();
             }
             if (this.WebSync.getValue() && (double)this.lastDamage > this.WebMinDamage.getValue()) {
-                WebAuraTick_gaIdrzDzsbegzNTtPQoV.force = false;
+                WebAuraTick.force = false;
             }
-            if (this.forceWeb.getValue() && WebAuraTick_gaIdrzDzsbegzNTtPQoV.INSTANCE.isOn()) {
-                WebAuraTick_gaIdrzDzsbegzNTtPQoV.force = true;
+            if (this.forceWeb.getValue() && WebAuraTick.INSTANCE.isOn()) {
+                WebAuraTick.force = true;
             }
             return;
         }

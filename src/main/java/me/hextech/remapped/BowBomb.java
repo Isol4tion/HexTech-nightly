@@ -92,7 +92,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return this.spoofs.getValueInt();
     }
 
-    private static enum _rjdFZKIVfyUHfSoAeHLl {
+    public enum _rjdFZKIVfyUHfSoAeHLl {
         Strong,
         Fast,
         Strict,

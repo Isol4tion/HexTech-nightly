@@ -15,7 +15,7 @@ import org.joml.Vector3f;
 /*
  * Exception performing whole class analysis ignored.
  */
-private static class PopChams {
+public class PopChams {
     private final PlayerEntity player;
     private final PlayerEntityModel<PlayerEntity> modelPlayer;
     private int alpha;

@@ -64,7 +64,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return sb.toString();
     }
 
-    public static enum _TjwHGYKUAEgXsMpgUbfm {
+    public enum _TjwHGYKUAEgXsMpgUbfm {
         HEXTECH,
         ALEXJONNY,
         GUAZIGEGE,

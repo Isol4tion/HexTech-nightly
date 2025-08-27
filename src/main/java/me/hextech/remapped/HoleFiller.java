@@ -244,7 +244,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static enum _sZEAolNLTvldDiHjSnlT {
+    public enum _sZEAolNLTvldDiHjSnlT {
         General,
         Rotate;
 

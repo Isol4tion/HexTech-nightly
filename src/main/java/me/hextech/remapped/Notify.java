@@ -5,7 +5,7 @@ import me.hextech.remapped.FadeUtils_DPfHthPqEJdfXfNYhDbG;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class Notify {
+public class Notify {
     public final FadeUtils_DPfHthPqEJdfXfNYhDbG firstFade = new FadeUtils_DPfHthPqEJdfXfNYhDbG(250L);
     public final FadeUtils_DPfHthPqEJdfXfNYhDbG endFade;
     public final FadeUtils_DPfHthPqEJdfXfNYhDbG yFade = new FadeUtils_DPfHthPqEJdfXfNYhDbG(500L);
@@ -25,7 +25,7 @@ public static class Notify {
     /*
      * Exception performing whole class analysis ignored.
      */
-    private static enum _eNVZNRNonauDhUZRxBAg {
+    public enum _eNVZNRNonauDhUZRxBAg {
         Line,
         Fill;
 
@@ -34,7 +34,7 @@ public static class Notify {
     /*
      * Exception performing whole class analysis ignored.
      */
-    public static enum _hvcAdwcUFPZabyUezEMv {
+    public enum _hvcAdwcUFPZabyUezEMv {
         Notify,
         Chat,
         Both;

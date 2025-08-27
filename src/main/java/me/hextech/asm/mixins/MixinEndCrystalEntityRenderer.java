@@ -92,35 +92,35 @@ extends EntityRenderer<EndCrystalEntity> {
         matrixStack.multiply(new Quaternionf().setAngleAxis(1.0471976f, field_21002, 0.0f, field_21002));
         Color color = module.outerFrame.getValue();
         if (module.outerFrame.booleanValue) {
-            this.field_21004.method_22699(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
+            this.field_21004.render(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
         }
         matrixStack.scale(0.875f, 0.875f, 0.875f);
         matrixStack.multiply(new Quaternionf().setAngleAxis(1.0471976f, field_21002, 0.0f, field_21002));
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(j));
         color = module.innerFrame.getValue();
         if (module.innerFrame.booleanValue) {
-            this.field_21004.method_22699(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
+            this.field_21004.render(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
         }
         matrixStack.scale(0.875f, 0.875f, 0.875f);
         matrixStack.multiply(new Quaternionf().setAngleAxis(1.0471976f, field_21002, 0.0f, field_21002));
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(j));
         color = module.core.getValue();
         if (module.core.booleanValue) {
-            this.field_21003.method_22699(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
+            this.field_21003.render(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
         }
         matrixStack.pop();
         matrixStack.pop();
         BlockPos blockPos = endCrystalEntity.getBeamTarget();
         if (blockPos != null) {
-            float m = (float)blockPos.method_10263() + 0.5f;
+            float m = (float)blockPos.getX() + 0.5f;
             float n = (float)blockPos.getY() + 0.5f;
-            float o = (float)blockPos.method_10260() + 0.5f;
+            float o = (float)blockPos.getZ() + 0.5f;
             float p = (float)((double)m - endCrystalEntity.getX());
             float q = (float)((double)n - endCrystalEntity.getY());
             float r = (float)((double)o - endCrystalEntity.getZ());
             matrixStack.translate(p, q, r);
-            EnderDragonEntityRenderer.method_3917((float)(-p), (float)(-q + h), (float)(-r), (float)g, (int)endCrystalEntity.endCrystalAge, (MatrixStack)matrixStack, (VertexConsumerProvider)vertexConsumerProvider, (int)i);
+            EnderDragonEntityRenderer.renderCrystalBeam((float)(-p), (float)(-q + h), (float)(-r), (float)g, (int)endCrystalEntity.endCrystalAge, (MatrixStack)matrixStack, (VertexConsumerProvider)vertexConsumerProvider, (int)i);
         }
-        super.method_3936((Entity)endCrystalEntity, f, g, matrixStack, vertexConsumerProvider, i);
+        super.render((Entity)endCrystalEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }
 }

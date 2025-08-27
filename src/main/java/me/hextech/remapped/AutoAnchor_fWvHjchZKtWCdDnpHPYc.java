@@ -13,7 +13,7 @@ import net.minecraft.util.math.Vec3d;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class AutoAnchor_fWvHjchZKtWCdDnpHPYc {
+public class AutoAnchor_fWvHjchZKtWCdDnpHPYc {
     final /* synthetic */ AutoAnchor_MDcwoWYRcPYheLZJWRZK this$0;
 
     public AutoAnchor_fWvHjchZKtWCdDnpHPYc(AutoAnchor_MDcwoWYRcPYheLZJWRZK this$0) {

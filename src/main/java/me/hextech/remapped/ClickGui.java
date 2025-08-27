@@ -3,7 +3,7 @@ package me.hextech.remapped;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static enum ClickGui {
+public enum ClickGui {
     Scale,
     Pull,
     Scissor,

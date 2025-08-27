@@ -17,15 +17,15 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(value={Camera.class})
 public abstract class MixinCamera {
     @Shadow
-    private boolean field_18719;
+    private boolean thirdPerson;
 
     @Shadow
-    protected abstract double method_19318(double var1);
+    protected abstract double clipToSpace(double var1);
 
     @ModifyArgs(method={"update"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/render/Camera;moveBy(DDD)V", ordinal=0))
     private void modifyCameraDistance(Args args) {
         if (CameraClip.INSTANCE.isOn()) {
-            args.set(0, (Object)(-this.method_19318(CameraClip.INSTANCE.getDistance())));
+            args.set(0, (Object)(-this.clipToSpace(CameraClip.INSTANCE.getDistance())));
         }
     }
 
@@ -39,7 +39,7 @@ public abstract class MixinCamera {
     @Inject(method={"update"}, at={@At(value="TAIL")})
     private void updateHook(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo ci) {
         if (FreeCam.INSTANCE.isOn()) {
-            this.field_18719 = true;
+            this.thirdPerson = true;
         }
     }
 

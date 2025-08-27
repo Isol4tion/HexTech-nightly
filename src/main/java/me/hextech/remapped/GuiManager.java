@@ -118,7 +118,7 @@ implements Wrapper {
         return GuiManager.mc.currentScreen instanceof ClickGuiScreen;
     }
 
-    public static enum _yMfkDhouYDFZMBdhUycu {
+    public enum _yMfkDhouYDFZMBdhUycu {
         MoonEmoji,
         nullpoint,
         MadCat,

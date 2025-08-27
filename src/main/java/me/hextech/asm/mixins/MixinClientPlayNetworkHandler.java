@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinClientPlayNetworkHandler
 extends ClientCommonNetworkHandler {
     @Shadow
-    private ClientWorld field_3699;
+    private ClientWorld world;
     @Unique
     private boolean $worldNotNull;
     @Unique
@@ -35,7 +35,7 @@ extends ClientCommonNetworkHandler {
     @Inject(method={"onGameJoin"}, at={@At(value="HEAD")})
     private void onGameJoinHead(GameJoinS2CPacket packet, CallbackInfo info) {
         if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.nullfix.getValue()) {
-            this.$worldNotNull = this.field_3699 != null;
+            this.$worldNotNull = this.world != null;
         }
     }
 

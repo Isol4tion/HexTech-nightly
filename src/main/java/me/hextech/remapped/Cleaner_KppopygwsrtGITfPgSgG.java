@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class Cleaner_KppopygwsrtGITfPgSgG {
+public class Cleaner_KppopygwsrtGITfPgSgG {
     final PlayerEntity predict;
     final /* synthetic */ Cleaner_iFwqnooxsJEmHoVteFeQ this$0;
 

@@ -3,7 +3,7 @@ package me.hextech.remapped;
 /*
  * Exception performing whole class analysis ignored.
  */
-private static enum Indicator {
+public enum Indicator {
     Red,
     Green,
     White;

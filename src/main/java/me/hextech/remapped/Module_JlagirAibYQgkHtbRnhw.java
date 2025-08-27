@@ -3,7 +3,7 @@ package me.hextech.remapped;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static enum Module_JlagirAibYQgkHtbRnhw {
+public enum Module_JlagirAibYQgkHtbRnhw {
     Combat,
     Misc,
     Render,

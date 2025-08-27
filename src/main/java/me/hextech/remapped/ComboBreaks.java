@@ -48,7 +48,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static enum _PNwHzpQsMnnDslSAEFgc {
+    public enum _PNwHzpQsMnnDslSAEFgc {
         Attack,
         Defend;
 

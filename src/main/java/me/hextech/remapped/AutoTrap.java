@@ -435,7 +435,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return InventoryUtil.findBlock(Blocks.RESPAWN_ANCHOR);
     }
 
-    public static enum _YlnJzIMwjFLWxhoVZoJp {
+    public enum _YlnJzIMwjFLWxhoVZoJp {
         Single,
         Multi;
 
@@ -486,7 +486,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     /*
      * Exception performing whole class analysis ignored.
      */
-    public static class AutoTrap_RYPZUKNZXVloqcMUfNgc {
+    public class AutoTrap_RYPZUKNZXVloqcMUfNgc {
         public final FadeUtils_DPfHthPqEJdfXfNYhDbG firstFade;
         public final BlockPos pos;
         public final Color posColor;

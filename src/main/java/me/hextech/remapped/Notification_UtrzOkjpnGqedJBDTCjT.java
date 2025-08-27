@@ -5,7 +5,7 @@ import me.hextech.remapped.FadeUtils_DPfHthPqEJdfXfNYhDbG;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class Notification_UtrzOkjpnGqedJBDTCjT {
+public class Notification_UtrzOkjpnGqedJBDTCjT {
     public final FadeUtils_DPfHthPqEJdfXfNYhDbG typeFrist = new FadeUtils_DPfHthPqEJdfXfNYhDbG(500L);
     public final FadeUtils_DPfHthPqEJdfXfNYhDbG firstFade = new FadeUtils_DPfHthPqEJdfXfNYhDbG(500L);
     public final FadeUtils_DPfHthPqEJdfXfNYhDbG endFade;

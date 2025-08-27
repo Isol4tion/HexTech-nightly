@@ -129,27 +129,27 @@ implements Wrapper {
         }
     }
 
-    public static enum _JgmYdSqRlhzWcxRMZVQF {
+    public enum _JgmYdSqRlhzWcxRMZVQF {
         Prediction,
         IDPrediction,
         Render;
 
     }
 
-    public static enum _mJSQReswTiaqOSqkjOmh {
+    public enum _mJSQReswTiaqOSqkjOmh {
         Aurora,
         HexTech;
 
     }
 
-    public static enum _JkDAbATfmVbQbOuEIDLo {
+    public enum _JkDAbATfmVbQbOuEIDLo {
         Box,
         Jello,
         Line;
 
     }
 
-    public static class _XBpBEveLWEKUGQPHCCIS {
+    public class _XBpBEveLWEKUGQPHCCIS {
         public final PlayerEntity player;
         public final PlayerEntity predict;
 

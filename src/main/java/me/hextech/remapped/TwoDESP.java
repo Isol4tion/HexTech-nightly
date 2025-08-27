@@ -24,47 +24,47 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import org.joml.Vector4d;
 
-public class TwoDESP_CLphFghCvliwVuLcyYHt
+public class TwoDESP
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
-    private final EnumSetting page = this.add(new EnumSetting<>("Settings", TwoDESP.Target));
-    public final ColorSetting armorDuraColor = this.add(new ColorSetting("Armor Dura Color", new Color(0x2FFF00), v -> this.page.getValue() == TwoDESP.Color));
-    public final ColorSetting hHealth = this.add(new ColorSetting("High Health Color", new Color(0, 255, 0, 255), v -> this.page.getValue() == TwoDESP.Color));
-    public final ColorSetting mHealth = this.add(new ColorSetting("Mid Health Color", new Color(255, 255, 0, 255), v -> this.page.getValue() == TwoDESP.Color));
-    public final ColorSetting lHealth = this.add(new ColorSetting("Low Health Color", new Color(255, 0, 0, 255), v -> this.page.getValue() == TwoDESP.Color));
-    private final BooleanSetting outline = this.add(new BooleanSetting("Outline", true, v -> this.page.getValue() == TwoDESP.Setting));
-    private final BooleanSetting renderHealth = this.add(new BooleanSetting("renderHealth", true, v -> this.page.getValue() == TwoDESP.Setting));
-    private final BooleanSetting renderArmor = this.add(new BooleanSetting("Armor Dura", true, v -> this.page.getValue() == TwoDESP.Setting));
+    private final EnumSetting page = this.add(new EnumSetting<>("Settings", TwoDESPMode.Target));
+    public final ColorSetting armorDuraColor = this.add(new ColorSetting("Armor Dura Color", new Color(0x2FFF00), v -> this.page.getValue() == TwoDESPMode.Color));
+    public final ColorSetting hHealth = this.add(new ColorSetting("High Health Color", new Color(0, 255, 0, 255), v -> this.page.getValue() == TwoDESPMode.Color));
+    public final ColorSetting mHealth = this.add(new ColorSetting("Mid Health Color", new Color(255, 255, 0, 255), v -> this.page.getValue() == TwoDESPMode.Color));
+    public final ColorSetting lHealth = this.add(new ColorSetting("Low Health Color", new Color(255, 0, 0, 255), v -> this.page.getValue() == TwoDESPMode.Color));
+    private final BooleanSetting outline = this.add(new BooleanSetting("Outline", true, v -> this.page.getValue() == TwoDESPMode.Setting));
+    private final BooleanSetting renderHealth = this.add(new BooleanSetting("renderHealth", true, v -> this.page.getValue() == TwoDESPMode.Setting));
+    private final BooleanSetting renderArmor = this.add(new BooleanSetting("Armor Dura", true, v -> this.page.getValue() == TwoDESPMode.Setting));
     private final SliderSetting durascale = this.add(new SliderSetting("DuraScale", 1.0, 0.0, 2.0, 0.1, v -> this.renderArmor.getValue()));
-    private final BooleanSetting drawItem = this.add(new BooleanSetting("draw Item Name", true, v -> this.page.getValue() == TwoDESP.Setting));
-    private final BooleanSetting drawItemC = this.add(new BooleanSetting("draw Item Count", true, v -> this.page.getValue() == TwoDESP.Setting && this.drawItem.getValue()));
-    public final ColorSetting countColor = this.add(new ColorSetting("Item Count Color", new Color(255, 255, 0, 255), v -> this.page.getValue() == TwoDESP.Color && this.drawItemC.getValue()));
-    public final ColorSetting textcolor = this.add(new ColorSetting("Item Name Color", new Color(255, 255, 255, 255), v -> this.page.getValue() == TwoDESP.Color && this.drawItem.getValue()));
-    private final BooleanSetting font = this.add(new BooleanSetting("CustomFont", true, v -> this.page.getValue() == TwoDESP.Setting));
-    private final BooleanSetting players = this.add(new BooleanSetting("Players", true, v -> this.page.getValue() == TwoDESP.Target));
-    private final BooleanSetting friends = this.add(new BooleanSetting("Friends", true, v -> this.page.getValue() == TwoDESP.Target));
-    private final BooleanSetting crystals = this.add(new BooleanSetting("Crystals", true, v -> this.page.getValue() == TwoDESP.Target));
-    private final BooleanSetting creatures = this.add(new BooleanSetting("Creatures", false, v -> this.page.getValue() == TwoDESP.Target));
-    private final BooleanSetting monsters = this.add(new BooleanSetting("Monsters", false, v -> this.page.getValue() == TwoDESP.Target));
-    private final BooleanSetting ambients = this.add(new BooleanSetting("Ambients", false, v -> this.page.getValue() == TwoDESP.Target));
-    private final BooleanSetting others = this.add(new BooleanSetting("Others", false, v -> this.page.getValue() == TwoDESP.Target));
-    private final ColorSetting playersC = this.add(new ColorSetting("PlayersBox", new Color(16749056), v -> this.page.getValue() == TwoDESP.Color));
-    private final ColorSetting friendsC = this.add(new ColorSetting("FriendsBox", new Color(0x30FF00), v -> this.page.getValue() == TwoDESP.Color));
-    private final ColorSetting crystalsC = this.add(new ColorSetting("CrystalsBox", new Color(48127), v -> this.page.getValue() == TwoDESP.Color));
-    private final ColorSetting creaturesC = this.add(new ColorSetting("CreaturesBox", new Color(10527910), v -> this.page.getValue() == TwoDESP.Color));
-    private final ColorSetting monstersC = this.add(new ColorSetting("MonstersBox", new Color(0xFF0000), v -> this.page.getValue() == TwoDESP.Color));
-    private final ColorSetting ambientsC = this.add(new ColorSetting("AmbientsBox", new Color(8061183), v -> this.page.getValue() == TwoDESP.Color));
-    private final ColorSetting othersC = this.add(new ColorSetting("OthersBox", new Color(16711778), v -> this.page.getValue() == TwoDESP.Color));
+    private final BooleanSetting drawItem = this.add(new BooleanSetting("draw Item Name", true, v -> this.page.getValue() == TwoDESPMode.Setting));
+    private final BooleanSetting drawItemC = this.add(new BooleanSetting("draw Item Count", true, v -> this.page.getValue() == TwoDESPMode.Setting && this.drawItem.getValue()));
+    public final ColorSetting countColor = this.add(new ColorSetting("Item Count Color", new Color(255, 255, 0, 255), v -> this.page.getValue() == TwoDESPMode.Color && this.drawItemC.getValue()));
+    public final ColorSetting textcolor = this.add(new ColorSetting("Item Name Color", new Color(255, 255, 255, 255), v -> this.page.getValue() == TwoDESPMode.Color && this.drawItem.getValue()));
+    private final BooleanSetting font = this.add(new BooleanSetting("CustomFont", true, v -> this.page.getValue() == TwoDESPMode.Setting));
+    private final BooleanSetting players = this.add(new BooleanSetting("Players", true, v -> this.page.getValue() == TwoDESPMode.Target));
+    private final BooleanSetting friends = this.add(new BooleanSetting("Friends", true, v -> this.page.getValue() == TwoDESPMode.Target));
+    private final BooleanSetting crystals = this.add(new BooleanSetting("Crystals", true, v -> this.page.getValue() == TwoDESPMode.Target));
+    private final BooleanSetting creatures = this.add(new BooleanSetting("Creatures", false, v -> this.page.getValue() == TwoDESPMode.Target));
+    private final BooleanSetting monsters = this.add(new BooleanSetting("Monsters", false, v -> this.page.getValue() == TwoDESPMode.Target));
+    private final BooleanSetting ambients = this.add(new BooleanSetting("Ambients", false, v -> this.page.getValue() == TwoDESPMode.Target));
+    private final BooleanSetting others = this.add(new BooleanSetting("Others", false, v -> this.page.getValue() == TwoDESPMode.Target));
+    private final ColorSetting playersC = this.add(new ColorSetting("PlayersBox", new Color(16749056), v -> this.page.getValue() == TwoDESPMode.Color));
+    private final ColorSetting friendsC = this.add(new ColorSetting("FriendsBox", new Color(0x30FF00), v -> this.page.getValue() == TwoDESPMode.Color));
+    private final ColorSetting crystalsC = this.add(new ColorSetting("CrystalsBox", new Color(48127), v -> this.page.getValue() == TwoDESPMode.Color));
+    private final ColorSetting creaturesC = this.add(new ColorSetting("CreaturesBox", new Color(10527910), v -> this.page.getValue() == TwoDESPMode.Color));
+    private final ColorSetting monstersC = this.add(new ColorSetting("MonstersBox", new Color(0xFF0000), v -> this.page.getValue() == TwoDESPMode.Color));
+    private final ColorSetting ambientsC = this.add(new ColorSetting("AmbientsBox", new Color(8061183), v -> this.page.getValue() == TwoDESPMode.Color));
+    private final ColorSetting othersC = this.add(new ColorSetting("OthersBox", new Color(16711778), v -> this.page.getValue() == TwoDESPMode.Color));
 
-    public TwoDESP_CLphFghCvliwVuLcyYHt() {
+    public TwoDESP() {
         super("2DESP", Module_JlagirAibYQgkHtbRnhw.Render);
     }
 
     public static float getRotations(Vec2f vec) {
-        if (TwoDESP_CLphFghCvliwVuLcyYHt.mc.player == null) {
+        if (TwoDESP.mc.player == null) {
             return 0.0f;
         }
-        double x = (double)vec.x - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.getPos().x;
-        double z = (double)vec.y - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.getPos().z;
+        double x = (double)vec.x - TwoDESP.mc.player.getPos().x;
+        double z = (double)vec.y - TwoDESP.mc.player.getPos().z;
         return (float)(-(Math.atan2(x, z) * 57.29577951308232));
     }
 
@@ -75,13 +75,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Render2DUtil.setupRender();
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
-        for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.world.getEntities()) {
+        for (Entity ent : TwoDESP.mc.world.getEntities()) {
             if (!this.shouldRender(ent)) continue;
             this.drawBox(bufferBuilder, ent, matrix, context);
         }
         BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
         Render2DUtil.endRender();
-        for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.world.getEntities()) {
+        for (Entity ent : TwoDESP.mc.world.getEntities()) {
             if (!this.shouldRender(ent)) continue;
             this.drawText(ent, context);
         }
@@ -91,11 +91,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (entity == null) {
             return false;
         }
-        if (TwoDESP_CLphFghCvliwVuLcyYHt.mc.player == null) {
+        if (TwoDESP.mc.player == null) {
             return false;
         }
         if (entity instanceof PlayerEntity) {
-            if (entity == TwoDESP_CLphFghCvliwVuLcyYHt.mc.player && TwoDESP_CLphFghCvliwVuLcyYHt.mc.options.getPerspective().isFirstPerson()) {
+            if (entity == TwoDESP.mc.player && TwoDESP.mc.options.getPerspective().isFirstPerson()) {
                 return false;
             }
             if (HexTech.FRIEND.isFriend((PlayerEntity)entity)) {
@@ -232,9 +232,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     float textWidth = FontRenderers.Arial.getWidth(entity.getDisplayName().getString()) * 1.0f;
                     float tagX = (float)((posX + (double)diff - (double)(textWidth / 2.0f)) * 1.0);
                     int count = entity.getStack().getCount();
-                    context.drawText(TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer, entity.getDisplayName().getString(), (int)tagX, (int)(posY - 10.0), this.textcolor.getValue().getRGB(), false);
+                    context.drawText(TwoDESP.mc.textRenderer, entity.getDisplayName().getString(), (int)tagX, (int)(posY - 10.0), this.textcolor.getValue().getRGB(), false);
                     if (this.drawItemC.getValue()) {
-                        context.drawText(TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer, "x" + count, (int)(tagX + (float)TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer.getWidth(entity.getDisplayName().getString() + " ")), (int)posY - 10, this.countColor.getValue().getRGB(), false);
+                        context.drawText(TwoDESP.mc.textRenderer, "x" + count, (int)(tagX + (float) TwoDESP.mc.textRenderer.getWidth(entity.getDisplayName().getString() + " ")), (int)posY - 10, this.countColor.getValue().getRGB(), false);
                     }
                 }
             }
@@ -274,7 +274,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     /*
      * Exception performing whole class analysis ignored.
      */
-    public enum TwoDESP {
+    public enum TwoDESPMode {
         Setting,
         Target,
         Color;

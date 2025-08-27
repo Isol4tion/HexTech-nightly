@@ -4,29 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import me.hextech.HexTech;
-import me.hextech.remapped.Blink;
-import me.hextech.remapped.BlockPosX;
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.Burrow_eOaBGEoOSTDRbYIUAbXC;
-import me.hextech.remapped.Cleaner_KppopygwsrtGITfPgSgG;
-import me.hextech.remapped.Cleaner_zDJWekpHpTWvapSemLWN;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.Enum_rNhWITNdkrqkhKfDZgGo;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.OffTrackEvent;
-import me.hextech.remapped.OyveyExplosionUtil;
-import me.hextech.remapped.PacketEvent;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.SwingSide;
-import me.hextech.remapped.Timer;
-import me.hextech.remapped.WebAuraTick_gaIdrzDzsbegzNTtPQoV;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -280,8 +257,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (pos != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player != null && this.afterBreak.getValue() && (!this.yawStep.getValue() || !this.checkFov.getValue() || HexTech.ROTATE.inFov(entity.getPos(), this.fov.getValueFloat()))) {
                 this.doPlace(pos);
             }
-            if (this.forceWeb.getValue() && WebAuraTick_gaIdrzDzsbegzNTtPQoV.INSTANCE.isOn()) {
-                WebAuraTick_gaIdrzDzsbegzNTtPQoV.force = true;
+            if (this.forceWeb.getValue() && WebAuraTick.INSTANCE.isOn()) {
+                WebAuraTick.force = true;
             }
             return;
         }

@@ -6,7 +6,7 @@ import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static class ModuleList_JTSxbGphPlVCUvdsPgfV {
+public class ModuleList_JTSxbGphPlVCUvdsPgfV {
     public final Module_eSdgMXWuzcxgQVaJFmKZ module;
     public boolean isEnabled = false;
     public double x = 0.0;

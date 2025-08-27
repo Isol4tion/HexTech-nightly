@@ -80,7 +80,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static enum _YiToqkCkUTOMQxneHmRR {
+    public enum _YiToqkCkUTOMQxneHmRR {
         None,
         RandomAngle,
         Spin,

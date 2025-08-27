@@ -8,17 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import me.hextech.HexTech;
 import me.hextech.asm.accessors.IClientWorld;
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
-import me.hextech.remapped.BlockPosX;
-import me.hextech.remapped.BypassSetting_RInKGmTQYgWFRhsUOiJP;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.Placement;
-import me.hextech.remapped.SpeedMine;
-import me.hextech.remapped.SwingSide;
-import me.hextech.remapped.WebAuraTick_gaIdrzDzsbegzNTtPQoV;
-import me.hextech.remapped.Wrapper;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -493,7 +482,7 @@ implements Wrapper {
         if (pos.getY() >= 320) {
             return false;
         }
-        if (BlockUtil.mc.world.getBlockState(pos).getBlock() == Blocks.COBWEB && WebAuraTick_gaIdrzDzsbegzNTtPQoV.ignore && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.replace.getValue()) {
+        if (BlockUtil.mc.world.getBlockState(pos).getBlock() == Blocks.COBWEB && WebAuraTick.ignore && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.replace.getValue()) {
             return true;
         }
         return BlockUtil.getState(pos).method_45474();

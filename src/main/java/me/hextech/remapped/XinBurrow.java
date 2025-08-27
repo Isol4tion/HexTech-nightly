@@ -376,14 +376,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return InventoryUtil.findBlock(Blocks.ENDER_CHEST);
     }
 
-    private static enum _uPHLOgEUPRaLZqLkrbQU {
+    public enum _uPHLOgEUPRaLZqLkrbQU {
         Bypass,
         Normal,
         None;
 
     }
 
-    private static enum _nDnthhFJjiqtqyXrSjjG {
+    public enum _nDnthhFJjiqtqyXrSjjG {
         Smart,
         Invalid,
         TrollHack,

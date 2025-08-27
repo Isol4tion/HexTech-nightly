@@ -168,7 +168,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static enum _iJUSlEiinRCZKkYYmFmY {
+    public enum _iJUSlEiinRCZKkYYmFmY {
         None,
         text;
 

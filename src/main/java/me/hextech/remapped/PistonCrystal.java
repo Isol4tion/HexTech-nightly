@@ -699,7 +699,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return !this.checkLook.getValue();
     }
 
-    public static enum _nsRHxiHWZMPWnytkAhif {
+    public enum _nsRHxiHWZMPWnytkAhif {
         General,
         Misc,
         Rotate;

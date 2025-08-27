@@ -3,7 +3,7 @@ package me.hextech.remapped;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static enum AutoAnchor {
+public enum AutoAnchor {
     General,
     Calc,
     Rotate,

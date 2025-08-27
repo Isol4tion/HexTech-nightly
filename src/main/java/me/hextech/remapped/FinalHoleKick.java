@@ -208,7 +208,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (this.yawDeceive.getValue()) {
                             FinalHoleKick.pistonFacing(direction.getOpposite());
                         }
-                        old = FinalHoleKick.mc.player.getInventory().selectedSlot;
+                        int old = FinalHoleKick.mc.player.getInventory().selectedSlot;
                         this.doSwap(pistonSlot);
                         BlockUtil.placeBlock(piston, false, this.pistonPacket.getValue());
                         if (this.inventory.getValue()) {
@@ -251,12 +251,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
             } else {
-                void var7_21;
+                int var7_21=0;
                 Direction powerFacing = null;
                 Direction[] side = Direction.values();
-                old = side.length;
+               int sideLength = side.length;
                 boolean bl = false;
-                while (var7_21 < old) {
+                while (var7_21 < sideLength) {
                     Direction i = side[var7_21];
                     if (i != Direction.UP || !this.torch.getValue()) {
                         if (powerFacing != null) break;

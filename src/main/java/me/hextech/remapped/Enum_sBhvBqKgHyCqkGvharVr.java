@@ -3,7 +3,7 @@ package me.hextech.remapped;
 /*
  * Exception performing whole class analysis ignored.
  */
-public static enum Enum_sBhvBqKgHyCqkGvharVr {
+public enum Enum_sBhvBqKgHyCqkGvharVr {
     General,
     Place,
     Break,

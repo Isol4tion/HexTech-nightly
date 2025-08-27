@@ -6,7 +6,7 @@ import me.hextech.remapped.Vec3;
 /*
  * Exception performing whole class analysis ignored.
  */
-private static class AStarCustomPathFinder_GIsiOdvkuKbgFcjrKqrl {
+public class AStarCustomPathFinder_GIsiOdvkuKbgFcjrKqrl {
     private Vec3 loc;
     private AStarCustomPathFinder_GIsiOdvkuKbgFcjrKqrl parent;
     private ArrayList<Vec3> path;
