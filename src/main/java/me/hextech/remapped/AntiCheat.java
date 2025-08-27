@@ -49,10 +49,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.needUpdate) {
             return;
         }
-        if (mc.method_1542()) {
+        if (mc.isInSingleplayer()) {
             return;
         }
-        String server = AntiCheat.mc.player.field_3944.method_45734().field_3761.toLowerCase();
+        String server = AntiCheat.mc.player.networkHandler.getServerInfo().address.toLowerCase();
         if (this.xin.getValue()) {
             if (server.equals("2b2t.xin")) {
                 CommandManager.sendChatMessage("\u00a76\u914d\u7f6e\u540c\u6b65\uff1a2B2T.Xin");
@@ -89,17 +89,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.needUpdate = false;
     }
 
-    public static final class _ylqyOfVuMcYIoHfjTCiI
-    extends Enum<_ylqyOfVuMcYIoHfjTCiI> {
-        public static final /* enum */ _ylqyOfVuMcYIoHfjTCiI Xin;
-        public static final /* enum */ _ylqyOfVuMcYIoHfjTCiI XiaoSong;
+    public static enum _ylqyOfVuMcYIoHfjTCiI {
+        Xin,
+        XiaoSong;
 
-        public static _ylqyOfVuMcYIoHfjTCiI[] values() {
-            return null;
-        }
-
-        public static _ylqyOfVuMcYIoHfjTCiI valueOf(String string) {
-            return null;
-        }
     }
 }

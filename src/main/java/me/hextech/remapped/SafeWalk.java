@@ -60,6 +60,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean isOffsetBBEmpty(double offsetX, double offsetY, double offsetZ) {
-        return !SafeWalk.mc.world.method_39454((Entity)SafeWalk.mc.player, SafeWalk.mc.player.method_5829().method_989(offsetX, offsetY, offsetZ));
+        return !SafeWalk.mc.world.method_39454((Entity)SafeWalk.mc.player, SafeWalk.mc.player.method_5829().offset(offsetX, offsetY, offsetZ));
     }
 }

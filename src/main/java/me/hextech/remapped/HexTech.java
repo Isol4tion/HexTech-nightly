@@ -34,11 +34,11 @@ implements Wrapper {
     private static final double ZOOM_SPEED;
 
     public HexTech() {
-        super(Text.method_30163((String)"HexTech"));
+        super(Text.of((String)"HexTech"));
     }
 
     public void method_25394(DrawContext drawContext, int mouseX, int mouseY, float tickDelta) {
-        if (mc.method_22683() == null) {
+        if (mc.getWindow() == null) {
             return;
         }
         float offsetX = ((float)mouseX - (float)this.field_22789 / 2.0f) / 48.0f;
@@ -51,13 +51,13 @@ implements Wrapper {
             float y = baseY + (float)i * (30.0f + buttonSpacing);
             boolean hover = this.isMouseHoveringRect(baseX, y, 200.0, 30.0, mouseX, mouseY);
             this.zoom[i] = hover ? Math.min(1.12f, this.zoom[i] + 0.04f) : Math.max(1.0f, this.zoom[i] - 0.04f);
-            MatrixStack matrices = drawContext.method_51448();
-            matrices.method_22903();
+            MatrixStack matrices = drawContext.getMatrices();
+            matrices.push();
             float cx = baseX + 100.0f;
             float cy = y + 15.0f;
-            matrices.method_46416(cx, cy, 0.0f);
-            matrices.method_22905(this.zoom[i], this.zoom[i], 1.0f);
-            matrices.method_46416(-cx, -cy, 0.0f);
+            matrices.translate(cx, cy, 0.0f);
+            matrices.scale(this.zoom[i], this.zoom[i], 1.0f);
+            matrices.translate(-cx, -cy, 0.0f);
             Render2DUtil.drawRound(matrices, baseX, y, 200.0f, 30.0f, 8.0f, hover ? new Color(40, 40, 40, 150) : new Color(40, 40, 40, 80), true, 1000);
             int iconSize = 25;
             Identifier iconTex = switch (i) {
@@ -81,11 +81,11 @@ implements Wrapper {
             };
             float fh = FontRenderers.Arial.getFontHeight();
             FontRenderers.Arial.drawCenteredString(matrices, label, (double)this.field_22789 / 2.0, (double)y + (double)(30.0f - fh) / 2.0, Color.WHITE.getRGB());
-            matrices.method_22909();
+            matrices.pop();
         }
         int logoSize = this.field_22790 / 8;
         drawContext.method_25291(this.logo, this.field_22789 / 2 - logoSize / 2, (int)(baseY - (float)logoSize - 30.0f), 0, 0.0f, 0.0f, logoSize, logoSize, logoSize, logoSize);
-        FontRenderers.ui.drawString(drawContext.method_51448(), "HexTech-nightly Cracked By NoWhisper-8", 5.0f, (float)this.field_22790 - FontRenderers.ui.getFontHeight(), Color.WHITE.getRGB());
+        FontRenderers.ui.drawString(drawContext.getMatrices(), "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c-8", 5.0f, (float)this.field_22790 - FontRenderers.ui.getFontHeight(), Color.WHITE.getRGB());
     }
 
     public boolean method_25402(double mouseX, double mouseY, int button) {
@@ -98,7 +98,7 @@ implements Wrapper {
             Objects.requireNonNull(this);
             Objects.requireNonNull(this);
             if (this.isMouseHoveringRect(d, d2, 200.0, 30.0, mouseX, mouseY)) {
-                mc.method_1507((Screen)new SelectWorldScreen((Screen)this));
+                mc.setScreen((Screen)new SelectWorldScreen((Screen)this));
             }
             float y2 = y + this.buttonHeight + buttonSpacing;
             double d3 = x;
@@ -106,11 +106,11 @@ implements Wrapper {
             Objects.requireNonNull(this);
             Objects.requireNonNull(this);
             if (this.isMouseHoveringRect(d3, d4, 200.0, 30.0, mouseX, mouseY)) {
-                if (!HexTech.mc.field_1690.field_21840) {
-                    HexTech.mc.field_1690.field_21840 = true;
-                    HexTech.mc.field_1690.method_1640();
+                if (!HexTech.mc.options.skipMultiplayerWarning) {
+                    HexTech.mc.options.skipMultiplayerWarning = true;
+                    HexTech.mc.options.write();
                 }
-                mc.method_1507((Screen)new MultiplayerScreen((Screen)this));
+                mc.setScreen((Screen)new MultiplayerScreen((Screen)this));
             }
             float y3 = y2 + this.buttonHeight + buttonSpacing;
             double d5 = x;
@@ -118,7 +118,7 @@ implements Wrapper {
             Objects.requireNonNull(this);
             Objects.requireNonNull(this);
             if (this.isMouseHoveringRect(d5, d6, 200.0, 30.0, mouseX, mouseY)) {
-                mc.method_1507((Screen)new OptionsScreen((Screen)this, HexTech.mc.field_1690));
+                mc.setScreen((Screen)new OptionsScreen((Screen)this, HexTech.mc.options));
             }
             float y4 = y3 + this.buttonHeight + buttonSpacing;
             double d7 = x;
@@ -126,7 +126,7 @@ implements Wrapper {
             Objects.requireNonNull(this);
             Objects.requireNonNull(this);
             if (this.isMouseHoveringRect(d7, d8, 200.0, 30.0, mouseX, mouseY)) {
-                mc.method_1507((Screen)new ClickGuiScreen());
+                mc.setScreen((Screen)new ClickGuiScreen());
             }
             float y5 = y4 + this.buttonHeight + buttonSpacing;
             double d9 = x;
@@ -134,7 +134,7 @@ implements Wrapper {
             Objects.requireNonNull(this);
             Objects.requireNonNull(this);
             if (this.isMouseHoveringRect(d9, d10, 200.0, 30.0, mouseX, mouseY)) {
-                mc.method_1507((Screen)new AltScreen(new HexTech()));
+                mc.setScreen((Screen)new AltScreen(new HexTech()));
             }
             float y6 = y5 + this.buttonHeight + buttonSpacing;
             double d11 = x;
@@ -142,7 +142,7 @@ implements Wrapper {
             Objects.requireNonNull(this);
             Objects.requireNonNull(this);
             if (this.isMouseHoveringRect(d11, d12, 200.0, 30.0, mouseX, mouseY)) {
-                mc.method_1490();
+                mc.stop();
             }
         }
         return super.method_25402(mouseX, mouseY, button);

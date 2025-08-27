@@ -24,23 +24,23 @@ extends Screen {
     private AltSelectionList_DSrXNkYQoNXcgOtMWUrt altListSelector;
 
     public AltScreen(Screen parentScreen) {
-        super(Text.method_30163((String)"Alt Manager"));
+        super(Text.of((String)"Alt Manager"));
         this.parentScreen = parentScreen;
     }
 
     public void method_25426() {
-        super.method_25426();
+        super.init();
         this.altListSelector = new AltSelectionList_DSrXNkYQoNXcgOtMWUrt(this, this.field_22787, this.field_22789, this.field_22790, 32, this.field_22790 - 64);
         this.altListSelector.updateAlts();
         this.method_37063((Element)this.altListSelector);
-        this.deleteButton = ButtonWidget.method_46430((Text)Text.method_30163((String)"Delete Alt"), b -> this.deleteSelected()).method_46434(this.field_22789 / 2 - 154, this.field_22790 - 28, 100, 20).method_46431();
+        this.deleteButton = ButtonWidget.builder((Text)Text.of((String)"Delete Alt"), b -> this.deleteSelected()).dimensions(this.field_22789 / 2 - 154, this.field_22790 - 28, 100, 20).build();
         this.deleteButton.field_22763 = false;
         this.method_37063((Element)this.deleteButton);
-        this.method_37063((Element)ButtonWidget.method_46430((Text)Text.method_30163((String)"Token Login"), b -> this.field_22787.method_1507((Screen)new TokenLoginScreen(this))).method_46434(this.field_22789 / 2 - 154, this.field_22790 - 52, 100, 20).method_46431());
-        this.method_37063((Element)ButtonWidget.method_46430((Text)Text.method_30163((String)"Direct Login"), b -> this.field_22787.method_1507((Screen)new DirectLoginAltScreen(this))).method_46434(this.field_22789 / 2 - 50, this.field_22790 - 52, 100, 20).method_46431());
-        this.method_37063((Element)ButtonWidget.method_46430((Text)Text.method_30163((String)"Add Alt"), b -> this.field_22787.method_1507((Screen)new AddAltScreen(this))).method_46434(this.field_22789 / 2 + 54, this.field_22790 - 52, 100, 20).method_46431());
-        this.method_37063((Element)ButtonWidget.method_46430((Text)Text.method_30163((String)"Cancel"), b -> this.field_22787.method_1507(this.parentScreen)).method_46434(this.field_22789 / 2 + 54, this.field_22790 - 28, 100, 20).method_46431());
-        this.editButton = ButtonWidget.method_46430((Text)Text.method_30163((String)"EditionHex Alt"), b -> this.editSelected()).method_46434(this.field_22789 / 2 - 50, this.field_22790 - 28, 100, 20).method_46431();
+        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Token Login"), b -> this.field_22787.setScreen((Screen)new TokenLoginScreen(this))).dimensions(this.field_22789 / 2 - 154, this.field_22790 - 52, 100, 20).build());
+        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Direct Login"), b -> this.field_22787.setScreen((Screen)new DirectLoginAltScreen(this))).dimensions(this.field_22789 / 2 - 50, this.field_22790 - 52, 100, 20).build());
+        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Add Alt"), b -> this.field_22787.setScreen((Screen)new AddAltScreen(this))).dimensions(this.field_22789 / 2 + 54, this.field_22790 - 52, 100, 20).build());
+        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.field_22787.setScreen(this.parentScreen)).dimensions(this.field_22789 / 2 + 54, this.field_22790 - 28, 100, 20).build());
+        this.editButton = ButtonWidget.builder((Text)Text.of((String)"EditionHex Alt"), b -> this.editSelected()).dimensions(this.field_22789 / 2 - 50, this.field_22790 - 28, 100, 20).build();
         this.editButton.field_22763 = false;
         this.method_37063((Element)this.editButton);
     }
@@ -48,15 +48,15 @@ extends Screen {
     public void method_25394(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
         this.altListSelector.method_25394(drawContext, mouseX, mouseY, partialTicks);
         super.method_25394(drawContext, mouseX, mouseY, partialTicks);
-        drawContext.method_25300(this.field_22793, "Currently Logged Into: " + MinecraftClient.method_1551().method_1548().method_1676(), this.field_22789 / 2, 20, 0xFFFFFF);
+        drawContext.drawCenteredTextWithShadow(this.field_22793, "Currently Logged Into: " + MinecraftClient.getInstance().getSession().getUsername(), this.field_22789 / 2, 20, 0xFFFFFF);
     }
 
     public void method_25419() {
-        this.field_22787.method_1507(this.parentScreen);
+        this.field_22787.setScreen(this.parentScreen);
     }
 
     public void refreshAltList() {
-        this.field_22787.method_1507((Screen)new AltScreen(this.parentScreen));
+        this.field_22787.setScreen((Screen)new AltScreen(this.parentScreen));
     }
 
     public void setSelected(AltSelectionList_MlYuzYrWmNSiQOBPfePW selected) {
@@ -83,7 +83,7 @@ extends Screen {
         if (alt == null) {
             return;
         }
-        this.field_22787.method_1507((Screen)new EditAltScreen(this, alt));
+        this.field_22787.setScreen((Screen)new EditAltScreen(this, alt));
     }
 
     public void deleteSelected() {

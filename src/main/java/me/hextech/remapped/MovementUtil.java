@@ -13,62 +13,62 @@ implements Wrapper {
     private static final Vec3d horizontalVelocity;
 
     public static boolean isMoving() {
-        return (double)MovementUtil.mc.player.field_3913.field_3905 != 0.0 || (double)MovementUtil.mc.player.field_3913.field_3907 != 0.0 || HoleSnap.INSTANCE.isOn();
+        return (double)MovementUtil.mc.player.input.movementForward != 0.0 || (double)MovementUtil.mc.player.input.movementSideways != 0.0 || HoleSnap.INSTANCE.isOn();
     }
 
     public static boolean isJumping() {
-        return MovementUtil.mc.player.field_3913.field_3904;
+        return MovementUtil.mc.player.input.field_3904;
     }
 
     public static double getDistance2D() {
-        double xDist = MovementUtil.mc.player.getX() - MovementUtil.mc.player.field_6014;
-        double zDist = MovementUtil.mc.player.getZ() - MovementUtil.mc.player.field_5969;
+        double xDist = MovementUtil.mc.player.method_23317() - MovementUtil.mc.player.field_6014;
+        double zDist = MovementUtil.mc.player.method_23321() - MovementUtil.mc.player.field_5969;
         return Math.sqrt(xDist * xDist + zDist * zDist);
     }
 
     public static double getJumpSpeed() {
         double defaultSpeed = 0.0;
         if (MovementUtil.mc.player.method_6059(StatusEffects.field_5913)) {
-            int amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.field_5913)).method_5578();
+            int amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.field_5913)).getAmplifier();
             defaultSpeed += (double)(amplifier + 1) * 0.1;
         }
         return defaultSpeed;
     }
 
     public static float getMoveForward() {
-        return MovementUtil.mc.player.field_3913.field_3905;
+        return MovementUtil.mc.player.input.movementForward;
     }
 
     public static float getMoveStrafe() {
-        return MovementUtil.mc.player.field_3913.field_3907;
+        return MovementUtil.mc.player.input.movementSideways;
     }
 
     public static Vec3d getHorizontalVelocity(double bps) {
         float yaw = MovementUtil.mc.player.method_36454();
-        Vec3d forward = Vec3d.method_1030((float)0.0f, (float)yaw);
-        Vec3d right = Vec3d.method_1030((float)0.0f, (float)(yaw + 90.0f));
+        Vec3d forward = Vec3d.fromPolar((float)0.0f, (float)yaw);
+        Vec3d right = Vec3d.fromPolar((float)0.0f, (float)(yaw + 90.0f));
         double velX = 0.0;
         double velZ = 0.0;
         boolean a = false;
-        if (MovementUtil.mc.player.field_3913.field_3910) {
-            velX += forward.field_1352 / 20.0 * bps;
-            velZ += forward.field_1350 / 20.0 * bps;
+        if (MovementUtil.mc.player.input.field_3910) {
+            velX += forward.x / 20.0 * bps;
+            velZ += forward.z / 20.0 * bps;
             a = true;
         }
-        if (MovementUtil.mc.player.field_3913.field_3909) {
-            velX -= forward.field_1352 / 20.0 * bps;
-            velZ -= forward.field_1350 / 20.0 * bps;
+        if (MovementUtil.mc.player.input.field_3909) {
+            velX -= forward.x / 20.0 * bps;
+            velZ -= forward.z / 20.0 * bps;
             a = true;
         }
         boolean b = false;
-        if (MovementUtil.mc.player.field_3913.field_3906) {
-            velX += right.field_1352 / 20.0 * bps;
-            velZ += right.field_1350 / 20.0 * bps;
+        if (MovementUtil.mc.player.input.field_3906) {
+            velX += right.x / 20.0 * bps;
+            velZ += right.z / 20.0 * bps;
             b = true;
         }
-        if (MovementUtil.mc.player.field_3913.field_3908) {
-            velX -= right.field_1352 / 20.0 * bps;
-            velZ -= right.field_1350 / 20.0 * bps;
+        if (MovementUtil.mc.player.input.field_3908) {
+            velX -= right.x / 20.0 * bps;
+            velZ -= right.z / 20.0 * bps;
             b = true;
         }
         if (a && b) {
@@ -81,9 +81,9 @@ implements Wrapper {
     }
 
     public static double[] directionSpeed(double speed) {
-        float forward = MovementUtil.mc.player.field_3913.field_3905;
-        float side = MovementUtil.mc.player.field_3913.field_3907;
-        float yaw = MovementUtil.mc.player.field_5982 + (MovementUtil.mc.player.method_36454() - MovementUtil.mc.player.field_5982) * mc.getTickDelta();
+        float forward = MovementUtil.mc.player.input.movementForward;
+        float side = MovementUtil.mc.player.input.movementSideways;
+        float yaw = MovementUtil.mc.player.field_5982 + (MovementUtil.mc.player.method_36454() - MovementUtil.mc.player.field_5982) * mc.method_1488();
         if (forward != 0.0f) {
             if (side > 0.0f) {
                 yaw += (float)(forward > 0.0f ? -45 : 45);
@@ -105,7 +105,7 @@ implements Wrapper {
     }
 
     public static double getMotionX() {
-        return MovementUtil.mc.player.method_18798().field_1352;
+        return MovementUtil.mc.player.method_18798().x;
     }
 
     public static void setMotionX(double x) {
@@ -113,7 +113,7 @@ implements Wrapper {
     }
 
     public static double getMotionY() {
-        return MovementUtil.mc.player.method_18798().field_1351;
+        return MovementUtil.mc.player.method_18798().y;
     }
 
     public static void setMotionY(double y) {
@@ -121,7 +121,7 @@ implements Wrapper {
     }
 
     public static double getMotionZ() {
-        return MovementUtil.mc.player.method_18798().field_1350;
+        return MovementUtil.mc.player.method_18798().z;
     }
 
     public static void setMotionZ(double z) {
@@ -136,11 +136,11 @@ implements Wrapper {
     public static double getSpeed(boolean slowness, double defaultSpeed) {
         int amplifier;
         if (MovementUtil.mc.player.method_6059(StatusEffects.field_5904)) {
-            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.field_5904)).method_5578();
+            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.field_5904)).getAmplifier();
             defaultSpeed *= 1.0 + 0.2 * (double)(amplifier + 1);
         }
         if (slowness && MovementUtil.mc.player.method_6059(StatusEffects.field_5909)) {
-            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.field_5909)).method_5578();
+            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.field_5909)).getAmplifier();
             defaultSpeed /= 1.0 + 0.2 * (double)(amplifier + 1);
         }
         if (MovementUtil.mc.player.method_5715()) {

@@ -19,7 +19,7 @@ public class MixinPlayerEntity
 implements Wrapper {
     @Inject(method={"canChangeIntoPose"}, at={@At(value="RETURN")}, cancellable=true)
     private void poseNotCollide(EntityPose pose, CallbackInfoReturnable<Boolean> cir) {
-        if (this == MixinPlayerEntity.mc.player && !AntiCrawl.INSTANCE.crawl.getValue() && pose == EntityPose.field_18079) {
+        if (this == MixinPlayerEntity.mc.player && !AntiCrawl.INSTANCE.crawl.getValue() && pose == EntityPose.SWIMMING) {
             cir.setReturnValue((Object)false);
         }
     }

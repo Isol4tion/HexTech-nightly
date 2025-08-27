@@ -108,11 +108,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             boolean completed = this.moving && current > 0.0 || current >= (double)this.minAccumulate.getValueInt();
             double max = this.accumulate.getValue();
             String text = df.format(current / max * 100.0) + "%";
-            TextRenderer textRenderer = TickShift.mc.field_1772;
-            int n = mc.method_22683().method_4486() / 2 - TickShift.mc.field_1772.method_1727(text) / 2;
-            int n2 = mc.method_22683().method_4502() / 2;
-            Objects.requireNonNull(TickShift.mc.field_1772);
-            drawContext.method_51433(textRenderer, text, n, n2 + 9 - this.yOffset.getValueInt(), completed ? this.work.getValue().getRGB() : this.charging.getValue().getRGB(), true);
+            TextRenderer textRenderer = TickShift.mc.textRenderer;
+            int n = mc.getWindow().getScaledWidth() / 2 - TickShift.mc.textRenderer.getWidth(text) / 2;
+            int n2 = mc.getWindow().getScaledHeight() / 2;
+            Objects.requireNonNull(TickShift.mc.textRenderer);
+            drawContext.drawText(textRenderer, text, n, n2 + 9 - this.yOffset.getValueInt(), completed ? this.work.getValue().getRGB() : this.charging.getValue().getRGB(), true);
         }
     }
 

@@ -31,11 +31,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         if (this.pickaxeSwitch.getValue()) {
-            if (!(MineTweak.mc.player.method_6047().method_7909() instanceof PickaxeItem) && MineTweak.mc.player.method_6047().method_7909() != Items.field_8367) {
+            if (!(MineTweak.mc.player.method_6047().getItem() instanceof PickaxeItem) && MineTweak.mc.player.method_6047().getItem() != Items.ENCHANTED_GOLDEN_APPLE) {
                 this.swapped = false;
                 return;
             }
-            int gapple = InventoryUtil.findItem(Items.field_8367);
+            int gapple = InventoryUtil.findItem(Items.ENCHANTED_GOLDEN_APPLE);
             if (gapple == -1) {
                 if (this.swapped) {
                     InventoryUtil.switchToSlot(this.lastSlot);
@@ -43,9 +43,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 return;
             }
-            if (MineTweak.mc.field_1690.field_1904.method_1434()) {
-                if (MineTweak.mc.player.method_6047().method_7909() instanceof PickaxeItem && MineTweak.mc.player.method_6079().method_7909() != Items.field_8367) {
-                    this.lastSlot = MineTweak.mc.player.method_31548().field_7545;
+            if (MineTweak.mc.options.useKey.isPressed()) {
+                if (MineTweak.mc.player.method_6047().getItem() instanceof PickaxeItem && MineTweak.mc.player.method_6079().getItem() != Items.ENCHANTED_GOLDEN_APPLE) {
+                    this.lastSlot = MineTweak.mc.player.method_31548().selectedSlot;
                     InventoryUtil.switchToSlot(gapple);
                     this.swapped = true;
                 }
@@ -62,7 +62,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean noAbort() {
-        return this.isOn() && this.noAbort.getValue() && !MineTweak.mc.field_1690.field_1904.method_1434();
+        return this.isOn() && this.noAbort.getValue() && !MineTweak.mc.options.useKey.isPressed();
     }
 
     public boolean noReset() {
@@ -82,12 +82,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return false;
         }
         if (this.onlyPickaxe.getValue()) {
-            return MineTweak.mc.player.method_6047().method_7909() instanceof PickaxeItem || MineTweak.mc.player.method_6115() && !(MineTweak.mc.player.method_6047().method_7909() instanceof SwordItem);
+            return MineTweak.mc.player.method_6047().getItem() instanceof PickaxeItem || MineTweak.mc.player.method_6115() && !(MineTweak.mc.player.method_6047().getItem() instanceof SwordItem);
         }
         return true;
     }
 
     public boolean ghostHand() {
-        return this.isOn() && this.ghostHand.getValue() && !MineTweak.mc.field_1690.field_1904.method_1434() && !MineTweak.mc.field_1690.field_1832.method_1434();
+        return this.isOn() && this.ghostHand.getValue() && !MineTweak.mc.options.useKey.isPressed() && !MineTweak.mc.options.sneakKey.isPressed();
     }
 }

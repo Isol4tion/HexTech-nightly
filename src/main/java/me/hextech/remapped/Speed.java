@@ -73,7 +73,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.stopGround.getValue() && Speed.mc.player.method_24828()) {
             return;
         }
-        if (HoleKickTest.isInWeb((PlayerEntity)Speed.mc.player) || Speed.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().field_7479) {
+        if (HoleKickTest.isInWeb((PlayerEntity)Speed.mc.player) || Speed.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().flying) {
             return;
         }
         if (!MovementUtil.isMoving()) {
@@ -94,7 +94,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Object t = event.getPacket();
             if (t instanceof EntityVelocityUpdateS2CPacket) {
                 EntityVelocityUpdateS2CPacket packet = (EntityVelocityUpdateS2CPacket)t;
-                if (Speed.mc.player != null && packet.method_11818() == Speed.mc.player.method_5628() && this.velocity.getValue()) {
+                if (Speed.mc.player != null && packet.getEntityId() == Speed.mc.player.method_5628() && this.velocity.getValue()) {
                     double speed = Math.sqrt(packet.method_11815() * packet.method_11815() + packet.method_11819() * packet.method_11819()) / 8000.0;
                     double d = this.lastExp = this.expTimer.passedMs(this.coolDown.getValueInt()) ? speed : speed - this.lastExp;
                     if (this.lastExp > 0.0) {
@@ -150,7 +150,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public double getBaseMoveSpeed() {
         double n = 0.2873;
         if (!(!Speed.mc.player.method_6059(StatusEffects.field_5904) || this.slowCheck.getValue() && Speed.mc.player.method_6059(StatusEffects.field_5909))) {
-            n *= 1.0 + 0.2 * (double)(Objects.requireNonNull(Speed.mc.player.method_6112(StatusEffects.field_5904)).method_5578() + 1);
+            n *= 1.0 + 0.2 * (double)(Objects.requireNonNull(Speed.mc.player.method_6112(StatusEffects.field_5904)).getAmplifier() + 1);
         }
         return n;
     }
@@ -158,7 +158,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void invoke(MoveEvent event) {
         if (this.mode.is(_hIXwTMQyjavijZllSIBF.Strafe)) {
-            if (Speed.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().field_7479) {
+            if (Speed.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.method_6128() || EntityUtil.isInsideBlock() || Speed.mc.player.method_5771() || Speed.mc.player.method_5799() || Speed.mc.player.method_31549().flying) {
                 return;
             }
             if (!MovementUtil.isMoving()) {
@@ -173,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             event.setZ(dir[1]);
         }
         if (this.mode.is(_hIXwTMQyjavijZllSIBF.Instant)) {
-            if (!this.inWater.getValue() && (Speed.mc.player.method_5869() || Speed.mc.player.method_5799() || Speed.mc.player.method_5771()) || Speed.mc.player.method_21754() || !this.inBlock.getValue() && EntityUtil.isInsideBlock() || Speed.mc.player.method_31549().field_7479) {
+            if (!this.inWater.getValue() && (Speed.mc.player.method_5869() || Speed.mc.player.method_5799() || Speed.mc.player.method_5771()) || Speed.mc.player.method_21754() || !this.inBlock.getValue() && EntityUtil.isInsideBlock() || Speed.mc.player.method_31549().flying) {
                 this.stop = true;
                 return;
             }
@@ -195,7 +195,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (this.stage == 1 && MovementUtil.isMoving()) {
                 this.speed = 1.35 * MovementUtil.getSpeed(this.slow.getValue(), this.strafeSpeed.getValue() / 1000.0) - 0.01;
-            } else if (this.stage == 2 && Speed.mc.player.method_24828() && MovementUtil.isMoving() && (Speed.mc.field_1690.field_1903.method_1434() || this.jump.getValue())) {
+            } else if (this.stage == 2 && Speed.mc.player.method_24828() && MovementUtil.isMoving() && (Speed.mc.options.jumpKey.isPressed() || this.jump.getValue())) {
                 double yMotion = 0.3999 + MovementUtil.getJumpSpeed();
                 MovementUtil.setMotionY(yMotion);
                 event.setY(yMotion);
@@ -204,7 +204,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.speed = this.distance - 0.66 * (this.distance - MovementUtil.getSpeed(this.slow.getValue(), this.strafeSpeed.getValue() / 1000.0));
                 this.boost = !this.boost;
             } else {
-                if ((Speed.mc.world.method_39454(null, Speed.mc.player.method_5829().method_989(0.0, MovementUtil.getMotionY(), 0.0)) || Speed.mc.player.field_34927) && this.stage > 0) {
+                if ((Speed.mc.world.method_39454(null, Speed.mc.player.method_5829().offset(0.0, MovementUtil.getMotionY(), 0.0)) || Speed.mc.player.field_34927) && this.stage > 0) {
                     this.stage = MovementUtil.isMoving() ? 1 : 0;
                 }
                 this.speed = this.distance - this.distance / 159.0;
@@ -229,17 +229,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static final class _hIXwTMQyjavijZllSIBF
-    extends Enum<_hIXwTMQyjavijZllSIBF> {
-        public static final /* enum */ _hIXwTMQyjavijZllSIBF Instant;
-        public static final /* enum */ _hIXwTMQyjavijZllSIBF Strafe;
+    public static enum _hIXwTMQyjavijZllSIBF {
+        Instant,
+        Strafe;
 
-        public static _hIXwTMQyjavijZllSIBF[] values() {
-            return null;
-        }
-
-        public static _hIXwTMQyjavijZllSIBF valueOf(String string) {
-            return null;
-        }
     }
 }

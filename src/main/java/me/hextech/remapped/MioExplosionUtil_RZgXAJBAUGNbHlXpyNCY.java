@@ -25,13 +25,13 @@ import net.minecraft.world.explosion.Explosion;
 
 public class MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY
 implements Wrapper {
-    public static final Explosion explosion = new Explosion((World)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world, null, 0.0, 0.0, 0.0, 6.0f, false, Explosion.DestructionType.field_18687);
+    public static final Explosion explosion = new Explosion((World)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world, null, 0.0, 0.0, 0.0, 6.0f, false, Explosion.DestructionType.DESTROY);
     static final /* synthetic */ boolean $assertionsDisabled;
 
     public static double anchorDamage(PlayerEntity player, BlockPos pos, PlayerEntity predict) {
-        if (BlockUtil.getBlock(pos) == Blocks.field_23152) {
+        if (BlockUtil.getBlock(pos) == Blocks.RESPAWN_ANCHOR) {
             CombatUtil.modifyPos = pos;
-            CombatUtil.modifyBlockState = Blocks.AIR.method_9564();
+            CombatUtil.modifyBlockState = Blocks.AIR.getDefaultState();
             double damage = MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.explosionDamage(player, pos.toCenterPos(), predict, 5.0000052f);
             CombatUtil.modifyPos = null;
             return damage;
@@ -41,7 +41,7 @@ implements Wrapper {
 
     public static double explosionDamage(PlayerEntity player, Vec3d pos, PlayerEntity predict, float power) {
         double modDistance;
-        if (player != null && player.method_31549().field_7477) {
+        if (player != null && player.getAbilities().creativeMode) {
             return 0.0;
         }
         if (predict == null) {
@@ -58,12 +58,12 @@ implements Wrapper {
             damage = MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.resistanceReduction((LivingEntity)player, damage);
         }
         if (player != null) {
-            damage = DamageUtil.method_5496((float)((float)damage), (float)player.method_6096(), (float)((float)Objects.requireNonNull(player.method_5996(EntityAttributes.field_23725)).method_6194()));
+            damage = DamageUtil.method_5496((float)((float)damage), (float)player.method_6096(), (float)((float)Objects.requireNonNull(player.method_5996(EntityAttributes.field_23725)).getValue()));
         }
         ((IExplosion)explosion).setWorld((World)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world);
-        ((IExplosion)explosion).setX(pos.field_1352);
-        ((IExplosion)explosion).setY(pos.field_1351);
-        ((IExplosion)explosion).setZ(pos.field_1350);
+        ((IExplosion)explosion).setX(pos.x);
+        ((IExplosion)explosion).setY(pos.y);
+        ((IExplosion)explosion).setZ(pos.z);
         ((IExplosion)explosion).setPower(power);
         if (player != null) {
             damage = MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.blastProtReduction((Entity)player, damage, explosion);
@@ -89,7 +89,7 @@ implements Wrapper {
     public static double blastProtReduction(Entity player, double damage, Explosion explosion) {
         int protLevel = 0;
         if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world != null) {
-            protLevel = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_48963().method_48807(explosion));
+            protLevel = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_48963().explosion(explosion));
         }
         if (protLevel > 20) {
             protLevel = 20;
@@ -99,7 +99,7 @@ implements Wrapper {
 
     public static double resistanceReduction(LivingEntity player, double damage) {
         if (player.method_6059(StatusEffects.field_5907)) {
-            int lvl = Objects.requireNonNull(player.method_6112(StatusEffects.field_5907)).method_5578() + 1;
+            int lvl = Objects.requireNonNull(player.method_6112(StatusEffects.field_5907)).getAmplifier() + 1;
             damage *= 1.0 - (double)lvl * 0.200021;
         }
         return damage < 0.0 ? 0.0 : damage;
@@ -111,44 +111,44 @@ implements Wrapper {
         double xDiff;
         double diff;
         double distExposure;
-        if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world != null && MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_8407() == Difficulty.field_5801) {
+        if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world != null && MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_8407() == Difficulty.PEACEFUL) {
             return 0.0f;
         }
-        if (target.method_31549().field_7477) {
+        if (target.getAbilities().creativeMode) {
             return 0.0f;
         }
         if (predict == null) {
             predict = target;
         }
         ((IExplosion)explosion).setWorld((World)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world);
-        ((IExplosion)explosion).setX(explosionPos.field_1352);
-        ((IExplosion)explosion).setY(explosionPos.field_1351);
-        ((IExplosion)explosion).setZ(explosionPos.field_1350);
+        ((IExplosion)explosion).setX(explosionPos.x);
+        ((IExplosion)explosion).setY(explosionPos.y);
+        ((IExplosion)explosion).setZ(explosionPos.z);
         ((IExplosion)explosion).setPower(power);
-        if (!new Box((double)MathHelper.method_15357((double)(explosionPos.field_1352 - 11.0)), (double)MathHelper.method_15357((double)(explosionPos.field_1351 - 11.0)), (double)MathHelper.method_15357((double)(explosionPos.field_1350 - 11.0)), (double)MathHelper.method_15357((double)(explosionPos.field_1352 + 13.0)), (double)MathHelper.method_15357((double)(explosionPos.field_1351 + 13.0)), (double)MathHelper.method_15357((double)(explosionPos.field_1350 + 13.0))).method_994(predict.method_5829())) {
+        if (!new Box((double)MathHelper.floor((double)(explosionPos.x - 11.0)), (double)MathHelper.floor((double)(explosionPos.y - 11.0)), (double)MathHelper.floor((double)(explosionPos.z - 11.0)), (double)MathHelper.floor((double)(explosionPos.x + 13.0)), (double)MathHelper.floor((double)(explosionPos.y + 13.0)), (double)MathHelper.floor((double)(explosionPos.z + 13.0))).intersects(predict.method_5829())) {
             return 0.0f;
         }
-        if (!target.method_5659(explosion) && !target.method_5655() && (distExposure = (double)MathHelper.method_15355((float)((float)predict.method_5707(explosionPos))) / 12.0) <= 1.0 && (diff = (double)MathHelper.method_15355((float)((float)((xDiff = predict.getX() - explosionPos.field_1352) * xDiff + (yDiff = predict.getY() - explosionPos.field_1351) * yDiff + (zDiff = predict.getX() - explosionPos.field_1350) * zDiff)))) != 0.0) {
+        if (!target.method_5659(explosion) && !target.method_5655() && (distExposure = (double)MathHelper.sqrt((float)((float)predict.method_5707(explosionPos))) / 12.0) <= 1.0 && (diff = (double)MathHelper.sqrt((float)((float)((xDiff = predict.method_23317() - explosionPos.x) * xDiff + (yDiff = predict.method_23318() - explosionPos.y) * yDiff + (zDiff = predict.method_23317() - explosionPos.z) * zDiff)))) != 0.0) {
             double exposure = Explosion.method_17752((Vec3d)explosionPos, (Entity)predict);
             double finalExposure = (1.0 - distExposure) * exposure;
             float toDamage = (float)Math.floor((finalExposure * finalExposure + finalExposure) / 2.0 * 7.0 * 12.0 + 1.0);
-            if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_8407() == Difficulty.field_5805) {
+            if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_8407() == Difficulty.EASY) {
                 toDamage = Math.min(toDamage / 2.0f + 1.0f, toDamage);
-            } else if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_8407() == Difficulty.field_5807) {
+            } else if (MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_8407() == Difficulty.HARD) {
                 toDamage = toDamage * 3.0f / 2.0f;
             }
-            toDamage = DamageUtil.method_5496((float)toDamage, (float)target.method_6096(), (float)((float)Objects.requireNonNull(target.method_5996(EntityAttributes.field_23725)).method_6194()));
+            toDamage = DamageUtil.method_5496((float)toDamage, (float)target.method_6096(), (float)((float)Objects.requireNonNull(target.method_5996(EntityAttributes.field_23725)).getValue()));
             if (target.method_6059(StatusEffects.field_5907)) {
-                int resistance = 25 - (Objects.requireNonNull(target.method_6112(StatusEffects.field_5907)).method_5578() + 1) * 5;
+                int resistance = 25 - (Objects.requireNonNull(target.method_6112(StatusEffects.field_5907)).getAmplifier() + 1) * 5;
                 float resistance_1 = toDamage * (float)resistance;
                 toDamage = Math.max(resistance_1 / 25.0f, 0.0f);
             }
             if (toDamage <= 0.0f) {
                 toDamage = 0.0f;
             } else {
-                int protAmount = EnchantmentHelper.method_8219((Iterable)target.method_5661(), (DamageSource)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_48963().method_48807(explosion));
+                int protAmount = EnchantmentHelper.method_8219((Iterable)target.method_5661(), (DamageSource)MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY.mc.world.method_48963().explosion(explosion));
                 if (protAmount > 0) {
-                    toDamage = DamageUtil.method_5497((float)toDamage, (float)protAmount);
+                    toDamage = DamageUtil.getInflictedDamage((float)toDamage, (float)protAmount);
                 }
             }
             return toDamage;

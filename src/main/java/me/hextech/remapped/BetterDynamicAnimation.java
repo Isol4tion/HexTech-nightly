@@ -24,7 +24,7 @@ public class BetterDynamicAnimation {
 
     public void update() {
         this.prevStep = this.step;
-        this.step = MathHelper.method_15340((int)(this.step + 1), (int)0, (int)this.maxTicks);
+        this.step = MathHelper.clamp((int)(this.step + 1), (int)0, (int)this.maxTicks);
     }
 
     public void setValue(double value) {
@@ -38,7 +38,7 @@ public class BetterDynamicAnimation {
 
     public double getAnimationD() {
         double delta = this.dstValue - this.value;
-        double animation = BetterDynamicAnimation.createAnimation((double)((float)this.prevStep + (float)(this.step - this.prevStep) * Wrapper.mc.getTickDelta()) / (double)this.maxTicks);
+        double animation = BetterDynamicAnimation.createAnimation((double)((float)this.prevStep + (float)(this.step - this.prevStep) * Wrapper.mc.method_1488()) / (double)this.maxTicks);
         return this.value + delta * animation;
     }
 }

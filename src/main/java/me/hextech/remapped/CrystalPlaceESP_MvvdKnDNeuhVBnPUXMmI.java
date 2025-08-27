@@ -47,25 +47,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static void drawCircle3D(MatrixStack stack, Entity ent, float radius, float height, float up, Color color) {
         Render3DUtil.setupRender();
         GL11.glDisable((int)2929);
-        Tessellator tessellator = Tessellator.method_1348();
+        Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.method_1349();
         RenderSystem.setShader(GameRenderer::method_34540);
-        bufferBuilder.method_1328(VertexFormat.DrawMode.field_29345, VertexFormats.field_1576);
+        bufferBuilder.method_1328(VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION_COLOR);
         GL11.glLineWidth((float)2.0f);
-        double x = ent.field_6014 + (ent.getX() - ent.field_6014) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.method_1561().field_4686.method_19326().method_10216();
-        double y = ent.field_6036 + (double)height + (ent.getY() - ent.field_6036) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.method_1561().field_4686.method_19326().method_10214();
-        double z = ent.field_5969 + (ent.getZ() - ent.field_5969) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.method_1561().field_4686.method_19326().method_10215();
-        stack.method_22903();
-        stack.method_22904(x, y, z);
-        Matrix4f matrix = stack.method_23760().method_23761();
+        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.method_1488() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().method_10216();
+        double y = ent.prevY + (double)height + (ent.getY() - ent.prevY) * (double)mc.method_1488() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().method_10214();
+        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.method_1488() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().method_10215();
+        stack.push();
+        stack.translate(x, y, z);
+        Matrix4f matrix = stack.peek().getPositionMatrix();
         for (int i = 0; i <= 180; ++i) {
-            bufferBuilder.method_22918(matrix, (float)((double)radius * Math.cos((double)i * 6.28 / 45.0)), up, (float)((double)radius * Math.sin((double)i * 6.28 / 45.0))).method_39415(color.getRGB()).method_1344();
+            bufferBuilder.method_22918(matrix, (float)((double)radius * Math.cos((double)i * 6.28 / 45.0)), up, (float)((double)radius * Math.sin((double)i * 6.28 / 45.0))).color(color.getRGB()).method_1344();
         }
         tessellator.method_1350();
         Render3DUtil.endRender();
-        stack.method_22904(-x, -y + (double)height, -z);
+        stack.translate(-x, -y + (double)height, -z);
         GL11.glEnable((int)2929);
-        stack.method_22909();
+        stack.pop();
     }
 
     @Override

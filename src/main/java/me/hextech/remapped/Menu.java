@@ -30,7 +30,7 @@ extends Screen {
     float zoomExit = 1.0f;
 
     public Menu() {
-        super((Text)Text.method_43471((String)"narrator.screen.title"));
+        super((Text)Text.translatable((String)"narrator.screen.title"));
     }
 
     public void method_25394(DrawContext context, int mouseX, int mouseY, float delta) {
@@ -38,7 +38,7 @@ extends Screen {
         context.method_25302(moon, 50, 15, 0, 0, this.field_22789, this.field_22790);
         context.method_25291(sky, 0, 0, 0, 0.0f, 0.0f, this.field_22789, this.field_22790, this.field_22789, this.field_22790);
         context.method_25291(station, (mouseX - this.field_22789) / 48, 30 + (mouseY - this.field_22790 / 2) / 80, 0, 0.0f, 0.0f, this.field_22789, this.field_22790, this.field_22789, this.field_22790);
-        MatrixStack matrices = context.method_51448();
+        MatrixStack matrices = context.getMatrices();
         RenderSystem.defaultBlendFunc();
         float maxButtonWidth = (float)this.field_22789 / 2.0f;
         int buttonWidth = this.field_22790 / 12;
@@ -48,7 +48,7 @@ extends Screen {
         int charc = (int)((maxButtonWidth - (float)(4 * buttonWidth)) / 5.0f);
         double zoomAdd = 0.06;
         float alphaFac = (float)(1 - Math.abs(mouseY - this.field_22790 / 2) / this.field_22790) / 255.0f;
-        matrices.method_22903();
+        matrices.push();
         if (this.isMouseHoveringRect((float)startX, (float)buttonY, buttonWidth, mouseX, mouseY)) {
             if (this.zoomSingle < scaled) {
                 this.zoomSingle = (float)((double)this.zoomSingle + zoomAdd);
@@ -57,24 +57,24 @@ extends Screen {
             this.zoomSingle = (float)((double)this.zoomSingle - zoomAdd);
         }
         if (this.zoomSingle > 1.0f) {
-            matrices.method_46416((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
-            matrices.method_22905(this.zoomSingle, this.zoomSingle, 1.0f);
-            matrices.method_46416((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
+            matrices.translate((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
+            matrices.scale(this.zoomSingle, this.zoomSingle, 1.0f);
+            matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
         }
         RenderSystem.setShaderTexture((int)0, (Identifier)single);
         RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
         RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
         context.method_25291(single, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
-        matrices.method_22909();
-        matrices.method_22903();
+        matrices.pop();
+        matrices.push();
         if (this.zoomSingle > 1.0f) {
-            matrices.method_46416((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
-            matrices.method_22905(this.zoomSingle, this.zoomSingle, 1.0f);
-            matrices.method_46416((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
+            matrices.translate((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
+            matrices.scale(this.zoomSingle, this.zoomSingle, 1.0f);
+            matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
             TextUtil.drawString(context, "Singleplayer", (float)(startX + buttonWidth / 2) - TextUtil.getWidth("Singleplayer"), (float)buttonY + (float)buttonWidth + 1.0f, new Color(255, 255, 255, 255).getRGB(), true);
         }
-        matrices.method_22909();
-        matrices.method_22903();
+        matrices.pop();
+        matrices.push();
         if (this.isMouseHoveringRect((float)(startX += (int)((double)buttonWidth + 0.2 * (double)buttonWidth + (double)charc)), (float)buttonY, buttonWidth, mouseX, mouseY)) {
             if (this.zoomMulti < scaled) {
                 this.zoomMulti = (float)((double)this.zoomMulti + zoomAdd);
@@ -83,24 +83,24 @@ extends Screen {
             this.zoomMulti = (float)((double)this.zoomMulti - zoomAdd);
         }
         if (this.zoomMulti > 1.0f) {
-            matrices.method_46416((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
-            matrices.method_22905(Math.min(scaled, this.zoomMulti), Math.min(scaled, this.zoomMulti), 1.0f);
-            matrices.method_46416((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
+            matrices.translate((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
+            matrices.scale(Math.min(scaled, this.zoomMulti), Math.min(scaled, this.zoomMulti), 1.0f);
+            matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
         }
         RenderSystem.setShaderTexture((int)0, (Identifier)multi);
         RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
         RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
         context.method_25291(multi, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
-        matrices.method_22909();
-        matrices.method_22903();
+        matrices.pop();
+        matrices.push();
         if (this.zoomMulti > 1.0f) {
-            matrices.method_46416((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
-            matrices.method_22905(this.zoomMulti, this.zoomMulti, 1.0f);
-            matrices.method_46416((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
+            matrices.translate((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
+            matrices.scale(this.zoomMulti, this.zoomMulti, 1.0f);
+            matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
             TextUtil.drawString(context, "Multiplayer", (float)(startX + buttonWidth / 2) - TextUtil.getWidth("Multiplayer"), (float)buttonY + (float)buttonWidth + 1.0f, new Color(255, 255, 255, 255).getRGB(), true);
         }
-        matrices.method_22909();
-        matrices.method_22903();
+        matrices.pop();
+        matrices.push();
         if (this.isMouseHoveringRect((float)(startX += (int)((double)buttonWidth + 0.2 * (double)buttonWidth + (double)charc)), (float)buttonY, buttonWidth, mouseX, mouseY)) {
             if (this.zoomSetting < scaled) {
                 this.zoomSetting = (float)((double)this.zoomSetting + zoomAdd);
@@ -109,24 +109,24 @@ extends Screen {
             this.zoomSetting = (float)((double)this.zoomSetting - zoomAdd);
         }
         if (this.zoomSetting > 1.0f) {
-            matrices.method_46416((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
-            matrices.method_22905(Math.min(scaled, this.zoomSetting), Math.min(scaled, this.zoomSetting), 1.0f);
-            matrices.method_46416((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
+            matrices.translate((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
+            matrices.scale(Math.min(scaled, this.zoomSetting), Math.min(scaled, this.zoomSetting), 1.0f);
+            matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
         }
         RenderSystem.setShaderTexture((int)0, (Identifier)setting);
         RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
         RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
         context.method_25291(setting, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
-        matrices.method_22909();
-        matrices.method_22903();
+        matrices.pop();
+        matrices.push();
         if (this.zoomSetting > 1.0f) {
-            matrices.method_46416((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
-            matrices.method_22905(this.zoomSetting, this.zoomSetting, 1.0f);
-            matrices.method_46416((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
+            matrices.translate((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
+            matrices.scale(this.zoomSetting, this.zoomSetting, 1.0f);
+            matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
             TextUtil.drawString(context, "Singleplayer", (float)(startX + buttonWidth / 2) - TextUtil.getWidth("Singleplayer"), (float)buttonY + (float)buttonWidth + 1.0f, new Color(255, 255, 255, 255).getRGB(), true);
         }
-        matrices.method_22909();
-        matrices.method_22903();
+        matrices.pop();
+        matrices.push();
         if (this.isMouseHoveringRect((float)(startX += (int)((double)buttonWidth + 0.2 * (double)buttonWidth + (double)charc)), (float)buttonY, buttonWidth, mouseX, mouseY)) {
             if (this.zoomExit < scaled) {
                 this.zoomExit = (float)((double)this.zoomExit + zoomAdd);
@@ -135,23 +135,23 @@ extends Screen {
             this.zoomExit = (float)((double)this.zoomExit - zoomAdd);
         }
         if (this.zoomExit > 1.0f) {
-            matrices.method_46416((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
-            matrices.method_22905(Math.min(scaled, this.zoomExit), Math.min(scaled, this.zoomExit), 1.0f);
-            matrices.method_46416((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
+            matrices.translate((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
+            matrices.scale(Math.min(scaled, this.zoomExit), Math.min(scaled, this.zoomExit), 1.0f);
+            matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
         }
         RenderSystem.setShaderTexture((int)0, (Identifier)exit);
         RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
         RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
         context.method_25291(exit, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
-        matrices.method_22909();
-        matrices.method_22903();
+        matrices.pop();
+        matrices.push();
         if (this.zoomExit > 1.0f) {
-            matrices.method_46416((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
-            matrices.method_22905(this.zoomExit, this.zoomExit, 1.0f);
-            matrices.method_46416((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
+            matrices.translate((float)(startX + buttonWidth), (float)(buttonY + buttonWidth), 0.0f);
+            matrices.scale(this.zoomExit, this.zoomExit, 1.0f);
+            matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
             TextUtil.drawString(context, "Exit", (float)(startX + buttonWidth / 2) - TextUtil.getWidth("Exit") - 2.0f, (float)buttonY + (float)buttonWidth + 1.0f, new Color(255, 255, 255, 255).getRGB(), true);
         }
-        matrices.method_22909();
+        matrices.pop();
         RenderSystem.disableBlend();
     }
 
@@ -172,21 +172,21 @@ extends Screen {
         int charc = (int)((maxButtonWidth - (float)(4 * buttonWidth)) / 5.0f);
         if (button == 0) {
             if (this.isMouseHoveringRect((float)startX, (float)buttonY, buttonWidth, mouseX, mouseY)) {
-                this.field_22787.method_1507((Screen)new SelectWorldScreen((Screen)this));
+                this.field_22787.setScreen((Screen)new SelectWorldScreen((Screen)this));
             }
             if (this.isMouseHoveringRect((float)(startX += (int)((double)buttonWidth + 0.2 * (double)buttonWidth + (double)charc)), (float)buttonY, buttonWidth, mouseX, mouseY)) {
-                if (!Wrapper.mc.field_1690.field_21840) {
-                    Wrapper.mc.field_1690.field_21840 = true;
-                    Wrapper.mc.field_1690.method_1640();
+                if (!Wrapper.mc.options.skipMultiplayerWarning) {
+                    Wrapper.mc.options.skipMultiplayerWarning = true;
+                    Wrapper.mc.options.write();
                 }
                 MultiplayerScreen screen = new MultiplayerScreen((Screen)this);
-                Wrapper.mc.method_1507((Screen)screen);
+                Wrapper.mc.setScreen((Screen)screen);
             }
             if (this.isMouseHoveringRect((float)(startX += (int)((double)buttonWidth + 0.2 * (double)buttonWidth + (double)charc)), (float)buttonY, buttonWidth, mouseX, mouseY)) {
-                Wrapper.mc.method_1507((Screen)new OptionsScreen((Screen)this, Wrapper.mc.field_1690));
+                Wrapper.mc.setScreen((Screen)new OptionsScreen((Screen)this, Wrapper.mc.options));
             }
             if (this.isMouseHoveringRect((float)(startX += (int)((double)buttonWidth + 0.2 * (double)buttonWidth + (double)charc)), (float)buttonY, buttonWidth, mouseX, mouseY)) {
-                Wrapper.mc.method_1490();
+                Wrapper.mc.stop();
             }
         }
         return super.method_25402(mouseX, mouseY, button);

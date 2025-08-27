@@ -67,7 +67,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Shader_CLqIXXaHSdAoBoxRSgjR.mc.player == null) {
             return false;
         }
-        if ((double)MathHelper.method_15355((float)((float)Shader_CLqIXXaHSdAoBoxRSgjR.mc.player.method_5707(entity.method_19538()))) > this.maxRange.getValue()) {
+        if ((double)MathHelper.sqrt((float)((float)Shader_CLqIXXaHSdAoBoxRSgjR.mc.player.method_5707(entity.getPos()))) > this.maxRange.getValue()) {
             return false;
         }
         if (entity instanceof PlayerEntity) {
@@ -85,7 +85,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (entity instanceof ItemEntity) {
             return this.items.getValue();
         }
-        return switch (Shader_wgUNhhHMJWFzVAsdqlFd.$SwitchMap$net$minecraft$entity$SpawnGroup[entity.method_5864().method_5891().ordinal()]) {
+        return switch (Shader_wgUNhhHMJWFzVAsdqlFd.$SwitchMap$net$minecraft$entity$SpawnGroup[entity.getType().getSpawnGroup().ordinal()]) {
             case 1, 2 -> this.creatures.getValue();
             case 3 -> this.monsters.getValue();
             case 4, 5 -> this.ambients.getValue();
@@ -96,7 +96,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         if (this.hands.getValue()) {
-            HexTech.SHADER.renderShader(() -> Shader_CLqIXXaHSdAoBoxRSgjR.mc.field_1773.method_3172(matrixStack, Shader_CLqIXXaHSdAoBoxRSgjR.mc.field_1773.method_19418(), mc.getTickDelta()), this.mode.getValue());
+            HexTech.SHADER.renderShader(() -> Shader_CLqIXXaHSdAoBoxRSgjR.mc.gameRenderer.method_3172(matrixStack, Shader_CLqIXXaHSdAoBoxRSgjR.mc.gameRenderer.getCamera(), mc.method_1488()), this.mode.getValue());
         }
     }
 

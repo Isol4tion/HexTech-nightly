@@ -49,7 +49,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean faceVector(Vec3d directionVec) {
         this.directionVec = directionVec;
         float[] angle = EntityUtil.getLegitRotations(directionVec);
-        if (Math.abs(MathHelper.method_15393((float)(angle[0] - lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.method_15393((float)(angle[1] - lastPitch))) < this.fov.getValueFloat()) {
+        if (Math.abs(MathHelper.wrapDegrees((float)(angle[0] - lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees((float)(angle[1] - lastPitch))) < this.fov.getValueFloat()) {
             if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.rotatepacket.getValue()) {
                 EntityUtil.sendYawAndPitch(angle[0], angle[1]);
             }
@@ -59,7 +59,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void updatePos() {
-        this.targetPos = new Vec3d(PearlClip.mc.player.getX() + MathHelper.method_15350((double)(this.roundToClosest(PearlClip.mc.player.getX(), Math.floor(PearlClip.mc.player.getX()) + 0.241, Math.floor(PearlClip.mc.player.getX()) + 0.759) - PearlClip.mc.player.getX()), (double)-0.2, (double)0.2), PearlClip.mc.player.getY() - 0.5, PearlClip.mc.player.getZ() + MathHelper.method_15350((double)(this.roundToClosest(PearlClip.mc.player.getZ(), Math.floor(PearlClip.mc.player.getZ()) + 0.241, Math.floor(PearlClip.mc.player.getZ()) + 0.759) - PearlClip.mc.player.getZ()), (double)-0.2, (double)0.2));
+        this.targetPos = new Vec3d(PearlClip.mc.player.method_23317() + MathHelper.clamp((double)(this.roundToClosest(PearlClip.mc.player.method_23317(), Math.floor(PearlClip.mc.player.method_23317()) + 0.241, Math.floor(PearlClip.mc.player.method_23317()) + 0.759) - PearlClip.mc.player.method_23317()), (double)-0.2, (double)0.2), PearlClip.mc.player.method_23318() - 0.5, PearlClip.mc.player.method_23321() + MathHelper.clamp((double)(this.roundToClosest(PearlClip.mc.player.method_23321(), Math.floor(PearlClip.mc.player.method_23321()) + 0.241, Math.floor(PearlClip.mc.player.method_23321()) + 0.759) - PearlClip.mc.player.method_23321()), (double)-0.2, (double)0.2));
     }
 
     @EventHandler
@@ -89,19 +89,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void throwPearl() {
         int pearl;
         AutoPearl.throwing = true;
-        if (PearlClip.mc.player.method_6047().method_7909() == Items.field_8634) {
-            PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
-        } else if (AutoPearl.INSTANCE.inventory.getValue() && (pearl = InventoryUtil.findItemInventorySlot(Items.field_8634)) != -1) {
-            InventoryUtil.inventorySwap(pearl, PearlClip.mc.player.method_31548().field_7545);
-            PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
-            InventoryUtil.inventorySwap(pearl, PearlClip.mc.player.method_31548().field_7545);
+        if (PearlClip.mc.player.method_6047().getItem() == Items.ENDER_PEARL) {
+            PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
+        } else if (AutoPearl.INSTANCE.inventory.getValue() && (pearl = InventoryUtil.findItemInventorySlot(Items.ENDER_PEARL)) != -1) {
+            InventoryUtil.inventorySwap(pearl, PearlClip.mc.player.method_31548().selectedSlot);
+            PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
+            InventoryUtil.inventorySwap(pearl, PearlClip.mc.player.method_31548().selectedSlot);
             EntityUtil.syncInventory();
         } else {
-            pearl = InventoryUtil.findItem(Items.field_8634);
+            pearl = InventoryUtil.findItem(Items.ENDER_PEARL);
             if (pearl != -1) {
-                int old = PearlClip.mc.player.method_31548().field_7545;
+                int old = PearlClip.mc.player.method_31548().selectedSlot;
                 InventoryUtil.switchToSlot(pearl);
-                PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
+                PearlClip.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
                 InventoryUtil.switchToSlot(old);
             }
         }

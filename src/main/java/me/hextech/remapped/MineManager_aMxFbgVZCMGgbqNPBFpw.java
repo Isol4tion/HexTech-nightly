@@ -23,26 +23,26 @@ implements Wrapper {
         Object t = event.getPacket();
         if (t instanceof BlockBreakingProgressS2CPacket) {
             BlockBreakingProgressS2CPacket packet = (BlockBreakingProgressS2CPacket)t;
-            if (packet.method_11277() == null) {
+            if (packet.getPos() == null) {
                 return;
             }
-            MineManager breakData = new MineManager(packet.method_11277(), packet.method_11280());
-            if (this.breakMap.containsKey(packet.method_11280()) && this.breakMap.get((Object)Integer.valueOf((int)packet.method_11280())).pos.equals((Object)packet.method_11277())) {
+            MineManager breakData = new MineManager(packet.getPos(), packet.getEntityId());
+            if (this.breakMap.containsKey(packet.getEntityId()) && this.breakMap.get((Object)Integer.valueOf((int)packet.getEntityId())).pos.equals((Object)packet.getPos())) {
                 return;
             }
             if (breakData.getEntity() == null) {
                 return;
             }
-            if (MathHelper.method_15355((float)((float)breakData.getEntity().getEyePos().squaredDistanceTo(packet.method_11277().toCenterPos()))) > 8.0f) {
+            if (MathHelper.sqrt((float)((float)breakData.getEntity().getEyePos().squaredDistanceTo(packet.getPos().toCenterPos()))) > 8.0f) {
                 return;
             }
-            this.breakMap.put(packet.method_11280(), breakData);
+            this.breakMap.put(packet.getEntityId(), breakData);
         }
     }
 
     public boolean isMining(BlockPos pos) {
         for (MineManager breakData : this.breakMap.values()) {
-            if (breakData.getEntity() == null || breakData.getEntity().getEyePos().method_1022(pos.toCenterPos()) > 7.0 || !breakData.pos.equals((Object)pos)) continue;
+            if (breakData.getEntity() == null || breakData.getEntity().getEyePos().distanceTo(pos.toCenterPos()) > 7.0 || !breakData.pos.equals((Object)pos)) continue;
             return true;
         }
         return false;

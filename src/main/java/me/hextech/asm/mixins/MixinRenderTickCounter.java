@@ -2,14 +2,14 @@ package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
 import me.hextech.remapped.TimerEvent;
-import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.class_317;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value={RenderTickCounter.class})
+@Mixin(value={class_317.class})
 public class MixinRenderTickCounter {
     @Shadow
     public float field_1969;

@@ -10,7 +10,7 @@ public abstract class Tab {
     protected int y;
     protected int width;
     protected int height;
-    protected MinecraftClient mc = MinecraftClient.method_1551();
+    protected MinecraftClient mc = MinecraftClient.getInstance();
 
     public abstract void update(double var1, double var3, boolean var5);
 

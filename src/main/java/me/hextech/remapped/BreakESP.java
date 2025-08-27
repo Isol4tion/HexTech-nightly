@@ -54,7 +54,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return;
             }
             double size = 0.5 * (1.0 - breakData.fade.getQuad(this.quad.getValue()));
-            Box cbox = new Box(breakData.pos).method_1002(size, size, size).method_1002(-size, -size, -size);
+            Box cbox = new Box(breakData.pos).shrink(size, size, size).shrink(-size, -size, -size);
             if (this.fill.booleanValue) {
                 Render3DUtil.drawFill(matrixStack, cbox, this.fill.getValue());
             }
@@ -62,11 +62,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 Render3DUtil.drawBox(matrixStack, cbox, this.box.getValue());
             }
             if (this.name.getValue()) {
-                Render3DUtil.drawText3DBreak(breakData.getEntity().method_5477().getString(), breakData.pos.toCenterPos().method_1031(0.0, (double)this.nameY.getValueFloat(), 0.0), -1);
+                Render3DUtil.drawText3DBreak(breakData.getEntity().method_5477().getString(), breakData.pos.toCenterPos().add(0.0, (double)this.nameY.getValueFloat(), 0.0), -1);
             }
             double breakTimeMs = this.breakTime.getValue() * 1000.0;
             if (this.breakName.getValue()) {
-                Render3DUtil.drawText3DBreakMine(Text.method_30163((String)this.df.format(Math.min(1.0, (double)breakData.timer.getPassedTimeMs() / breakTimeMs) * 100.0)), breakData.pos.toCenterPos().method_1031(0.0, (double)(-this.mineY.getValueFloat()), 0.0), 0.0, 0.0, this.minescale.getValueFloat(), ColorUtil.fadeColor(new Color(235, 235, 235), new Color(235, 235, 235), (double)breakData.timer.getPassedTimeMs() / breakTimeMs));
+                Render3DUtil.drawText3DBreakMine(Text.of((String)this.df.format(Math.min(1.0, (double)breakData.timer.getPassedTimeMs() / breakTimeMs) * 100.0)), breakData.pos.toCenterPos().add(0.0, (double)(-this.mineY.getValueFloat()), 0.0), 0.0, 0.0, this.minescale.getValueFloat(), ColorUtil.fadeColor(new Color(235, 235, 235), new Color(235, 235, 235), (double)breakData.timer.getPassedTimeMs() / breakTimeMs));
             }
         });
     }

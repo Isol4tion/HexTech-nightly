@@ -62,7 +62,7 @@ extends Component {
         int x = this.parent.getX();
         int y = (int)((double)this.parent.getY() + this.currentOffset - 2.0);
         int width = this.parent.getWidth();
-        MatrixStack matrixStack = drawContext.method_51448();
+        MatrixStack matrixStack = drawContext.getMatrices();
         Render2DUtil.drawRect(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)width - 2.0f, (float)this.defaultHeight - 1.0f, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.shColor.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.sbgColor.getValue());
         this.currentWidth = BooleanComponent.animate(this.currentWidth, this.setting.getValue() ? (double)width - 2.0 : 0.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.booleanSpeed.getValue());
         switch (BooleanComponent_iwxfewPNzPrRDgHmnnjX.$SwitchMap$me$hextech$mod$modules$impl$client$ClickGui$Type[ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue().ordinal()]) {

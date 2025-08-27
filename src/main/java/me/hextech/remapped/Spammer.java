@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,7 +55,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.messages.isEmpty()) {
             String selectedMessage = this.messages.get(this.random.nextInt(this.messages.size()));
             if (this.tellMode.getValue()) {
-                Collection players = mc.method_1562().method_2880();
+                Collection players = mc.getNetworkHandler().getPlayerList();
                 ArrayList list = new ArrayList(players);
                 int size = list.size();
                 if (size == 0) {
@@ -62,13 +63,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 PlayerListEntry playerListEntry = (PlayerListEntry)list.get(this.random.nextInt(size));
                 if (Spammer.mc.player != null) {
-                    while (this.checkSelf.getValue() && Objects.equals(playerListEntry.method_2966().getName(), Spammer.mc.player.method_7334().getName())) {
+                    while (this.checkSelf.getValue() && Objects.equals(playerListEntry.getProfile().getName(), Spammer.mc.player.method_7334().getName())) {
                         playerListEntry = (PlayerListEntry)list.get(this.random.nextInt(size));
                     }
                 }
-                mc.method_1562().method_45730("tell " + playerListEntry.method_2966().getName() + " " + selectedMessage + (String)randomString);
+                mc.getNetworkHandler().sendChatCommand("tell " + playerListEntry.getProfile().getName() + " " + selectedMessage + (String)randomString);
             } else {
-                mc.method_1562().method_45729(selectedMessage + (String)randomString);
+                mc.getNetworkHandler().sendChatMessage(selectedMessage + (String)randomString);
             }
         }
     }
@@ -91,7 +92,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 writer.write("\u56fd\u670d2b2t\u6700\u5f3ahack HexTech-Nightly \u6bcb\u5eb8\u7f6e\u7591\uff0c\u83b7\u53d6\u52a0QQ2353761389\n");
                 writer.close();
             }
-            List<String> lines = IOUtils.readLines((InputStream)new FileInputStream(SpammerFile), StandardCharsets.UTF_8);
+            List lines = IOUtils.readLines((InputStream)new FileInputStream(SpammerFile), (Charset)StandardCharsets.UTF_8);
             this.messages.addAll(lines);
         }
         catch (IOException e) {

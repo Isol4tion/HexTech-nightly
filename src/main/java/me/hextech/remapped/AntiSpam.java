@@ -19,7 +19,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void PacketReceive(PacketEvent_YXFfxdDjQAfjBumqRbBu receive) {
         GameMessageS2CPacket e;
         Object t = receive.getPacket();
-        if (t instanceof GameMessageS2CPacket && (e = (GameMessageS2CPacket)t).comp_763().getString().contains(this.name.getValue())) {
+        if (t instanceof GameMessageS2CPacket && (e = (GameMessageS2CPacket)t).content().getString().contains(this.name.getValue())) {
             receive.cancel();
         }
     }

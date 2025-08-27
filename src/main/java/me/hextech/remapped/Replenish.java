@@ -31,31 +31,31 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private boolean replenish(int slot) {
         ItemStack stack = Replenish.mc.player.method_31548().method_5438(slot);
-        if (stack.method_7960()) {
+        if (stack.isEmpty()) {
             return false;
         }
-        if (!stack.method_7946()) {
+        if (!stack.isStackable()) {
             return false;
         }
-        if ((double)stack.method_7947() > this.min.getValue()) {
+        if ((double)stack.getCount() > this.min.getValue()) {
             return false;
         }
-        if (stack.method_7947() == stack.method_7914()) {
+        if (stack.getCount() == stack.getMaxCount()) {
             return false;
         }
         for (int i = 9; i < 36; ++i) {
             ItemStack item = Replenish.mc.player.method_31548().method_5438(i);
-            if (item.method_7960() || !this.canMerge(stack, item)) continue;
-            if ((float)stack.method_7947() > this.forceMin.getValueFloat() ? !this.timer.passedS(this.delay.getValue()) : !this.timer.passedS(this.forceDelay.getValue())) {
+            if (item.isEmpty() || !this.canMerge(stack, item)) continue;
+            if ((float)stack.getCount() > this.forceMin.getValueFloat() ? !this.timer.passedS(this.delay.getValue()) : !this.timer.passedS(this.forceDelay.getValue())) {
                 return false;
             }
-            Replenish.mc.field_1761.method_2906(Replenish.mc.player.field_7498.field_7763, i, 0, SlotActionType.field_7794, (PlayerEntity)Replenish.mc.player);
+            Replenish.mc.interactionManager.clickSlot(Replenish.mc.player.field_7498.field_7763, i, 0, SlotActionType.QUICK_MOVE, (PlayerEntity)Replenish.mc.player);
             return true;
         }
         return false;
     }
 
     private boolean canMerge(ItemStack source, ItemStack stack) {
-        return source.method_7909() == stack.method_7909() && source.method_7964().equals((Object)stack.method_7964());
+        return source.getItem() == stack.getItem() && source.getName().equals((Object)stack.getName());
     }
 }

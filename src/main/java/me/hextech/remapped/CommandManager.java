@@ -61,7 +61,7 @@ implements Wrapper {
             }
         }
         catch (Exception e) {
-            System.out.println("Error initializing HexTech-nightly Cracked By NoWhisper commands.");
+            System.out.println("Error initializing \u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c commands.");
             System.out.println(e.getStackTrace().toString());
         }
     }
@@ -80,7 +80,7 @@ implements Wrapper {
             startCode = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.start.getValue();
             endCode = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.end.getValue();
         }
-        CommandManager.mc.field_1705.method_1743().method_1812(Text.method_30163((String)("\u00a7(\u00a7r" + startCode + ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.hackName.getValue() + "\u00a7r" + endCode + "\u00a7f " + message)));
+        CommandManager.mc.inGameHud.getChatHud().addMessage(Text.of((String)("\u00a7(\u00a7r" + startCode + ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.hackName.getValue() + "\u00a7r" + endCode + "\u00a7f " + message)));
     }
 
     public static void sendChatMessageWidthId(String message, int id) {
@@ -97,14 +97,14 @@ implements Wrapper {
             startCode = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.start.getValue();
             endCode = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.end.getValue();
         }
-        ((IChatHud)CommandManager.mc.field_1705.method_1743()).nullpoint_nextgen_master$add(Text.method_30163((String)("\u00a7(\u00a7r" + startCode + ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.hackName.getValue() + "\u00a7r" + endCode + "\u00a7f " + message)), id);
+        ((IChatHud)CommandManager.mc.inGameHud.getChatHud()).nullpoint_nextgen_master$add(Text.of((String)("\u00a7(\u00a7r" + startCode + ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.hackName.getValue() + "\u00a7r" + endCode + "\u00a7f " + message)), id);
     }
 
     public static void sendChatMessageWidthIdNoSync(String message, int id) {
         if (Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck()) {
             return;
         }
-        ((IChatHud)CommandManager.mc.field_1705.method_1743()).nullpoint_nextgen_master$add(Text.method_30163((String)("\u00a7f" + message)), id);
+        ((IChatHud)CommandManager.mc.inGameHud.getChatHud()).nullpoint_nextgen_master$add(Text.of((String)("\u00a7f" + message)), id);
     }
 
     public Command getCommandBySyntax(String string) {

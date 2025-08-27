@@ -167,8 +167,8 @@ extends Component {
         int x = this.parent.getX();
         int y = (int)((double)this.parent.getY() + this.currentOffset - 2.0);
         int width = this.parent.getWidth();
-        MatrixStack matrixStack = drawContext.method_51448();
-        boolean unShift = !this.hover || !InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)340);
+        MatrixStack matrixStack = drawContext.getMatrices();
+        boolean unShift = !this.hover || !InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)340);
         Render2DUtil.drawRect(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)width - 2.0f, (float)this.defaultHeight - 1.0f, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.shColor.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.sbgColor.getValue());
         if (this.colorSetting.injectBoolean) {
             this.currentWidth = ColorComponents.animate(this.currentWidth, this.colorSetting.booleanValue ? (double)width - 2.0 : 0.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.booleanSpeed.getValue());

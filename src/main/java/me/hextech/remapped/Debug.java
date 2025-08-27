@@ -39,10 +39,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (AbstractClientPlayerEntity player : Debug.mc.world.method_18456()) {
                 Vec3d vec3d = CombatUtil.getEntityPosVec((PlayerEntity)player, this.ticks.getValueInt());
                 if (this.prerender.getValue()) {
-                    Render3DUtil.draw3DBox(matrixStack, new Box(BlockPos.method_49638((Position)vec3d)), this.color.getValue());
+                    Render3DUtil.draw3DBox(matrixStack, new Box(BlockPos.ofFloored((Position)vec3d)), this.color.getValue());
                 }
                 if (!this.chat.getValue()) continue;
-                CommandManager.sendChatMessage(vec3d.field_1352 + " " + vec3d.field_1351 + " " + vec3d.field_1350);
+                CommandManager.sendChatMessage(vec3d.x + " " + vec3d.y + " " + vec3d.z);
             }
         }
     }

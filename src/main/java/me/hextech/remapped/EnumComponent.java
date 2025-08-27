@@ -92,7 +92,7 @@ extends Component {
         int x = this.parent.getX();
         int y = (int)((double)this.parent.getY() + this.currentOffset - 2.0);
         int width = this.parent.getWidth();
-        MatrixStack matrixStack = drawContext.method_51448();
+        MatrixStack matrixStack = drawContext.getMatrices();
         Render2DUtil.drawRect(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)width - 2.0f, (float)this.defaultHeight - 1.0f, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : HexTech.GUI.getColor());
         TextUtil.drawString(drawContext, this.setting.getName() + ": " + ((Enum)this.setting.getValue()).name(), (double)(x + 4), (double)y + this.getTextOffsetY(), new Color(-1).getRGB());
         TextUtil.drawString(drawContext, this.setting.popped ? "-" : "+", (double)(x + width - 11), (double)y + this.getTextOffsetY(), new Color(255, 255, 255).getRGB());

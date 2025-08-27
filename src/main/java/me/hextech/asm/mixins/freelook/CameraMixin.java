@@ -44,7 +44,7 @@ public abstract class CameraMixin {
         if (camera.doLock) {
             float yaw = camera.lookYaw;
             float pitch = camera.lookPitch;
-            if (MinecraftClient.method_1551().field_1690.method_31044().method_31035()) {
+            if (MinecraftClient.getInstance().options.getPerspective().isFrontView()) {
                 yaw -= 180.0f;
                 pitch = -pitch;
             }
@@ -58,8 +58,8 @@ public abstract class CameraMixin {
             float pitchDiff = camera.lookPitch - camera.originalPitch();
             float yawStep = speed * (yawDiff * steps);
             float pitchStep = speed * (pitchDiff * steps);
-            float yaw = MathHelper.method_15348((float)camera.lookYaw, (float)camera.originalYaw(), (float)(yawStep * delta));
-            float pitch = MathHelper.method_15348((float)camera.lookPitch, (float)camera.originalPitch(), (float)(pitchStep * delta));
+            float yaw = MathHelper.stepTowards((float)camera.lookYaw, (float)camera.originalYaw(), (float)(yawStep * delta));
+            float pitch = MathHelper.stepTowards((float)camera.lookPitch, (float)camera.originalPitch(), (float)(pitchStep * delta));
             camera.lookYaw = yaw;
             camera.lookPitch = pitch;
             args.set(0, (Object)Float.valueOf(yaw));

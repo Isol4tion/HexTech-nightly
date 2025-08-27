@@ -12,13 +12,13 @@ public class Util {
     }
 
     public static boolean doesBoxTouchBlock(Box box, boolean Echest) {
-        int x = (int)Math.floor(box.field_1323);
-        while ((double)x < Math.ceil(box.field_1320)) {
-            int y = (int)Math.floor(box.field_1322);
-            while ((double)y < Math.ceil(box.field_1325)) {
-                int z = (int)Math.floor(box.field_1321);
-                while ((double)z < Math.ceil(box.field_1324)) {
-                    if (Wrapper.mc.world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.field_10540 || Wrapper.mc.world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.field_9987 || Wrapper.mc.world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.field_10443 && Echest || Wrapper.mc.world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.field_23152) {
+        int x = (int)Math.floor(box.minX);
+        while ((double)x < Math.ceil(box.maxX)) {
+            int y = (int)Math.floor(box.minY);
+            while ((double)y < Math.ceil(box.maxY)) {
+                int z = (int)Math.floor(box.minZ);
+                while ((double)z < Math.ceil(box.maxZ)) {
+                    if (Wrapper.mc.world.method_8320(new BlockPos(x, y, z)).method_26204() == Blocks.OBSIDIAN || Wrapper.mc.world.method_8320(new BlockPos(x, y, z)).method_26204() == Blocks.BEDROCK || Wrapper.mc.world.method_8320(new BlockPos(x, y, z)).method_26204() == Blocks.ENDER_CHEST && Echest || Wrapper.mc.world.method_8320(new BlockPos(x, y, z)).method_26204() == Blocks.RESPAWN_ANCHOR) {
                         return true;
                     }
                     ++z;

@@ -30,7 +30,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         for (ItemStack is : NoFall.mc.player.method_5661()) {
-            if (is.method_7909() != Items.field_8833) continue;
+            if (is.getItem() != Items.ELYTRA) continue;
             return;
         }
         Object t = event.getPacket();

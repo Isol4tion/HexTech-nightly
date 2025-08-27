@@ -21,14 +21,14 @@ import net.minecraft.util.math.Vec3d;
 public class ListenerHelper
 implements Wrapper {
     public static Block getBlock(BlockPos pos) {
-        return BlockUtil.getState(pos).getBlock();
+        return BlockUtil.getState(pos).method_26204();
     }
 
     private static int getBlock() {
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
-            return InventoryUtil.findBlockInventorySlot(Blocks.field_10540);
+            return InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN);
         }
-        return InventoryUtil.findBlock(Blocks.field_10540);
+        return InventoryUtil.findBlock(Blocks.OBSIDIAN);
     }
 
     public static void tryBase() {
@@ -56,7 +56,7 @@ implements Wrapper {
         if (side == null) {
             return;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().method_10263() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().method_10264() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().method_10260() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
         if (!BlockUtil.canPlace(pos, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue())) {
             return;
         }
@@ -65,15 +65,15 @@ implements Wrapper {
         }
         int old = 0;
         if (ListenerHelper.mc.player != null) {
-            old = ListenerHelper.mc.player.method_31548().field_7545;
+            old = ListenerHelper.mc.player.method_31548().selectedSlot;
         }
         ListenerHelper.doSwap(block);
         if (BlockUtil.airPlace()) {
             BlockUtil.placedPos.add(pos);
-            BlockUtil.clickBlock(pos, Direction.DOWN, false, Hand.field_5808);
+            BlockUtil.clickBlock(pos, Direction.DOWN, false, Hand.MAIN_HAND);
         } else {
             BlockUtil.placedPos.add(pos);
-            BlockUtil.clickBlock(pos.offset(side), side.method_10153(), false, Hand.field_5808);
+            BlockUtil.clickBlock(pos.offset(side), side.getOpposite(), false, Hand.MAIN_HAND);
         }
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
             ListenerHelper.doSwap(block);
@@ -87,7 +87,7 @@ implements Wrapper {
     private static void doSwap(int slot) {
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
             if (ListenerHelper.mc.player != null) {
-                InventoryUtil.inventorySwap(slot, ListenerHelper.mc.player.method_31548().field_7545);
+                InventoryUtil.inventorySwap(slot, ListenerHelper.mc.player.method_31548().selectedSlot);
             }
         } else {
             InventoryUtil.switchToSlot(slot);

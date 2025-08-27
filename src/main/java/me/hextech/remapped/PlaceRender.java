@@ -55,7 +55,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (PlaceRender_BKSSHzfecITsyTxUXmfE placePosition : renderMap.values()) {
             double quads;
             if (placePosition.isAir) {
-                if (!PlaceRender.mc.world.isAir(placePosition.pos)) {
+                if (!PlaceRender.mc.world.method_22347(placePosition.pos)) {
                     placePosition.isAir = false;
                 } else {
                     if (placePosition.timer.passed(this.timeout.getValue())) continue;
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             shouldClear = false;
             double alpha = this.mode.getValue() == _MgMtxnzmBTDvbcFtDFtE.Fade || this.mode.getValue() == _MgMtxnzmBTDvbcFtDFtE.All ? 1.0 - quads : 1.0;
             double size = this.mode.getValue() == _MgMtxnzmBTDvbcFtDFtE.Shrink || this.mode.getValue() == _MgMtxnzmBTDvbcFtDFtE.All ? quads : 0.0;
-            Box aBox = new Box(placePosition.pos).method_1009(-size * 0.5, -size * 0.5, -size * 0.5);
+            Box aBox = new Box(placePosition.pos).expand(-size * 0.5, -size * 0.5, -size * 0.5);
             if (this.colortype.getValue().equals((Object)AutoCrystal_ohSMJidwaoXtIVckTOpo.Custom)) {
                 if (this.fill.booleanValue) {
                     Render3DUtil.drawFill(matrixStack, aBox, ColorUtil.injectAlpha(this.fill.getValue(), (int)((double)this.fill.getValue().getAlpha() * alpha)));
@@ -96,18 +96,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    private static final class _MgMtxnzmBTDvbcFtDFtE
-    extends Enum<_MgMtxnzmBTDvbcFtDFtE> {
-        public static final /* enum */ _MgMtxnzmBTDvbcFtDFtE Fade;
-        public static final /* enum */ _MgMtxnzmBTDvbcFtDFtE Shrink;
-        public static final /* enum */ _MgMtxnzmBTDvbcFtDFtE All;
+    private static enum _MgMtxnzmBTDvbcFtDFtE {
+        Fade,
+        Shrink,
+        All;
 
-        public static _MgMtxnzmBTDvbcFtDFtE[] values() {
-            return null;
-        }
-
-        public static _MgMtxnzmBTDvbcFtDFtE valueOf(String string) {
-            return null;
-        }
     }
 }

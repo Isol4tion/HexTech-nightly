@@ -2,6 +2,7 @@ package me.hextech.remapped;
 
 import me.hextech.HexTech;
 import me.hextech.remapped.CameraState;
+import me.hextech.remapped.EventHandler;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.Render3DEvent;
@@ -14,7 +15,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public FreeLook() {
         super("FreeLook", Module_JlagirAibYQgkHtbRnhw.Player);
         INSTANCE = this;
-        HexTech.EVENT_BUS.subscribe(new _OlDkmefZbssNukXRhXRy(this));
+        HexTech.EVENT_BUS.subscribe(new _OlDkmefZbssNukXRhXRy());
     }
 
     public CameraState getCameraState() {
@@ -22,12 +23,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public class _OlDkmefZbssNukXRhXRy {
-        final /* synthetic */ FreeLook this$0;
-
-        public _OlDkmefZbssNukXRhXRy(FreeLook freeLook) {
-        }
-
-        public void onRender3D(Render3DEvent render3DEvent) {
+        @EventHandler
+        public void onRender3D(Render3DEvent event) {
+            boolean doUnlock;
+            CameraState camera = FreeLook.this.getCameraState();
+            boolean doLock = FreeLook.this.isOn() && !camera.doLock;
+            boolean bl = doUnlock = !FreeLook.this.isOn() && camera.doLock;
+            if (doLock) {
+                if (!camera.doTransition) {
+                    camera.lookYaw = camera.originalYaw();
+                    camera.lookPitch = camera.originalPitch();
+                }
+                camera.doLock = true;
+            }
+            if (doUnlock) {
+                camera.doLock = false;
+                camera.doTransition = true;
+                camera.transitionInitialYaw = camera.lookYaw;
+                camera.transitionInitialPitch = camera.lookPitch;
+            }
         }
     }
 }

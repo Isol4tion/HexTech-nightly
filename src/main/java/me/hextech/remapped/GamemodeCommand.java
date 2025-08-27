@@ -18,13 +18,13 @@ extends Command {
         }
         String moduleName = parameters[0];
         if (moduleName.equalsIgnoreCase("survival")) {
-            GamemodeCommand.mc.field_1761.method_2907(GameMode.field_9215);
+            GamemodeCommand.mc.interactionManager.setGameMode(GameMode.SURVIVAL);
         } else if (moduleName.equalsIgnoreCase("creative")) {
-            GamemodeCommand.mc.field_1761.method_2907(GameMode.field_9220);
+            GamemodeCommand.mc.interactionManager.setGameMode(GameMode.CREATIVE);
         } else if (moduleName.equalsIgnoreCase("adventure")) {
-            GamemodeCommand.mc.field_1761.method_2907(GameMode.field_9216);
+            GamemodeCommand.mc.interactionManager.setGameMode(GameMode.ADVENTURE);
         } else if (moduleName.equalsIgnoreCase("spectator")) {
-            GamemodeCommand.mc.field_1761.method_2907(GameMode.field_9219);
+            GamemodeCommand.mc.interactionManager.setGameMode(GameMode.SPECTATOR);
         }
     }
 

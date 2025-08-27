@@ -37,14 +37,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void update() {
-        if (!(InventoryMove.mc.field_1755 instanceof ChatScreen)) {
-            for (KeyBinding k : new KeyBinding[]{InventoryMove.mc.field_1690.field_1881, InventoryMove.mc.field_1690.field_1913, InventoryMove.mc.field_1690.field_1849, InventoryMove.mc.field_1690.field_1903}) {
-                k.method_23481(InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)k.method_1428()).method_1444()));
+        if (!(InventoryMove.mc.currentScreen instanceof ChatScreen)) {
+            for (KeyBinding k : new KeyBinding[]{InventoryMove.mc.options.backKey, InventoryMove.mc.options.leftKey, InventoryMove.mc.options.rightKey, InventoryMove.mc.options.jumpKey}) {
+                k.setPressed(InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)k.getBoundKeyTranslationKey()).getCode()));
             }
-            InventoryMove.mc.field_1690.field_1894.method_23481(AutoWalk.INSTANCE.isOn() || InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)InventoryMove.mc.field_1690.field_1894.method_1428()).method_1444()));
-            InventoryMove.mc.field_1690.field_1867.method_23481(Sprint.INSTANCE.isOn() || InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)InventoryMove.mc.field_1690.field_1867.method_1428()).method_1444()));
+            InventoryMove.mc.options.forwardKey.setPressed(AutoWalk.INSTANCE.isOn() || InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)InventoryMove.mc.options.forwardKey.getBoundKeyTranslationKey()).getCode()));
+            InventoryMove.mc.options.sprintKey.setPressed(Sprint.INSTANCE.isOn() || InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)InventoryMove.mc.options.sprintKey.getBoundKeyTranslationKey()).getCode()));
             if (this.sneak.getValue()) {
-                InventoryMove.mc.field_1690.field_1832.method_23481(InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)InventoryMove.mc.field_1690.field_1832.method_1428()).method_1444()));
+                InventoryMove.mc.options.sneakKey.setPressed(InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)InventoryMove.mc.options.sneakKey.getBoundKeyTranslationKey()).getCode()));
             }
         }
     }

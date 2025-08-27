@@ -20,9 +20,9 @@ import net.minecraft.world.explosion.Explosion;
 public class OyveyExplosionUtil
 implements Wrapper {
     public static float anchorDamage(BlockPos pos, PlayerEntity target, PlayerEntity predict) {
-        if (BlockUtil.getBlock(pos) == Blocks.field_23152) {
+        if (BlockUtil.getBlock(pos) == Blocks.RESPAWN_ANCHOR) {
             CombatUtil.modifyPos = pos;
-            CombatUtil.modifyBlockState = Blocks.AIR.method_9564();
+            CombatUtil.modifyBlockState = Blocks.AIR.getDefaultState();
             float damage = OyveyExplosionUtil.calculateDamage(pos.toCenterPos().method_10216(), pos.toCenterPos().method_10214(), pos.toCenterPos().method_10215(), (Entity)target, (Entity)predict, 5.0f);
             CombatUtil.modifyPos = null;
             return damage;
@@ -35,7 +35,7 @@ implements Wrapper {
             predict = entity;
         }
         float doubleExplosionSize = 2.0f * power;
-        double distancedsize = (double)MathHelper.method_15355((float)((float)predict.method_5649(posX, posY, posZ))) / (double)doubleExplosionSize;
+        double distancedsize = (double)MathHelper.sqrt((float)((float)predict.squaredDistanceTo(posX, posY, posZ))) / (double)doubleExplosionSize;
         Vec3d vec3d = new Vec3d(posX, posY, posZ);
         double blockDensity = 0.0;
         try {
@@ -48,14 +48,14 @@ implements Wrapper {
         float damage = (int)((v * v + v) / 2.0 * 7.0 * (double)doubleExplosionSize + 1.0);
         double finald = 1.0;
         if (entity instanceof LivingEntity) {
-            finald = OyveyExplosionUtil.getBlastReduction((LivingEntity)entity, OyveyExplosionUtil.getDamageMultiplied(damage), new Explosion((World)OyveyExplosionUtil.mc.world, entity, posX, posY, posZ, power, false, Explosion.DestructionType.field_18687));
+            finald = OyveyExplosionUtil.getBlastReduction((LivingEntity)entity, OyveyExplosionUtil.getDamageMultiplied(damage), new Explosion((World)OyveyExplosionUtil.mc.world, entity, posX, posY, posZ, power, false, Explosion.DestructionType.DESTROY));
         }
         return (float)finald;
     }
 
     public static float getDamageAfterAbsorb(float damage, float totalArmor, float toughnessAttribute) {
         float f = 2.0f + toughnessAttribute / 4.0f;
-        float f1 = MathHelper.method_15363((float)(totalArmor - damage / f), (float)(totalArmor * 0.2f), (float)20.0f);
+        float f1 = MathHelper.clamp((float)(totalArmor - damage / f), (float)(totalArmor * 0.2f), (float)20.0f);
         return damage * (1.0f - f1 / 25.0f);
     }
 
@@ -63,10 +63,10 @@ implements Wrapper {
         float damage = damageI;
         if (entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
-            DamageSource ds = OyveyExplosionUtil.mc.world.method_48963().method_48807(explosion);
+            DamageSource ds = OyveyExplosionUtil.mc.world.method_48963().explosion(explosion);
             damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, player.method_6096(), (float)player.method_26825(EntityAttributes.field_23725));
             int k = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)ds);
-            float f = MathHelper.method_15363((float)k, (float)0.0f, (float)20.0f);
+            float f = MathHelper.clamp((float)k, (float)0.0f, (float)20.0f);
             damage *= 1.0f - f / 25.0f;
             if (player.method_6059(StatusEffects.field_5907)) {
                 damage -= damage / 4.0f;
@@ -74,12 +74,12 @@ implements Wrapper {
             damage = Math.max(damage, 0.0f);
             return damage;
         }
-        damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, entity.method_6096(), (float)entity.method_26825(EntityAttributes.field_23725));
+        damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float)entity.method_26825(EntityAttributes.field_23725));
         return damage;
     }
 
     public static float getDamageMultiplied(float damage) {
-        int diff = OyveyExplosionUtil.mc.world.method_8407().method_5461();
+        int diff = OyveyExplosionUtil.mc.world.method_8407().getId();
         return damage * (diff == 0 ? 0.0f : (diff == 2 ? 1.0f : (diff == 1 ? 0.5f : 1.5f)));
     }
 }

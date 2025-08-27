@@ -40,14 +40,14 @@ implements Closeable {
     private static final char RND_END;
     private static final Random RND;
     private final float originalSize;
-    private final ObjectList<GlyphMap> maps = new ObjectArrayList<GlyphMap>();
+    private final ObjectList<GlyphMap> maps = new ObjectArrayList();
     private final Char2ObjectArrayMap<Glyph> allGlyphs = new Char2ObjectArrayMap();
     private int scaleMul = 0;
     private Font[] fonts;
     private int previousGameScale = -1;
 
     public FontRenderer(Font @NotNull [] fonts, float sizePx) {
-        Preconditions.checkArgument(fonts.length > 0, "fonts.length == 0");
+        Preconditions.checkArgument((fonts.length > 0 ? 1 : 0) != 0, (Object)"fonts.length == 0");
         this.originalSize = sizePx;
         this.init(fonts, sizePx);
     }
@@ -72,7 +72,7 @@ implements Closeable {
     }
 
     public static int getGuiScale() {
-        return (int)Wrapper.mc.method_22683().method_4495();
+        return (int)Wrapper.mc.getWindow().getScaleFactor();
     }
 
     @Contract(value="_ -> new", pure=true)
@@ -112,7 +112,7 @@ implements Closeable {
     @NotNull
     private GlyphMap generateMap(char from, char to) {
         GlyphMap gm = new GlyphMap(from, to, this.fonts, FontRenderer.randomIdentifier());
-        this.maps.add(gm);
+        this.maps.add((Object)gm);
         return gm;
     }
 
@@ -127,7 +127,7 @@ implements Closeable {
     }
 
     private Glyph locateGlyph1(char glyph) {
-        return this.allGlyphs.computeIfAbsent(glyph, this::locateGlyph0);
+        return (Glyph)this.allGlyphs.computeIfAbsent(glyph, this::locateGlyph0);
     }
 
     public void drawString(@NotNull MatrixStack stack, @NotNull String s, float x, float y, float r, float g, float b, float a) {
@@ -140,17 +140,17 @@ implements Closeable {
         float r2 = r;
         float g2 = g;
         float b2 = b;
-        stack.method_22903();
-        stack.method_46416(x, y, 0.0f);
-        stack.method_22905(1.0f / (float)this.scaleMul, 1.0f / (float)this.scaleMul, 1.0f);
+        stack.push();
+        stack.translate(x, y, 0.0f);
+        stack.scale(1.0f / (float)this.scaleMul, 1.0f / (float)this.scaleMul, 1.0f);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
         GL11.glTexParameteri((int)3553, (int)10241, (int)9729);
         GL11.glTexParameteri((int)3553, (int)10240, (int)9729);
         RenderSystem.setShader(GameRenderer::method_34543);
-        BufferBuilder bb = Tessellator.method_1348().method_1349();
-        Matrix4f mat = stack.method_23760().method_23761();
+        BufferBuilder bb = Tessellator.getInstance().method_1349();
+        Matrix4f mat = stack.peek().getPositionMatrix();
         char[] chars = s.toCharArray();
         float xOffset = 0.0f;
         float yOffset = 0.0f;
@@ -189,14 +189,14 @@ implements Closeable {
             if (glyph.value() != ' ') {
                 Identifier i1 = glyph.owner().bindToTexture;
                 _ZitfNZXjZiLiXZJDgFqm entry = new _ZitfNZXjZiLiXZJDgFqm(xOffset, yOffset, r2, g2, b2, glyph);
-                GLYPH_PAGE_CACHE.computeIfAbsent(i1, integer -> new ObjectArrayList()).add(entry);
+                ((ObjectList)GLYPH_PAGE_CACHE.computeIfAbsent((Object)i1, integer -> new ObjectArrayList())).add((Object)entry);
             }
             xOffset += (float)glyph.width();
         }
         for (Identifier identifier : GLYPH_PAGE_CACHE.keySet()) {
             RenderSystem.setShaderTexture((int)0, (Identifier)identifier);
-            List objects = GLYPH_PAGE_CACHE.get(identifier);
-            bb.method_1328(VertexFormat.DrawMode.field_27382, VertexFormats.field_1575);
+            List objects = (List)GLYPH_PAGE_CACHE.get((Object)identifier);
+            bb.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
             for (_ZitfNZXjZiLiXZJDgFqm object : objects) {
                 float xo = object.atX;
                 float yo = object.atY;
@@ -211,30 +211,30 @@ implements Closeable {
                 float v1 = (float)glyph.v() / (float)owner.height;
                 float u2 = (float)(glyph.u() + glyph.width()) / (float)owner.width;
                 float v2 = (float)(glyph.v() + glyph.height()) / (float)owner.height;
-                bb.method_22918(mat, xo + 0.0f, yo + h, 0.0f).method_22913(u1, v2).method_22915(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + w, yo + h, 0.0f).method_22913(u2, v2).method_22915(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + w, yo + 0.0f, 0.0f).method_22913(u2, v1).method_22915(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + 0.0f, yo + 0.0f, 0.0f).method_22913(u1, v1).method_22915(cr, cg, cb, a).method_1344();
+                bb.method_22918(mat, xo + 0.0f, yo + h, 0.0f).texture(u1, v2).color(cr, cg, cb, a).method_1344();
+                bb.method_22918(mat, xo + w, yo + h, 0.0f).texture(u2, v2).color(cr, cg, cb, a).method_1344();
+                bb.method_22918(mat, xo + w, yo + 0.0f, 0.0f).texture(u2, v1).color(cr, cg, cb, a).method_1344();
+                bb.method_22918(mat, xo + 0.0f, yo + 0.0f, 0.0f).texture(u1, v1).color(cr, cg, cb, a).method_1344();
             }
-            BufferRenderer.method_43433((BufferBuilder.BuiltBuffer)bb.method_1326());
+            BufferRenderer.method_43433((BufferBuilder.class_7433)bb.method_1326());
         }
-        stack.method_22909();
+        stack.pop();
         GLYPH_PAGE_CACHE.clear();
     }
 
     public void drawGradientString(@NotNull MatrixStack stack, @NotNull String s, float x, float y) {
         this.sizeCheck();
-        stack.method_22903();
-        stack.method_46416(x, y, 0.0f);
-        stack.method_22905(1.0f / (float)this.scaleMul, 1.0f / (float)this.scaleMul, 1.0f);
+        stack.push();
+        stack.translate(x, y, 0.0f);
+        stack.scale(1.0f / (float)this.scaleMul, 1.0f / (float)this.scaleMul, 1.0f);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
         GL11.glTexParameteri((int)3553, (int)10241, (int)9729);
         GL11.glTexParameteri((int)3553, (int)10240, (int)9729);
         RenderSystem.setShader(GameRenderer::method_34543);
-        BufferBuilder bb = Tessellator.method_1348().method_1349();
-        Matrix4f mat = stack.method_23760().method_23761();
+        BufferBuilder bb = Tessellator.getInstance().method_1349();
+        Matrix4f mat = stack.peek().getPositionMatrix();
         char[] chars = s.toCharArray();
         float xOffset = 0.0f;
         float yOffset = 0.0f;
@@ -254,14 +254,14 @@ implements Closeable {
             if (glyph.value() != ' ') {
                 Identifier i1 = glyph.owner().bindToTexture;
                 _ZitfNZXjZiLiXZJDgFqm entry = new _ZitfNZXjZiLiXZJDgFqm(xOffset, yOffset, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, glyph);
-                GLYPH_PAGE_CACHE.computeIfAbsent(i1, integer -> new ObjectArrayList()).add(entry);
+                ((ObjectList)GLYPH_PAGE_CACHE.computeIfAbsent((Object)i1, integer -> new ObjectArrayList())).add((Object)entry);
             }
             xOffset += (float)glyph.width();
         }
         for (Identifier identifier : GLYPH_PAGE_CACHE.keySet()) {
             RenderSystem.setShaderTexture((int)0, (Identifier)identifier);
-            List objects = GLYPH_PAGE_CACHE.get(identifier);
-            bb.method_1328(VertexFormat.DrawMode.field_27382, VertexFormats.field_1575);
+            List objects = (List)GLYPH_PAGE_CACHE.get((Object)identifier);
+            bb.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
             for (_ZitfNZXjZiLiXZJDgFqm object : objects) {
                 float xo = object.atX;
                 float yo = object.atY;
@@ -276,14 +276,14 @@ implements Closeable {
                 float v1 = (float)glyph.v() / (float)owner.height;
                 float u2 = (float)(glyph.u() + glyph.width()) / (float)owner.width;
                 float v2 = (float)(glyph.v() + glyph.height()) / (float)owner.height;
-                bb.method_22918(mat, xo + 0.0f, yo + h, 0.0f).method_22913(u1, v2).method_22915(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + w, yo + h, 0.0f).method_22913(u2, v2).method_22915(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + w, yo + 0.0f, 0.0f).method_22913(u2, v1).method_22915(cr, cg, cb, a).method_1344();
-                bb.method_22918(mat, xo + 0.0f, yo + 0.0f, 0.0f).method_22913(u1, v1).method_22915(cr, cg, cb, a).method_1344();
+                bb.method_22918(mat, xo + 0.0f, yo + h, 0.0f).texture(u1, v2).color(cr, cg, cb, a).method_1344();
+                bb.method_22918(mat, xo + w, yo + h, 0.0f).texture(u2, v2).color(cr, cg, cb, a).method_1344();
+                bb.method_22918(mat, xo + w, yo + 0.0f, 0.0f).texture(u2, v1).color(cr, cg, cb, a).method_1344();
+                bb.method_22918(mat, xo + 0.0f, yo + 0.0f, 0.0f).texture(u1, v1).color(cr, cg, cb, a).method_1344();
             }
-            BufferRenderer.method_43433((BufferBuilder.BuiltBuffer)bb.method_1326());
+            BufferRenderer.method_43433((BufferBuilder.class_7433)bb.method_1326());
         }
-        stack.method_22909();
+        stack.pop();
         GLYPH_PAGE_CACHE.clear();
     }
 
@@ -362,48 +362,6 @@ implements Closeable {
         RND = new Random();
     }
 
-    static final class _ZitfNZXjZiLiXZJDgFqm
-    extends Record {
-        _ZitfNZXjZiLiXZJDgFqm(float f, float f2, float f3, float f4, float f5, Glyph glyph) {
-        }
-
-        @Override
-        public final String toString() {
-            return null;
-        }
-
-        @Override
-        public final int hashCode() {
-            return 0;
-        }
-
-        @Override
-        public final boolean equals(Object object) {
-            return false;
-        }
-
-        public float atX() {
-            return 0.0f;
-        }
-
-        public float atY() {
-            return 0.0f;
-        }
-
-        public float r() {
-            return 0.0f;
-        }
-
-        public float g() {
-            return 0.0f;
-        }
-
-        public float b() {
-            return 0.0f;
-        }
-
-        public Glyph toDraw() {
-            return null;
-        }
+    record _ZitfNZXjZiLiXZJDgFqm(float atX, float atY, float r, float g, float b, Glyph toDraw) {
     }
 }

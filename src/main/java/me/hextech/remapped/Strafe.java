@@ -25,7 +25,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     public void onStrafe(MoveEvent event) {
-        if (Strafe.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || Speed.INSTANCE.isOn() || Strafe.mc.player.method_6128() || EntityUtil.isInsideBlock() || Strafe.mc.player.method_5771() || Strafe.mc.player.method_5799() || Strafe.mc.player.method_31549().field_7479) {
+        if (Strafe.mc.player.method_5715() || HoleSnap.INSTANCE.isOn() || Speed.INSTANCE.isOn() || Strafe.mc.player.method_6128() || EntityUtil.isInsideBlock() || Strafe.mc.player.method_5771() || Strafe.mc.player.method_5799() || Strafe.mc.player.method_31549().flying) {
             return;
         }
         if (!MovementUtil.isMoving()) {
@@ -43,7 +43,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public double getBaseMoveSpeed() {
         double n = 0.2873;
         if (!(!Strafe.mc.player.method_6059(StatusEffects.field_5904) || this.slowCheck.getValue() && Strafe.mc.player.method_6059(StatusEffects.field_5909))) {
-            n *= 1.0 + 0.2 * (double)(Objects.requireNonNull(Strafe.mc.player.method_6112(StatusEffects.field_5904)).method_5578() + 1);
+            n *= 1.0 + 0.2 * (double)(Objects.requireNonNull(Strafe.mc.player.method_6112(StatusEffects.field_5904)).getAmplifier() + 1);
         }
         return n;
     }

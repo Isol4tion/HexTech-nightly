@@ -49,7 +49,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.throwing = this.checkThrow();
         if (this.isThrow() && this.delayTimer.passedMs((long)this.delay.getValueInt() * 20L) && (!this.onlyGround.getValue() || AutoEXP.mc.player.method_24828())) {
-            this.exp = InventoryUtil.getItemCount(Items.field_8287) - 1;
+            this.exp = InventoryUtil.getItemCount(Items.EXPERIENCE_BOTTLE) - 1;
             this.throwExp();
         }
     }
@@ -60,7 +60,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        this.exp = InventoryUtil.getItemCount(Items.field_8287);
+        this.exp = InventoryUtil.getItemCount(Items.EXPERIENCE_BOTTLE);
     }
 
     @Override
@@ -70,18 +70,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public void throwExp() {
         int newSlot;
-        int oldSlot = AutoEXP.mc.player.method_31548().field_7545;
-        if (this.inventory.getValue() && (newSlot = InventoryUtil.findItemInventorySlot(Items.field_8287)) != -1) {
-            InventoryUtil.inventorySwap(newSlot, AutoEXP.mc.player.method_31548().field_7545);
-            AutoEXP.mc.player.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
-            InventoryUtil.inventorySwap(newSlot, AutoEXP.mc.player.method_31548().field_7545);
+        int oldSlot = AutoEXP.mc.player.method_31548().selectedSlot;
+        if (this.inventory.getValue() && (newSlot = InventoryUtil.findItemInventorySlot(Items.EXPERIENCE_BOTTLE)) != -1) {
+            InventoryUtil.inventorySwap(newSlot, AutoEXP.mc.player.method_31548().selectedSlot);
+            AutoEXP.mc.player.networkHandler.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
+            InventoryUtil.inventorySwap(newSlot, AutoEXP.mc.player.method_31548().selectedSlot);
             EntityUtil.syncInventory();
             this.delayTimer.reset();
         } else {
-            newSlot = InventoryUtil.findItem(Items.field_8287);
+            newSlot = InventoryUtil.findItem(Items.EXPERIENCE_BOTTLE);
             if (newSlot != -1) {
                 InventoryUtil.switchToSlot(newSlot);
-                AutoEXP.mc.player.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
+                AutoEXP.mc.player.networkHandler.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
                 InventoryUtil.switchToSlot(oldSlot);
                 this.delayTimer.reset();
             }
@@ -106,22 +106,22 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.isOff()) {
             return false;
         }
-        if (AutoEXP.mc.field_1755 instanceof ChatScreen) {
+        if (AutoEXP.mc.currentScreen instanceof ChatScreen) {
             return false;
         }
-        if (AutoEXP.mc.field_1755 != null) {
+        if (AutoEXP.mc.currentScreen != null) {
             return false;
         }
         if (this.usingPause.getValue() && AutoEXP.mc.player.method_6115()) {
             return false;
         }
-        if (!(InventoryUtil.findItem(Items.field_8287) != -1 || this.inventory.getValue() && InventoryUtil.findItemInventorySlot(Items.field_8287) != -1)) {
+        if (!(InventoryUtil.findItem(Items.EXPERIENCE_BOTTLE) != -1 || this.inventory.getValue() && InventoryUtil.findItemInventorySlot(Items.EXPERIENCE_BOTTLE) != -1)) {
             return false;
         }
         if (this.onlyBroken.getValue()) {
-            DefaultedList armors = AutoEXP.mc.player.method_31548().field_7548;
+            DefaultedList armors = AutoEXP.mc.player.method_31548().armor;
             for (ItemStack armor : armors) {
-                if (armor.method_7960() || EntityUtil.getDamagePercent(armor) >= 100) continue;
+                if (armor.isEmpty() || EntityUtil.getDamagePercent(armor) >= 100) continue;
                 return true;
             }
         } else {

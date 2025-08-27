@@ -43,11 +43,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float[] offset;
                 for (float x : offset = new float[]{-pOffset, 0.0f, pOffset}) {
                     for (float z : offset) {
-                        BlockPosX tempPos = new BlockPosX(entity.method_19538().method_1031((double)x, 0.0, (double)z));
+                        BlockPosX tempPos = new BlockPosX(entity.getPos().add((double)x, 0.0, (double)z));
                         if (this.isObsidian(tempPos)) {
                             this.renderList.add(tempPos);
                         }
-                        if (!this.isObsidian(tempPos = new BlockPosX(entity.method_19538().method_1031((double)x, 0.5, (double)z)))) continue;
+                        if (!this.isObsidian(tempPos = new BlockPosX(entity.getPos().add((double)x, 0.5, (double)z)))) continue;
                         this.renderList.add(tempPos);
                     }
                 }
@@ -64,6 +64,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean isObsidian(BlockPos pos) {
-        return (BlockUtil.getBlock(pos) == Blocks.field_10540 || BlockUtil.getBlock(pos) == Blocks.field_10443) && !this.renderList.contains(pos);
+        return (BlockUtil.getBlock(pos) == Blocks.OBSIDIAN || BlockUtil.getBlock(pos) == Blocks.ENDER_CHEST) && !this.renderList.contains(pos);
     }
 }

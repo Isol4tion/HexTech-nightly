@@ -32,14 +32,14 @@ public abstract class MixinEntity {
 
     @Shadow
     private static Vec3d method_18795(Vec3d movementInput, float speed, float yaw) {
-        double d = movementInput.method_1027();
+        double d = movementInput.lengthSquared();
         if (d < 1.0E-7) {
-            return Vec3d.field_1353;
+            return Vec3d.ZERO;
         }
-        Vec3d vec3d = (d > 1.0 ? movementInput.method_1029() : movementInput).method_1021((double)speed);
-        float f = MathHelper.method_15374((float)(yaw * ((float)Math.PI / 180)));
-        float g = MathHelper.method_15362((float)(yaw * ((float)Math.PI / 180)));
-        return new Vec3d(vec3d.field_1352 * (double)g - vec3d.field_1350 * (double)f, vec3d.field_1351, vec3d.field_1350 * (double)g + vec3d.field_1352 * (double)f);
+        Vec3d vec3d = (d > 1.0 ? movementInput.normalize() : movementInput).multiply((double)speed);
+        float f = MathHelper.sin((float)(yaw * ((float)Math.PI / 180)));
+        float g = MathHelper.cos((float)(yaw * ((float)Math.PI / 180)));
+        return new Vec3d(vec3d.x * (double)g - vec3d.z * (double)f, vec3d.y, vec3d.z * (double)g + vec3d.x * (double)f);
     }
 
     @Inject(at={@At(value="HEAD")}, method={"isInvisibleTo(Lnet/minecraft/entity/player/PlayerEntity;)Z"}, cancellable=true)
@@ -58,7 +58,7 @@ public abstract class MixinEntity {
             ci.cancel();
             inVelocityEvent event = new inVelocityEvent(movementInput, speed, Wrapper.mc.player.method_36454(), MixinEntity.method_18795(movementInput, speed, Wrapper.mc.player.method_36454()));
             HexTech.EVENT_BUS.post(event);
-            Wrapper.mc.player.method_18799(Wrapper.mc.player.method_18798().method_1019(event.getVelocity()));
+            Wrapper.mc.player.method_18799(Wrapper.mc.player.method_18798().add(event.getVelocity()));
         }
     }
 
@@ -71,7 +71,7 @@ public abstract class MixinEntity {
 
     @ModifyArgs(method={"pushAwayFrom"}, at=@At(value="INVOKE", target="Lnet/minecraft/entity/Entity;addVelocity(DDD)V"))
     private void pushAwayFromHook(Args args) {
-        if (this == MinecraftClient.method_1551().player) {
+        if (this == MinecraftClient.getInstance().player) {
             double value = 1.0;
             if (Velocity.INSTANCE.isOn() && Velocity.INSTANCE.entityPush.getValue()) {
                 value = 0.0;
@@ -110,7 +110,7 @@ public abstract class MixinEntity {
         float yaw = this.camera.lookYaw;
         float pitch = this.camera.lookPitch;
         pitch += transformedCursorDeltaY;
-        pitch = MathHelper.method_15363((float)pitch, (float)-90.0f, (float)90.0f);
+        pitch = MathHelper.clamp((float)pitch, (float)-90.0f, (float)90.0f);
         this.camera.lookYaw = yaw += transformedCursorDeltaX;
         this.camera.lookPitch = pitch;
     }

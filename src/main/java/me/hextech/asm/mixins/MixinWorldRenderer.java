@@ -39,13 +39,13 @@ public abstract class MixinWorldRenderer {
 
     @Inject(method={"renderEntity"}, at={@At(value="HEAD")}, cancellable=true)
     private void renderEntityHook(Entity entity, double cameraX, double cameraY, double cameraZ, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, CallbackInfo ci) {
-        if (NoInterp.INSTANCE.isOn() && entity != MinecraftClient.method_1551().player && entity instanceof PlayerEntity) {
+        if (NoInterp.INSTANCE.isOn() && entity != MinecraftClient.getInstance().player && entity instanceof PlayerEntity) {
             ci.cancel();
             double d = entity.getX();
             double e = entity.getY();
             double f = entity.getZ();
-            float g = entity.method_36454();
-            this.field_4109.method_3954(entity, d - cameraX, e - cameraY, f - cameraZ, g, NoInterp.INSTANCE.tickDelta.getValueFloat(), matrices, vertexConsumers, this.field_4109.method_23839(entity, tickDelta));
+            float g = entity.getYaw();
+            this.field_4109.method_3954(entity, d - cameraX, e - cameraY, f - cameraZ, g, NoInterp.INSTANCE.tickDelta.getValueFloat(), matrices, vertexConsumers, this.field_4109.getLight(entity, tickDelta));
         }
     }
 

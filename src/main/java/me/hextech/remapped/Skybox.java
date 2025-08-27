@@ -35,9 +35,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Field field = DimensionRenderingRegistryImpl.class.getDeclaredField("SKY_RENDERERS");
             field.setAccessible(true);
             Map SKY_RENDERERS = (Map)field.get(null);
-            SKY_RENDERERS.putIfAbsent(World.field_25179, skyRenderer);
-            SKY_RENDERERS.putIfAbsent(World.field_25180, skyRenderer);
-            SKY_RENDERERS.putIfAbsent(World.field_25181, skyRenderer);
+            SKY_RENDERERS.putIfAbsent(World.OVERWORLD, skyRenderer);
+            SKY_RENDERERS.putIfAbsent(World.NETHER, skyRenderer);
+            SKY_RENDERERS.putIfAbsent(World.END, skyRenderer);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -50,9 +50,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Field field = DimensionRenderingRegistryImpl.class.getDeclaredField("SKY_RENDERERS");
             field.setAccessible(true);
             Map SKY_RENDERERS = (Map)field.get(null);
-            SKY_RENDERERS.remove(World.field_25179, skyRenderer);
-            SKY_RENDERERS.remove(World.field_25180, skyRenderer);
-            SKY_RENDERERS.remove(World.field_25181, skyRenderer);
+            SKY_RENDERERS.remove(World.OVERWORLD, skyRenderer);
+            SKY_RENDERERS.remove(World.NETHER, skyRenderer);
+            SKY_RENDERERS.remove(World.END, skyRenderer);
         }
         catch (Exception e) {
             e.printStackTrace();

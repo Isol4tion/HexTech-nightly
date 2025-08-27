@@ -29,7 +29,7 @@ extends AltSelectionList_MlYuzYrWmNSiQOBPfePW {
         this.this$0 = this$0;
         this.owner = ownerIn;
         this.alt = alt;
-        this.mc = MinecraftClient.method_1551();
+        this.mc = MinecraftClient.getInstance();
     }
 
     public Alt getAltData() {
@@ -38,11 +38,11 @@ extends AltSelectionList_MlYuzYrWmNSiQOBPfePW {
 
     public void method_25343(DrawContext drawContext, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
         if (hovered) {
-            drawContext.method_25294(x, y, x + entryWidth, y + entryHeight, new Color(255, 255, 255, 100).getRGB());
+            drawContext.fill(x, y, x + entryWidth, y + entryHeight, new Color(255, 255, 255, 100).getRGB());
         }
-        TextRenderer textRenderer = this.mc.field_1772;
-        drawContext.method_25303(textRenderer, "Username: " + this.alt.getEmail(), x + 32 + 3, y + 2, 0xFFFFFF);
-        drawContext.method_25303(textRenderer, "Username: " + this.alt.getEmail(), x + 32 + 3, y + 2, 0xFFFFFF);
+        TextRenderer textRenderer = this.mc.textRenderer;
+        drawContext.drawTextWithShadow(textRenderer, "Username: " + this.alt.getEmail(), x + 32 + 3, y + 2, 0xFFFFFF);
+        drawContext.drawTextWithShadow(textRenderer, "Username: " + this.alt.getEmail(), x + 32 + 3, y + 2, 0xFFFFFF);
     }
 
     public List<? extends Element> method_25396() {
@@ -61,10 +61,10 @@ extends AltSelectionList_MlYuzYrWmNSiQOBPfePW {
             return true;
         }
         this.owner.setSelected(this);
-        if (Util.method_658() - this.lastClickTime < 250L) {
+        if (Util.getMeasuringTimeMs() - this.lastClickTime < 250L) {
             this.owner.loginToSelected();
         }
-        this.lastClickTime = Util.method_658();
+        this.lastClickTime = Util.getMeasuringTimeMs();
         return false;
     }
 }

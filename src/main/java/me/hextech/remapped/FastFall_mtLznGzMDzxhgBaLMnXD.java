@@ -106,9 +106,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private int traceDown() {
         int y;
         int retval = 0;
-        for (int tracey = y = (int)Math.round(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getY()) - 1; tracey >= 0; --tracey) {
-            BlockHitResult trace = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.raycast(new RaycastContext(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_19538(), new Vec3d(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getX(), (double)tracey, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getZ()), RaycastContext.ShapeType.field_17558, RaycastContext.FluidHandling.field_1348, (Entity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player));
-            if (trace != null && trace.method_17783() == HitResult.Type.field_1332) {
+        for (int tracey = y = (int)Math.round(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23318()) - 1; tracey >= 0; --tracey) {
+            BlockHitResult trace = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.method_17742(new RaycastContext(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_19538(), new Vec3d(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23317(), (double)tracey, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23321()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player));
+            if (trace != null && trace.getType() == HitResult.Type.BLOCK) {
                 return retval;
             }
             ++retval;
@@ -118,24 +118,24 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private boolean trace() {
         Box bbox = FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_5829();
-        Vec3d basepos = bbox.method_1005();
-        double minX = bbox.field_1323;
-        double minZ = bbox.field_1321;
-        double maxX = bbox.field_1320;
-        double maxZ = bbox.field_1324;
+        Vec3d basepos = bbox.getCenter();
+        double minX = bbox.minX;
+        double minZ = bbox.minZ;
+        double maxX = bbox.maxX;
+        double maxZ = bbox.maxZ;
         HashMap<Vec3d, Vec3d> positions = new HashMap<Vec3d, Vec3d>();
-        positions.put(basepos, new Vec3d(basepos.field_1352, basepos.field_1351 - 1.0, basepos.field_1350));
-        positions.put(new Vec3d(minX, basepos.field_1351, minZ), new Vec3d(minX, basepos.field_1351 - 1.0, minZ));
-        positions.put(new Vec3d(maxX, basepos.field_1351, minZ), new Vec3d(maxX, basepos.field_1351 - 1.0, minZ));
-        positions.put(new Vec3d(minX, basepos.field_1351, maxZ), new Vec3d(minX, basepos.field_1351 - 1.0, maxZ));
-        positions.put(new Vec3d(maxX, basepos.field_1351, maxZ), new Vec3d(maxX, basepos.field_1351 - 1.0, maxZ));
+        positions.put(basepos, new Vec3d(basepos.x, basepos.y - 1.0, basepos.z));
+        positions.put(new Vec3d(minX, basepos.y, minZ), new Vec3d(minX, basepos.y - 1.0, minZ));
+        positions.put(new Vec3d(maxX, basepos.y, minZ), new Vec3d(maxX, basepos.y - 1.0, minZ));
+        positions.put(new Vec3d(minX, basepos.y, maxZ), new Vec3d(minX, basepos.y - 1.0, maxZ));
+        positions.put(new Vec3d(maxX, basepos.y, maxZ), new Vec3d(maxX, basepos.y - 1.0, maxZ));
         for (Vec3d key : positions.keySet()) {
-            RaycastContext context = new RaycastContext(key, (Vec3d)positions.get(key), RaycastContext.ShapeType.field_17558, RaycastContext.FluidHandling.field_1348, (Entity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player);
-            BlockHitResult result = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.raycast(context);
-            if (result == null || result.method_17783() != HitResult.Type.field_1332) continue;
+            RaycastContext context = new RaycastContext(key, (Vec3d)positions.get(key), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player);
+            BlockHitResult result = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.method_17742(context);
+            if (result == null || result.method_17783() != HitResult.Type.BLOCK) continue;
             return false;
         }
-        BlockState state = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.getBlockState((BlockPos)new BlockPosX(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getX(), FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getY() - 1.0, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getZ()));
+        BlockState state = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.method_8320((BlockPos)new BlockPosX(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23317(), FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23318() - 1.0, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_23321()));
         return state.method_26215();
     }
 }

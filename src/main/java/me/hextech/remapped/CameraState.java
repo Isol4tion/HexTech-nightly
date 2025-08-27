@@ -11,10 +11,10 @@ public class CameraState {
     public boolean doTransition;
 
     public float originalYaw() {
-        return MinecraftClient.method_1551().method_1560().method_5791();
+        return MinecraftClient.getInstance().getCameraEntity().getHeadYaw();
     }
 
     public float originalPitch() {
-        return MinecraftClient.method_1551().method_1560().method_36455();
+        return MinecraftClient.getInstance().getCameraEntity().getPitch();
     }
 }

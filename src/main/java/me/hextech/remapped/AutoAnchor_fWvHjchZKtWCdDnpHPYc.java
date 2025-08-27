@@ -34,10 +34,10 @@ public static class AutoAnchor_fWvHjchZKtWCdDnpHPYc {
             AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d = null;
             return;
         }
-        AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d = AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d == null || this.this$0.sliderSpeed.getValue() >= 1.0 ? AutoAnchor_MDcwoWYRcPYheLZJWRZK.placeVec3d : new Vec3d(AnimateUtil.animate(AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d.field_1352, AutoAnchor_MDcwoWYRcPYheLZJWRZK.placeVec3d.field_1352, this.this$0.sliderSpeed.getValue() / 10.0), AnimateUtil.animate(AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d.field_1351, AutoAnchor_MDcwoWYRcPYheLZJWRZK.placeVec3d.field_1351, this.this$0.sliderSpeed.getValue() / 10.0), AnimateUtil.animate(AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d.field_1350, AutoAnchor_MDcwoWYRcPYheLZJWRZK.placeVec3d.field_1350, this.this$0.sliderSpeed.getValue() / 10.0));
+        AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d = AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d == null || this.this$0.sliderSpeed.getValue() >= 1.0 ? AutoAnchor_MDcwoWYRcPYheLZJWRZK.placeVec3d : new Vec3d(AnimateUtil.animate(AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d.x, AutoAnchor_MDcwoWYRcPYheLZJWRZK.placeVec3d.x, this.this$0.sliderSpeed.getValue() / 10.0), AnimateUtil.animate(AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d.y, AutoAnchor_MDcwoWYRcPYheLZJWRZK.placeVec3d.y, this.this$0.sliderSpeed.getValue() / 10.0), AnimateUtil.animate(AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d.z, AutoAnchor_MDcwoWYRcPYheLZJWRZK.placeVec3d.z, this.this$0.sliderSpeed.getValue() / 10.0));
         if (this.this$0.render.getValue()) {
             Box cbox = new Box(AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d, AutoAnchor_MDcwoWYRcPYheLZJWRZK.curVec3d);
-            cbox = this.this$0.shrink.getValue() ? cbox.method_1014(this.this$0.fade) : cbox.method_1014(0.5);
+            cbox = this.this$0.shrink.getValue() ? cbox.expand(this.this$0.fade) : cbox.expand(0.5);
             MatrixStack matrixStack = event.getMatrixStack();
             if (this.this$0.fill.booleanValue) {
                 Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(this.this$0.fill.getValue(), (int)((double)this.this$0.fill.getValue().getAlpha() * this.this$0.fade * 2.0)));

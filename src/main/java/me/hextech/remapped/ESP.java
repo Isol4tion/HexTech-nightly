@@ -45,12 +45,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private static Vec3d[] getPoints(Entity ent) {
-        double x = ent.field_6014 + (ent.getX() - ent.field_6014) * (double)mc.getTickDelta();
-        double y = ent.field_6036 + (ent.getY() - ent.field_6036) * (double)mc.getTickDelta();
-        double z = ent.field_5969 + (ent.getZ() - ent.field_5969) * (double)mc.getTickDelta();
+        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.method_1488();
+        double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.method_1488();
+        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.method_1488();
         Box axisAlignedBB2 = ent.method_5829();
-        Box axisAlignedBB = new Box(axisAlignedBB2.field_1323 - ent.getX() + x - 0.05, axisAlignedBB2.field_1322 - ent.getY() + y, axisAlignedBB2.field_1321 - ent.getZ() + z - 0.05, axisAlignedBB2.field_1320 - ent.getX() + x + 0.05, axisAlignedBB2.field_1325 - ent.getY() + y + 0.15, axisAlignedBB2.field_1324 - ent.getZ() + z + 0.05);
-        Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1322, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1325, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1322, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1325, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1322, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1325, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1322, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1325, axisAlignedBB.field_1324)};
+        Box axisAlignedBB = new Box(axisAlignedBB2.minX - ent.getX() + x - 0.05, axisAlignedBB2.minY - ent.getY() + y, axisAlignedBB2.minZ - ent.getZ() + z - 0.05, axisAlignedBB2.maxX - ent.getX() + x + 0.05, axisAlignedBB2.maxY - ent.getY() + y + 0.15, axisAlignedBB2.maxZ - ent.getZ() + z + 0.05);
+        Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.maxZ)};
         return vectors;
     }
 
@@ -64,31 +64,31 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static void setTrianglePoints(BufferBuilder bufferBuilder, Matrix4f matrix, float x1, float y1, float x2, float y2, float x3, float y3, Color color) {
-        bufferBuilder.method_22918(matrix, x1, y1, 0.0f).method_1336(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
-        bufferBuilder.method_22918(matrix, x2, y2, 0.0f).method_1336(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
-        bufferBuilder.method_22918(matrix, x2, y2, 0.0f).method_1336(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
-        bufferBuilder.method_22918(matrix, x3, y3, 0.0f).method_1336(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
-        bufferBuilder.method_22918(matrix, x3, y3, 0.0f).method_1336(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
-        bufferBuilder.method_22918(matrix, x1, y1, 0.0f).method_1336(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
+        bufferBuilder.method_22918(matrix, x1, y1, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
+        bufferBuilder.method_22918(matrix, x2, y2, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
+        bufferBuilder.method_22918(matrix, x2, y2, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
+        bufferBuilder.method_22918(matrix, x3, y3, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
+        bufferBuilder.method_22918(matrix, x3, y3, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
+        bufferBuilder.method_22918(matrix, x1, y1, 0.0f).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).method_1344();
     }
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        for (Entity entity : ESP.mc.world.method_18112()) {
+        for (Entity entity : ESP.mc.world.getEntities()) {
             if (!(entity instanceof ItemEntity)) continue;
             if (this.mode.getValue() == _iJUSlEiinRCZKkYYmFmY.text) {
                 Vec3d[] vectors = ESP.getPoints(entity);
                 Vector4d position = null;
                 for (Vec3d vector : vectors) {
-                    vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.field_1352, vector.field_1351, vector.field_1350));
-                    if (!(vector.field_1350 > 0.0) || !(vector.field_1350 < 1.0)) continue;
+                    vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
+                    if (!(vector.z > 0.0) || !(vector.z < 1.0)) continue;
                     if (position == null) {
-                        position = new Vector4d(vector.field_1352, vector.field_1351, vector.field_1350, 0.0);
+                        position = new Vector4d(vector.x, vector.y, vector.z, 0.0);
                     }
-                    position.x = Math.min(vector.field_1352, position.x);
-                    position.y = Math.min(vector.field_1351, position.y);
-                    position.z = Math.max(vector.field_1352, position.z);
-                    position.w = Math.max(vector.field_1351, position.w);
+                    position.x = Math.min(vector.x, position.x);
+                    position.y = Math.min(vector.y, position.y);
+                    position.z = Math.max(vector.x, position.z);
+                    position.w = Math.max(vector.y, position.w);
                 }
                 if (position != null) {
                     float posX = (float)position.x;
@@ -97,28 +97,28 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     float diff = (endPosX - posX) / 2.0f;
                     float textWidth = FontRenderers.Arial.getStringWidth(entity.method_5476().getString()) * 1.0f;
                     float tagX = (posX + diff - textWidth / 2.0f) * 1.0f;
-                    FontRenderers.Arial.drawString(context.method_51448(), entity.method_5476().getString(), tagX, posY - 10.0f, this.textcolor.getValue().getRGB());
+                    FontRenderers.Arial.drawString(context.getMatrices(), entity.method_5476().getString(), tagX, posY - 10.0f, this.textcolor.getValue().getRGB());
                 }
             }
-            Matrix4f matrix = context.method_51448().method_23760().method_23761();
-            BufferBuilder bufferBuilder = Tessellator.method_1348().method_1349();
+            Matrix4f matrix = context.getMatrices().peek().getPositionMatrix();
+            BufferBuilder bufferBuilder = Tessellator.getInstance().method_1349();
             ESP.setupRender();
             RenderSystem.setShader(GameRenderer::method_34540);
-            bufferBuilder.method_1328(VertexFormat.DrawMode.field_27377, VertexFormats.field_1576);
-            for (Entity ent : ESP.mc.world.method_18112()) {
+            bufferBuilder.method_1328(VertexFormat.DrawMode.LINES, VertexFormats.POSITION_COLOR);
+            for (Entity ent : ESP.mc.world.getEntities()) {
                 if (!(ent instanceof ItemEntity)) continue;
                 Vec3d[] vectors = ESP.getPoints(ent);
                 Vector4d position = null;
                 for (Vec3d vector : vectors) {
-                    vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.field_1352, vector.field_1351, vector.field_1350));
-                    if (!(vector.field_1350 > 0.0) || !(vector.field_1350 < 1.0)) continue;
+                    vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
+                    if (!(vector.z > 0.0) || !(vector.z < 1.0)) continue;
                     if (position == null) {
-                        position = new Vector4d(vector.field_1352, vector.field_1351, vector.field_1350, 0.0);
+                        position = new Vector4d(vector.x, vector.y, vector.z, 0.0);
                     }
-                    position.x = Math.min(vector.field_1352, position.x);
-                    position.y = Math.min(vector.field_1351, position.y);
-                    position.z = Math.max(vector.field_1352, position.z);
-                    position.w = Math.max(vector.field_1351, position.w);
+                    position.x = Math.min(vector.x, position.x);
+                    position.y = Math.min(vector.y, position.y);
+                    position.z = Math.max(vector.x, position.z);
+                    position.w = Math.max(vector.y, position.w);
                 }
                 if (position == null) continue;
                 float posX = (float)position.x;
@@ -127,7 +127,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float endPosY = (float)position.w;
                 this.drawEquilateralTriangle(bufferBuilder, matrix, posX, posY, endPosX, endPosY, this.boxcolor.getValue());
             }
-            BufferRenderer.method_43433((BufferBuilder.BuiltBuffer)bufferBuilder.method_1326());
+            BufferRenderer.method_43433((BufferBuilder.class_7433)bufferBuilder.method_1326());
             ESP.endRender();
         }
     }
@@ -146,39 +146,31 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         if (this.item.booleanValue || this.player.booleanValue) {
-            for (Entity entity : ESP.mc.world.method_18112()) {
+            for (Entity entity : ESP.mc.world.getEntities()) {
                 Color color;
                 if (entity instanceof ItemEntity && this.item.booleanValue) {
                     color = this.item.getValue();
-                    Render3DUtil.draw3DBox(matrixStack, ((IEntity)entity).getDimensions().method_30757(new Vec3d(MathUtil.interpolate(entity.field_6038, entity.getX(), partialTicks), MathUtil.interpolate(entity.field_5971, entity.getY(), partialTicks), MathUtil.interpolate(entity.field_5989, entity.getZ(), partialTicks))), color, false, true);
+                    Render3DUtil.draw3DBox(matrixStack, ((IEntity)entity).getDimensions().getBoxAt(new Vec3d(MathUtil.interpolate(entity.lastRenderX, entity.getX(), partialTicks), MathUtil.interpolate(entity.lastRenderY, entity.getY(), partialTicks), MathUtil.interpolate(entity.lastRenderZ, entity.getZ(), partialTicks))), color, false, true);
                     continue;
                 }
                 if (!(entity instanceof PlayerEntity) || !this.player.booleanValue) continue;
                 color = this.player.getValue();
-                Render3DUtil.draw3DBox(matrixStack, ((IEntity)entity).getDimensions().method_30757(new Vec3d(MathUtil.interpolate(entity.field_6038, entity.getX(), partialTicks), MathUtil.interpolate(entity.field_5971, entity.getY(), partialTicks), MathUtil.interpolate(entity.field_5989, entity.getZ(), partialTicks))).method_1009(0.0, 0.1, 0.0), color, false, true);
+                Render3DUtil.draw3DBox(matrixStack, ((IEntity)entity).getDimensions().getBoxAt(new Vec3d(MathUtil.interpolate(entity.lastRenderX, entity.getX(), partialTicks), MathUtil.interpolate(entity.lastRenderY, entity.getY(), partialTicks), MathUtil.interpolate(entity.lastRenderZ, entity.getZ(), partialTicks))).expand(0.0, 0.1, 0.0), color, false, true);
             }
         }
         if (this.chest.booleanValue) {
             ArrayList<BlockEntity> blockEntities = BlockUtil.getTileEntities();
             for (BlockEntity blockEntity : blockEntities) {
                 if (!(blockEntity instanceof ChestBlockEntity)) continue;
-                Box box = new Box(blockEntity.method_11016());
+                Box box = new Box(blockEntity.getPos());
                 Render3DUtil.draw3DBox(matrixStack, box, this.chest.getValue());
             }
         }
     }
 
-    public static final class _iJUSlEiinRCZKkYYmFmY
-    extends Enum<_iJUSlEiinRCZKkYYmFmY> {
-        public static final /* enum */ _iJUSlEiinRCZKkYYmFmY None;
-        public static final /* enum */ _iJUSlEiinRCZKkYYmFmY text;
+    public static enum _iJUSlEiinRCZKkYYmFmY {
+        None,
+        text;
 
-        public static _iJUSlEiinRCZKkYYmFmY[] values() {
-            return null;
-        }
-
-        public static _iJUSlEiinRCZKkYYmFmY valueOf(String string) {
-            return null;
-        }
     }
 }

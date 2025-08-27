@@ -63,60 +63,60 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (event.isPost()) {
             return;
         }
-        if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_6115() && !NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_3144() && !NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_6128()) {
+        if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_6115() && !NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isRiding() && !NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_6128()) {
             switch (this.mode.getValue().ordinal()) {
                 case 1: {
-                    mc.method_1562().method_52787((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_31548().field_7545));
+                    mc.getNetworkHandler().method_52787((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_31548().selectedSlot));
                     break;
                 }
                 case 2: {
-                    if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_6058() == Hand.field_5810) {
-                        mc.method_1562().method_52787((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_31548().field_7545 % 8 + 1));
-                        mc.method_1562().method_52787((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_31548().field_7545 % 7 + 2));
-                        mc.method_1562().method_52787((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_31548().field_7545));
+                    if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_6058() == Hand.OFF_HAND) {
+                        mc.getNetworkHandler().method_52787((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_31548().selectedSlot % 8 + 1));
+                        mc.getNetworkHandler().method_52787((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_31548().selectedSlot % 7 + 2));
+                        mc.getNetworkHandler().method_52787((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_31548().selectedSlot));
                         break;
                     }
-                    NoSlow_PaVUKKxFbWGbplzMaucl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5810, id));
+                    NoSlow_PaVUKKxFbWGbplzMaucl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.OFF_HAND, id));
                 }
             }
         }
-        if (this.active.getValue() && !(NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1755 instanceof ChatScreen)) {
-            for (KeyBinding k : new KeyBinding[]{NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1881, NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1913, NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1849}) {
-                k.method_23481(InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)k.method_1428()).method_1444()));
+        if (this.active.getValue() && !(NoSlow_PaVUKKxFbWGbplzMaucl.mc.currentScreen instanceof ChatScreen)) {
+            for (KeyBinding k : new KeyBinding[]{NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.backKey, NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.leftKey, NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.rightKey}) {
+                k.setPressed(InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)k.getBoundKeyTranslationKey()).getCode()));
             }
-            InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1894.method_1428()).method_1444());
-            NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1867.method_23481(Sprint.INSTANCE.isOn() || InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1867.method_1428()).method_1444()));
+            InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.forwardKey.getBoundKeyTranslationKey()).getCode());
+            NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.sprintKey.setPressed(Sprint.INSTANCE.isOn() || InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.sprintKey.getBoundKeyTranslationKey()).getCode()));
             if (this.sneak.getValue()) {
-                NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1832.method_23481(InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1832.method_1428()).method_1444()));
+                NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.sneakKey.setPressed(InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.sneakKey.getBoundKeyTranslationKey()).getCode()));
             }
         }
     }
 
     @EventHandler
     public void keyboard(KeyboardInputEvent event) {
-        if (this.active.getValue() && !(NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1755 instanceof ChatScreen)) {
-            for (KeyBinding k : new KeyBinding[]{NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1881, NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1913, NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1849}) {
-                k.method_23481(InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)k.method_1428()).method_1444()));
+        if (this.active.getValue() && !(NoSlow_PaVUKKxFbWGbplzMaucl.mc.currentScreen instanceof ChatScreen)) {
+            for (KeyBinding k : new KeyBinding[]{NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.backKey, NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.leftKey, NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.rightKey}) {
+                k.setPressed(InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)k.getBoundKeyTranslationKey()).getCode()));
             }
-            InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1894.method_1428()).method_1444());
-            NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1867.method_23481(Sprint.INSTANCE.isOn() || InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1867.method_1428()).method_1444()));
+            InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.forwardKey.getBoundKeyTranslationKey()).getCode());
+            NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.sprintKey.setPressed(Sprint.INSTANCE.isOn() || InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.sprintKey.getBoundKeyTranslationKey()).getCode()));
             if (this.sneak.getValue()) {
-                NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1832.method_23481(InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1832.method_1428()).method_1444()));
+                NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.sneakKey.setPressed(InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.sneakKey.getBoundKeyTranslationKey()).getCode()));
             }
-            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3910 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1894.method_1434();
-            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3909 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1881.method_1434();
-            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3908 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1913.method_1434();
-            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3906 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1849.method_1434();
-            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3905 = NoSlow_PaVUKKxFbWGbplzMaucl.getMovementMultiplier(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3910, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3909);
-            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3907 = NoSlow_PaVUKKxFbWGbplzMaucl.getMovementMultiplier(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3908, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3906);
-            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3904 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1903.method_1434();
-            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3903 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1832.method_1434();
+            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.field_3910 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.forwardKey.isPressed();
+            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.field_3909 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.backKey.isPressed();
+            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.field_3908 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.leftKey.isPressed();
+            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.field_3906 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.rightKey.isPressed();
+            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.movementForward = NoSlow_PaVUKKxFbWGbplzMaucl.getMovementMultiplier(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.field_3910, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.field_3909);
+            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.movementSideways = NoSlow_PaVUKKxFbWGbplzMaucl.getMovementMultiplier(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.field_3908, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.field_3906);
+            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.field_3904 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.jumpKey.isPressed();
+            NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.field_3903 = NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.sneakKey.isPressed();
         }
     }
 
     @EventHandler
     public void onPacketSend(PacketEvent e) {
-        if (NoSlow_PaVUKKxFbWGbplzMaucl.nullCheck() || !MovementUtil.isMoving() || !NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1903.method_1434() || this.pause.get()) {
+        if (NoSlow_PaVUKKxFbWGbplzMaucl.nullCheck() || !MovementUtil.isMoving() || !NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.jumpKey.isPressed() || this.pause.get()) {
             return;
         }
         Object t = e.getPacket();
@@ -124,43 +124,43 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             ClickSlotC2SPacket click = (ClickSlotC2SPacket)t;
             switch (this.clickBypass.getValue().ordinal()) {
                 case 2: {
-                    if (click.method_12195() == SlotActionType.field_7790 || click.method_12195() == SlotActionType.field_7793) break;
-                    int syncId = NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_7512.field_7763;
+                    if (click.getActionType() == SlotActionType.PICKUP || click.getActionType() == SlotActionType.PICKUP_ALL) break;
+                    int syncId = NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_7512.syncId;
                     int closePacketCount = 2 + (int)(Math.random() * 2.0);
                     for (int i = 0; i < closePacketCount; ++i) {
-                        mc.method_1562().method_52787((Packet)new CloseHandledScreenC2SPacket(syncId));
+                        mc.getNetworkHandler().method_52787((Packet)new CloseHandledScreenC2SPacket(syncId));
                     }
                     int randomSlot = (int)(Math.random() * 9.0);
-                    mc.method_1562().method_52787((Packet)new UpdateSelectedSlotC2SPacket(randomSlot));
-                    mc.method_1562().method_52787((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_31548().field_7545));
-                    NoSlow_PaVUKKxFbWGbplzMaucl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
-                    NoSlow_PaVUKKxFbWGbplzMaucl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5810, id));
+                    mc.getNetworkHandler().method_52787((Packet)new UpdateSelectedSlotC2SPacket(randomSlot));
+                    mc.getNetworkHandler().method_52787((Packet)new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_31548().selectedSlot));
+                    NoSlow_PaVUKKxFbWGbplzMaucl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
+                    NoSlow_PaVUKKxFbWGbplzMaucl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.OFF_HAND, id));
                     if (!NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_24828()) break;
                     double offset = 2.71875E-7 + Math.random() * 1.0E-7;
-                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getX(), NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getY() + offset, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getZ(), false));
+                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_23317(), NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_23318() + offset, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_23321(), false));
                     break;
                 }
                 case 1: {
-                    if (!NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_24828() || NoSlow_PaVUKKxFbWGbplzMaucl.mc.world.method_20812((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_5829().method_989(0.0, 0.0656, 0.0)).iterator().hasNext()) break;
+                    if (!NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_24828() || NoSlow_PaVUKKxFbWGbplzMaucl.mc.world.method_20812((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_5829().offset(0.0, 0.0656, 0.0)).iterator().hasNext()) break;
                     if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_5624()) {
-                        mc.method_1562().method_52787((Packet)new ClientCommandC2SPacket((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, ClientCommandC2SPacket.Mode.field_12985));
+                        mc.getNetworkHandler().method_52787((Packet)new ClientCommandC2SPacket((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
                     }
-                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getX(), NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getY() + 0.0656, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getZ(), false));
+                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_23317(), NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_23318() + 0.0656, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_23321(), false));
                     break;
                 }
                 case 5: {
-                    if (!NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_24828() || NoSlow_PaVUKKxFbWGbplzMaucl.mc.world.method_20812((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_5829().method_989(0.0, 2.71875E-7, 0.0)).iterator().hasNext()) break;
+                    if (!NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_24828() || NoSlow_PaVUKKxFbWGbplzMaucl.mc.world.method_20812((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_5829().offset(0.0, 2.71875E-7, 0.0)).iterator().hasNext()) break;
                     if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_5624()) {
-                        mc.method_1562().method_52787((Packet)new ClientCommandC2SPacket((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, ClientCommandC2SPacket.Mode.field_12985));
+                        mc.getNetworkHandler().method_52787((Packet)new ClientCommandC2SPacket((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
                     }
-                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getX(), NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getY() + 2.71875E-7, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getZ(), false));
+                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_23317(), NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_23318() + 2.71875E-7, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_23321(), false));
                     break;
                 }
                 case 3: {
-                    mc.method_1562().method_52787((Packet)new ClientCommandC2SPacket((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, ClientCommandC2SPacket.Mode.field_12985));
-                    NoSlow_PaVUKKxFbWGbplzMaucl.mc.field_1690.field_1894.method_23481(false);
-                    NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3905 = 0.0f;
-                    NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.field_3913.field_3910 = false;
+                    mc.getNetworkHandler().method_52787((Packet)new ClientCommandC2SPacket((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
+                    NoSlow_PaVUKKxFbWGbplzMaucl.mc.options.forwardKey.setPressed(false);
+                    NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.movementForward = 0.0f;
+                    NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.input.field_3910 = false;
                     break;
                 }
                 case 4: {
@@ -172,7 +172,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (e.getPacket() instanceof CloseHandledScreenC2SPacket && this.clickBypass.is(NoSlow.Delay)) {
             this.pause.set(true);
             while (!this.storedClicks.isEmpty()) {
-                mc.method_1562().method_52787((Packet)this.storedClicks.poll());
+                mc.getNetworkHandler().method_52787((Packet)this.storedClicks.poll());
             }
             this.pause.set(false);
         }
@@ -181,7 +181,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onPacketSendPost(PacketEvent_nYAfaBsVQmKvWkMiCKYv e) {
         if (e.getPacket() instanceof ClickSlotC2SPacket && NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.method_5624() && this.clickBypass.is(NoSlow.StrictNCP)) {
-            mc.method_1562().method_52787((Packet)new ClientCommandC2SPacket((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, ClientCommandC2SPacket.Mode.field_12981));
+            mc.getNetworkHandler().method_52787((Packet)new ClientCommandC2SPacket((Entity)NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
         }
     }
 

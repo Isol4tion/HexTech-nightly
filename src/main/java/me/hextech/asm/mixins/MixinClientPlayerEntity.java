@@ -98,13 +98,13 @@ extends AbstractClientPlayerEntity {
         if (PortalGui.INSTANCE.isOn()) {
             return null;
         }
-        return client.field_1755;
+        return client.currentScreen;
     }
 
     @Inject(method={"move"}, at={@At(value="INVOKE", target="Lnet/minecraft/client/network/AbstractClientPlayerEntity;move(Lnet/minecraft/entity/MovementType;Lnet/minecraft/util/math/Vec3d;)V")}, cancellable=true)
     public void onMoveHook(MovementType movementType, Vec3d movement, CallbackInfo ci) {
         if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.movehook.getValue()) {
-            MoveEvent event = new MoveEvent(movement.field_1352, movement.field_1351, movement.field_1350);
+            MoveEvent event = new MoveEvent(movement.x, movement.y, movement.z);
             HexTech.EVENT_BUS.post(event);
             ci.cancel();
             if (!event.isCancelled()) {
@@ -140,15 +140,15 @@ extends AbstractClientPlayerEntity {
                 this.method_46742();
                 boolean bl = this.method_5715();
                 if (bl != this.field_3936) {
-                    ClientCommandC2SPacket.Mode mode = bl ? ClientCommandC2SPacket.Mode.field_12979 : ClientCommandC2SPacket.Mode.field_12984;
+                    ClientCommandC2SPacket.Mode mode = bl ? ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY : ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY;
                     this.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)this, mode));
                     this.field_3936 = bl;
                 }
                 if (this.method_3134()) {
                     boolean bl3;
-                    double d = this.getX() - this.field_3926;
-                    double e = this.getY() - this.field_3940;
-                    double f = this.getZ() - this.field_3924;
+                    double d = this.method_23317() - this.field_3926;
+                    double e = this.method_23318() - this.field_3940;
+                    double f = this.method_23321() - this.field_3924;
                     float yaw = this.method_36454();
                     float pitch = this.method_36455();
                     RotateEvent rotateEvent = new RotateEvent(yaw, pitch);
@@ -163,28 +163,28 @@ extends AbstractClientPlayerEntity {
                     double g = yaw - HexTech.ROTATE.lastYaw;
                     double h = pitch - RotateManager.lastPitch;
                     ++this.field_3923;
-                    boolean bl2 = MathHelper.method_41190((double)d, (double)e, (double)f) > MathHelper.method_33723((double)2.0E-4) || this.field_3923 >= 20 || ForceSync.INSTANCE.isOn() && ForceSync.INSTANCE.position.getValue();
+                    boolean bl2 = MathHelper.squaredMagnitude((double)d, (double)e, (double)f) > MathHelper.square((double)2.0E-4) || this.field_3923 >= 20 || ForceSync.INSTANCE.isOn() && ForceSync.INSTANCE.position.getValue();
                     boolean bl4 = bl3 = g != 0.0 || h != 0.0 || ForceSync.INSTANCE.isOn() && ForceSync.INSTANCE.rotate.getValue();
                     if (PacketControl.INSTANCE.isOn()) {
                         bl3 = PacketControl.INSTANCE.full;
                     }
                     if (this.method_5765()) {
                         Vec3d vec3d = this.method_18798();
-                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.Full(vec3d.field_1352, -999.0, vec3d.field_1350, yaw, pitch, this.method_24828()));
+                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.Full(vec3d.x, -999.0, vec3d.z, yaw, pitch, this.method_24828()));
                         bl2 = false;
                     } else if (bl2 && bl3) {
-                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.Full(this.getX(), this.getY(), this.getZ(), yaw, pitch, this.method_24828()));
+                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.Full(this.method_23317(), this.method_23318(), this.method_23321(), yaw, pitch, this.method_24828()));
                     } else if (bl2) {
-                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(this.getX(), this.getY(), this.getZ(), this.method_24828()));
+                        this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(this.method_23317(), this.method_23318(), this.method_23321(), this.method_24828()));
                     } else if (bl3) {
                         this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, this.method_24828()));
                     } else if (this.field_3920 != this.method_24828()) {
                         this.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.OnGroundOnly(this.method_24828()));
                     }
                     if (bl2) {
-                        this.field_3926 = this.getX();
-                        this.field_3940 = this.getY();
-                        this.field_3924 = this.getZ();
+                        this.field_3926 = this.method_23317();
+                        this.field_3940 = this.method_23318();
+                        this.field_3924 = this.method_23321();
                         this.field_3923 = 0;
                     }
                     if (bl3) {
@@ -192,7 +192,7 @@ extends AbstractClientPlayerEntity {
                         this.field_3925 = pitch;
                     }
                     this.field_3920 = this.method_24828();
-                    this.field_3927 = (Boolean)this.field_3937.field_1690.method_42423().method_41753();
+                    this.field_3927 = (Boolean)this.field_3937.options.getAutoJump().getValue();
                 }
                 HexTech.EVENT_BUS.post(new UpdateWalkingEvent(Event.Post));
             }
@@ -230,7 +230,7 @@ extends AbstractClientPlayerEntity {
             HexTech.EVENT_BUS.post(new UpdateWalkingEvent(Event.Post));
             this.field_3944.method_52787((Packet)new PlayerInputC2SPacket(this.field_6212, this.field_6250, this.field_3913.field_3904, this.field_3913.field_3903));
             Entity root = this.method_5668();
-            if (root != this && root.method_5787()) {
+            if (root != this && root.isLogicalSideForUpdatingMovement()) {
                 this.field_3944.method_52787((Packet)new VehicleMoveC2SPacket(root));
                 this.method_46742();
             }
@@ -238,7 +238,7 @@ extends AbstractClientPlayerEntity {
             this.method_3136();
         }
         for (ClientPlayerTickable tickable : this.field_3933) {
-            tickable.method_4756();
+            tickable.tick();
         }
     }
 }

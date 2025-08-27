@@ -99,7 +99,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static Vec2f getRotationTo(Vec3d posFrom, Vec3d posTo) {
-        Vec3d vec3d = posTo.method_1020(posFrom);
+        Vec3d vec3d = posTo.subtract(posFrom);
         return SelfTrap.getRotationFromVec(vec3d);
     }
 
@@ -122,7 +122,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.ground.getValue() && !Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_24828()) {
             return;
         }
-        if (this.Air.getValue() && Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_3149()) {
+        if (this.Air.getValue() && Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.isAutoJumpEnabled()) {
             this.toggle();
         }
         if (this.noeat.getValue() && EntityUtil.isUsing()) {
@@ -133,20 +133,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (this.antiLag.getValue()) {
-            BlockUtil.getState(EntityUtil.getPlayerPos(true).method_10074()).method_51366();
+            BlockUtil.getState(EntityUtil.getPlayerPos(true).down()).method_51366();
         }
         this.timer.reset();
-        int oldSlot = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_31548().field_7545;
+        int oldSlot = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_31548().selectedSlot;
         int block = this.getBlock();
         if (block == -1) {
             CommandManager.sendChatMessage("\u00a7e[?] \u00a7c\u00a7oObsidian" + (this.enderChest.getValue() ? "/EnderChest" : "") + "?");
             this.disable();
             return;
         }
-        BlockPosX pos1 = new BlockPosX(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX() + this.offest.getValue(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 0.5, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ() + this.offest.getValue());
-        BlockPosX pos2 = new BlockPosX(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX() - this.offest.getValue(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 0.5, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ() + this.offest.getValue());
-        BlockPosX pos3 = new BlockPosX(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX() + this.offest.getValue(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 0.5, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ() - this.offest.getValue());
-        BlockPosX pos4 = new BlockPosX(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX() - this.offest.getValue(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 0.5, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ() - this.offest.getValue());
+        BlockPosX pos1 = new BlockPosX(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317() + this.offest.getValue(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 0.5, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321() + this.offest.getValue());
+        BlockPosX pos2 = new BlockPosX(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317() - this.offest.getValue(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 0.5, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321() + this.offest.getValue());
+        BlockPosX pos3 = new BlockPosX(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317() + this.offest.getValue(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 0.5, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321() - this.offest.getValue());
+        BlockPosX pos4 = new BlockPosX(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317() - this.offest.getValue(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 0.5, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321() - this.offest.getValue());
         BlockPos playerPos = EntityUtil.getPlayerPos(true);
         if (!(this.canPlace(pos1) || this.canPlace(pos2) || this.canPlace(pos3) || this.canPlace(pos4))) {
             if (!this.Wait.getValue()) {
@@ -155,13 +155,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         boolean above = false;
-        BlockPos headPos = EntityUtil.getPlayerPos().method_10086(2);
+        BlockPos headPos = EntityUtil.getPlayerPos().up(2);
         boolean rotate = this.rotate.getValue() == Enum_HAljcKfxHffzpuFTAOaQ.Normal;
         CombatUtil.attackCrystal(pos1, rotate, false);
         CombatUtil.attackCrystal(pos2, rotate, false);
         CombatUtil.attackCrystal(pos3, rotate, false);
         CombatUtil.attackCrystal(pos4, rotate, false);
-        if (Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_18276() || this.Trapped(headPos) || this.Trapped(headPos.method_10069(1, 0, 0)) || this.Trapped(headPos.method_10069(-1, 0, 0)) || this.Trapped(headPos.method_10069(0, 0, 1)) || this.Trapped(headPos.method_10069(0, 0, -1)) || this.Trapped(headPos.method_10069(1, 0, -1)) || this.Trapped(headPos.method_10069(-1, 0, -1)) || this.Trapped(headPos.method_10069(1, 0, 1)) || this.Trapped(headPos.method_10069(-1, 0, 1))) {
+        if (Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_18276() || this.Trapped(headPos) || this.Trapped(headPos.add(1, 0, 0)) || this.Trapped(headPos.add(-1, 0, 0)) || this.Trapped(headPos.add(0, 0, 1)) || this.Trapped(headPos.add(0, 0, -1)) || this.Trapped(headPos.add(1, 0, -1)) || this.Trapped(headPos.add(-1, 0, -1)) || this.Trapped(headPos.add(1, 0, 1)) || this.Trapped(headPos.add(-1, 0, 1))) {
             above = true;
             if (!this.fakeMove.getValue()) {
                 if (!this.Wait.getValue()) {
@@ -207,10 +207,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
         } else {
-            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 0.4199999868869781, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ(), false));
-            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 0.7531999805212017, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ(), false));
-            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 0.9999957640154541, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ(), false));
-            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 1.1661092609382138, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ(), false));
+            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 0.4199999868869781, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321(), false));
+            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 0.7531999805212017, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321(), false));
+            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 0.9999957640154541, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321(), false));
+            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 1.1661092609382138, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321(), false));
         }
         this.doSwap(block);
         this.progress = 0;
@@ -224,23 +224,23 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.placeBlock(pos3, rotate);
         this.placeBlock(pos4, rotate);
         if (this.helper.getValue()) {
-            this.placeBlock(playerPos.method_10074(), rotate);
+            this.placeBlock(playerPos.down(), rotate);
         }
         this.placeBlock(playerPos, rotate);
         if (this.helper.getValue()) {
-            this.placeBlock(pos1.method_10074(), rotate);
+            this.placeBlock(pos1.down(), rotate);
         }
         this.placeBlock(pos1, rotate);
         if (this.helper.getValue()) {
-            this.placeBlock(pos2.method_10074(), rotate);
+            this.placeBlock(pos2.down(), rotate);
         }
         this.placeBlock(pos2, rotate);
         if (this.helper.getValue()) {
-            this.placeBlock(pos3.method_10074(), rotate);
+            this.placeBlock(pos3.down(), rotate);
         }
         this.placeBlock(pos3, rotate);
         if (this.helper.getValue()) {
-            this.placeBlock(pos4.method_10074(), rotate);
+            this.placeBlock(pos4.down(), rotate);
         }
         this.placeBlock(pos4, rotate);
         if (this.inventory.getValue()) {
@@ -254,33 +254,33 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double distance = 0.0;
                 BlockPos bestPos = null;
                 for (int i = 0; i < 10; ++i) {
-                    BlockPos pos = EntityUtil.getPlayerPos().method_10086(i);
-                    if (!this.canGoto(pos) || MathHelper.method_15355((float)((float)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5707(pos.toCenterPos()))) < 2.0f || bestPos != null && !(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5707(pos.toCenterPos()) < distance)) continue;
+                    BlockPos pos = EntityUtil.getPlayerPos().up(i);
+                    if (!this.canGoto(pos) || MathHelper.sqrt((float)((float)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5707(pos.toCenterPos()))) < 2.0f || bestPos != null && !(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5707(pos.toCenterPos()) < distance)) continue;
                     bestPos = pos;
                     distance = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5707(pos.toCenterPos());
                 }
                 if (bestPos == null) break;
-                Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.method_10263() + 0.5, (double)bestPos.method_10264(), (double)bestPos.method_10260() + 0.5, false));
+                Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.method_10263() + 0.5, (double)bestPos.method_10264(), (double)bestPos.method_10260() + 0.5, false));
                 break;
             }
             case 2: {
                 int i;
                 for (i = 0; i < 20; ++i) {
-                    Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 1337.0, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ(), false));
+                    Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 1337.0, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321(), false));
                 }
                 break;
             }
             case 3: {
-                Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5814(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 3.0, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ());
-                mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ(), true));
+                Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5814(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 3.0, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321());
+                mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321(), true));
                 break;
             }
             case 4: {
-                Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 2.3400880035762786, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ(), false));
+                Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 2.3400880035762786, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321(), false));
                 break;
             }
             case 5: {
-                Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + this.cuicanHeight.getValue(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ(), false));
+                Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + this.cuicanHeight.getValue(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321(), false));
                 break;
             }
             case 6: {
@@ -295,12 +295,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double distance = 0.0;
                 BlockPos bestPos = null;
                 for (BlockPos blockPos : list) {
-                    if (!this.canAbove(blockPos) || !this.canGoto(blockPos) || (double)MathHelper.method_15355((float)((float)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5707(blockPos.toCenterPos().method_1031(0.0, -0.5, 0.0)))) < this.Distance.getValue() || bestPos != null && !(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5707(blockPos.toCenterPos()) < distance)) continue;
+                    if (!this.canAbove(blockPos) || !this.canGoto(blockPos) || (double)MathHelper.sqrt((float)((float)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5707(blockPos.toCenterPos().add(0.0, -0.5, 0.0)))) < this.Distance.getValue() || bestPos != null && !(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5707(blockPos.toCenterPos()) < distance)) continue;
                     bestPos = blockPos;
                     distance = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5707(blockPos.toCenterPos());
                 }
                 if (bestPos == null) break;
-                Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.method_10263() + 0.5, (double)bestPos.method_10264(), (double)bestPos.method_10260() + 0.5, false));
+                Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.method_10263() + 0.5, (double)bestPos.method_10264(), (double)bestPos.method_10260() + 0.5, false));
                 break;
             }
             case 7: {
@@ -309,9 +309,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     if (i == -1) {
                         i = 4;
                     }
-                    if (!Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.getBlockState(BlockPos.method_49638((Position)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_19538()).method_10069(0, i, 0)).getBlock().equals(Blocks.AIR) || !Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.getBlockState(BlockPos.method_49638((Position)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_19538()).method_10069(0, i + 1, 0)).getBlock().equals(Blocks.AIR)) continue;
-                    BlockPos pos = BlockPos.method_49638((Position)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_19538()).method_10069(0, i, 0);
-                    Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)pos.method_10263() + 0.3, (double)pos.method_10264(), (double)pos.method_10260() + 0.3, false));
+                    if (!Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.method_8320(BlockPos.ofFloored((Position)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_19538()).add(0, i, 0)).method_26204().equals(Blocks.AIR) || !Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.method_8320(BlockPos.ofFloored((Position)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_19538()).add(0, i + 1, 0)).method_26204().equals(Blocks.AIR)) continue;
+                    BlockPos pos = BlockPos.ofFloored((Position)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_19538()).add(0, i, 0);
+                    Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)pos.method_10263() + 0.3, (double)pos.method_10264(), (double)pos.method_10260() + 0.3, false));
                     return;
                 }
                 break;
@@ -328,7 +328,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         BlockPos blockPos = EntityUtil.getPlayerPos(true);
-        if (Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX() - (double)blockPos.method_10263() - 0.5 <= 0.2 && Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX() - (double)blockPos.method_10263() - 0.5 >= -0.2 && Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ() - (double)blockPos.method_10260() - 0.5 <= 0.2 && Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
+        if (Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317() - (double)blockPos.method_10263() - 0.5 <= 0.2 && Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317() - (double)blockPos.method_10263() - 0.5 >= -0.2 && Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321() - (double)blockPos.method_10260() - 0.5 <= 0.2 && Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
             if (this.shouldCenter && (Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_24828() || MovementUtil.isMoving())) {
                 event.setX(0.0);
                 event.setZ(0.0);
@@ -336,9 +336,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         } else if (this.shouldCenter) {
             Vec3d centerPos = EntityUtil.getPlayerPos(true).toCenterPos();
-            float rotation = Burrow_eOaBGEoOSTDRbYIUAbXC.getRotationTo((Vec3d)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_19538(), (Vec3d)centerPos).field_1343;
+            float rotation = Burrow_eOaBGEoOSTDRbYIUAbXC.getRotationTo((Vec3d)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_19538(), (Vec3d)centerPos).x;
             float yawRad = rotation / 180.0f * (float)Math.PI;
-            double dist = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_19538().method_1022(new Vec3d(centerPos.field_1352, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY(), centerPos.field_1350));
+            double dist = Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_19538().distanceTo(new Vec3d(centerPos.x, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318(), centerPos.z));
             double cappedSpeed = Math.min(0.2873, dist);
             double x = (double)(-((float)Math.sin(yawRad))) * cappedSpeed;
             double z = (double)((float)Math.cos(yawRad)) * cappedSpeed;
@@ -365,13 +365,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             ++this.progress;
             BlockUtil.placedPos.add(pos);
-            BlockUtil.clickBlock(pos.offset(side), side.method_10153(), rotate, this.packetPlace.getValue());
+            BlockUtil.clickBlock(pos.offset(side), side.getOpposite(), rotate, this.packetPlace.getValue());
         }
     }
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_31548().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -379,10 +379,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void gotoPos(BlockPos offPos) {
         this.movedPos = offPos;
-        if (Math.abs((double)offPos.method_10263() + 0.5 - Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX()) < Math.abs((double)offPos.method_10260() + 0.5 - Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ())) {
-            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 0.2, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ() + ((double)offPos.method_10260() + 0.5 - Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ()), true));
+        if (Math.abs((double)offPos.method_10263() + 0.5 - Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317()) < Math.abs((double)offPos.method_10260() + 0.5 - Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321())) {
+            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317(), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 0.2, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321() + ((double)offPos.method_10260() + 0.5 - Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321()), true));
         } else {
-            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX() + ((double)offPos.method_10263() + 0.2 - Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getX()), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getY() + 0.2, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.getZ(), true));
+            Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317() + ((double)offPos.method_10263() + 0.2 - Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23317()), Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23318() + 0.2, Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_23321(), true));
         }
     }
 
@@ -391,7 +391,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean canAbove(BlockPos pos) {
-        return Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.isAir(pos) && Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.isAir(pos.up());
+        return Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.method_22347(pos) && Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.method_22347(pos.up());
     }
 
     public boolean canPlace(BlockPos pos) {
@@ -415,30 +415,30 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private boolean hasEntity(BlockPos pos) {
         for (Entity entity : Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.method_18467(Entity.class, new Box(pos))) {
-            if (entity == Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player || !entity.method_5805() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || entity instanceof EndCrystalEntity && this.breakCrystal.getValue() || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
+            if (entity == Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player || !entity.isAlive() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || entity instanceof EndCrystalEntity && this.breakCrystal.getValue() || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
             return true;
         }
         return false;
     }
 
     private boolean checkSelf(BlockPos pos) {
-        return Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5829().method_994(new Box(pos));
+        return Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_5829().intersects(new Box(pos));
     }
 
     private boolean Trapped(BlockPos pos) {
-        return (Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.method_39454((Entity)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.field_10343) && this.checkSelf(pos.down(2));
+        return (Burrow_eOaBGEoOSTDRbYIUAbXC.mc.world.method_39454((Entity)Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.COBWEB) && this.checkSelf(pos.down(2));
     }
 
     private int getBlock() {
         if (this.inventory.getValue()) {
-            if (InventoryUtil.findBlockInventorySlot(Blocks.field_10540) != -1 || !this.enderChest.getValue()) {
-                return InventoryUtil.findBlockInventorySlot(Blocks.field_10540);
+            if (InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN) != -1 || !this.enderChest.getValue()) {
+                return InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN);
             }
-            return InventoryUtil.findBlockInventorySlot(Blocks.field_10443);
+            return InventoryUtil.findBlockInventorySlot(Blocks.ENDER_CHEST);
         }
-        if (InventoryUtil.findBlock(Blocks.field_10540) != -1 || !this.enderChest.getValue()) {
-            return InventoryUtil.findBlock(Blocks.field_10540);
+        if (InventoryUtil.findBlock(Blocks.OBSIDIAN) != -1 || !this.enderChest.getValue()) {
+            return InventoryUtil.findBlock(Blocks.OBSIDIAN);
         }
-        return InventoryUtil.findBlock(Blocks.field_10443);
+        return InventoryUtil.findBlock(Blocks.ENDER_CHEST);
     }
 }

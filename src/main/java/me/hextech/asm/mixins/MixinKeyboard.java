@@ -26,7 +26,7 @@ implements Wrapper {
 
     @Inject(method={"onKey"}, at={@At(value="HEAD")})
     private void onKey(long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo ci) {
-        if (MixinKeyboard.mc.field_1755 instanceof ClickGuiScreen && action == 1 && HexTech.MODULE.setBind(key)) {
+        if (MixinKeyboard.mc.currentScreen instanceof ClickGuiScreen && action == 1 && HexTech.MODULE.setBind(key)) {
             return;
         }
         if (action == 1) {
@@ -40,7 +40,7 @@ implements Wrapper {
     @Inject(method={"onChar"}, at={@At(value="HEAD")}, cancellable=true)
     private void onChar(long window, int codePoint, int modifiers, CallbackInfo ci) {
         Screen element;
-        if (window == this.field_1678.method_22683().method_4490() && (element = this.field_1678.field_1755) != null && this.field_1678.method_18506() == null) {
+        if (window == this.field_1678.getWindow().getHandle() && (element = this.field_1678.currentScreen) != null && this.field_1678.getOverlay() == null) {
             if (Character.charCount(codePoint) == 1) {
                 if (!Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck() && HexTech.GUI != null && HexTech.GUI.isClickGuiOpen()) {
                     HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting)setting).filter(StringSetting::isListening).forEach(setting -> setting.charType((char)codePoint)));
@@ -62,10 +62,10 @@ implements Wrapper {
     }
 
     private static /* synthetic */ void lambda$onChar$17(Element element, char c, int modifiers) {
-        element.method_25400(c, modifiers);
+        element.charTyped(c, modifiers);
     }
 
     private static /* synthetic */ void lambda$onChar$8(Element element, int codePoint, int modifiers) {
-        element.method_25400((char)codePoint, modifiers);
+        element.charTyped((char)codePoint, modifiers);
     }
 }

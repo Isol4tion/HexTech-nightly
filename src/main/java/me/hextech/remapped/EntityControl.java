@@ -42,23 +42,23 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (boat == null) {
             return;
         }
-        if (boat.method_5642() != EntityControl.mc.player) {
+        if (boat.getControllingPassenger() != EntityControl.mc.player) {
             return;
         }
-        boat.method_36456(EntityControl.mc.player.method_36454());
+        boat.setYaw(EntityControl.mc.player.method_36454());
         Vec3d vel = MovementUtil.getHorizontalVelocity(this.speed.getValue());
         double velX = vel.method_10216();
         double velZ = vel.method_10215();
-        if (EntityControl.mc.field_1755 instanceof ChatScreen || EntityControl.mc.field_1755 != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.isOff()) {
+        if (EntityControl.mc.currentScreen instanceof ChatScreen || EntityControl.mc.currentScreen != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.isOff()) {
             velY = -this.fallSpeed.getValue() / 20.0;
         } else {
-            boolean sprint = InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)EntityControl.mc.field_1690.field_1867.method_1428()).method_1444());
-            boolean jump = InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)EntityControl.mc.field_1690.field_1903.method_1428()).method_1444());
+            boolean sprint = InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)EntityControl.mc.options.sprintKey.getBoundKeyTranslationKey()).getCode());
+            boolean jump = InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)EntityControl.mc.options.jumpKey.getBoundKeyTranslationKey()).getCode());
             velY = jump ? (sprint ? -this.fallSpeed.getValue() / 20.0 : this.verticalSpeed.getValue() / 20.0) : (sprint ? -this.verticalSpeed.getValue() / 20.0 : -this.fallSpeed.getValue() / 20.0);
         }
-        ((IVec3d)boat.method_18798()).setX(velX);
-        ((IVec3d)boat.method_18798()).setY(velY);
-        ((IVec3d)boat.method_18798()).setZ(velZ);
+        ((IVec3d)boat.getVelocity()).setX(velX);
+        ((IVec3d)boat.getVelocity()).setY(velY);
+        ((IVec3d)boat.getVelocity()).setZ(velZ);
     }
 
     @EventHandler
@@ -71,20 +71,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (boat == null) {
             return;
         }
-        boat.method_36456(EntityControl.mc.player.method_36454());
+        boat.setYaw(EntityControl.mc.player.method_36454());
         Vec3d vel = MovementUtil.getHorizontalVelocity(this.speed.getValue());
         double velX = vel.method_10216();
         double velZ = vel.method_10215();
-        if (EntityControl.mc.field_1755 instanceof ChatScreen || EntityControl.mc.field_1755 != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.isOff()) {
+        if (EntityControl.mc.currentScreen instanceof ChatScreen || EntityControl.mc.currentScreen != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.isOff()) {
             velY = -this.fallSpeed.getValue() / 20.0;
         } else {
-            boolean sprint = InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)EntityControl.mc.field_1690.field_1867.method_1428()).method_1444());
-            boolean jump = InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)InputUtil.method_15981((String)EntityControl.mc.field_1690.field_1903.method_1428()).method_1444());
+            boolean sprint = InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)EntityControl.mc.options.sprintKey.getBoundKeyTranslationKey()).getCode());
+            boolean jump = InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)EntityControl.mc.options.jumpKey.getBoundKeyTranslationKey()).getCode());
             velY = jump ? (sprint ? -this.fallSpeed.getValue() / 20.0 : this.verticalSpeed.getValue() / 20.0) : (sprint ? -this.verticalSpeed.getValue() / 20.0 : -this.fallSpeed.getValue() / 20.0);
         }
-        ((IVec3d)boat.method_18798()).setX(velX);
-        ((IVec3d)boat.method_18798()).setY(velY);
-        ((IVec3d)boat.method_18798()).setZ(velZ);
+        ((IVec3d)boat.getVelocity()).setX(velX);
+        ((IVec3d)boat.getVelocity()).setY(velY);
+        ((IVec3d)boat.getVelocity()).setZ(velZ);
     }
 
     @EventHandler

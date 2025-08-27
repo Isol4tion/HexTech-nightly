@@ -87,7 +87,7 @@ extends Component {
         int parentX = this.parent.getX();
         int parentY = this.parent.getY();
         int parentWidth = this.parent.getWidth();
-        MatrixStack matrixStack = drawContext.method_51448();
+        MatrixStack matrixStack = drawContext.getMatrices();
         this.currentOffset = SliderComponent.animate(this.currentOffset, offset);
         if (back && Math.abs(this.currentOffset - (double)offset) <= 0.5) {
             this.renderSliderPosition = 0.0;

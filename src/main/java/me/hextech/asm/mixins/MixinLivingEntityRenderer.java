@@ -42,21 +42,21 @@ public abstract class MixinLivingEntityRenderer<T extends LivingEntity, M extend
 
     @Inject(method={"render"}, at={@At(value="HEAD")})
     public void onRenderPre(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
-        if (MinecraftClient.method_1551().player != null && livingEntity == MinecraftClient.method_1551().player && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotations.getValue()) {
+        if (MinecraftClient.getInstance().player != null && livingEntity == MinecraftClient.getInstance().player && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotations.getValue()) {
             this.originalYaw = livingEntity.method_36454();
-            this.originalHeadYaw = ((LivingEntity)livingEntity).field_6241;
-            this.originalBodyYaw = ((LivingEntity)livingEntity).field_6283;
+            this.originalHeadYaw = ((LivingEntity)livingEntity).headYaw;
+            this.originalBodyYaw = ((LivingEntity)livingEntity).bodyYaw;
             this.originalPitch = livingEntity.method_36455();
             this.originalPrevYaw = ((LivingEntity)livingEntity).field_5982;
-            this.originalPrevHeadYaw = ((LivingEntity)livingEntity).field_6259;
-            this.originalPrevBodyYaw = ((LivingEntity)livingEntity).field_6220;
+            this.originalPrevHeadYaw = ((LivingEntity)livingEntity).prevHeadYaw;
+            this.originalPrevBodyYaw = ((LivingEntity)livingEntity).prevBodyYaw;
             livingEntity.method_36456(RotateManager.getRenderYawOffset());
-            ((LivingEntity)livingEntity).field_6241 = RotateManager.getRotationYawHead();
-            ((LivingEntity)livingEntity).field_6283 = RotateManager.getRenderYawOffset();
+            ((LivingEntity)livingEntity).headYaw = RotateManager.getRotationYawHead();
+            ((LivingEntity)livingEntity).bodyYaw = RotateManager.getRenderYawOffset();
             livingEntity.method_36457(RotateManager.getRenderPitch());
             ((LivingEntity)livingEntity).field_5982 = RotateManager.getPrevRenderYawOffset();
-            ((LivingEntity)livingEntity).field_6259 = RotateManager.getPrevRotationYawHead();
-            ((LivingEntity)livingEntity).field_6220 = RotateManager.getPrevRenderYawOffset();
+            ((LivingEntity)livingEntity).prevHeadYaw = RotateManager.getPrevRotationYawHead();
+            ((LivingEntity)livingEntity).prevBodyYaw = RotateManager.getPrevRenderYawOffset();
             ((LivingEntity)livingEntity).field_6004 = RotateManager.getPrevPitch();
         }
         this.lastEntity = livingEntity;
@@ -64,14 +64,14 @@ public abstract class MixinLivingEntityRenderer<T extends LivingEntity, M extend
 
     @Inject(method={"render"}, at={@At(value="TAIL")})
     public void onRenderPost(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
-        if (MinecraftClient.method_1551().player != null && livingEntity == MinecraftClient.method_1551().player && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotations.getValue()) {
+        if (MinecraftClient.getInstance().player != null && livingEntity == MinecraftClient.getInstance().player && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotations.getValue()) {
             livingEntity.method_36456(this.originalYaw);
-            ((LivingEntity)livingEntity).field_6241 = this.originalHeadYaw;
-            ((LivingEntity)livingEntity).field_6283 = this.originalBodyYaw;
+            ((LivingEntity)livingEntity).headYaw = this.originalHeadYaw;
+            ((LivingEntity)livingEntity).bodyYaw = this.originalBodyYaw;
             livingEntity.method_36457(this.originalPitch);
             ((LivingEntity)livingEntity).field_5982 = this.originalPrevYaw;
-            ((LivingEntity)livingEntity).field_6259 = this.originalPrevHeadYaw;
-            ((LivingEntity)livingEntity).field_6220 = this.originalPrevBodyYaw;
+            ((LivingEntity)livingEntity).prevHeadYaw = this.originalPrevHeadYaw;
+            ((LivingEntity)livingEntity).prevBodyYaw = this.originalPrevBodyYaw;
             ((LivingEntity)livingEntity).field_6004 = this.originalPitch;
         }
     }

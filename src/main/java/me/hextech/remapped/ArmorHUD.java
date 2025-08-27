@@ -33,24 +33,24 @@ extends Tab {
     public void draw(DrawContext drawContext, float partialTicks, Color color) {
         if (HUD_ssNtBhEveKlCmIccBvAN.INSTANCE.armor.getValue() && this.mc.player != null) {
             if (HexTech.GUI.isClickGuiOpen()) {
-                Render2DUtil.drawRect(drawContext.method_51448(), (float)this.x, (float)this.y, (float)this.width, (float)this.height, new Color(0, 0, 0, 70));
+                Render2DUtil.drawRect(drawContext.getMatrices(), (float)this.x, (float)this.y, (float)this.width, (float)this.height, new Color(0, 0, 0, 70));
             }
             int xOff = 0;
-            for (ItemStack armor : this.mc.player.method_31548().field_7548) {
+            for (ItemStack armor : this.mc.player.method_31548().armor) {
                 xOff += 20;
-                if (armor.method_7960()) continue;
-                MatrixStack matrixStack = drawContext.method_51448();
-                matrixStack.method_22903();
+                if (armor.isEmpty()) continue;
+                MatrixStack matrixStack = drawContext.getMatrices();
+                matrixStack.push();
                 int damage = EntityUtil.getDamagePercent(armor);
                 int yOffset = this.height / 2;
-                drawContext.method_51427(armor, this.x + this.width - xOff, this.y + yOffset);
-                drawContext.method_51431(this.mc.field_1772, armor, this.x + this.width - xOff, this.y + yOffset);
-                TextRenderer textRenderer = this.mc.field_1772;
+                drawContext.drawItem(armor, this.x + this.width - xOff, this.y + yOffset);
+                drawContext.drawStackOverlay(this.mc.textRenderer, armor, this.x + this.width - xOff, this.y + yOffset);
+                TextRenderer textRenderer = this.mc.textRenderer;
                 String string = String.valueOf(damage);
-                int n = this.x + this.width + 8 - xOff - this.mc.field_1772.method_1727(String.valueOf(damage)) / 2;
-                Objects.requireNonNull(this.mc.field_1772);
-                drawContext.method_51433(textRenderer, string, n, this.y + yOffset - 9 - 2, new Color((int)(255.0f * (1.0f - (float)damage / 100.0f)), (int)(255.0f * ((float)damage / 100.0f)), 0).getRGB(), true);
-                matrixStack.method_22909();
+                int n = this.x + this.width + 8 - xOff - this.mc.textRenderer.getWidth(String.valueOf(damage)) / 2;
+                Objects.requireNonNull(this.mc.textRenderer);
+                drawContext.drawText(textRenderer, string, n, this.y + yOffset - 9 - 2, new Color((int)(255.0f * (1.0f - (float)damage / 100.0f)), (int)(255.0f * ((float)damage / 100.0f)), 0).getRGB(), true);
+                matrixStack.pop();
             }
         }
     }

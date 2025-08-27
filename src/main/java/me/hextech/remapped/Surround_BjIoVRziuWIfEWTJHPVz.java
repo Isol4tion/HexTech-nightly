@@ -69,30 +69,30 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static boolean selfIntersectPos(BlockPos pos) {
-        return Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_5829().method_994(new Box(pos));
+        return Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_5829().intersects(new Box(pos));
     }
 
     public static boolean otherIntersectPos(BlockPos pos) {
         for (PlayerEntity player : Surround_BjIoVRziuWIfEWTJHPVz.mc.world.method_18456()) {
-            if (!player.method_5829().method_994(new Box(pos))) continue;
+            if (!player.method_5829().intersects(new Box(pos))) continue;
             return true;
         }
         return false;
     }
 
     public static Vec2f getRotationTo(Vec3d posFrom, Vec3d posTo) {
-        Vec3d vec3d = posTo.method_1020(posFrom);
+        Vec3d vec3d = posTo.subtract(posFrom);
         return Surround_BjIoVRziuWIfEWTJHPVz.getRotationFromVec(vec3d);
     }
 
     private static Vec2f getRotationFromVec(Vec3d vec) {
-        double d = vec.field_1352;
-        double d2 = vec.field_1350;
+        double d = vec.x;
+        double d2 = vec.z;
         double xz = Math.hypot(d, d2);
-        d2 = vec.field_1350;
-        double d3 = vec.field_1352;
+        d2 = vec.z;
+        double d3 = vec.x;
         double yaw = Surround_BjIoVRziuWIfEWTJHPVz.normalizeAngle(Math.toDegrees(Math.atan2(d2, d3)) - 90.0);
-        double pitch = Surround_BjIoVRziuWIfEWTJHPVz.normalizeAngle(Math.toDegrees(-Math.atan2(vec.field_1351, xz)));
+        double pitch = Surround_BjIoVRziuWIfEWTJHPVz.normalizeAngle(Math.toDegrees(-Math.atan2(vec.y, xz)));
         return new Vec2f((float)yaw, (float)pitch);
     }
 
@@ -131,9 +131,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             return;
         }
-        this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX();
-        this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY();
-        this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ();
+        this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23317();
+        this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23318();
+        this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23321();
         this.shouldCenter = true;
     }
 
@@ -143,7 +143,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         BlockPos blockPos = EntityUtil.getPlayerPos(true);
-        if (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX() - (double)blockPos.method_10263() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX() - (double)blockPos.method_10263() - 0.5 >= -0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ() - (double)blockPos.method_10260() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
+        if (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23317() - (double)blockPos.method_10263() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23317() - (double)blockPos.method_10263() - 0.5 >= -0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23321() - (double)blockPos.method_10260() - 0.5 <= 0.2 && Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23321() - 0.5 - (double)blockPos.method_10260() >= -0.2) {
             if (this.shouldCenter && (Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_24828() || MovementUtil.isMoving())) {
                 event.setX(0.0);
                 event.setZ(0.0);
@@ -151,9 +151,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         } else if (this.shouldCenter) {
             Vec3d centerPos = EntityUtil.getPlayerPos(true).toCenterPos();
-            float rotation = Surround_BjIoVRziuWIfEWTJHPVz.getRotationTo((Vec3d)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_19538(), (Vec3d)centerPos).field_1343;
+            float rotation = Surround_BjIoVRziuWIfEWTJHPVz.getRotationTo((Vec3d)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_19538(), (Vec3d)centerPos).x;
             float yawRad = rotation / 180.0f * (float)Math.PI;
-            double dist = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_19538().method_1022(new Vec3d(centerPos.field_1352, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY(), centerPos.field_1350));
+            double dist = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_19538().distanceTo(new Vec3d(centerPos.x, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23318(), centerPos.z));
             double cappedSpeed = Math.min(0.2873, dist);
             double x = (double)(-((float)Math.sin(yawRad))) * cappedSpeed;
             double z = (double)((float)Math.cos(yawRad)) * cappedSpeed;
@@ -169,19 +169,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.directionVec = null;
         this.progress = 0;
-        if (!MovementUtil.isMoving() && !Surround_BjIoVRziuWIfEWTJHPVz.mc.field_1690.field_1903.method_1434()) {
-            this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getX();
-            this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY();
-            this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ();
+        if (!MovementUtil.isMoving() && !Surround_BjIoVRziuWIfEWTJHPVz.mc.options.jumpKey.isPressed()) {
+            this.startX = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23317();
+            this.startY = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23318();
+            this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23321();
         }
         BlockPos pos = EntityUtil.getPlayerPos(true);
-        double distanceToStart = MathHelper.method_15355((float)((float)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_5649(this.startX, this.startY, this.startZ)));
+        double distanceToStart = MathHelper.sqrt((float)((float)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_5649(this.startX, this.startY, this.startZ)));
         if (this.getBlock() == -1) {
             CommandManager.sendChatMessageWidthId("\u00a7c\u00a7oObsidian" + (this.enderChest.getValue() ? "/EnderChest" : "") + "?", this.hashCode());
             this.disable();
             return;
         }
-        if (this.moveDisable.getValue() && distanceToStart > 1.0 || this.jumpDisable.getValue() && Math.abs(this.startY - Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY()) > 0.5) {
+        if (this.moveDisable.getValue() && distanceToStart > 1.0 || this.jumpDisable.getValue() && Math.abs(this.startY - Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_23318()) > 0.5) {
             this.disable();
             return;
         }
@@ -234,7 +234,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (side == null) {
             return;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().method_10263() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().method_10264() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().method_10260() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
         if (!BlockUtil.canPlace(pos, 6.0, true)) {
             return;
         }
@@ -246,14 +246,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         } else if (BlockUtil.hasEntity(pos, false)) {
             return;
         }
-        int old = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_31548().field_7545;
+        int old = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_31548().selectedSlot;
         this.doSwap(block);
         if (BlockUtil.airPlace()) {
             BlockUtil.placedPos.add(pos);
-            BlockUtil.clickBlock(pos, Direction.DOWN, false, Hand.field_5808, this.packetPlace.getValue());
+            BlockUtil.clickBlock(pos, Direction.DOWN, false, Hand.MAIN_HAND, this.packetPlace.getValue());
         } else {
             BlockUtil.placedPos.add(pos);
-            BlockUtil.clickBlock(pos.offset(side), side.method_10153(), false, Hand.field_5808, this.packetPlace.getValue());
+            BlockUtil.clickBlock(pos.offset(side), side.getOpposite(), false, Hand.MAIN_HAND, this.packetPlace.getValue());
         }
         if (this.inventory.getValue()) {
             this.doSwap(block);
@@ -279,7 +279,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.method_31548().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -287,20 +287,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private int getBlock() {
         if (this.inventory.getValue()) {
-            if (InventoryUtil.findBlockInventorySlot(Blocks.field_10540) != -1 || !this.enderChest.getValue()) {
-                return InventoryUtil.findBlockInventorySlot(Blocks.field_10540);
+            if (InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN) != -1 || !this.enderChest.getValue()) {
+                return InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN);
             }
-            return InventoryUtil.findBlockInventorySlot(Blocks.field_10443);
+            return InventoryUtil.findBlockInventorySlot(Blocks.ENDER_CHEST);
         }
-        if (InventoryUtil.findBlock(Blocks.field_10540) != -1 || !this.enderChest.getValue()) {
-            return InventoryUtil.findBlock(Blocks.field_10540);
+        if (InventoryUtil.findBlock(Blocks.OBSIDIAN) != -1 || !this.enderChest.getValue()) {
+            return InventoryUtil.findBlock(Blocks.OBSIDIAN);
         }
-        return InventoryUtil.findBlock(Blocks.field_10443);
+        return InventoryUtil.findBlock(Blocks.ENDER_CHEST);
     }
 
     public BlockPos getHelperPos(BlockPos pos) {
         for (Direction i : Direction.values()) {
-            if (this.detectMining.getValue() && HexTech.BREAK.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.method_10153()) || !BlockUtil.canPlace(pos.offset(i))) continue;
+            if (this.detectMining.getValue() && HexTech.BREAK.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite()) || !BlockUtil.canPlace(pos.offset(i))) continue;
             return pos.offset(i);
         }
         return null;

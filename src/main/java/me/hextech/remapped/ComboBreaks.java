@@ -48,17 +48,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static final class _PNwHzpQsMnnDslSAEFgc
-    extends Enum<_PNwHzpQsMnnDslSAEFgc> {
-        public static final /* enum */ _PNwHzpQsMnnDslSAEFgc Attack;
-        public static final /* enum */ _PNwHzpQsMnnDslSAEFgc Defend;
+    public static enum _PNwHzpQsMnnDslSAEFgc {
+        Attack,
+        Defend;
 
-        public static _PNwHzpQsMnnDslSAEFgc[] values() {
-            return null;
-        }
-
-        public static _PNwHzpQsMnnDslSAEFgc valueOf(String string) {
-            return null;
-        }
     }
 }

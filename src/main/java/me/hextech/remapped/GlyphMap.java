@@ -49,8 +49,8 @@ class GlyphMap {
             byte[] bytes = out.toByteArray();
             ByteBuffer data = BufferUtils.createByteBuffer((int)bytes.length).put(bytes);
             data.flip();
-            NativeImageBackedTexture tex = new NativeImageBackedTexture(NativeImage.method_4324((ByteBuffer)data));
-            Wrapper.mc.execute(() -> Wrapper.mc.method_1531().method_4616(i, (AbstractTexture)tex));
+            NativeImageBackedTexture tex = new NativeImageBackedTexture(NativeImage.read((ByteBuffer)data));
+            Wrapper.mc.execute(() -> Wrapper.mc.getTextureManager().registerTexture(i, (AbstractTexture)tex));
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -61,11 +61,11 @@ class GlyphMap {
         if (!this.generated) {
             this.generate();
         }
-        return this.glyphs.get(c);
+        return (Glyph)this.glyphs.get(c);
     }
 
     public void destroy() {
-        MinecraftClient.method_1551().method_1531().method_4615(this.bindToTexture);
+        MinecraftClient.getInstance().getTextureManager().destroyTexture(this.bindToTexture);
         this.glyphs.clear();
         this.width = -1;
         this.height = -1;
@@ -135,7 +135,7 @@ class GlyphMap {
             g2d.setFont(this.getFontForGlyph(glyph.value()));
             FontMetrics fontMetrics = g2d.getFontMetrics();
             g2d.drawString(String.valueOf(glyph.value()), glyph.u(), glyph.v() + fontMetrics.getAscent());
-            this.glyphs.put(glyph.value(), glyph);
+            this.glyphs.put(glyph.value(), (Object)glyph);
         }
         GlyphMap.registerBufferedImageTexture(this.bindToTexture, bi);
         this.generated = true;

@@ -29,7 +29,7 @@ extends Tab {
         this.x = HexTech.CONFIG.getInt(title + "_x", x);
         this.y = HexTech.CONFIG.getInt(title + "_y", y);
         this.width = 100;
-        this.mc = MinecraftClient.method_1551();
+        this.mc = MinecraftClient.getInstance();
     }
 
     public ClickGuiTab(Module_JlagirAibYQgkHtbRnhw category, int x, int y) {
@@ -132,7 +132,7 @@ extends Tab {
             tempHeight += child.getHeight();
         }
         this.height = tempHeight;
-        MatrixStack matrixStack = drawContext.method_51448();
+        MatrixStack matrixStack = drawContext.getMatrices();
         this.currentHeight = Component.animate(this.currentHeight, this.height);
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.categoryEnd.booleanValue) {
             Render2DUtil.drawRectVertical(matrixStack, this.x, this.y - 2, this.width, 15.0f, color, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.categoryEnd.getValue());

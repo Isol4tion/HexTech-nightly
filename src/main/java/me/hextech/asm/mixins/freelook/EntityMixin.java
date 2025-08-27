@@ -37,7 +37,7 @@ public abstract class EntityMixin {
         float yaw = this.camera.lookYaw;
         float pitch = this.camera.lookPitch;
         pitch += transformedCursorDeltaY;
-        pitch = MathHelper.method_15363((float)pitch, (float)-90.0f, (float)90.0f);
+        pitch = MathHelper.clamp((float)pitch, (float)-90.0f, (float)90.0f);
         this.camera.lookYaw = yaw += transformedCursorDeltaX;
         this.camera.lookPitch = pitch;
     }

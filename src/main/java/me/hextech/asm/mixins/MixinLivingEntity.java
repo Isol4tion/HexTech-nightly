@@ -52,14 +52,14 @@ extends Entity {
 
     @Inject(method={"setSprinting"}, at={@At(value="HEAD")}, cancellable=true)
     public void setSprintingHook(boolean sprinting, CallbackInfo ci) {
-        if (this == MinecraftClient.method_1551().player && Sprint.INSTANCE.isOn() && Sprint.INSTANCE.mode.getValue() == Sprint._kIBjeDSbfTeuMDPgEQgD.Rage) {
+        if (this == MinecraftClient.getInstance().player && Sprint.INSTANCE.isOn() && Sprint.INSTANCE.mode.getValue() == Sprint._kIBjeDSbfTeuMDPgEQgD.Rage) {
             ci.cancel();
             sprinting = Sprint.shouldSprint;
-            super.method_5728(sprinting);
+            super.setSprinting(sprinting);
             EntityAttributeInstance entityAttributeInstance = this.method_5996(EntityAttributes.field_23719);
             entityAttributeInstance.method_6200(field_6231.method_6189());
             if (sprinting) {
-                entityAttributeInstance.method_26835(field_6231);
+                entityAttributeInstance.addTemporaryModifier(field_6231);
             }
         }
     }

@@ -84,9 +84,9 @@ implements IChatHud {
             if (ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.pulse.booleanValue) {
                 return TextUtil.drawStringPulse(drawContext, text, x, y, ColorUtil.injectAlpha(ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue(), color >> 24 & 0xFF), ColorUtil.injectAlpha(ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.pulse.getValue(), color >> 24 & 0xFF), ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.pulseSpeed.getValue(), ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.pulseCounter.getValueInt());
             }
-            return drawContext.method_35720(textRenderer, text, x, y, ColorUtil.injectAlpha(ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue(), color >> 24 & 0xFF).getRGB());
+            return drawContext.drawTextWithShadow(textRenderer, text, x, y, ColorUtil.injectAlpha(ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue(), color >> 24 & 0xFF).getRGB());
         }
-        return drawContext.method_35720(textRenderer, text, x, y, color);
+        return drawContext.drawTextWithShadow(textRenderer, text, x, y, color);
     }
 
     @ModifyArg(method={"render"}, at=@At(value="INVOKE", target="Ljava/util/List;get(I)Ljava/lang/Object;", ordinal=0, remap=false))
@@ -101,7 +101,7 @@ implements IChatHud {
     @Inject(method={"render"}, at={@At(value="INVOKE", target="Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/OrderedText;III)I", ordinal=0, shift=At.Shift.BEFORE)})
     private void translate(DrawContext context, int currentTick, int mouseX, int mouseY, CallbackInfo ci) {
         if (this.map.containsKey(this.last)) {
-            context.method_51448().method_22904(ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.animateOffset.getValue() * (1.0 - this.map.get(this.last).getQuad(ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.animQuad.getValue())), 0.0, 0.0);
+            context.getMatrices().translate(ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.animateOffset.getValue() * (1.0 - this.map.get(this.last).getQuad(ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.animQuad.getValue())), 0.0, 0.0);
         }
     }
 

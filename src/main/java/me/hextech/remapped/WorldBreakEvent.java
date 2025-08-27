@@ -2,7 +2,7 @@ package me.hextech.remapped;
 
 import me.hextech.remapped.Event;
 import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
-import net.minecraft.client.render.BlockBreakingInfo;
+import net.minecraft.entity.player.BlockBreakingInfo;
 import net.minecraft.util.math.BlockPos;
 
 public class WorldBreakEvent
@@ -15,10 +15,10 @@ extends Event_auduwKaxKOWXRtyJkCPb {
     }
 
     public BlockPos getPos() {
-        return this.blockBreakingInfo.method_13991();
+        return this.blockBreakingInfo.getPos();
     }
 
     public int getId() {
-        return this.blockBreakingInfo.method_34868();
+        return this.blockBreakingInfo.getActorId();
     }
 }

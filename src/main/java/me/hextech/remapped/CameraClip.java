@@ -24,11 +24,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
-        if (CameraClip.mc.field_1690.method_31044() == Perspective.field_26666 && this.noFront.getValue()) {
-            CameraClip.mc.field_1690.method_31043(Perspective.field_26664);
+        if (CameraClip.mc.options.getPerspective() == Perspective.THIRD_PERSON_FRONT && this.noFront.getValue()) {
+            CameraClip.mc.options.setPerspective(Perspective.FIRST_PERSON);
         }
         this.animation.setLength(this.animateTime.getValueInt());
-        if (CameraClip.mc.field_1690.method_31044() == Perspective.field_26664) {
+        if (CameraClip.mc.options.getPerspective() == Perspective.FIRST_PERSON) {
             if (!this.first) {
                 this.first = true;
                 this.animation.reset();
@@ -40,7 +40,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public double getDistance() {
-        double quad = CameraClip.mc.field_1690.method_31044() == Perspective.field_26664 ? 1.0 - this.animation.easeOutQuad() : this.animation.easeOutQuad();
+        double quad = CameraClip.mc.options.getPerspective() == Perspective.FIRST_PERSON ? 1.0 - this.animation.easeOutQuad() : this.animation.easeOutQuad();
         return 1.0 + (this.distance.getValue() - 1.0) * quad;
     }
 }

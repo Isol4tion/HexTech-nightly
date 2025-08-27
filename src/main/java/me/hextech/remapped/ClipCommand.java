@@ -21,17 +21,17 @@ extends Command {
             this.sendUsage();
             return;
         }
-        double x = ClipCommand.mc.player.getX() + Double.parseDouble(parameters[0]);
+        double x = ClipCommand.mc.player.method_23317() + Double.parseDouble(parameters[0]);
         if (!this.isNumeric(parameters[1])) {
             this.sendUsage();
             return;
         }
-        double y = ClipCommand.mc.player.getY() + Double.parseDouble(parameters[1]);
+        double y = ClipCommand.mc.player.method_23318() + Double.parseDouble(parameters[1]);
         if (!this.isNumeric(parameters[2])) {
             this.sendUsage();
             return;
         }
-        double z = ClipCommand.mc.player.getZ() + Double.parseDouble(parameters[2]);
+        double z = ClipCommand.mc.player.method_23321() + Double.parseDouble(parameters[2]);
         ClipCommand.mc.player.method_5814(x, y, z);
         DecimalFormat df = new DecimalFormat("0.0");
         CommandManager.sendChatMessage("\u00a7a[\u221a] \u00a7fTeleported to \u00a7eX:" + df.format(x) + " Y:" + df.format(y) + " Z:" + df.format(z));

@@ -79,7 +79,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static void doRender(MatrixStack matrixStack, float partialTicks, Entity entity, Color color, Aura_nurTqHTNjexQmuWdDgIn mode) {
         switch (mode.ordinal()) {
             case 0: {
-                Render3DUtil.draw3DBox(matrixStack, ((IEntity)entity).getDimensions().method_30757(new Vec3d(MathUtil.interpolate(entity.field_6038, entity.getX(), partialTicks), MathUtil.interpolate(entity.field_5971, entity.getY(), partialTicks), MathUtil.interpolate(entity.field_5989, entity.getZ(), partialTicks))).method_1009(0.0, 0.1, 0.0), color, false, true);
+                Render3DUtil.draw3DBox(matrixStack, ((IEntity)entity).getDimensions().getBoxAt(new Vec3d(MathUtil.interpolate(entity.lastRenderX, entity.getX(), partialTicks), MathUtil.interpolate(entity.lastRenderY, entity.getY(), partialTicks), MathUtil.interpolate(entity.lastRenderZ, entity.getZ(), partialTicks))).expand(0.0, 0.1, 0.0), color, false, true);
                 break;
             }
             case 1: {
@@ -168,22 +168,22 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.check()) {
             return;
         }
-        if (this.rotate.getValue() && !this.faceVector(target.method_19538().method_1031(0.0, 1.5, 0.0))) {
+        if (this.rotate.getValue() && !this.faceVector(target.getPos().add(0.0, 1.5, 0.0))) {
             return;
         }
-        int slot = InventoryUtil.findItemInventorySlot(Items.field_22022);
+        int slot = InventoryUtil.findItemInventorySlot(Items.NETHERITE_SWORD);
         if (this.ghost.getValue()) {
             this.sweeping = true;
-            InventoryUtil.inventorySwap(slot, Aura.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Aura.mc.player.method_31548().selectedSlot);
         }
         this.ghostTimer.reset();
         if (!this.ghost.getValue() && Criticals.INSTANCE.isOn()) {
             Criticals.INSTANCE.doCrit();
         }
-        Aura.mc.field_1761.method_2918((PlayerEntity)Aura.mc.player, target);
-        EntityUtil.swingHand(Hand.field_5808, this.swingMode.getValue());
+        Aura.mc.interactionManager.attackEntity((PlayerEntity)Aura.mc.player, target);
+        EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
         if (this.ghost.getValue()) {
-            InventoryUtil.inventorySwap(slot, Aura.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Aura.mc.player.method_31548().selectedSlot);
             this.sweeping = false;
         }
         this.attackTicks = 0;
@@ -196,7 +196,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.directionVec = directionVec;
         float[] angle = EntityUtil.getLegitRotations(directionVec);
-        if (Math.abs(MathHelper.method_15393((float)(angle[0] - this.lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.method_15393((float)(angle[1] - this.lastPitch))) < this.fov.getValueFloat()) {
+        if (Math.abs(MathHelper.wrapDegrees((float)(angle[0] - this.lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees((float)(angle[1] - this.lastPitch))) < this.fov.getValueFloat()) {
             EntityUtil.sendYawAndPitch(angle[0], angle[1]);
             return true;
         }
@@ -207,7 +207,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Entity target = null;
         double distance = this.range.getValue();
         double maxHealth = 36.0;
-        for (Entity entity : Aura.mc.world.method_18112()) {
+        for (Entity entity : Aura.mc.world.getEntities()) {
             if (!this.isEnemy(entity) || !Aura.mc.player.method_6057(entity) && (double)Aura.mc.player.method_5739(entity) > this.wallRange.getValue() || !CombatUtil.isValid(entity, this.range.getValue())) continue;
             if (target == null) {
                 target = entity;
@@ -257,7 +257,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (steps < 1.0f && angle != null) {
             float packetPitch;
             float packetYaw = this.lastYaw;
-            float diff = MathHelper.method_15393((float)(angle[0] - packetYaw));
+            float diff = MathHelper.wrapDegrees((float)(angle[0] - packetYaw));
             if (Math.abs(diff) > 90.0f * steps) {
                 angle[0] = packetYaw + diff * (90.0f * steps / Math.abs(diff));
             }
@@ -268,47 +268,23 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return new float[]{angle[0], angle[1]};
     }
 
-    public static final class _PJzsesCBLMlruCifoKuT
-    extends Enum<_PJzsesCBLMlruCifoKuT> {
-        public static final /* enum */ _PJzsesCBLMlruCifoKuT General;
-        public static final /* enum */ _PJzsesCBLMlruCifoKuT Rotate;
-        public static final /* enum */ _PJzsesCBLMlruCifoKuT Target;
-        public static final /* enum */ _PJzsesCBLMlruCifoKuT Render;
+    public static enum _PJzsesCBLMlruCifoKuT {
+        General,
+        Rotate,
+        Target,
+        Render;
 
-        public static _PJzsesCBLMlruCifoKuT[] values() {
-            return null;
-        }
-
-        public static _PJzsesCBLMlruCifoKuT valueOf(String string) {
-            return null;
-        }
     }
 
-    public static final class _VwTXxsLfDdMNyKpyAwyl
-    extends Enum<_VwTXxsLfDdMNyKpyAwyl> {
-        public static final /* enum */ _VwTXxsLfDdMNyKpyAwyl Vanilla;
-        public static final /* enum */ _VwTXxsLfDdMNyKpyAwyl Delay;
+    public static enum _VwTXxsLfDdMNyKpyAwyl {
+        Vanilla,
+        Delay;
 
-        public static _VwTXxsLfDdMNyKpyAwyl[] values() {
-            return null;
-        }
-
-        public static _VwTXxsLfDdMNyKpyAwyl valueOf(String string) {
-            return null;
-        }
     }
 
-    private static final class _EhoXCPdRwyZMhABJnmhT
-    extends Enum<_EhoXCPdRwyZMhABJnmhT> {
-        public static final /* enum */ _EhoXCPdRwyZMhABJnmhT DISTANCE;
-        public static final /* enum */ _EhoXCPdRwyZMhABJnmhT HEALTH;
+    private static enum _EhoXCPdRwyZMhABJnmhT {
+        DISTANCE,
+        HEALTH;
 
-        public static _EhoXCPdRwyZMhABJnmhT[] values() {
-            return null;
-        }
-
-        public static _EhoXCPdRwyZMhABJnmhT valueOf(String string) {
-            return null;
-        }
     }
 }

@@ -21,10 +21,10 @@ import net.minecraft.world.explosion.Explosion;
 
 public class MeteorExplosionUtil
 implements Wrapper {
-    public static final Explosion explosion = new Explosion((World)MeteorExplosionUtil.mc.world, null, 0.0, 0.0, 0.0, 6.0f, false, Explosion.DestructionType.field_18687);
+    public static final Explosion explosion = new Explosion((World)MeteorExplosionUtil.mc.world, null, 0.0, 0.0, 0.0, 6.0f, false, Explosion.DestructionType.DESTROY);
 
     public static double crystalDamage(PlayerEntity player, BlockPos pos, PlayerEntity predict) {
-        return MeteorExplosionUtil.explosionDamage(player, pos.toCenterPos().method_1031(0.0, -0.5, 0.0), predict, 6.0f);
+        return MeteorExplosionUtil.explosionDamage(player, pos.toCenterPos().add(0.0, -0.5, 0.0), predict, 6.0f);
     }
 
     public static double crystalDamage(PlayerEntity player, Vec3d pos, PlayerEntity predict) {
@@ -32,9 +32,9 @@ implements Wrapper {
     }
 
     public static double anchorDamage(PlayerEntity player, BlockPos pos, PlayerEntity predict) {
-        if (BlockUtil.getBlock(pos) == Blocks.field_23152) {
+        if (BlockUtil.getBlock(pos) == Blocks.RESPAWN_ANCHOR) {
             CombatUtil.modifyPos = pos;
-            CombatUtil.modifyBlockState = Blocks.AIR.method_9564();
+            CombatUtil.modifyBlockState = Blocks.AIR.getDefaultState();
             double damage = MeteorExplosionUtil.explosionDamage(player, pos.toCenterPos(), predict, 5.0f);
             CombatUtil.modifyPos = null;
             return damage;
@@ -44,7 +44,7 @@ implements Wrapper {
 
     public static double explosionDamage(PlayerEntity player, Vec3d pos, PlayerEntity predict, float power) {
         double modDistance;
-        if (player != null && player.method_31549().field_7477) {
+        if (player != null && player.getAbilities().creativeMode) {
             return 0.0;
         }
         if (predict == null) {
@@ -58,11 +58,11 @@ implements Wrapper {
         double damage = (impact * impact + impact) / 2.0 * 7.0 * 10.0 + 1.0;
         damage = MeteorExplosionUtil.getDamageForDifficulty(damage);
         damage = MeteorExplosionUtil.resistanceReduction((LivingEntity)player, damage);
-        damage = DamageUtil.method_5496((float)((float)damage), (float)player.method_6096(), (float)((float)player.method_5996(EntityAttributes.field_23725).method_6194()));
+        damage = DamageUtil.method_5496((float)((float)damage), (float)player.method_6096(), (float)((float)player.method_5996(EntityAttributes.field_23725).getValue()));
         ((IExplosion)explosion).setWorld((World)MeteorExplosionUtil.mc.world);
-        ((IExplosion)explosion).setX(pos.field_1352);
-        ((IExplosion)explosion).setY(pos.field_1351);
-        ((IExplosion)explosion).setZ(pos.field_1350);
+        ((IExplosion)explosion).setX(pos.x);
+        ((IExplosion)explosion).setY(pos.y);
+        ((IExplosion)explosion).setZ(pos.z);
         ((IExplosion)explosion).setPower(power);
         damage = MeteorExplosionUtil.blastProtReduction((Entity)player, damage, explosion);
         if (damage < 0.0) {
@@ -81,7 +81,7 @@ implements Wrapper {
     }
 
     private static double blastProtReduction(Entity player, double damage, Explosion explosion) {
-        int protLevel = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)MeteorExplosionUtil.mc.world.method_48963().method_48807(explosion));
+        int protLevel = EnchantmentHelper.method_8219((Iterable)player.method_5661(), (DamageSource)MeteorExplosionUtil.mc.world.method_48963().explosion(explosion));
         if (protLevel > 20) {
             protLevel = 20;
         }
@@ -90,7 +90,7 @@ implements Wrapper {
 
     private static double resistanceReduction(LivingEntity player, double damage) {
         if (player.method_6059(StatusEffects.field_5907)) {
-            int lvl = player.method_6112(StatusEffects.field_5907).method_5578() + 1;
+            int lvl = player.method_6112(StatusEffects.field_5907).getAmplifier() + 1;
             damage *= 1.0 - (double)lvl * 0.2;
         }
         return damage < 0.0 ? 0.0 : damage;

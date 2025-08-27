@@ -22,19 +22,19 @@ public abstract class MixinWorld {
             BlockState tempState;
             if (CombatUtil.terrainIgnore || CombatUtil.modifyPos != null) {
                 WorldChunk worldChunk2 = Wrapper.mc.world.method_8497(pos.method_10263() >> 4, pos.method_10260() >> 4);
-                BlockState tempState2 = worldChunk2.getBlockState(pos);
+                BlockState tempState2 = worldChunk2.method_8320(pos);
                 if (CombatUtil.modifyPos != null && pos.equals((Object)CombatUtil.modifyPos)) {
                     cir.setReturnValue((Object)CombatUtil.modifyBlockState);
                     return;
                 }
                 if (CombatUtil.terrainIgnore) {
-                    if (tempState2.getBlock() == Blocks.field_10540 || tempState2.getBlock() == Blocks.field_9987 || tempState2.getBlock() == Blocks.field_10443 || tempState2.getBlock() == Blocks.field_23152 || tempState2.getBlock() == Blocks.field_22108) {
+                    if (tempState2.method_26204() == Blocks.OBSIDIAN || tempState2.method_26204() == Blocks.BEDROCK || tempState2.method_26204() == Blocks.ENDER_CHEST || tempState2.method_26204() == Blocks.RESPAWN_ANCHOR || tempState2.method_26204() == Blocks.NETHERITE_BLOCK) {
                         return;
                     }
-                    cir.setReturnValue((Object)Blocks.field_10124.method_9564());
+                    cir.setReturnValue((Object)Blocks.AIR.getDefaultState());
                 }
-            } else if (MineTweak.INSTANCE.isActive && (tempState = (worldChunk = Wrapper.mc.world.method_8497(pos.method_10263() >> 4, pos.method_10260() >> 4)).getBlockState(pos)).getBlock() == Blocks.field_9987) {
-                cir.setReturnValue((Object)Blocks.field_10124.method_9564());
+            } else if (MineTweak.INSTANCE.isActive && (tempState = (worldChunk = Wrapper.mc.world.method_8497(pos.method_10263() >> 4, pos.method_10260() >> 4)).method_8320(pos)).method_26204() == Blocks.BEDROCK) {
+                cir.setReturnValue((Object)Blocks.AIR.getDefaultState());
             }
         }
     }

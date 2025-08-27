@@ -96,7 +96,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Object t = event.getPacket();
         if (t instanceof GameMessageS2CPacket) {
             GameMessageS2CPacket e = (GameMessageS2CPacket)t;
-            String message = String.valueOf(e.comp_763());
+            String message = String.valueOf(e.content());
             if (message.contains(Desktop.mc.player.method_5477().getString()) && this.mention.getValue()) {
                 this.icon.displayMessage("NullPoint", "New chat mention!", TrayIcon.MessageType.INFO);
             }

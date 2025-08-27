@@ -24,14 +24,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         Direction f = HitboxDesync.mc.player.method_5735();
         Box bb = HitboxDesync.mc.player.method_5829();
-        Vec3d center = bb.method_1005();
-        Vec3d offset = new Vec3d(f.method_23955());
-        Vec3d fin = this.merge(Vec3d.method_24954((Vec3i)BlockPos.method_49638((Position)center)).method_1031(0.5, 0.0, 0.5).method_1019(offset.method_1021(0.20000996883537)), f);
-        HitboxDesync.mc.player.method_5814(fin.field_1352 == 0.0 ? HitboxDesync.mc.player.getX() : fin.field_1352, HitboxDesync.mc.player.getY(), fin.field_1350 == 0.0 ? HitboxDesync.mc.player.getZ() : fin.field_1350);
+        Vec3d center = bb.getCenter();
+        Vec3d offset = new Vec3d(f.getUnitVector());
+        Vec3d fin = this.merge(Vec3d.of((Vec3i)BlockPos.ofFloored((Position)center)).add(0.5, 0.0, 0.5).add(offset.multiply(0.20000996883537)), f);
+        HitboxDesync.mc.player.method_5814(fin.x == 0.0 ? HitboxDesync.mc.player.method_23317() : fin.x, HitboxDesync.mc.player.method_23318(), fin.z == 0.0 ? HitboxDesync.mc.player.method_23321() : fin.z);
         this.disable();
     }
 
     private Vec3d merge(Vec3d a, Direction facing) {
-        return new Vec3d(a.field_1352 * (double)Math.abs(facing.method_23955().x()), a.field_1351 * (double)Math.abs(facing.method_23955().y()), a.field_1350 * (double)Math.abs(facing.method_23955().z()));
+        return new Vec3d(a.x * (double)Math.abs(facing.getUnitVector().x()), a.y * (double)Math.abs(facing.getUnitVector().y()), a.z * (double)Math.abs(facing.getUnitVector().z()));
     }
 }

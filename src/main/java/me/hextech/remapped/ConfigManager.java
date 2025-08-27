@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -30,8 +31,8 @@ import org.apache.commons.io.IOUtils;
 public class ConfigManager
 implements Wrapper {
     public static boolean canSave = true;
-    public static File options = new File(ConfigManager.mc.field_1697, "options.txt");
-    public static File bindFile = new File(ConfigManager.mc.field_1697, "binds.txt");
+    public static File options = new File(ConfigManager.mc.runDirectory, "options.txt");
+    public static File bindFile = new File(ConfigManager.mc.runDirectory, "binds.txt");
     private final Hashtable<String, String> settings = new Hashtable();
     private final Hashtable<String, String> bindSettings = new Hashtable();
 
@@ -129,7 +130,7 @@ implements Wrapper {
             }
         }
         catch (Exception ex) {
-            System.out.println("[HexTech-nightly Cracked By NoWhisper] Failed to save settings");
+            System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to save settings");
         }
         try {
             pw = new PrintWriter(new OutputStreamWriter((OutputStream)new FileOutputStream(bindFile), StandardCharsets.UTF_8));
@@ -148,7 +149,7 @@ implements Wrapper {
             }
         }
         catch (Exception ex) {
-            System.out.println("[HexTech-nightly Cracked By NoWhisper] Failed to save bind settings");
+            System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to save bind settings");
         }
     }
 
@@ -161,16 +162,16 @@ implements Wrapper {
     }
 
     private void readFile(File file, Hashtable<String, String> table) {
-        Splitter COLON = Splitter.on(':').limit(2);
+        Splitter COLON = Splitter.on((char)':').limit(2);
         if (!file.exists()) {
             return;
         }
         try {
-            List<String> lines = IOUtils.readLines((InputStream)new FileInputStream(file), StandardCharsets.UTF_8);
+            List lines = IOUtils.readLines((InputStream)new FileInputStream(file), (Charset)StandardCharsets.UTF_8);
             for (String line : lines) {
                 try {
-                    Iterator<String> it = COLON.split(line).iterator();
-                    table.put(it.next(), it.next());
+                    Iterator it = COLON.split((CharSequence)line).iterator();
+                    table.put((String)it.next(), (String)it.next());
                 }
                 catch (Exception ignored) {
                     System.out.println("Skipping bad line: " + line);
@@ -178,7 +179,7 @@ implements Wrapper {
             }
         }
         catch (IOException ex) {
-            System.out.println("[HexTech-nightly Cracked By NoWhisper] Failed to load " + file.getName());
+            System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to load " + file.getName());
         }
     }
 

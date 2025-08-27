@@ -32,7 +32,7 @@ extends ReentrantThreadExecutor<Runnable> {
     @Shadow
     public int field_1771;
     @Shadow
-    public ClientPlayerEntity player;
+    public ClientPlayerEntity field_1724;
     @Shadow
     public HitResult field_1765;
     @Shadow
@@ -41,7 +41,7 @@ extends ReentrantThreadExecutor<Runnable> {
     @Shadow
     public ParticleManager field_1713;
     @Shadow
-    public ClientWorld world;
+    public ClientWorld field_1687;
 
     public MixinMinecraftClient(String string) {
         super(string);
@@ -77,17 +77,17 @@ extends ReentrantThreadExecutor<Runnable> {
 
     @Inject(method={"handleBlockBreaking"}, at={@At(value="HEAD")}, cancellable=true)
     private void handleBlockBreaking(boolean breaking, CallbackInfo ci) {
-        if (this.field_1771 <= 0 && this.player.method_6115() && MineTweak.INSTANCE.multiTask()) {
-            if (breaking && this.field_1765 != null && this.field_1765.method_17783() == HitResult.Type.field_1332) {
+        if (this.field_1771 <= 0 && this.field_1724.method_6115() && MineTweak.INSTANCE.multiTask()) {
+            if (breaking && this.field_1765 != null && this.field_1765.getType() == HitResult.Type.BLOCK) {
                 Direction direction;
                 BlockHitResult blockHitResult = (BlockHitResult)this.field_1765;
-                BlockPos blockPos = blockHitResult.method_17777();
-                if (!this.world.getBlockState(blockPos).method_26215() && this.field_1761.method_2902(blockPos, direction = blockHitResult.method_17780())) {
-                    this.field_1713.method_3054(blockPos, direction);
-                    this.player.method_6104(Hand.field_5808);
+                BlockPos blockPos = blockHitResult.getBlockPos();
+                if (!this.field_1687.method_8320(blockPos).method_26215() && this.field_1761.updateBlockBreakingProgress(blockPos, direction = blockHitResult.getSide())) {
+                    this.field_1713.addBlockBreakingParticles(blockPos, direction);
+                    this.field_1724.method_6104(Hand.MAIN_HAND);
                 }
             } else {
-                this.field_1761.method_2925();
+                this.field_1761.cancelBlockBreaking();
             }
             ci.cancel();
         }
@@ -96,7 +96,7 @@ extends ReentrantThreadExecutor<Runnable> {
     @Inject(at={@At(value="TAIL")}, method={"tick()V"})
     public void tickTail(CallbackInfo info) {
         HexTech.SERVER.run();
-        if (this.world != null) {
+        if (this.field_1687 != null) {
             HexTech.update();
         }
         HexTech.ROTATE.run();

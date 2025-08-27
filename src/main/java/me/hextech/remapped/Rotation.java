@@ -26,14 +26,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private static Vec3d movementInputToVelocity(Vec3d movementInput, float speed, float yaw) {
-        double d = movementInput.method_1027();
+        double d = movementInput.lengthSquared();
         if (d < 1.0E-7) {
-            return Vec3d.field_1353;
+            return Vec3d.ZERO;
         }
-        Vec3d vec3d = (d > 1.0 ? movementInput.method_1029() : movementInput).method_1021((double)speed);
-        float f = MathHelper.method_15374((float)(yaw * ((float)Math.PI / 180)));
-        float g = MathHelper.method_15362((float)(yaw * ((float)Math.PI / 180)));
-        return new Vec3d(vec3d.field_1352 * (double)g - vec3d.field_1350 * (double)f, vec3d.field_1351, vec3d.field_1350 * (double)g + vec3d.field_1352 * (double)f);
+        Vec3d vec3d = (d > 1.0 ? movementInput.normalize() : movementInput).multiply((double)speed);
+        float f = MathHelper.sin((float)(yaw * ((float)Math.PI / 180)));
+        float g = MathHelper.cos((float)(yaw * ((float)Math.PI / 180)));
+        return new Vec3d(vec3d.x * (double)g - vec3d.z * (double)f, vec3d.y, vec3d.z * (double)g + vec3d.x * (double)f);
     }
 
     @EventHandler
@@ -44,7 +44,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (HoleSnap.INSTANCE.isOn()) {
             return;
         }
-        if (Rotation.mc.player.method_3144()) {
+        if (Rotation.mc.player.isRiding()) {
             return;
         }
         if (e.isPre()) {
@@ -63,7 +63,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (HoleSnap.INSTANCE.isOn()) {
             return;
         }
-        if (Rotation.mc.player.method_3144()) {
+        if (Rotation.mc.player.isRiding()) {
             return;
         }
         event.setVelocity(Rotation.movementInputToVelocity(event.getMovementInput(), event.getSpeed(), fixRotation));
@@ -77,15 +77,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (HoleSnap.INSTANCE.isOn()) {
             return;
         }
-        if (Rotation.mc.player.method_3144() || FreeCam.INSTANCE.isOn()) {
+        if (Rotation.mc.player.isRiding() || FreeCam.INSTANCE.isOn()) {
             return;
         }
-        float mF = Rotation.mc.player.field_3913.field_3905;
-        float mS = Rotation.mc.player.field_3913.field_3907;
+        float mF = Rotation.mc.player.input.movementForward;
+        float mS = Rotation.mc.player.input.movementSideways;
         float delta = (Rotation.mc.player.method_36454() - fixRotation) * ((float)Math.PI / 180);
-        float cos = MathHelper.method_15362((float)delta);
-        float sin = MathHelper.method_15374((float)delta);
-        Rotation.mc.player.field_3913.field_3907 = Math.round(mS * cos - mF * sin);
-        Rotation.mc.player.field_3913.field_3905 = Math.round(mF * cos + mS * sin);
+        float cos = MathHelper.cos((float)delta);
+        float sin = MathHelper.sin((float)delta);
+        Rotation.mc.player.input.movementSideways = Math.round(mS * cos - mF * sin);
+        Rotation.mc.player.input.movementForward = Math.round(mF * cos + mS * sin);
     }
 }

@@ -77,7 +77,7 @@ extends Component {
         }
         int y = (int)((double)this.parent.getY() + this.currentOffset - 2.0);
         int width = this.parent.getWidth();
-        MatrixStack matrixStack = drawContext.method_51448();
+        MatrixStack matrixStack = drawContext.getMatrices();
         Object text = this.setting.getValue();
         if (this.setting.isListening() && this.b) {
             text = (String)text + "_";

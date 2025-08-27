@@ -176,7 +176,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             placePos = null;
             return;
         }
-        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.method_27983().equals(World.field_25179)) {
+        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.method_27983().equals(World.OVERWORLD)) {
             placePos = null;
             return;
         }
@@ -234,9 +234,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.Break.getValue()) {
             return;
         }
-        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.getBlockState(pos).getBlock() instanceof BedBlock) {
+        if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.method_8320(pos).method_26204() instanceof BedBlock) {
             Direction side = BlockUtil.getClickSide(pos);
-            Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().method_10263() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().method_10264() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().method_10260() * 0.5);
+            Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
             if (this.rotate.getValue() && !this.faceVector(directionVec)) {
                 return;
             }
@@ -244,9 +244,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return;
             }
             this.breakTimer.reset();
-            EntityUtil.swingHand(Hand.field_5808, this.swingMode.getValue());
+            EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
             BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
-            BedAura_BzCWaQEhnpenizjBqrRp.mc.player.field_3944.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, result, BlockUtil.getWorldActionId(BedAura_BzCWaQEhnpenizjBqrRp.mc.world)));
+            BedAura_BzCWaQEhnpenizjBqrRp.mc.player.networkHandler.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(BedAura_BzCWaQEhnpenizjBqrRp.mc.world)));
         }
     }
 
@@ -259,15 +259,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             placePos = null;
             return;
         }
-        int oldSlot = BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_31548().field_7545;
+        int oldSlot = BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_31548().selectedSlot;
         Direction facing = null;
         for (Direction i : Direction.values()) {
-            if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.clientCanPlace(pos.offset(i), false) || !BlockUtil.canClick(pos.offset(i).method_10074()) || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i))) continue;
+            if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.clientCanPlace(pos.offset(i), false) || !BlockUtil.canClick(pos.offset(i).down()) || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i))) continue;
             facing = i;
             break;
         }
         if (facing != null) {
-            Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)Direction.UP.method_10163().method_10263() * 0.5, (double)pos.method_10264() + 0.5 + (double)Direction.UP.method_10163().method_10264() * 0.5, (double)pos.method_10260() + 0.5 + (double)Direction.UP.method_10163().method_10260() * 0.5);
+            Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)Direction.UP.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)Direction.UP.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)Direction.UP.method_10163().getZ() * 0.5);
             if (this.rotate.getValue() && !this.faceVector(directionVec)) {
                 return;
             }
@@ -277,9 +277,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.placeTimer.reset();
             this.doSwap(bedSlot);
             if (this.yawDeceive.getValue()) {
-                HoleKickTest.pistonFacing(facing.method_10153());
+                HoleKickTest.pistonFacing(facing.getOpposite());
             }
-            BlockUtil.clickBlock(pos.offset(facing).method_10074(), Direction.UP, false);
+            BlockUtil.clickBlock(pos.offset(facing).down(), Direction.UP, false);
             if (this.rotate.getValue() && this.sync.getValue()) {
                 EntityUtil.faceVector(directionVec);
             }
@@ -300,8 +300,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.nowBB != null && this.render.getValue() && quad < 1.0) {
             Box bb = this.nowBB;
             if (this.shrink.getValue()) {
-                bb = this.nowBB.method_1002(quad * 0.5, quad * 0.5, quad * 0.5);
-                bb = bb.method_1002(-quad * 0.5, -quad * 0.5, -quad * 0.5);
+                bb = this.nowBB.shrink(quad * 0.5, quad * 0.5, quad * 0.5);
+                bb = bb.shrink(-quad * 0.5, -quad * 0.5, -quad * 0.5);
             }
             if (this.box.getValue()) {
                 Render3DUtil.drawFill(matrixStack, bb, ColorUtil.injectAlpha(this.color.getValue(), (int)(this.boxAlpha.getValue() * Math.abs(quad - 1.0))));
@@ -323,7 +323,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.nowBB = this.lastBB;
             }
             if (this.renderPos == null || !this.renderPos.equals((Object)placePos)) {
-                this.animation.setLength(this.animationTime.getValue() * 1000.0 <= 0.0 ? 0L : (long)(Math.abs(this.nowBB.field_1323 - this.lastBB.field_1323) + Math.abs(this.nowBB.field_1322 - this.lastBB.field_1322) + Math.abs(this.nowBB.field_1321 - this.lastBB.field_1321) <= 5.0 ? (double)((long)((Math.abs(this.nowBB.field_1323 - this.lastBB.field_1323) + Math.abs(this.nowBB.field_1322 - this.lastBB.field_1322) + Math.abs(this.nowBB.field_1321 - this.lastBB.field_1321)) * (this.animationTime.getValue() * 1000.0))) : this.animationTime.getValue() * 5000.0));
+                this.animation.setLength(this.animationTime.getValue() * 1000.0 <= 0.0 ? 0L : (long)(Math.abs(this.nowBB.minX - this.lastBB.minX) + Math.abs(this.nowBB.minY - this.lastBB.minY) + Math.abs(this.nowBB.minZ - this.lastBB.minZ) <= 5.0 ? (double)((long)((Math.abs(this.nowBB.minX - this.lastBB.minX) + Math.abs(this.nowBB.minY - this.lastBB.minY) + Math.abs(this.nowBB.minZ - this.lastBB.minZ)) * (this.animationTime.getValue() * 1000.0))) : this.animationTime.getValue() * 5000.0));
                 this.animation.reset();
                 this.renderPos = placePos;
             }
@@ -333,11 +333,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         double size = this.animation.easeOutQuad();
         if (this.nowBB != null && this.lastBB != null) {
-            if (Math.abs(this.nowBB.field_1323 - this.lastBB.field_1323) + Math.abs(this.nowBB.field_1322 - this.lastBB.field_1322) + Math.abs(this.nowBB.field_1321 - this.lastBB.field_1321) > 16.0) {
+            if (Math.abs(this.nowBB.minX - this.lastBB.minX) + Math.abs(this.nowBB.minY - this.lastBB.minY) + Math.abs(this.nowBB.minZ - this.lastBB.minZ) > 16.0) {
                 this.nowBB = this.lastBB;
             }
             if (this.lastSize != size) {
-                this.nowBB = new Box(this.nowBB.field_1323 + (this.lastBB.field_1323 - this.nowBB.field_1323) * size, this.nowBB.field_1322 + (this.lastBB.field_1322 - this.nowBB.field_1322) * size, this.nowBB.field_1321 + (this.lastBB.field_1321 - this.nowBB.field_1321) * size, this.nowBB.field_1320 + (this.lastBB.field_1320 - this.nowBB.field_1320) * size, this.nowBB.field_1325 + (this.lastBB.field_1325 - this.nowBB.field_1325) * size, this.nowBB.field_1324 + (this.lastBB.field_1324 - this.nowBB.field_1324) * size);
+                this.nowBB = new Box(this.nowBB.minX + (this.lastBB.minX - this.nowBB.minX) * size, this.nowBB.minY + (this.lastBB.minY - this.nowBB.minY) * size, this.nowBB.minZ + (this.lastBB.minZ - this.nowBB.minZ) * size, this.nowBB.maxX + (this.lastBB.maxX - this.nowBB.maxX) * size, this.nowBB.maxY + (this.lastBB.maxY - this.nowBB.maxY) * size, this.nowBB.maxZ + (this.lastBB.maxZ - this.nowBB.maxZ) * size);
                 this.lastSize = size;
             }
         }
@@ -349,7 +349,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventorySwap.getValue()) {
-            InventoryUtil.inventorySwap(slot, BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, BedAura_BzCWaQEhnpenizjBqrRp.mc.player.method_31548().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -357,7 +357,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public float calculateDamage(BlockPos pos, PlayerEntity player, PlayerEntity predict) {
         CombatUtil.modifyPos = pos;
-        CombatUtil.modifyBlockState = Blocks.AIR.method_9564();
+        CombatUtil.modifyBlockState = Blocks.AIR.getDefaultState();
         float damage = this.calculateDamage(pos.toCenterPos(), player, predict);
         CombatUtil.modifyPos = null;
         return damage;
@@ -392,7 +392,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean canPlaceBed(BlockPos pos) {
         if (!(!BlockUtil.canReplace(pos) || this.checkMine.getValue() && BlockUtil.isMining(pos))) {
             for (Direction i : Direction.values()) {
-                if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.isStrictDirection(pos.offset(i).method_10074(), Direction.UP) || !this.isTrueFacing(pos.offset(i), i.method_10153()) || !BlockUtil.clientCanPlace(pos.offset(i), false) || !BlockUtil.canClick(pos.offset(i).method_10074()) || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i))) continue;
+                if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.isStrictDirection(pos.offset(i).down(), Direction.UP) || !this.isTrueFacing(pos.offset(i), i.getOpposite()) || !BlockUtil.clientCanPlace(pos.offset(i), false) || !BlockUtil.canClick(pos.offset(i).down()) || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i))) continue;
                 return true;
             }
         }
@@ -403,8 +403,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.yawDeceive.getValue()) {
             return true;
         }
-        Vec3d hitVec = pos.toCenterPos().method_1019(new Vec3d(0.0, -0.5, 0.0));
-        return Direction.method_10150((double)EntityUtil.getLegitRotations(hitVec)[0]) == facing;
+        Vec3d hitVec = pos.toCenterPos().add(new Vec3d(0.0, -0.5, 0.0));
+        return Direction.fromHorizontalDegrees((double)EntityUtil.getLegitRotations(hitVec)[0]) == facing;
     }
 
     public boolean faceVector(Vec3d directionVec) {
@@ -414,7 +414,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.directionVec = directionVec;
         float[] angle = EntityUtil.getLegitRotations(directionVec);
-        if (Math.abs(MathHelper.method_15393((float)(angle[0] - this.lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.method_15393((float)(angle[1] - this.lastPitch))) < this.fov.getValueFloat()) {
+        if (Math.abs(MathHelper.wrapDegrees((float)(angle[0] - this.lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees((float)(angle[1] - this.lastPitch))) < this.fov.getValueFloat()) {
             if (this.sync.getValue()) {
                 EntityUtil.sendYawAndPitch(angle[0], angle[1]);
             }
@@ -433,7 +433,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (steps < 1.0f && angle != null) {
             float packetPitch;
             float packetYaw = this.lastYaw;
-            float diff = MathHelper.method_15393((float)(angle[0] - this.lastYaw));
+            float diff = MathHelper.wrapDegrees((float)(angle[0] - this.lastYaw));
             if (Math.abs(diff) > 90.0f * steps) {
                 angle[0] = packetYaw + diff * (90.0f * steps / Math.abs(diff));
             }

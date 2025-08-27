@@ -28,18 +28,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (MCP.nullCheck()) {
             return;
         }
-        if (MCP.mc.field_1729.method_35707()) {
+        if (MCP.mc.mouse.wasMiddleButtonClicked()) {
             if (!this.click) {
-                if (MCP.mc.player.method_6047().method_7909() == Items.field_8634) {
+                if (MCP.mc.player.method_6047().getItem() == Items.ENDER_PEARL) {
                     EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(MCP.mc.player.method_36454(), MCP.mc.player.method_36455(), MCP.mc.player.method_24828()));
-                    MCP.mc.player.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, 0));
+                    MCP.mc.player.networkHandler.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
                 } else {
-                    int pearl = this.findItem(Items.field_8634);
+                    int pearl = this.findItem(Items.ENDER_PEARL);
                     if (pearl != -1) {
-                        int old = MCP.mc.player.method_31548().field_7545;
+                        int old = MCP.mc.player.method_31548().selectedSlot;
                         this.doSwap(pearl);
                         EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(MCP.mc.player.method_36454(), MCP.mc.player.method_36455(), MCP.mc.player.method_24828()));
-                        MCP.mc.player.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, 0));
+                        MCP.mc.player.networkHandler.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
                         if (this.inventory.getValue()) {
                             this.doSwap(pearl);
                             EntityUtil.syncInventory();
@@ -57,7 +57,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, MCP.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, MCP.mc.player.method_31548().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

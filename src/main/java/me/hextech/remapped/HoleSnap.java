@@ -59,37 +59,37 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static Vec2f getRotationTo(Vec3d posFrom, Vec3d posTo) {
-        Vec3d vec3d = posTo.method_1020(posFrom);
+        Vec3d vec3d = posTo.subtract(posFrom);
         return HoleSnap.getRotationFromVec(vec3d);
     }
 
     public static void doCircle(MatrixStack matrixStack, Color color, double circleSize, Vec3d pos, int segments) {
-        Vec3d camPos = HoleSnap.mc.method_31975().field_4344.method_19326();
+        Vec3d camPos = HoleSnap.mc.getBlockEntityRenderDispatcher().camera.getPos();
         GL11.glDisable((int)2929);
-        Matrix4f matrix = matrixStack.method_23760().method_23761();
+        Matrix4f matrix = matrixStack.peek().getPositionMatrix();
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
         BufferBuilder bufferBuilder = tessellator.method_1349();
         RenderSystem.setShader(GameRenderer::method_34539);
         RenderSystem.setShaderColor((float)((float)color.getRed() / 255.0f), (float)((float)color.getGreen() / 255.0f), (float)((float)color.getBlue() / 255.0f), (float)((float)color.getAlpha() / 255.0f));
-        bufferBuilder.method_1328(VertexFormat.DrawMode.field_27381, VertexFormats.field_1592);
+        bufferBuilder.method_1328(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION);
         for (double i = 0.0; i < 360.0; i += 360.0 / (double)segments) {
             double x = Math.sin(Math.toRadians(i)) * circleSize;
             double z = Math.cos(Math.toRadians(i)) * circleSize;
-            Vec3d tempPos = new Vec3d(pos.field_1352 + x, pos.field_1351, pos.field_1350 + z).method_1031(-camPos.field_1352, -camPos.field_1351, -camPos.field_1350);
-            bufferBuilder.method_22918(matrix, (float)tempPos.field_1352, (float)tempPos.field_1351, (float)tempPos.field_1350).method_1344();
+            Vec3d tempPos = new Vec3d(pos.x + x, pos.y, pos.z + z).add(-camPos.x, -camPos.y, -camPos.z);
+            bufferBuilder.method_22918(matrix, (float)tempPos.x, (float)tempPos.y, (float)tempPos.z).method_1344();
         }
         tessellator.method_1350();
         GL11.glEnable((int)2929);
     }
 
     private static Vec2f getRotationFromVec(Vec3d vec) {
-        double d = vec.field_1352;
-        double d2 = vec.field_1350;
+        double d = vec.x;
+        double d2 = vec.z;
         double xz = Math.hypot(d, d2);
-        d2 = vec.field_1350;
-        double d3 = vec.field_1352;
+        d2 = vec.z;
+        double d3 = vec.x;
         double yaw = HoleSnap.normalizeAngle(Math.toDegrees(Math.atan2(d2, d3)) - 90.0);
-        double pitch = HoleSnap.normalizeAngle(Math.toDegrees(-Math.atan2(vec.field_1351, xz)));
+        double pitch = HoleSnap.normalizeAngle(Math.toDegrees(-Math.atan2(vec.y, xz)));
         return new Vec2f((float)yaw, (float)pitch);
     }
 
@@ -186,21 +186,21 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Vec3d playerPos = HoleSnap.mc.player.method_19538();
-        this.targetPos = new Vec3d((double)this.holePos.method_10263() + 0.5, HoleSnap.mc.player.getY(), (double)this.holePos.method_10260() + 0.5);
+        this.targetPos = new Vec3d((double)this.holePos.method_10263() + 0.5, HoleSnap.mc.player.method_23318(), (double)this.holePos.method_10260() + 0.5);
         if (CombatUtil.isDoubleHole(this.holePos) && (facing = CombatUtil.is3Block(this.holePos)) != null) {
-            this.targetPos = this.targetPos.method_1019(new Vec3d((double)facing.method_10163().method_10263() * 0.5, (double)facing.method_10163().method_10264() * 0.5, (double)facing.method_10163().method_10260() * 0.5));
+            this.targetPos = this.targetPos.add(new Vec3d((double)facing.method_10163().getX() * 0.5, (double)facing.method_10163().getY() * 0.5, (double)facing.method_10163().getZ() * 0.5));
         }
         this.applyTimer = true;
         this.resetMove = true;
-        float rotation = HoleSnap.getRotationTo((Vec3d)playerPos, (Vec3d)this.targetPos).field_1343;
+        float rotation = HoleSnap.getRotationTo((Vec3d)playerPos, (Vec3d)this.targetPos).x;
         float yawRad = rotation / 180.0f * (float)Math.PI;
-        double dist = playerPos.method_1022(this.targetPos);
+        double dist = playerPos.distanceTo(this.targetPos);
         double cappedSpeed = Math.min(0.2873, dist);
         double x = (double)(-((float)Math.sin(yawRad))) * cappedSpeed;
         double z = (double)((float)Math.cos(yawRad)) * cappedSpeed;
         event.setX(x);
         event.setZ(z);
-        if (Math.abs(x) < 0.1 && Math.abs(z) < 0.1 && playerPos.field_1351 <= (double)this.holePos.method_10264() + 0.5) {
+        if (Math.abs(x) < 0.1 && Math.abs(z) < 0.1 && playerPos.y <= (double)this.holePos.method_10264() + 0.5) {
             this.disable();
         }
         this.stuckTicks = HoleSnap.mc.player.field_5976 ? ++this.stuckTicks : 0;
@@ -213,7 +213,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         GL11.glEnable((int)3042);
         Color color = this.color.getValue();
-        Vec3d pos = new Vec3d(this.targetPos.field_1352, (double)this.holePos.method_10264(), this.targetPos.method_10215());
+        Vec3d pos = new Vec3d(this.targetPos.x, (double)this.holePos.method_10264(), this.targetPos.method_10215());
         if (this.fade.getValue()) {
             double temp = 0.01;
             for (double i = 0.0; i < this.circleSize.getValue(); i += temp) {

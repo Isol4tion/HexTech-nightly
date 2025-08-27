@@ -43,9 +43,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private static void prepareScale(MatrixStack matrixStack) {
-        matrixStack.method_22905(-1.0f, -1.0f, 1.0f);
-        matrixStack.method_22905(1.6f, 1.8f, 1.6f);
-        matrixStack.method_46416(0.0f, -1.501f, 0.0f);
+        matrixStack.scale(-1.0f, -1.0f, 1.0f);
+        matrixStack.scale(1.6f, 1.8f, 1.6f);
+        matrixStack.translate(0.0f, -1.501f, 0.0f);
     }
 
     @Override
@@ -59,12 +59,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate((int)770, (int)771, (int)0, (int)1);
         this.popList.forEach(person -> {
-            person.modelPlayer.field_3482.field_3665 = false;
-            person.modelPlayer.field_3479.field_3665 = false;
-            person.modelPlayer.field_3484.field_3665 = false;
-            person.modelPlayer.field_3486.field_3665 = false;
-            person.modelPlayer.field_3483.field_3665 = false;
-            person.modelPlayer.field_3394.field_3665 = false;
+            person.modelPlayer.leftPants.visible = false;
+            person.modelPlayer.rightPants.visible = false;
+            person.modelPlayer.leftSleeve.visible = false;
+            person.modelPlayer.rightSleeve.visible = false;
+            person.modelPlayer.jacket.visible = false;
+            person.modelPlayer.field_3394.visible = false;
             this.renderEntity(matrixStack, (LivingEntity)person.player, (BipedEntityModel<PlayerEntity>)person.modelPlayer, person.getAlpha());
         });
         RenderSystem.disableBlend();
@@ -76,39 +76,39 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (e.getPlayer().equals((Object)PopChams_WNWBvFQQYNjRmTHDKpkM.mc.player) || PopChams_WNWBvFQQYNjRmTHDKpkM.mc.world == null) {
             return;
         }
-        PopChams_YempjTMivfvNUIHSOfBB entity = new PopChams_YempjTMivfvNUIHSOfBB(this, (World)PopChams_WNWBvFQQYNjRmTHDKpkM.mc.world, BlockPos.field_10980, e.getPlayer().field_6283, new GameProfile(e.getPlayer().method_5667(), e.getPlayer().method_5477().getString()));
+        PopChams_YempjTMivfvNUIHSOfBB entity = new PopChams_YempjTMivfvNUIHSOfBB(this, (World)PopChams_WNWBvFQQYNjRmTHDKpkM.mc.world, BlockPos.ORIGIN, e.getPlayer().field_6283, new GameProfile(e.getPlayer().method_5667(), e.getPlayer().method_5477().getString()));
         entity.method_5719((Entity)e.getPlayer());
         entity.field_6283 = e.getPlayer().field_6283;
         entity.field_6241 = e.getPlayer().field_6241;
         entity.field_6251 = e.getPlayer().field_6251;
         entity.field_6279 = e.getPlayer().field_6279;
         entity.method_5660(e.getPlayer().method_5715());
-        entity.field_42108.method_48567(e.getPlayer().field_42108.method_48566());
-        entity.field_42108.field_42111 = e.getPlayer().field_42108.method_48569();
+        entity.field_42108.setSpeed(e.getPlayer().field_42108.getSpeed());
+        entity.field_42108.pos = e.getPlayer().field_42108.getPos();
         this.popList.add(new PopChams(this, entity));
     }
 
     private void renderEntity(MatrixStack matrices, LivingEntity entity, BipedEntityModel<PlayerEntity> modelBase, int alpha) {
-        double x = entity.getX() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.method_1561().field_4686.method_19326().method_10216();
-        double y = entity.getY() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.method_1561().field_4686.method_19326().method_10214();
-        double z = entity.getZ() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.method_1561().field_4686.method_19326().method_10215();
-        matrices.method_22903();
-        matrices.method_46416((float)x, (float)y, (float)z);
-        matrices.method_22907(RotationAxis.field_40716.rotation(MathUtil.rad(180.0f - entity.field_6283)));
+        double x = entity.method_23317() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.getEntityRenderDispatcher().camera.getPos().method_10216();
+        double y = entity.method_23318() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.getEntityRenderDispatcher().camera.getPos().method_10214();
+        double z = entity.method_23321() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.getEntityRenderDispatcher().camera.getPos().method_10215();
+        matrices.push();
+        matrices.translate((float)x, (float)y, (float)z);
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotation(MathUtil.rad(180.0f - entity.bodyYaw)));
         PopChams_WNWBvFQQYNjRmTHDKpkM.prepareScale(matrices);
-        modelBase.method_17086((LivingEntity)((PlayerEntity)entity), entity.field_42108.method_48569(), entity.field_42108.method_48566(), mc.getTickDelta());
-        modelBase.method_17087((LivingEntity)((PlayerEntity)entity), entity.field_42108.method_48569(), entity.field_42108.method_48566(), (float)entity.field_6012, entity.field_6241 - entity.field_6283, entity.method_36455());
+        modelBase.method_17086((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), mc.method_1488());
+        modelBase.method_17087((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float)entity.field_6012, entity.headYaw - entity.bodyYaw, entity.method_36455());
         RenderSystem.enableBlend();
         GL11.glDisable((int)2929);
-        Tessellator tessellator = Tessellator.method_1348();
+        Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.method_1349();
         RenderSystem.blendFuncSeparate((GlStateManager.SrcFactor)GlStateManager.SrcFactor.SRC_ALPHA, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, (GlStateManager.SrcFactor)GlStateManager.SrcFactor.ONE, (GlStateManager.DstFactor)GlStateManager.DstFactor.ZERO);
         RenderSystem.setShader(GameRenderer::method_34540);
-        buffer.method_1328(VertexFormat.DrawMode.field_27382, VertexFormats.field_1576);
+        buffer.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
         modelBase.method_2828(matrices, (VertexConsumer)buffer, 10, 0, (float)this.color.getValue().getRed() / 255.0f, (float)this.color.getValue().getGreen() / 255.0f, (float)this.color.getValue().getBlue() / 255.0f, (float)alpha / 255.0f);
         tessellator.method_1350();
         RenderSystem.disableBlend();
         GL11.glEnable((int)2929);
-        matrices.method_22909();
+        matrices.pop();
     }
 }

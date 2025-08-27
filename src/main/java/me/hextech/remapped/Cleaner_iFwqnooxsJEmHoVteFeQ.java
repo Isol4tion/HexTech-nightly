@@ -98,7 +98,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static Block getBlock(BlockPos pos) {
-        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock();
+        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_8320(pos).method_26204();
     }
 
     @Override
@@ -130,7 +130,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
                 for (int y : new int[]{0, 1, 2}) {
                     BlockPos pos = new BlockPosX(playerPos.method_10216() + (double)x, playerPos.method_10214(), playerPos.method_10215() + (double)z).method_10086(y);
-                    if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock() != Blocks.field_10343) continue;
+                    if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_8320(pos).method_26204() != Blocks.COBWEB) continue;
                     qzw.add(pos);
                 }
             }
@@ -173,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (this.fireFix.getValue()) {
                     CombatUtil.terrainIgnore = false;
                 }
-                if (!((double)pos.method_10264() - Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getY() <= 1.0) || !this.canTouch(pos.method_10074()) || !this.canPlaceCrystal(pos, false, false) || !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.isAir(pos) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(pos).getBlock() == Blocks.field_10036 || !this.place.getValue()) continue;
+                if (!((double)pos.method_10264() - Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_23318() <= 1.0) || !this.canTouch(pos.down()) || !this.canPlaceCrystal(pos, false, false) || !Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_22347(pos) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_8320(pos).method_26204() == Blocks.FIRE || !this.place.getValue()) continue;
                 this.doPlace(pos);
             }
         }
@@ -187,17 +187,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doPlace(BlockPos pos) {
         this.noPosTimer.reset();
-        if (!(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6047().method_7909().equals(Items.field_8301) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().method_7909().equals(Items.field_8301) || this.findCrystal())) {
+        if (!(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6047().getItem().equals(Items.END_CRYSTAL) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().getItem().equals(Items.END_CRYSTAL) || this.findCrystal())) {
             return;
         }
-        if (!this.canTouch(pos.method_10074())) {
+        if (!this.canTouch(pos.down())) {
             return;
         }
-        BlockPos obsPos = pos.method_10074();
+        BlockPos obsPos = pos.down();
         Direction facing = BlockUtil.getClickSide(obsPos);
-        Vec3d vec = obsPos.toCenterPos().method_1031((double)facing.method_10163().method_10263() * 0.5, (double)facing.method_10163().method_10264() * 0.5, (double)facing.method_10163().method_10260() * 0.5);
+        Vec3d vec = obsPos.toCenterPos().add((double)facing.method_10163().getX() * 0.5, (double)facing.method_10163().getY() * 0.5, (double)facing.method_10163().getZ() * 0.5);
         if (facing != Direction.UP && facing != Direction.DOWN) {
-            vec = vec.method_1031(0.0, 0.45, 0.0);
+            vec = vec.add(0.0, 0.45, 0.0);
         }
         if (this.rotate.getValue() && !this.faceVector(vec)) {
             return;
@@ -205,14 +205,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.placeTimer.passedMs((long)this.placeDelay.getValue())) {
             return;
         }
-        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6047().method_7909().equals(Items.field_8301) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().method_7909().equals(Items.field_8301)) {
+        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6047().getItem().equals(Items.END_CRYSTAL) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().getItem().equals(Items.END_CRYSTAL)) {
             this.placeTimer.reset();
             this.syncPos = pos;
             this.placeCrystal(pos);
         } else {
             this.placeTimer.reset();
             this.syncPos = pos;
-            int old = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_31548().field_7545;
+            int old = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_31548().selectedSlot;
             int crystal = this.getCrystal();
             if (crystal == -1) {
                 return;
@@ -237,10 +237,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private int getCrystal() {
         if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Silent || this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Normal) {
-            return InventoryUtil.findItem(Items.field_8301);
+            return InventoryUtil.findItem(Items.END_CRYSTAL);
         }
         if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
-            return InventoryUtil.findItemInventorySlot(Items.field_8301);
+            return InventoryUtil.findItemInventorySlot(Items.END_CRYSTAL);
         }
         return -1;
     }
@@ -249,15 +249,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Silent || this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Normal) {
             InventoryUtil.switchToSlot(slot);
         } else if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
-            InventoryUtil.inventorySwap(slot, Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_31548().selectedSlot);
         }
     }
 
     private void placeCrystal(BlockPos pos) {
-        boolean offhand = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().method_7909() == Items.field_8301;
-        BlockPos obsPos = pos.method_10074();
+        boolean offhand = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6079().getItem() == Items.END_CRYSTAL;
+        BlockPos obsPos = pos.down();
         Direction facing = BlockUtil.getClickSide(obsPos);
-        BlockUtil.clickBlock(obsPos, facing, false, offhand ? Hand.field_5810 : Hand.field_5808, this.swingMode.getValue());
+        BlockUtil.clickBlock(obsPos, facing, false, offhand ? Hand.OFF_HAND : Hand.MAIN_HAND, this.swingMode.getValue());
     }
 
     private void doBreak(BlockPos pos) {
@@ -266,7 +266,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Iterator<EndCrystalEntity> iterator = BlockUtil.getEndCrystals(new Box((double)pos.method_10263(), (double)pos.method_10264(), (double)pos.method_10260(), (double)(pos.method_10263() + 1), (double)(pos.method_10264() + 2), (double)(pos.method_10260() + 1))).iterator();
         if (iterator.hasNext()) {
             EndCrystalEntity entity = iterator.next();
-            if (this.rotate.getValue() && this.onBreak.getValue() && !this.faceVector(entity.method_19538().method_1031(0.0, this.yOffset.getValue(), 0.0))) {
+            if (this.rotate.getValue() && this.onBreak.getValue() && !this.faceVector(entity.method_19538().add(0.0, this.yOffset.getValue(), 0.0))) {
                 return;
             }
             if (!CombatUtil.breakTimer.passedMs((long)this.breakDelay.getValue())) {
@@ -274,9 +274,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             CombatUtil.breakTimer.reset();
             this.syncPos = pos;
-            mc.method_1562().method_52787((Packet)PlayerInteractEntityC2SPacket.method_34206((Entity)entity, (boolean)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_5715()));
+            mc.getNetworkHandler().method_52787((Packet)PlayerInteractEntityC2SPacket.attack((Entity)entity, (boolean)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_5715()));
             Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_7350();
-            EntityUtil.swingHand(Hand.field_5808, this.swingMode.getValue());
+            EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
             if (pos != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player != null && this.afterBreak.getValue() && (!this.yawStep.getValue() || !this.checkFov.getValue() || HexTech.ROTATE.inFov(entity.method_19538(), this.fov.getValueFloat()))) {
                 this.doPlace(pos);
             }
@@ -289,11 +289,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public boolean behindWall(BlockPos pos) {
         Vec3d testVec = new Vec3d((double)pos.method_10263() + 0.5, (double)pos.method_10264() + 1.7, (double)pos.method_10260() + 0.5);
-        BlockHitResult result = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.field_17558, RaycastContext.FluidHandling.field_1348, (Entity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player));
-        if (result == null || result.method_17783() == HitResult.Type.field_1333) {
+        BlockHitResult result = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_17742(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player));
+        if (result == null || result.getType() == HitResult.Type.MISS) {
             return false;
         }
-        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getEyePos().method_1022(pos.toCenterPos().method_1031(0.0, -0.5, 0.0)) > this.wallRange.getValue();
+        return Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_33571().distanceTo(pos.toCenterPos().add(0.0, -0.5, 0.0)) > this.wallRange.getValue();
     }
 
     /*
@@ -303,26 +303,26 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean canTouch(BlockPos pos) {
         Direction side = BlockUtil.getClickSideStrict(pos);
         if (side == null) return false;
-        Vec3d vec3d = new Vec3d((double)side.method_10163().method_10263() * 0.5, (double)side.method_10163().method_10264() * 0.5, (double)side.method_10163().method_10260() * 0.5);
-        if (!(pos.toCenterPos().method_1019(vec3d).method_1022(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getEyePos()) <= this.range.getValue())) return false;
+        Vec3d vec3d = new Vec3d((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5);
+        if (!(pos.toCenterPos().add(vec3d).distanceTo(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_33571()) <= this.range.getValue())) return false;
         return true;
     }
 
     public boolean canPlaceCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
-        BlockPos obsPos = pos.method_10074();
+        BlockPos obsPos = pos.down();
         BlockPos boost = obsPos.up();
         BlockPos boost2 = boost.up();
-        return (Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.field_9987 || Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.field_10540) && BlockUtil.getClickSideStrict(obsPos) != null && this.noEntityBlockCrystal(boost, ignoreCrystal, ignoreItem) && this.noEntityBlockCrystal(boost2, ignoreCrystal, ignoreItem) && (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.isAir(boost) || BlockUtil.hasCrystal(boost) && Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(boost) == Blocks.field_10036);
+        return (Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.BEDROCK || Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(obsPos) == Blocks.OBSIDIAN) && BlockUtil.getClickSideStrict(obsPos) != null && this.noEntityBlockCrystal(boost, ignoreCrystal, ignoreItem) && this.noEntityBlockCrystal(boost2, ignoreCrystal, ignoreItem) && (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_22347(boost) || BlockUtil.hasCrystal(boost) && Cleaner_iFwqnooxsJEmHoVteFeQ.getBlock(boost) == Blocks.FIRE);
     }
 
     private boolean noEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
         for (Entity entity : BlockUtil.getEntities(new Box(pos))) {
-            if (!entity.method_5805() || ignoreItem && entity instanceof ItemEntity) continue;
+            if (!entity.isAlive() || ignoreItem && entity instanceof ItemEntity) continue;
             if (entity instanceof EndCrystalEntity) {
                 if (!ignoreCrystal) {
                     return false;
                 }
-                if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6057(entity) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getEyePos().method_1022(entity.method_19538()) <= this.wallRange.getValue()) continue;
+                if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_6057(entity) || Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.method_33571().distanceTo(entity.getPos()) <= this.wallRange.getValue()) continue;
             }
             return false;
         }
@@ -335,18 +335,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         Vec3d start = new Vec3d((double)explosionCenter.method_10263() + 0.5, (double)explosionCenter.method_10264() + 0.5, (double)explosionCenter.method_10260() + 0.5);
         Vec3d end = new Vec3d((double)targetBlock.method_10263() + 0.5, (double)targetBlock.method_10264() + 0.5, (double)targetBlock.method_10260() + 0.5);
-        Vec3d direction = end.method_1020(start).method_1029();
-        double distance = start.method_1022(end);
+        Vec3d direction = end.subtract(start).normalize();
+        double distance = start.distanceTo(end);
         double step = 0.5;
         for (double d = 0.0; d < distance; d += step) {
             float resistance;
-            Vec3d currentPos = start.method_1019(direction.method_1021(d));
+            Vec3d currentPos = start.add(direction.multiply(d));
             BlockPosX currentBlockPos = new BlockPosX(currentPos);
             BlockState blockState = null;
             if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null) {
-                blockState = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState((BlockPos)currentBlockPos);
+                blockState = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_8320((BlockPos)currentBlockPos);
             }
-            if (!(blockState == null || !blockState.method_26215() && (resistance = blockState.getBlock().method_9520()) > power)) continue;
+            if (!(blockState == null || !blockState.method_26215() && (resistance = blockState.method_26204().getBlastResistance()) > power)) continue;
             return false;
         }
         return true;
@@ -355,19 +355,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public boolean willBlockBeDestroyedByExplosion(World world, BlockPos explosionPos, BlockPos pos2, float power) {
         float blastResistance;
         float exposure;
-        Explosion explosion = new Explosion(world, null, (double)explosionPos.method_10263(), (double)explosionPos.method_10264(), (double)explosionPos.method_10260(), power, false, Explosion.DestructionType.field_18687);
-        BlockState blockState = world.getBlockState(pos2);
-        float doubleExplosionSize = 2.0f * explosion.method_55107();
-        double distancedsize = (double)MathHelper.method_15355((float)((float)explosionPos.method_10262((Vec3i)pos2))) / (double)doubleExplosionSize;
+        Explosion explosion = new Explosion(world, null, (double)explosionPos.method_10263(), (double)explosionPos.method_10264(), (double)explosionPos.method_10260(), power, false, Explosion.DestructionType.DESTROY);
+        BlockState blockState = world.method_8320(pos2);
+        float doubleExplosionSize = 2.0f * explosion.getPower();
+        double distancedsize = (double)MathHelper.sqrt((float)((float)explosionPos.method_10262((Vec3i)pos2))) / (double)doubleExplosionSize;
         float damage = (float)((1.0 - distancedsize) * (double)(exposure = this.getExposure(explosionPos.toCenterPos(), pos2)));
-        return (double)damage > (double)(blastResistance = blockState.getBlock().method_9520()) * 3.5;
+        return (double)damage > (double)(blastResistance = blockState.method_26204().getBlastResistance()) * 3.5;
     }
 
     public float getExposure(Vec3d source, BlockPos pos2) {
         Box box = new Box(pos2);
-        double d = 1.0 / ((box.field_1320 - box.field_1323) * 2.0 + 1.0);
-        double e = 1.0 / ((box.field_1325 - box.field_1322) * 2.0 + 1.0);
-        double f = 1.0 / ((box.field_1324 - box.field_1321) * 2.0 + 1.0);
+        double d = 1.0 / ((box.maxX - box.minX) * 2.0 + 1.0);
+        double e = 1.0 / ((box.maxY - box.minY) * 2.0 + 1.0);
+        double f = 1.0 / ((box.maxZ - box.minZ) * 2.0 + 1.0);
         double g = (1.0 - Math.floor(1.0 / d) * d) / 2.0;
         double h = (1.0 - Math.floor(1.0 / f) * f) / 2.0;
         if (!(d < 0.0 || e < 0.0 || f < 0.0)) {
@@ -376,11 +376,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (double k = 0.0; k <= 1.0; k += d) {
                 for (double l = 0.0; l <= 1.0; l += e) {
                     for (double m = 0.0; m <= 1.0; m += f) {
-                        double n = MathHelper.method_16436((double)k, (double)box.field_1323, (double)box.field_1320);
-                        double o = MathHelper.method_16436((double)l, (double)box.field_1322, (double)box.field_1325);
-                        double p = MathHelper.method_16436((double)m, (double)box.field_1321, (double)box.field_1324);
+                        double n = MathHelper.lerp((double)k, (double)box.minX, (double)box.maxX);
+                        double o = MathHelper.lerp((double)l, (double)box.minY, (double)box.maxY);
+                        double p = MathHelper.lerp((double)m, (double)box.minZ, (double)box.maxZ);
                         Vec3d vec3d = new Vec3d(n + g, o, p + h);
-                        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.raycast(new RaycastContext(vec3d, source, RaycastContext.ShapeType.field_17558, RaycastContext.FluidHandling.field_1348, (Entity)new Cleaner_KppopygwsrtGITfPgSgG((Cleaner_iFwqnooxsJEmHoVteFeQ)this, (Cleaner_iFwqnooxsJEmHoVteFeQ)this, (BlockPos)pos2).predict)).method_17783() == HitResult.Type.field_1333) {
+                        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.method_17742(new RaycastContext(vec3d, source, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)new Cleaner_KppopygwsrtGITfPgSgG((Cleaner_iFwqnooxsJEmHoVteFeQ)this, (Cleaner_iFwqnooxsJEmHoVteFeQ)this, (BlockPos)pos2).predict)).method_17783() == HitResult.Type.MISS) {
                             ++i;
                         }
                         ++j;

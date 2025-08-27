@@ -43,10 +43,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (MoveUp.mc.player != null && (!this.onlyburrow.getValue() || Util.isBurrowed((PlayerEntity)MoveUp.mc.player, !this.pEndChest.getValue()))) {
             switch (this.mode.getValue().ordinal()) {
                 case 1: {
-                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + 0.4199999868869781, MoveUp.mc.player.getZ(), false));
-                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + 0.7531999805212017, MoveUp.mc.player.getZ(), false));
-                    MoveUp.mc.player.method_5814(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + (double)this.setPosition.getValueFloat(), MoveUp.mc.player.getZ());
-                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY(), MoveUp.mc.player.getZ(), true));
+                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.method_23317(), MoveUp.mc.player.method_23318() + 0.4199999868869781, MoveUp.mc.player.method_23321(), false));
+                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.method_23317(), MoveUp.mc.player.method_23318() + 0.7531999805212017, MoveUp.mc.player.method_23321(), false));
+                    MoveUp.mc.player.method_5814(MoveUp.mc.player.method_23317(), MoveUp.mc.player.method_23318() + (double)this.setPosition.getValueFloat(), MoveUp.mc.player.method_23321());
+                    mc.getNetworkHandler().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.method_23317(), MoveUp.mc.player.method_23318(), MoveUp.mc.player.method_23321(), true));
                     break;
                 }
                 case 0: {
@@ -55,10 +55,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     double velocity = 0.42;
                     while (y < 1.1) {
                         velocity = (velocity - 0.08) * 0.98;
-                        this.sendPacket((Packet<?>)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + (y += velocity), MoveUp.mc.player.getZ(), false));
+                        this.sendPacket((Packet<?>)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.method_23317(), MoveUp.mc.player.method_23318() + (y += velocity), MoveUp.mc.player.method_23321(), false));
                     }
                     for (int i = 0; i < this.rubberbandPackets.getValueInt(); ++i) {
-                        this.sendPacket((Packet<?>)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + y + (double)this.rubberbandOffset.getValueInt(), MoveUp.mc.player.getZ(), false));
+                        this.sendPacket((Packet<?>)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.method_23317(), MoveUp.mc.player.method_23318() + y + (double)this.rubberbandOffset.getValueInt(), MoveUp.mc.player.method_23321(), false));
                     }
                     break;
                 }
@@ -72,17 +72,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static final class _FPLgygTQIdxRiYXqovqv
-    extends Enum<_FPLgygTQIdxRiYXqovqv> {
-        public static final /* enum */ _FPLgygTQIdxRiYXqovqv Packet;
-        public static final /* enum */ _FPLgygTQIdxRiYXqovqv Jump;
+    public static enum _FPLgygTQIdxRiYXqovqv {
+        Packet,
+        Jump;
 
-        public static _FPLgygTQIdxRiYXqovqv[] values() {
-            return null;
-        }
-
-        public static _FPLgygTQIdxRiYXqovqv valueOf(String string) {
-            return null;
-        }
     }
 }

@@ -34,7 +34,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (!BowBomb.mc.player.method_6115() || BowBomb.mc.player.method_6030().method_7909() != Items.field_8102) {
+        if (!BowBomb.mc.player.method_6115() || BowBomb.mc.player.method_6030().getItem() != Items.BOW) {
             this.activeTimer.reset();
         }
     }
@@ -46,34 +46,34 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Object t = event.getPacket();
-        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).method_12363() == PlayerActionC2SPacket.Action.field_12974) {
-            BowBomb.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)BowBomb.mc.player, ClientCommandC2SPacket.Mode.field_12981));
+        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).getAction() == PlayerActionC2SPacket.Action.RELEASE_USE_ITEM) {
+            BowBomb.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)BowBomb.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
             if (this.exploit.getValue() == _rjdFZKIVfyUHfSoAeHLl.Fast) {
                 for (int i = 0; i < this.getRuns(); ++i) {
-                    this.spoof(BowBomb.mc.player.getX(), this.minimize.getValue() ? BowBomb.mc.player.getY() : BowBomb.mc.player.getY() - 1.0E-10, BowBomb.mc.player.getZ(), true);
-                    this.spoof(BowBomb.mc.player.getX(), BowBomb.mc.player.getY() + 1.0E-10, BowBomb.mc.player.getZ(), false);
+                    this.spoof(BowBomb.mc.player.method_23317(), this.minimize.getValue() ? BowBomb.mc.player.method_23318() : BowBomb.mc.player.method_23318() - 1.0E-10, BowBomb.mc.player.method_23321(), true);
+                    this.spoof(BowBomb.mc.player.method_23317(), BowBomb.mc.player.method_23318() + 1.0E-10, BowBomb.mc.player.method_23321(), false);
                 }
             }
             if (this.exploit.getValue() == _rjdFZKIVfyUHfSoAeHLl.Strong) {
                 for (int i = 0; i < this.getRuns(); ++i) {
-                    this.spoof(BowBomb.mc.player.getX(), BowBomb.mc.player.getY() + 1.0E-10, BowBomb.mc.player.getZ(), false);
-                    this.spoof(BowBomb.mc.player.getX(), this.minimize.getValue() ? BowBomb.mc.player.getY() : BowBomb.mc.player.getY() - 1.0E-10, BowBomb.mc.player.getZ(), true);
+                    this.spoof(BowBomb.mc.player.method_23317(), BowBomb.mc.player.method_23318() + 1.0E-10, BowBomb.mc.player.method_23321(), false);
+                    this.spoof(BowBomb.mc.player.method_23317(), this.minimize.getValue() ? BowBomb.mc.player.method_23318() : BowBomb.mc.player.method_23318() - 1.0E-10, BowBomb.mc.player.method_23321(), true);
                 }
             }
             if (this.exploit.getValue() == _rjdFZKIVfyUHfSoAeHLl.Phobos) {
                 for (int i = 0; i < this.getRuns(); ++i) {
-                    this.spoof(BowBomb.mc.player.getX(), BowBomb.mc.player.getY() + 1.3E-13, BowBomb.mc.player.getZ(), true);
-                    this.spoof(BowBomb.mc.player.getX(), BowBomb.mc.player.getY() + 2.7E-13, BowBomb.mc.player.getZ(), false);
+                    this.spoof(BowBomb.mc.player.method_23317(), BowBomb.mc.player.method_23318() + 1.3E-13, BowBomb.mc.player.method_23321(), true);
+                    this.spoof(BowBomb.mc.player.method_23317(), BowBomb.mc.player.method_23318() + 2.7E-13, BowBomb.mc.player.method_23321(), false);
                 }
             }
             if (this.exploit.getValue() == _rjdFZKIVfyUHfSoAeHLl.Strict) {
                 double[] strict_direction = new double[]{100.0 * -Math.sin(Math.toRadians(BowBomb.mc.player.method_36454())), 100.0 * Math.cos(Math.toRadians(BowBomb.mc.player.method_36454()))};
                 for (int i = 0; i < this.getRuns(); ++i) {
                     if (this.random.nextBoolean()) {
-                        this.spoof(BowBomb.mc.player.getX() - strict_direction[0], BowBomb.mc.player.getY(), BowBomb.mc.player.getZ() - strict_direction[1], false);
+                        this.spoof(BowBomb.mc.player.method_23317() - strict_direction[0], BowBomb.mc.player.method_23318(), BowBomb.mc.player.method_23321() - strict_direction[1], false);
                         continue;
                     }
-                    this.spoof(BowBomb.mc.player.getX() + strict_direction[0], BowBomb.mc.player.getY(), BowBomb.mc.player.getZ() + strict_direction[1], true);
+                    this.spoof(BowBomb.mc.player.method_23317() + strict_direction[0], BowBomb.mc.player.method_23318(), BowBomb.mc.player.method_23321() + strict_direction[1], true);
                 }
             }
             this.delayTimer.reset();
@@ -82,9 +82,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void spoof(double x, double y, double z, boolean ground) {
         if (this.rotation.getValue()) {
-            BowBomb.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.Full(x, y, z, BowBomb.mc.player.method_36454(), BowBomb.mc.player.method_36455(), ground));
+            BowBomb.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.Full(x, y, z, BowBomb.mc.player.method_36454(), BowBomb.mc.player.method_36455(), ground));
         } else {
-            BowBomb.mc.player.field_3944.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(x, y, z, ground));
+            BowBomb.mc.player.networkHandler.method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(x, y, z, ground));
         }
     }
 
@@ -92,19 +92,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return this.spoofs.getValueInt();
     }
 
-    private static final class _rjdFZKIVfyUHfSoAeHLl
-    extends Enum<_rjdFZKIVfyUHfSoAeHLl> {
-        public static final /* enum */ _rjdFZKIVfyUHfSoAeHLl Strong;
-        public static final /* enum */ _rjdFZKIVfyUHfSoAeHLl Fast;
-        public static final /* enum */ _rjdFZKIVfyUHfSoAeHLl Strict;
-        public static final /* enum */ _rjdFZKIVfyUHfSoAeHLl Phobos;
+    private static enum _rjdFZKIVfyUHfSoAeHLl {
+        Strong,
+        Fast,
+        Strict,
+        Phobos;
 
-        public static _rjdFZKIVfyUHfSoAeHLl[] values() {
-            return null;
-        }
-
-        public static _rjdFZKIVfyUHfSoAeHLl valueOf(String string) {
-            return null;
-        }
     }
 }

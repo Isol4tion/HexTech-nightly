@@ -60,7 +60,7 @@ implements Wrapper {
     }
 
     public double getTextOffsetY() {
-        Objects.requireNonNull(Wrapper.mc.field_1772);
+        Objects.requireNonNull(Wrapper.mc.textRenderer);
         return (double)(this.defaultHeight - 9) / 2.0 + 1.0;
     }
 }

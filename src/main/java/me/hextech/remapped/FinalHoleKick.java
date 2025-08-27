@@ -61,13 +61,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static void pistonFacing(Direction i) {
-        if (i == Direction.field_11034) {
+        if (i == Direction.EAST) {
             EntityUtil.sendYawAndPitch(-90.0f, 5.0f);
-        } else if (i == Direction.field_11039) {
+        } else if (i == Direction.WEST) {
             EntityUtil.sendYawAndPitch(90.0f, 5.0f);
-        } else if (i == Direction.field_11043) {
+        } else if (i == Direction.NORTH) {
             EntityUtil.sendYawAndPitch(180.0f, 5.0f);
-        } else if (i == Direction.field_11035) {
+        } else if (i == Direction.SOUTH) {
             EntityUtil.sendYawAndPitch(0.0f, 5.0f);
         }
     }
@@ -78,7 +78,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     boolean isTargetHere(BlockPos pos, Entity target) {
-        return new Box(pos).method_994(target.method_5829());
+        return new Box(pos).intersects(target.method_5829());
     }
 
     @Override
@@ -115,54 +115,54 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (Direction i : Direction.values()) {
                 BlockPos pos2;
                 if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos2 = EntityUtil.getEntityPos((Entity)player).offset(i), (Entity)player) || !FinalHoleKick.mc.world.method_39454((Entity)player, new Box(pos2))) continue;
-                if (this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.method_10153()), i)) {
+                if (this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.getOpposite()), i)) {
                     this.timer.reset();
                     return;
                 }
-                if (!this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.method_10153()).up(), i)) continue;
+                if (!this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.getOpposite()).up(), i)) continue;
                 this.timer.reset();
                 return;
             }
             for (float x : offset = new float[]{-0.25f, 0.0f, 0.25f}) {
                 for (float z : offset) {
-                    playerPos = new BlockPosX(player.getX() + (double)x, player.getY() + 0.5, player.getZ() + (double)z);
+                    playerPos = new BlockPosX(player.method_23317() + (double)x, player.method_23318() + 0.5, player.method_23321() + (double)z);
                     for (Direction i : Direction.values()) {
-                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), (Entity)player) || !FinalHoleKick.mc.world.method_39454((Entity)player, new Box(pos))) continue;
-                        if (this.tryPush(playerPos.offset(i.method_10153()), i)) {
+                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.method_10093(i), (Entity)player) || !FinalHoleKick.mc.world.method_39454((Entity)player, new Box(pos))) continue;
+                        if (this.tryPush(playerPos.method_10093(i.getOpposite()), i)) {
                             this.timer.reset();
                             return;
                         }
-                        if (!this.tryPush(playerPos.offset(i.method_10153()).up(), i)) continue;
+                        if (!this.tryPush(playerPos.method_10093(i.getOpposite()).up(), i)) continue;
                         this.timer.reset();
                         return;
                     }
                 }
             }
-            if (!FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 2.5, player.getZ())))) {
+            if (!FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.method_23317(), player.method_23318() + 2.5, player.method_23321())))) {
                 for (Direction i : Direction.values()) {
                     if (i == Direction.UP || i == Direction.DOWN) continue;
                     BlockPos pos3 = EntityUtil.getEntityPos((Entity)player).offset(i);
-                    Box box = player.method_5829().method_997(new Vec3d((double)i.method_10148(), (double)i.method_10164(), (double)i.method_10165()));
-                    if (this.getBlock(pos3.up()) == Blocks.field_10379 || FinalHoleKick.mc.world.method_39454((Entity)player, box.method_989(0.0, 1.0, 0.0)) || this.isTargetHere(pos3, (Entity)player)) continue;
-                    if (this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.method_10153()).up(), i)) {
+                    Box box = player.method_5829().offset(new Vec3d((double)i.getOffsetX(), (double)i.getOffsetY(), (double)i.getOffsetZ()));
+                    if (this.getBlock(pos3.up()) == Blocks.PISTON_HEAD || FinalHoleKick.mc.world.method_39454((Entity)player, box.offset(0.0, 1.0, 0.0)) || this.isTargetHere(pos3, (Entity)player)) continue;
+                    if (this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.getOpposite()).up(), i)) {
                         this.timer.reset();
                         return;
                     }
-                    if (!this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.method_10153()), i)) continue;
+                    if (!this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.getOpposite()), i)) continue;
                     this.timer.reset();
                     return;
                 }
             }
             for (float x : offset) {
                 for (float z : offset) {
-                    playerPos = new BlockPosX(player.getX() + (double)x, player.getY() + 0.5, player.getZ() + (double)z);
+                    playerPos = new BlockPosX(player.method_23317() + (double)x, player.method_23318() + 0.5, player.method_23321() + (double)z);
                     for (Direction i : Direction.values()) {
-                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), (Entity)player)) continue;
-                        if (this.tryPush(playerPos.offset(i.method_10153()).up(), i)) {
+                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.method_10093(i), (Entity)player)) continue;
+                        if (this.tryPush(playerPos.method_10093(i.getOpposite()).up(), i)) {
                             this.timer.reset();
                             return;
                         }
-                        if (!this.tryPush(playerPos.offset(i.method_10153()), i)) continue;
+                        if (!this.tryPush(playerPos.method_10093(i.getOpposite()), i)) continue;
                         this.timer.reset();
                         return;
                     }
@@ -176,14 +176,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
      */
     private boolean tryPush(BlockPos piston, Direction direction) {
         BlockState state;
-        if (!FinalHoleKick.mc.world.isAir(piston.offset(direction))) {
+        if (!FinalHoleKick.mc.world.method_22347(piston.offset(direction))) {
             return false;
         }
         if (this.isTrueFacing(piston, direction) && this.facingCheck(piston) && BlockUtil.clientCanPlace(piston)) {
             boolean canPower = false;
             if (BlockUtil.getPlaceSide(piston, this.placeRange.getValue()) != null) {
                 CombatUtil.modifyPos = piston;
-                CombatUtil.modifyBlockState = Blocks.field_10560.method_9564();
+                CombatUtil.modifyBlockState = Blocks.PISTON.getDefaultState();
                 for (Direction direction2 : Direction.values()) {
                     if (this.getBlock(piston.offset(direction2)) != this.getBlockType()) continue;
                     canPower = true;
@@ -203,12 +203,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     Direction side = BlockUtil.getPlaceSide(piston);
                     if (side != null) {
                         if (this.rotate.getValue()) {
-                            EntityUtil.facePosSide(piston.offset(side), side.method_10153());
+                            EntityUtil.facePosSide(piston.offset(side), side.getOpposite());
                         }
                         if (this.yawDeceive.getValue()) {
-                            FinalHoleKick.pistonFacing(direction.method_10153());
+                            FinalHoleKick.pistonFacing(direction.getOpposite());
                         }
-                        old = FinalHoleKick.mc.player.method_31548().field_7545;
+                        old = FinalHoleKick.mc.player.method_31548().selectedSlot;
                         this.doSwap(pistonSlot);
                         BlockUtil.placeBlock(piston, false, this.pistonPacket.getValue());
                         if (this.inventory.getValue()) {
@@ -218,7 +218,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                             this.doSwap(old);
                         }
                         if (this.rotate.getValue() && this.yawDeceive.getValue()) {
-                            EntityUtil.facePosSide(piston.offset(side), side.method_10153());
+                            EntityUtil.facePosSide(piston.offset(side), side.getOpposite());
                         }
                         for (Direction i : Direction.values()) {
                             if (this.getBlock(piston.offset(i)) != this.getBlockType()) continue;
@@ -232,7 +232,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         }
                         for (Direction i : Direction.values()) {
                             if (i == Direction.UP && this.torch.getValue() || !BlockUtil.canPlace(piston.offset(i), this.placeRange.getValue())) continue;
-                            int oldSlot = FinalHoleKick.mc.player.method_31548().field_7545;
+                            int oldSlot = FinalHoleKick.mc.player.method_31548().selectedSlot;
                             int powerSlot = this.findBlock(this.getBlockType());
                             this.doSwap(powerSlot);
                             BlockUtil.placeBlock(piston.offset(i), this.rotate.getValue(), this.powerPacket.getValue());
@@ -261,7 +261,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     if (i != Direction.UP || !this.torch.getValue()) {
                         if (powerFacing != null) break;
                         CombatUtil.modifyPos = piston.offset(i);
-                        CombatUtil.modifyBlockState = this.getBlockType().method_9564();
+                        CombatUtil.modifyBlockState = this.getBlockType().getDefaultState();
                         if (BlockUtil.getPlaceSide(piston) != null) {
                             powerFacing = i;
                         }
@@ -273,7 +273,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     ++var7_21;
                 }
                 if (powerFacing != null) {
-                    int oldSlot = FinalHoleKick.mc.player.method_31548().field_7545;
+                    int oldSlot = FinalHoleKick.mc.player.method_31548().selectedSlot;
                     int powerSlot = this.findBlock(this.getBlockType());
                     this.doSwap(powerSlot);
                     BlockUtil.placeBlock(piston.offset(powerFacing), this.rotate.getValue(), this.powerPacket.getValue());
@@ -284,17 +284,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         this.doSwap(oldSlot);
                     }
                     CombatUtil.modifyPos = piston.offset(powerFacing);
-                    CombatUtil.modifyBlockState = this.getBlockType().method_9564();
+                    CombatUtil.modifyBlockState = this.getBlockType().getDefaultState();
                     int n = this.findClass(PistonBlock.class);
                     Direction side2 = BlockUtil.getPlaceSide(piston);
                     if (side2 != null) {
                         if (this.rotate.getValue()) {
-                            EntityUtil.facePosSide(piston.offset(side2), side2.method_10153());
+                            EntityUtil.facePosSide(piston.offset(side2), side2.getOpposite());
                         }
                         if (this.yawDeceive.getValue()) {
-                            FinalHoleKick.pistonFacing(direction.method_10153());
+                            FinalHoleKick.pistonFacing(direction.getOpposite());
                         }
-                        int old = FinalHoleKick.mc.player.method_31548().field_7545;
+                        int old = FinalHoleKick.mc.player.method_31548().selectedSlot;
                         this.doSwap(n);
                         BlockUtil.placeBlock(piston, false, this.pistonPacket.getValue());
                         if (this.inventory.getValue()) {
@@ -304,7 +304,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                             this.doSwap(old);
                         }
                         if (this.rotate.getValue() && this.yawDeceive.getValue()) {
-                            EntityUtil.facePosSide(piston.offset(side2), side2.method_10153());
+                            EntityUtil.facePosSide(piston.offset(side2), side2.getOpposite());
                         }
                     }
                     CombatUtil.modifyPos = null;
@@ -312,7 +312,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
         }
-        if ((state = FinalHoleKick.mc.world.getBlockState(piston)).getBlock() instanceof PistonBlock && this.getBlockState(piston).method_11654((Property)FacingBlock.field_10927) == direction) {
+        if ((state = FinalHoleKick.mc.world.method_8320(piston)).method_26204() instanceof PistonBlock && this.getBlockState(piston).method_11654((Property)FacingBlock.field_10927) == direction) {
             for (Direction direction4 : Direction.values()) {
                 if (this.getBlock(piston.offset(direction4)) != this.getBlockType()) continue;
                 if (this.autoDisable.getValue()) {
@@ -323,7 +323,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             for (Direction direction5 : Direction.values()) {
                 if (direction5 == Direction.UP && this.torch.getValue() || !BlockUtil.canPlace(piston.offset(direction5), this.placeRange.getValue())) continue;
-                int oldSlot = FinalHoleKick.mc.player.method_31548().field_7545;
+                int oldSlot = FinalHoleKick.mc.player.method_31548().selectedSlot;
                 int powerSlot = this.findBlock(this.getBlockType());
                 this.doSwap(powerSlot);
                 BlockUtil.placeBlock(piston.offset(direction5), this.rotate.getValue(), this.powerPacket.getValue());
@@ -355,14 +355,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (side == null) {
             return false;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().method_10263() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().method_10264() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().method_10260() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
         float[] rotation = EntityUtil.getLegitRotations(directionVec);
-        return MathUtil.getFacingOrder(rotation[0], rotation[1]).method_10153() == facing;
+        return MathUtil.getFacingOrder(rotation[0], rotation[1]).getOpposite() == facing;
     }
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, FinalHoleKick.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, FinalHoleKick.mc.player.method_31548().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -391,24 +391,24 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         float[] offset = new float[]{-0.25f, 0.0f, 0.25f};
         int progress = 0;
-        if (FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.getX() + 1.0, player.getY() + 0.5, player.getZ())))) {
+        if (FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.method_23317() + 1.0, player.method_23318() + 0.5, player.method_23321())))) {
             ++progress;
         }
-        if (FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.getX() - 1.0, player.getY() + 0.5, player.getZ())))) {
+        if (FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.method_23317() - 1.0, player.method_23318() + 0.5, player.method_23321())))) {
             ++progress;
         }
-        if (FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ() + 1.0)))) {
+        if (FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.method_23317(), player.method_23318() + 0.5, player.method_23321() + 1.0)))) {
             ++progress;
         }
-        if (FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ() - 1.0)))) {
+        if (FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.method_23317(), player.method_23318() + 0.5, player.method_23321() - 1.0)))) {
             ++progress;
         }
         for (float x : offset) {
             for (float z : offset) {
-                BlockPosX playerPos = new BlockPosX(player.getX() + (double)x, player.getY() + 0.5, player.getZ() + (double)z);
+                BlockPosX playerPos = new BlockPosX(player.method_23317() + (double)x, player.method_23318() + 0.5, player.method_23321() + (double)z);
                 for (Direction i : Direction.values()) {
                     BlockPos pos;
-                    if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), (Entity)player)) continue;
+                    if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.method_10093(i), (Entity)player)) continue;
                     if (FinalHoleKick.mc.world.method_39454((Entity)player, new Box(pos))) {
                         return true;
                     }
@@ -417,30 +417,30 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
         }
-        if (!FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 2.5, player.getZ())))) {
+        if (!FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.method_23317(), player.method_23318() + 2.5, player.method_23321())))) {
             for (Direction i : Direction.values()) {
                 if (i == Direction.UP || i == Direction.DOWN) continue;
                 BlockPos pos = EntityUtil.getEntityPos((Entity)player).offset(i);
-                Box box = player.method_5829().method_997(new Vec3d((double)i.method_10148(), (double)i.method_10164(), (double)i.method_10165()));
-                if (this.getBlock(pos.up()) == Blocks.field_10379 || FinalHoleKick.mc.world.method_39454((Entity)player, box.method_989(0.0, 1.0, 0.0)) || this.isTargetHere(pos, (Entity)player) || !FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ())))) continue;
+                Box box = player.method_5829().offset(new Vec3d((double)i.getOffsetX(), (double)i.getOffsetY(), (double)i.getOffsetZ()));
+                if (this.getBlock(pos.up()) == Blocks.PISTON_HEAD || FinalHoleKick.mc.world.method_39454((Entity)player, box.offset(0.0, 1.0, 0.0)) || this.isTargetHere(pos, (Entity)player) || !FinalHoleKick.mc.world.method_39454((Entity)player, new Box((BlockPos)new BlockPosX(player.method_23317(), player.method_23318() + 0.5, player.method_23321())))) continue;
                 return true;
             }
         }
-        return (double)progress > this.surroundCheck.getValue() - 1.0 || CombatUtil.isHard(new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ()));
+        return (double)progress > this.surroundCheck.getValue() - 1.0 || CombatUtil.isHard(new BlockPosX(player.method_23317(), player.method_23318() + 0.5, player.method_23321()));
     }
 
     private Block getBlock(BlockPos pos) {
-        return FinalHoleKick.mc.world.getBlockState(pos).getBlock();
+        return FinalHoleKick.mc.world.method_8320(pos).method_26204();
     }
 
     private Block getBlockType() {
         if (this.torch.getValue()) {
-            return Blocks.field_10523;
+            return Blocks.REDSTONE_TORCH;
         }
-        return Blocks.field_10002;
+        return Blocks.REDSTONE_BLOCK;
     }
 
     private BlockState getBlockState(BlockPos pos) {
-        return FinalHoleKick.mc.world.getBlockState(pos);
+        return FinalHoleKick.mc.world.method_8320(pos);
     }
 }

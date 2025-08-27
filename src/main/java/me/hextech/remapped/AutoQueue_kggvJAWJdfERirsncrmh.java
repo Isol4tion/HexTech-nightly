@@ -26,7 +26,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             inQueue = false;
             return;
         }
-        inQueue = InventoryUtil.findItem(Items.field_8251) != -1;
+        inQueue = InventoryUtil.findItem(Items.COMPASS) != -1;
     }
 
     @Override
@@ -44,10 +44,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             GameMessageS2CPacket packet = (GameMessageS2CPacket)object;
             for (String key : asks.keySet()) {
                 String[] abc;
-                if (!packet.comp_763().getString().contains(key)) continue;
+                if (!packet.content().getString().contains(key)) continue;
                 for (String s : abc = new String[]{"A", "B", "C"}) {
-                    if (!packet.comp_763().getString().contains(s + "." + asks.get(key))) continue;
-                    mc.method_1562().method_45729(s.toLowerCase());
+                    if (!packet.content().getString().contains(s + "." + asks.get(key))) continue;
+                    mc.getNetworkHandler().sendChatMessage(s.toLowerCase());
                     return;
                 }
             }

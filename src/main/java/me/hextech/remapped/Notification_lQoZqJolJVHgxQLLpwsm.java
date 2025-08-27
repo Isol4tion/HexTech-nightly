@@ -45,15 +45,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             n = (int)((double)n - 18.0 * notifys.yFade.easeOutQuad());
             String string = notifys.first;
-            double d = notifys.delayed < 5 ? (double)n2 - (double)(Notification_lQoZqJolJVHgxQLLpwsm.mc.field_1772.method_1727(string) + 10) * (1.0 - notifys.endFade.easeOutQuad()) : (double)n2 - (double)(Notification_lQoZqJolJVHgxQLLpwsm.mc.field_1772.method_1727(string) + 10) * notifys.firstFade.easeOutQuad();
-            Render2DUtil.drawRound(drawContext.method_51448(), (int)d, n, 5.0f, 50.0f, 0.0f, this.typeColor.getValue());
-            Render2DUtil.drawRound(drawContext.method_51448(), (int)d + 5, n, 5 + Notification_lQoZqJolJVHgxQLLpwsm.mc.field_1772.method_1727(string), 50.0f, 0.0f, this.fillcolor.getValue());
-            drawContext.method_51433(Notification_lQoZqJolJVHgxQLLpwsm.mc.field_1772, string, 10 + (int)d, 4 + n, new Color(255, 255, 255, 255).getRGB(), true);
+            double d = notifys.delayed < 5 ? (double)n2 - (double)(Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string) + 10) * (1.0 - notifys.endFade.easeOutQuad()) : (double)n2 - (double)(Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string) + 10) * notifys.firstFade.easeOutQuad();
+            Render2DUtil.drawRound(drawContext.getMatrices(), (int)d, n, 5.0f, 50.0f, 0.0f, this.typeColor.getValue());
+            Render2DUtil.drawRound(drawContext.getMatrices(), (int)d + 5, n, 5 + Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string), 50.0f, 0.0f, this.fillcolor.getValue());
+            drawContext.drawText(Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer, string, 10 + (int)d, 4 + n, new Color(255, 255, 255, 255).getRGB(), true);
             if (notifys.delayed < 5) {
                 n = (int)((double)n + 18.0 * notifys.yFade.easeOutQuad() - 18.0 * (1.0 - notifys.endFade.easeOutQuad()));
                 continue;
             }
-            Render2DUtil.drawRect(drawContext.method_51448(), (float)((int)d) + 2.0f, (float)(n + 14), (float)((10 + Notification_lQoZqJolJVHgxQLLpwsm.mc.field_1772.method_1727(string)) * (notifys.delayed - 4) - 2) / 62.0f, 1.0f, this.linecolor.getValue());
+            Render2DUtil.drawRect(drawContext.getMatrices(), (float)((int)d) + 2.0f, (float)(n + 14), (float)((10 + Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string)) * (notifys.delayed - 4) - 2) / 62.0f, 1.0f, this.linecolor.getValue());
         }
         if (bl) {
             notifyList.clear();

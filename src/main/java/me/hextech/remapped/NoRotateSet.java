@@ -34,12 +34,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (!this.rotate.getValue() && (t = event.getPacket()) instanceof PlayerPositionLookS2CPacket) {
             PlayerPositionLookS2CPacket packet = (PlayerPositionLookS2CPacket)t;
-            if (packet.method_11733().contains(PositionFlag.field_12401)) {
+            if (packet.method_11733().contains(PositionFlag.Y_ROT)) {
                 ((IPlayerPositionLookS2CPacket)packet).setYaw(0.0f);
             } else {
                 ((IPlayerPositionLookS2CPacket)packet).setYaw(NoRotateSet.mc.player.method_36454());
             }
-            if (packet.method_11733().contains(PositionFlag.field_12397)) {
+            if (packet.method_11733().contains(PositionFlag.X_ROT)) {
                 ((IPlayerPositionLookS2CPacket)packet).setPitch(0.0f);
             } else {
                 ((IPlayerPositionLookS2CPacket)packet).setPitch(NoRotateSet.mc.player.method_36455());

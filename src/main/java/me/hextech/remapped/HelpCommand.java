@@ -22,7 +22,7 @@ extends Command {
     public void runCommand(String[] parameters) {
         if (parameters.length == 0) {
             this.ShowCommands(1);
-        } else if (StringUtils.isNumeric(parameters[0])) {
+        } else if (StringUtils.isNumeric((CharSequence)parameters[0])) {
             int page = Integer.parseInt(parameters[0]);
             this.ShowCommands(page);
         } else {

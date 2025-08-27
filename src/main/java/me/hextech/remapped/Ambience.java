@@ -28,12 +28,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final BooleanSetting forceOverworld = this.add(new BooleanSetting("ForceOverworld", false));
     public final BooleanSetting customLuminance = this.add(new BooleanSetting("CustomLuminance", false).setParent().injectTask(() -> {
         if (!Ambience.nullCheck()) {
-            Ambience.mc.field_1769.method_3279();
+            Ambience.mc.worldRenderer.reload();
         }
     }));
     public final SliderSetting luminance = this.add(new SliderSetting("Luminance", 15, 0, 15, v -> this.customLuminance.isOpen()).injectTask(() -> {
         if (!Ambience.nullCheck() && this.customLuminance.getValue()) {
-            Ambience.mc.field_1769.method_3279();
+            Ambience.mc.worldRenderer.reload();
         }
     }));
     private final SliderSetting time = this.add(new SliderSetting("Time", 0, 0, 24000, v -> this.customTime.isOpen()));

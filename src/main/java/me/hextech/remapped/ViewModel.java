@@ -62,30 +62,30 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
-        if (!this.mainhandSwap.getValue() && ((IHeldItemRenderer)mc.method_1561().method_43336()).getEquippedProgressMainHand() <= 1.0f) {
-            ((IHeldItemRenderer)mc.method_1561().method_43336()).setEquippedProgressMainHand(1.0f);
-            ((IHeldItemRenderer)mc.method_1561().method_43336()).setItemStackMainHand(ViewModel.mc.player.method_6047());
+        if (!this.mainhandSwap.getValue() && ((IHeldItemRenderer)mc.getEntityRenderDispatcher().getHeldItemRenderer()).getEquippedProgressMainHand() <= 1.0f) {
+            ((IHeldItemRenderer)mc.getEntityRenderDispatcher().getHeldItemRenderer()).setEquippedProgressMainHand(1.0f);
+            ((IHeldItemRenderer)mc.getEntityRenderDispatcher().getHeldItemRenderer()).setItemStackMainHand(ViewModel.mc.player.method_6047());
         }
-        if (!this.offhandSwap.getValue() && ((IHeldItemRenderer)mc.method_1561().method_43336()).getEquippedProgressOffHand() <= 1.0f) {
-            ((IHeldItemRenderer)mc.method_1561().method_43336()).setEquippedProgressOffHand(1.0f);
-            ((IHeldItemRenderer)mc.method_1561().method_43336()).setItemStackOffHand(ViewModel.mc.player.method_6079());
+        if (!this.offhandSwap.getValue() && ((IHeldItemRenderer)mc.getEntityRenderDispatcher().getHeldItemRenderer()).getEquippedProgressOffHand() <= 1.0f) {
+            ((IHeldItemRenderer)mc.getEntityRenderDispatcher().getHeldItemRenderer()).setEquippedProgressOffHand(1.0f);
+            ((IHeldItemRenderer)mc.getEntityRenderDispatcher().getHeldItemRenderer()).setItemStackOffHand(ViewModel.mc.player.method_6079());
         }
     }
 
     @EventHandler
     private void onHeldItemRender(HeldItemRendererEvent event) {
-        if (event.getHand() == Hand.field_5808) {
-            event.getStack().method_46416(this.positionMainX.getValueFloat(), this.positionMainY.getValueFloat(), this.positionMainZ.getValueFloat());
-            event.getStack().method_22905(this.scaleMainX.getValueFloat(), this.scaleMainY.getValueFloat(), this.scaleMainZ.getValueFloat());
-            event.getStack().method_22907(RotationAxis.field_40714.rotationDegrees(this.rotationMainX.getValueFloat()));
-            event.getStack().method_22907(RotationAxis.field_40716.rotationDegrees(this.rotationMainY.getValueFloat()));
-            event.getStack().method_22907(RotationAxis.field_40718.rotationDegrees(this.rotationMainZ.getValueFloat()));
+        if (event.getHand() == Hand.MAIN_HAND) {
+            event.getStack().translate(this.positionMainX.getValueFloat(), this.positionMainY.getValueFloat(), this.positionMainZ.getValueFloat());
+            event.getStack().scale(this.scaleMainX.getValueFloat(), this.scaleMainY.getValueFloat(), this.scaleMainZ.getValueFloat());
+            event.getStack().multiply(RotationAxis.POSITIVE_X.rotationDegrees(this.rotationMainX.getValueFloat()));
+            event.getStack().multiply(RotationAxis.POSITIVE_Y.rotationDegrees(this.rotationMainY.getValueFloat()));
+            event.getStack().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(this.rotationMainZ.getValueFloat()));
         } else {
-            event.getStack().method_46416(this.positionOffX.getValueFloat(), this.positionOffY.getValueFloat(), this.positionOffZ.getValueFloat());
-            event.getStack().method_22905(this.scaleOffX.getValueFloat(), this.scaleOffY.getValueFloat(), this.scaleOffZ.getValueFloat());
-            event.getStack().method_22907(RotationAxis.field_40714.rotationDegrees(this.rotationOffX.getValueFloat()));
-            event.getStack().method_22907(RotationAxis.field_40716.rotationDegrees(this.rotationOffY.getValueFloat()));
-            event.getStack().method_22907(RotationAxis.field_40718.rotationDegrees(this.rotationOffZ.getValueFloat()));
+            event.getStack().translate(this.positionOffX.getValueFloat(), this.positionOffY.getValueFloat(), this.positionOffZ.getValueFloat());
+            event.getStack().scale(this.scaleOffX.getValueFloat(), this.scaleOffY.getValueFloat(), this.scaleOffZ.getValueFloat());
+            event.getStack().multiply(RotationAxis.POSITIVE_X.rotationDegrees(this.rotationOffX.getValueFloat()));
+            event.getStack().multiply(RotationAxis.POSITIVE_Y.rotationDegrees(this.rotationOffY.getValueFloat()));
+            event.getStack().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(this.rotationOffZ.getValueFloat()));
         }
     }
 }

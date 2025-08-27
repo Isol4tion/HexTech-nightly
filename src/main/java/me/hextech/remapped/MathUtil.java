@@ -16,10 +16,10 @@ public class MathUtil {
         Direction direction3;
         float f = pitch * ((float)Math.PI / 180);
         float g = -yaw * ((float)Math.PI / 180);
-        float h = MathHelper.method_15374((float)f);
-        float i = MathHelper.method_15362((float)f);
-        float j = MathHelper.method_15374((float)g);
-        float k = MathHelper.method_15362((float)g);
+        float h = MathHelper.sin((float)f);
+        float i = MathHelper.cos((float)f);
+        float j = MathHelper.sin((float)g);
+        float k = MathHelper.cos((float)g);
         boolean bl = j > 0.0f;
         boolean bl2 = h < 0.0f;
         boolean bl3 = k > 0.0f;
@@ -28,9 +28,9 @@ public class MathUtil {
         float n = bl3 ? k : -k;
         float o = l * i;
         float p = n * i;
-        Direction direction = bl ? Direction.field_11034 : Direction.field_11039;
+        Direction direction = bl ? Direction.EAST : Direction.WEST;
         Direction direction2 = bl2 ? Direction.UP : Direction.DOWN;
-        Direction direction4 = direction3 = bl3 ? Direction.field_11035 : Direction.field_11043;
+        Direction direction4 = direction3 = bl3 ? Direction.SOUTH : Direction.NORTH;
         if (l > n) {
             if (m > o) {
                 return direction2;
@@ -98,8 +98,8 @@ public class MathUtil {
     }
 
     public static Direction getDirectionFromEntityLiving(BlockPos pos, LivingEntity entity) {
-        if (Math.abs(entity.getX() - ((double)pos.method_10263() + 0.5)) < 2.0 && Math.abs(entity.getZ() - ((double)pos.method_10260() + 0.5)) < 2.0) {
-            double d0 = entity.getY() + (double)entity.method_18381(entity.method_18376());
+        if (Math.abs(entity.method_23317() - ((double)pos.method_10263() + 0.5)) < 2.0 && Math.abs(entity.method_23321() - ((double)pos.method_10260() + 0.5)) < 2.0) {
+            double d0 = entity.method_23318() + (double)entity.method_18381(entity.method_18376());
             if (d0 - (double)pos.method_10264() > 2.0) {
                 return Direction.UP;
             }
@@ -107,6 +107,6 @@ public class MathUtil {
                 return Direction.DOWN;
             }
         }
-        return entity.method_5735().method_10153();
+        return entity.method_5735().getOpposite();
     }
 }

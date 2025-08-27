@@ -33,13 +33,13 @@ extends Command {
                 return;
             }
             if (this.isNumeric(parameters[0].replace("~", ""))) {
-                x = AimCommand.mc.player.getX() + Double.parseDouble(parameters[0].replace("~", ""));
+                x = AimCommand.mc.player.method_23317() + Double.parseDouble(parameters[0].replace("~", ""));
             } else {
                 if (!parameters[0].replace("~", "").equals("")) {
                     this.sendUsage();
                     return;
                 }
-                x = AimCommand.mc.player.getX();
+                x = AimCommand.mc.player.method_23317();
             }
         }
         if (this.isNumeric(parameters[1])) {
@@ -50,13 +50,13 @@ extends Command {
                 return;
             }
             if (this.isNumeric(parameters[1].replace("~", ""))) {
-                y = AimCommand.mc.player.getY() + Double.parseDouble(parameters[1].replace("~", ""));
+                y = AimCommand.mc.player.method_23318() + Double.parseDouble(parameters[1].replace("~", ""));
             } else {
                 if (!parameters[1].replace("~", "").equals("")) {
                     this.sendUsage();
                     return;
                 }
-                y = AimCommand.mc.player.getY();
+                y = AimCommand.mc.player.method_23318();
             }
         }
         if (this.isNumeric(parameters[2])) {
@@ -67,13 +67,13 @@ extends Command {
                 return;
             }
             if (this.isNumeric(parameters[2].replace("~", ""))) {
-                z = AimCommand.mc.player.getZ() + Double.parseDouble(parameters[2].replace("~", ""));
+                z = AimCommand.mc.player.method_23321() + Double.parseDouble(parameters[2].replace("~", ""));
             } else {
                 if (!parameters[2].replace("~", "").equals("")) {
                     this.sendUsage();
                     return;
                 }
-                z = AimCommand.mc.player.getZ();
+                z = AimCommand.mc.player.method_23321();
             }
         }
         float[] angle = EntityUtil.getLegitRotations(new Vec3d(x, y, z));

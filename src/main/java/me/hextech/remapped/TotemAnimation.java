@@ -6,9 +6,9 @@ import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
@@ -57,47 +57,47 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             MatrixStack matrixStack = new MatrixStack();
-            matrixStack.method_22903();
+            matrixStack.push();
             float f22 = (float)i + tickDelta;
-            float n3 = 50.0f + 175.0f * MathHelper.method_15374((float)k);
+            float n3 = 50.0f + 175.0f * MathHelper.sin((float)k);
             if (((Enum)this.mode.getValue()).equals((Object)_ZVxiGMTWPCIGCYyTrffL.FadeOut)) {
                 float x2 = (float)(Math.sin(f22 * 112.0f / 180.0f) * 100.0);
                 float y2 = (float)(Math.cos(f22 * 112.0f / 180.0f) * 50.0);
-                matrixStack.method_46416((float)(scaledWidth / 2) + x2, (float)(scaledHeight / 2) + y2, -50.0f);
-                matrixStack.method_22905(n3, -n3, n3);
+                matrixStack.translate((float)(scaledWidth / 2) + x2, (float)(scaledHeight / 2) + y2, -50.0f);
+                matrixStack.scale(n3, -n3, n3);
             } else if (((Enum)this.mode.getValue()).equals((Object)_ZVxiGMTWPCIGCYyTrffL.Size)) {
-                matrixStack.method_46416((float)(scaledWidth / 2), (float)(scaledHeight / 2), -50.0f);
-                matrixStack.method_22905(n3, -n3, n3);
+                matrixStack.translate((float)(scaledWidth / 2), (float)(scaledHeight / 2), -50.0f);
+                matrixStack.scale(n3, -n3, n3);
             } else if (((Enum)this.mode.getValue()).equals((Object)_ZVxiGMTWPCIGCYyTrffL.Otkisuli)) {
-                matrixStack.method_46416((float)(scaledWidth / 2), (float)(scaledHeight / 2), -50.0f);
-                matrixStack.method_22907(RotationAxis.field_40714.rotationDegrees(f22 * 2.0f));
-                matrixStack.method_22907(RotationAxis.field_40718.rotationDegrees(f22 * 2.0f));
-                matrixStack.method_22905(200.0f - f22 * 1.5f, -200.0f + f22 * 1.5f, 200.0f - f22 * 1.5f);
+                matrixStack.translate((float)(scaledWidth / 2), (float)(scaledHeight / 2), -50.0f);
+                matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(f22 * 2.0f));
+                matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(f22 * 2.0f));
+                matrixStack.scale(200.0f - f22 * 1.5f, -200.0f + f22 * 1.5f, 200.0f - f22 * 1.5f);
             } else if (((Enum)this.mode.getValue()).equals((Object)_ZVxiGMTWPCIGCYyTrffL.Insert)) {
-                matrixStack.method_46416((float)(scaledWidth / 2), (float)(scaledHeight / 2), -50.0f);
-                matrixStack.method_22907(RotationAxis.field_40714.rotationDegrees(f22 * 3.0f));
-                matrixStack.method_22905(200.0f - f22 * 1.5f, -200.0f + f22 * 1.5f, 200.0f - f22 * 1.5f);
+                matrixStack.translate((float)(scaledWidth / 2), (float)(scaledHeight / 2), -50.0f);
+                matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(f22 * 3.0f));
+                matrixStack.scale(200.0f - f22 * 1.5f, -200.0f + f22 * 1.5f, 200.0f - f22 * 1.5f);
             } else if (((Enum)this.mode.getValue()).equals((Object)_ZVxiGMTWPCIGCYyTrffL.Fall)) {
                 downFactor = (float)(Math.pow(f22, 3.0) * (double)0.2f);
-                matrixStack.method_46416((float)(scaledWidth / 2), (float)(scaledHeight / 2) + downFactor, -50.0f);
-                matrixStack.method_22907(RotationAxis.field_40718.rotationDegrees(f22 * 5.0f));
-                matrixStack.method_22905(200.0f - f22 * 1.5f, -200.0f + f22 * 1.5f, 200.0f - f22 * 1.5f);
+                matrixStack.translate((float)(scaledWidth / 2), (float)(scaledHeight / 2) + downFactor, -50.0f);
+                matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(f22 * 5.0f));
+                matrixStack.scale(200.0f - f22 * 1.5f, -200.0f + f22 * 1.5f, 200.0f - f22 * 1.5f);
             } else if (((Enum)this.mode.getValue()).equals((Object)_ZVxiGMTWPCIGCYyTrffL.Rocket)) {
                 downFactor = (float)(Math.pow(f22, 3.0) * (double)0.2f) - 20.0f;
-                matrixStack.method_46416((float)(scaledWidth / 2), (float)(scaledHeight / 2) - downFactor, -50.0f);
-                matrixStack.method_22907(RotationAxis.field_40716.rotationDegrees(f22 * (float)this.floatingItemTimeLeft * 2.0f));
-                matrixStack.method_22905(200.0f - f22 * 1.5f, -200.0f + f22 * 1.5f, 200.0f - f22 * 1.5f);
+                matrixStack.translate((float)(scaledWidth / 2), (float)(scaledHeight / 2) - downFactor, -50.0f);
+                matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(f22 * (float)this.floatingItemTimeLeft * 2.0f));
+                matrixStack.scale(200.0f - f22 * 1.5f, -200.0f + f22 * 1.5f, 200.0f - f22 * 1.5f);
             } else if (((Enum)this.mode.getValue()).equals((Object)_ZVxiGMTWPCIGCYyTrffL.Roll)) {
                 float rightFactor = (float)(Math.pow(f22, 2.0) * 4.5);
-                matrixStack.method_46416((float)(scaledWidth / 2) + rightFactor, (float)(scaledHeight / 2), -50.0f);
-                matrixStack.method_22907(RotationAxis.field_40718.rotationDegrees(f22 * 40.0f));
-                matrixStack.method_22905(200.0f - f22 * 1.5f, -200.0f + f22 * 1.5f, 200.0f - f22 * 1.5f);
+                matrixStack.translate((float)(scaledWidth / 2) + rightFactor, (float)(scaledHeight / 2), -50.0f);
+                matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(f22 * 40.0f));
+                matrixStack.scale(200.0f - f22 * 1.5f, -200.0f + f22 * 1.5f, 200.0f - f22 * 1.5f);
             }
-            VertexConsumerProvider.Immediate immediate = mc.method_22940().method_23000();
+            VertexConsumerProvider.Immediate immediate = mc.getBufferBuilders().getEntityVertexConsumers();
             RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)(1.0f - f2));
-            mc.method_1480().method_23178(this.floatingItem, ModelTransformationMode.field_4319, 0xF000F0, OverlayTexture.field_21444, matrixStack, (VertexConsumerProvider)immediate, (World)TotemAnimation.mc.world, 0);
-            matrixStack.method_22909();
-            immediate.method_22993();
+            mc.getItemRenderer().renderItem(this.floatingItem, ModelTransformationMode.FIXED, 0xF000F0, OverlayTexture.DEFAULT_UV, matrixStack, (VertexConsumerProvider)immediate, (World)TotemAnimation.mc.world, 0);
+            matrixStack.pop();
+            immediate.draw();
             RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
             RenderSystem.disableBlend();
             RenderSystem.enableCull();
@@ -115,23 +115,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return 40;
     }
 
-    public static final class _ZVxiGMTWPCIGCYyTrffL
-    extends Enum<_ZVxiGMTWPCIGCYyTrffL> {
-        public static final /* enum */ _ZVxiGMTWPCIGCYyTrffL FadeOut;
-        public static final /* enum */ _ZVxiGMTWPCIGCYyTrffL Size;
-        public static final /* enum */ _ZVxiGMTWPCIGCYyTrffL Otkisuli;
-        public static final /* enum */ _ZVxiGMTWPCIGCYyTrffL Insert;
-        public static final /* enum */ _ZVxiGMTWPCIGCYyTrffL Fall;
-        public static final /* enum */ _ZVxiGMTWPCIGCYyTrffL Rocket;
-        public static final /* enum */ _ZVxiGMTWPCIGCYyTrffL Roll;
-        public static final /* enum */ _ZVxiGMTWPCIGCYyTrffL Off;
+    public static enum _ZVxiGMTWPCIGCYyTrffL {
+        FadeOut,
+        Size,
+        Otkisuli,
+        Insert,
+        Fall,
+        Rocket,
+        Roll,
+        Off;
 
-        public static _ZVxiGMTWPCIGCYyTrffL[] values() {
-            return null;
-        }
-
-        public static _ZVxiGMTWPCIGCYyTrffL valueOf(String string) {
-            return null;
-        }
     }
 }

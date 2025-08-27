@@ -18,21 +18,21 @@ implements Wrapper {
         if (CanPlaceCrystal.mc.world == null || CanPlaceCrystal.mc.player == null) {
             return false;
         }
-        BlockPos obsPos = pos.method_10074();
+        BlockPos obsPos = pos.down();
         BlockPos boost = obsPos.up();
         BlockPos boost2 = boost.up();
-        return !(BlockUtil.getBlock(obsPos) != Blocks.field_9987 && BlockUtil.getBlock(obsPos) != Blocks.field_10540 || BlockUtil.getClickSideStrict(obsPos) == null || !CanPlaceCrystal.hasEntityBlockCrystal(boost, ignoreCrystal, ignoreItem) || !CanPlaceCrystal.hasEntityBlockCrystal(boost2, ignoreCrystal, ignoreItem) || !BlockUtil.isAir(boost) && (!BlockUtil.hasCrystal(boost) || BlockUtil.getBlock(boost) != Blocks.field_10036) || CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.lowVersion.getValue() && !BlockUtil.isAir(boost2));
+        return !(BlockUtil.getBlock(obsPos) != Blocks.BEDROCK && BlockUtil.getBlock(obsPos) != Blocks.OBSIDIAN || BlockUtil.getClickSideStrict(obsPos) == null || !CanPlaceCrystal.hasEntityBlockCrystal(boost, ignoreCrystal, ignoreItem) || !CanPlaceCrystal.hasEntityBlockCrystal(boost2, ignoreCrystal, ignoreItem) || !BlockUtil.isAir(boost) && (!BlockUtil.hasCrystal(boost) || BlockUtil.getBlock(boost) != Blocks.FIRE) || CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.lowVersion.getValue() && !BlockUtil.isAir(boost2));
     }
 
     private static boolean hasEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
         if (CanPlaceCrystal.mc.world != null) {
             for (Entity entity : CanPlaceCrystal.mc.world.method_18467(Entity.class, new Box(pos))) {
-                if (!entity.method_5805() || ignoreItem && entity instanceof ItemEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
+                if (!entity.isAlive() || ignoreItem && entity instanceof ItemEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
                 if (entity instanceof EndCrystalEntity) {
                     if (!ignoreCrystal) {
                         return false;
                     }
-                    if (CanPlaceCrystal.mc.player != null && (CanPlaceCrystal.mc.player.method_6057(entity) || CanPlaceCrystal.mc.player.getEyePos().method_1022(entity.method_19538()) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue())) continue;
+                    if (CanPlaceCrystal.mc.player != null && (CanPlaceCrystal.mc.player.method_6057(entity) || CanPlaceCrystal.mc.player.method_33571().distanceTo(entity.getPos()) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue())) continue;
                 }
                 return false;
             }

@@ -29,20 +29,20 @@ public abstract class GameRendererMixin {
     private void onRenderHandBegin(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
         this.camera = FreeLook.INSTANCE.getCameraState();
         if (this.camera.doTransition || this.camera.doLock) {
-            this.cameraEntity = MinecraftClient.method_1551().method_1560();
-            this.originalYaw = this.cameraEntity.method_36454();
-            this.originalPitch = this.cameraEntity.method_36455();
+            this.cameraEntity = MinecraftClient.getInstance().getCameraEntity();
+            this.originalYaw = this.cameraEntity.getYaw();
+            this.originalPitch = this.cameraEntity.getPitch();
             float pitch = this.camera.lookPitch;
-            this.cameraEntity.method_36456(this.camera.lookYaw);
-            this.cameraEntity.method_36457(pitch -= MathHelper.method_15379((float)(this.camera.lookYaw - this.camera.originalYaw())));
+            this.cameraEntity.setYaw(this.camera.lookYaw);
+            this.cameraEntity.setPitch(pitch -= MathHelper.abs((float)(this.camera.lookYaw - this.camera.originalYaw())));
         }
     }
 
     @Inject(method={"renderHand"}, at={@At(value="RETURN")})
     private void onRenderHandEnd(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
         if (this.camera.doTransition || this.camera.doLock) {
-            this.cameraEntity.method_36456(this.originalYaw);
-            this.cameraEntity.method_36457(this.originalPitch);
+            this.cameraEntity.setYaw(this.originalYaw);
+            this.cameraEntity.setPitch(this.originalPitch);
         }
     }
 }

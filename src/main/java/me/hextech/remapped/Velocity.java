@@ -50,7 +50,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Velocity.mc.player != null && (Velocity.mc.player.method_5799() || Velocity.mc.player.method_5869() || Velocity.mc.player.method_5771()) && this.pauseInLiquid.getValue()) {
             return;
         }
-        if (this.hitboxpush.getValue() && (object = e.getPacket()) instanceof EntityStatusS2CPacket && (packet2 = (EntityStatusS2CPacket)object).method_11470() == 31 && (object = packet2.method_11469((World)Velocity.mc.world)) instanceof FishingBobberEntity && (fishHook = (FishingBobberEntity)object).method_26957() == Velocity.mc.player) {
+        if (this.hitboxpush.getValue() && (object = e.getPacket()) instanceof EntityStatusS2CPacket && (packet2 = (EntityStatusS2CPacket)object).getStatus() == 31 && (object = packet2.getEntity((World)Velocity.mc.world)) instanceof FishingBobberEntity && (fishHook = (FishingBobberEntity)object).getHookedEntity() == Velocity.mc.player) {
             e.setCancelled(true);
         }
         if (BypassSetting_RInKGmTQYgWFRhsUOiJP.INSTANCE.grimvelocity.getValue() && !EntityUtil.isInsideBlock()) {
@@ -69,7 +69,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Object t = e.getPacket();
-        if (t instanceof EntityVelocityUpdateS2CPacket && (packet = (EntityVelocityUpdateS2CPacket)t).method_11818() == Velocity.mc.player.method_5628()) {
+        if (t instanceof EntityVelocityUpdateS2CPacket && (packet = (EntityVelocityUpdateS2CPacket)t).getEntityId() == Velocity.mc.player.method_5628()) {
             if (this.horizontal.getValue() == 0.0 && this.vertical.getValue() == 0.0) {
                 e.cancel();
             } else {

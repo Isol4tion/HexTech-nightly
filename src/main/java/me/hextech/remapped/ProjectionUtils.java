@@ -9,14 +9,14 @@ import org.joml.Vector3f;
 
 public class ProjectionUtils {
     public static Vec3d worldToScreen(Vec3d destination) {
-        MinecraftClient client = MinecraftClient.method_1551();
-        GameRenderer renderer = client.field_1773;
-        Camera camera = renderer.method_19418();
-        Vec3d position = camera.method_19326();
-        Quaternionf rotation = camera.method_23767();
-        Vector3f calculation = rotation.conjugate().transform(position.method_1020(destination).method_46409());
-        Integer fov = (Integer)client.field_1690.method_41808().method_41753();
-        int half = client.method_22683().method_4502() / 2;
+        MinecraftClient client = MinecraftClient.getInstance();
+        GameRenderer renderer = client.gameRenderer;
+        Camera camera = renderer.getCamera();
+        Vec3d position = camera.getPos();
+        Quaternionf rotation = camera.getRotation();
+        Vector3f calculation = rotation.conjugate().transform(position.subtract(destination).toVector3f());
+        Integer fov = (Integer)client.options.getFov().getValue();
+        int half = client.getWindow().getScaledHeight() / 2;
         double scale = (double)half / ((double)calculation.z() * Math.tan(Math.toRadians(fov / 2)));
         return new Vec3d((double)calculation.x() * scale, (double)calculation.y() * scale, (double)calculation.z());
     }

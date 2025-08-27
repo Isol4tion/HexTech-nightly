@@ -68,15 +68,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 GL11.glEnable((int)3042);
                 double temp = 0.01;
                 for (double i = 0.0; i < 0.8; i += temp) {
-                    HoleSnap.doCircle(matrixStack, ColorUtil.injectAlpha(this.color.getValue(), (int)Math.min((double)(this.color.getValue().getAlpha() * 2) / (0.8 / temp), 255.0)), i, new Vec3d(MathUtil.interpolate(Scaffold.mc.player.field_6038, Scaffold.mc.player.getX(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.field_5971, Scaffold.mc.player.getY(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.field_5989, Scaffold.mc.player.getZ(), partialTicks)), 5);
+                    HoleSnap.doCircle(matrixStack, ColorUtil.injectAlpha(this.color.getValue(), (int)Math.min((double)(this.color.getValue().getAlpha() * 2) / (0.8 / temp), 255.0)), i, new Vec3d(MathUtil.interpolate(Scaffold.mc.player.field_6038, Scaffold.mc.player.method_23317(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.field_5971, Scaffold.mc.player.method_23318(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.field_5989, Scaffold.mc.player.method_23321(), partialTicks)), 5);
                 }
                 RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
                 GL11.glDisable((int)3042);
             }
             if (this.pos != null) {
                 Vec3d cur = this.pos.toCenterPos();
-                lastVec3d = lastVec3d == null ? cur : new Vec3d(AnimateUtil.animate(lastVec3d.method_10216(), cur.field_1352, this.sliderSpeed.getValue()), AnimateUtil.animate(lastVec3d.method_10214(), cur.field_1351, this.sliderSpeed.getValue()), AnimateUtil.animate(lastVec3d.method_10215(), cur.field_1350, this.sliderSpeed.getValue()));
-                Render3DUtil.draw3DBox(matrixStack, new Box(lastVec3d.method_1031(0.5, 0.5, 0.5), lastVec3d.method_1031(-0.5, -0.5, -0.5)), ColorUtil.injectAlpha(this.color.getValue(), this.color.getValue().getAlpha()), this.outline.getValue(), this.box.getValue());
+                lastVec3d = lastVec3d == null ? cur : new Vec3d(AnimateUtil.animate(lastVec3d.method_10216(), cur.x, this.sliderSpeed.getValue()), AnimateUtil.animate(lastVec3d.method_10214(), cur.y, this.sliderSpeed.getValue()), AnimateUtil.animate(lastVec3d.method_10215(), cur.z, this.sliderSpeed.getValue()));
+                Render3DUtil.draw3DBox(matrixStack, new Box(lastVec3d.add(0.5, 0.5, 0.5), lastVec3d.add(-0.5, -0.5, -0.5)), ColorUtil.injectAlpha(this.color.getValue(), this.color.getValue().getAlpha()), this.outline.getValue(), this.box.getValue());
             }
         }
     }
@@ -87,9 +87,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (block == -1) {
             return;
         }
-        BlockPos placePos = EntityUtil.getPlayerPos().method_10074();
+        BlockPos placePos = EntityUtil.getPlayerPos().down();
         if (BlockUtil.clientCanPlace(placePos, false)) {
-            int old = Scaffold.mc.player.method_31548().field_7545;
+            int old = Scaffold.mc.player.method_31548().selectedSlot;
             if (BlockUtil.getPlaceSide(placePos) == null) {
                 double distance = 1000.0;
                 BlockPos bestPos = null;
@@ -106,14 +106,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (this.rotate.getValue()) {
                 Direction side = BlockUtil.getPlaceSide(placePos);
-                this.angle = EntityUtil.getLegitRotations(placePos.offset(side).toCenterPos().method_1031((double)side.method_10153().method_10163().method_10263() * 0.5, (double)side.method_10153().method_10163().method_10264() * 0.5, (double)side.method_10153().method_10163().method_10260() * 0.5));
+                this.angle = EntityUtil.getLegitRotations(placePos.offset(side).toCenterPos().add((double)side.getOpposite().method_10163().getX() * 0.5, (double)side.getOpposite().method_10163().getY() * 0.5, (double)side.getOpposite().method_10163().getZ() * 0.5));
                 this.timer.reset();
             }
             InventoryUtil.switchToSlot(block);
             BlockUtil.placeBlock(placePos, this.rotate.getValue(), false);
             InventoryUtil.switchToSlot(old);
             this.pos = placePos;
-            if (this.tower.getValue() && Scaffold.mc.field_1690.field_1903.method_1434() && !MovementUtil.isMoving()) {
+            if (this.tower.getValue() && Scaffold.mc.options.jumpKey.isPressed() && !MovementUtil.isMoving()) {
                 MovementUtil.setMotionY(0.42);
                 MovementUtil.setMotionX(0.0);
                 MovementUtil.setMotionZ(0.0);

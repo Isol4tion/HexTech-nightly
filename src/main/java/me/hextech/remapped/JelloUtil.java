@@ -18,31 +18,31 @@ implements Wrapper {
     private static float circleStep;
 
     public static void drawJello(MatrixStack matrix, Entity target, Color color) {
-        double cs = prevCircleStep + (circleStep - prevCircleStep) * mc.getTickDelta();
+        double cs = prevCircleStep + (circleStep - prevCircleStep) * mc.method_1488();
         double prevSinAnim = JelloUtil.absSinAnimation(cs - (double)0.45f);
         double sinAnim = JelloUtil.absSinAnimation(cs);
-        double x = target.field_6014 + (target.getX() - target.field_6014) * (double)mc.getTickDelta() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10216();
-        double y = target.field_6036 + (target.getY() - target.field_6036) * (double)mc.getTickDelta() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10214() + prevSinAnim * (double)target.method_17682();
-        double z = target.field_5969 + (target.getZ() - target.field_5969) * (double)mc.getTickDelta() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10215();
-        double nextY = target.field_6036 + (target.getY() - target.field_6036) * (double)mc.getTickDelta() - JelloUtil.mc.method_1561().field_4686.method_19326().method_10214() + sinAnim * (double)target.method_17682();
-        matrix.method_22903();
+        double x = target.prevX + (target.getX() - target.prevX) * (double)mc.method_1488() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10216();
+        double y = target.prevY + (target.getY() - target.prevY) * (double)mc.method_1488() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10214() + prevSinAnim * (double)target.getHeight();
+        double z = target.prevZ + (target.getZ() - target.prevZ) * (double)mc.method_1488() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10215();
+        double nextY = target.prevY + (target.getY() - target.prevY) * (double)mc.method_1488() - JelloUtil.mc.getEntityRenderDispatcher().camera.getPos().method_10214() + sinAnim * (double)target.getHeight();
+        matrix.push();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
-        Tessellator tessellator = Tessellator.method_1348();
+        Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.method_1349();
         RenderSystem.setShader(GameRenderer::method_34540);
-        bufferBuilder.method_1328(VertexFormat.DrawMode.field_27380, VertexFormats.field_1576);
+        bufferBuilder.method_1328(VertexFormat.DrawMode.TRIANGLE_STRIP, VertexFormats.POSITION_COLOR);
         for (int i = 0; i <= 30; ++i) {
-            float cos = (float)(x + Math.cos((double)i * 6.28 / 30.0) * (target.method_5829().field_1320 - target.method_5829().field_1323 + (target.method_5829().field_1324 - target.method_5829().field_1321)) * 0.5);
-            float sin = (float)(z + Math.sin((double)i * 6.28 / 30.0) * (target.method_5829().field_1320 - target.method_5829().field_1323 + (target.method_5829().field_1324 - target.method_5829().field_1321)) * 0.5);
-            bufferBuilder.method_22918(matrix.method_23760().method_23761(), cos, (float)nextY, sin).method_39415(color.getRGB()).method_1344();
-            bufferBuilder.method_22918(matrix.method_23760().method_23761(), cos, (float)y, sin).method_39415(ColorUtil.injectAlpha(color, 0).getRGB()).method_1344();
+            float cos = (float)(x + Math.cos((double)i * 6.28 / 30.0) * (target.method_5829().maxX - target.method_5829().minX + (target.method_5829().maxZ - target.method_5829().minZ)) * 0.5);
+            float sin = (float)(z + Math.sin((double)i * 6.28 / 30.0) * (target.method_5829().maxX - target.method_5829().minX + (target.method_5829().maxZ - target.method_5829().minZ)) * 0.5);
+            bufferBuilder.method_22918(matrix.peek().getPositionMatrix(), cos, (float)nextY, sin).color(color.getRGB()).method_1344();
+            bufferBuilder.method_22918(matrix.peek().getPositionMatrix(), cos, (float)y, sin).color(ColorUtil.injectAlpha(color, 0).getRGB()).method_1344();
         }
         tessellator.method_1350();
         RenderSystem.enableCull();
         RenderSystem.disableBlend();
-        matrix.method_22909();
+        matrix.pop();
     }
 
     public static void updateJello() {

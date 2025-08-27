@@ -21,9 +21,9 @@ implements Wrapper {
             return AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forceMin.getValue();
         }
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.armorBreaker.getValue()) {
-            DefaultedList armors = target.method_31548().field_7548;
+            DefaultedList armors = target.getInventory().armor;
             for (ItemStack armor : armors) {
-                if (armor.method_7960() || (double)EntityUtil.getDamagePercent(armor) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.maxDurable.getValue()) continue;
+                if (armor.isEmpty() || (double)EntityUtil.getDamagePercent(armor) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.maxDurable.getValue()) continue;
                 return AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.armorBreakerDamage.getValue();
             }
         }

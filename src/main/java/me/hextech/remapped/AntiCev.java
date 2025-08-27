@@ -55,7 +55,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.pos = EntityUtil.getPlayerPos(true);
         for (Direction i : Direction.values()) {
             BlockPos offsetPos;
-            if (i == Direction.DOWN || this.isGod(this.pos.offset(i).up()) || !this.crystalHere(offsetPos = this.pos.offset(i).method_10086(2)) || this.crystalPos.contains(offsetPos)) continue;
+            if (i == Direction.DOWN || this.isGod(this.pos.offset(i).up()) || !this.crystalHere(offsetPos = this.pos.offset(i).up(2)) || this.crystalPos.contains(offsetPos)) continue;
             this.crystalPos.add(offsetPos);
         }
         if (this.getBlock() == -1) {
@@ -83,7 +83,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean isGod(BlockPos pos) {
-        return Objects.requireNonNull(AntiCev.mc.world).getBlockState(pos).getBlock() == Blocks.field_9987;
+        return Objects.requireNonNull(AntiCev.mc.world).method_8320(pos).method_26204() == Blocks.BEDROCK;
     }
 
     private void placeBlock(BlockPos pos) {
@@ -112,7 +112,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, AntiCev.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, AntiCev.mc.player.method_31548().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -120,8 +120,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private int getBlock() {
         if (this.inventory.getValue()) {
-            return InventoryUtil.findBlockInventorySlot(Blocks.field_10540);
+            return InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN);
         }
-        return InventoryUtil.findBlock(Blocks.field_10540);
+        return InventoryUtil.findBlock(Blocks.OBSIDIAN);
     }
 }

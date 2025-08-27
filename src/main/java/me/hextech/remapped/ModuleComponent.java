@@ -74,7 +74,7 @@ extends Component {
         if (this.hovered && GuiManager.currentGrabbed == null) {
             if (mouseClicked) {
                 ClickGuiScreen.clicked = false;
-                if (InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)340)) {
+                if (InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)340)) {
                     this.module.drawnSetting.setValue(!this.module.drawnSetting.getValue());
                 } else {
                     this.module.toggle();
@@ -98,10 +98,10 @@ extends Component {
         int parentX = this.parent.getX();
         int parentY = this.parent.getY();
         int parentWidth = this.parent.getWidth();
-        MatrixStack matrixStack = drawContext.method_51448();
+        MatrixStack matrixStack = drawContext.getMatrices();
         this.currentOffset = ModuleComponent.animate(this.currentOffset, offset);
         if (ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils.Out) >= 1.0 && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.scissor.getValue()) {
-            this.setScissorRegion(parentX * 2, (int)(((double)parentY + this.currentOffset + (double)this.defaultHeight) * 2.0), parentWidth * 2, mc.method_22683().method_4507() - (int)((double)parentY + this.currentOffset + (double)this.defaultHeight));
+            this.setScissorRegion(parentX * 2, (int)(((double)parentY + this.currentOffset + (double)this.defaultHeight) * 2.0), parentWidth * 2, mc.getWindow().getHeight() - (int)((double)parentY + this.currentOffset + (double)this.defaultHeight));
         }
         if (this.popped) {
             this.isPopped = true;
@@ -153,7 +153,7 @@ extends Component {
             Render2DUtil.drawRect(matrixStack, (float)(parentX + 1), (float)((int)((double)parentY + this.currentOffset)), (float)this.currentWidth, (float)(this.defaultHeight - 1), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.moduleEnable.getValue());
         }
         Render2DUtil.drawRect(matrixStack, (float)(parentX + 1), (float)((int)((double)parentY + this.currentOffset)), (float)(parentWidth - 2), (float)(this.defaultHeight - 1), this.hovered ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mhColor.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mbgColor.getValue());
-        if (this.hovered && InputUtil.method_15987((long)mc.method_22683().method_4490(), (int)340)) {
+        if (this.hovered && InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)340)) {
             TextUtil.drawString(drawContext, "Drawn " + (this.module.drawnSetting.getValue() ? "\u00a7aOn" : "\u00a7cOff"), (double)(parentX + 4), (double)((float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 1.0f), -1);
         } else {
             TextUtil.drawString(drawContext, this.text, (double)(parentX + 4), (double)((float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 1.0f), this.module.isOn() ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableText.getValue().getRGB() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue().getRGB());
@@ -173,10 +173,10 @@ extends Component {
     }
 
     public void setScissorRegion(int x, int y, int width, int height) {
-        if (y > mc.method_22683().method_4507()) {
+        if (y > mc.getWindow().getHeight()) {
             return;
         }
-        double scaledY = mc.method_22683().method_4507() - (y + height);
+        double scaledY = mc.getWindow().getHeight() - (y + height);
         GL11.glEnable((int)3089);
         GL11.glScissor((int)x, (int)((int)scaledY), (int)width, (int)height);
     }

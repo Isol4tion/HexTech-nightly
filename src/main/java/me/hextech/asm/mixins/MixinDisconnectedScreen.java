@@ -42,13 +42,13 @@ extends Screen {
     private void addButtons(CallbackInfo ci, ButtonWidget buttonWidget) {
         AutoReconnect autoReconnect = AutoReconnect.INSTANCE;
         if (autoReconnect.lastServerConnection != null) {
-            this.reconnectBtn = new ButtonWidget.Builder((Text)Text.method_43470((String)this.getText()), button -> this.tryConnecting()).method_46431();
-            this.field_44552.method_52736((Widget)this.reconnectBtn);
-            this.field_44552.method_52736((Widget)new ButtonWidget.Builder((Text)Text.method_43470((String)"Toggle Auto Reconnect"), button -> {
+            this.reconnectBtn = new ButtonWidget.Builder((Text)Text.literal((String)this.getText()), button -> this.tryConnecting()).build();
+            this.field_44552.add((Widget)this.reconnectBtn);
+            this.field_44552.add((Widget)new ButtonWidget.Builder((Text)Text.literal((String)"Toggle Auto Reconnect"), button -> {
                 autoReconnect.toggle();
-                this.reconnectBtn.method_25355((Text)Text.method_43470((String)this.getText()));
+                this.reconnectBtn.method_25355((Text)Text.literal((String)this.getText()));
                 this.time = autoReconnect.delay.getValueInt() * 20;
-            }).method_46431());
+            }).build());
         }
     }
 
@@ -62,7 +62,7 @@ extends Screen {
         } else {
             this.time -= 1.0;
             if (this.reconnectBtn != null) {
-                this.reconnectBtn.method_25355((Text)Text.method_43470((String)this.getText()));
+                this.reconnectBtn.method_25355((Text)Text.literal((String)this.getText()));
             }
         }
     }
@@ -79,6 +79,6 @@ extends Screen {
     @Unique
     private void tryConnecting() {
         Pair<ServerAddress, ServerInfo> lastServer = AutoReconnect.INSTANCE.lastServerConnection;
-        ConnectScreen.method_36877((Screen)new TitleScreen(), (MinecraftClient)MinecraftClient.method_1551(), (ServerAddress)lastServer.left(), (ServerInfo)lastServer.right(), (boolean)false);
+        ConnectScreen.method_36877((Screen)new TitleScreen(), (MinecraftClient)MinecraftClient.getInstance(), (ServerAddress)((ServerAddress)lastServer.left()), (ServerInfo)((ServerInfo)lastServer.right()), (boolean)false);
     }
 }

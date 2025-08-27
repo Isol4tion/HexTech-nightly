@@ -13,6 +13,7 @@ import me.hextech.remapped.Timer;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -20,7 +21,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
-import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 
@@ -45,8 +45,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static int findPotionInventorySlot(StatusEffect targetEffect) {
         for (int i = 0; i < 45; ++i) {
             ItemStack itemStack = AutoPot.mc.player.method_31548().method_5438(i);
-            if (Item.method_7880((Item)itemStack.method_7909()) != Item.method_7880((Item)Items.field_8436)) continue;
-            List effects = PotionUtil.method_8067((ItemStack)itemStack);
+            if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
+            List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
                 if (effect.method_5579() != targetEffect) continue;
                 return i < 9 ? i + 36 : i;
@@ -58,8 +58,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static int findPotion(StatusEffect targetEffect) {
         for (int i = 0; i < 9; ++i) {
             ItemStack itemStack = InventoryUtil.getStackInSlot(i);
-            if (Item.method_7880((Item)itemStack.method_7909()) != Item.method_7880((Item)Items.field_8436)) continue;
-            List effects = PotionUtil.method_8067((ItemStack)itemStack);
+            if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
+            List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
                 if (effect.method_5579() != targetEffect) continue;
                 return i;
@@ -75,7 +75,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (!this.onlyGround.getValue() || AutoPot.mc.player.method_24828() && !AutoPot.mc.world.isAir((BlockPos)new BlockPosX(AutoPot.mc.player.method_19538().method_1031(0.0, -1.0, 0.0)))) {
+        if (!this.onlyGround.getValue() || AutoPot.mc.player.method_24828() && !AutoPot.mc.world.method_22347((BlockPos)new BlockPosX(AutoPot.mc.player.method_19538().add(0.0, -1.0, 0.0)))) {
             if (this.speed.getValue() && !AutoPot.mc.player.method_6059(StatusEffects.field_5904)) {
                 this.throwing = this.checkThrow(StatusEffects.field_5904);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
@@ -83,7 +83,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     return;
                 }
             }
-            if (this.resistance.getValue() && (!AutoPot.mc.player.method_6059(StatusEffects.field_5907) || AutoPot.mc.player.method_6112(StatusEffects.field_5907).method_5578() < 2)) {
+            if (this.resistance.getValue() && (!AutoPot.mc.player.method_6059(StatusEffects.field_5907) || AutoPot.mc.player.method_6112(StatusEffects.field_5907).getAmplifier() < 2)) {
                 this.throwing = this.checkThrow(StatusEffects.field_5907);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
                     this.throwPotion(StatusEffects.field_5907);
@@ -94,12 +94,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public void throwPotion(StatusEffect targetEffect) {
         int newSlot;
-        int oldSlot = AutoPot.mc.player.method_31548().field_7545;
+        int oldSlot = AutoPot.mc.player.method_31548().selectedSlot;
         if (this.inventory.getValue() && (newSlot = AutoPot.findPotionInventorySlot(targetEffect)) != -1) {
             EntityUtil.sendYawAndPitch(AutoPot.mc.player.method_36454(), 90.0f);
-            InventoryUtil.inventorySwap(newSlot, AutoPot.mc.player.method_31548().field_7545);
-            AutoPot.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
-            InventoryUtil.inventorySwap(newSlot, AutoPot.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(newSlot, AutoPot.mc.player.method_31548().selectedSlot);
+            AutoPot.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
+            InventoryUtil.inventorySwap(newSlot, AutoPot.mc.player.method_31548().selectedSlot);
             EntityUtil.syncInventory();
             this.delayTimer.reset();
         } else {
@@ -107,7 +107,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (newSlot != -1) {
                 EntityUtil.sendYawAndPitch(AutoPot.mc.player.method_36454(), 90.0f);
                 InventoryUtil.switchToSlot(newSlot);
-                AutoPot.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
+                AutoPot.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
                 InventoryUtil.switchToSlot(oldSlot);
                 this.delayTimer.reset();
             }
@@ -122,7 +122,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.isOff()) {
             return false;
         }
-        if (!(AutoPot.mc.field_1755 == null || AutoPot.mc.field_1755 instanceof ChatScreen || AutoPot.mc.field_1755 instanceof InventoryScreen || AutoPot.mc.field_1755 instanceof ClickGuiScreen || AutoPot.mc.field_1755 instanceof GameMenuScreen)) {
+        if (!(AutoPot.mc.currentScreen == null || AutoPot.mc.currentScreen instanceof ChatScreen || AutoPot.mc.currentScreen instanceof InventoryScreen || AutoPot.mc.currentScreen instanceof ClickGuiScreen || AutoPot.mc.currentScreen instanceof GameMenuScreen)) {
             return false;
         }
         if (this.usingPause.getValue() && AutoPot.mc.player.method_6115()) {

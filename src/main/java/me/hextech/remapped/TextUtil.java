@@ -43,11 +43,11 @@ implements Wrapper {
             }
             ++index;
             if (s != null) {
-                drawContext.method_25303(TextUtil.mc.field_1772, s + c, (int)x, (int)y, startColor.getRGB());
+                drawContext.drawTextWithShadow(TextUtil.mc.textRenderer, s + c, (int)x, (int)y, startColor.getRGB());
             } else {
-                drawContext.method_25303(TextUtil.mc.field_1772, String.valueOf(c), (int)x, (int)y, ColorUtil.pulseColor(startColor, endColor, index, counter, speed).getRGB());
+                drawContext.drawTextWithShadow(TextUtil.mc.textRenderer, String.valueOf(c), (int)x, (int)y, ColorUtil.pulseColor(startColor, endColor, index, counter, speed).getRGB());
             }
-            x += (double)TextUtil.mc.field_1772.method_1727(String.valueOf(c));
+            x += (double)TextUtil.mc.textRenderer.getWidth(String.valueOf(c));
         }
         return (int)x;
     }
@@ -73,7 +73,7 @@ implements Wrapper {
             } else {
                 TextUtil.drawString(drawContext, String.valueOf(c), x, y, ColorUtil.pulseColor(startColor, endColor, index, counter, speed).getRGB(), customFont);
             }
-            x += customFont ? (double)FontRenderers.Arial.getWidth(String.valueOf(c)) : (double)TextUtil.mc.field_1772.method_1727(String.valueOf(c));
+            x += customFont ? (double)FontRenderers.Arial.getWidth(String.valueOf(c)) : (double)TextUtil.mc.textRenderer.getWidth(String.valueOf(c));
         }
     }
 
@@ -82,7 +82,7 @@ implements Wrapper {
     }
 
     public static float getWidth(String s) {
-        return TextUtil.isCustomFont() ? FontRenderers.Arial.getWidth(s) : (float)TextUtil.mc.field_1772.method_1727(s);
+        return TextUtil.isCustomFont() ? FontRenderers.Arial.getWidth(s) : (float)TextUtil.mc.textRenderer.getWidth(s);
     }
 
     public static float getHeight() {
@@ -90,7 +90,7 @@ implements Wrapper {
         if (TextUtil.isCustomFont()) {
             f = FontRenderers.Arial.getFontHeight();
         } else {
-            Objects.requireNonNull(TextUtil.mc.field_1772);
+            Objects.requireNonNull(TextUtil.mc.textRenderer);
             f = 9.0f;
         }
         return f;
@@ -101,25 +101,25 @@ implements Wrapper {
     }
 
     public static void drawStringWithScale(DrawContext drawContext, String text, float x, float y, int color, float scale) {
-        MatrixStack matrixStack = drawContext.method_51448();
+        MatrixStack matrixStack = drawContext.getMatrices();
         if (scale != 1.0f) {
-            matrixStack.method_22903();
-            matrixStack.method_22905(scale, scale, 1.0f);
+            matrixStack.push();
+            matrixStack.scale(scale, scale, 1.0f);
             if (scale > 1.0f) {
-                matrixStack.method_46416(-x / scale, -y / scale, 0.0f);
+                matrixStack.translate(-x / scale, -y / scale, 0.0f);
             } else {
-                matrixStack.method_46416(x / scale / 2.0f, y / scale / 2.0f, 0.0f);
+                matrixStack.translate(x / scale / 2.0f, y / scale / 2.0f, 0.0f);
             }
         }
         TextUtil.drawString(drawContext, text, (double)x, (double)y, color);
-        matrixStack.method_22909();
+        matrixStack.pop();
     }
 
     public static void drawString(DrawContext drawContext, String text, double x, double y, int color, boolean customFont) {
         if (customFont) {
-            FontRenderers.Arial.drawString(drawContext.method_51448(), text, (float)x, (float)y + 2.0f, color);
+            FontRenderers.Arial.drawString(drawContext.getMatrices(), text, (float)x, (float)y + 2.0f, color);
         } else {
-            drawContext.method_51433(TextUtil.mc.field_1772, text, (int)x, (int)y, color, true);
+            drawContext.drawText(TextUtil.mc.textRenderer, text, (int)x, (int)y, color, true);
         }
     }
 
@@ -129,26 +129,26 @@ implements Wrapper {
 
     public static void drawString(DrawContext drawContext, String text, double x, double y, int color) {
         if (TextUtil.isCustomFont()) {
-            FontRenderers.Arial.drawString(drawContext.method_51448(), text, (float)x, (float)y + 2.0f, color);
+            FontRenderers.Arial.drawString(drawContext.getMatrices(), text, (float)x, (float)y + 2.0f, color);
         } else {
-            drawContext.method_51433(TextUtil.mc.field_1772, text, (int)x, (int)y, color, true);
+            drawContext.drawText(TextUtil.mc.textRenderer, text, (int)x, (int)y, color, true);
         }
     }
 
     public static Vec3d worldSpaceToScreenSpace(Vec3d pos) {
-        Camera camera = TextUtil.mc.method_1561().field_4686;
-        int displayHeight = mc.method_22683().method_4507();
+        Camera camera = TextUtil.mc.getEntityRenderDispatcher().camera;
+        int displayHeight = mc.getWindow().getHeight();
         int[] viewport = new int[4];
         GL11.glGetIntegerv((int)2978, (int[])viewport);
         Vector3f target = new Vector3f();
-        double deltaX = pos.field_1352 - camera.method_19326().field_1352;
-        double deltaY = pos.field_1351 - camera.method_19326().field_1351;
-        double deltaZ = pos.field_1350 - camera.method_19326().field_1350;
+        double deltaX = pos.x - camera.getPos().x;
+        double deltaY = pos.y - camera.getPos().y;
+        double deltaZ = pos.z - camera.getPos().z;
         Vector4f transformedCoordinates = new Vector4f((float)deltaX, (float)deltaY, (float)deltaZ, 1.0f).mul((Matrix4fc)lastWorldSpaceMatrix);
         Matrix4f matrixProj = new Matrix4f((Matrix4fc)lastProjMat);
         Matrix4f matrixModel = new Matrix4f((Matrix4fc)lastModMat);
         matrixProj.mul((Matrix4fc)matrixModel).project(transformedCoordinates.x(), transformedCoordinates.y(), transformedCoordinates.z(), viewport, target);
-        return new Vec3d((double)target.x / mc.method_22683().method_4495(), (double)((float)displayHeight - target.y) / mc.method_22683().method_4495(), (double)target.z);
+        return new Vec3d((double)target.x / mc.getWindow().getScaleFactor(), (double)((float)displayHeight - target.y) / mc.getWindow().getScaleFactor(), (double)target.z);
     }
 
     public static void drawText(DrawContext context, String text, Vec3d vector) {
@@ -157,22 +157,22 @@ implements Wrapper {
 
     public static void drawText(DrawContext context, String text, Vec3d vector, int color) {
         Vec3d preVec = vector;
-        vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.field_1352, vector.field_1351, vector.field_1350));
-        if (vector.field_1350 > 0.0 && vector.field_1350 < 1.0) {
-            double posX = vector.field_1352;
-            double posY = vector.field_1351;
-            double endPosX = Math.max(vector.field_1352, vector.field_1350);
-            float scale = (float)Math.max(1.0 - EntityUtil.getEyesPos().method_1022(preVec) * 0.025, 0.0);
+        vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
+        if (vector.z > 0.0 && vector.z < 1.0) {
+            double posX = vector.x;
+            double posY = vector.y;
+            double endPosX = Math.max(vector.x, vector.z);
+            float scale = (float)Math.max(1.0 - EntityUtil.getEyesPos().distanceTo(preVec) * 0.025, 0.0);
             float diff = (float)(endPosX - posX) / 2.0f;
-            float textWidth = (float)TextUtil.mc.field_1772.method_1727(text) * scale;
+            float textWidth = (float)TextUtil.mc.textRenderer.getWidth(text) * scale;
             float tagX = (float)((posX + (double)diff - (double)(textWidth / 2.0f)) * 1.0);
-            context.method_51448().method_22903();
-            context.method_51448().method_22905(scale, scale, scale);
-            TextRenderer textRenderer = TextUtil.mc.field_1772;
+            context.getMatrices().push();
+            context.getMatrices().scale(scale, scale, scale);
+            TextRenderer textRenderer = TextUtil.mc.textRenderer;
             int n = (int)(tagX / scale);
-            Objects.requireNonNull(TextUtil.mc.field_1772);
-            context.method_51433(textRenderer, text, n, (int)((posY - 11.0 + 9.0 * 1.2) / (double)scale), color, true);
-            context.method_51448().method_22909();
+            Objects.requireNonNull(TextUtil.mc.textRenderer);
+            context.drawText(textRenderer, text, n, (int)((posY - 11.0 + 9.0 * 1.2) / (double)scale), color, true);
+            context.getMatrices().pop();
         }
     }
 }

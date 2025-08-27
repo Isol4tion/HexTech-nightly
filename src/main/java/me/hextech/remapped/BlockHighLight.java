@@ -37,13 +37,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         HitResult hitResult;
-        if (BlockHighLight.mc.field_1765 == null || !((hitResult = BlockHighLight.mc.field_1765) instanceof BlockHitResult)) {
+        if (BlockHighLight.mc.crosshairTarget == null || !((hitResult = BlockHighLight.mc.crosshairTarget) instanceof BlockHitResult)) {
             return;
         }
         BlockHitResult hitResult2 = (BlockHitResult)hitResult;
-        if (BlockHighLight.mc.field_1765.method_17783() == HitResult.Type.field_1332) {
+        if (BlockHighLight.mc.crosshairTarget.getType() == HitResult.Type.BLOCK) {
             this.noPosTimer.reset();
-            Vec3d vec3d = placeVec3d = this.center.getValue() ? hitResult2.method_17777().toCenterPos() : BlockHighLight.mc.field_1765.method_17784();
+            Vec3d vec3d = placeVec3d = this.center.getValue() ? hitResult2.getBlockPos().toCenterPos() : BlockHighLight.mc.crosshairTarget.getPos();
         }
         if (placeVec3d == null) {
             return;
@@ -53,9 +53,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             curVec3d = null;
             return;
         }
-        curVec3d = curVec3d == null || this.sliderSpeed.getValue() >= 1.0 ? placeVec3d : new Vec3d(AnimateUtil.animate(BlockHighLight.curVec3d.field_1352, BlockHighLight.placeVec3d.field_1352, this.sliderSpeed.getValue() / 10.0), AnimateUtil.animate(BlockHighLight.curVec3d.field_1351, BlockHighLight.placeVec3d.field_1351, this.sliderSpeed.getValue() / 10.0), AnimateUtil.animate(BlockHighLight.curVec3d.field_1350, BlockHighLight.placeVec3d.field_1350, this.sliderSpeed.getValue() / 10.0));
+        curVec3d = curVec3d == null || this.sliderSpeed.getValue() >= 1.0 ? placeVec3d : new Vec3d(AnimateUtil.animate(BlockHighLight.curVec3d.x, BlockHighLight.placeVec3d.x, this.sliderSpeed.getValue() / 10.0), AnimateUtil.animate(BlockHighLight.curVec3d.y, BlockHighLight.placeVec3d.y, this.sliderSpeed.getValue() / 10.0), AnimateUtil.animate(BlockHighLight.curVec3d.z, BlockHighLight.placeVec3d.z, this.sliderSpeed.getValue() / 10.0));
         Box box = new Box(curVec3d, curVec3d);
-        box = this.shrink.getValue() ? box.method_1014(this.fade) : box.method_1014(0.5);
+        box = this.shrink.getValue() ? box.expand(this.fade) : box.expand(0.5);
         if (this.fill.booleanValue) {
             Render3DUtil.drawFill(matrixStack, box, ColorUtil.injectAlpha(this.fill.getValue(), (int)((double)this.fill.getValue().getAlpha() * this.fade * 2.0)));
         }

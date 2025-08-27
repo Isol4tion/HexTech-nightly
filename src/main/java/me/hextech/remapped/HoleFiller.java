@@ -109,9 +109,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.progress = 0;
         this.directionVec = null;
         this.timer.reset();
-        int obbySlot = this.findBlock(Blocks.field_10540);
-        int eChestSlot = this.findBlock(Blocks.field_10443);
-        int webSlot = this.findBlock(Blocks.field_10343);
+        int obbySlot = this.findBlock(Blocks.OBSIDIAN);
+        int eChestSlot = this.findBlock(Blocks.ENDER_CHEST);
+        int webSlot = this.findBlock(Blocks.COBWEB);
         int n = this.webs.getValue() ? (webSlot == -1 ? (obbySlot == -1 ? eChestSlot : obbySlot) : webSlot) : (block = obbySlot == -1 ? eChestSlot : obbySlot);
         if (!this.webs.getValue() && obbySlot == -1 && eChestSlot == -1) {
             return;
@@ -127,8 +127,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!list.isEmpty()) {
             for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
                 for (BlockPos pos : BlockUtil.getSphere(this.range.getValueFloat(), pap.player.method_19538())) {
-                    if (!BlockUtil.isHole(pos, true, true, this.any.getValue()) && (!this.doubleHole.getValue() || !CombatUtil.isDoubleHole(pos)) || HoleFiller.mc.player.method_5707(pos.toCenterPos()) < this.saferange.getValue() || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals((Object)SpeedMine.breakPos)) || this.progress >= this.blocksPer.getValueInt() || !BlockUtil.canPlace(pos, this.placeRange.getValue()) || BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) == null || !HoleFiller.mc.world.isAir(pos)) continue;
-                    int oldSlot = HoleFiller.mc.player.method_31548().field_7545;
+                    if (!BlockUtil.isHole(pos, true, true, this.any.getValue()) && (!this.doubleHole.getValue() || !CombatUtil.isDoubleHole(pos)) || HoleFiller.mc.player.method_5707(pos.toCenterPos()) < this.saferange.getValue() || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals((Object)SpeedMine.breakPos)) || this.progress >= this.blocksPer.getValueInt() || !BlockUtil.canPlace(pos, this.placeRange.getValue()) || BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) == null || !HoleFiller.mc.world.method_22347(pos)) continue;
+                    int oldSlot = HoleFiller.mc.player.method_31548().selectedSlot;
                     this.doSwap(block);
                     this.placeBlock(pos, this.rotate.getValue());
                     ++this.progress;
@@ -148,14 +148,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Direction side;
         if (BlockUtil.airPlace()) {
             for (Direction i : Direction.values()) {
-                if (!HoleFiller.mc.world.isAir(pos.offset(i))) continue;
+                if (!HoleFiller.mc.world.method_22347(pos.offset(i))) continue;
                 return this.clickBlock(pos, i, rotate);
             }
         }
         if ((side = BlockUtil.getPlaceSide(pos)) == null) {
             return false;
         }
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().method_10263() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().method_10264() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().method_10260() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         BlockUtil.placedPos.add(pos);
         boolean sprint = false;
@@ -164,33 +164,33 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         boolean sneak = false;
         if (HoleFiller.mc.world != null) {
-            boolean bl = sneak = HoleFiller.needSneak(HoleFiller.mc.world.getBlockState(result.method_17777()).getBlock()) && !HoleFiller.mc.player.method_5715();
+            boolean bl = sneak = HoleFiller.needSneak(HoleFiller.mc.world.method_8320(result.getBlockPos()).method_26204()) && !HoleFiller.mc.player.method_5715();
         }
         if (sprint) {
-            HoleFiller.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.field_12985));
+            HoleFiller.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
         }
         if (sneak) {
-            HoleFiller.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.field_12979));
+            HoleFiller.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY));
         }
-        this.clickBlock(pos.offset(side), side.method_10153(), rotate);
+        this.clickBlock(pos.offset(side), side.getOpposite(), rotate);
         if (sneak) {
-            HoleFiller.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.field_12984));
+            HoleFiller.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY));
         }
         if (sprint) {
-            HoleFiller.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.field_12981));
+            HoleFiller.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
         }
-        EntityUtil.swingHand(Hand.field_5808, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
+        EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         return true;
     }
 
     public boolean clickBlock(BlockPos pos, Direction side, boolean rotate) {
-        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().method_10263() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().method_10264() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().method_10260() * 0.5);
+        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().getX() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().getY() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().getZ() * 0.5);
         if (rotate && !this.faceVector(directionVec)) {
             return false;
         }
-        EntityUtil.swingHand(Hand.field_5808, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
+        EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
-        HoleFiller.mc.player.field_3944.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.field_5808, result, BlockUtil.getWorldActionId(HoleFiller.mc.world)));
+        HoleFiller.mc.player.networkHandler.method_52787((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(HoleFiller.mc.world)));
         return true;
     }
 
@@ -201,7 +201,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.directionVec = directionVec;
         float[] angle = EntityUtil.getLegitRotations(directionVec);
-        if (Math.abs(MathHelper.method_15393((float)(angle[0] - this.lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.method_15393((float)(angle[1] - this.lastPitch))) < this.fov.getValueFloat()) {
+        if (Math.abs(MathHelper.wrapDegrees((float)(angle[0] - this.lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees((float)(angle[1] - this.lastPitch))) < this.fov.getValueFloat()) {
             EntityUtil.sendYawAndPitch(angle[0], angle[1]);
             return true;
         }
@@ -218,7 +218,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (steps < 1.0f && angle != null) {
             float packetPitch;
             float packetYaw = this.lastYaw;
-            float diff = MathHelper.method_15393((float)(angle[0] - packetYaw));
+            float diff = MathHelper.wrapDegrees((float)(angle[0] - packetYaw));
             if (Math.abs(diff) > 90.0f * steps) {
                 angle[0] = packetYaw + diff * (90.0f * steps / Math.abs(diff));
             }
@@ -238,23 +238,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, HoleFiller.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, HoleFiller.mc.player.method_31548().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
     }
 
-    public static final class _sZEAolNLTvldDiHjSnlT
-    extends Enum<_sZEAolNLTvldDiHjSnlT> {
-        public static final /* enum */ _sZEAolNLTvldDiHjSnlT General;
-        public static final /* enum */ _sZEAolNLTvldDiHjSnlT Rotate;
+    public static enum _sZEAolNLTvldDiHjSnlT {
+        General,
+        Rotate;
 
-        public static _sZEAolNLTvldDiHjSnlT[] values() {
-            return null;
-        }
-
-        public static _sZEAolNLTvldDiHjSnlT valueOf(String string) {
-            return null;
-        }
     }
 }

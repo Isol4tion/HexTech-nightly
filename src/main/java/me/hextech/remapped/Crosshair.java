@@ -23,9 +23,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void draw(DrawContext context) {
-        MatrixStack matrixStack = context.method_51448();
-        float centerX = (float)mc.method_22683().method_4486() / 2.0f;
-        float centerY = (float)mc.method_22683().method_4502() / 2.0f;
+        MatrixStack matrixStack = context.getMatrices();
+        float centerX = (float)mc.getWindow().getScaledWidth() / 2.0f;
+        float centerY = (float)mc.getWindow().getScaledHeight() / 2.0f;
         Render2DUtil.drawRect(matrixStack, centerX - this.thickness.getValueFloat() / 2.0f, centerY - this.length.getValueFloat() - this.interval.getValueFloat(), this.thickness.getValueFloat(), this.length.getValueFloat(), this.color.getValue());
         Render2DUtil.drawRect(matrixStack, centerX - this.thickness.getValueFloat() / 2.0f, centerY + this.interval.getValueFloat(), this.thickness.getValueFloat(), this.length.getValueFloat(), this.color.getValue());
         Render2DUtil.drawRect(matrixStack, centerX + this.interval.getValueFloat(), centerY - this.thickness.getValueFloat() / 2.0f, this.length.getValueFloat(), this.thickness.getValueFloat(), this.color.getValue());

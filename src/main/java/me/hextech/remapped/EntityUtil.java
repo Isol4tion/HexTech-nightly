@@ -37,7 +37,7 @@ implements Wrapper {
     public static boolean rotating;
 
     public static boolean isHoldingWeapon(PlayerEntity player) {
-        return player.method_6047().method_7909() instanceof SwordItem || player.method_6047().method_7909() instanceof AxeItem;
+        return player.method_6047().getItem() instanceof SwordItem || player.method_6047().getItem() instanceof AxeItem;
     }
 
     public static boolean isUsing() {
@@ -45,22 +45,22 @@ implements Wrapper {
     }
 
     public static boolean isInsideBlock() {
-        if (BlockUtil.getBlock(EntityUtil.getPlayerPos(true)) == Blocks.field_10443) {
+        if (BlockUtil.getBlock(EntityUtil.getPlayerPos(true)) == Blocks.ENDER_CHEST) {
             return true;
         }
         return EntityUtil.mc.world.method_39454((Entity)EntityUtil.mc.player, EntityUtil.mc.player.method_5829());
     }
 
     public static int getDamagePercent(ItemStack stack) {
-        if (stack.method_7919() == stack.method_7936()) {
+        if (stack.getDamage() == stack.getMaxDamage()) {
             return 100;
         }
-        return (int)((double)(stack.method_7936() - stack.method_7919()) / Math.max(0.1, (double)stack.method_7936()) * 100.0);
+        return (int)((double)(stack.getMaxDamage() - stack.getDamage()) / Math.max(0.1, (double)stack.getMaxDamage()) * 100.0);
     }
 
     public static boolean isArmorLow(PlayerEntity player, int durability) {
         for (ItemStack piece : player.method_5661()) {
-            if (piece == null || piece.method_7960()) {
+            if (piece == null || piece.isEmpty()) {
                 return true;
             }
             if (EntityUtil.getDamagePercent(piece) >= durability) continue;
@@ -71,19 +71,19 @@ implements Wrapper {
 
     public static float[] getLegitRotations(Vec3d vec) {
         Vec3d eyesPos = EntityUtil.getEyesPos();
-        double diffX = vec.field_1352 - eyesPos.field_1352;
-        double diffY = vec.field_1351 - eyesPos.field_1351;
-        double diffZ = vec.field_1350 - eyesPos.field_1350;
+        double diffX = vec.x - eyesPos.x;
+        double diffY = vec.y - eyesPos.y;
+        double diffZ = vec.z - eyesPos.z;
         double diffXZ = Math.sqrt(diffX * diffX + diffZ * diffZ);
         float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
         float pitch = (float)(-Math.toDegrees(Math.atan2(diffY, diffXZ)));
-        return new float[]{MathHelper.method_15393((float)yaw), MathHelper.method_15393((float)pitch)};
+        return new float[]{MathHelper.wrapDegrees((float)yaw), MathHelper.wrapDegrees((float)pitch)};
     }
 
     public static float getHealth(Entity entity) {
-        if (entity.method_5709()) {
+        if (entity.isLiving()) {
             LivingEntity livingBase = (LivingEntity)entity;
-            return livingBase.method_6032() + livingBase.method_6067();
+            return livingBase.getHealth() + livingBase.getAbsorptionAmount();
         }
         return 0.0f;
     }
@@ -93,7 +93,7 @@ implements Wrapper {
     }
 
     public static BlockPos getEntityPos(Entity entity) {
-        return new BlockPosX(entity.method_19538());
+        return new BlockPosX(entity.getPos());
     }
 
     public static BlockPos getPlayerPos(boolean fix) {
@@ -101,17 +101,17 @@ implements Wrapper {
     }
 
     public static BlockPos getEntityPos(Entity entity, boolean fix) {
-        return new BlockPosX(entity.method_19538(), fix);
+        return new BlockPosX(entity.getPos(), fix);
     }
 
     public static Vec3d getEyesPos() {
-        return EntityUtil.mc.player.getEyePos();
+        return EntityUtil.mc.player.method_33571();
     }
 
     public static boolean canSee(BlockPos pos, Direction side) {
-        Vec3d testVec = pos.toCenterPos().method_1031((double)side.method_10163().method_10263() * 0.5, (double)side.method_10163().method_10264() * 0.5, (double)side.method_10163().method_10260() * 0.5);
-        BlockHitResult result = EntityUtil.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.field_17558, RaycastContext.FluidHandling.field_1348, (Entity)EntityUtil.mc.player));
-        return result == null || result.method_17783() == HitResult.Type.field_1333;
+        Vec3d testVec = pos.toCenterPos().add((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5);
+        BlockHitResult result = EntityUtil.mc.world.method_17742(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)EntityUtil.mc.player));
+        return result == null || result.getType() == HitResult.Type.MISS;
     }
 
     public static void sendYawAndPitch(float yaw, float pitch) {
@@ -129,7 +129,7 @@ implements Wrapper {
             return;
         }
         if (ComboBreaks.INSTANCE.isOff()) {
-            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.incRotate.getValue() && MathHelper.method_15356((float)angle[0], (float)HexTech.ROTATE.lastYaw) < CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.incStrike.getValueFloat() && MathHelper.method_15356((float)angle[1], (float)RotateManager.lastPitch) < CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.incStrike.getValueFloat()) {
+            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.incRotate.getValue() && MathHelper.angleBetween((float)angle[0], (float)HexTech.ROTATE.lastYaw) < CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.incStrike.getValueFloat() && MathHelper.angleBetween((float)angle[1], (float)RotateManager.lastPitch) < CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.incStrike.getValueFloat()) {
                 return;
             }
             EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(angle[0], angle[1], EntityUtil.mc.player.method_24828()));
@@ -137,28 +137,28 @@ implements Wrapper {
     }
 
     public static void sendLook(PlayerMoveC2SPacket packet) {
-        if (!packet.method_36172() || packet.method_12271(114514.0f) == HexTech.ROTATE.lastYaw && packet.method_12270(114514.0f) == RotateManager.lastPitch) {
+        if (!packet.changesLook() || packet.getYaw(114514.0f) == HexTech.ROTATE.lastYaw && packet.getPitch(114514.0f) == RotateManager.lastPitch) {
             return;
         }
         rotating = true;
-        HexTech.ROTATE.setRotation(packet.method_12271(0.0f), packet.method_12270(0.0f), true);
-        EntityUtil.mc.player.field_3944.method_52787((Packet)packet);
+        HexTech.ROTATE.setRotation(packet.getYaw(0.0f), packet.getPitch(0.0f), true);
+        EntityUtil.mc.player.networkHandler.method_52787((Packet)packet);
         rotating = false;
     }
 
     public static void facePosSide(BlockPos pos, Direction side) {
-        Vec3d hitVec = pos.toCenterPos().method_1019(new Vec3d((double)side.method_10163().method_10263() * 0.5, (double)side.method_10163().method_10264() * 0.5, (double)side.method_10163().method_10260() * 0.5));
+        Vec3d hitVec = pos.toCenterPos().add(new Vec3d((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5));
         EntityUtil.faceVector(hitVec);
     }
 
     public static void facePosSideNoStay(BlockPos pos, Direction side) {
-        Vec3d hitVec = pos.toCenterPos().method_1019(new Vec3d((double)side.method_10163().method_10263() * 0.5, (double)side.method_10163().method_10264() * 0.5, (double)side.method_10163().method_10260() * 0.5));
+        Vec3d hitVec = pos.toCenterPos().add(new Vec3d((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5));
         EntityUtil.faceVectorNoStay(hitVec);
     }
 
     public static int getWorldActionId(ClientWorld world) {
         PendingUpdateManager pum = EntityUtil.getUpdateManager(world);
-        int p = pum.method_41942();
+        int p = pum.getSequence();
         pum.close();
         return p;
     }
@@ -182,14 +182,14 @@ implements Wrapper {
                 break;
             }
             case 3: {
-                EntityUtil.mc.player.field_3944.method_52787((Packet)new HandSwingC2SPacket(hand));
+                EntityUtil.mc.player.networkHandler.method_52787((Packet)new HandSwingC2SPacket(hand));
             }
         }
     }
 
     public static void syncInventory() {
         if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.inventorySync.getValue()) {
-            EntityUtil.mc.player.field_3944.method_52787((Packet)new CloseHandledScreenC2SPacket(EntityUtil.mc.player.field_7512.field_7763));
+            EntityUtil.mc.player.networkHandler.method_52787((Packet)new CloseHandledScreenC2SPacket(EntityUtil.mc.player.field_7512.syncId));
         }
     }
 }

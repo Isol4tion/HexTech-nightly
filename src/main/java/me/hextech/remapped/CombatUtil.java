@@ -74,17 +74,17 @@ implements Wrapper {
                 EntityUtil.faceVector(new Vec3d(crystal.getX(), crystal.getY() + 0.25, crystal.getZ()));
             }
             if (CombatUtil.mc.player != null) {
-                CombatUtil.mc.player.field_3944.method_52787((Packet)PlayerInteractEntityC2SPacket.method_34206((Entity)crystal, (boolean)CombatUtil.mc.player.method_5715()));
+                CombatUtil.mc.player.networkHandler.method_52787((Packet)PlayerInteractEntityC2SPacket.attack((Entity)crystal, (boolean)CombatUtil.mc.player.method_5715()));
             }
             if (CombatUtil.mc.player != null) {
                 CombatUtil.mc.player.method_7350();
             }
-            EntityUtil.swingHand(Hand.field_5808, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
+            EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         }
     }
 
     public static boolean isValid(Entity entity, double range) {
-        boolean invalid = entity == null || !entity.method_5805() || entity.equals((Object)CombatUtil.mc.player) || entity instanceof PlayerEntity && FriendManager.isFriend(entity.method_5477().getString()) || CombatUtil.mc.player.method_5858(entity) > MathUtil.square(range);
+        boolean invalid = entity == null || !entity.isAlive() || entity.equals((Object)CombatUtil.mc.player) || entity instanceof PlayerEntity && FriendManager.isFriend(entity.method_5477().getString()) || CombatUtil.mc.player.method_5858(entity) > MathUtil.square(range);
         return !invalid;
     }
 
@@ -93,7 +93,7 @@ implements Wrapper {
         double bestDistance = range + 1.0f;
         for (BlockPos pos : BlockUtil.getSphere(range)) {
             if (CombatUtil.mc.player == null || pos.method_10263() == CombatUtil.mc.player.method_31477() && pos.method_10260() == CombatUtil.mc.player.method_31479() || !BlockUtil.isHole(pos, true, true, any) && (!doubleHole || !CombatUtil.isDoubleHole(pos)) || pos.method_10264() - CombatUtil.mc.player.method_31478() > 1) continue;
-            double distance = MathHelper.method_15355((float)((float)CombatUtil.mc.player.method_5649((double)pos.method_10263() + 0.5, (double)pos.method_10264() + 0.5, (double)pos.method_10260() + 0.5)));
+            double distance = MathHelper.sqrt((float)((float)CombatUtil.mc.player.method_5649((double)pos.method_10263() + 0.5, (double)pos.method_10264() + 0.5, (double)pos.method_10260() + 0.5)));
             if (bestPos != null && !(distance < bestDistance)) continue;
             bestPos = pos;
             bestDistance = distance;
@@ -110,10 +110,10 @@ implements Wrapper {
     }
 
     public static Direction is3Block(BlockPos pos) {
-        if (!CombatUtil.isHard(pos.method_10074())) {
+        if (!CombatUtil.isHard(pos.down())) {
             return null;
         }
-        if (!(BlockUtil.isAir(pos) && BlockUtil.isAir(pos.up()) && BlockUtil.isAir(pos.method_10086(2)))) {
+        if (!(BlockUtil.isAir(pos) && BlockUtil.isAir(pos.up()) && BlockUtil.isAir(pos.up(2)))) {
             return null;
         }
         int progress = 0;
@@ -126,7 +126,7 @@ implements Wrapper {
             }
             int progress2 = 0;
             for (Direction facing2 : Direction.values()) {
-                if (facing2 == Direction.DOWN || facing2 == facing.method_10153() || !CombatUtil.isHard(pos.offset(facing).offset(facing2))) continue;
+                if (facing2 == Direction.DOWN || facing2 == facing.getOpposite() || !CombatUtil.isHard(pos.offset(facing).offset(facing2))) continue;
                 ++progress2;
             }
             if (progress2 == 4) {
@@ -148,7 +148,7 @@ implements Wrapper {
                 closest = player;
                 continue;
             }
-            if (!(CombatUtil.mc.player.getEyePos().squaredDistanceTo(player.method_19538()) < CombatUtil.mc.player.method_5858((Entity)closest))) continue;
+            if (!(CombatUtil.mc.player.method_33571().squaredDistanceTo(player.method_19538()) < CombatUtil.mc.player.method_5858((Entity)closest))) continue;
             closest = player;
         }
         return closest;
@@ -158,16 +158,16 @@ implements Wrapper {
         if (ticks <= 0) {
             return entity.method_19538();
         }
-        return entity.method_19538().method_1019(CombatUtil.getMotionVec((Entity)entity, ticks, true));
+        return entity.method_19538().add(CombatUtil.getMotionVec((Entity)entity, ticks, true));
     }
 
     public static Vec3d getMotionVec(Entity entity, float ticks, boolean collision) {
-        double dX = entity.getX() - entity.field_6014;
-        double dZ = entity.getZ() - entity.field_5969;
+        double dX = entity.getX() - entity.prevX;
+        double dZ = entity.getZ() - entity.prevZ;
         double entityMotionPosX = 0.0;
         double entityMotionPosZ = 0.0;
         if (collision) {
-            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.method_39454(entity, entity.method_5829().method_997(new Vec3d(dX * i, 0.0, dZ * i))); i += 0.5) {
+            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.method_39454(entity, entity.method_5829().offset(new Vec3d(dX * i, 0.0, dZ * i))); i += 0.5) {
                 entityMotionPosX = dX * i;
                 entityMotionPosZ = dZ * i;
             }
@@ -182,18 +182,18 @@ implements Wrapper {
         if (ticks <= 0) {
             return entity.method_19538();
         }
-        return entity.method_19538().method_1019(CombatUtil.getMotionVecWithY((Entity)entity, ticks, true));
+        return entity.method_19538().add(CombatUtil.getMotionVecWithY((Entity)entity, ticks, true));
     }
 
     public static Vec3d getMotionVecWithY(Entity entity, int ticks, boolean collision) {
-        double dX = entity.getX() - entity.field_6014;
-        double dY = entity.getY() - entity.field_6036;
-        double dZ = entity.getZ() - entity.field_5969;
+        double dX = entity.getX() - entity.prevX;
+        double dY = entity.getY() - entity.prevY;
+        double dZ = entity.getZ() - entity.prevZ;
         double entityMotionPosX = 0.0;
         double entityMotionPosY = 0.0;
         double entityMotionPosZ = 0.0;
         if (collision) {
-            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.method_39454(entity, entity.method_5829().method_997(new Vec3d(dX * i, dY * i, dZ * i))); i += 0.5) {
+            for (double i = 1.0; i <= (double)ticks && !CombatUtil.mc.world.method_39454(entity, entity.method_5829().offset(new Vec3d(dX * i, dY * i, dZ * i))); i += 0.5) {
                 entityMotionPosX = dX * i;
                 entityMotionPosY = dY * i;
                 entityMotionPosZ = dZ * i;
@@ -207,7 +207,7 @@ implements Wrapper {
     }
 
     public static boolean isHard(BlockPos pos) {
-        Block block = BlockUtil.getState(pos).getBlock();
-        return block == Blocks.field_10540 || block == Blocks.field_22108 || block == Blocks.field_10443 || block == Blocks.field_9987 || block == Blocks.field_10535;
+        Block block = BlockUtil.getState(pos).method_26204();
+        return block == Blocks.OBSIDIAN || block == Blocks.NETHERITE_BLOCK || block == Blocks.ENDER_CHEST || block == Blocks.BEDROCK || block == Blocks.ANVIL;
     }
 }

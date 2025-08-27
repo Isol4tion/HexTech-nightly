@@ -2,7 +2,7 @@ package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
 import me.hextech.remapped.WorldBreakEvent;
-import net.minecraft.client.render.BlockBreakingInfo;
+import net.minecraft.entity.player.BlockBreakingInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

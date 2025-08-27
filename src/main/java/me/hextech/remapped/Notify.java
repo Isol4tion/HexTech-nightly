@@ -25,35 +25,19 @@ public static class Notify {
     /*
      * Exception performing whole class analysis ignored.
      */
-    private static final class _eNVZNRNonauDhUZRxBAg
-    extends Enum<_eNVZNRNonauDhUZRxBAg> {
-        public static final /* enum */ _eNVZNRNonauDhUZRxBAg Line;
-        public static final /* enum */ _eNVZNRNonauDhUZRxBAg Fill;
+    private static enum _eNVZNRNonauDhUZRxBAg {
+        Line,
+        Fill;
 
-        public static _eNVZNRNonauDhUZRxBAg[] values() {
-            return null;
-        }
-
-        public static _eNVZNRNonauDhUZRxBAg valueOf(String string) {
-            return null;
-        }
     }
 
     /*
      * Exception performing whole class analysis ignored.
      */
-    public static final class _hvcAdwcUFPZabyUezEMv
-    extends Enum<_hvcAdwcUFPZabyUezEMv> {
-        public static final /* enum */ _hvcAdwcUFPZabyUezEMv Notify;
-        public static final /* enum */ _hvcAdwcUFPZabyUezEMv Chat;
-        public static final /* enum */ _hvcAdwcUFPZabyUezEMv Both;
+    public static enum _hvcAdwcUFPZabyUezEMv {
+        Notify,
+        Chat,
+        Both;
 
-        public static _hvcAdwcUFPZabyUezEMv[] values() {
-            return null;
-        }
-
-        public static _hvcAdwcUFPZabyUezEMv valueOf(String string) {
-            return null;
-        }
     }
 }

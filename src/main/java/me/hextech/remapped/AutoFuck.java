@@ -25,14 +25,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (AutoFuck.mc.player == null || mc.method_1562() == null) {
+        if (AutoFuck.mc.player == null || mc.getNetworkHandler() == null) {
             return;
         }
         long now = System.currentTimeMillis();
         if ((double)(now - this.lastTime) >= this.delay.getValue()) {
             this.sneaking = !this.sneaking;
-            ClientCommandC2SPacket.Mode mode = this.sneaking ? ClientCommandC2SPacket.Mode.field_12979 : ClientCommandC2SPacket.Mode.field_12984;
-            mc.method_1562().method_52787((Packet)new ClientCommandC2SPacket((Entity)AutoFuck.mc.player, mode));
+            ClientCommandC2SPacket.Mode mode = this.sneaking ? ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY : ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY;
+            mc.getNetworkHandler().method_52787((Packet)new ClientCommandC2SPacket((Entity)AutoFuck.mc.player, mode));
             this.lastTime = now;
         }
     }

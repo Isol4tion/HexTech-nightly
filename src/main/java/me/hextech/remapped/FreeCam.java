@@ -42,16 +42,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        FreeCam.mc.field_1730 = false;
+        FreeCam.mc.chunkCullingEnabled = false;
         this.preYaw = FreeCam.mc.player.method_36454();
         this.prePitch = FreeCam.mc.player.method_36455();
         this.fakePitch = FreeCam.mc.player.method_36455();
         this.fakeYaw = FreeCam.mc.player.method_36454();
         this.prevFakePitch = this.fakePitch;
         this.prevFakeYaw = this.fakeYaw;
-        this.fakeX = FreeCam.mc.player.getX();
-        this.fakeY = FreeCam.mc.player.getY() + (double)FreeCam.mc.player.method_18381(FreeCam.mc.player.method_18376());
-        this.fakeZ = FreeCam.mc.player.getZ();
+        this.fakeX = FreeCam.mc.player.method_23317();
+        this.fakeY = FreeCam.mc.player.method_23318() + (double)FreeCam.mc.player.method_18381(FreeCam.mc.player.method_18376());
+        this.fakeZ = FreeCam.mc.player.method_23321();
         this.prevFakeX = this.fakeX;
         this.prevFakeY = this.fakeY;
         this.prevFakeZ = this.fakeZ;
@@ -59,13 +59,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onDisable() {
-        FreeCam.mc.field_1730 = true;
+        FreeCam.mc.chunkCullingEnabled = true;
     }
 
     @Override
     public void onUpdate() {
-        if (this.rotate.getValue() && FreeCam.mc.field_1765 != null && FreeCam.mc.field_1765.method_17784() != null) {
-            float[] angle = EntityUtil.getLegitRotations(FreeCam.mc.field_1765.method_17784());
+        if (this.rotate.getValue() && FreeCam.mc.crosshairTarget != null && FreeCam.mc.crosshairTarget.getPos() != null) {
+            float[] angle = EntityUtil.getLegitRotations(FreeCam.mc.crosshairTarget.getPos());
             this.preYaw = angle[0];
             this.prePitch = angle[1];
         }
@@ -96,35 +96,35 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.prevFakeZ = this.fakeZ;
         this.fakeX += motion[0];
         this.fakeZ += motion[1];
-        if (FreeCam.mc.field_1690.field_1903.method_1434()) {
+        if (FreeCam.mc.options.jumpKey.isPressed()) {
             this.fakeY += this.hspeed.getValue();
         }
-        if (FreeCam.mc.field_1690.field_1832.method_1434()) {
+        if (FreeCam.mc.options.sneakKey.isPressed()) {
             this.fakeY -= this.hspeed.getValue();
         }
-        FreeCam.mc.player.field_3913.field_3905 = 0.0f;
-        FreeCam.mc.player.field_3913.field_3907 = 0.0f;
-        FreeCam.mc.player.field_3913.field_3904 = false;
-        FreeCam.mc.player.field_3913.field_3903 = false;
+        FreeCam.mc.player.input.movementForward = 0.0f;
+        FreeCam.mc.player.input.movementSideways = 0.0f;
+        FreeCam.mc.player.input.field_3904 = false;
+        FreeCam.mc.player.input.field_3903 = false;
     }
 
     public float getFakeYaw() {
-        return (float)MathUtil.interpolate(this.prevFakeYaw, this.fakeYaw, mc.getTickDelta());
+        return (float)MathUtil.interpolate(this.prevFakeYaw, this.fakeYaw, mc.method_1488());
     }
 
     public float getFakePitch() {
-        return (float)MathUtil.interpolate(this.prevFakePitch, this.fakePitch, mc.getTickDelta());
+        return (float)MathUtil.interpolate(this.prevFakePitch, this.fakePitch, mc.method_1488());
     }
 
     public double getFakeX() {
-        return MathUtil.interpolate(this.prevFakeX, this.fakeX, mc.getTickDelta());
+        return MathUtil.interpolate(this.prevFakeX, this.fakeX, mc.method_1488());
     }
 
     public double getFakeY() {
-        return MathUtil.interpolate(this.prevFakeY, this.fakeY, mc.getTickDelta());
+        return MathUtil.interpolate(this.prevFakeY, this.fakeY, mc.method_1488());
     }
 
     public double getFakeZ() {
-        return MathUtil.interpolate(this.prevFakeZ, this.fakeZ, mc.getTickDelta());
+        return MathUtil.interpolate(this.prevFakeZ, this.fakeZ, mc.method_1488());
     }
 }

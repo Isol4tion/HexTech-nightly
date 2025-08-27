@@ -17,16 +17,16 @@ import net.minecraft.util.math.Vec3d;
 public class PathUtils
 implements Wrapper {
     private static boolean canPassThrough(BlockPos pos) {
-        Block block = PathUtils.mc.world.getBlockState(new BlockPos(pos.method_10263(), pos.method_10264(), pos.method_10260())).getBlock();
-        return block == Blocks.AIR || block instanceof PlantBlock || block == Blocks.field_10597 || block == Blocks.field_9983 || block == Blocks.field_10382 || block == Blocks.field_27097 || block instanceof WallSignBlock;
+        Block block = PathUtils.mc.world.method_8320(new BlockPos(pos.method_10263(), pos.method_10264(), pos.method_10260())).method_26204();
+        return block == Blocks.AIR || block instanceof PlantBlock || block == Blocks.VINE || block == Blocks.LADDER || block == Blocks.WATER || block == Blocks.WATER_CAULDRON || block instanceof WallSignBlock;
     }
 
     public static ArrayList<Vec3> computePath(LivingEntity fromEntity, LivingEntity toEntity) {
-        return PathUtils.computePath(new Vec3(fromEntity.getX(), fromEntity.getY(), fromEntity.getZ()), new Vec3(toEntity.getX(), toEntity.getY(), toEntity.getZ()));
+        return PathUtils.computePath(new Vec3(fromEntity.method_23317(), fromEntity.method_23318(), fromEntity.method_23321()), new Vec3(toEntity.method_23317(), toEntity.method_23318(), toEntity.method_23321()));
     }
 
     public static ArrayList<Vec3> computePath(Vec3d vec3d) {
-        return PathUtils.computePath(new Vec3(PathUtils.mc.player.getX(), PathUtils.mc.player.getY(), PathUtils.mc.player.getZ()), new Vec3(vec3d.field_1352, vec3d.field_1351, vec3d.field_1350));
+        return PathUtils.computePath(new Vec3(PathUtils.mc.player.method_23317(), PathUtils.mc.player.method_23318(), PathUtils.mc.player.method_23321()), new Vec3(vec3d.x, vec3d.y, vec3d.z));
     }
 
     public static ArrayList<Vec3> computePath(Vec3 topFrom, Vec3 to) {

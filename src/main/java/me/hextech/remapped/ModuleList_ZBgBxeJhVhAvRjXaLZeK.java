@@ -97,7 +97,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.progress -= this.rainbowSpeed.getValueInt();
             this.timer.reset();
         }
-        int lastY = startY = this.down.getValue() ? mc.method_22683().method_4502() - this.yOffset.getValueInt() - this.getFontHeight() : this.yOffset.getValueInt();
+        int lastY = startY = this.down.getValue() ? mc.getWindow().getScaledHeight() - this.yOffset.getValueInt() - this.getFontHeight() : this.yOffset.getValueInt();
         int counter = 20;
         for (ModuleList_JTSxbGphPlVCUvdsPgfV modules : this.modulesList) {
             if (modules.module.isOn() && modules.module.drawnSetting.getValue() && (!this.onlyBind.getValue() || modules.module.getBind().getKey() != -1)) {
@@ -132,32 +132,32 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 modules.y = this.animate(modules.y, this.animY.getValue() && !modules.isEnabled ? (double)startY : (double)lastY, this.ySpeed.getValue());
             }
             ++counter;
-            int textX = (int)((double)mc.method_22683().method_4486() - modules.x - this.xOffset.getValue() - (double)(this.rect.getValue() ? 2 : 0));
+            int textX = (int)((double)mc.getWindow().getScaledWidth() - modules.x - this.xOffset.getValue() - (double)(this.rect.getValue() ? 2 : 0));
             if (this.fold.getValue()) {
-                drawContext.method_51448().method_22903();
-                drawContext.method_51448().method_22904(0.0, modules.y * (1.0 - modules.fold), 0.0);
-                drawContext.method_51448().method_22905(1.0f, (float)modules.fold, 1.0f);
+                drawContext.getMatrices().push();
+                drawContext.getMatrices().translate(0.0, modules.y * (1.0 - modules.fold), 0.0);
+                drawContext.getMatrices().scale(1.0f, (float)modules.fold, 1.0f);
             }
             if (this.scissor.getValue()) {
                 GL11.glEnable((int)3089);
-                GL11.glScissor((int)0, (int)0, (int)((mc.method_22683().method_4480() / 2 - this.xOffset.getValueInt() - (this.rect.getValue() ? 2 : 0)) * 2), (int)mc.method_22683().method_4507());
+                GL11.glScissor((int)0, (int)0, (int)((mc.getWindow().getWidth() / 2 - this.xOffset.getValueInt() - (this.rect.getValue() ? 2 : 0)) * 2), (int)mc.getWindow().getHeight());
             }
             if (this.backGround.getValue()) {
-                Render2DUtil.drawRect(drawContext.method_51448(), (float)(textX - 1), (float)((int)modules.y), (float)mc.method_22683().method_4486() - (float)this.xOffset.getValueInt() + 1.0f - (float)textX + 1.0f, (float)(this.getFontHeight() + this.height.getValueInt()), this.bgSync.getValue() ? ColorUtil.injectAlpha(this.getColor(counter), (int)((double)this.bgColor.getValue().getAlpha() * modules.fade)) : ColorUtil.injectAlpha(this.bgColor.getValue().getRGB(), (int)((double)this.bgColor.getValue().getAlpha() * modules.fade)));
+                Render2DUtil.drawRect(drawContext.getMatrices(), (float)(textX - 1), (float)((int)modules.y), (float)mc.getWindow().getScaledWidth() - (float)this.xOffset.getValueInt() + 1.0f - (float)textX + 1.0f, (float)(this.getFontHeight() + this.height.getValueInt()), this.bgSync.getValue() ? ColorUtil.injectAlpha(this.getColor(counter), (int)((double)this.bgColor.getValue().getAlpha() * modules.fade)) : ColorUtil.injectAlpha(this.bgColor.getValue().getRGB(), (int)((double)this.bgColor.getValue().getAlpha() * modules.fade)));
             }
             if (this.font.getValue()) {
-                FontRenderers.Arial.drawString(drawContext.method_51448(), this.getSuffix(modules.name), textX, (int)(modules.y + 1.0 + (double)this.textOffset.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int)(255.0 * modules.fade)));
+                FontRenderers.Arial.drawString(drawContext.getMatrices(), this.getSuffix(modules.name), textX, (int)(modules.y + 1.0 + (double)this.textOffset.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int)(255.0 * modules.fade)));
             } else {
-                drawContext.method_25303(ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.field_1772, this.getSuffix(modules.name), textX, (int)(modules.y + 1.0 + (double)this.textOffset.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int)(255.0 * modules.fade)));
+                drawContext.drawTextWithShadow(ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.textRenderer, this.getSuffix(modules.name), textX, (int)(modules.y + 1.0 + (double)this.textOffset.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int)(255.0 * modules.fade)));
             }
             if (this.scissor.getValue()) {
                 GL11.glDisable((int)3089);
             }
             if (this.fold.getValue()) {
-                drawContext.method_51448().method_22909();
+                drawContext.getMatrices().pop();
             }
             if (this.rect.getValue()) {
-                Render2DUtil.drawRect(drawContext.method_51448(), (float)mc.method_22683().method_4486() - (float)this.xOffset.getValueInt() - 1.0f, (float)((int)modules.y), 1.0f, (float)(this.getFontHeight() + this.height.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int)(255.0 * modules.fade)));
+                Render2DUtil.drawRect(drawContext.getMatrices(), (float)mc.getWindow().getScaledWidth() - (float)this.xOffset.getValueInt() - 1.0f, (float)((int)modules.y), 1.0f, (float)(this.getFontHeight() + this.height.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int)(255.0 * modules.fade)));
             }
             if (!modules.isEnabled && this.preY.getValue()) continue;
             if (this.down.getValue()) {
@@ -207,14 +207,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.font.getValue()) {
             return (int)FontRenderers.Arial.getWidth(text);
         }
-        return ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.field_1772.method_1727(text);
+        return ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.textRenderer.getWidth(text);
     }
 
     private int getFontHeight() {
         if (this.font.getValue()) {
             return (int)FontRenderers.Arial.getFontHeight();
         }
-        Objects.requireNonNull(ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.field_1772);
+        Objects.requireNonNull(ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.textRenderer);
         return 9;
     }
 }

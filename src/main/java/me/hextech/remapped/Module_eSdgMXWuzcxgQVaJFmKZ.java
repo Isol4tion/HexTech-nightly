@@ -54,12 +54,12 @@ extends Mod {
     }
 
     public static void sendSequencedPacket(SequencedPacketCreator packetCreator) {
-        if (mc.method_1562() == null || Module_eSdgMXWuzcxgQVaJFmKZ.mc.world == null) {
+        if (mc.getNetworkHandler() == null || Module_eSdgMXWuzcxgQVaJFmKZ.mc.world == null) {
             return;
         }
-        try (PendingUpdateManager pendingUpdateManager = Module_eSdgMXWuzcxgQVaJFmKZ.mc.world.method_41925().method_41937();){
-            int i = pendingUpdateManager.method_41942();
-            mc.method_1562().method_52787(packetCreator.predict(i));
+        try (PendingUpdateManager pendingUpdateManager = Module_eSdgMXWuzcxgQVaJFmKZ.mc.world.getPendingUpdateManager().incrementSequence();){
+            int i = pendingUpdateManager.getSequence();
+            mc.getNetworkHandler().method_52787(packetCreator.predict(i));
         }
     }
 
@@ -198,7 +198,7 @@ extends Mod {
             return true;
         }
         try {
-            key = InputUtil.method_15981((String)("key.keyboard." + rkey.toLowerCase())).method_1444();
+            key = InputUtil.fromTranslationKey((String)("key.keyboard." + rkey.toLowerCase())).getCode();
         }
         catch (NumberFormatException e) {
             if (!Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck()) {
@@ -289,10 +289,10 @@ extends Mod {
     }
 
     public void sendPacket(Packet<?> packet) {
-        if (mc.method_1562() == null) {
+        if (mc.getNetworkHandler() == null) {
             return;
         }
-        mc.method_1562().method_52787(packet);
+        mc.getNetworkHandler().method_52787(packet);
     }
 
     public final boolean isCategory(Module_JlagirAibYQgkHtbRnhw category) {

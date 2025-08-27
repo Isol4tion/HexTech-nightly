@@ -68,7 +68,11 @@ public static class Blocker {
         public final Timer timer;
         public boolean isAir;
 
-        public _FijMAnLaeintSRYqwSXS(BlockPos blockPos) {
+        public _FijMAnLaeintSRYqwSXS(BlockPos placePos) {
+            this.firstFade = new FadeUtils_DPfHthPqEJdfXfNYhDbG((long)Blocker_mEBqWazfEhCLEwVSYEFP.INSTANCE.fadeTime.getValue());
+            this.pos = placePos;
+            this.timer = new Timer();
+            this.isAir = true;
         }
     }
 }

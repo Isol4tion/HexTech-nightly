@@ -33,7 +33,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.timer.reset();
             if ((float)this.ticks <= this.time.getValueFloat()) {
                 ++this.ticks;
-                drawContext.method_25291(this.marker, mc.method_22683().method_4486() / 2 - 8, mc.method_22683().method_4502() / 2 - 8, 0, 0.0f, 0.0f, 16, 16, 16, 16);
+                drawContext.method_25291(this.marker, mc.getWindow().getScaledWidth() / 2 - 8, mc.getWindow().getScaledHeight() / 2 - 8, 0, 0.0f, 0.0f, 16, 16, 16, 16);
             }
         }
     }

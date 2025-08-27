@@ -20,11 +20,11 @@ extends Command {
             return;
         }
         CommandManager.sendChatMessage("\u00a7e[!] \u00a7fLoading..");
-        ConfigManager.options = new File(LoadCommand.mc.field_1697, parameters[0] + ".cfg");
+        ConfigManager.options = new File(LoadCommand.mc.runDirectory, parameters[0] + ".cfg");
         HexTech.CONFIG = new ConfigManager();
         HexTech.PREFIX = HexTech.CONFIG.getString("prefix", HexTech.PREFIX);
         HexTech.CONFIG.loadSettings();
-        ConfigManager.options = new File(LoadCommand.mc.field_1697, "hextech-OS.txt");
+        ConfigManager.options = new File(LoadCommand.mc.runDirectory, "hextech-OS.txt");
         HexTech.save();
     }
 

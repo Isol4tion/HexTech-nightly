@@ -39,41 +39,41 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static void drawItem(DrawContext drawContext, ItemStack itemStack, int x, int y, float scale) {
-        MatrixStack matrices = drawContext.method_51448();
-        matrices.method_22903();
-        matrices.method_22905(scale, scale, 1.0f);
-        matrices.method_46416(0.0f, 0.0f, 401.0f);
+        MatrixStack matrices = drawContext.getMatrices();
+        matrices.push();
+        matrices.scale(scale, scale, 1.0f);
+        matrices.translate(0.0f, 0.0f, 401.0f);
         int scaledX = (int)((float)x / scale);
         int scaledY = (int)((float)y / scale);
-        drawContext.method_51427(itemStack, scaledX, scaledY);
-        matrices.method_22909();
+        drawContext.drawItem(itemStack, scaledX, scaledY);
+        matrices.pop();
     }
 
     @Override
     public void onRender2D(DrawContext drawContext, float tickDelta) {
         ArrayList<ItemStack> list = new ArrayList<ItemStack>();
-        list.add(new ItemStack((ItemConvertible)Items.field_8367, this.getItemCount(Items.field_8367)));
-        list.add(new ItemStack((ItemConvertible)Items.field_8288, this.getItemCount(Items.field_8288)));
-        list.add(new ItemStack((ItemConvertible)Items.field_8301, this.getItemCount(Items.field_8301)));
-        list.add(new ItemStack((ItemConvertible)Items.field_23141, this.getItemCount(Items.field_23141)));
-        list.add(new ItemStack((ItemConvertible)Items.field_8801, this.getItemCount(Items.field_8801)));
-        list.add(new ItemStack((ItemConvertible)Items.field_8249, this.getItemCount(Items.field_8249)));
-        list.add(new ItemStack((ItemConvertible)Items.field_8793, this.getItemCount(Items.field_8793)));
-        list.add(new ItemStack((ItemConvertible)Items.field_8786, this.getItemCount(Items.field_8786)));
-        list.add(new ItemStack((ItemConvertible)Items.field_8287, this.getItemCount(Items.field_8287)));
+        list.add(new ItemStack((ItemConvertible)Items.ENCHANTED_GOLDEN_APPLE, this.getItemCount(Items.ENCHANTED_GOLDEN_APPLE)));
+        list.add(new ItemStack((ItemConvertible)Items.TOTEM_OF_UNDYING, this.getItemCount(Items.TOTEM_OF_UNDYING)));
+        list.add(new ItemStack((ItemConvertible)Items.END_CRYSTAL, this.getItemCount(Items.END_CRYSTAL)));
+        list.add(new ItemStack((ItemConvertible)Items.RESPAWN_ANCHOR, this.getItemCount(Items.RESPAWN_ANCHOR)));
+        list.add(new ItemStack((ItemConvertible)Items.GLOWSTONE, this.getItemCount(Items.GLOWSTONE)));
+        list.add(new ItemStack((ItemConvertible)Items.PISTON, this.getItemCount(Items.PISTON)));
+        list.add(new ItemStack((ItemConvertible)Items.REDSTONE_BLOCK, this.getItemCount(Items.REDSTONE_BLOCK)));
+        list.add(new ItemStack((ItemConvertible)Items.COBWEB, this.getItemCount(Items.COBWEB)));
+        list.add(new ItemStack((ItemConvertible)Items.EXPERIENCE_BOTTLE, this.getItemCount(Items.EXPERIENCE_BOTTLE)));
         for (int i = 0; i < list.size(); ++i) {
-            if (((ItemStack)list.get(i)).method_7947() < 1) {
-                ((ItemStack)list.get(i)).method_7939(Integer.MAX_VALUE);
+            if (((ItemStack)list.get(i)).getCount() < 1) {
+                ((ItemStack)list.get(i)).setCount(Integer.MAX_VALUE);
             }
             ItemHUD.drawItem(drawContext, (ItemStack)list.get(i), this.xOffset.getValueInt() + this.xPlus.getValueInt() * i, this.yOffset.getValueInt(), this.scale.getValueFloat());
-            drawContext.method_51448().method_22903();
-            drawContext.method_51448().method_22905(this.scale.getValueFloat(), this.scale.getValueFloat(), this.scale.getValueFloat());
-            if (((ItemStack)list.get(i)).method_7947() != Integer.MAX_VALUE) {
-                TextUtil.drawString(drawContext, String.valueOf(((ItemStack)list.get(i)).method_7947()), (double)(((float)(this.xOffset.getValueInt() + this.xPlus.getValueInt() * i) + this.TextxPlus.getValueFloat()) / this.scale.getValueFloat()), ((double)this.yOffset.getValueInt() + 12.5 + this.yPlus.getValue()) / (double)this.scale.getValueFloat(), this.textColor.getValue().getRGB());
+            drawContext.getMatrices().push();
+            drawContext.getMatrices().scale(this.scale.getValueFloat(), this.scale.getValueFloat(), this.scale.getValueFloat());
+            if (((ItemStack)list.get(i)).getCount() != Integer.MAX_VALUE) {
+                TextUtil.drawString(drawContext, String.valueOf(((ItemStack)list.get(i)).getCount()), (double)(((float)(this.xOffset.getValueInt() + this.xPlus.getValueInt() * i) + this.TextxPlus.getValueFloat()) / this.scale.getValueFloat()), ((double)this.yOffset.getValueInt() + 12.5 + this.yPlus.getValue()) / (double)this.scale.getValueFloat(), this.textColor.getValue().getRGB());
             } else {
                 TextUtil.drawString(drawContext, "0", (double)(((float)(this.xOffset.getValueInt() + this.xPlus.getValueInt() * i) + this.TextxPlus.getValueFloat()) / this.scale.getValueFloat()), ((double)this.yOffset.getValueInt() + 12.5 + this.yPlus.getValue()) / (double)this.scale.getValueFloat(), this.textColor.getValue().getRGB());
             }
-            drawContext.method_51448().method_22909();
+            drawContext.getMatrices().pop();
         }
     }
 
@@ -85,8 +85,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int n2 = 44;
         for (int i = 0; i <= n2; ++i) {
             ItemStack itemStack = ItemHUD.mc.player.method_31548().method_5438(i);
-            if (itemStack.method_7909() != item) continue;
-            n += itemStack.method_7947();
+            if (itemStack.getItem() != item) continue;
+            n += itemStack.getCount();
         }
         return n;
     }

@@ -31,19 +31,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.timer.passedS(this.delay.getValue())) {
             return;
         }
-        if (!(CleanInventory.mc.field_1755 == null || CleanInventory.mc.field_1755 instanceof ChatScreen || CleanInventory.mc.field_1755 instanceof InventoryScreen || CleanInventory.mc.field_1755 instanceof ClickGuiScreen || CleanInventory.mc.field_1755 instanceof GameMenuScreen)) {
+        if (!(CleanInventory.mc.currentScreen == null || CleanInventory.mc.currentScreen instanceof ChatScreen || CleanInventory.mc.currentScreen instanceof InventoryScreen || CleanInventory.mc.currentScreen instanceof ClickGuiScreen || CleanInventory.mc.currentScreen instanceof GameMenuScreen)) {
             return;
         }
         if (this.stack.getValue()) {
             for (slot1 = 9; slot1 < 36; ++slot1) {
                 ItemStack stack = CleanInventory.mc.player.method_31548().method_5438(slot1);
-                if (stack.method_7960() || !stack.method_7946() || stack.method_7947() == stack.method_7914()) continue;
+                if (stack.isEmpty() || !stack.isStackable() || stack.getCount() == stack.getMaxCount()) continue;
                 for (int slot2 = 35; slot2 >= 9; --slot2) {
                     ItemStack stack2;
-                    if (slot1 == slot2 || (stack2 = CleanInventory.mc.player.method_31548().method_5438(slot2)).method_7947() == stack2.method_7914() || !this.canMerge(stack, stack2)) continue;
-                    CleanInventory.mc.field_1761.method_2906(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.field_7790, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.field_1761.method_2906(CleanInventory.mc.player.field_7498.field_7763, slot2, 0, SlotActionType.field_7790, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.field_1761.method_2906(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.field_7790, (PlayerEntity)CleanInventory.mc.player);
+                    if (slot1 == slot2 || (stack2 = CleanInventory.mc.player.method_31548().method_5438(slot2)).getCount() == stack2.getMaxCount() || !this.canMerge(stack, stack2)) continue;
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot2, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
                     this.timer.reset();
                     return;
                 }
@@ -52,18 +52,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.sort.getValue()) {
             for (slot1 = 9; slot1 < 36; ++slot1) {
                 int minId;
-                int id = Item.method_7880((Item)CleanInventory.mc.player.method_31548().method_5438(slot1).method_7909());
-                if (CleanInventory.mc.player.method_31548().method_5438(slot1).method_7960()) {
+                int id = Item.getRawId((Item)CleanInventory.mc.player.method_31548().method_5438(slot1).getItem());
+                if (CleanInventory.mc.player.method_31548().method_5438(slot1).isEmpty()) {
                     id = 114514;
                 }
                 if ((minId = this.getMinId(slot1, id)) >= id) continue;
                 for (int slot2 = 35; slot2 > slot1; --slot2) {
                     int itemID;
                     ItemStack stack = CleanInventory.mc.player.method_31548().method_5438(slot2);
-                    if (stack.method_7960() || (itemID = Item.method_7880((Item)stack.method_7909())) != minId) continue;
-                    CleanInventory.mc.field_1761.method_2906(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.field_7790, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.field_1761.method_2906(CleanInventory.mc.player.field_7498.field_7763, slot2, 0, SlotActionType.field_7790, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.field_1761.method_2906(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.field_7790, (PlayerEntity)CleanInventory.mc.player);
+                    if (stack.isEmpty() || (itemID = Item.getRawId((Item)stack.getItem())) != minId) continue;
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot2, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.field_7498.field_7763, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
                     this.timer.reset();
                     return;
                 }
@@ -76,13 +76,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (int slot1 = slot + 1; slot1 < 36; ++slot1) {
             int itemID;
             ItemStack stack = CleanInventory.mc.player.method_31548().method_5438(slot1);
-            if (stack.method_7960() || (itemID = Item.method_7880((Item)stack.method_7909())) >= id) continue;
+            if (stack.isEmpty() || (itemID = Item.getRawId((Item)stack.getItem())) >= id) continue;
             id = itemID;
         }
         return id;
     }
 
     private boolean canMerge(ItemStack source, ItemStack stack) {
-        return source.method_7909() == stack.method_7909() && source.method_7964().equals((Object)stack.method_7964());
+        return source.getItem() == stack.getItem() && source.getName().equals((Object)stack.getName());
     }
 }

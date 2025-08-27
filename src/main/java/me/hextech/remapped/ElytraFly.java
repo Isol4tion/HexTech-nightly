@@ -10,9 +10,9 @@ import me.hextech.remapped.MovementUtil;
 import me.hextech.remapped.SliderSetting;
 import me.hextech.remapped.Timer;
 import me.hextech.remapped.TravelEvent;
+import net.minecraft.class_1770;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MovementType;
-import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
@@ -52,9 +52,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onEnable() {
         if (ElytraFly.mc.player != null) {
             if (!ElytraFly.mc.player.method_7337()) {
-                ElytraFly.mc.player.method_31549().field_7478 = false;
+                ElytraFly.mc.player.method_31549().allowFlying = false;
             }
-            ElytraFly.mc.player.method_31549().field_7479 = false;
+            ElytraFly.mc.player.method_31549().flying = false;
         }
         this.hasElytra = false;
     }
@@ -65,9 +65,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.hasElytra = false;
         if (ElytraFly.mc.player != null) {
             if (!ElytraFly.mc.player.method_7337()) {
-                ElytraFly.mc.player.method_31549().field_7478 = false;
+                ElytraFly.mc.player.method_31549().allowFlying = false;
             }
-            ElytraFly.mc.player.method_31549().field_7479 = false;
+            ElytraFly.mc.player.method_31549().flying = false;
         }
     }
 
@@ -80,7 +80,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.hasTouchedGround = true;
         }
         for (ItemStack is : ElytraFly.mc.player.method_5661()) {
-            if (is.method_7909() instanceof ElytraItem) {
+            if (is.getItem() instanceof class_1770) {
                 this.hasElytra = true;
                 break;
             }
@@ -98,7 +98,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     return;
                 }
                 this.instantFlyTimer.reset();
-                ElytraFly.mc.player.field_3944.method_52787((Packet)new ClientCommandC2SPacket((Entity)ElytraFly.mc.player, ClientCommandC2SPacket.Mode.field_12982));
+                ElytraFly.mc.player.networkHandler.method_52787((Packet)new ClientCommandC2SPacket((Entity)ElytraFly.mc.player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
                 this.hasTouchedGround = false;
                 this.strictTimer.reset();
             }
@@ -108,10 +108,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     protected final Vec3d getRotationVector(float pitch, float yaw) {
         float f = pitch * ((float)Math.PI / 180);
         float g = -yaw * ((float)Math.PI / 180);
-        float h = MathHelper.method_15362((float)g);
-        float i = MathHelper.method_15374((float)g);
-        float j = MathHelper.method_15362((float)f);
-        float k = MathHelper.method_15374((float)f);
+        float h = MathHelper.cos((float)g);
+        float i = MathHelper.sin((float)g);
+        float j = MathHelper.cos((float)f);
+        float k = MathHelper.sin((float)f);
         return new Vec3d((double)(i * j), (double)(-k), (double)(h * j));
     }
 
@@ -125,20 +125,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (ElytraFly.nullCheck() || !this.hasElytra || !ElytraFly.mc.player.method_6128()) {
             return;
         }
-        Vec3d lookVec = this.getRotationVec(mc.getTickDelta());
-        double lookDist = Math.sqrt(lookVec.field_1352 * lookVec.field_1352 + lookVec.field_1350 * lookVec.field_1350);
+        Vec3d lookVec = this.getRotationVec(mc.method_1488());
+        double lookDist = Math.sqrt(lookVec.x * lookVec.x + lookVec.z * lookVec.z);
         double motionDist = Math.sqrt(this.getX() * this.getX() + this.getZ() * this.getZ());
-        if (ElytraFly.mc.field_1690.field_1832.method_1434()) {
+        if (ElytraFly.mc.options.sneakKey.isPressed()) {
             this.setY(-this.sneakDownSpeed.getValue());
-        } else if (!ElytraFly.mc.player.field_3913.field_3904) {
+        } else if (!ElytraFly.mc.player.input.field_3904) {
             this.setY(-3.0E-14 * this.downFactor.getValue());
         }
-        if (ElytraFly.mc.player.field_3913.field_3904) {
+        if (ElytraFly.mc.player.input.field_3904) {
             if (motionDist > this.upFactor.getValue() / this.upFactor.getMaximum()) {
                 double rawUpSpeed = motionDist * 0.01325;
                 this.setY(this.getY() + rawUpSpeed * 3.2);
-                this.setX(this.getX() - lookVec.field_1352 * rawUpSpeed / lookDist);
-                this.setZ(this.getZ() - lookVec.field_1350 * rawUpSpeed / lookDist);
+                this.setX(this.getX() - lookVec.x * rawUpSpeed / lookDist);
+                this.setZ(this.getZ() - lookVec.z * rawUpSpeed / lookDist);
             } else {
                 dir = MovementUtil.directionSpeed(this.speed.getValue());
                 this.setX(dir[0]);
@@ -146,10 +146,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         if (lookDist > 0.0) {
-            this.setX(this.getX() + (lookVec.field_1352 / lookDist * motionDist - this.getX()) * 0.1);
-            this.setZ(this.getZ() + (lookVec.field_1350 / lookDist * motionDist - this.getZ()) * 0.1);
+            this.setX(this.getX() + (lookVec.x / lookDist * motionDist - this.getX()) * 0.1);
+            this.setZ(this.getZ() + (lookVec.z / lookDist * motionDist - this.getZ()) * 0.1);
         }
-        if (!ElytraFly.mc.player.field_3913.field_3904) {
+        if (!ElytraFly.mc.player.input.field_3904) {
             dir = MovementUtil.directionSpeed(this.speed.getValue());
             this.setX(dir[0]);
             this.setZ(dir[1]);
@@ -165,7 +165,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.setZ(this.getZ() * this.maxSpeed.getValue() / finalDist);
         }
         event.cancel();
-        ElytraFly.mc.player.method_5784(MovementType.field_6308, ElytraFly.mc.player.method_18798());
+        ElytraFly.mc.player.method_5784(MovementType.SELF, ElytraFly.mc.player.method_18798());
     }
 
     private double getX() {

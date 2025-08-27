@@ -1,24 +1,31 @@
 package me.hextech.remapped;
 
+import com.mojang.authlib.GameProfile;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import me.hextech.remapped.BooleanSetting;
 import me.hextech.remapped.ColorSetting;
+import me.hextech.remapped.CombatUtil;
 import me.hextech.remapped.EnumSetting;
 import me.hextech.remapped.ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn;
 import me.hextech.remapped.JelloUtil;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
+import me.hextech.remapped.PredictionSetting_JKvMiRXQVAwkYSSmKMez;
 import me.hextech.remapped.Render3DUtil;
 import me.hextech.remapped.SliderSetting;
 import me.hextech.remapped.Wrapper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 public class PredictionSetting
 extends Module_eSdgMXWuzcxgQVaJFmKZ
@@ -91,7 +98,7 @@ implements Wrapper {
             return;
         }
         Vec3d last = path.get(path.size() - 1);
-        Box box = real.method_5829().method_997(last.method_1020(real.method_19538()));
+        Box box = real.method_5829().offset(last.subtract(real.method_19538()));
         Render3DUtil.draw3DBox(matrices, box, this.color.getValue(), true, true);
     }
 
@@ -114,63 +121,71 @@ implements Wrapper {
             Vec3d cur = path.get(i);
             for (int j = 1; j <= this.subSteps.getValueInt(); ++j) {
                 double t = (double)j / (double)this.subSteps.getValueInt();
-                Vec3d interp = new Vec3d(prev.field_1352 + (cur.field_1352 - prev.field_1352) * t, prev.field_1351 + (cur.field_1351 - prev.field_1351) * t, prev.field_1350 + (cur.field_1350 - prev.field_1350) * t);
-                Vec3d before = new Vec3d(prev.field_1352 + (cur.field_1352 - prev.field_1352) * (t - 1.0 / (double)this.subSteps.getValueInt()), prev.field_1351 + (cur.field_1351 - prev.field_1351) * (t - 1.0 / (double)this.subSteps.getValueInt()), prev.field_1350 + (cur.field_1350 - prev.field_1350) * (t - 1.0 / (double)this.subSteps.getValueInt()));
-                Render3DUtil.drawLine(before.field_1352, before.field_1351, before.field_1350, interp.field_1352, interp.field_1351, interp.field_1350, this.color.getValue(), this.lineWidth.getValueFloat());
+                Vec3d interp = new Vec3d(prev.x + (cur.x - prev.x) * t, prev.y + (cur.y - prev.y) * t, prev.z + (cur.z - prev.z) * t);
+                Vec3d before = new Vec3d(prev.x + (cur.x - prev.x) * (t - 1.0 / (double)this.subSteps.getValueInt()), prev.y + (cur.y - prev.y) * (t - 1.0 / (double)this.subSteps.getValueInt()), prev.z + (cur.z - prev.z) * (t - 1.0 / (double)this.subSteps.getValueInt()));
+                Render3DUtil.drawLine(before.x, before.y, before.z, interp.x, interp.y, interp.z, this.color.getValue(), this.lineWidth.getValueFloat());
             }
             prev = cur;
         }
     }
 
-    public static final class _JgmYdSqRlhzWcxRMZVQF
-    extends Enum<_JgmYdSqRlhzWcxRMZVQF> {
-        public static final /* enum */ _JgmYdSqRlhzWcxRMZVQF Prediction;
-        public static final /* enum */ _JgmYdSqRlhzWcxRMZVQF IDPrediction;
-        public static final /* enum */ _JgmYdSqRlhzWcxRMZVQF Render;
+    public static enum _JgmYdSqRlhzWcxRMZVQF {
+        Prediction,
+        IDPrediction,
+        Render;
 
-        public static _JgmYdSqRlhzWcxRMZVQF[] values() {
-            return null;
-        }
-
-        public static _JgmYdSqRlhzWcxRMZVQF valueOf(String string) {
-            return null;
-        }
     }
 
-    public static final class _mJSQReswTiaqOSqkjOmh
-    extends Enum<_mJSQReswTiaqOSqkjOmh> {
-        public static final /* enum */ _mJSQReswTiaqOSqkjOmh Aurora;
-        public static final /* enum */ _mJSQReswTiaqOSqkjOmh HexTech;
+    public static enum _mJSQReswTiaqOSqkjOmh {
+        Aurora,
+        HexTech;
 
-        public static _mJSQReswTiaqOSqkjOmh[] values() {
-            return null;
-        }
-
-        public static _mJSQReswTiaqOSqkjOmh valueOf(String string) {
-            return null;
-        }
     }
 
-    public static final class _JkDAbATfmVbQbOuEIDLo
-    extends Enum<_JkDAbATfmVbQbOuEIDLo> {
-        public static final /* enum */ _JkDAbATfmVbQbOuEIDLo Box;
-        public static final /* enum */ _JkDAbATfmVbQbOuEIDLo Jello;
-        public static final /* enum */ _JkDAbATfmVbQbOuEIDLo Line;
+    public static enum _JkDAbATfmVbQbOuEIDLo {
+        Box,
+        Jello,
+        Line;
 
-        public static _JkDAbATfmVbQbOuEIDLo[] values() {
-            return null;
-        }
-
-        public static _JkDAbATfmVbQbOuEIDLo valueOf(String string) {
-            return null;
-        }
     }
 
     public static class _XBpBEveLWEKUGQPHCCIS {
         public final PlayerEntity player;
         public final PlayerEntity predict;
 
-        public _XBpBEveLWEKUGQPHCCIS(PlayerEntity playerEntity) {
+        public _XBpBEveLWEKUGQPHCCIS(PlayerEntity player) {
+            this.player = player;
+            if (PredictionSetting.INSTANCE.prediction.getValue()) {
+                this.predict = new PredictionSetting_JKvMiRXQVAwkYSSmKMez(this, (World)Wrapper.mc.world, player.method_24515(), player.method_36454(), new GameProfile(UUID.fromString("66123666-1234-5432-6666-667563866600"), "PredictEntity339"));
+                if (PredictionSetting.INSTANCE.mode.getValue() == _mJSQReswTiaqOSqkjOmh.Aurora) {
+                    int ticks = PredictionSetting.INSTANCE.breakExtrap.getValueInt();
+                    Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(player, ticks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());
+                    Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
+                    this.predict.method_33574(center);
+                    this.predict.method_6033(player.method_6032());
+                    this.predict.field_6014 = player.field_6014;
+                    this.predict.field_6036 = player.field_6036;
+                    this.predict.field_5969 = player.field_5969;
+                    this.predict.method_24830(player.method_24828());
+                    this.predict.getInventory().clone(player.getInventory());
+                    this.predict.method_18380(player.method_18376());
+                    player.method_6026().forEach(arg_0 -> ((PlayerEntity)this.predict).addStatusEffect(arg_0));
+                } else if (PredictionSetting.INSTANCE.mode.getValue() == _mJSQReswTiaqOSqkjOmh.HexTech) {
+                    this.predict.method_33574(player.method_19538().add(CombatUtil.getMotionVec((Entity)player, PredictionSetting.INSTANCE.breakextrap.getValueInt(), true)));
+                    this.predict.method_6033(player.method_6032());
+                    this.predict.field_6014 = player.field_6014;
+                    this.predict.field_5969 = player.field_5969;
+                    this.predict.field_6036 = player.field_6036;
+                    this.predict.method_24830(player.method_24828());
+                    this.predict.getInventory().clone(player.getInventory());
+                    this.predict.method_18380(player.method_18376());
+                    for (StatusEffectInstance se : new ArrayList(player.method_6026())) {
+                        this.predict.method_6092(se);
+                    }
+                }
+            } else {
+                this.predict = player;
+            }
         }
     }
 }

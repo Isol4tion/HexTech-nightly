@@ -31,7 +31,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private final BooleanSetting lowercase = this.add(new BooleanSetting("LowerCase", false));
     private final SliderSetting offset = this.add(new SliderSetting("Offset", 2, 0, 20));
-    private final StringSetting text = this.add(new StringSetting("Text", "HexTech-nightly Cracked By NoWhisper"));
+    private final StringSetting text = this.add(new StringSetting("Text", "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c"));
     private final BooleanSetting version = this.add(new BooleanSetting("Version", true));
     private final BooleanSetting shortVersion = this.add(new BooleanSetting("Short", false));
     private final BooleanSetting fps = this.add(new BooleanSetting("FPS", true));
@@ -93,17 +93,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             watermarkText.append(FORMAT.format(new Date()));
         }
         String textToRender = this.lowercase.getValue() ? watermarkText.toString().toLowerCase() : watermarkText.toString();
-        MatrixStack matrixStack = drawContext.method_51448();
+        MatrixStack matrixStack = drawContext.getMatrices();
         float x = this.offset.getValueInt();
         float y = this.offset.getValueInt();
         if (this.background.getValue()) {
             int n;
             int textWidth;
-            int n2 = textWidth = this.customFont.getValue() && this.lexendFont != null ? (int)this.lexendFont.getStringWidth(textToRender) : WaterMark.mc.field_1772.method_1727(textToRender);
+            int n2 = textWidth = this.customFont.getValue() && this.lexendFont != null ? (int)this.lexendFont.getStringWidth(textToRender) : WaterMark.mc.textRenderer.getWidth(textToRender);
             if (this.customFont.getValue() && this.lexendFont != null) {
                 n = (int)this.lexendFont.getFontHeight();
             } else {
-                Objects.requireNonNull(WaterMark.mc.field_1772);
+                Objects.requireNonNull(WaterMark.mc.textRenderer);
                 n = 9;
             }
             int textHeight = n;
@@ -118,20 +118,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             Render2DUtil.drawRound(matrixStack, x, y + headerHeight, bgWidth, bgHeight - headerHeight, this.round.getValueFloat(), this.bodyColor.getValue());
             if (this.customFont.getValue() && this.lexendFont != null) {
-                this.lexendFont.drawString(drawContext.method_51448(), textToRender, x + 5.0f, y + (bgHeight - (float)textHeight) / 2.0f, -1);
+                this.lexendFont.drawString(drawContext.getMatrices(), textToRender, x + 5.0f, y + (bgHeight - (float)textHeight) / 2.0f, -1);
             } else {
-                drawContext.method_25303(WaterMark.mc.field_1772, textToRender, (int)(x + 5.0f), (int)(y + (bgHeight - (float)textHeight) / 2.0f), -1);
+                drawContext.drawTextWithShadow(WaterMark.mc.textRenderer, textToRender, (int)(x + 5.0f), (int)(y + (bgHeight - (float)textHeight) / 2.0f), -1);
             }
         } else if (this.customFont.getValue() && this.lexendFont != null) {
-            this.lexendFont.drawString(drawContext.method_51448(), textToRender, x, y, -1);
+            this.lexendFont.drawString(drawContext.getMatrices(), textToRender, x, y, -1);
         } else {
-            drawContext.method_25303(WaterMark.mc.field_1772, textToRender, this.offset.getValueInt(), this.offset.getValueInt(), -1);
+            drawContext.drawTextWithShadow(WaterMark.mc.textRenderer, textToRender, this.offset.getValueInt(), this.offset.getValueInt(), -1);
         }
     }
 
     private void renderRoundedQuad(MatrixStack matrices, Color c, double fromX, double fromY, double toX, double toY, double radC1, double radC2, double radC3, double radC4, double samples) {
         int color = c.getRGB();
-        Matrix4f matrix = matrices.method_23760().method_23761();
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
         float f = (float)(color >> 24 & 0xFF) / 255.0f;
         float g = (float)(color >> 16 & 0xFF) / 255.0f;
         float h = (float)(color >> 8 & 0xFF) / 255.0f;
@@ -143,8 +143,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void renderRoundedQuadInternal(Matrix4f matrix, float cr, float cg, float cb, float ca, double fromX, double fromY, double toX, double toY, double radC1, double radC2, double radC3, double radC4, double samples) {
-        BufferBuilder bufferBuilder = Tessellator.method_1348().method_1349();
-        bufferBuilder.method_1328(VertexFormat.DrawMode.field_27381, VertexFormats.field_1576);
+        BufferBuilder bufferBuilder = Tessellator.getInstance().method_1349();
+        bufferBuilder.method_1328(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
         double[][] map = new double[][]{{toX - radC4, toY - radC4, radC4}, {toX - radC2, fromY + radC2, radC2}, {fromX + radC1, fromY + radC1, radC1}, {fromX + radC3, toY - radC3, radC3}};
         for (int i = 0; i < 4; ++i) {
             double[] current = map[i];
@@ -153,13 +153,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float rad1 = (float)Math.toRadians(r);
                 float sin = (float)(Math.sin(rad1) * rad);
                 float cos = (float)(Math.cos(rad1) * rad);
-                bufferBuilder.method_22918(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).method_22915(cr, cg, cb, ca).method_1344();
+                bufferBuilder.method_22918(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).method_1344();
             }
             float rad1 = (float)Math.toRadians(90.0 + (double)i * 90.0);
             float sin = (float)(Math.sin(rad1) * rad);
             float cos = (float)(Math.cos(rad1) * rad);
-            bufferBuilder.method_22918(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).method_22915(cr, cg, cb, ca).method_1344();
+            bufferBuilder.method_22918(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).method_1344();
         }
-        BufferRenderer.method_43433((BufferBuilder.BuiltBuffer)bufferBuilder.method_1326());
+        BufferRenderer.method_43433((BufferBuilder.class_7433)bufferBuilder.method_1326());
     }
 }

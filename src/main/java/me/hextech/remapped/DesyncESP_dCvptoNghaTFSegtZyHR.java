@@ -43,9 +43,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private static void prepareScale(MatrixStack matrixStack) {
-        matrixStack.method_22905(-1.0f, -1.0f, 1.0f);
-        matrixStack.method_22905(1.6f, 1.8f, 1.6f);
-        matrixStack.method_46416(0.0f, -1.501f, 0.0f);
+        matrixStack.scale(-1.0f, -1.0f, 1.0f);
+        matrixStack.scale(1.6f, 1.8f, 1.6f);
+        matrixStack.translate(0.0f, -1.501f, 0.0f);
     }
 
     @Override
@@ -77,7 +77,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (DesyncESP_dCvptoNghaTFSegtZyHR.nullCheck() || this.model == null) {
             return;
         }
-        if (DesyncESP_dCvptoNghaTFSegtZyHR.mc.field_1690.method_31044() == Perspective.field_26664) {
+        if (DesyncESP_dCvptoNghaTFSegtZyHR.mc.options.getPerspective() == Perspective.FIRST_PERSON) {
             return;
         }
         if (Math.abs(this.lastYaw - HexTech.ROTATE.lastYaw) < 1.0f && Math.abs(this.lastPitch - RotateManager.lastPitch) < 1.0f) {
@@ -86,30 +86,30 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         RenderSystem.depthMask((boolean)false);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate((int)770, (int)771, (int)0, (int)1);
-        double x = DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6014 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.getX() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6014) * (double)mc.getTickDelta() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.method_1561().field_4686.method_19326().method_10216();
-        double y = DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6036 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.getY() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6036) * (double)mc.getTickDelta() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.method_1561().field_4686.method_19326().method_10214();
-        double z = DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_5969 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.getZ() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_5969) * (double)mc.getTickDelta() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.method_1561().field_4686.method_19326().method_10215();
-        float bodyYaw = this.type.getValue() == DesyncESP.ServerSide ? RotateManager.getPrevRenderYawOffset() + (RotateManager.getRenderYawOffset() - RotateManager.getPrevRenderYawOffset()) * mc.getTickDelta() : DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6220 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6283 - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6220) * mc.getTickDelta();
-        float headYaw = this.type.getValue() == DesyncESP.ServerSide ? RotateManager.getPrevRotationYawHead() + (RotateManager.getRotationYawHead() - RotateManager.getPrevRotationYawHead()) * mc.getTickDelta() : DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6259 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6241 - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6259) * mc.getTickDelta();
-        float pitch = this.type.getValue() == DesyncESP.ServerSide ? RotateManager.getPrevPitch() + (RotateManager.getRenderPitch() - RotateManager.getPrevPitch()) * mc.getTickDelta() : DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6004 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.method_36455() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6004) * mc.getTickDelta();
-        matrixStack.method_22903();
-        matrixStack.method_46416((float)x, (float)y, (float)z);
-        matrixStack.method_22907(RotationAxis.field_40716.rotation(MathUtil.rad(180.0f - bodyYaw)));
+        double x = DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6014 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.method_23317() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6014) * (double)mc.method_1488() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.getEntityRenderDispatcher().camera.getPos().method_10216();
+        double y = DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6036 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.method_23318() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6036) * (double)mc.method_1488() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.getEntityRenderDispatcher().camera.getPos().method_10214();
+        double z = DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_5969 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.method_23321() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_5969) * (double)mc.method_1488() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.getEntityRenderDispatcher().camera.getPos().method_10215();
+        float bodyYaw = this.type.getValue() == DesyncESP.ServerSide ? RotateManager.getPrevRenderYawOffset() + (RotateManager.getRenderYawOffset() - RotateManager.getPrevRenderYawOffset()) * mc.method_1488() : DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6220 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6283 - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6220) * mc.method_1488();
+        float headYaw = this.type.getValue() == DesyncESP.ServerSide ? RotateManager.getPrevRotationYawHead() + (RotateManager.getRotationYawHead() - RotateManager.getPrevRotationYawHead()) * mc.method_1488() : DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6259 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6241 - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6259) * mc.method_1488();
+        float pitch = this.type.getValue() == DesyncESP.ServerSide ? RotateManager.getPrevPitch() + (RotateManager.getRenderPitch() - RotateManager.getPrevPitch()) * mc.method_1488() : DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6004 + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.method_36455() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6004) * mc.method_1488();
+        matrixStack.push();
+        matrixStack.translate((float)x, (float)y, (float)z);
+        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotation(MathUtil.rad(180.0f - bodyYaw)));
         DesyncESP_dCvptoNghaTFSegtZyHR.prepareScale(matrixStack);
-        this.model.modelPlayer.method_17086((LivingEntity)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player, DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.method_48572(mc.getTickDelta()), DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.method_48570(mc.getTickDelta()), mc.getTickDelta());
-        this.model.modelPlayer.method_17087((LivingEntity)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player, DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.method_48572(mc.getTickDelta()), DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.method_48570(mc.getTickDelta()), (float)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6012, headYaw - bodyYaw, pitch);
+        this.model.modelPlayer.method_17086((LivingEntity)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player, DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.getPos(mc.method_1488()), DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.getSpeed(mc.method_1488()), mc.method_1488());
+        this.model.modelPlayer.method_17087((LivingEntity)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player, DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.getPos(mc.method_1488()), DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_42108.getSpeed(mc.method_1488()), (float)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.field_6012, headYaw - bodyYaw, pitch);
         RenderSystem.enableBlend();
         GL11.glDisable((int)2929);
-        Tessellator tessellator = Tessellator.method_1348();
+        Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.method_1349();
         RenderSystem.blendFuncSeparate((GlStateManager.SrcFactor)GlStateManager.SrcFactor.SRC_ALPHA, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, (GlStateManager.SrcFactor)GlStateManager.SrcFactor.ONE, (GlStateManager.DstFactor)GlStateManager.DstFactor.ZERO);
         RenderSystem.setShader(GameRenderer::method_34540);
-        buffer.method_1328(VertexFormat.DrawMode.field_27382, VertexFormats.field_1576);
+        buffer.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
         this.model.modelPlayer.method_2828(matrixStack, (VertexConsumer)buffer, 10, 0, (float)this.color.getValue().getRed() / 255.0f, (float)this.color.getValue().getGreen() / 255.0f, (float)this.color.getValue().getBlue() / 255.0f, (float)this.color.getValue().getAlpha() / 255.0f);
         tessellator.method_1350();
         RenderSystem.disableBlend();
         GL11.glEnable((int)2929);
-        matrixStack.method_22909();
+        matrixStack.pop();
         RenderSystem.disableBlend();
         RenderSystem.depthMask((boolean)true);
     }

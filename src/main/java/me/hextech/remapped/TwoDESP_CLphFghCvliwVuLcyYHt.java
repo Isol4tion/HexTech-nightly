@@ -74,25 +74,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (TwoDESP_CLphFghCvliwVuLcyYHt.mc.player == null) {
             return 0.0f;
         }
-        double x = (double)vec.field_1343 - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.method_19538().field_1352;
-        double z = (double)vec.field_1342 - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.method_19538().field_1350;
+        double x = (double)vec.x - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.method_19538().x;
+        double z = (double)vec.y - TwoDESP_CLphFghCvliwVuLcyYHt.mc.player.method_19538().z;
         return (float)(-(Math.atan2(x, z) * 57.29577951308232));
     }
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        Matrix4f matrix = context.method_51448().method_23760().method_23761();
-        BufferBuilder bufferBuilder = Tessellator.method_1348().method_1349();
+        Matrix4f matrix = context.getMatrices().peek().getPositionMatrix();
+        BufferBuilder bufferBuilder = Tessellator.getInstance().method_1349();
         Render2DUtil.setupRender();
         RenderSystem.setShader(GameRenderer::method_34540);
-        bufferBuilder.method_1328(VertexFormat.DrawMode.field_27382, VertexFormats.field_1576);
-        for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.world.method_18112()) {
+        bufferBuilder.method_1328(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
+        for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.world.getEntities()) {
             if (!this.shouldRender(ent)) continue;
             this.drawBox(bufferBuilder, ent, matrix, context);
         }
-        BufferRenderer.method_43433((BufferBuilder.BuiltBuffer)bufferBuilder.method_1326());
+        BufferRenderer.method_43433((BufferBuilder.class_7433)bufferBuilder.method_1326());
         Render2DUtil.endRender();
-        for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.world.method_18112()) {
+        for (Entity ent : TwoDESP_CLphFghCvliwVuLcyYHt.mc.world.getEntities()) {
             if (!this.shouldRender(ent)) continue;
             this.drawText(ent, context);
         }
@@ -106,7 +106,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return false;
         }
         if (entity instanceof PlayerEntity) {
-            if (entity == TwoDESP_CLphFghCvliwVuLcyYHt.mc.player && TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1690.method_31044().method_31034()) {
+            if (entity == TwoDESP_CLphFghCvliwVuLcyYHt.mc.player && TwoDESP_CLphFghCvliwVuLcyYHt.mc.options.getPerspective().isFirstPerson()) {
                 return false;
             }
             if (HexTech.FRIEND.isFriend((PlayerEntity)entity)) {
@@ -117,7 +117,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (entity instanceof EndCrystalEntity) {
             return this.crystals.getValue();
         }
-        return switch (TwoDESP_pAuUDPcZwSGmXQFRqNNy.$SwitchMap$net$minecraft$entity$SpawnGroup[entity.method_5864().method_5891().ordinal()]) {
+        return switch (TwoDESP_pAuUDPcZwSGmXQFRqNNy.$SwitchMap$net$minecraft$entity$SpawnGroup[entity.getType().getSpawnGroup().ordinal()]) {
             case 1, 2 -> this.creatures.getValue();
             case 3 -> this.monsters.getValue();
             case 4, 5 -> this.ambients.getValue();
@@ -138,7 +138,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (entity instanceof EndCrystalEntity) {
             return this.crystalsC.getValue();
         }
-        return switch (TwoDESP_pAuUDPcZwSGmXQFRqNNy.$SwitchMap$net$minecraft$entity$SpawnGroup[entity.method_5864().method_5891().ordinal()]) {
+        return switch (TwoDESP_pAuUDPcZwSGmXQFRqNNy.$SwitchMap$net$minecraft$entity$SpawnGroup[entity.getType().getSpawnGroup().ordinal()]) {
             case 1, 2 -> this.creaturesC.getValue();
             case 3 -> this.monstersC.getValue();
             case 4, 5 -> this.ambientsC.getValue();
@@ -147,24 +147,24 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void drawBox(BufferBuilder bufferBuilder, @NotNull Entity ent, Matrix4f matrix, DrawContext context) {
-        double x = ent.field_6014 + (ent.getX() - ent.field_6014) * (double)mc.getTickDelta();
-        double y = ent.field_6036 + (ent.getY() - ent.field_6036) * (double)mc.getTickDelta();
-        double z = ent.field_5969 + (ent.getZ() - ent.field_5969) * (double)mc.getTickDelta();
+        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.method_1488();
+        double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.method_1488();
+        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.method_1488();
         Box axisAlignedBB2 = ent.method_5829();
-        Box axisAlignedBB = new Box(axisAlignedBB2.field_1323 - ent.getX() + x - 0.05, axisAlignedBB2.field_1322 - ent.getY() + y, axisAlignedBB2.field_1321 - ent.getZ() + z - 0.05, axisAlignedBB2.field_1320 - ent.getX() + x + 0.05, axisAlignedBB2.field_1325 - ent.getY() + y + 0.15, axisAlignedBB2.field_1324 - ent.getZ() + z + 0.05);
-        Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1322, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1325, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1322, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1325, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1322, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1325, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1322, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1325, axisAlignedBB.field_1324)};
+        Box axisAlignedBB = new Box(axisAlignedBB2.minX - ent.getX() + x - 0.05, axisAlignedBB2.minY - ent.getY() + y, axisAlignedBB2.minZ - ent.getZ() + z - 0.05, axisAlignedBB2.maxX - ent.getX() + x + 0.05, axisAlignedBB2.maxY - ent.getY() + y + 0.15, axisAlignedBB2.maxZ - ent.getZ() + z + 0.05);
+        Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.maxZ)};
         Color col = this.getEntityColor(ent);
         Vector4d position = null;
         for (Vec3d vector : vectors) {
-            vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.field_1352, vector.field_1351, vector.field_1350));
-            if (!(vector.field_1350 > 0.0) || !(vector.field_1350 < 1.0)) continue;
+            vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
+            if (!(vector.z > 0.0) || !(vector.z < 1.0)) continue;
             if (position == null) {
-                position = new Vector4d(vector.field_1352, vector.field_1351, vector.field_1350, 0.0);
+                position = new Vector4d(vector.x, vector.y, vector.z, 0.0);
             }
-            position.x = Math.min(vector.field_1352, position.x);
-            position.y = Math.min(vector.field_1351, position.y);
-            position.z = Math.max(vector.field_1352, position.z);
-            position.w = Math.max(vector.field_1351, position.w);
+            position.x = Math.min(vector.x, position.x);
+            position.y = Math.min(vector.y, position.y);
+            position.z = Math.max(vector.x, position.z);
+            position.w = Math.max(vector.y, position.w);
         }
         if (position != null) {
             LivingEntity lent;
@@ -182,26 +182,26 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 0.5), (float)posY, (float)endPosX, (float)(posY + 0.5), col, col, col, col);
                 Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(endPosX - 0.5), (float)posY, (float)endPosX, (float)endPosY, col, col, col, col);
             }
-            if (ent instanceof LivingEntity && (lent = (LivingEntity)ent).method_6032() != 0.0f && this.renderHealth.getValue()) {
+            if (ent instanceof LivingEntity && (lent = (LivingEntity)ent).getHealth() != 0.0f && this.renderHealth.getValue()) {
                 Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 4.0), (float)posY, (float)posX - 3.0f, (float)endPosY, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
-                Color color = this.getcolor(lent.method_6032());
-                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 4.0), (float)(endPosY + (posY - endPosY) * (double)lent.method_6032() / (double)lent.method_6063()), (float)posX - 3.0f, (float)endPosY, color, color, color, color);
+                Color color = this.getcolor(lent.getHealth());
+                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 4.0), (float)(endPosY + (posY - endPosY) * (double)lent.getHealth() / (double)lent.getMaxHealth()), (float)posX - 3.0f, (float)endPosY, color, color, color, color);
             }
             if (ent instanceof PlayerEntity) {
                 PlayerEntity player = (PlayerEntity)ent;
                 if (this.renderArmor.getValue()) {
                     double height = (endPosY - posY) / 4.0;
                     ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
-                    stacks.add((ItemStack)player.method_31548().field_7548.get(3));
-                    stacks.add((ItemStack)player.method_31548().field_7548.get(2));
-                    stacks.add((ItemStack)player.method_31548().field_7548.get(1));
-                    stacks.add((ItemStack)player.method_31548().field_7548.get(0));
+                    stacks.add((ItemStack)player.getInventory().armor.get(3));
+                    stacks.add((ItemStack)player.getInventory().armor.get(2));
+                    stacks.add((ItemStack)player.getInventory().armor.get(1));
+                    stacks.add((ItemStack)player.getInventory().armor.get(0));
                     int i = -1;
                     for (ItemStack armor : stacks) {
                         ++i;
-                        if (armor.method_7960()) continue;
-                        float durability = armor.method_7936() - armor.method_7919();
-                        int percent = (int)(durability / (float)armor.method_7936() * 100.0f);
+                        if (armor.isEmpty()) continue;
+                        float durability = armor.getMaxDamage() - armor.getDamage();
+                        int percent = (int)(durability / (float)armor.getMaxDamage() * 100.0f);
                         double finalH = height * (double)(percent / 100);
                         Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(endPosX + 1.5), (float)((double)((float)posY) + height * (double)i + 1.2 * (double)(i + 1)), (float)endPosX + 3.0f, (int)(posY + height * (double)i + 1.2 * (double)(i + 1) + finalH), this.armorDuraColor.getValue(), this.armorDuraColor.getValue(), this.armorDuraColor.getValue(), this.armorDuraColor.getValue());
                     }
@@ -211,24 +211,24 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void drawText(Entity ent, DrawContext context) {
-        double x = ent.field_6014 + (ent.getX() - ent.field_6014) * (double)mc.getTickDelta();
-        double y = ent.field_6036 + (ent.getY() - ent.field_6036) * (double)mc.getTickDelta();
-        double z = ent.field_5969 + (ent.getZ() - ent.field_5969) * (double)mc.getTickDelta();
+        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.method_1488();
+        double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.method_1488();
+        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.method_1488();
         Box axisAlignedBB2 = ent.method_5829();
-        Box axisAlignedBB = new Box(axisAlignedBB2.field_1323 - ent.getX() + x - 0.05, axisAlignedBB2.field_1322 - ent.getY() + y, axisAlignedBB2.field_1321 - ent.getZ() + z - 0.05, axisAlignedBB2.field_1320 - ent.getX() + x + 0.05, axisAlignedBB2.field_1325 - ent.getY() + y + 0.15, axisAlignedBB2.field_1324 - ent.getZ() + z + 0.05);
-        Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1322, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1325, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1322, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1325, axisAlignedBB.field_1321), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1322, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1323, axisAlignedBB.field_1325, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1322, axisAlignedBB.field_1324), new Vec3d(axisAlignedBB.field_1320, axisAlignedBB.field_1325, axisAlignedBB.field_1324)};
+        Box axisAlignedBB = new Box(axisAlignedBB2.minX - ent.getX() + x - 0.05, axisAlignedBB2.minY - ent.getY() + y, axisAlignedBB2.minZ - ent.getZ() + z - 0.05, axisAlignedBB2.maxX - ent.getX() + x + 0.05, axisAlignedBB2.maxY - ent.getY() + y + 0.15, axisAlignedBB2.maxZ - ent.getZ() + z + 0.05);
+        Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.maxZ)};
         Color col = this.getEntityColor(ent);
         Vector4d position = null;
         for (Vec3d vector : vectors) {
-            vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.field_1352, vector.field_1351, vector.field_1350));
-            if (!(vector.field_1350 > 0.0) || !(vector.field_1350 < 1.0)) continue;
+            vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
+            if (!(vector.z > 0.0) || !(vector.z < 1.0)) continue;
             if (position == null) {
-                position = new Vector4d(vector.field_1352, vector.field_1351, vector.field_1350, 0.0);
+                position = new Vector4d(vector.x, vector.y, vector.z, 0.0);
             }
-            position.x = Math.min(vector.field_1352, position.x);
-            position.y = Math.min(vector.field_1351, position.y);
-            position.z = Math.max(vector.field_1352, position.z);
-            position.w = Math.max(vector.field_1351, position.w);
+            position.x = Math.min(vector.x, position.x);
+            position.y = Math.min(vector.y, position.y);
+            position.z = Math.max(vector.x, position.z);
+            position.w = Math.max(vector.y, position.w);
         }
         if (position != null) {
             double posX = position.x;
@@ -241,10 +241,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     float diff = (float)((endPosX - posX) / 2.0);
                     float textWidth = FontRenderers.Arial.getWidth(entity.method_5476().getString()) * 1.0f;
                     float tagX = (float)((posX + (double)diff - (double)(textWidth / 2.0f)) * 1.0);
-                    int count = entity.method_6983().method_7947();
-                    context.method_51433(TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1772, entity.method_5476().getString(), (int)tagX, (int)(posY - 10.0), this.textcolor.getValue().getRGB(), false);
+                    int count = entity.getStack().getCount();
+                    context.drawText(TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer, entity.method_5476().getString(), (int)tagX, (int)(posY - 10.0), this.textcolor.getValue().getRGB(), false);
                     if (this.drawItemC.getValue()) {
-                        context.method_51433(TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1772, "x" + count, (int)(tagX + (float)TwoDESP_CLphFghCvliwVuLcyYHt.mc.field_1772.method_1727(entity.method_5476().getString() + " ")), (int)posY - 10, this.countColor.getValue().getRGB(), false);
+                        context.drawText(TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer, "x" + count, (int)(tagX + (float)TwoDESP_CLphFghCvliwVuLcyYHt.mc.textRenderer.getWidth(entity.method_5476().getString() + " ")), (int)posY - 10, this.countColor.getValue().getRGB(), false);
                     }
                 }
             }
@@ -253,18 +253,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (this.renderArmor.getValue()) {
                     double height = (endPosY - posY) / 4.0;
                     ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
-                    stacks.add((ItemStack)player.method_31548().field_7548.get(3));
-                    stacks.add((ItemStack)player.method_31548().field_7548.get(2));
-                    stacks.add((ItemStack)player.method_31548().field_7548.get(1));
-                    stacks.add((ItemStack)player.method_31548().field_7548.get(0));
+                    stacks.add((ItemStack)player.getInventory().armor.get(3));
+                    stacks.add((ItemStack)player.getInventory().armor.get(2));
+                    stacks.add((ItemStack)player.getInventory().armor.get(1));
+                    stacks.add((ItemStack)player.getInventory().armor.get(0));
                     int i = -1;
                     for (ItemStack armor : stacks) {
                         ++i;
-                        if (armor.method_7960()) continue;
-                        float durability = armor.method_7936() - armor.method_7919();
-                        int percent = (int)(durability / (float)armor.method_7936() * 100.0f);
+                        if (armor.isEmpty()) continue;
+                        float durability = armor.getMaxDamage() - armor.getDamage();
+                        int percent = (int)(durability / (float)armor.getMaxDamage() * 100.0f);
                         double finalH = height * (double)(percent / 100);
-                        context.method_51427(armor, (int)(endPosX + 4.0), (int)(posY + height * (double)i + 1.2 * (double)(i + 1) + finalH / 2.0));
+                        context.drawItem(armor, (int)(endPosX + 4.0), (int)(posY + height * (double)i + 1.2 * (double)(i + 1) + finalH / 2.0));
                     }
                 }
             }

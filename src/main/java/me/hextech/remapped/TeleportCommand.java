@@ -31,13 +31,13 @@ extends Command {
                 return;
             }
             if (this.isNumeric(parameters[0].replace("~", ""))) {
-                x = TeleportCommand.mc.player.getX() + Double.parseDouble(parameters[0].replace("~", ""));
+                x = TeleportCommand.mc.player.method_23317() + Double.parseDouble(parameters[0].replace("~", ""));
             } else {
                 if (!parameters[0].replace("~", "").equals("")) {
                     this.sendUsage();
                     return;
                 }
-                x = TeleportCommand.mc.player.getX();
+                x = TeleportCommand.mc.player.method_23317();
             }
         }
         if (this.isNumeric(parameters[1])) {
@@ -48,13 +48,13 @@ extends Command {
                 return;
             }
             if (this.isNumeric(parameters[1].replace("~", ""))) {
-                y = TeleportCommand.mc.player.getY() + Double.parseDouble(parameters[1].replace("~", ""));
+                y = TeleportCommand.mc.player.method_23318() + Double.parseDouble(parameters[1].replace("~", ""));
             } else {
                 if (!parameters[1].replace("~", "").equals("")) {
                     this.sendUsage();
                     return;
                 }
-                y = TeleportCommand.mc.player.getY();
+                y = TeleportCommand.mc.player.method_23318();
             }
         }
         if (this.isNumeric(parameters[2])) {
@@ -65,13 +65,13 @@ extends Command {
                 return;
             }
             if (this.isNumeric(parameters[2].replace("~", ""))) {
-                z = TeleportCommand.mc.player.getZ() + Double.parseDouble(parameters[2].replace("~", ""));
+                z = TeleportCommand.mc.player.method_23321() + Double.parseDouble(parameters[2].replace("~", ""));
             } else {
                 if (!parameters[2].replace("~", "").equals("")) {
                     this.sendUsage();
                     return;
                 }
-                z = TeleportCommand.mc.player.getZ();
+                z = TeleportCommand.mc.player.method_23321();
             }
         }
         TeleportCommand.mc.player.method_5814(x, y, z);

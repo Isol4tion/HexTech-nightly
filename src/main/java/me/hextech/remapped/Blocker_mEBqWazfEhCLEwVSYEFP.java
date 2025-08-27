@@ -70,7 +70,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.bevelCev.getValue()) {
             for (Object i : Direction.values()) {
                 BlockPos blockerPos;
-                if (i == Direction.DOWN || this.isBedrock(this.playerBP.offset(i).up()) || !this.crystalHere(blockerPos = this.playerBP.offset(i).method_10086(2)) || this.placePos.contains(blockerPos)) continue;
+                if (i == Direction.DOWN || this.isBedrock(this.playerBP.offset(i).up()) || !this.crystalHere(blockerPos = this.playerBP.offset(i).up(2)) || this.placePos.contains(blockerPos)) continue;
                 this.placePos.add(blockerPos);
             }
         }
@@ -116,7 +116,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean isBedrock(BlockPos pos) {
-        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.world.getBlockState(pos).getBlock() == Blocks.field_9987;
+        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.world.method_8320(pos).method_26204() == Blocks.BEDROCK;
     }
 
     private void tryPlaceObsidian(BlockPos pos) {
@@ -126,7 +126,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.detectMining.getValue() && BlockUtil.isMining(pos)) {
             return;
         }
-        int oldSlot = Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.method_31548().field_7545;
+        int oldSlot = Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.method_31548().selectedSlot;
         int block = this.getObsidian();
         if (block == -1) {
             return;
@@ -146,7 +146,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventorySwap.getValue()) {
-            InventoryUtil.inventorySwap(slot, Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, Blocker_mEBqWazfEhCLEwVSYEFP.mc.player.method_31548().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -154,8 +154,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private int getObsidian() {
         if (this.inventorySwap.getValue()) {
-            return InventoryUtil.findBlockInventorySlot(Blocks.field_10540);
+            return InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN);
         }
-        return InventoryUtil.findBlock(Blocks.field_10540);
+        return InventoryUtil.findBlock(Blocks.OBSIDIAN);
     }
 }

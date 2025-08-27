@@ -23,8 +23,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (!(XCarry.mc.field_1755 == null || XCarry.mc.field_1755 instanceof GameMenuScreen || XCarry.mc.field_1755 instanceof ChatScreen || XCarry.mc.field_1755 instanceof ClickGuiScreen)) {
-            this.lastScreen = XCarry.mc.field_1755;
+        if (!(XCarry.mc.currentScreen == null || XCarry.mc.currentScreen instanceof GameMenuScreen || XCarry.mc.currentScreen instanceof ChatScreen || XCarry.mc.currentScreen instanceof ClickGuiScreen)) {
+            this.lastScreen = XCarry.mc.currentScreen;
         }
     }
 

@@ -47,7 +47,7 @@ implements Wrapper {
             speed *= -1.0;
         }
         double diff = endPoint - current;
-        double factor = diff * (double)mc.getTickDelta() / (1.0 / speed * (Math.min(240.0, (double)HexTech.FPS.getFps()) / 240.0));
+        double factor = diff * (double)mc.method_1488() / (1.0 / speed * (Math.min(240.0, (double)HexTech.FPS.getFps()) / 240.0));
         if (diff < 0.0 && factor < diff) {
             factor = diff;
         } else if (diff > 0.0 && factor >= diff) {
@@ -85,7 +85,7 @@ implements Wrapper {
             speed *= -1.0;
         }
         double diff = endPoint - current;
-        double factor = diff * (double)mc.getTickDelta() * speed;
+        double factor = diff * (double)mc.method_1488() * speed;
         if (diff < 0.0 && factor < diff) {
             factor = diff;
         } else if (diff > 0.0 && factor >= diff) {

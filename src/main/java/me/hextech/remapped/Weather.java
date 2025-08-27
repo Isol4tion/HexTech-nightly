@@ -15,10 +15,10 @@ public static enum Weather {
     public Biome.Precipitation toMC() {
         return switch (this.ordinal()) {
             default -> throw new IncompatibleClassChangeError();
-            case 0 -> Biome.Precipitation.field_9384;
-            case 1 -> Biome.Precipitation.field_9382;
-            case 2 -> Biome.Precipitation.field_9383;
-            case 3 -> Biome.Precipitation.field_9383;
+            case 0 -> Biome.Precipitation.NONE;
+            case 1 -> Biome.Precipitation.RAIN;
+            case 2 -> Biome.Precipitation.SNOW;
+            case 3 -> Biome.Precipitation.SNOW;
         };
     }
 }

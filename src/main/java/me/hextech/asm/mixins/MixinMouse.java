@@ -17,7 +17,7 @@ implements Wrapper {
         if (button != 3 && button != 4) {
             return;
         }
-        if (MixinMouse.mc.field_1755 instanceof ClickGuiScreen && action == 1 && HexTech.MODULE.setBind(button)) {
+        if (MixinMouse.mc.currentScreen instanceof ClickGuiScreen && action == 1 && HexTech.MODULE.setBind(button)) {
             return;
         }
         if (action == 1) {

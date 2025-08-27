@@ -36,7 +36,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender2D(DrawContext drawContext, float tickDelta) {
         if (!Indicator_PdJeoIXjQQIjzfhnRXks.nullCheck()) {
-            this.matrixStack = drawContext.method_51448();
+            this.matrixStack = drawContext.getMatrices();
             this.height = FontRenderers.Calibri.getFontHeight();
             this.offset = 0.0f;
             if (Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.isOn()) {
@@ -83,9 +83,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             color = new Color(47, 173, 26).getRGB();
         }
         double width = FontRenderers.Calibri.getWidth(s) + 8.0f;
-        Render2DUtil.horizontalGradient(this.matrixStack, 10.0f, (float)(mc.method_22683().method_4502() - 200) + this.offset, (float)(10.0 + width / 2.0), (float)(mc.method_22683().method_4502() - 200) + this.offset + this.height, new Color(0, 0, 0, 0), new Color(0, 0, 0, 100));
-        Render2DUtil.horizontalGradient(this.matrixStack, (float)(10.0 + width / 2.0), (float)(mc.method_22683().method_4502() - 200) + this.offset, (float)(10.0 + width), (float)(mc.method_22683().method_4502() - 200) + this.offset + this.height, new Color(0, 0, 0, 100), new Color(0, 0, 0, 0));
-        FontRenderers.Calibri.drawString(this.matrixStack, s, 14.0f, (float)(mc.method_22683().method_4502() - 195) + this.offset, color);
+        Render2DUtil.horizontalGradient(this.matrixStack, 10.0f, (float)(mc.getWindow().getScaledHeight() - 200) + this.offset, (float)(10.0 + width / 2.0), (float)(mc.getWindow().getScaledHeight() - 200) + this.offset + this.height, new Color(0, 0, 0, 0), new Color(0, 0, 0, 100));
+        Render2DUtil.horizontalGradient(this.matrixStack, (float)(10.0 + width / 2.0), (float)(mc.getWindow().getScaledHeight() - 200) + this.offset, (float)(10.0 + width), (float)(mc.getWindow().getScaledHeight() - 200) + this.offset + this.height, new Color(0, 0, 0, 100), new Color(0, 0, 0, 0));
+        FontRenderers.Calibri.drawString(this.matrixStack, s, 14.0f, (float)(mc.getWindow().getScaledHeight() - 195) + this.offset, color);
         this.offset -= this.height + 3.0f;
     }
 }

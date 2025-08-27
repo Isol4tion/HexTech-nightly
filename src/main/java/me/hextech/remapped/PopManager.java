@@ -51,7 +51,7 @@ implements Wrapper {
             return;
         }
         Object t = event.getPacket();
-        if (t instanceof EntityStatusS2CPacket && (packet = (EntityStatusS2CPacket)t).method_11470() == 35 && (entity = packet.method_11469((World)PopManager.mc.world)) instanceof PlayerEntity) {
+        if (t instanceof EntityStatusS2CPacket && (packet = (EntityStatusS2CPacket)t).getStatus() == 35 && (entity = packet.getEntity((World)PopManager.mc.world)) instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
             this.onTotemPop(player);
         }

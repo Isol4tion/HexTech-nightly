@@ -65,20 +65,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static String getEntityPing(PlayerEntity entity) {
-        if (mc.method_1562() == null) {
+        if (mc.getNetworkHandler() == null) {
             return "-1";
         }
-        PlayerListEntry playerListEntry = mc.method_1562().method_2871(entity.method_5667());
+        PlayerListEntry playerListEntry = mc.getNetworkHandler().getPlayerListEntry(entity.method_5667());
         if (playerListEntry == null) {
             return "-1";
         }
-        int ping = playerListEntry.method_2959();
-        Formatting color = Formatting.field_1060;
+        int ping = playerListEntry.getLatency();
+        Formatting color = Formatting.GREEN;
         if (ping >= 100) {
-            color = Formatting.field_1054;
+            color = Formatting.YELLOW;
         }
         if (ping >= 250) {
-            color = Formatting.field_1061;
+            color = Formatting.RED;
         }
         return color.toString() + ping;
     }
@@ -87,8 +87,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (entity == null) {
             return null;
         }
-        PlayerListEntry playerListEntry = mc.method_1562().method_2871(entity.method_5667());
-        return playerListEntry == null ? null : playerListEntry.method_2958();
+        PlayerListEntry playerListEntry = mc.getNetworkHandler().getPlayerListEntry(entity.method_5667());
+        return playerListEntry == null ? null : playerListEntry.getGameMode();
     }
 
     public static float round2(double value) {
@@ -101,17 +101,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onRender2D(DrawContext context, float tickDelta) {
         for (PlayerEntity ent : NameTags_NZLxiZHrtsQKbsfDngrN.mc.world.method_18456()) {
             Vec3d vector;
-            if (ent == NameTags_NZLxiZHrtsQKbsfDngrN.mc.player && NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1690.method_31044().method_31034() && FreeCam.INSTANCE.isOff()) continue;
-            double x = ent.field_6014 + (ent.getX() - ent.field_6014) * (double)mc.getTickDelta();
-            double y = ent.field_6036 + (ent.getY() - ent.field_6036) * (double)mc.getTickDelta();
-            double z = ent.field_5969 + (ent.getZ() - ent.field_5969) * (double)mc.getTickDelta();
-            Vec3d preVec = vector = new Vec3d(x, y + this.height.getValue() + ent.method_5829().method_17940() + 0.3, z);
-            vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.field_1352, vector.field_1351, vector.field_1350));
-            if (!(vector.field_1350 > 0.0) || !(vector.field_1350 < 1.0)) continue;
-            Vector4d position = new Vector4d(vector.field_1352, vector.field_1351, vector.field_1350, 0.0);
-            position.x = Math.min(vector.field_1352, position.x);
-            position.y = Math.min(vector.field_1351, position.y);
-            position.z = Math.max(vector.field_1352, position.z);
+            if (ent == NameTags_NZLxiZHrtsQKbsfDngrN.mc.player && NameTags_NZLxiZHrtsQKbsfDngrN.mc.options.getPerspective().isFirstPerson() && FreeCam.INSTANCE.isOff()) continue;
+            double x = ent.field_6014 + (ent.method_23317() - ent.field_6014) * (double)mc.method_1488();
+            double y = ent.field_6036 + (ent.method_23318() - ent.field_6036) * (double)mc.method_1488();
+            double z = ent.field_5969 + (ent.method_23321() - ent.field_5969) * (double)mc.method_1488();
+            Vec3d preVec = vector = new Vec3d(x, y + this.height.getValue() + ent.method_5829().getLengthY() + 0.3, z);
+            vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
+            if (!(vector.z > 0.0) || !(vector.z < 1.0)) continue;
+            Vector4d position = new Vector4d(vector.x, vector.y, vector.z, 0.0);
+            position.x = Math.min(vector.x, position.x);
+            position.y = Math.min(vector.y, position.y);
+            position.z = Math.max(vector.x, position.z);
             Object final_string = "";
             if (this.ping.getValue()) {
                 final_string = (String)final_string + NameTags_NZLxiZHrtsQKbsfDngrN.getEntityPing(ent) + "ms ";
@@ -119,105 +119,105 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.gamemode.getValue()) {
                 final_string = (String)final_string + this.translateGamemode(NameTags_NZLxiZHrtsQKbsfDngrN.getEntityGamemode(ent)) + " ";
             }
-            final_string = (String)final_string + String.valueOf(Formatting.field_1070) + ent.method_5477().getString();
+            final_string = (String)final_string + String.valueOf(Formatting.RESET) + ent.method_5477().getString();
             if (this.health.getValue()) {
                 final_string = (String)final_string + " " + String.valueOf(this.getHealthColor(ent)) + NameTags_NZLxiZHrtsQKbsfDngrN.round2(ent.method_6067() + ent.method_6032());
             }
             if (this.distance.getValue()) {
-                final_string = (String)final_string + " " + String.valueOf(Formatting.field_1070) + String.format("%.1f", Float.valueOf(NameTags_NZLxiZHrtsQKbsfDngrN.mc.player.method_5739((Entity)ent))) + "m";
+                final_string = (String)final_string + " " + String.valueOf(Formatting.RESET) + String.format("%.1f", Float.valueOf(NameTags_NZLxiZHrtsQKbsfDngrN.mc.player.method_5739((Entity)ent))) + "m";
             }
             if (this.pops.getValue() && HexTech.POP.getPop(ent.method_5477().getString()) != 0) {
-                final_string = (String)final_string + " \u00a7bPop " + String.valueOf(Formatting.field_1076) + HexTech.POP.getPop(ent.method_5477().getString());
+                final_string = (String)final_string + " \u00a7bPop " + String.valueOf(Formatting.LIGHT_PURPLE) + HexTech.POP.getPop(ent.method_5477().getString());
             }
             double posX = position.x;
             double posY = position.y;
             double endPosX = position.z;
             float diff = (float)(endPosX - posX) / 2.0f;
-            float textWidth = this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy ? FontRenderers.Arial.getWidth((String)final_string) * 1.0f : (float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772.method_1727((String)final_string);
+            float textWidth = this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy ? FontRenderers.Arial.getWidth((String)final_string) * 1.0f : (float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer.getWidth((String)final_string);
             float tagX = (float)((posX + (double)diff - (double)(textWidth / 2.0f)) * 1.0);
             ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
             stacks.add(ent.method_6047());
-            stacks.add((ItemStack)ent.method_31548().field_7548.get(3));
-            stacks.add((ItemStack)ent.method_31548().field_7548.get(2));
-            stacks.add((ItemStack)ent.method_31548().field_7548.get(1));
-            stacks.add((ItemStack)ent.method_31548().field_7548.get(0));
+            stacks.add((ItemStack)ent.getInventory().armor.get(3));
+            stacks.add((ItemStack)ent.getInventory().armor.get(2));
+            stacks.add((ItemStack)ent.getInventory().armor.get(1));
+            stacks.add((ItemStack)ent.getInventory().armor.get(0));
             stacks.add(ent.method_6079());
-            context.method_51448().method_22903();
-            context.method_51448().method_46416(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float)(posY - 13.0) + 6.5f, 0.0f);
-            float size = (float)Math.max(1.0 - (double)MathHelper.method_15355((float)((float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1719.method_5707(preVec))) * 0.01 * this.scaled.getValue(), 0.0);
-            context.method_51448().method_22905(Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), 1.0f);
-            context.method_51448().method_46416(0.0f, this.offset.getValueFloat() * MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(preVec))), 0.0f);
-            context.method_51448().method_46416(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float)(posY - 13.0 + 6.5)), 0.0f);
+            context.getMatrices().push();
+            context.getMatrices().translate(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float)(posY - 13.0) + 6.5f, 0.0f);
+            float size = (float)Math.max(1.0 - (double)MathHelper.sqrt((float)((float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.cameraEntity.squaredDistanceTo(preVec))) * 0.01 * this.scaled.getValue(), 0.0);
+            context.getMatrices().scale(Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), 1.0f);
+            context.getMatrices().translate(0.0f, this.offset.getValueFloat() * MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(preVec))), 0.0f);
+            context.getMatrices().translate(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float)(posY - 13.0 + 6.5)), 0.0f);
             float item_offset = 0.0f;
             if (this.armorMode.getValue() != NameTags_AuEMiXPlywKMVYDJMcAR.None) {
                 int count = 0;
                 for (ItemStack armorComponent : stacks) {
                     ++count;
-                    if (!armorComponent.method_7960()) {
-                        context.method_51448().method_22903();
-                        context.method_51448().method_46416(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float)(posY - 13.0) + 6.5f, 0.0f);
-                        context.method_51448().method_22905(this.armorScale.getValueFloat(), this.armorScale.getValueFloat(), 1.0f);
-                        context.method_51448().method_46416(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float)(posY - 13.0 + 6.5)), 0.0f);
-                        context.method_51448().method_22904(posX - 52.5 + (double)item_offset, (double)((float)(posY - 29.0) + this.armorHeight.getValueFloat()), 0.0);
-                        float durability = armorComponent.method_7936() - armorComponent.method_7919();
-                        int percent = (int)(durability / (float)armorComponent.method_7936() * 100.0f);
+                    if (!armorComponent.isEmpty()) {
+                        context.getMatrices().push();
+                        context.getMatrices().translate(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float)(posY - 13.0) + 6.5f, 0.0f);
+                        context.getMatrices().scale(this.armorScale.getValueFloat(), this.armorScale.getValueFloat(), 1.0f);
+                        context.getMatrices().translate(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float)(posY - 13.0 + 6.5)), 0.0f);
+                        context.getMatrices().translate(posX - 52.5 + (double)item_offset, (double)((float)(posY - 29.0) + this.armorHeight.getValueFloat()), 0.0);
+                        float durability = armorComponent.getMaxDamage() - armorComponent.getDamage();
+                        int percent = (int)(durability / (float)armorComponent.getMaxDamage() * 100.0f);
                         Color color = percent <= 33 ? Color.RED : (percent <= 66 ? Color.ORANGE : Color.GREEN);
                         switch (this.armorMode.getValue().ordinal()) {
                             case 4: {
                                 if (count <= 1 || count >= 6) break;
-                                DiffuseLighting.method_24210();
-                                context.method_51427(armorComponent, 0, 0);
-                                context.method_51431(NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772, armorComponent, 0, 0);
+                                DiffuseLighting.disableGuiDepthLighting();
+                                context.drawItem(armorComponent, 0, 0);
+                                context.drawStackOverlay(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
                                 break;
                             }
                             case 3: {
-                                DiffuseLighting.method_24210();
-                                context.method_51427(armorComponent, 0, 0);
-                                context.method_51431(NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772, armorComponent, 0, 0);
+                                DiffuseLighting.disableGuiDepthLighting();
+                                context.drawItem(armorComponent, 0, 0);
+                                context.drawStackOverlay(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
                                 break;
                             }
                             case 1: {
-                                DiffuseLighting.method_24210();
-                                context.method_51427(armorComponent, 0, 0);
-                                context.method_51431(NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772, armorComponent, 0, 0);
-                                if (armorComponent.method_7936() <= 0) break;
+                                DiffuseLighting.disableGuiDepthLighting();
+                                context.drawItem(armorComponent, 0, 0);
+                                context.drawStackOverlay(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
+                                if (armorComponent.getMaxDamage() <= 0) break;
                                 if (this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy) {
-                                    FontRenderers.Arial.drawString(context.method_51448(), String.valueOf(percent), 9.0f - FontRenderers.Arial.getWidth(String.valueOf(percent)) / 2.0f, -FontRenderers.Arial.getFontHeight() + 3.0f, color.getRGB());
+                                    FontRenderers.Arial.drawString(context.getMatrices(), String.valueOf(percent), 9.0f - FontRenderers.Arial.getWidth(String.valueOf(percent)) / 2.0f, -FontRenderers.Arial.getFontHeight() + 3.0f, color.getRGB());
                                     break;
                                 }
-                                TextRenderer textRenderer = NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772;
+                                TextRenderer textRenderer = NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer;
                                 String string = String.valueOf(percent);
-                                int n = 9 - NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772.method_1727(String.valueOf(percent)) / 2;
-                                Objects.requireNonNull(NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772);
-                                context.method_51433(textRenderer, string, n, -9 + 1, color.getRGB(), true);
+                                int n = 9 - NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer.getWidth(String.valueOf(percent)) / 2;
+                                Objects.requireNonNull(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer);
+                                context.drawText(textRenderer, string, n, -9 + 1, color.getRGB(), true);
                                 break;
                             }
                             case 2: {
-                                context.method_51431(NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772, armorComponent, 0, 0);
-                                if (armorComponent.method_7936() <= 0) break;
-                                if (!armorComponent.method_31578()) {
-                                    int i = armorComponent.method_31579();
-                                    int j = armorComponent.method_31580();
+                                context.drawStackOverlay(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
+                                if (armorComponent.getMaxDamage() <= 0) break;
+                                if (!armorComponent.isItemBarVisible()) {
+                                    int i = armorComponent.getItemBarStep();
+                                    int j = armorComponent.getItemBarColor();
                                     int k = 2;
                                     int l = 13;
-                                    context.method_51739(RenderLayer.method_51785(), k, l, k + 13, l + 2, -16777216);
-                                    context.method_51739(RenderLayer.method_51785(), k, l, k + i, l + 1, j | 0xFF000000);
+                                    context.fill(RenderLayer.getGuiOverlay(), k, l, k + 13, l + 2, -16777216);
+                                    context.fill(RenderLayer.getGuiOverlay(), k, l, k + i, l + 1, j | 0xFF000000);
                                 }
                                 if (this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy) {
-                                    FontRenderers.Arial.drawString(context.method_51448(), String.valueOf(percent), 9.0f - FontRenderers.Arial.getWidth(String.valueOf(percent)) / 2.0f, 7.0f, color.getRGB());
+                                    FontRenderers.Arial.drawString(context.getMatrices(), String.valueOf(percent), 9.0f - FontRenderers.Arial.getWidth(String.valueOf(percent)) / 2.0f, 7.0f, color.getRGB());
                                     break;
                                 }
-                                context.method_51433(NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772, String.valueOf(percent), 9 - NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772.method_1727(String.valueOf(percent)) / 2, 5, color.getRGB(), true);
+                                context.drawText(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, String.valueOf(percent), 9 - NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer.getWidth(String.valueOf(percent)) / 2, 5, color.getRGB(), true);
                             }
                         }
-                        context.method_51448().method_22909();
+                        context.getMatrices().pop();
                         if (this.enchants.getValue()) {
                             float enchantmentY = 0.0f;
                             NbtList enchants = armorComponent.method_7921();
                             block26: for (int index = 0; index < enchants.size(); ++index) {
                                 String encName;
-                                String id = enchants.method_10602(index).method_10558("id");
-                                short level = enchants.method_10602(index).method_10568("lvl");
+                                String id = enchants.getCompound(index).getString("id");
+                                short level = enchants.getCompound(index).getShort("lvl");
                                 switch (id) {
                                     case "minecraft:blast_protection": {
                                         encName = "B" + level;
@@ -252,12 +252,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                                     }
                                 }
                                 if (this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy) {
-                                    FontRenderers.Arial.drawString(context.method_51448(), encName, posX - 50.0 + (double)item_offset, (double)((float)posY - 45.0f + enchantmentY), -1);
+                                    FontRenderers.Arial.drawString(context.getMatrices(), encName, posX - 50.0 + (double)item_offset, (double)((float)posY - 45.0f + enchantmentY), -1);
                                 } else {
-                                    context.method_51448().method_22903();
-                                    context.method_51448().method_22904(posX - 50.0 + (double)item_offset, posY - 45.0 + (double)enchantmentY, 0.0);
-                                    context.method_51433(NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772, encName, 0, 0, -1, true);
-                                    context.method_51448().method_22909();
+                                    context.getMatrices().push();
+                                    context.getMatrices().translate(posX - 50.0 + (double)item_offset, posY - 45.0 + (double)enchantmentY, 0.0);
+                                    context.drawText(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, encName, 0, 0, -1, true);
+                                    context.getMatrices().pop();
                                 }
                                 enchantmentY -= 8.0f;
                             }
@@ -267,23 +267,23 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
             if (this.rect.booleanValue) {
-                Render2DUtil.drawRect(context.method_51448(), tagX - 2.0f, (float)(posY - 13.0), textWidth + 4.0f, 11.0f, this.rect.getValue());
+                Render2DUtil.drawRect(context.getMatrices(), tagX - 2.0f, (float)(posY - 13.0), textWidth + 4.0f, 11.0f, this.rect.getValue());
             }
             if (this.outline.booleanValue) {
-                Render2DUtil.drawRect(context.method_51448(), tagX - 3.0f, (float)(posY - 14.0), textWidth + 6.0f, 1.0f, this.outline.getValue());
-                Render2DUtil.drawRect(context.method_51448(), tagX - 3.0f, (float)(posY - 2.0), textWidth + 6.0f, 1.0f, this.outline.getValue());
-                Render2DUtil.drawRect(context.method_51448(), tagX - 3.0f, (float)(posY - 14.0), 1.0f, 12.0f, this.outline.getValue());
-                Render2DUtil.drawRect(context.method_51448(), tagX + textWidth + 2.0f, (float)(posY - 14.0), 1.0f, 12.0f, this.outline.getValue());
+                Render2DUtil.drawRect(context.getMatrices(), tagX - 3.0f, (float)(posY - 14.0), textWidth + 6.0f, 1.0f, this.outline.getValue());
+                Render2DUtil.drawRect(context.getMatrices(), tagX - 3.0f, (float)(posY - 2.0), textWidth + 6.0f, 1.0f, this.outline.getValue());
+                Render2DUtil.drawRect(context.getMatrices(), tagX - 3.0f, (float)(posY - 14.0), 1.0f, 12.0f, this.outline.getValue());
+                Render2DUtil.drawRect(context.getMatrices(), tagX + textWidth + 2.0f, (float)(posY - 14.0), 1.0f, 12.0f, this.outline.getValue());
             }
             if (this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy) {
-                FontRenderers.Arial.drawString(context.method_51448(), (String)final_string, tagX, (float)posY - 10.0f, HexTech.FRIEND.isFriend(ent) ? this.friendColor.getValue().getRGB() : this.color.getValue().getRGB());
+                FontRenderers.Arial.drawString(context.getMatrices(), (String)final_string, tagX, (float)posY - 10.0f, HexTech.FRIEND.isFriend(ent) ? this.friendColor.getValue().getRGB() : this.color.getValue().getRGB());
             } else {
-                context.method_51448().method_22903();
-                context.method_51448().method_46416(tagX, (float)posY - 11.0f, 0.0f);
-                context.method_51433(NameTags_NZLxiZHrtsQKbsfDngrN.mc.field_1772, (String)final_string, 0, 0, HexTech.FRIEND.isFriend(ent) ? this.friendColor.getValue().getRGB() : this.color.getValue().getRGB(), true);
-                context.method_51448().method_22909();
+                context.getMatrices().push();
+                context.getMatrices().translate(tagX, (float)posY - 11.0f, 0.0f);
+                context.drawText(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, (String)final_string, 0, 0, HexTech.FRIEND.isFriend(ent) ? this.friendColor.getValue().getRGB() : this.color.getValue().getRGB(), true);
+                context.getMatrices().pop();
             }
-            context.method_51448().method_22909();
+            context.getMatrices().pop();
         }
     }
 
@@ -303,20 +303,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private Formatting getHealthColor(@NotNull PlayerEntity entity) {
         int health = (int)((float)((int)entity.method_6032()) + entity.method_6067());
         if (health >= 30) {
-            return Formatting.field_1077;
+            return Formatting.DARK_GREEN;
         }
         if (health >= 24) {
-            return Formatting.field_1060;
+            return Formatting.GREEN;
         }
         if (health >= 18) {
-            return Formatting.field_1054;
+            return Formatting.YELLOW;
         }
         if (health >= 12) {
-            return Formatting.field_1065;
+            return Formatting.GOLD;
         }
         if (health >= 6) {
-            return Formatting.field_1061;
+            return Formatting.RED;
         }
-        return Formatting.field_1079;
+        return Formatting.DARK_RED;
     }
 }

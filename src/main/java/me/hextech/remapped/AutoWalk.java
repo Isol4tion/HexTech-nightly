@@ -14,11 +14,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onDisable() {
-        AutoWalk.mc.field_1690.field_1894.method_23481(false);
+        AutoWalk.mc.options.forwardKey.setPressed(false);
     }
 
     @Override
     public void onUpdate() {
-        AutoWalk.mc.field_1690.field_1894.method_23481(true);
+        AutoWalk.mc.options.forwardKey.setPressed(true);
     }
 }

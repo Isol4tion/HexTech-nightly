@@ -54,7 +54,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         ArrayList<BlockEntity> blockEntities2 = BlockUtil.getTileEntities();
         for (BlockEntity blockEntity : blockEntities2) {
             if (!(blockEntity instanceof ChestBlockEntity) && !(blockEntity instanceof TrappedChestBlockEntity)) continue;
-            Box box = new Box(blockEntity.method_11016());
+            Box box = new Box(blockEntity.getPos());
             Render3DUtil.draw3DBox(matrixStack, box, this.color.getValue());
         }
         if (!this.timer.passed((long)this.delay.getValueInt() * 20L)) {
@@ -66,7 +66,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (!(blockEntity instanceof ChestBlockEntity) && !(blockEntity instanceof TrappedChestBlockEntity)) continue;
             ++chest;
             if (!this.log.getValue()) continue;
-            BaseFinder.writePacketData(chestdata, "FindChest:" + String.valueOf(blockEntity.method_11016()));
+            BaseFinder.writePacketData(chestdata, "FindChest:" + String.valueOf(blockEntity.getPos()));
         }
         if ((double)chest >= this.count.getValue()) {
             this.timer.reset();

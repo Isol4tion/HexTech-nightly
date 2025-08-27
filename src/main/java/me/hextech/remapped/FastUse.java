@@ -14,8 +14,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (FastUse.mc.field_1752 <= 4 - this.delay.getValueInt()) {
-            FastUse.mc.field_1752 = 0;
+        if (FastUse.mc.itemUseCooldown <= 4 - this.delay.getValueInt()) {
+            FastUse.mc.itemUseCooldown = 0;
         }
     }
 }

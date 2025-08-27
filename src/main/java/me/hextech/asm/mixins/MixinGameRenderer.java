@@ -57,7 +57,7 @@ public class MixinGameRenderer {
 
     @Inject(method={"showFloatingItem"}, at={@At(value="HEAD")}, cancellable=true)
     private void onShowFloatingItem(ItemStack floatingItem, CallbackInfo info) {
-        if (floatingItem.method_7909() == Items.field_8288 && NoRender.INSTANCE.isOn() && NoRender.INSTANCE.totem.getValue()) {
+        if (floatingItem.getItem() == Items.TOTEM_OF_UNDYING && NoRender.INSTANCE.isOn() && NoRender.INSTANCE.totem.getValue()) {
             info.cancel();
         }
     }
@@ -83,7 +83,7 @@ public class MixinGameRenderer {
         if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.nausea.getValue()) {
             return 0.0f;
         }
-        return MathHelper.method_16439((float)delta, (float)first, (float)second);
+        return MathHelper.lerp((float)delta, (float)first, (float)second);
     }
 
     @Inject(method={"tiltViewWhenHurt"}, at={@At(value="HEAD")}, cancellable=true)
@@ -97,7 +97,7 @@ public class MixinGameRenderer {
     void render3dHook(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
         TextUtil.lastProjMat.set((Matrix4fc)RenderSystem.getProjectionMatrix());
         TextUtil.lastModMat.set((Matrix4fc)RenderSystem.getModelViewMatrix());
-        TextUtil.lastWorldSpaceMatrix.set((Matrix4fc)matrix.method_23760().method_23761());
+        TextUtil.lastWorldSpaceMatrix.set((Matrix4fc)matrix.peek().getPositionMatrix());
         HexTech.FPS.record();
         HexTech.MODULE.render3D(matrix);
     }
@@ -133,13 +133,13 @@ public class MixinGameRenderer {
     public void getBasicProjectionMatrixHook(double fov, CallbackInfoReturnable<Matrix4f> cir) {
         if (AspectRatio.INSTANCE.isOn()) {
             MatrixStack matrixStack = new MatrixStack();
-            matrixStack.method_23760().method_23761().identity();
+            matrixStack.peek().getPositionMatrix().identity();
             if (this.field_4005 != 1.0f) {
-                matrixStack.method_46416(this.field_3988, -this.field_4004, 0.0f);
-                matrixStack.method_22905(this.field_4005, this.field_4005, 1.0f);
+                matrixStack.translate(this.field_3988, -this.field_4004, 0.0f);
+                matrixStack.scale(this.field_4005, this.field_4005, 1.0f);
             }
-            matrixStack.method_23760().method_23761().mul((Matrix4fc)new Matrix4f().setPerspective((float)(fov * 0.01745329238474369), AspectRatio.INSTANCE.ratio.getValueFloat(), 0.05f, this.field_4025 * 4.0f));
-            cir.setReturnValue((Object)matrixStack.method_23760().method_23761());
+            matrixStack.peek().getPositionMatrix().mul((Matrix4fc)new Matrix4f().setPerspective((float)(fov * 0.01745329238474369), AspectRatio.INSTANCE.ratio.getValueFloat(), 0.05f, this.field_4025 * 4.0f));
+            cir.setReturnValue((Object)matrixStack.peek().getPositionMatrix());
         }
     }
 
@@ -151,49 +151,49 @@ public class MixinGameRenderer {
 
     @Unique
     public void update(float tickDelta) {
-        Entity entity = this.field_4015.method_1560();
+        Entity entity = this.field_4015.getCameraEntity();
         if (entity != null && this.field_4015.world != null) {
             EntityHitResult entityHitResult;
-            this.field_4015.method_16011().method_15396("pick");
-            this.field_4015.field_1692 = null;
-            double d = this.field_4015.field_1761.method_2904();
+            this.field_4015.method_16011().push("pick");
+            this.field_4015.targetedEntity = null;
+            double d = this.field_4015.interactionManager.method_2904();
             MineTweak.INSTANCE.isActive = MineTweak.INSTANCE.ghostHand();
-            this.field_4015.field_1765 = entity.method_5745(d, tickDelta, false);
+            this.field_4015.crosshairTarget = entity.raycast(d, tickDelta, false);
             MineTweak.INSTANCE.isActive = false;
-            Vec3d vec3d = entity.method_5836(tickDelta);
+            Vec3d vec3d = entity.getCameraPosVec(tickDelta);
             boolean bl = false;
             double e = d;
-            if (this.field_4015.field_1761.method_2926()) {
+            if (this.field_4015.interactionManager.method_2926()) {
                 d = e = 6.0;
             } else if (d > 3.0) {
                 bl = true;
             }
             e *= e;
-            if (this.field_4015.field_1765 != null) {
-                e = this.field_4015.field_1765.method_17784().squaredDistanceTo(vec3d);
+            if (this.field_4015.crosshairTarget != null) {
+                e = this.field_4015.crosshairTarget.getPos().squaredDistanceTo(vec3d);
             }
-            Vec3d vec3d2 = entity.method_5828(1.0f);
-            Vec3d vec3d3 = vec3d.method_1031(vec3d2.field_1352 * d, vec3d2.field_1351 * d, vec3d2.field_1350 * d);
-            Box box = entity.method_5829().method_18804(vec3d2.method_1021(d)).method_1009(1.0, 1.0, 1.0);
+            Vec3d vec3d2 = entity.getRotationVec(1.0f);
+            Vec3d vec3d3 = vec3d.add(vec3d2.x * d, vec3d2.y * d, vec3d2.z * d);
+            Box box = entity.method_5829().stretch(vec3d2.multiply(d)).expand(1.0, 1.0, 1.0);
             if (FreeCam.INSTANCE.isOn()) {
-                this.field_4015.field_1765 = InteractUtil.getRtxTarget(FreeCam.INSTANCE.getFakeYaw(), FreeCam.INSTANCE.getFakePitch(), FreeCam.INSTANCE.getFakeX(), FreeCam.INSTANCE.getFakeY(), FreeCam.INSTANCE.getFakeZ());
-                this.field_4015.method_16011().method_15407();
+                this.field_4015.crosshairTarget = InteractUtil.getRtxTarget(FreeCam.INSTANCE.getFakeYaw(), FreeCam.INSTANCE.getFakePitch(), FreeCam.INSTANCE.getFakeX(), FreeCam.INSTANCE.getFakeY(), FreeCam.INSTANCE.getFakeZ());
+                this.field_4015.method_16011().pop();
                 return;
             }
-            if (!MineTweak.INSTANCE.noEntityTrace() && (entityHitResult = ProjectileUtil.method_18075((Entity)entity, (Vec3d)vec3d, (Vec3d)vec3d3, (Box)box, entityx -> !entityx.method_7325() && entityx.method_5863(), (double)e)) != null) {
-                Entity entity2 = entityHitResult.method_17782();
+            if (!MineTweak.INSTANCE.noEntityTrace() && (entityHitResult = ProjectileUtil.raycast((Entity)entity, (Vec3d)vec3d, (Vec3d)vec3d3, (Box)box, entityx -> !entityx.isSpectator() && entityx.canHit(), (double)e)) != null) {
+                Entity entity2 = entityHitResult.getEntity();
                 Vec3d vec3d4 = entityHitResult.method_17784();
                 double g = vec3d.squaredDistanceTo(vec3d4);
                 if (bl && g > 9.0) {
-                    this.field_4015.field_1765 = BlockHitResult.method_17778((Vec3d)vec3d4, (Direction)Direction.method_10142((double)vec3d2.field_1352, (double)vec3d2.field_1351, (double)vec3d2.field_1350), (BlockPos)BlockPos.method_49638((Position)vec3d4));
-                } else if (g < e || this.field_4015.field_1765 == null) {
-                    this.field_4015.field_1765 = entityHitResult;
+                    this.field_4015.crosshairTarget = BlockHitResult.createMissed((Vec3d)vec3d4, (Direction)Direction.getFacing((double)vec3d2.x, (double)vec3d2.y, (double)vec3d2.z), (BlockPos)BlockPos.ofFloored((Position)vec3d4));
+                } else if (g < e || this.field_4015.crosshairTarget == null) {
+                    this.field_4015.crosshairTarget = entityHitResult;
                     if (entity2 instanceof LivingEntity || entity2 instanceof ItemFrameEntity) {
-                        this.field_4015.field_1692 = entity2;
+                        this.field_4015.targetedEntity = entity2;
                     }
                 }
             }
-            this.field_4015.method_16011().method_15407();
+            this.field_4015.method_16011().pop();
         }
     }
 }

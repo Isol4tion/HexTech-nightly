@@ -24,7 +24,7 @@ implements Wrapper {
     private final ArrayList<Snow> snow = new ArrayList();
 
     public ClickGuiScreen() {
-        super(Text.method_30163((String)"ClickGui"));
+        super(Text.of((String)"ClickGui"));
     }
 
     public boolean method_25421() {
@@ -74,7 +74,7 @@ implements Wrapper {
     }
 
     public void method_25419() {
-        super.method_25419();
+        super.close();
         rightClicked = false;
         hoverClicked = false;
         MOUSE_BUTTON_4 = false;
@@ -83,7 +83,7 @@ implements Wrapper {
     }
 
     public void method_49589() {
-        super.method_49589();
+        super.onDisplayed();
         this.snow.clear();
         Random random = new Random();
         for (int i = 0; i < 100; ++i) {

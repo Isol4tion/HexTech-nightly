@@ -304,14 +304,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         PlayerInteractEntityC2SPacket packet = null;
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null) {
-            packet = PlayerInteractEntityC2SPacket.method_34206((Entity)AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player, (boolean)AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_5715());
+            packet = PlayerInteractEntityC2SPacket.attack((Entity)AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player, (boolean)AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_5715());
         }
         if (packet != null) {
             ((IInteractEntityC2SPacket)packet).setId(id);
         }
-        mc.method_1562().method_52787(packet);
+        mc.getNetworkHandler().method_52787(packet);
         if (this.breakRemove.getValue() && (ent = AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.method_8469(id)) instanceof EndCrystalEntity) {
-            AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.method_2945(id, Entity.RemovalReason.field_26998);
+            AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.removeEntity(id, Entity.RemovalReason.KILLED);
         }
     }
 
@@ -334,7 +334,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.doInteract();
         }
         if (this.displayTarget != null && !this.noPosTimer.passedMs(500L)) {
-            this.doRender(matrixStack, mc.getTickDelta(), (Entity)this.displayTarget, this.mode.getValue());
+            this.doRender(matrixStack, mc.method_1488(), (Entity)this.displayTarget, this.mode.getValue());
         }
     }
 
@@ -480,7 +480,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.posSync.getValue()) {
             tempPos = null;
         }
-        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null && this.breakOnlyHasCrystal.getValue() && !AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6047().method_31574(Items.field_8301) && !AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6079().method_31574(Items.field_8301) && !this.findCrystal()) {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null && this.breakOnlyHasCrystal.getValue() && !AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6047().isOf(Items.END_CRYSTAL) && !AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6079().isOf(Items.END_CRYSTAL) && !this.findCrystal()) {
             this.lastBreakTimer.reset();
             tempPos = null;
             return;
@@ -508,10 +508,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player);
         for (BlockPos pos : BlockUtil.getSphere((float)this.range.getValue() + 1.0f)) {
-            if (WallCheck.behindWall(pos) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos().method_1022(pos.toCenterPos().method_1031(0.0, -0.5, 0.0)) > this.range.getValue() || !this.canTouch(pos.method_10074()) || !CanPlaceCrystal.canPlaceCrystal(pos, true, false)) continue;
+            if (WallCheck.behindWall(pos) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_33571().distanceTo(pos.toCenterPos().add(0.0, -0.5, 0.0)) > this.range.getValue() || !this.canTouch(pos.down()) || !CanPlaceCrystal.canPlaceCrystal(pos, true, false)) continue;
             for (PredictionSetting._XBpBEveLWEKUGQPHCCIS target : targets) {
                 float selfDamage2;
-                if (this.lite.getValue() && ListenerHelperUtil.liteCheck(pos.toCenterPos().method_1031(0.0, -0.5, 0.0), target.predict.method_19538())) continue;
+                if (this.lite.getValue() && ListenerHelperUtil.liteCheck(pos.toCenterPos().add(0.0, -0.5, 0.0), target.predict.method_19538())) continue;
                 int placeTicks = (int)PredictionSetting.INSTANCE.placeExtrap.getValue();
                 PlayerEntity placePredict = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createPredict(target.player, placeTicks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());
                 float damage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(pos, placePredict, placePredict);
@@ -522,14 +522,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world != null) {
-            for (Entity entity : AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.method_18112()) {
+            for (Entity entity : AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.getEntities()) {
                 EndCrystalEntity crystal;
-                if (!(entity instanceof EndCrystalEntity) || !AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6057((Entity)(crystal = (EndCrystalEntity)entity)) && AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos().method_1022(crystal.method_19538()) > this.wallRange.getValue() || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos().method_1022(crystal.method_19538()) > this.range.getValue()) continue;
+                if (!(entity instanceof EndCrystalEntity) || !AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6057((Entity)(crystal = (EndCrystalEntity)entity)) && AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_33571().distanceTo(crystal.method_19538()) > this.wallRange.getValue() || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_33571().distanceTo(crystal.method_19538()) > this.range.getValue()) continue;
                 for (PredictionSetting._XBpBEveLWEKUGQPHCCIS target : targets) {
                     int breakTicks = (int)PredictionSetting.INSTANCE.breakExtrap.getValue();
                     PlayerEntity breakPredict = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createPredict(target.player, breakTicks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());
-                    float damage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(BlockPos.method_49638((Position)crystal.method_19538()), breakPredict, breakPredict);
-                    if (breakPos != null && !(damage > this.breakDamage) || (double)(selfDamage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(BlockPos.method_49638((Position)crystal.method_19538()), self.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createSelfPredict(self.player, (int)PredictionSetting.INSTANCE.selfExtrap.getValue()))) > this.maxSelf.getValue() || this.noSuicide.getValue() > 0.0 && (double)selfDamage > (double)(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6032() + AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6067()) - this.noSuicide.getValue() || (double)damage < this.breakMinDmg.getValue()) continue;
+                    float damage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(BlockPos.ofFloored((Position)crystal.method_19538()), breakPredict, breakPredict);
+                    if (breakPos != null && !(damage > this.breakDamage) || (double)(selfDamage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(BlockPos.ofFloored((Position)crystal.method_19538()), self.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createSelfPredict(self.player, (int)PredictionSetting.INSTANCE.selfExtrap.getValue()))) > this.maxSelf.getValue() || this.noSuicide.getValue() > 0.0 && (double)selfDamage > (double)(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6032() + AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6067()) - this.noSuicide.getValue() || (double)damage < this.breakMinDmg.getValue()) continue;
                     breakPos = crystal.method_24515();
                     if (!(damage > this.tempDamage)) continue;
                     this.displayTarget = target.player;
@@ -560,8 +560,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Direction side = BlockUtil.getClickSideStrict(pos);
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player == null) return false;
         if (side == null) return false;
-        Vec3d vec3d = new Vec3d((double)side.method_10163().method_10263() * 0.5, (double)side.method_10163().method_10264() * 0.5, (double)side.method_10163().method_10260() * 0.5);
-        if (!(pos.toCenterPos().method_1019(vec3d).method_1022(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos()) <= this.range.getValue())) return false;
+        Vec3d vec3d = new Vec3d((double)side.method_10163().getX() * 0.5, (double)side.method_10163().getY() * 0.5, (double)side.method_10163().getZ() * 0.5);
+        if (!(pos.toCenterPos().add(vec3d).distanceTo(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_33571()) <= this.range.getValue())) return false;
         return true;
     }
 
@@ -570,7 +570,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (CanPlaceCrystal.canPlaceCrystal(pos, false, true)) {
-            if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null && (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6047().method_7909().equals(Items.field_8301) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6079().method_7909().equals(Items.field_8301) || this.findCrystal())) {
+            if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null && (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6047().getItem().equals(Items.END_CRYSTAL) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6079().getItem().equals(Items.END_CRYSTAL) || this.findCrystal())) {
                 this.doPlace(pos);
             }
         } else {
@@ -586,9 +586,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return this.forceMin.getValue();
         }
         if (this.armorBreaker.getValue()) {
-            DefaultedList armors = target.method_31548().field_7548;
+            DefaultedList armors = target.getInventory().armor;
             for (ItemStack armor : armors) {
-                if (armor.method_7960() || (double)EntityUtil.getDamagePercent(armor) > this.maxDurable.getValue()) continue;
+                if (armor.isEmpty() || (double)EntityUtil.getDamagePercent(armor) > this.maxDurable.getValue()) continue;
                 return this.armorBreakerDamage.getValue();
             }
         }
@@ -623,7 +623,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.onlysynctime.reset();
         for (EndCrystalEntity entity : BlockUtil.getEndCrystals(new Box((double)pos.method_10263(), (double)pos.method_10264(), (double)pos.method_10260(), (double)(pos.method_10263() + 1), (double)(pos.method_10264() + 2), (double)(pos.method_10260() + 1)))) {
             if (entity.field_6012 < this.minAge.getValueInt()) continue;
-            if (this.rotate.getValue() && this.onBreak.getValue() && !this.faceVector(entity.method_19538().method_1031(0.0, this.yOffset.getValue(), 0.0))) {
+            if (this.rotate.getValue() && this.onBreak.getValue() && !this.faceVector(entity.method_19538().add(0.0, this.yOffset.getValue(), 0.0))) {
                 return;
             }
             if (!CombatUtil.breakTimer.passedMs((long)this.breakDelay.getValue())) {
@@ -632,14 +632,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             CombatUtil.breakTimer.reset();
             syncPos = pos;
             if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null) {
-                Objects.requireNonNull(mc.method_1562()).method_52787((Packet)PlayerInteractEntityC2SPacket.method_34206((Entity)entity, (boolean)AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_5715()));
+                Objects.requireNonNull(mc.getNetworkHandler()).method_52787((Packet)PlayerInteractEntityC2SPacket.attack((Entity)entity, (boolean)AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_5715()));
             }
             if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null) {
                 AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_7350();
             }
-            EntityUtil.swingHand(Hand.field_5808, this.swingMode.getValue());
+            EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
             if (this.breakRemove.getValue() && AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world != null) {
-                AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.method_2945(entity.method_5628(), Entity.RemovalReason.field_26998);
+                AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.removeEntity(entity.method_5628(), Entity.RemovalReason.KILLED);
             }
             if (crystalPos != null && this.displayTarget != null && (double)this.lastDamage >= this.getDamage(this.displayTarget) && this.instant.getValue() && (!this.rotate.getValue() || this.rotateMode.getValue() == Enum.OffTrack)) {
                 this.doPlace(crystalPos);
@@ -668,17 +668,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.place.getValue()) {
             return;
         }
-        if (!(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player == null || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6047().method_7909().equals(Items.field_8301) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6079().method_7909().equals(Items.field_8301) || this.findCrystal())) {
+        if (!(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player == null || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6047().getItem().equals(Items.END_CRYSTAL) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6079().getItem().equals(Items.END_CRYSTAL) || this.findCrystal())) {
             return;
         }
-        if (!this.canTouch(pos.method_10074())) {
+        if (!this.canTouch(pos.down())) {
             return;
         }
-        BlockPos obsPos = pos.method_10074();
+        BlockPos obsPos = pos.down();
         Direction facing = BlockUtil.getClickSide(obsPos);
-        Vec3d vec = obsPos.toCenterPos().method_1031((double)facing.method_10163().method_10263() * 0.5, (double)facing.method_10163().method_10264() * 0.5, (double)facing.method_10163().method_10260() * 0.5);
+        Vec3d vec = obsPos.toCenterPos().add((double)facing.method_10163().getX() * 0.5, (double)facing.method_10163().getY() * 0.5, (double)facing.method_10163().getZ() * 0.5);
         if (facing != Direction.UP && facing != Direction.DOWN) {
-            vec = vec.method_1031(0.0, 0.45, 0.0);
+            vec = vec.add(0.0, 0.45, 0.0);
         }
         if (this.rotate.getValue() && !this.faceVector(vec)) {
             return;
@@ -686,14 +686,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.placeTimer.passedMs((long)this.placeDelay.getValue())) {
             return;
         }
-        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6047().method_7909().equals(Items.field_8301) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6079().method_7909().equals(Items.field_8301)) {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6047().getItem().equals(Items.END_CRYSTAL) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6079().getItem().equals(Items.END_CRYSTAL)) {
             this.placeTimer.reset();
             syncPos = pos;
             this.placeCrystal(pos);
         } else {
             this.placeTimer.reset();
             syncPos = pos;
-            int old = AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_31548().field_7545;
+            int old = AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_31548().selectedSlot;
             int crystal = this.getCrystal();
             if (crystal == -1) {
                 return;
@@ -713,16 +713,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Silent || this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Normal) {
             InventoryUtil.switchToSlot(slot);
         } else if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory && AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null) {
-            InventoryUtil.inventorySwap(slot, AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_31548().selectedSlot);
         }
     }
 
     private int getCrystal() {
         if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Silent || this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Normal) {
-            return InventoryUtil.findItem(Items.field_8301);
+            return InventoryUtil.findItem(Items.END_CRYSTAL);
         }
         if (this.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
-            return InventoryUtil.findItemInventorySlot(Items.field_8301);
+            return InventoryUtil.findItemInventorySlot(Items.END_CRYSTAL);
         }
         return -1;
     }
@@ -730,18 +730,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void placeCrystal(BlockPos pos) {
         boolean offhand = false;
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player != null) {
-            offhand = AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6079().method_7909() == Items.field_8301;
+            offhand = AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.method_6079().getItem() == Items.END_CRYSTAL;
         }
-        BlockPos obsPos = pos.method_10074();
+        BlockPos obsPos = pos.down();
         Direction facing = BlockUtil.getClickSide(obsPos);
-        BlockUtil.clickBlock(obsPos, facing, false, offhand ? Hand.field_5810 : Hand.field_5808, this.swingMode.getValue());
+        BlockUtil.clickBlock(obsPos, facing, false, offhand ? Hand.OFF_HAND : Hand.MAIN_HAND, this.swingMode.getValue());
         if (PredictionSetting.INSTANCE.idPredict.getValue()) {
             int highest = this.getHighestEntityId();
             int startId = highest + PredictionSetting.INSTANCE.idStartOffset.getValueInt();
             for (int i = 0; i < PredictionSetting.INSTANCE.idPackets.getValueInt(); ++i) {
                 int cid = startId + i * PredictionSetting.INSTANCE.idPacketOffset.getValueInt();
                 long delay = (long)(PredictionSetting.INSTANCE.idStartDelay.getValue() + (double)i * PredictionSetting.INSTANCE.idPacketDelay.getValue());
-                this.idPredictQueue.add(new AutoCrystal_DyfHylndhLrmDUsYPHRl(cid, pos.toCenterPos().method_1031(0.0, 1.0, 0.0), System.currentTimeMillis() + delay));
+                this.idPredictQueue.add(new AutoCrystal_DyfHylndhLrmDUsYPHRl(cid, pos.toCenterPos().add(0.0, 1.0, 0.0), System.currentTimeMillis() + delay));
             }
         }
     }
@@ -749,7 +749,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private int getHighestEntityId() {
         int max = this.lastConfirmedId;
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world != null) {
-            for (Entity e : AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.method_18112()) {
+            for (Entity e : AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.getEntities()) {
                 if (e.method_5628() <= max) continue;
                 max = e.method_5628();
             }

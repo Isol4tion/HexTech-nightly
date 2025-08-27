@@ -34,10 +34,10 @@ extends World {
     }
 
     public float method_8430(float delta) {
-        return NoRender.INSTANCE.isOn() && NoRender.INSTANCE.weather.getValue() ? 0.0f : super.method_8430(delta);
+        return NoRender.INSTANCE.isOn() && NoRender.INSTANCE.weather.getValue() ? 0.0f : super.getRainGradient(delta);
     }
 
     public float method_8478(float delta) {
-        return NoRender.INSTANCE.isOn() && NoRender.INSTANCE.weather.getValue() ? 0.0f : super.method_8478(delta);
+        return NoRender.INSTANCE.isOn() && NoRender.INSTANCE.weather.getValue() ? 0.0f : super.getThunderGradient(delta);
     }
 }

@@ -33,17 +33,17 @@ public class MixinChatMessages {
     @Inject(method={"breakRenderedChatMessageLines"}, at={@At(value="HEAD")}, cancellable=true)
     private static void breakRenderedChatMessageLinesHook(StringVisitable message, int width, TextRenderer textRenderer, CallbackInfoReturnable<List<OrderedText>> cir) {
         TextCollector textCollector = new TextCollector();
-        message.method_27658((style, messagex) -> {
-            textCollector.method_27462(StringVisitable.method_29431((String)MixinChatMessages.method_1849(messagex), (Style)style));
+        message.visit((style, messagex) -> {
+            textCollector.add(StringVisitable.styled((String)MixinChatMessages.method_1849(messagex), (Style)style));
             return Optional.empty();
-        }, Style.field_24360);
+        }, Style.EMPTY);
         ArrayList list = Lists.newArrayList();
-        textRenderer.method_27527().method_29971(textCollector.method_27463(), width, Style.field_24360, (text, lastLineWrapped) -> {
-            OrderedText orderedText = Language.method_10517().method_30934(text);
-            OrderedText o = lastLineWrapped != false ? OrderedText.method_30742((OrderedText)field_25263, (OrderedText)orderedText) : orderedText;
+        textRenderer.getTextHandler().wrapLines(textCollector.getCombined(), width, Style.EMPTY, (text, lastLineWrapped) -> {
+            OrderedText orderedText = Language.getInstance().reorder(text);
+            OrderedText o = lastLineWrapped != false ? OrderedText.concat((OrderedText)field_25263, (OrderedText)orderedText) : orderedText;
             list.add(o);
             ChatSetting_qVnAbgCzNciNTevKRovy.chatMessage.put(o, message);
         });
-        cir.setReturnValue(list.isEmpty() ? Lists.newArrayList(OrderedText.field_26385) : list);
+        cir.setReturnValue((Object)(list.isEmpty() ? Lists.newArrayList((Object[])new OrderedText[]{OrderedText.EMPTY}) : list));
     }
 }

@@ -20,6 +20,6 @@ extends Screen {
 
     @Inject(at={@At(value="TAIL")}, method={"init()V"})
     private void onInit(CallbackInfo ci) {
-        this.method_37063((Element)ButtonWidget.method_46430((Text)Text.method_30163((String)"Alt Manager"), b -> this.field_22787.method_1507((Screen)new AltScreen((Screen)((MultiplayerScreen)this)))).method_46434(this.field_22789 / 2 + 4 + 50, 7, 100, 20).method_46431());
+        this.method_37063((Element)ButtonWidget.builder((Text)Text.of((String)"Alt Manager"), b -> this.field_22787.setScreen((Screen)new AltScreen((Screen)((MultiplayerScreen)this)))).dimensions(this.field_22789 / 2 + 4 + 50, 7, 100, 20).build());
     }
 }

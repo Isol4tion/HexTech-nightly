@@ -32,7 +32,7 @@ private static class FakeLag {
 
     public void apply() {
         if (this.pp != null) {
-            this.pp.method_11054((PacketListener)Wrapper.mc.player.field_3944);
+            this.pp.method_11054((PacketListener)Wrapper.mc.player.networkHandler);
         }
     }
 }

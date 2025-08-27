@@ -19,7 +19,7 @@ public class ChatSetting_qVnAbgCzNciNTevKRovy
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static final HashMap<OrderedText, StringVisitable> chatMessage = new HashMap();
     public static ChatSetting_qVnAbgCzNciNTevKRovy INSTANCE;
-    public final StringSetting hackName = this.add(new StringSetting("Name", "HexTech-nightly Cracked By NoWhisper"));
+    public final StringSetting hackName = this.add(new StringSetting("Name", "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c"));
     public final ColorSetting color = this.add(new ColorSetting("Color", new Color(230, 230, 230)));
     public final ColorSetting pulse = this.add(new ColorSetting("Pulse", new Color(167, 167, 167)).injectBoolean(true));
     public final SliderSetting pulseSpeed = this.add(new SliderSetting("Speed", 1.0, 0.0, 5.0, 0.1, v -> this.pulse.booleanValue));

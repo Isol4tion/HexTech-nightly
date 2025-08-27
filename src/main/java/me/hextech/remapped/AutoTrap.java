@@ -8,21 +8,25 @@ import me.hextech.remapped.AutoTrap_RYPZUKNZXVloqcMUfNgc;
 import me.hextech.remapped.BlockUtil;
 import me.hextech.remapped.BooleanSetting;
 import me.hextech.remapped.ColorSetting;
+import me.hextech.remapped.ColorUtil;
 import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import me.hextech.remapped.CombatUtil;
 import me.hextech.remapped.EntityUtil;
 import me.hextech.remapped.EnumSetting;
 import me.hextech.remapped.EventHandler;
+import me.hextech.remapped.FadeUtils;
 import me.hextech.remapped.InventoryUtil;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.OffTrackEvent;
 import me.hextech.remapped.Placement;
 import me.hextech.remapped.Render3DEvent;
+import me.hextech.remapped.Render3DUtil;
 import me.hextech.remapped.RotateManager;
 import me.hextech.remapped.SliderSetting;
 import me.hextech.remapped.Timer;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -84,7 +88,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public AutoTrap() {
         super("AutoTrap", "Automatically trap the enemy", Module_JlagirAibYQgkHtbRnhw.Combat);
         INSTANCE = this;
-        HexTech.EVENT_BUS.subscribe(new _WyicUWrboAjyTEvkkOOH(this));
+        HexTech.EVENT_BUS.subscribe(new _WyicUWrboAjyTEvkkOOH());
     }
 
     @EventHandler
@@ -179,17 +183,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 int n4 = ((BlockPos)offsetPos2).length;
                 for (n = 0; n < n4; ++n) {
                     z = offsetPos2[n];
-                    offsetPos = pos.method_10069((int)z, 0, (int)x);
+                    offsetPos = pos.add((int)z, 0, (int)x);
                     if (!this.checkEntity(new BlockPos((Vec3i)offsetPos))) continue;
-                    this.tryPlaceBlock(offsetPos.method_10086(2), this.headAnchor.getValue());
+                    this.tryPlaceBlock(offsetPos.up(2), this.headAnchor.getValue());
                 }
             }
         }
-        if (this.head.getValue() && BlockUtil.clientCanPlace(pos.method_10086(2), this.breakCrystal.getValue())) {
-            if (BlockUtil.getPlaceSide(pos.method_10086(2)) == null) {
+        if (this.head.getValue() && BlockUtil.clientCanPlace(pos.up(2), this.breakCrystal.getValue())) {
+            if (BlockUtil.getPlaceSide(pos.up(2)) == null) {
                 boolean trapChest = this.helper.getValue();
-                if (this.getHelper(pos.method_10086(2)) != null) {
-                    this.tryPlaceObsidian(this.getHelper(pos.method_10086(2)));
+                if (this.getHelper(pos.up(2)) != null) {
+                    this.tryPlaceObsidian(this.getHelper(pos.up(2)));
                     trapChest = false;
                 }
                 if (trapChest) {
@@ -222,24 +226,24 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                             for (x = 0; x < n2; ++x) {
                                 BlockPos offsetPos5;
                                 i = directionArray[x];
-                                if (i == Direction.DOWN || i == Direction.UP || !BlockUtil.clientCanPlace((offsetPos5 = pos.offset(i).up()).up(), this.breakCrystal.getValue()) || BlockUtil.getPlaceSide(offsetPos5) != null || !BlockUtil.clientCanPlace(offsetPos5, this.breakCrystal.getValue()) || this.getHelper(offsetPos5) == null || BlockUtil.getPlaceSide(offsetPos5.method_10074()) != null || !BlockUtil.clientCanPlace(offsetPos5.method_10074(), this.breakCrystal.getValue()) || this.getHelper(offsetPos5.method_10074()) == null) continue;
-                                this.tryPlaceObsidian(this.getHelper(offsetPos5.method_10074()));
+                                if (i == Direction.DOWN || i == Direction.UP || !BlockUtil.clientCanPlace((offsetPos5 = pos.offset(i).up()).up(), this.breakCrystal.getValue()) || BlockUtil.getPlaceSide(offsetPos5) != null || !BlockUtil.clientCanPlace(offsetPos5, this.breakCrystal.getValue()) || this.getHelper(offsetPos5) == null || BlockUtil.getPlaceSide(offsetPos5.down()) != null || !BlockUtil.clientCanPlace(offsetPos5.down(), this.breakCrystal.getValue()) || this.getHelper(offsetPos5.down()) == null) continue;
+                                this.tryPlaceObsidian(this.getHelper(offsetPos5.down()));
                                 break;
                             }
                         }
                     }
                 }
             }
-            this.tryPlaceBlock(pos.method_10086(2), this.headAnchor.getValue());
+            this.tryPlaceBlock(pos.up(2), this.headAnchor.getValue());
         }
-        if (this.antiStep.getValue() && (BlockUtil.isMining(pos.method_10086(2)) || !this.onlyBreak.getValue())) {
-            if (BlockUtil.getPlaceSide(pos.method_10086(3)) == null && BlockUtil.clientCanPlace(pos.method_10086(3), this.breakCrystal.getValue()) && this.getHelper(pos.method_10086(3), Direction.DOWN) != null) {
-                this.tryPlaceObsidian(this.getHelper(pos.method_10086(3)));
+        if (this.antiStep.getValue() && (BlockUtil.isMining(pos.up(2)) || !this.onlyBreak.getValue())) {
+            if (BlockUtil.getPlaceSide(pos.up(3)) == null && BlockUtil.clientCanPlace(pos.up(3), this.breakCrystal.getValue()) && this.getHelper(pos.up(3), Direction.DOWN) != null) {
+                this.tryPlaceObsidian(this.getHelper(pos.up(3)));
             }
-            this.tryPlaceObsidian(pos.method_10086(3));
+            this.tryPlaceObsidian(pos.up(3));
         }
         if (this.down.getValue()) {
-            BlockPos offsetPos6 = pos.method_10074();
+            BlockPos offsetPos6 = pos.down();
             this.tryPlaceObsidian(offsetPos6);
             if (BlockUtil.getPlaceSide(offsetPos6) == null && BlockUtil.clientCanPlace(offsetPos6, this.breakCrystal.getValue()) && this.getHelper(offsetPos6) != null) {
                 this.tryPlaceObsidian(this.getHelper(offsetPos6));
@@ -251,16 +255,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (n2 = 0; n2 < n5; ++n2) {
                 Direction i = directionArray[n2];
                 if (i == Direction.DOWN || i == Direction.UP) continue;
-                offsetPos2 = pos.offset(i).method_10086(2);
-                if (this.onlyBreaking.getValue() && !BlockUtil.isMining(pos.method_10086(2))) continue;
+                offsetPos2 = pos.offset(i).up(2);
+                if (this.onlyBreaking.getValue() && !BlockUtil.isMining(pos.up(2))) continue;
                 this.tryPlaceObsidian((BlockPos)offsetPos2);
                 if (BlockUtil.getPlaceSide(offsetPos2) != null || !BlockUtil.clientCanPlace(offsetPos2, this.breakCrystal.getValue())) continue;
                 if (this.getHelper((BlockPos)offsetPos2) != null) {
                     this.tryPlaceObsidian(this.getHelper((BlockPos)offsetPos2));
                     continue;
                 }
-                if (BlockUtil.getPlaceSide(offsetPos2.method_10074()) != null || !BlockUtil.clientCanPlace(offsetPos2.method_10074(), this.breakCrystal.getValue()) || this.getHelper(offsetPos2.method_10074()) == null) continue;
-                this.tryPlaceObsidian(this.getHelper(offsetPos2.method_10074()));
+                if (BlockUtil.getPlaceSide(offsetPos2.down()) != null || !BlockUtil.clientCanPlace(offsetPos2.down(), this.breakCrystal.getValue()) || this.getHelper(offsetPos2.down()) == null) continue;
+                this.tryPlaceObsidian(this.getHelper(offsetPos2.down()));
             }
         }
         if (this.chest.getValue() && (!this.onlyGround.getValue() || this.target.method_24828())) {
@@ -276,8 +280,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     this.tryPlaceObsidian(this.getHelper((BlockPos)offsetPos2));
                     continue;
                 }
-                if (BlockUtil.getPlaceSide(offsetPos2.method_10074()) != null || !BlockUtil.clientCanPlace(offsetPos2.method_10074(), this.breakCrystal.getValue()) || this.getHelper(offsetPos2.method_10074()) == null) continue;
-                this.tryPlaceObsidian(this.getHelper(offsetPos2.method_10074()));
+                if (BlockUtil.getPlaceSide(offsetPos2.down()) != null || !BlockUtil.clientCanPlace(offsetPos2.down(), this.breakCrystal.getValue()) || this.getHelper(offsetPos2.down()) == null) continue;
+                this.tryPlaceObsidian(this.getHelper(offsetPos2.down()));
             }
         }
         if (this.extend.getValue()) {
@@ -286,7 +290,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 int n7 = nArray.length;
                 for (n = 0; n < n7; ++n) {
                     z = nArray[n];
-                    offsetPos = pos.method_10069(x, 0, (int)z);
+                    offsetPos = pos.add(x, 0, (int)z);
                     if (!this.checkEntity(new BlockPos((Vec3i)offsetPos))) continue;
                     this.doTrap(offsetPos);
                 }
@@ -307,7 +311,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return null;
         }
         for (Direction i : Direction.values()) {
-            if (this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)) || CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && !BlockUtil.isStrictDirection(pos.offset(i), i.method_10153(), true) || !BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
+            if (this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)) || CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite(), true) || !BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
             return pos.offset(i);
         }
         return null;
@@ -318,18 +322,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return null;
         }
         for (Direction i : Direction.values()) {
-            if (i == ignore || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.method_10153(), true) || !BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
+            if (i == ignore || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite(), true) || !BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
             return pos.offset(i);
         }
         return null;
     }
 
     private boolean checkEntity(BlockPos pos) {
-        if (AutoTrap.mc.player.method_5829().method_994(new Box(pos))) {
+        if (AutoTrap.mc.player.method_5829().intersects(new Box(pos))) {
             return false;
         }
         for (Entity entity : AutoTrap.mc.world.method_18467(PlayerEntity.class, new Box(pos))) {
-            if (!entity.method_5805()) continue;
+            if (!entity.isAlive()) continue;
             return true;
         }
         return false;
@@ -355,10 +359,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!((double)this.progress < this.blocksPer.getValue())) {
             return;
         }
-        if ((double)MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.placeRange.getValue()) {
+        if ((double)MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.placeRange.getValue()) {
             return;
         }
-        int old = AutoTrap.mc.player.method_31548().field_7545;
+        int old = AutoTrap.mc.player.method_31548().selectedSlot;
         int n = block = anchor && this.getAnchor() != -1 ? this.getAnchor() : this.getBlock();
         if (block == -1) {
             return;
@@ -399,10 +403,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!((double)this.progress < this.blocksPer.getValue())) {
             return;
         }
-        if ((double)MathHelper.method_15355((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.placeRange.getValue()) {
+        if ((double)MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.placeRange.getValue()) {
             return;
         }
-        int old = AutoTrap.mc.player.method_31548().field_7545;
+        int old = AutoTrap.mc.player.method_31548().selectedSlot;
         int block = this.getBlock();
         if (block == -1) {
             return;
@@ -426,7 +430,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, AutoTrap.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, AutoTrap.mc.player.method_31548().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -446,43 +450,63 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private int getBlock() {
         if (this.inventory.getValue()) {
-            return InventoryUtil.findBlockInventorySlot(Blocks.field_10540);
+            return InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN);
         }
-        return InventoryUtil.findBlock(Blocks.field_10540);
+        return InventoryUtil.findBlock(Blocks.OBSIDIAN);
     }
 
     private int getAnchor() {
         if (this.inventory.getValue()) {
-            return InventoryUtil.findBlockInventorySlot(Blocks.field_23152);
+            return InventoryUtil.findBlockInventorySlot(Blocks.RESPAWN_ANCHOR);
         }
-        return InventoryUtil.findBlock(Blocks.field_23152);
+        return InventoryUtil.findBlock(Blocks.RESPAWN_ANCHOR);
     }
 
-    public static final class _YlnJzIMwjFLWxhoVZoJp
-    extends Enum<_YlnJzIMwjFLWxhoVZoJp> {
-        public static final /* enum */ _YlnJzIMwjFLWxhoVZoJp Single;
-        public static final /* enum */ _YlnJzIMwjFLWxhoVZoJp Multi;
+    public static enum _YlnJzIMwjFLWxhoVZoJp {
+        Single,
+        Multi;
 
-        public static _YlnJzIMwjFLWxhoVZoJp[] values() {
-            return null;
-        }
-
-        public static _YlnJzIMwjFLWxhoVZoJp valueOf(String string) {
-            return null;
-        }
     }
 
     public class _WyicUWrboAjyTEvkkOOH {
-        public static final HashMap<BlockPos, AutoTrap_RYPZUKNZXVloqcMUfNgc> PlaceMap;
-        final /* synthetic */ AutoTrap this$0;
+        public static final HashMap<BlockPos, AutoTrap_RYPZUKNZXVloqcMUfNgc> PlaceMap = new HashMap();
 
-        public _WyicUWrboAjyTEvkkOOH(AutoTrap autoTrap) {
+        public static void addBlock(BlockPos pos) {
+            if (BlockUtil.clientCanPlace(pos, true) && !PlaceMap.containsKey(pos)) {
+                PlaceMap.put(pos, new AutoTrap_RYPZUKNZXVloqcMUfNgc(pos));
+            }
         }
 
-        public static void addBlock(BlockPos blockPos) {
+        private void drawBlock(BlockPos pos, double alpha, Color color, MatrixStack matrixStack) {
+            if (AutoTrap.this.sync.getValue()) {
+                color = AutoTrap.INSTANCE.color.getValue();
+            }
+            Render3DUtil.draw3DBox(matrixStack, new Box(pos), ColorUtil.injectAlpha(color, (int)alpha), AutoTrap.this.outline.getValue(), AutoTrap.this.box.getValue());
         }
 
-        public void onRender3D(Render3DEvent render3DEvent) {
+        @EventHandler
+        public void onRender3D(Render3DEvent event) {
+            if (!AutoTrap.this.render.getValue()) {
+                return;
+            }
+            if (PlaceMap.isEmpty()) {
+                return;
+            }
+            boolean shouldClear = true;
+            for (AutoTrap_RYPZUKNZXVloqcMUfNgc placePosition : PlaceMap.values()) {
+                if (!BlockUtil.clientCanPlace(placePosition.pos, true)) {
+                    placePosition.isAir = false;
+                }
+                if (!placePosition.timer.passedMs((long)(AutoTrap.this.delay.getValue() + 100.0)) && placePosition.isAir) {
+                    placePosition.firstFade.reset();
+                }
+                if (placePosition.firstFade.getQuad(FadeUtils.In2) == 1.0) continue;
+                shouldClear = false;
+                this.drawBlock(placePosition.pos, (double)AutoTrap.this.color.getValue().getAlpha() * (1.0 - placePosition.firstFade.getQuad(FadeUtils.In2)), placePosition.posColor, event.getMatrixStack());
+            }
+            if (shouldClear) {
+                PlaceMap.clear();
+            }
         }
     }
 }

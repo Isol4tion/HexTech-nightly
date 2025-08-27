@@ -29,38 +29,30 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         switch (this.mode.getValue().ordinal()) {
             case 0: {
-                Sprint.mc.field_1690.field_1867.method_23481(true);
+                Sprint.mc.options.sprintKey.setPressed(true);
                 shouldSprint = false;
                 break;
             }
             case 1: {
-                Sprint.mc.field_1690.field_1867.method_23481(true);
+                Sprint.mc.options.sprintKey.setPressed(true);
                 shouldSprint = false;
-                if (Sprint.mc.player.method_7344().method_7586() <= 6 && !Sprint.mc.player.method_7337()) {
+                if (Sprint.mc.player.method_7344().getFoodLevel() <= 6 && !Sprint.mc.player.method_7337()) {
                     return;
                 }
                 Sprint.mc.player.method_5728(MovementUtil.isMoving() && !Sprint.mc.player.method_5715());
                 break;
             }
             case 2: {
-                shouldSprint = (Sprint.mc.player.method_7344().method_7586() > 6 || Sprint.mc.player.method_7337()) && !Sprint.mc.player.method_5715();
+                shouldSprint = (Sprint.mc.player.method_7344().getFoodLevel() > 6 || Sprint.mc.player.method_7337()) && !Sprint.mc.player.method_5715();
                 Sprint.mc.player.method_5728(shouldSprint);
             }
         }
     }
 
-    public static final class _kIBjeDSbfTeuMDPgEQgD
-    extends Enum<_kIBjeDSbfTeuMDPgEQgD> {
-        public static final /* enum */ _kIBjeDSbfTeuMDPgEQgD Legit;
-        public static final /* enum */ _kIBjeDSbfTeuMDPgEQgD Normal;
-        public static final /* enum */ _kIBjeDSbfTeuMDPgEQgD Rage;
+    public static enum _kIBjeDSbfTeuMDPgEQgD {
+        Legit,
+        Normal,
+        Rage;
 
-        public static _kIBjeDSbfTeuMDPgEQgD[] values() {
-            return null;
-        }
-
-        public static _kIBjeDSbfTeuMDPgEQgD valueOf(String string) {
-            return null;
-        }
     }
 }

@@ -16,6 +16,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -24,7 +25,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
-import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -56,8 +56,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static int findPotionInventorySlot(StatusEffect targetEffect) {
         for (int i = 0; i < 45; ++i) {
             ItemStack itemStack = AutoPotPlus.mc.player.method_31548().method_5438(i);
-            if (Item.method_7880((Item)itemStack.method_7909()) != Item.method_7880((Item)Items.field_8436)) continue;
-            List effects = PotionUtil.method_8067((ItemStack)itemStack);
+            if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
+            List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
                 if (effect.method_5579() != targetEffect) continue;
                 return i < 9 ? i + 36 : i;
@@ -69,8 +69,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static int findPotion(StatusEffect targetEffect) {
         for (int i = 0; i < 9; ++i) {
             ItemStack itemStack = InventoryUtil.getStackInSlot(i);
-            if (Item.method_7880((Item)itemStack.method_7909()) != Item.method_7880((Item)Items.field_8436)) continue;
-            List effects = PotionUtil.method_8067((ItemStack)itemStack);
+            if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
+            List effects = PotionContentsComponent.method_8067((ItemStack)itemStack);
             for (StatusEffectInstance effect : effects) {
                 if (effect.method_5579() != targetEffect) continue;
                 return i;
@@ -103,7 +103,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     return;
                 }
             }
-            if (this.resistance.getValue() && (!AutoPotPlus.mc.player.method_6059(StatusEffects.field_5907) || AutoPotPlus.mc.player.method_6112(StatusEffects.field_5907).method_5578() < 2)) {
+            if (this.resistance.getValue() && (!AutoPotPlus.mc.player.method_6059(StatusEffects.field_5907) || AutoPotPlus.mc.player.method_6112(StatusEffects.field_5907).getAmplifier() < 2)) {
                 this.throwing = this.checkThrow(StatusEffects.field_5907);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
                     this.throwPotion(StatusEffects.field_5907);
@@ -129,27 +129,27 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public float[] getRotation(Vec3d eyesPos, Vec3d vec) {
-        double diffX = vec.field_1352 - eyesPos.field_1352;
-        double diffY = vec.field_1351 - eyesPos.field_1351;
-        double diffZ = vec.field_1350 - eyesPos.field_1350;
+        double diffX = vec.x - eyesPos.x;
+        double diffY = vec.y - eyesPos.y;
+        double diffZ = vec.z - eyesPos.z;
         double diffXZ = Math.sqrt(diffX * diffX + diffZ * diffZ);
         float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
         float pitch = (float)(-Math.toDegrees(Math.atan2(diffY, diffXZ)));
-        return new float[]{MathHelper.method_15393((float)yaw), MathHelper.method_15393((float)pitch)};
+        return new float[]{MathHelper.wrapDegrees((float)yaw), MathHelper.wrapDegrees((float)pitch)};
     }
 
     public void throwPotion(StatusEffect targetEffect) {
         int newSlot;
-        int oldSlot = AutoPotPlus.mc.player.method_31548().field_7545;
+        int oldSlot = AutoPotPlus.mc.player.method_31548().selectedSlot;
         if (this.inventory.getValue() && (newSlot = AutoPotPlus.findPotionInventorySlot(targetEffect)) != -1) {
             if (this.throwPos != null) {
                 this.snapAt(this.throwPos.toCenterPos());
             } else {
                 EntityUtil.sendYawAndPitch(AutoPotPlus.mc.player.method_36454(), 90.0f);
             }
-            InventoryUtil.inventorySwap(newSlot, AutoPotPlus.mc.player.method_31548().field_7545);
-            AutoPotPlus.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
-            InventoryUtil.inventorySwap(newSlot, AutoPotPlus.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(newSlot, AutoPotPlus.mc.player.method_31548().selectedSlot);
+            AutoPotPlus.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
+            InventoryUtil.inventorySwap(newSlot, AutoPotPlus.mc.player.method_31548().selectedSlot);
             EntityUtil.syncInventory();
             this.delayTimer.reset();
         } else {
@@ -161,7 +161,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     EntityUtil.sendYawAndPitch(AutoPotPlus.mc.player.method_36454(), 90.0f);
                 }
                 InventoryUtil.switchToSlot(newSlot);
-                AutoPotPlus.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
+                AutoPotPlus.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
                 InventoryUtil.switchToSlot(oldSlot);
                 this.delayTimer.reset();
             }
@@ -171,8 +171,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public BlockPos findPos() {
         for (float x : new float[]{0.0f, -0.3f, 0.3f}) {
             for (float z : new float[]{0.0f, -0.3f, 0.3f}) {
-                BlockPosX pos = new BlockPosX(AutoPotPlus.mc.player.getX() + (double)x, AutoPotPlus.mc.player.getY() - 0.5, AutoPotPlus.mc.player.getZ() + (double)z);
-                if (BlockUtil.isAir(pos) || AutoPotPlus.mc.world.getBlockState((BlockPos)pos).getBlock() == Blocks.field_10343) continue;
+                BlockPosX pos = new BlockPosX(AutoPotPlus.mc.player.method_23317() + (double)x, AutoPotPlus.mc.player.method_23318() - 0.5, AutoPotPlus.mc.player.method_23321() + (double)z);
+                if (BlockUtil.isAir(pos) || AutoPotPlus.mc.world.method_8320((BlockPos)pos).method_26204() == Blocks.COBWEB) continue;
                 return pos;
             }
         }
@@ -187,7 +187,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.isOff()) {
             return false;
         }
-        if (!(AutoPotPlus.mc.field_1755 == null || AutoPotPlus.mc.field_1755 instanceof ChatScreen || AutoPotPlus.mc.field_1755 instanceof InventoryScreen || AutoPotPlus.mc.field_1755 instanceof ClickGuiScreen || AutoPotPlus.mc.field_1755 instanceof GameMenuScreen)) {
+        if (!(AutoPotPlus.mc.currentScreen == null || AutoPotPlus.mc.currentScreen instanceof ChatScreen || AutoPotPlus.mc.currentScreen instanceof InventoryScreen || AutoPotPlus.mc.currentScreen instanceof ClickGuiScreen || AutoPotPlus.mc.currentScreen instanceof GameMenuScreen)) {
             return false;
         }
         if (this.usingPause.getValue() && AutoPotPlus.mc.player.method_6115()) {

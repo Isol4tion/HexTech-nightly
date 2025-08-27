@@ -42,24 +42,24 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Object object = event.getPacket();
         if (object instanceof PlayerListS2CPacket) {
             PlayerListS2CPacket packet = (PlayerListS2CPacket)object;
-            if (packet.method_46327().contains(PlayerListS2CPacket.Action.field_29136)) {
-                for (PlayerListS2CPacket.Entry addedPlayer : packet.method_46330()) {
+            if (packet.getActions().contains(PlayerListS2CPacket.Action.ADD_PLAYER)) {
+                for (PlayerListS2CPacket.Entry addedPlayer : packet.getPlayerAdditionEntries()) {
                     for (UUID uuid : this.logoutCache.keySet()) {
-                        if (!uuid.equals(addedPlayer.comp_1107().getId())) continue;
+                        if (!uuid.equals(addedPlayer.profile().getId())) continue;
                         PlayerEntity player = this.logoutCache.get(uuid);
                         if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Both) {
                             if (this.notify.getValue()) {
-                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
+                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
                             }
                             if (this.message.getValue()) {
-                                CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
+                                CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
                             }
                         } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Notify) {
                             if (this.notify.getValue()) {
-                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
+                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
                             }
                         } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Chat && this.message.getValue()) {
-                            CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
+                            CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
                         }
                         this.logoutCache.remove(uuid);
                     }
@@ -70,24 +70,24 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             object = event.getPacket();
             if (object instanceof PlayerRemoveS2CPacket) {
                 PlayerRemoveS2CPacket packet = (PlayerRemoveS2CPacket)object;
-                for (UUID uuid2 : packet.comp_1105()) {
+                for (UUID uuid2 : packet.profileIds()) {
                     for (UUID uuid : this.playerCache.keySet()) {
                         if (!uuid.equals(uuid2)) continue;
                         PlayerEntity player = this.playerCache.get(uuid);
                         if (this.logoutCache.containsKey(uuid)) continue;
                         if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Both) {
                             if (this.notify.getValue()) {
-                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
+                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
                             }
                             if (this.message.getValue()) {
-                                CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7clogged out at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
+                                CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7clogged out at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
                             }
                         } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Notify) {
                             if (this.notify.getValue()) {
-                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
+                                LogoutSpots.sendNotify("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7alogged back at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
                             }
                         } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Chat && this.message.getValue()) {
-                            CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7clogged out at X: " + (int)player.getX() + " Y: " + (int)player.getY() + " Z: " + (int)player.getZ());
+                            CommandManager.sendChatMessage("\u00a7e[!] \u00a7b" + player.method_5477().getString() + " \u00a7clogged out at X: " + (int)player.method_23317() + " Y: " + (int)player.method_23318() + " Z: " + (int)player.method_23321());
                         }
                         this.logoutCache.put(uuid, player);
                     }
@@ -107,7 +107,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onUpdate() {
         for (PlayerEntity player : LogoutSpots.mc.world.method_18456()) {
             if (player == null || player.equals((Object)LogoutSpots.mc.player)) continue;
-            this.playerCache.put(player.method_7334().getId(), player);
+            this.playerCache.put(player.getGameProfile().getId(), player);
         }
     }
 
@@ -116,9 +116,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (UUID uuid : this.logoutCache.keySet()) {
             PlayerEntity data = this.logoutCache.get(uuid);
             if (data == null) continue;
-            Render3DUtil.draw3DBox(matrixStack, ((IEntity)data).getDimensions().method_30757(data.method_19538()), this.color.getValue(), this.outline.getValue(), this.box.getValue());
+            Render3DUtil.draw3DBox(matrixStack, ((IEntity)data).getDimensions().getBoxAt(data.method_19538()), this.color.getValue(), this.outline.getValue(), this.box.getValue());
             if (!this.text.getValue()) continue;
-            Render3DUtil.drawText3D(data.method_5477().getString(), new Vec3d(data.getX(), ((IEntity)data).getDimensions().method_30757((Vec3d)data.method_19538()).field_1325 + 0.5, data.getZ()), ColorUtil.injectAlpha(this.color.getValue(), 255));
+            Render3DUtil.drawText3D(data.method_5477().getString(), new Vec3d(data.method_23317(), ((IEntity)data).getDimensions().getBoxAt((Vec3d)data.method_19538()).maxY + 0.5, data.method_23321()), ColorUtil.injectAlpha(this.color.getValue(), 255));
         }
     }
 }

@@ -80,18 +80,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static final class _jJlsegqwuwGfJNTYElis
-    extends Enum<_jJlsegqwuwGfJNTYElis> {
-        public static final /* enum */ _jJlsegqwuwGfJNTYElis Notify;
-        public static final /* enum */ _jJlsegqwuwGfJNTYElis Chat;
-        public static final /* enum */ _jJlsegqwuwGfJNTYElis Both;
+    public static enum _jJlsegqwuwGfJNTYElis {
+        Notify,
+        Chat,
+        Both;
 
-        public static _jJlsegqwuwGfJNTYElis[] values() {
-            return null;
-        }
-
-        public static _jJlsegqwuwGfJNTYElis valueOf(String string) {
-            return null;
-        }
     }
 }

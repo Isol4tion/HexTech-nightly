@@ -18,11 +18,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        for (Entity entity : ItemTag.mc.world.method_18112()) {
+        for (Entity entity : ItemTag.mc.world.getEntities()) {
             if (!(entity instanceof ItemEntity)) continue;
             ItemEntity itemEntity = (ItemEntity)entity;
-            String s = this.count.getValue() ? " x" + itemEntity.method_6983().method_7947() : "";
-            itemEntity.method_5665(Text.method_30163((String)((this.customName.getValue() ? itemEntity.method_6983().method_7964() : itemEntity.method_6983().method_7909().method_7848()).getString() + s)));
+            String s = this.count.getValue() ? " x" + itemEntity.getStack().getCount() : "";
+            itemEntity.method_5665(Text.of((String)((this.customName.getValue() ? itemEntity.getStack().getName() : itemEntity.getStack().getItem().method_7848()).getString() + s)));
             itemEntity.method_5880(true);
         }
     }
@@ -32,7 +32,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (ItemTag.mc.world == null) {
             return;
         }
-        for (Entity entity : ItemTag.mc.world.method_18112()) {
+        for (Entity entity : ItemTag.mc.world.getEntities()) {
             if (!(entity instanceof ItemEntity)) continue;
             ItemEntity itemEntity = (ItemEntity)entity;
             itemEntity.method_5880(false);

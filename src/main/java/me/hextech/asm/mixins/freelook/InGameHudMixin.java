@@ -37,17 +37,17 @@ public class InGameHudMixin {
         boolean shouldDrawCrosshair = false;
         if (this.camera.doTransition || this.camera.doLock) {
             Vec3d rotation;
-            Entity cameraEntity = MinecraftClient.method_1551().method_1560();
+            Entity cameraEntity = MinecraftClient.getInstance().getCameraEntity();
             int distance = Integer.MAX_VALUE;
-            Vec3d position = cameraEntity.method_19538();
-            Vec3d point = position.method_1031((rotation = Vec3d.method_1030((float)this.camera.originalPitch(), (float)this.camera.originalYaw())).method_10216() * (double)distance, rotation.method_10214() * (double)distance, rotation.method_10215() * (double)distance);
+            Vec3d position = cameraEntity.getPos();
+            Vec3d point = position.add((rotation = Vec3d.fromPolar((float)this.camera.originalPitch(), (float)this.camera.originalYaw())).method_10216() * (double)distance, rotation.method_10214() * (double)distance, rotation.method_10215() * (double)distance);
             Vec3d projected = ProjectionUtils.worldToScreen(point);
             if (projected.method_10215() < 0.0) {
                 this.offsetCrosshairX = -projected.method_10216();
                 this.offsetCrosshairY = -projected.method_10214();
                 shouldDrawCrosshair = true;
             }
-            if (!(shouldDrawCrosshair |= MinecraftClient.method_1551().field_1705.method_53531().method_53536())) {
+            if (!(shouldDrawCrosshair |= MinecraftClient.getInstance().inGameHud.getDebugHud().shouldShowDebugHud())) {
                 ci.cancel();
             }
         }

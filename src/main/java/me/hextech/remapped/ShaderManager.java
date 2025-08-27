@@ -48,33 +48,33 @@ implements Wrapper {
         if (this.fullNullCheck()) {
             return;
         }
-        Framebuffer MCBuffer = MinecraftClient.method_1551().method_1522();
+        Framebuffer MCBuffer = MinecraftClient.getInstance().getFramebuffer();
         RenderSystem.assertOnRenderThreadOrInit();
-        if (this.shaderBuffer.field_1482 != MCBuffer.field_1482 || this.shaderBuffer.field_1481 != MCBuffer.field_1481) {
-            this.shaderBuffer.method_1234(MCBuffer.field_1482, MCBuffer.field_1481, false);
+        if (this.shaderBuffer.field_1482 != MCBuffer.textureWidth || this.shaderBuffer.field_1481 != MCBuffer.textureHeight) {
+            this.shaderBuffer.method_1234(MCBuffer.textureWidth, MCBuffer.textureHeight, false);
         }
         GlStateManager._glBindFramebuffer((int)36009, (int)this.shaderBuffer.field_1476);
         this.shaderBuffer.method_1235(true);
         runnable.run();
         this.shaderBuffer.method_1240();
-        GlStateManager._glBindFramebuffer((int)36009, (int)MCBuffer.field_1476);
-        MCBuffer.method_1235(false);
-        Framebuffer mainBuffer = MinecraftClient.method_1551().method_1522();
+        GlStateManager._glBindFramebuffer((int)36009, (int)MCBuffer.fbo);
+        MCBuffer.beginWrite(false);
+        Framebuffer mainBuffer = MinecraftClient.getInstance().getFramebuffer();
         PostEffectProcessor effect = FLOW.getShaderEffect();
         if (effect != null) {
             ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", this.shaderBuffer);
         }
         Framebuffer outBuffer = FLOW.getShaderEffect().method_1264("bufOut");
-        FLOW.setUniformValue("resolution", (float)mc.method_22683().method_4486(), (float)mc.method_22683().method_4502());
+        FLOW.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
         FLOW.setUniformValue("time", this.time);
-        FLOW.render(mc.getTickDelta());
+        FLOW.render(mc.method_1488());
         this.time += 0.01f;
         this.shaderBuffer.method_1230(false);
-        mainBuffer.method_1235(false);
+        mainBuffer.beginWrite(false);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate((GlStateManager.SrcFactor)GlStateManager.SrcFactor.SRC_ALPHA, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, (GlStateManager.SrcFactor)GlStateManager.SrcFactor.ZERO, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE);
         RenderSystem.backupProjectionMatrix();
-        outBuffer.method_22594(outBuffer.field_1482, outBuffer.field_1481, false);
+        outBuffer.method_22594(outBuffer.textureWidth, outBuffer.textureHeight, false);
         RenderSystem.restoreProjectionMatrix();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
@@ -84,19 +84,19 @@ implements Wrapper {
         if (this.fullNullCheck()) {
             return;
         }
-        Framebuffer MCBuffer = MinecraftClient.method_1551().method_1522();
+        Framebuffer MCBuffer = MinecraftClient.getInstance().getFramebuffer();
         RenderSystem.assertOnRenderThreadOrInit();
-        if (this.shaderBuffer.field_1482 != MCBuffer.field_1482 || this.shaderBuffer.field_1481 != MCBuffer.field_1481) {
-            this.shaderBuffer.method_1234(MCBuffer.field_1482, MCBuffer.field_1481, false);
+        if (this.shaderBuffer.field_1482 != MCBuffer.textureWidth || this.shaderBuffer.field_1481 != MCBuffer.textureHeight) {
+            this.shaderBuffer.method_1234(MCBuffer.textureWidth, MCBuffer.textureHeight, false);
         }
         GlStateManager._glBindFramebuffer((int)36009, (int)this.shaderBuffer.field_1476);
         this.shaderBuffer.method_1235(true);
         runnable.run();
         this.shaderBuffer.method_1240();
-        GlStateManager._glBindFramebuffer((int)36009, (int)MCBuffer.field_1476);
-        MCBuffer.method_1235(false);
+        GlStateManager._glBindFramebuffer((int)36009, (int)MCBuffer.fbo);
+        MCBuffer.beginWrite(false);
         ManagedShaderEffect shader = this.getShader(mode);
-        Framebuffer mainBuffer = MinecraftClient.method_1551().method_1522();
+        Framebuffer mainBuffer = MinecraftClient.getInstance().getFramebuffer();
         PostEffectProcessor effect = shader.getShaderEffect();
         if (effect != null) {
             ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", this.shaderBuffer);
@@ -104,11 +104,11 @@ implements Wrapper {
         Framebuffer outBuffer = shader.getShaderEffect().method_1264("bufOut");
         this.setupShader(mode, shader);
         this.shaderBuffer.method_1230(false);
-        mainBuffer.method_1235(false);
+        mainBuffer.beginWrite(false);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate((GlStateManager.SrcFactor)GlStateManager.SrcFactor.SRC_ALPHA, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, (GlStateManager.SrcFactor)GlStateManager.SrcFactor.ZERO, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE);
         RenderSystem.backupProjectionMatrix();
-        outBuffer.method_22594(outBuffer.field_1482, outBuffer.field_1481, false);
+        outBuffer.method_22594(outBuffer.textureWidth, outBuffer.textureHeight, false);
         RenderSystem.restoreProjectionMatrix();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
@@ -144,9 +144,9 @@ implements Wrapper {
             effect.setUniformValue("quality", shaderChams.smoothness.getValueFloat());
             effect.setUniformValue("divider", shaderChams.divider.getValueFloat());
             effect.setUniformValue("maxSample", shaderChams.maxSample.getValueFloat());
-            effect.setUniformValue("resolution", (float)mc.method_22683().method_4486(), (float)mc.method_22683().method_4502());
+            effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
             effect.setUniformValue("time", this.time);
-            effect.render(mc.getTickDelta());
+            effect.render(mc.method_1488());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
         } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Gradient) {
             effect.setUniformValue("alpha2", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
@@ -157,9 +157,9 @@ implements Wrapper {
             effect.setUniformValue("maxSample", shaderChams.maxSample.getValueFloat());
             effect.setUniformValue("factor", (float)shaderChams.factor.getValue());
             effect.setUniformValue("moreGradient", (float)shaderChams.gradient.getValue());
-            effect.setUniformValue("resolution", (float)mc.method_22683().method_4486(), (float)mc.method_22683().method_4502());
+            effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
             effect.setUniformValue("time", this.time);
-            effect.render(mc.getTickDelta());
+            effect.render(mc.method_1488());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
         } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Smoke) {
             effect.setUniformValue("alpha1", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
@@ -171,9 +171,9 @@ implements Wrapper {
             effect.setUniformValue("second", (float)shaderChams.smoke2.getValue().getRed() / 255.0f, (float)shaderChams.smoke2.getValue().getGreen() / 255.0f, (float)shaderChams.smoke2.getValue().getBlue() / 255.0f);
             effect.setUniformValue("third", (float)shaderChams.smoke3.getValue().getRed() / 255.0f, (float)shaderChams.smoke3.getValue().getGreen() / 255.0f, (float)shaderChams.smoke3.getValue().getBlue() / 255.0f);
             effect.setUniformValue("oct", (int)shaderChams.octaves.getValue());
-            effect.setUniformValue("resolution", (float)mc.method_22683().method_4486(), (float)mc.method_22683().method_4502());
+            effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
             effect.setUniformValue("time", this.time);
-            effect.render(mc.getTickDelta());
+            effect.render(mc.method_1488());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
         } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Solid) {
             effect.setUniformValue("mixFactor", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
@@ -183,17 +183,17 @@ implements Wrapper {
             effect.setUniformValue("divider", shaderChams.divider.getValueFloat());
             effect.setUniformValue("maxSample", shaderChams.maxSample.getValueFloat());
             effect.setUniformValue("color", (float)shaderChams.fill.getValue().getRed() / 255.0f, (float)shaderChams.fill.getValue().getGreen() / 255.0f, (float)shaderChams.fill.getValue().getBlue() / 255.0f);
-            effect.setUniformValue("resolution", (float)mc.method_22683().method_4486(), (float)mc.method_22683().method_4502());
-            effect.render(mc.getTickDelta());
+            effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
+            effect.render(mc.method_1488());
         } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Snow) {
             effect.setUniformValue("color", (float)shaderChams.fill.getValue().getRed() / 255.0f, (float)shaderChams.fill.getValue().getGreen() / 255.0f, (float)shaderChams.fill.getValue().getBlue() / 255.0f, (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
             effect.setUniformValue("radius", shaderChams.radius.getValueFloat());
             effect.setUniformValue("quality", shaderChams.smoothness.getValueFloat());
             effect.setUniformValue("divider", shaderChams.divider.getValueFloat());
             effect.setUniformValue("maxSample", shaderChams.maxSample.getValueFloat());
-            effect.setUniformValue("resolution", (float)mc.method_22683().method_4486(), (float)mc.method_22683().method_4502());
+            effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
             effect.setUniformValue("time", this.time);
-            effect.render(mc.getTickDelta());
+            effect.render(mc.method_1488());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
         } else if (shader == ShaderManager_nSIALuQmpuiGKWaEurQW.Flow) {
             effect.setUniformValue("mixFactor", (float)shaderChams.fill.getValue().getAlpha() / 255.0f);
@@ -201,9 +201,9 @@ implements Wrapper {
             effect.setUniformValue("quality", shaderChams.smoothness.getValueFloat());
             effect.setUniformValue("divider", shaderChams.divider.getValueFloat());
             effect.setUniformValue("maxSample", shaderChams.maxSample.getValueFloat());
-            effect.setUniformValue("resolution", (float)mc.method_22683().method_4486(), (float)mc.method_22683().method_4502());
+            effect.setUniformValue("resolution", (float)mc.getWindow().getScaledWidth(), (float)mc.getWindow().getScaledHeight());
             effect.setUniformValue("time", this.time);
-            effect.render(mc.getTickDelta());
+            effect.render(mc.method_1488());
             this.time += (float)shaderChams.speed.getValue() * 0.002f;
         }
     }
@@ -220,57 +220,57 @@ implements Wrapper {
             if (effect == null) {
                 return;
             }
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.field_1769.method_22990());
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.field_1769.method_22990());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
         });
         SMOKE_OUTLINE = ShaderEffectManager.getInstance().manage(new Identifier("shaders/post/smoke.json"), managedShaderEffect -> {
             PostEffectProcessor effect = managedShaderEffect.getShaderEffect();
             if (effect == null) {
                 return;
             }
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.field_1769.method_22990());
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.field_1769.method_22990());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
         });
         GRADIENT_OUTLINE = ShaderEffectManager.getInstance().manage(new Identifier("shaders/post/gradient.json"), managedShaderEffect -> {
             PostEffectProcessor effect = managedShaderEffect.getShaderEffect();
             if (effect == null) {
                 return;
             }
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.field_1769.method_22990());
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.field_1769.method_22990());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
         });
         SNOW_OUTLINE = ShaderEffectManager.getInstance().manage(new Identifier("shaders/post/snow.json"), managedShaderEffect -> {
             PostEffectProcessor effect = managedShaderEffect.getShaderEffect();
             if (effect == null) {
                 return;
             }
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.field_1769.method_22990());
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.field_1769.method_22990());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
         });
         FLOW_OUTLINE = ShaderEffectManager.getInstance().manage(new Identifier("shaders/post/flow.json"), managedShaderEffect -> {
             PostEffectProcessor effect = managedShaderEffect.getShaderEffect();
             if (effect == null) {
                 return;
             }
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.field_1769.method_22990());
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.field_1769.method_22990());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
         });
         RAINBOW_OUTLINE = ShaderEffectManager.getInstance().manage(new Identifier("shaders/post/rainbow.json"), managedShaderEffect -> {
             PostEffectProcessor effect = managedShaderEffect.getShaderEffect();
             if (effect == null) {
                 return;
             }
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.field_1769.method_22990());
-            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.field_1769.method_22990());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufIn", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
+            ((IShaderEffect)effect).nullpoint_nextgen_master$addFakeTargetHook("bufOut", ShaderManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
         });
     }
 
     public boolean fullNullCheck() {
         if (GRADIENT == null || SMOKE == null || DEFAULT == null || FLOW == null || RAINBOW == null || GRADIENT_OUTLINE == null || SMOKE_OUTLINE == null || DEFAULT_OUTLINE == null || FLOW_OUTLINE == null || RAINBOW_OUTLINE == null || this.shaderBuffer == null) {
-            if (mc.method_1522() == null) {
+            if (mc.getFramebuffer() == null) {
                 return true;
             }
-            this.shaderBuffer = new _WNhDoPXLcRvHUWNoquud(ShaderManager.mc.method_1522().field_1482, ShaderManager.mc.method_1522().field_1481);
+            this.shaderBuffer = new _WNhDoPXLcRvHUWNoquud(ShaderManager.mc.getFramebuffer().textureWidth, ShaderManager.mc.getFramebuffer().textureHeight);
             this.reloadShaders();
             return true;
         }
@@ -279,7 +279,11 @@ implements Wrapper {
 
     public static class _WNhDoPXLcRvHUWNoquud
     extends Framebuffer {
-        public _WNhDoPXLcRvHUWNoquud(int n, int n2) {
+        public _WNhDoPXLcRvHUWNoquud(int width, int height) {
+            super(false);
+            RenderSystem.assertOnRenderThreadOrInit();
+            this.method_1234(width, height, true);
+            this.method_1236(0.0f, 0.0f, 0.0f, 0.0f);
         }
     }
 }

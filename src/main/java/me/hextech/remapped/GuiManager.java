@@ -57,7 +57,7 @@ implements Wrapper {
     }
 
     public void draw(int x, int y, DrawContext drawContext, float tickDelta) {
-        MatrixStack matrixStack = drawContext.method_51448();
+        MatrixStack matrixStack = drawContext.getMatrices();
         boolean mouseClicked = ClickGuiScreen.clicked;
         this.mouseX = x;
         this.mouseY = y;
@@ -75,7 +75,7 @@ implements Wrapper {
         }
         GL11.glDisable((int)2884);
         GL11.glBlendFunc((int)770, (int)771);
-        matrixStack.method_22903();
+        matrixStack.push();
         this.armorHud.draw(drawContext, tickDelta, this.getColor());
         if (this.isClickGuiOpen()) {
             double quad = ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils.In2);
@@ -84,15 +84,15 @@ implements Wrapper {
                 switch (GuiManager_MjGlwQPLwZdGSONMNUmp.$SwitchMap$me$hextech$mod$modules$impl$client$ClickGui$Mode[ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mode.getValue().ordinal()]) {
                     case 1: {
                         quad = 1.0 - quad;
-                        matrixStack.method_22904(0.0, -100.0 * quad, 0.0);
+                        matrixStack.translate(0.0, -100.0 * quad, 0.0);
                         break;
                     }
                     case 2: {
-                        matrixStack.method_22905((float)quad, (float)quad, 1.0f);
+                        matrixStack.scale((float)quad, (float)quad, 1.0f);
                         break;
                     }
                     case 3: {
-                        this.setScissorRegion(0, 0, mc.method_22683().method_4480(), (int)((double)mc.method_22683().method_4507() * quad));
+                        this.setScissorRegion(0, 0, mc.getWindow().getWidth(), (int)((double)mc.getWindow().getHeight() * quad));
                         s = true;
                     }
                 }
@@ -104,35 +104,27 @@ implements Wrapper {
                 GL11.glDisable((int)3089);
             }
         }
-        matrixStack.method_22909();
+        matrixStack.pop();
         GL11.glEnable((int)2884);
     }
 
     public void setScissorRegion(int x, int y, int width, int height) {
-        double scaledY = mc.method_22683().method_4507() - (y + height);
+        double scaledY = mc.getWindow().getHeight() - (y + height);
         GL11.glEnable((int)3089);
         GL11.glScissor((int)x, (int)((int)scaledY), (int)width, (int)height);
     }
 
     public boolean isClickGuiOpen() {
-        return GuiManager.mc.field_1755 instanceof ClickGuiScreen;
+        return GuiManager.mc.currentScreen instanceof ClickGuiScreen;
     }
 
-    public static final class _yMfkDhouYDFZMBdhUycu
-    extends Enum<_yMfkDhouYDFZMBdhUycu> {
-        public static final /* enum */ _yMfkDhouYDFZMBdhUycu MoonEmoji;
-        public static final /* enum */ _yMfkDhouYDFZMBdhUycu nullpoint;
-        public static final /* enum */ _yMfkDhouYDFZMBdhUycu MadCat;
-        public static final /* enum */ _yMfkDhouYDFZMBdhUycu Moon;
-        public static final /* enum */ _yMfkDhouYDFZMBdhUycu MoonGod;
-        public static final /* enum */ _yMfkDhouYDFZMBdhUycu Mio;
+    public static enum _yMfkDhouYDFZMBdhUycu {
+        MoonEmoji,
+        nullpoint,
+        MadCat,
+        Moon,
+        MoonGod,
+        Mio;
 
-        public static _yMfkDhouYDFZMBdhUycu[] values() {
-            return null;
-        }
-
-        public static _yMfkDhouYDFZMBdhUycu valueOf(String string) {
-            return null;
-        }
     }
 }

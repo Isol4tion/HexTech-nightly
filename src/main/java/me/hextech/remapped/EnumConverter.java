@@ -36,13 +36,11 @@ extends Converter<Enum, JsonElement> {
         return Character.toUpperCase(clazz.name().charAt(0)) + clazz.name().toLowerCase().substring(1);
     }
 
-    @Override
     @NotNull
     public JsonElement doForward(Enum anEnum) {
         return new JsonPrimitive(anEnum.toString());
     }
 
-    @Override
     public Enum doBackward(String string) {
         try {
             return Enum.valueOf(this.clazz, string);
@@ -52,7 +50,6 @@ extends Converter<Enum, JsonElement> {
         }
     }
 
-    @Override
     @NotNull
     public Enum doBackward(JsonElement jsonElement) {
         try {

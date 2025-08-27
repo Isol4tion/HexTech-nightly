@@ -25,7 +25,7 @@ public class MixinBackgroundRenderer {
                 RenderSystem.setShaderFogEnd((float)Ambience.INSTANCE.fogEnd.getValueFloat());
             }
         }
-        if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.fog.getValue() && fogType == BackgroundRenderer.FogType.field_20946) {
+        if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.fog.getValue() && fogType == BackgroundRenderer.FogType.FOG_TERRAIN) {
             RenderSystem.setShaderFogStart((float)(viewDistance * 4.0f));
             RenderSystem.setShaderFogEnd((float)(viewDistance * 4.25f));
         }

@@ -60,8 +60,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         fakePlayer = new OtherClientPlayerEntity(FakePlayer.mc.world, new GameProfile(UUID.fromString("11451466-6666-6666-6666-666666666600"), this.name.getValue()));
-        fakePlayer.method_31548().method_7377(FakePlayer.mc.player.method_31548());
-        FakePlayer.mc.world.method_53875((Entity)fakePlayer);
+        fakePlayer.method_31548().clone(FakePlayer.mc.player.method_31548());
+        FakePlayer.mc.world.addEntity((Entity)fakePlayer);
         fakePlayer.method_5719((Entity)FakePlayer.mc.player);
         FakePlayer.fakePlayer.field_6283 = FakePlayer.mc.player.field_6283;
         FakePlayer.fakePlayer.field_6241 = FakePlayer.mc.player.field_6241;
@@ -83,13 +83,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.timer.reset();
             fakePlayer.method_6073(16.0f);
         }
-        if (this.autoTotem.getValue() && fakePlayer.method_6079().method_7909() != Items.field_8288) {
+        if (this.autoTotem.getValue() && fakePlayer.method_6079().getItem() != Items.TOTEM_OF_UNDYING) {
             HexTech.POP.onTotemPop((PlayerEntity)fakePlayer);
-            fakePlayer.method_6122(Hand.field_5810, new ItemStack((ItemConvertible)Items.field_8288));
+            fakePlayer.method_6122(Hand.OFF_HAND, new ItemStack((ItemConvertible)Items.TOTEM_OF_UNDYING));
         }
-        if (fakePlayer.method_29504() && fakePlayer.method_6095(FakePlayer.mc.world.method_48963().method_48830())) {
+        if (fakePlayer.method_29504() && fakePlayer.method_6095(FakePlayer.mc.world.method_48963().generic())) {
             fakePlayer.method_6033(10.0f);
-            new EntityStatusS2CPacket((Entity)fakePlayer, 35).method_11471((ClientPlayPacketListener)FakePlayer.mc.player.field_3944);
+            new EntityStatusS2CPacket((Entity)fakePlayer, 35).apply((ClientPlayPacketListener)FakePlayer.mc.player.networkHandler);
         }
     }
 
@@ -99,7 +99,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         fakePlayer.method_5768();
-        fakePlayer.method_31745(Entity.RemovalReason.field_26998);
+        fakePlayer.method_31745(Entity.RemovalReason.KILLED);
         fakePlayer.method_36209();
         fakePlayer = null;
     }
@@ -108,17 +108,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onPacketReceive(PacketEvent_YXFfxdDjQAfjBumqRbBu event) {
         if (this.damage.getValue() && fakePlayer != null && FakePlayer.fakePlayer.field_6235 == 0) {
             Object t;
-            if (this.autoTotem.getValue() && fakePlayer.method_6079().method_7909() != Items.field_8288) {
-                fakePlayer.method_6122(Hand.field_5810, new ItemStack((ItemConvertible)Items.field_8288));
+            if (this.autoTotem.getValue() && fakePlayer.method_6079().getItem() != Items.TOTEM_OF_UNDYING) {
+                fakePlayer.method_6122(Hand.OFF_HAND, new ItemStack((ItemConvertible)Items.TOTEM_OF_UNDYING));
             }
             if ((t = event.getPacket()) instanceof ExplosionS2CPacket) {
                 ExplosionS2CPacket explosion = (ExplosionS2CPacket)t;
                 Vec3d vec3d = new Vec3d(explosion.method_11475(), explosion.method_11477(), explosion.method_11478());
-                if (MathHelper.method_15355((float)((float)vec3d.squaredDistanceTo(fakePlayer.method_19538()))) > 10.0f) {
+                if (MathHelper.sqrt((float)((float)vec3d.squaredDistanceTo(fakePlayer.method_19538()))) > 10.0f) {
                     return;
                 }
-                float damage = BlockUtil.getBlock(new BlockPosX(explosion.method_11475(), explosion.method_11477(), explosion.method_11478())) == Blocks.field_23152 ? (float)AutoAnchor_MDcwoWYRcPYheLZJWRZK.INSTANCE.getAnchorDamage(new BlockPosX(explosion.method_11475(), explosion.method_11477(), explosion.method_11478()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer) : CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateCrystalDamage(new Vec3d(explosion.method_11475(), explosion.method_11477(), explosion.method_11478()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer);
-                fakePlayer.method_48922(FakePlayer.mc.world.method_48963().method_48830());
+                float damage = BlockUtil.getBlock(new BlockPosX(explosion.method_11475(), explosion.method_11477(), explosion.method_11478())) == Blocks.RESPAWN_ANCHOR ? (float)AutoAnchor_MDcwoWYRcPYheLZJWRZK.INSTANCE.getAnchorDamage(new BlockPosX(explosion.method_11475(), explosion.method_11477(), explosion.method_11478()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer) : CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateCrystalDamage(new Vec3d(explosion.method_11475(), explosion.method_11477(), explosion.method_11478()), (PlayerEntity)fakePlayer, (PlayerEntity)fakePlayer);
+                fakePlayer.method_48922(FakePlayer.mc.world.method_48963().generic());
                 if (fakePlayer.method_6067() >= damage) {
                     fakePlayer.method_6073(fakePlayer.method_6067() - damage);
                 } else {
@@ -127,9 +127,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     fakePlayer.method_6033(fakePlayer.method_6032() - damage2);
                 }
             }
-            if (fakePlayer.method_29504() && fakePlayer.method_6095(FakePlayer.mc.world.method_48963().method_48830())) {
+            if (fakePlayer.method_29504() && fakePlayer.method_6095(FakePlayer.mc.world.method_48963().generic())) {
                 fakePlayer.method_6033(10.0f);
-                new EntityStatusS2CPacket((Entity)fakePlayer, 35).method_11471((ClientPlayPacketListener)FakePlayer.mc.player.field_3944);
+                new EntityStatusS2CPacket((Entity)fakePlayer, 35).apply((ClientPlayPacketListener)FakePlayer.mc.player.networkHandler);
             }
         }
     }

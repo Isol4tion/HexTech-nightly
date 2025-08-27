@@ -78,7 +78,7 @@ public enum EnumChatFormatting {
     }
 
     public static Collection<String> getValidValues(boolean p_96296_0_, boolean p_96296_1_) {
-        ArrayList<String> list = Lists.newArrayList();
+        ArrayList list = Lists.newArrayList();
         for (EnumChatFormatting enumchatformatting : EnumChatFormatting.values()) {
             if (enumchatformatting.isColor() && !p_96296_0_ || enumchatformatting.isFancyStyling() && !p_96296_1_) continue;
             list.add(enumchatformatting.getFriendlyName());

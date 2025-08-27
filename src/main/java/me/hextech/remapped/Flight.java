@@ -27,10 +27,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.event = event;
-        if (!Flight.mc.field_1690.field_1832.method_1434() || !Flight.mc.player.field_3913.field_3904) {
-            if (Flight.mc.field_1690.field_1832.method_1434()) {
+        if (!Flight.mc.options.sneakKey.isPressed() || !Flight.mc.player.input.field_3904) {
+            if (Flight.mc.options.sneakKey.isPressed()) {
                 this.setY(-this.sneakDownSpeed.getValue());
-            } else if (Flight.mc.player.field_3913.field_3904) {
+            } else if (Flight.mc.player.input.field_3904) {
                 this.setY(this.upSpeed.getValue());
             } else {
                 this.setY(-this.downFactor.getValue());

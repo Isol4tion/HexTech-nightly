@@ -20,10 +20,10 @@ public class MixinScreen {
     public void renderInGameBackgroundHook(DrawContext context, CallbackInfo ci) {
         ci.cancel();
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.blackground.getValue()) {
-            context.method_25296(0, 0, this.field_22789, this.field_22790, -1072689136, -804253680);
+            context.fillGradient(0, 0, this.field_22789, this.field_22790, -1072689136, -804253680);
         }
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.customBackground.booleanValue) {
-            context.method_25296(0, 0, this.field_22789, this.field_22790, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.customBackground.getValue().getRGB(), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.endColor.getValue().getRGB());
+            context.fillGradient(0, 0, this.field_22789, this.field_22790, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.customBackground.getValue().getRGB(), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.endColor.getValue().getRGB());
         }
     }
 }

@@ -33,11 +33,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double moveSpeed = 0.002873 * speed;
         double n = 0.0;
         if (BurrowMove.mc.player != null) {
-            n = BurrowMove.mc.player.field_3913.field_3905;
+            n = BurrowMove.mc.player.input.movementForward;
         }
         double n2 = 0.0;
         if (BurrowMove.mc.player != null) {
-            n2 = BurrowMove.mc.player.field_3913.field_3907;
+            n2 = BurrowMove.mc.player.input.movementSideways;
         }
         double n3 = 0.0;
         if (BurrowMove.mc.player != null) {

@@ -46,10 +46,10 @@ public abstract class MixinChatInputSuggestor {
         if (this.showOutline) {
             int x = this.field_21599.method_46426() - 3;
             int y = this.field_21599.method_46427() - 3;
-            Render2DUtil.drawRect(context.method_51448(), (float)x, (float)y, (float)(this.field_21599.method_25368() + 1), 1.0f, ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
-            Render2DUtil.drawRect(context.method_51448(), (float)x, (float)(y + this.field_21599.method_25364() + 1), (float)(this.field_21599.method_25368() + 1), 1.0f, ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
-            Render2DUtil.drawRect(context.method_51448(), (float)x, (float)y, 1.0f, (float)(this.field_21599.method_25364() + 1), ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
-            Render2DUtil.drawRect(context.method_51448(), (float)(x + this.field_21599.method_25368() + 1), (float)y, 1.0f, (float)(this.field_21599.method_25364() + 2), ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
+            Render2DUtil.drawRect(context.getMatrices(), (float)x, (float)y, (float)(this.field_21599.method_25368() + 1), 1.0f, ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
+            Render2DUtil.drawRect(context.getMatrices(), (float)x, (float)(y + this.field_21599.method_25364() + 1), (float)(this.field_21599.method_25368() + 1), 1.0f, ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
+            Render2DUtil.drawRect(context.getMatrices(), (float)x, (float)y, 1.0f, (float)(this.field_21599.method_25364() + 1), ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
+            Render2DUtil.drawRect(context.getMatrices(), (float)(x + this.field_21599.method_25368() + 1), (float)y, 1.0f, (float)(this.field_21599.method_25364() + 2), ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.color.getValue().getRGB());
         }
     }
 
@@ -62,9 +62,9 @@ public abstract class MixinChatInputSuggestor {
         int cursorPos;
         String string2;
         String prefix = HexTech.PREFIX;
-        String string = this.field_21599.method_1882();
+        String string = this.field_21599.getText();
         this.showOutline = string.startsWith(prefix);
-        if (string.length() <= 0 || !prefix.startsWith(string2 = string.substring(0, cursorPos = this.field_21599.method_1881())) && !string2.startsWith(prefix)) return;
+        if (string.length() <= 0 || !prefix.startsWith(string2 = string.substring(0, cursorPos = this.field_21599.getCursor())) && !string2.startsWith(prefix)) return;
         int j = 0;
         Matcher matcher = Pattern.compile("(\\s+)").matcher(string2);
         while (matcher.find()) {
@@ -76,7 +76,7 @@ public abstract class MixinChatInputSuggestor {
             builder.suggest(prefix);
         } else {
             if (!string2.startsWith(prefix)) return;
-            int count = StringUtils.countMatches((CharSequence)string2, " ");
+            int count = StringUtils.countMatches((CharSequence)string2, (CharSequence)" ");
             List<String> seperated = Arrays.asList(string2.split(" "));
             if (count == 0) {
                 for (Object strObj : HexTech.COMMAND.getCommands().keySet().toArray()) {
@@ -89,7 +89,7 @@ public abstract class MixinChatInputSuggestor {
                 }
                 Command c = HexTech.COMMAND.getCommandBySyntax(seperated.get(0).substring(prefix.length()));
                 if (c == null) {
-                    this.field_21607.add(Text.method_30163((String)("\u00a7cno commands found: \u00a7e" + seperated.get(0).substring(prefix.length()))).method_30937());
+                    this.field_21607.add(Text.of((String)("\u00a7cno commands found: \u00a7e" + seperated.get(0).substring(prefix.length()))).asOrderedText());
                     return;
                 }
                 String[] suggestions = c.getAutocorrect(count, seperated);

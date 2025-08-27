@@ -52,7 +52,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final BooleanSetting renderingUp = this.add(new BooleanSetting("RenderingUp", true, v -> this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.GLOBAL));
     private final BooleanSetting watermark = this.add(new BooleanSetting("Watermark", true, v -> this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS).setParent());
     public final SliderSetting offset = this.add(new SliderSetting("Offset", 8.0, 0.0, 100.0, -1.0, v -> this.watermark.isOpen() && this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS));
-    public final StringSetting watermarkString = this.add(new StringSetting("Text", "HexTech-nightly Cracked By NoWhisper", v -> this.watermark.isOpen() && this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS));
+    public final StringSetting watermarkString = this.add(new StringSetting("Text", "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c", v -> this.watermark.isOpen() && this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS));
     private final BooleanSetting watermarkShort = this.add(new BooleanSetting("Shorten", false, v -> this.watermark.isOpen() && this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS));
     private final BooleanSetting watermarkVerColor = this.add(new BooleanSetting("VerColor", true, v -> this.watermark.isOpen() && this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS));
     private final SliderSetting waterMarkY = this.add(new SliderSetting("Height", 2, 2, 12, v -> this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS && this.watermark.isOpen()));
@@ -120,8 +120,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.counter = 20;
-        int width = mc.method_22683().method_4486();
-        int height = mc.method_22683().method_4502();
+        int width = mc.getWindow().getScaledWidth();
+        int height = mc.getWindow().getScaledHeight();
         if (this.armor.getValue()) {
             HexTech.GUI.armorHud.draw(drawContext, tickDelta, null);
         }
@@ -135,59 +135,59 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             nameString = this.watermarkString.getValue() + " ";
             String verColor = this.watermarkVerColor.getValue() ? "\u00a7f" : "";
             String verString = verColor + (this.watermarkShort.getValue() ? "" : "Nightly");
-            drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? ((String)nameString).toLowerCase() : nameString) + verString, 2, this.waterMarkY.getValueInt(), this.getColor(this.counter));
+            drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? ((String)nameString).toLowerCase() : nameString) + verString, 2, this.waterMarkY.getValueInt(), this.getColor(this.counter));
             ++this.counter;
         }
         if (this.idWatermark.getValue()) {
-            nameString = "HexTech-nightly Cracked By NoWhisper ";
+            nameString = "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c ";
             String domainString = "8";
-            float offset = (float)mc.method_22683().method_4502() / 2.0f - 30.0f;
-            drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)nameString + domainString, 2, (int)offset, this.getColor(this.counter));
+            float offset = (float)mc.getWindow().getScaledHeight() / 2.0f - 30.0f;
+            drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)nameString + domainString, 2, (int)offset, this.getColor(this.counter));
             ++this.counter;
         }
         String string = grayString = this.grayColors.getValue() ? "\u00a77" : "";
-        int n = HUD_ssNtBhEveKlCmIccBvAN.mc.field_1755 instanceof ChatScreen && this.renderingUp.getValue() ? 13 : (i = this.renderingUp.getValue() ? -2 : 0);
+        int n = HUD_ssNtBhEveKlCmIccBvAN.mc.currentScreen instanceof ChatScreen && this.renderingUp.getValue() ? 13 : (i = this.renderingUp.getValue() ? -2 : 0);
         if (this.renderingUp.getValue()) {
             if (this.potions.getValue()) {
                 effects = new ArrayList(HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_6026());
                 for (StatusEffectInstance potionEffect : effects) {
                     str = this.getColoredPotionString(potionEffect);
-                    drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, this.lowerCase.getValue() ? str.toLowerCase() : str, width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str)) - 2, height - 2 - (i += 10), this.potionColor.getValue() ? potionEffect.method_5579().method_5556() : this.getColor(this.counter));
+                    drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, this.lowerCase.getValue() ? str.toLowerCase() : str, width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str)) - 2, height - 2 - (i += 10), this.potionColor.getValue() ? potionEffect.method_5579().getColor() : this.getColor(this.counter));
                     ++this.counter;
                 }
             }
             if (this.speed.getValue()) {
                 str = grayString + "\u901f\u5ea6 \u00a7f" + HexTech.SPEED.getSpeedKpH() + " \u5343\u7c73/\u65f6";
-                drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
+                drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
                 ++this.counter;
             }
             if (this.time.getValue()) {
                 str = grayString + "\u65f6\u95f4 \u00a7f" + new SimpleDateFormat("h:mm a").format(new Date());
-                drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
+                drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
                 ++this.counter;
             }
             if (this.tps.getValue()) {
                 str = grayString + "\u670d\u52a1\u5668\u7a33\u5b9a\u6027 \u00a7f" + HexTech.SERVER.getTPS();
-                drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
+                drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
                 ++this.counter;
             }
             fpsText = grayString + "\u5e27\u6570 \u00a7f" + HexTech.FPS.getFps();
             str1 = grayString + "\u5ef6\u8fdf \u00a7f" + HexTech.SERVER.getPing();
-            if (HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727((String)str1) > HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(fpsText)) {
+            if (HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth((String)str1) > HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(fpsText)) {
                 if (this.ping.getValue()) {
-                    drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? ((String)str1).toLowerCase() : str1), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(((String)str1).toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727((String)str1)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
+                    drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? ((String)str1).toLowerCase() : str1), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(((String)str1).toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth((String)str1)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
                     ++this.counter;
                 }
                 if (this.fps.getValue()) {
-                    drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? fpsText.toLowerCase() : fpsText), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(fpsText.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(fpsText)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
+                    drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? fpsText.toLowerCase() : fpsText), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(fpsText.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(fpsText)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
                 }
             } else {
                 if (this.fps.getValue()) {
-                    drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? fpsText.toLowerCase() : fpsText), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(fpsText.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(fpsText)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
+                    drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? fpsText.toLowerCase() : fpsText), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(fpsText.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(fpsText)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
                     ++this.counter;
                 }
                 if (this.ping.getValue()) {
-                    drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? ((String)str1).toLowerCase() : str1), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(((String)str1).toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727((String)str1)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
+                    drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? ((String)str1).toLowerCase() : str1), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(((String)str1).toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth((String)str1)) - 2, height - 2 - (i += 10), this.getColor(this.counter));
                 }
             }
         } else {
@@ -195,62 +195,62 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 effects = new ArrayList(HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_6026());
                 for (StatusEffectInstance potionEffect : effects) {
                     str = this.getColoredPotionString(potionEffect);
-                    drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, this.lowerCase.getValue() ? str.toLowerCase() : str, width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str)) - 2, 2 + i++ * 10, this.potionColor.getValue() ? potionEffect.method_5579().method_5556() : this.getColor(this.counter));
+                    drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, this.lowerCase.getValue() ? str.toLowerCase() : str, width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str)) - 2, 2 + i++ * 10, this.potionColor.getValue() ? potionEffect.method_5579().getColor() : this.getColor(this.counter));
                     ++this.counter;
                 }
             }
             if (this.speed.getValue()) {
                 str = grayString + "\u901f\u5ea6 \u00a7f" + HexTech.SPEED.getSpeedKpH() + " \u5343\u7c73/\u65f6";
-                drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str)) - 2, 2 + i++ * 10, this.getColor(this.counter));
+                drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str)) - 2, 2 + i++ * 10, this.getColor(this.counter));
                 ++this.counter;
             }
             if (this.time.getValue()) {
                 str = grayString + "\u65f6\u95f4 \u00a7f" + new SimpleDateFormat("h:mm a").format(new Date());
-                drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str)) - 2, 2 + i++ * 10, this.getColor(this.counter));
+                drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str)) - 2, 2 + i++ * 10, this.getColor(this.counter));
                 ++this.counter;
             }
             if (this.tps.getValue()) {
                 str = grayString + "\u670d\u52a1\u5668\u7a33\u5b9a\u6027 \u00a7f" + HexTech.SERVER.getTPS();
-                drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(str)) - 2, 2 + i++ * 10, this.getColor(this.counter));
+                drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? str.toLowerCase() : str), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(str)) - 2, 2 + i++ * 10, this.getColor(this.counter));
                 ++this.counter;
             }
             fpsText = grayString + "\u5e27\u6570 \u00a7f" + HexTech.FPS.getFps();
             str1 = grayString + "\u5ef6\u8fdf \u00a7f" + HexTech.SERVER.getPing();
-            if (HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727((String)str1) > HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(fpsText)) {
+            if (HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth((String)str1) > HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(fpsText)) {
                 if (this.ping.getValue()) {
-                    drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? ((String)str1).toLowerCase() : str1), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(((String)str1).toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727((String)str1)) - 2, 2 + i++ * 10, this.getColor(this.counter));
+                    drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? ((String)str1).toLowerCase() : str1), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(((String)str1).toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth((String)str1)) - 2, 2 + i++ * 10, this.getColor(this.counter));
                     ++this.counter;
                 }
                 if (this.fps.getValue()) {
-                    drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? fpsText.toLowerCase() : fpsText), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(fpsText.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(fpsText)) - 2, 2 + i++ * 10, this.getColor(this.counter));
+                    drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? fpsText.toLowerCase() : fpsText), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(fpsText.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(fpsText)) - 2, 2 + i++ * 10, this.getColor(this.counter));
                 }
             } else {
                 if (this.fps.getValue()) {
-                    drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? fpsText.toLowerCase() : fpsText), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(fpsText.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(fpsText)) - 2, 2 + i++ * 10, this.getColor(this.counter));
+                    drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? fpsText.toLowerCase() : fpsText), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(fpsText.toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(fpsText)) - 2, 2 + i++ * 10, this.getColor(this.counter));
                     ++this.counter;
                 }
                 if (this.ping.getValue()) {
-                    drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)(this.lowerCase.getValue() ? ((String)str1).toLowerCase() : str1), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(((String)str1).toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727((String)str1)) - 2, 2 + i++ * 10, this.getColor(this.counter));
+                    drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)(this.lowerCase.getValue() ? ((String)str1).toLowerCase() : str1), width - (this.lowerCase.getValue() ? HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(((String)str1).toLowerCase()) : HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth((String)str1)) - 2, 2 + i++ * 10, this.getColor(this.counter));
                 }
             }
         }
-        boolean inHell = HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_27983().equals(World.field_25180);
-        int posX = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getX();
-        int posY = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getY();
-        int posZ = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getZ();
+        boolean inHell = HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_27983().equals(World.NETHER);
+        int posX = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_23317();
+        int posY = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_23318();
+        int posZ = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_23321();
         float nether = !inHell ? 0.125f : 8.0f;
-        int hposX = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getX() * (double)nether);
-        int hposZ = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getZ() * (double)nether);
-        int yawPitch = (int)MathHelper.method_15393((float)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_36454());
+        int hposX = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_23317() * (double)nether);
+        int hposZ = (int)(HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_23321() * (double)nether);
+        int yawPitch = (int)MathHelper.wrapDegrees((float)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_36454());
         int p = this.coords.getValue() ? 0 : 11;
-        i = HUD_ssNtBhEveKlCmIccBvAN.mc.field_1755 instanceof ChatScreen ? 14 : 0;
+        i = HUD_ssNtBhEveKlCmIccBvAN.mc.currentScreen instanceof ChatScreen ? 14 : 0;
         String coordinates = (this.lowerCase.getValue() ? "XYZ: ".toLowerCase() : "XYZ: ") + "\u00a7f" + (inHell ? posX + ", " + posY + ", " + posZ + "\u00a77 [\u00a7f" + hposX + ", " + hposZ + "\u00a77]\u00a7f" : posX + ", " + posY + ", " + posZ + "\u00a77 [\u00a7f" + hposX + ", " + hposZ + "\u00a77]");
         String yaw = this.direction.getValue() ? (this.lowerCase.getValue() ? "Yaw: ".toLowerCase() : "Yaw: ") + "\u00a7f" + yawPitch : "";
         Object coords = this.coords.getValue() ? coordinates : "";
         ++this.counter;
-        drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, yaw, 2, height - (i += 10) - 22 + p, this.getColor(this.counter));
+        drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, yaw, 2, height - (i += 10) - 22 + p, this.getColor(this.counter));
         ++this.counter;
-        drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)coords, 2, height - i, this.getColor(this.counter));
+        drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)coords, 2, height - i, this.getColor(this.counter));
         ++this.counter;
         if (this.greeter.getValue()) {
             this.drawWelcomer(drawContext);
@@ -262,91 +262,91 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void drawWelcomer(DrawContext drawContext) {
         Object text;
-        int width = mc.method_22683().method_4486();
-        String nameColor = this.greeterNameColor.getValue() ? String.valueOf(Formatting.field_1068) : "";
+        int width = mc.getWindow().getScaledWidth();
+        String nameColor = this.greeterNameColor.getValue() ? String.valueOf(Formatting.WHITE) : "";
         Object object = text = this.lowerCase.getValue() ? "Welcome, ".toLowerCase() : "Welcome, ";
         if (this.greeterMode.getValue() == HUD.PLAYER) {
             if (this.greeter.getValue()) {
-                text = (String)text + nameColor + mc.method_1548().method_1676();
+                text = (String)text + nameColor + mc.getSession().getUsername();
             }
-            drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)text + "\u00a70 :')", (int)((float)width / 2.0f - (float)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727((String)text) / 2.0f + 2.0f), 2, this.getColor(this.counter));
+            drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)text + "\u00a70 :')", (int)((float)width / 2.0f - (float)HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth((String)text) / 2.0f + 2.0f), 2, this.getColor(this.counter));
             ++this.counter;
         } else {
             String lel = this.greeterText.getValue();
             if (this.greeter.getValue()) {
                 lel = this.greeterText.getValue();
             }
-            drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, lel, (int)((float)width / 2.0f - (float)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(lel) / 2.0f + 2.0f), 2, this.getColor(this.counter));
+            drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, lel, (int)((float)width / 2.0f - (float)HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(lel) / 2.0f + 2.0f), 2, this.getColor(this.counter));
             ++this.counter;
         }
     }
 
     private void drawpvphud(DrawContext drawContext, int yOffset) {
-        double x = (double)mc.method_22683().method_4480() / 4.0;
-        double y = (double)mc.method_22683().method_4507() / 4.0 + (double)yOffset;
-        Objects.requireNonNull(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772);
+        double x = (double)mc.getWindow().getWidth() / 4.0;
+        double y = (double)mc.getWindow().getHeight() / 4.0 + (double)yOffset;
+        Objects.requireNonNull(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer);
         int textHeight = 9 + 1;
-        String t1 = "Totem " + String.valueOf(Formatting.field_1054) + InventoryUtil.getItemCount(Items.field_8288);
-        String t2 = "Potion " + String.valueOf(Formatting.field_1080) + InventoryUtil.getPotCount(StatusEffects.field_5907);
-        String t3 = "Crystal " + String.valueOf(Formatting.field_1068) + InventoryUtil.getItemCount(Items.field_8301);
+        String t1 = "Totem " + String.valueOf(Formatting.YELLOW) + InventoryUtil.getItemCount(Items.TOTEM_OF_UNDYING);
+        String t2 = "Potion " + String.valueOf(Formatting.GRAY) + InventoryUtil.getPotCount(StatusEffects.field_5907);
+        String t3 = "Crystal " + String.valueOf(Formatting.WHITE) + InventoryUtil.getItemCount(Items.END_CRYSTAL);
         String A1 = "\u00a74[\u64cd\u63a7\u529b] | \u00a78\u538b\u5236";
         String D1 = "\u00a73[\u538b\u5236] | \u00a78\u64cd\u63a7\u529b";
         String t4 = "\u9759\u6001\u540c\u6b65";
         ArrayList effects = new ArrayList(HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_6026());
         if (this.totemtext.getValue()) {
-            drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, t1, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(t1) / 2)), (int)y, this.getColor(this.counter));
+            drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, t1, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(t1) / 2)), (int)y, this.getColor(this.counter));
             ++this.counter;
             y += (double)textHeight;
         }
         if (this.potiontext.getValue()) {
-            drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, t2, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(t2) / 2)), (int)y, this.getColor(this.counter));
+            drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, t2, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(t2) / 2)), (int)y, this.getColor(this.counter));
             ++this.counter;
             y += (double)textHeight;
         }
         if (this.crtstalText.getValue()) {
-            drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, t3, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(t3) / 2)), (int)y, this.getColor(this.counter));
+            drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, t3, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(t3) / 2)), (int)y, this.getColor(this.counter));
             ++this.counter;
             y += (double)textHeight;
         }
         if (this.attacktext.getValue()) {
             if (ComboBreaks.INSTANCE.isOn()) {
-                drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, A1, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(A1) / 2)), (int)y, this.getColorComboA(this.counter));
+                drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, A1, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(A1) / 2)), (int)y, this.getColorComboA(this.counter));
             }
             if (ComboBreaks.INSTANCE.isOff()) {
-                drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, D1, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(D1) / 2)), (int)y, this.getColorComboD(this.counter));
+                drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, D1, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(D1) / 2)), (int)y, this.getColorComboD(this.counter));
             }
             ++this.counter;
             y += (double)textHeight;
         }
         for (StatusEffectInstance potionEffect : effects) {
-            if (potionEffect.method_5579() != StatusEffects.field_5907 || potionEffect.method_5578() + 1 <= 1) continue;
+            if (potionEffect.method_5579() != StatusEffects.field_5907 || potionEffect.getAmplifier() + 1 <= 1) continue;
             String str = this.getColoredPotionTimeString(potionEffect);
-            String t31 = "PotionTime " + String.valueOf(Formatting.field_1068) + str;
+            String t31 = "PotionTime " + String.valueOf(Formatting.WHITE) + str;
             if (!this.potiontext.getValue()) continue;
-            drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, t31, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(t31) / 2)), (int)y, this.getColor(this.counter));
+            drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, t31, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(t31) / 2)), (int)y, this.getColor(this.counter));
             ++this.counter;
             y += (double)textHeight;
         }
     }
 
     private void drawLagOMeter(DrawContext drawContext) {
-        int width = mc.method_22683().method_4486();
+        int width = mc.getWindow().getScaledWidth();
         if (HexTech.SERVER.isServerNotResponding()) {
             String text = "\u00a74" + (this.lowerCase.getValue() ? "Server is lagging for ".toLowerCase() : "Server is lagging for ") + MathUtil.round((float)HexTech.SERVER.serverRespondingTime() / 1000.0f, 1) + "s.";
-            drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, text, (int)((float)width / 2.0f - (float)HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772.method_1727(text) / 2.0f + 2.0f), 20, this.getColor(this.counter));
+            drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, text, (int)((float)width / 2.0f - (float)HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(text) / 2.0f + 2.0f), 20, this.getColor(this.counter));
             ++this.counter;
         }
     }
 
     private void drawTextRadar(DrawContext drawContext, int yOffset) {
         if (!this.players.isEmpty()) {
-            Objects.requireNonNull(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772);
+            Objects.requireNonNull(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer);
             int y = 9 + 7 + yOffset;
             for (Map.Entry<String, Integer> player : this.players.entrySet()) {
                 String text = player.getKey() + " ";
-                Objects.requireNonNull(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772);
+                Objects.requireNonNull(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer);
                 int textHeight = 9 + 1;
-                drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, text, 2, y, this.getColor(this.counter));
+                drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, text, 2, y, this.getColor(this.counter));
                 ++this.counter;
                 y += textHeight;
             }
@@ -363,14 +363,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             int distanceInt = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_5739((Entity)player);
             String distance = dfDistance.format(distanceInt);
             if (distanceInt >= 25) {
-                distanceSB.append(Formatting.field_1060);
+                distanceSB.append(Formatting.GREEN);
             } else if (distanceInt > 10) {
-                distanceSB.append(Formatting.field_1054);
+                distanceSB.append(Formatting.YELLOW);
             } else {
-                distanceSB.append(Formatting.field_1061);
+                distanceSB.append(Formatting.RED);
             }
             distanceSB.append(distance);
-            retval.put((String)(this.health.getValue() ? String.valueOf(this.getHealthColor(player)) + String.valueOf(HUD_ssNtBhEveKlCmIccBvAN.round2(player.method_6067() + player.method_6032())) + " " : "") + String.valueOf(HexTech.FRIEND.isFriend(player) ? Formatting.field_1075 : Formatting.field_1070) + player.method_5477().getString() + " " + String.valueOf(Formatting.field_1068) + "[" + String.valueOf(Formatting.field_1070) + String.valueOf(distanceSB) + "m" + String.valueOf(Formatting.field_1068) + "] " + String.valueOf(Formatting.field_1060), (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_5739((Entity)player));
+            retval.put((String)(this.health.getValue() ? String.valueOf(this.getHealthColor(player)) + String.valueOf(HUD_ssNtBhEveKlCmIccBvAN.round2(player.method_6067() + player.method_6032())) + " " : "") + String.valueOf(HexTech.FRIEND.isFriend(player) ? Formatting.AQUA : Formatting.RESET) + player.method_5477().getString() + " " + String.valueOf(Formatting.WHITE) + "[" + String.valueOf(Formatting.RESET) + String.valueOf(distanceSB) + "m" + String.valueOf(Formatting.WHITE) + "] " + String.valueOf(Formatting.GREEN), (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.method_5739((Entity)player));
             distanceSB.setLength(0);
         }
         if (!retval.isEmpty()) {
@@ -388,21 +388,21 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private Formatting getHealthColor(@NotNull PlayerEntity entity) {
         int health = (int)((float)((int)entity.method_6032()) + entity.method_6067());
         if (health <= 15 && health > 7) {
-            return Formatting.field_1054;
+            return Formatting.YELLOW;
         }
         if (health > 15) {
-            return Formatting.field_1060;
+            return Formatting.GREEN;
         }
-        return Formatting.field_1061;
+        return Formatting.RED;
     }
 
     private String getColoredPotionString(StatusEffectInstance effect) {
         StatusEffect potion = effect.method_5579();
-        return potion.method_5560().getString() + " " + (effect.method_5578() + 1) + " \u00a7f" + StatusEffectUtil.method_5577((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_54719().method_54748()).getString();
+        return potion.getName().getString() + " " + (effect.getAmplifier() + 1) + " \u00a7f" + StatusEffectUtil.getDurationText((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_54719().getTickRate()).getString();
     }
 
     private String getColoredPotionTimeString(StatusEffectInstance effect) {
-        return StatusEffectUtil.method_5577((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_54719().method_54748()).getString();
+        return StatusEffectUtil.getDurationText((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.method_54719().getTickRate()).getString();
     }
 
     private int getColor(int counter) {

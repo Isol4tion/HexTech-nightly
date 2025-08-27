@@ -73,8 +73,8 @@ implements Wrapper {
     }
 
     public int getPing() {
-        PlayerListEntry playerListEntry = mc.method_1562().method_2871(ServerManager.mc.player.method_5667());
-        int ping = playerListEntry == null ? 0 : playerListEntry.method_2959();
+        PlayerListEntry playerListEntry = mc.getNetworkHandler().getPlayerListEntry(ServerManager.mc.player.method_5667());
+        int ping = playerListEntry == null ? 0 : playerListEntry.getLatency();
         return ping;
     }
 

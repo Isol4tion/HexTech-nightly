@@ -13,16 +13,16 @@ import net.minecraft.util.Hand;
 public class PearlUtil
 implements Wrapper {
     public static void doPearl(float yaw, float pitch, boolean inv) {
-        if (PearlUtil.mc.player.method_6047().method_7909() == Items.field_8634) {
+        if (PearlUtil.mc.player.method_6047().getItem() == Items.ENDER_PEARL) {
             EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(PearlUtil.mc.player.method_36454(), PearlUtil.mc.player.method_36455(), PearlUtil.mc.player.method_24828()));
-            PearlUtil.mc.player.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, 0));
+            PearlUtil.mc.player.networkHandler.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
         } else {
-            int pearl = PearlUtil.findItem(Items.field_8634, inv);
+            int pearl = PearlUtil.findItem(Items.ENDER_PEARL, inv);
             if (pearl != -1) {
-                int old = PearlUtil.mc.player.method_31548().field_7545;
+                int old = PearlUtil.mc.player.method_31548().selectedSlot;
                 PearlUtil.doSwap(pearl, inv);
                 EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(PearlUtil.mc.player.method_36454(), PearlUtil.mc.player.method_36455(), PearlUtil.mc.player.method_24828()));
-                PearlUtil.mc.player.field_3944.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.field_5808, 0));
+                PearlUtil.mc.player.networkHandler.method_52787((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
                 if (inv) {
                     PearlUtil.doSwap(pearl, true);
                     EntityUtil.syncInventory();
@@ -35,7 +35,7 @@ implements Wrapper {
 
     private static void doSwap(int slot, boolean inv) {
         if (inv) {
-            InventoryUtil.inventorySwap(slot, PearlUtil.mc.player.method_31548().field_7545);
+            InventoryUtil.inventorySwap(slot, PearlUtil.mc.player.method_31548().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }

@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Reader;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -81,7 +83,7 @@ implements Wrapper {
             if (!friendFile.exists()) {
                 throw new IOException("File not found! Could not load friends...");
             }
-            List<String> list = IOUtils.readLines((InputStream)new FileInputStream(friendFile), StandardCharsets.UTF_8);
+            List list = IOUtils.readLines((InputStream)new FileInputStream(friendFile), (Charset)StandardCharsets.UTF_8);
             for (String s : list) {
                 this.addFriend(s);
             }
@@ -95,7 +97,7 @@ implements Wrapper {
         PrintWriter printwriter = null;
         try {
             File friendFile = Manager.getFile("friend.txt");
-            System.out.println("[HexTech-nightly Cracked By NoWhisper] Saving Friends");
+            System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Saving Friends");
             printwriter = new PrintWriter(new OutputStreamWriter((OutputStream)new FileOutputStream(friendFile), StandardCharsets.UTF_8));
             for (String str : friendList) {
                 printwriter.println(str);
@@ -119,7 +121,7 @@ implements Wrapper {
     private void loadPath(Path path) throws IOException {
         InputStream stream = Files.newInputStream(path, new OpenOption[0]);
         try {
-            this.loadFile(new JsonParser().parse(new InputStreamReader(stream)).getAsJsonObject());
+            this.loadFile(new JsonParser().parse((Reader)new InputStreamReader(stream)).getAsJsonObject());
         }
         catch (IllegalStateException e) {
             this.loadFile(new JsonObject());
@@ -128,8 +130,8 @@ implements Wrapper {
     }
 
     private void loadFile(JsonObject input) {
-        for (Map.Entry<String, JsonElement> entry : input.entrySet()) {
-            JsonElement element = entry.getValue();
+        for (Map.Entry entry : input.entrySet()) {
+            JsonElement element = (JsonElement)entry.getValue();
             try {
                 this.addFriend(element.getAsString());
             }
@@ -146,7 +148,7 @@ implements Wrapper {
             Files.createFile(outputFile, new FileAttribute[0]);
         }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(this.writeFriends());
+        String json = gson.toJson((JsonElement)this.writeFriends());
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(outputFile, new OpenOption[0])));
         writer.write(json);
         writer.close();

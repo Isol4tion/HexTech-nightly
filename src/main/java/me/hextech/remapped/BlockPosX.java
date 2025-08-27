@@ -8,7 +8,7 @@ import net.minecraft.util.math.Vec3d;
 public class BlockPosX
 extends BlockPos {
     public BlockPosX(double x, double y, double z) {
-        super(MathHelper.method_15357((double)x), MathHelper.method_15357((double)y), MathHelper.method_15357((double)z));
+        super(MathHelper.floor((double)x), MathHelper.floor((double)y), MathHelper.floor((double)z));
     }
 
     public BlockPosX(double x, double y, double z, boolean fix) {
@@ -16,10 +16,10 @@ extends BlockPos {
     }
 
     public BlockPosX(Vec3d vec3d) {
-        this(vec3d.field_1352, vec3d.field_1351, vec3d.field_1350);
+        this(vec3d.x, vec3d.y, vec3d.z);
     }
 
     public BlockPosX(Vec3d vec3d, boolean fix) {
-        this(vec3d.field_1352, vec3d.field_1351, vec3d.field_1350, fix);
+        this(vec3d.x, vec3d.y, vec3d.z, fix);
     }
 }

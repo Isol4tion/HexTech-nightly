@@ -31,7 +31,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onPacket(PacketEvent event) {
         PlayerActionC2SPacket packet;
         Object t = event.getPacket();
-        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).method_12363() == PlayerActionC2SPacket.Action.field_12974 && SpinBot.mc.player.method_6030().method_7909() instanceof BowItem) {
+        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).getAction() == PlayerActionC2SPacket.Action.RELEASE_USE_ITEM && SpinBot.mc.player.method_6030().getItem() instanceof BowItem) {
             EntityUtil.sendYawAndPitch(SpinBot.mc.player.method_36454(), SpinBot.mc.player.method_36455());
         }
     }
@@ -69,7 +69,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.yawMode.getValue() == _YiToqkCkUTOMQxneHmRR.Static) {
             this.rotationYaw = SpinBot.mc.player.method_36454() % 360.0f + this.yawDelta.getValueFloat();
         }
-        if (this.allowInteract.getValue() && (SpinBot.mc.field_1690.field_1904.method_1434() && !EntityUtil.isUsing() || SpinBot.mc.field_1690.field_1886.method_1434())) {
+        if (this.allowInteract.getValue() && (SpinBot.mc.options.useKey.isPressed() && !EntityUtil.isUsing() || SpinBot.mc.options.attackKey.isPressed())) {
             return;
         }
         if (this.yawMode.getValue() != _YiToqkCkUTOMQxneHmRR.None) {
@@ -80,19 +80,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    public static final class _YiToqkCkUTOMQxneHmRR
-    extends Enum<_YiToqkCkUTOMQxneHmRR> {
-        public static final /* enum */ _YiToqkCkUTOMQxneHmRR None;
-        public static final /* enum */ _YiToqkCkUTOMQxneHmRR RandomAngle;
-        public static final /* enum */ _YiToqkCkUTOMQxneHmRR Spin;
-        public static final /* enum */ _YiToqkCkUTOMQxneHmRR Static;
+    public static enum _YiToqkCkUTOMQxneHmRR {
+        None,
+        RandomAngle,
+        Spin,
+        Static;
 
-        public static _YiToqkCkUTOMQxneHmRR[] values() {
-            return null;
-        }
-
-        public static _YiToqkCkUTOMQxneHmRR valueOf(String string) {
-            return null;
-        }
     }
 }
