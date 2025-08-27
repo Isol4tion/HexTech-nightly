@@ -100,13 +100,13 @@ implements ModInitializer {
         SPEED = new SpeedManager();
         PLAYER = new PlayerManager_fDCPIpFeekihQpSyxOff();
         CONFIG.loadSettings();
-        System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Initialized and ready to play!");
+        System.out.println("[HexTech-nightly Cracked By NoWhisper] Initialized and ready to play!");
         isLoaded = true;
         Runtime.getRuntime().addShutdownHook(new Thread(HexTech::save));
     }
 
     public static void unload() {
-        System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Unloading..");
+        System.out.println("[HexTech-nightly Cracked By NoWhisper] Unloading..");
         HexTech.EVENT_BUS.listenerMap.clear();
         ConfigManager.resetModule();
         CONFIG = null;
@@ -119,15 +119,15 @@ implements ModInitializer {
         POP = null;
         BLUR = null;
         TIMER = null;
-        System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Unloading success!");
+        System.out.println("[HexTech-nightly Cracked By NoWhisper] Unloading success!");
     }
 
     public static void save() {
-        System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Saving...");
+        System.out.println("[HexTech-nightly Cracked By NoWhisper] Saving...");
         CONFIG.saveSettings();
         FRIEND.saveFriends();
         ALT.saveAlts();
-        System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Saving success!");
+        System.out.println("[HexTech-nightly Cracked By NoWhisper] Saving success!");
         System.out.println(HexTech.MODULE.modules.size() + " modules loaded.");
     }
 
@@ -160,8 +160,8 @@ implements ModInitializer {
 
     static {
         VERSION = "8";
-        CHAT_NAME = "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c";
-        LOG_NAME = "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c";
+        CHAT_NAME = "HexTech-nightly Cracked By NoWhisper";
+        LOG_NAME = "HexTech-nightly Cracked By NoWhisper";
         NAME = "HexTech";
         EVENT_BUS = new EventBus_bcCTmtyubWDfbrlTrSdl();
         MESSAGE_QUEUE = new LinkedList<String>();

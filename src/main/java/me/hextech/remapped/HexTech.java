@@ -85,7 +85,7 @@ implements Wrapper {
         }
         int logoSize = this.field_22790 / 8;
         drawContext.method_25291(this.logo, this.field_22789 / 2 - logoSize / 2, (int)(baseY - (float)logoSize - 30.0f), 0, 0.0f, 0.0f, logoSize, logoSize, logoSize, logoSize);
-        FontRenderers.ui.drawString(drawContext.method_51448(), "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c-8", 5.0f, (float)this.field_22790 - FontRenderers.ui.getFontHeight(), Color.WHITE.getRGB());
+        FontRenderers.ui.drawString(drawContext.method_51448(), "HexTech-nightly Cracked By NoWhisper-8", 5.0f, (float)this.field_22790 - FontRenderers.ui.getFontHeight(), Color.WHITE.getRGB());
     }
 
     public boolean method_25402(double mouseX, double mouseY, int button) {

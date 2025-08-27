@@ -61,7 +61,7 @@ implements Wrapper {
             }
         }
         catch (Exception e) {
-            System.out.println("Error initializing \u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c commands.");
+            System.out.println("Error initializing HexTech-nightly Cracked By NoWhisper commands.");
             System.out.println(e.getStackTrace().toString());
         }
     }

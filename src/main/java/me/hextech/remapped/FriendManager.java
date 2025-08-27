@@ -95,7 +95,7 @@ implements Wrapper {
         PrintWriter printwriter = null;
         try {
             File friendFile = Manager.getFile("friend.txt");
-            System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Saving Friends");
+            System.out.println("[HexTech-nightly Cracked By NoWhisper] Saving Friends");
             printwriter = new PrintWriter(new OutputStreamWriter((OutputStream)new FileOutputStream(friendFile), StandardCharsets.UTF_8));
             for (String str : friendList) {
                 printwriter.println(str);

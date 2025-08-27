@@ -31,7 +31,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private final BooleanSetting lowercase = this.add(new BooleanSetting("LowerCase", false));
     private final SliderSetting offset = this.add(new SliderSetting("Offset", 2, 0, 20));
-    private final StringSetting text = this.add(new StringSetting("Text", "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c"));
+    private final StringSetting text = this.add(new StringSetting("Text", "HexTech-nightly Cracked By NoWhisper"));
     private final BooleanSetting version = this.add(new BooleanSetting("Version", true));
     private final BooleanSetting shortVersion = this.add(new BooleanSetting("Short", false));
     private final BooleanSetting fps = this.add(new BooleanSetting("FPS", true));

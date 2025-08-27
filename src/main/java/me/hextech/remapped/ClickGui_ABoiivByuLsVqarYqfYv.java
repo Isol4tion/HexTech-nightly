@@ -123,7 +123,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         Notify_EXlgYplaRzfgofOPOkyB.notifyList.clear();
-        ClickGui_ABoiivByuLsVqarYqfYv.sendNotify("\u7248\u672c:\u00a7b\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c\u00a78-\u00a74[NIGHTLY]");
+        ClickGui_ABoiivByuLsVqarYqfYv.sendNotify("\u7248\u672c:\u00a7bHexTech-nightly Cracked By NoWhisper\u00a78-\u00a74[NIGHTLY]");
         fade.reset();
         if (ClickGui_ABoiivByuLsVqarYqfYv.nullCheck()) {
             this.disable();

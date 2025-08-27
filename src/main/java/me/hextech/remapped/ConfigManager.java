@@ -129,7 +129,7 @@ implements Wrapper {
             }
         }
         catch (Exception ex) {
-            System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to save settings");
+            System.out.println("[HexTech-nightly Cracked By NoWhisper] Failed to save settings");
         }
         try {
             pw = new PrintWriter(new OutputStreamWriter((OutputStream)new FileOutputStream(bindFile), StandardCharsets.UTF_8));
@@ -148,7 +148,7 @@ implements Wrapper {
             }
         }
         catch (Exception ex) {
-            System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to save bind settings");
+            System.out.println("[HexTech-nightly Cracked By NoWhisper] Failed to save bind settings");
         }
     }
 
@@ -178,7 +178,7 @@ implements Wrapper {
             }
         }
         catch (IOException ex) {
-            System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to load " + file.getName());
+            System.out.println("[HexTech-nightly Cracked By NoWhisper] Failed to load " + file.getName());
         }
     }
 

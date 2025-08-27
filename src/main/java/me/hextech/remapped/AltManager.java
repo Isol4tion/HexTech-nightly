@@ -48,14 +48,14 @@ implements Wrapper {
         PrintWriter printwriter = null;
         try {
             File altFile = Manager.getFile("alt.txt");
-            System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Saving Alts");
+            System.out.println("[HexTech-nightly Cracked By NoWhisper] Saving Alts");
             printwriter = new PrintWriter(new OutputStreamWriter((OutputStream)new FileOutputStream(altFile), StandardCharsets.UTF_8));
             for (Alt alt : this.alts) {
                 printwriter.println(alt.getEmail());
             }
         }
         catch (Exception exception) {
-            System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to save alts");
+            System.out.println("[HexTech-nightly Cracked By NoWhisper] Failed to save alts");
         }
         printwriter.close();
     }

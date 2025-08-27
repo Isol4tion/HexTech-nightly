@@ -52,7 +52,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final BooleanSetting renderingUp = this.add(new BooleanSetting("RenderingUp", true, v -> this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.GLOBAL));
     private final BooleanSetting watermark = this.add(new BooleanSetting("Watermark", true, v -> this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS).setParent());
     public final SliderSetting offset = this.add(new SliderSetting("Offset", 8.0, 0.0, 100.0, -1.0, v -> this.watermark.isOpen() && this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS));
-    public final StringSetting watermarkString = this.add(new StringSetting("Text", "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c", v -> this.watermark.isOpen() && this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS));
+    public final StringSetting watermarkString = this.add(new StringSetting("Text", "HexTech-nightly Cracked By NoWhisper", v -> this.watermark.isOpen() && this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS));
     private final BooleanSetting watermarkShort = this.add(new BooleanSetting("Shorten", false, v -> this.watermark.isOpen() && this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS));
     private final BooleanSetting watermarkVerColor = this.add(new BooleanSetting("VerColor", true, v -> this.watermark.isOpen() && this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS));
     private final SliderSetting waterMarkY = this.add(new SliderSetting("Height", 2, 2, 12, v -> this.page.getValue() == HUD_ztERXpljXztBNAdBhxyn.ELEMENTS && this.watermark.isOpen()));
@@ -139,7 +139,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             ++this.counter;
         }
         if (this.idWatermark.getValue()) {
-            nameString = "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c ";
+            nameString = "HexTech-nightly Cracked By NoWhisper ";
             String domainString = "8";
             float offset = (float)mc.method_22683().method_4502() / 2.0f - 30.0f;
             drawContext.method_25303(HUD_ssNtBhEveKlCmIccBvAN.mc.field_1772, (String)nameString + domainString, 2, (int)offset, this.getColor(this.counter));
