@@ -1,0 +1,100 @@
+package me.hextech.remapped;
+
+import me.hextech.remapped.AntiWeakness;
+import me.hextech.remapped.BooleanSetting;
+import me.hextech.remapped.Criticals;
+import me.hextech.remapped.EntityUtil;
+import me.hextech.remapped.EnumSetting;
+import me.hextech.remapped.EventHandler;
+import me.hextech.remapped.InventoryUtil;
+import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
+import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
+import me.hextech.remapped.PacketEvent;
+import me.hextech.remapped.SliderSetting;
+import me.hextech.remapped.Timer;
+import net.minecraft.entity.decoration.EndCrystalEntity;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.SwordItem;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
+import net.minecraft.screen.slot.SlotActionType;
+
+public class AntiWeakness_SVNjAQUSXMmCfEPBellQ
+extends Module_eSdgMXWuzcxgQVaJFmKZ {
+    private final SliderSetting delay = this.add(new SliderSetting("Delay", 100, 0, 500).setSuffix("ms"));
+    private final EnumSetting<AntiWeakness> swapMode = this.add(new EnumSetting<AntiWeakness>("SwapMode", AntiWeakness.Inventory));
+    private final BooleanSetting onlyCrystal = this.add(new BooleanSetting("OnlyCrystal", true));
+    private final Timer delayTimer = new Timer();
+    boolean ignore = false;
+    private PlayerInteractEntityC2SPacket lastPacket = null;
+
+    public AntiWeakness_SVNjAQUSXMmCfEPBellQ() {
+        super("AntiWeakness", "anti weak", Module_JlagirAibYQgkHtbRnhw.Combat);
+    }
+
+    @Override
+    public String getInfo() {
+        return this.swapMode.getValue().name();
+    }
+
+    @EventHandler(priority=-200)
+    public void onPacketSend(PacketEvent event) {
+        PlayerInteractEntityC2SPacket packet;
+        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.nullCheck()) {
+            return;
+        }
+        if (event.isCancelled()) {
+            return;
+        }
+        if (this.ignore) {
+            return;
+        }
+        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.method_6112(StatusEffects.field_5911) == null) {
+            return;
+        }
+        if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.method_6047().method_7909() instanceof SwordItem) {
+            return;
+        }
+        if (!this.delayTimer.passedMs(this.delay.getValue())) {
+            return;
+        }
+        Object t = event.getPacket();
+        if (t instanceof PlayerInteractEntityC2SPacket && Criticals.getInteractType(packet = (PlayerInteractEntityC2SPacket)t) == Criticals._QenzavIULhSqCVPmsILH.ATTACK) {
+            if (this.onlyCrystal.getValue() && !(Criticals.getEntity(packet) instanceof EndCrystalEntity)) {
+                return;
+            }
+            this.lastPacket = (PlayerInteractEntityC2SPacket)event.getPacket();
+            this.delayTimer.reset();
+            this.ignore = true;
+            this.doAnti();
+            this.ignore = false;
+            event.cancel();
+        }
+    }
+
+    private void doAnti() {
+        if (this.lastPacket == null) {
+            return;
+        }
+        int strong = this.swapMode.getValue() != AntiWeakness.Inventory ? InventoryUtil.findClass(SwordItem.class) : InventoryUtil.findClassInventorySlot(SwordItem.class);
+        if (strong == -1) {
+            return;
+        }
+        int old = AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.method_31548().field_7545;
+        if (this.swapMode.getValue() != AntiWeakness.Inventory) {
+            InventoryUtil.switchToSlot(strong);
+        } else {
+            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1761.method_2906(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.field_7512.field_7763, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.method_31548().field_7545, SlotActionType.field_7791, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724);
+        }
+        AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.field_3944.method_52787((Packet)this.lastPacket);
+        if (this.swapMode.getValue() != AntiWeakness.Inventory) {
+            if (this.swapMode.getValue() != AntiWeakness.Normal) {
+                InventoryUtil.switchToSlot(old);
+            }
+        } else {
+            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1761.method_2906(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.field_7512.field_7763, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724.method_31548().field_7545, SlotActionType.field_7791, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.field_1724);
+            EntityUtil.syncInventory();
+        }
+    }
+}

@@ -1,0 +1,107 @@
+package me.hextech.remapped;
+
+import me.hextech.HexTech;
+import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
+import me.hextech.remapped.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
+import me.hextech.remapped.BlockUtil;
+import me.hextech.remapped.EntityUtil;
+import me.hextech.remapped.Enum_rNhWITNdkrqkhKfDZgGo;
+import me.hextech.remapped.InventoryUtil;
+import me.hextech.remapped.ListenerDamage;
+import me.hextech.remapped.ListenerHelperUtil;
+import me.hextech.remapped.RotateManager;
+import me.hextech.remapped.Wrapper;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+
+public class ListenerHelper
+implements Wrapper {
+    public static Block getBlock(BlockPos pos) {
+        return BlockUtil.getState(pos).method_26204();
+    }
+
+    private static int getBlock() {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
+            return InventoryUtil.findBlockInventorySlot(Blocks.field_10540);
+        }
+        return InventoryUtil.findBlock(Blocks.field_10540);
+    }
+
+    public static void tryBase() {
+        for (BlockPos pos : BlockUtil.getSphere((float)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue() + 1.0f)) {
+            if (ListenerHelperUtil.behindWall(pos) || !ListenerHelperUtil.canBasePlaceCrystal(pos.method_10084(), false, false) || !ListenerHelperUtil.canTouch(pos) || (double)ListenerHelperUtil.calculateObsidian(pos, pos.method_10084().method_46558(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget) < AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.minDamage.getValue()) continue;
+            ListenerHelper.doBase(pos);
+        }
+    }
+
+    public static void doBase(BlockPos pos) {
+        if (!AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.obsidian.getValue()) {
+            return;
+        }
+        if (!BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.placeBaseTimer.passedMs((long)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.placeObsDelay.getValue())) {
+            return;
+        }
+        if ((double)BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.tempDamage < ListenerDamage.getDamage(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.displayTarget)) {
+            return;
+        }
+        int block = ListenerHelper.getBlock();
+        if (block == -1) {
+            return;
+        }
+        Direction side = BlockUtil.getPlaceSide(pos);
+        if (side == null) {
+            return;
+        }
+        Vec3d directionVec = new Vec3d((double)pos.method_10263() + 0.5 + (double)side.method_10163().method_10263() * 0.5, (double)pos.method_10264() + 0.5 + (double)side.method_10163().method_10264() * 0.5, (double)pos.method_10260() + 0.5 + (double)side.method_10163().method_10260() * 0.5);
+        if (!BlockUtil.canPlace(pos, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue())) {
+            return;
+        }
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.rotate.getValue() && !ListenerHelper.faceVector(directionVec)) {
+            return;
+        }
+        int old = 0;
+        if (ListenerHelper.mc.field_1724 != null) {
+            old = ListenerHelper.mc.field_1724.method_31548().field_7545;
+        }
+        ListenerHelper.doSwap(block);
+        if (BlockUtil.airPlace()) {
+            BlockUtil.placedPos.add(pos);
+            BlockUtil.clickBlock(pos, Direction.field_11033, false, Hand.field_5808);
+        } else {
+            BlockUtil.placedPos.add(pos);
+            BlockUtil.clickBlock(pos.method_10093(side), side.method_10153(), false, Hand.field_5808);
+        }
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
+            ListenerHelper.doSwap(block);
+            EntityUtil.syncInventory();
+        } else {
+            ListenerHelper.doSwap(old);
+        }
+        BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.placeTimer.reset();
+    }
+
+    private static void doSwap(int slot) {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
+            if (ListenerHelper.mc.field_1724 != null) {
+                InventoryUtil.inventorySwap(slot, ListenerHelper.mc.field_1724.method_31548().field_7545);
+            }
+        } else {
+            InventoryUtil.switchToSlot(slot);
+        }
+    }
+
+    private static boolean faceVector(Vec3d directionVec) {
+        if (!AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.faceVector.getValue()) {
+            RotateManager.TrueVec3d(directionVec);
+            return true;
+        }
+        if (HexTech.ROTATE.inFov(directionVec, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.fov.getValueFloat())) {
+            return true;
+        }
+        return !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.checkLook.getValue();
+    }
+}

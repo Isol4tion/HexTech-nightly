@@ -1,0 +1,198 @@
+package me.hextech.remapped;
+
+import java.util.List;
+import me.hextech.remapped.BlockPosX;
+import me.hextech.remapped.BlockUtil;
+import me.hextech.remapped.BooleanSetting;
+import me.hextech.remapped.ClickGuiScreen;
+import me.hextech.remapped.CombatUtil;
+import me.hextech.remapped.EntityUtil;
+import me.hextech.remapped.InventoryUtil;
+import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
+import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
+import me.hextech.remapped.SliderSetting;
+import me.hextech.remapped.Timer;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.gui.screen.GameMenuScreen;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
+import net.minecraft.potion.PotionUtil;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+
+public class AutoPotPlus
+extends Module_eSdgMXWuzcxgQVaJFmKZ {
+    public static AutoPotPlus INSTANCE;
+    private final SliderSetting delay = this.add(new SliderSetting("Delay", 5, 0, 10).setSuffix("s"));
+    private final BooleanSetting checkRang = this.add(new BooleanSetting("CheckRang", true).setParent());
+    private final SliderSetting rang = this.add(new SliderSetting("Rang", 15, 0, 15, v -> this.checkRang.isOpen()).setSuffix("m"));
+    private final BooleanSetting strength = this.add(new BooleanSetting("Strength", true));
+    private final BooleanSetting speed = this.add(new BooleanSetting("Speed", true));
+    private final BooleanSetting resistance = this.add(new BooleanSetting("Resistance", true));
+    private final BooleanSetting checkFly = this.add(new BooleanSetting("CheckFly", false));
+    private final BooleanSetting smartCheckGround = this.add(new BooleanSetting("SmartCheckGround", true));
+    private final BooleanSetting usingPause = this.add(new BooleanSetting("UsingPause", false));
+    private final BooleanSetting inventory = this.add(new BooleanSetting("InventorySwap", true));
+    private final Timer delayTimer = new Timer();
+    PlayerEntity target = null;
+    BlockPos throwPos = null;
+    private boolean throwing = false;
+
+    public AutoPotPlus() {
+        super("AutoPot+", Module_JlagirAibYQgkHtbRnhw.Player);
+        INSTANCE = this;
+    }
+
+    public static int findPotionInventorySlot(StatusEffect targetEffect) {
+        for (int i = 0; i < 45; ++i) {
+            ItemStack itemStack = AutoPotPlus.mc.field_1724.method_31548().method_5438(i);
+            if (Item.method_7880((Item)itemStack.method_7909()) != Item.method_7880((Item)Items.field_8436)) continue;
+            List effects = PotionUtil.method_8067((ItemStack)itemStack);
+            for (StatusEffectInstance effect : effects) {
+                if (effect.method_5579() != targetEffect) continue;
+                return i < 9 ? i + 36 : i;
+            }
+        }
+        return -1;
+    }
+
+    public static int findPotion(StatusEffect targetEffect) {
+        for (int i = 0; i < 9; ++i) {
+            ItemStack itemStack = InventoryUtil.getStackInSlot(i);
+            if (Item.method_7880((Item)itemStack.method_7909()) != Item.method_7880((Item)Items.field_8436)) continue;
+            List effects = PotionUtil.method_8067((ItemStack)itemStack);
+            for (StatusEffectInstance effect : effects) {
+                if (effect.method_5579() != targetEffect) continue;
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public void onDisable() {
+        this.throwing = false;
+    }
+
+    @Override
+    public void onUpdate() {
+        if (AutoPotPlus.mc.field_1724 == null) {
+            return;
+        }
+        this.target = CombatUtil.getClosestEnemy(this.rang.getValue());
+        if (this.checkRang.getValue() && this.target == null) {
+            return;
+        }
+        this.throwPos = null;
+        this.throwPos = this.findPos();
+        if (!(this.checkFly.getValue() && AutoPotPlus.mc.field_1724.method_6128() || this.smartCheckGround.getValue() && this.throwPos == null)) {
+            if (this.speed.getValue() && !AutoPotPlus.mc.field_1724.method_6059(StatusEffects.field_5904)) {
+                this.throwing = this.checkThrow(StatusEffects.field_5904);
+                if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
+                    this.throwPotion(StatusEffects.field_5904);
+                    return;
+                }
+            }
+            if (this.resistance.getValue() && (!AutoPotPlus.mc.field_1724.method_6059(StatusEffects.field_5907) || AutoPotPlus.mc.field_1724.method_6112(StatusEffects.field_5907).method_5578() < 2)) {
+                this.throwing = this.checkThrow(StatusEffects.field_5907);
+                if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
+                    this.throwPotion(StatusEffects.field_5907);
+                }
+            }
+            if (this.strength.getValue() && !AutoPotPlus.mc.field_1724.method_6059(StatusEffects.field_5910)) {
+                this.throwing = this.checkThrow(StatusEffects.field_5910);
+                if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
+                    this.throwPotion(StatusEffects.field_5910);
+                }
+            }
+        }
+    }
+
+    public void snapAt(Vec3d directionVec) {
+        float[] angle = this.getRotation(directionVec);
+        EntityUtil.sendYawAndPitch(angle[0], angle[1]);
+    }
+
+    public float[] getRotation(Vec3d vec) {
+        Vec3d eyesPos = EntityUtil.getEyesPos();
+        return this.getRotation(eyesPos, vec);
+    }
+
+    public float[] getRotation(Vec3d eyesPos, Vec3d vec) {
+        double diffX = vec.field_1352 - eyesPos.field_1352;
+        double diffY = vec.field_1351 - eyesPos.field_1351;
+        double diffZ = vec.field_1350 - eyesPos.field_1350;
+        double diffXZ = Math.sqrt(diffX * diffX + diffZ * diffZ);
+        float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
+        float pitch = (float)(-Math.toDegrees(Math.atan2(diffY, diffXZ)));
+        return new float[]{MathHelper.method_15393((float)yaw), MathHelper.method_15393((float)pitch)};
+    }
+
+    public void throwPotion(StatusEffect targetEffect) {
+        int newSlot;
+        int oldSlot = AutoPotPlus.mc.field_1724.method_31548().field_7545;
+        if (this.inventory.getValue() && (newSlot = AutoPotPlus.findPotionInventorySlot(targetEffect)) != -1) {
+            if (this.throwPos != null) {
+                this.snapAt(this.throwPos.method_46558());
+            } else {
+                EntityUtil.sendYawAndPitch(AutoPotPlus.mc.field_1724.method_36454(), 90.0f);
+            }
+            InventoryUtil.inventorySwap(newSlot, AutoPotPlus.mc.field_1724.method_31548().field_7545);
+            AutoPotPlus.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
+            InventoryUtil.inventorySwap(newSlot, AutoPotPlus.mc.field_1724.method_31548().field_7545);
+            EntityUtil.syncInventory();
+            this.delayTimer.reset();
+        } else {
+            newSlot = AutoPotPlus.findPotion(targetEffect);
+            if (newSlot != -1) {
+                if (this.throwPos != null) {
+                    this.snapAt(this.throwPos.method_46558());
+                } else {
+                    EntityUtil.sendYawAndPitch(AutoPotPlus.mc.field_1724.method_36454(), 90.0f);
+                }
+                InventoryUtil.switchToSlot(newSlot);
+                AutoPotPlus.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.field_5808, id));
+                InventoryUtil.switchToSlot(oldSlot);
+                this.delayTimer.reset();
+            }
+        }
+    }
+
+    public BlockPos findPos() {
+        for (float x : new float[]{0.0f, -0.3f, 0.3f}) {
+            for (float z : new float[]{0.0f, -0.3f, 0.3f}) {
+                BlockPosX pos = new BlockPosX(AutoPotPlus.mc.field_1724.method_23317() + (double)x, AutoPotPlus.mc.field_1724.method_23318() - 0.5, AutoPotPlus.mc.field_1724.method_23321() + (double)z);
+                if (BlockUtil.isAir(pos) || AutoPotPlus.mc.field_1687.method_8320((BlockPos)pos).method_26204() == Blocks.field_10343) continue;
+                return pos;
+            }
+        }
+        return null;
+    }
+
+    public boolean isThrow() {
+        return this.throwing;
+    }
+
+    public boolean checkThrow(StatusEffect targetEffect) {
+        if (this.isOff()) {
+            return false;
+        }
+        if (!(AutoPotPlus.mc.field_1755 == null || AutoPotPlus.mc.field_1755 instanceof ChatScreen || AutoPotPlus.mc.field_1755 instanceof InventoryScreen || AutoPotPlus.mc.field_1755 instanceof ClickGuiScreen || AutoPotPlus.mc.field_1755 instanceof GameMenuScreen)) {
+            return false;
+        }
+        if (this.usingPause.getValue() && AutoPotPlus.mc.field_1724.method_6115()) {
+            return false;
+        }
+        return AutoPotPlus.findPotion(targetEffect) != -1 || this.inventory.getValue() && AutoPotPlus.findPotionInventorySlot(targetEffect) != -1;
+    }
+}

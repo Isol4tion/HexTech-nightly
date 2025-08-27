@@ -1,0 +1,79 @@
+package me.hextech.remapped;
+
+import me.hextech.remapped.BooleanSetting;
+import me.hextech.remapped.Burrow_eOaBGEoOSTDRbYIUAbXC;
+import me.hextech.remapped.EnumSetting;
+import me.hextech.remapped.HoleKickTest;
+import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
+import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
+import me.hextech.remapped.MovementUtil;
+import me.hextech.remapped.Util;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+
+public class moveupV
+extends Module_eSdgMXWuzcxgQVaJFmKZ {
+    final EnumSetting<_rlgNzzROxlnlLAUMICmS> mode = this.add(new EnumSetting<_rlgNzzROxlnlLAUMICmS>("Mode", _rlgNzzROxlnlLAUMICmS.Teleport));
+    private final BooleanSetting noWeb = this.add(new BooleanSetting("PauseWeb", true));
+    private final BooleanSetting onlyburrow = this.add(new BooleanSetting("OnlyBurrow", true));
+    private final BooleanSetting pEndChest = this.add(new BooleanSetting("EndChest", true));
+    private final BooleanSetting doburrow = this.add(new BooleanSetting("StarBurrow", true));
+    private final BooleanSetting movecheck = this.add(new BooleanSetting("MoveCheck", true));
+    private final BooleanSetting toggle = this.add(new BooleanSetting("Toggle", false));
+
+    public moveupV() {
+        super("MoveClip", Module_JlagirAibYQgkHtbRnhw.Movement);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (this.movecheck.getValue() && moveupV.mc.field_1724 != null && MovementUtil.isMoving()) {
+            return;
+        }
+        if (moveupV.mc.field_1724 != null && this.noWeb.getValue() && HoleKickTest.isInWeb((PlayerEntity)moveupV.mc.field_1724)) {
+            return;
+        }
+        if (moveupV.mc.field_1724 != null && (!this.onlyburrow.getValue() || Util.isBurrowed((PlayerEntity)moveupV.mc.field_1724, !this.pEndChest.getValue()))) {
+            switch (this.mode.getValue().ordinal()) {
+                case 1: {
+                    moveupV.mc.field_1724.method_5814(moveupV.mc.field_1724.method_23317(), moveupV.mc.field_1724.method_23318() + 3.0, moveupV.mc.field_1724.method_23321());
+                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(moveupV.mc.field_1724.method_23317(), moveupV.mc.field_1724.method_23318(), moveupV.mc.field_1724.method_23321(), true));
+                    break;
+                }
+                case 0: {
+                    double posX = moveupV.mc.field_1724.method_23317();
+                    double posY = Math.round(moveupV.mc.field_1724.method_23318());
+                    double posZ = moveupV.mc.field_1724.method_23321();
+                    boolean onGround = moveupV.mc.field_1724.method_24828();
+                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
+                    double halfY = 0.005;
+                    moveupV.mc.field_1724.method_5814(posX, posY -= halfY, posZ);
+                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
+                    moveupV.mc.field_1724.method_5814(posX, posY -= halfY * 300.0, posZ);
+                    mc.method_1562().method_52787((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
+                }
+            }
+        }
+        if (this.toggle.getValue()) {
+            this.disable();
+        }
+        if (this.doburrow.getValue() && !MovementUtil.isMoving() && !Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.isOn()) {
+            Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.enable();
+        }
+    }
+
+    public static final class _rlgNzzROxlnlLAUMICmS
+    extends Enum<_rlgNzzROxlnlLAUMICmS> {
+        public static final /* enum */ _rlgNzzROxlnlLAUMICmS Glitch;
+        public static final /* enum */ _rlgNzzROxlnlLAUMICmS Teleport;
+
+        public static _rlgNzzROxlnlLAUMICmS[] values() {
+            return null;
+        }
+
+        public static _rlgNzzROxlnlLAUMICmS valueOf(String string) {
+            return null;
+        }
+    }
+}

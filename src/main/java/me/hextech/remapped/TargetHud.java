@@ -1,0 +1,326 @@
+package me.hextech.remapped;
+
+import com.mojang.blaze3d.systems.RenderSystem;
+import java.awt.Color;
+import java.util.Objects;
+import java.util.Stack;
+import me.hextech.HexTech;
+import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
+import me.hextech.remapped.BetterAnimation;
+import me.hextech.remapped.BetterDynamicAnimation;
+import me.hextech.remapped.BooleanSetting;
+import me.hextech.remapped.ColorSetting;
+import me.hextech.remapped.FontRenderers;
+import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
+import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
+import me.hextech.remapped.Render2DUtil;
+import me.hextech.remapped.SliderSetting;
+import me.hextech.remapped.TextUtil;
+import me.hextech.remapped.Timer;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.BufferRenderer;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.Vec3d;
+import org.joml.Math;
+import org.joml.Matrix4f;
+import org.joml.Vector4d;
+
+public class TargetHud
+extends Module_eSdgMXWuzcxgQVaJFmKZ {
+    private static final Stack<Float> alphaMultipliers;
+    public static TargetHud INSTANCE;
+    public static BetterDynamicAnimation healthAnimation;
+    public static BetterDynamicAnimation hurtAnimation;
+    private final SliderSetting xOffset = this.add(new SliderSetting("X", 0, 0, 2000));
+    private final SliderSetting yOffset = this.add(new SliderSetting("Y", 10, 0, 2000));
+    private final ColorSetting colorBack = this.add(new ColorSetting("BackGround", new Color(0, 0, 0, 200)));
+    private final SliderSetting blur = this.add(new SliderSetting("Blur", 20, 0, 50));
+    private final ColorSetting healthColor = this.add(new ColorSetting("Health", new Color(255, 0, 0, 200)));
+    private final ColorSetting textColor = this.add(new ColorSetting("Text", new Color(255, 255, 255, 255)));
+    private final BooleanSetting rainBow = this.add(new BooleanSetting("Rainbow", false)).setParent();
+    private final SliderSetting pulseCounter = this.add(new SliderSetting("PulseCounter", 1, 1, 10, v -> this.rainBow.isOpen()));
+    private final SliderSetting rainbowSpeed = this.add(new SliderSetting("RainbowSpeed", 200, 1, 400, v -> this.rainBow.isOpen()));
+    private final SliderSetting saturation = this.add(new SliderSetting("Saturation", 130.0, 1.0, 255.0, v -> this.rainBow.isOpen()));
+    private final SliderSetting rainbowDelay = this.add(new SliderSetting("Delay", 350, 0, 600, v -> this.rainBow.isOpen()));
+    private final BooleanSetting move = this.add(new BooleanSetting("TargetPlayer", false)).setParent();
+    private final SliderSetting moveDis = this.add(new SliderSetting("PlayerDis", 8, 1, 100, v -> this.move.isOpen()));
+    private final SliderSetting moveY = this.add(new SliderSetting("DisY", 0.3, -1.0, 1.0, 0.1, v -> this.move.isOpen()));
+    private final SliderSetting T1 = this.add(new SliderSetting("TextW", 0.3, -1.0, 1.0, 0.1));
+    private final SliderSetting ra = this.add(new SliderSetting("radius", 3, 0, 10));
+    private final Timer timer = new Timer();
+    public BooleanSetting customFont = this.add(new BooleanSetting("CustomFont", false));
+    public BooleanSetting ifglow = this.add(new BooleanSetting("isGlow", false)).setParent();
+    private final SliderSetting glow = this.add(new SliderSetting("Glow", 20, 1, 50, v -> this.ifglow.isOpen()));
+    public BetterAnimation animation = new BetterAnimation();
+    int progress = 0;
+    private boolean direction = false;
+
+    public TargetHud() {
+        super("TargetHud", Module_JlagirAibYQgkHtbRnhw.Client);
+        INSTANCE = this;
+    }
+
+    public static void sizeAnimation(MatrixStack matrixStack, double width, double height, double animation) {
+        matrixStack.method_22904(width, height, 0.0);
+        matrixStack.method_22905((float)animation, (float)animation, 1.0f);
+        matrixStack.method_22904(-width, -height, 0.0);
+    }
+
+    public static Color rainbowHSB(int delay, float s, float b) {
+        double rainbowState = Math.ceil((double)((double)(System.currentTimeMillis() + (long)delay) / 20.0));
+        return new Color((float)((rainbowState %= 360.0) / 360.0), s, b);
+    }
+
+    public static void endRender() {
+        RenderSystem.enableCull();
+        RenderSystem.disableBlend();
+    }
+
+    public static float compute(int initialAlpha) {
+        float alpha = initialAlpha;
+        for (Float alphaMultiplier : alphaMultipliers) {
+            alpha *= alphaMultiplier.floatValue();
+        }
+        return alpha;
+    }
+
+    public static float transformColor(float f) {
+        return TargetHud.compute((int)(f * 255.0f)) / 255.0f;
+    }
+
+    public static void setupRender() {
+        RenderSystem.enableBlend();
+        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+    }
+
+    @Override
+    public void onEnable() {
+        this.direction = false;
+        this.timer.reset();
+    }
+
+    @Override
+    public void onDisable() {
+        this.direction = false;
+        this.timer.reset();
+    }
+
+    @Override
+    public void onUpdate() {
+        healthAnimation.update();
+        hurtAnimation.update();
+        this.animation.update(this.direction);
+    }
+
+    @Override
+    public void onRender2D(DrawContext drawContext, float tickDelta) {
+        ClientPlayerEntity target = null;
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOn() && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget.method_29504()) {
+            target = AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget;
+            this.direction = true;
+        } else if (TargetHud.mc.field_1755 instanceof ChatScreen) {
+            target = TargetHud.mc.field_1724;
+            this.direction = true;
+        } else {
+            this.direction = false;
+        }
+        if (target == null) {
+            return;
+        }
+        drawContext.method_51448().method_22903();
+        float posX = 114514.0f;
+        float posY = 114514.0f;
+        if (this.move.getValue() && (double)target.method_5739((Entity)TargetHud.mc.field_1724) <= this.moveDis.getValue()) {
+            double x = target.field_6014 + (target.method_23317() - target.field_6014) * (double)mc.method_1488();
+            double y = target.field_6036 + (target.method_23318() - target.field_6036) * (double)mc.method_1488();
+            double z = target.field_5969 + (target.method_23321() - target.field_5969) * (double)mc.method_1488();
+            Vec3d vector = new Vec3d(x, y + target.method_5829().method_17940() + (double)this.moveY.getValueInt(), z);
+            vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.field_1352, vector.field_1351, vector.field_1350));
+            if (vector.field_1350 > 0.0 && vector.field_1350 < 1.0) {
+                Vector4d position = new Vector4d(vector.field_1352, vector.field_1351, vector.field_1350, 0.0);
+                position.x = Math.min((double)vector.field_1352, (double)position.x);
+                position.y = Math.min((double)vector.field_1351, (double)position.y);
+                position.z = Math.max((double)vector.field_1352, (double)position.z);
+                float diff = (float)(position.z - position.x) / 2.0f;
+                posX = (float)((position.x + (double)diff) * 1.0);
+                posY = (float)(position.y - (double)(target.method_17682() / 2.0f));
+            }
+        }
+        if (!this.move.getValue()) {
+            posX = this.xOffset.getValueFloat();
+            posY = this.yOffset.getValueFloat();
+        }
+        if (posX == 114514.0f || posY == 114514.0f) {
+            return;
+        }
+        float hurtPercent = (float)target.field_6235 / 8.0f;
+        hurtAnimation.setValue(hurtPercent);
+        String name = "Enemy: " + target.method_5477().getString();
+        double health = target.method_6032() + target.method_6067();
+        healthAnimation.setValue(health);
+        health = healthAnimation.getAnimationD();
+        String healthText = "Health: " + Math.round((double)health);
+        String pops = "0";
+        if (HexTech.POP.popContainer.containsKey(target.method_5477().getString())) {
+            pops = String.valueOf(HexTech.POP.popContainer.get(target.method_5477().getString()));
+        }
+        String popText = "Kills: " + pops;
+        float maxWidth = (float)Math.max((double)Math.max((double)TargetHud.mc.field_1772.method_1727(name), (double)(health * 100.0 / 36.0 + 10.0 + (double)TargetHud.mc.field_1772.method_1727(healthText))), (double)TargetHud.mc.field_1772.method_1727(popText));
+        this.renderRoundedQuad(drawContext.method_51448(), this.colorBack.getValue(), posX, (int)posY, posX + 46.0f + maxWidth + 5.0f, posY + 55.0f, this.ra.getValue(), 4.0, !(this.blur.getValue() <= 0.0));
+        RenderSystem.setShaderColor((float)1.0f, (float)((float)(1.0 - hurtAnimation.getAnimationD())), (float)((float)(1.0 - hurtAnimation.getAnimationD())), (float)1.0f);
+        drawContext.method_25293(((AbstractClientPlayerEntity)target).method_52814().comp_1626(), (int)((double)posX + hurtAnimation.getAnimationD()) + 5, (int)((double)posY + hurtAnimation.getAnimationD()) + 5, (int)(44.0 - hurtAnimation.getAnimationD() * 2.0), (int)(44.0 - hurtAnimation.getAnimationD() * 2.0), 8.0f, 8.0f, 8, 8, 64, 64);
+        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+        if (this.customFont.getValue()) {
+            FontRenderers.Arial.drawString(drawContext.method_51448(), name, (int)(posX + 50.0f), (int)posY + 5, this.textColor.getValue().getRGB(), false);
+        } else {
+            FontRenderers.Calibri.drawString(drawContext.method_51448(), name, (int)(posX + 50.0f), (int)posY + 5, this.textColor.getValue().getRGB(), false);
+        }
+        if (!this.rainBow.getValue()) {
+            MatrixStack matrixStack = drawContext.method_51448();
+            Color color = this.healthColor.getValue();
+            double d = posX + 50.0f;
+            Objects.requireNonNull(TargetHud.mc.field_1772);
+            double d2 = posY + (float)((55 - 9) / 3);
+            double d3 = (double)(posX + 50.0f) + health * 100.0 / 36.0;
+            Objects.requireNonNull(TargetHud.mc.field_1772);
+            float f = posY + (float)((55 - 9) / 3);
+            Objects.requireNonNull(TargetHud.mc.field_1772);
+            this.renderRoundedQuad(matrixStack, color, d, d2, d3, f + 9.0f, this.ra.getValue(), 4.0, false);
+            if (this.ifglow.getValue()) {
+                MatrixStack matrixStack2 = drawContext.method_51448();
+                Objects.requireNonNull(TargetHud.mc.field_1772);
+                float f2 = posY + (float)((55 - 9) / 3);
+                float f3 = (float)(health * 100.0 / 36.0);
+                Objects.requireNonNull(TargetHud.mc.field_1772);
+                int n = 9 / 3;
+                Objects.requireNonNull(TargetHud.mc.field_1772);
+                Render2DUtil.drawBlurredShadow(matrixStack2, posX + 50.0f, f2, f3, n + 9, this.glow.getValueInt(), this.healthColor.getValue());
+            }
+        } else {
+            if (this.timer.passed(50L)) {
+                this.progress -= this.rainbowSpeed.getValueInt();
+                this.timer.reset();
+            }
+            int counter = 20;
+            for (double i = 0.0; i <= health * 100.0 / 36.0 - 1.5; i += 1.5) {
+                if (i <= health * 100.0 / 36.0 - 1.5) {
+                    MatrixStack matrixStack = drawContext.method_51448();
+                    Color color = this.rainbow(counter);
+                    double d = (double)(posX + 50.0f) + i;
+                    Objects.requireNonNull(TargetHud.mc.field_1772);
+                    double d4 = posY + (float)((55 - 9) / 3);
+                    double d5 = (double)(posX + 50.0f) + i + 1.5;
+                    Objects.requireNonNull(TargetHud.mc.field_1772);
+                    float f = posY + (float)((55 - 9) / 3);
+                    Objects.requireNonNull(TargetHud.mc.field_1772);
+                    this.renderRoundedQuad(matrixStack, color, d, d4, d5, f + 9.0f, 0.0, 4.0, false);
+                } else {
+                    MatrixStack matrixStack = drawContext.method_51448();
+                    Color color = this.rainbow(counter);
+                    double d = (double)(posX + 50.0f) + i;
+                    Objects.requireNonNull(TargetHud.mc.field_1772);
+                    double d6 = posY + (float)((55 - 9) / 3);
+                    double d7 = (double)(posX + 50.0f) + i + 1.5;
+                    Objects.requireNonNull(TargetHud.mc.field_1772);
+                    float f = posY + (float)((55 - 9) / 3);
+                    Objects.requireNonNull(TargetHud.mc.field_1772);
+                    this.renderRoundedQuad(matrixStack, color, d, d6, d7, f + 9.0f, this.ra.getValue(), 4.0, false);
+                }
+                counter += this.pulseCounter.getValueInt();
+            }
+        }
+        if (this.customFont.getValue()) {
+            MatrixStack matrixStack = drawContext.method_51448();
+            float f = (int)((double)(posX + 50.0f) + health * 100.0 / 36.0 + 10.0);
+            Objects.requireNonNull(TargetHud.mc.field_1772);
+            FontRenderers.Arial.drawString(matrixStack, healthText, f, (int)(posY + (float)((55 - 9) / 3)), this.textColor.getValue().getRGB(), false);
+            MatrixStack matrixStack3 = drawContext.method_51448();
+            float f4 = (int)(posX + 50.0f);
+            Objects.requireNonNull(TargetHud.mc.field_1772);
+            FontRenderers.Arial.drawString(matrixStack3, popText, f4, (int)(posY + (float)((55 - 9) / 3 * 2)), this.textColor.getValue().getRGB(), false);
+        } else {
+            MatrixStack matrixStack = drawContext.method_51448();
+            float f = (int)((double)(posX + 50.0f) + health * 100.0 / 36.0 + 10.0);
+            Objects.requireNonNull(TargetHud.mc.field_1772);
+            FontRenderers.Calibri.drawString(matrixStack, healthText, f, (int)(posY + (float)((55 - 9) / 3)), this.textColor.getValue().getRGB(), false);
+            MatrixStack matrixStack4 = drawContext.method_51448();
+            float f5 = (int)(posX + 50.0f);
+            Objects.requireNonNull(TargetHud.mc.field_1772);
+            FontRenderers.Calibri.drawString(matrixStack4, popText, f5, (int)(posY + (float)((55 - 9) / 3 * 2)), this.textColor.getValue().getRGB(), false);
+        }
+        drawContext.method_51448().method_22909();
+    }
+
+    public void renderRoundedQuad(MatrixStack matrices, Color c, double fromX, double fromY, double toX, double toY, double radC1, double radC2, double radC3, double radC4, double samples, boolean blur) {
+        int color = c.getRGB();
+        Matrix4f matrix = matrices.method_23760().method_23761();
+        float f = TargetHud.transformColor((float)(color >> 24 & 0xFF) / 255.0f);
+        float g = (float)(color >> 16 & 0xFF) / 255.0f;
+        float h = (float)(color >> 8 & 0xFF) / 255.0f;
+        float k = (float)(color & 0xFF) / 255.0f;
+        TargetHud.setupRender();
+        RenderSystem.setShader(GameRenderer::method_34540);
+        this.renderRoundedQuadInternal(matrix, g, h, k, f, fromX, fromY, toX, toY, radC1, radC2, radC3, radC4, samples);
+        if (blur) {
+            // empty if block
+        }
+        TargetHud.endRender();
+    }
+
+    private Color rainbow(int delay) {
+        double rainbowState = java.lang.Math.ceil(((double)this.progress + (double)delay * this.rainbowDelay.getValue()) / 20.0);
+        return Color.getHSBColor((float)(rainbowState % 360.0 / 360.0), this.saturation.getValueFloat() / 255.0f, 1.0f);
+    }
+
+    public void renderRoundedQuadInternal(Matrix4f matrix, float cr, float cg, float cb, float ca, double fromX, double fromY, double toX, double toY, double radC1, double radC2, double radC3, double radC4, double samples) {
+        BufferBuilder bufferBuilder = Tessellator.method_1348().method_1349();
+        bufferBuilder.method_1328(VertexFormat.DrawMode.field_27381, VertexFormats.field_1576);
+        double[][] map = new double[][]{{toX - radC4, toY - radC4, radC4}, {toX - radC2, fromY + radC2, radC2}, {fromX + radC1, fromY + radC1, radC1}, {fromX + radC3, toY - radC3, radC3}};
+        for (int i = 0; i < 4; ++i) {
+            double[] current = map[i];
+            double rad = current[2];
+            for (double r = (double)i * 90.0; r < 90.0 + (double)i * 90.0; r += 90.0 / samples) {
+                float rad1 = (float)Math.toRadians((double)r);
+                float sin = (float)((double)Math.sin((float)rad1) * rad);
+                float cos = (float)((double)Math.cos((float)rad1) * rad);
+                bufferBuilder.method_22918(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).method_22915(cr, cg, cb, ca).method_1344();
+            }
+            float rad1 = (float)Math.toRadians((double)(90.0 + (double)i * 90.0));
+            float sin = (float)((double)Math.sin((float)rad1) * rad);
+            float cos = (float)((double)Math.cos((float)rad1) * rad);
+            bufferBuilder.method_22918(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).method_22915(cr, cg, cb, ca).method_1344();
+        }
+        BufferRenderer.method_43433((BufferBuilder.BuiltBuffer)bufferBuilder.method_1326());
+    }
+
+    public void renderRoundedQuad(MatrixStack stack, Color c, double x, double y, double x1, double y1, double rad, double samples, boolean blur) {
+        this.renderRoundedQuad(stack, c, x, y, x1, y1, rad, rad, rad, rad, samples, blur);
+    }
+
+    public PlayerEntity getTarget() {
+        float min = 1000000.0f;
+        PlayerEntity best = null;
+        for (PlayerEntity player : TargetHud.mc.field_1687.method_18456()) {
+            if (!(player.method_5739((Entity)TargetHud.mc.field_1724) < min) || player.method_29504() || player == TargetHud.mc.field_1724 || HexTech.FRIEND.isFriend(player)) continue;
+            min = player.method_5739((Entity)TargetHud.mc.field_1724);
+            best = player;
+        }
+        return best;
+    }
+
+    static {
+        healthAnimation = new BetterDynamicAnimation();
+        hurtAnimation = new BetterDynamicAnimation();
+        alphaMultipliers = new Stack();
+    }
+}
