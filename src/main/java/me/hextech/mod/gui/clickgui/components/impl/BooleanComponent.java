@@ -66,11 +66,11 @@ extends Component {
         Render2DUtil.drawRect(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)width - 2.0f, (float)this.defaultHeight - 1.0f, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.shColor.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.sbgColor.getValue());
         this.currentWidth = BooleanComponent.animate(this.currentWidth, this.setting.getValue() ? (double)width - 2.0 : 0.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.booleanSpeed.getValue());
         switch (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue()) {
-            case Old: {
+            case New: {
                 TextUtil.drawString(drawContext, this.setting.getName(), x + 4, (double)y + this.getTextOffsetY(), this.setting.getValue() ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableTextS.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue());
                 break;
             }
-            case New: {
+            case Old: {
                 if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.booleanValue) {
                     Render2DUtil.drawRectHorizontal(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)this.currentWidth, (float)this.defaultHeight - (float)(!ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 1 : 0), this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainEnd.getValue());
                 } else {

@@ -313,6 +313,5 @@ extends Mod {
         Player,
         Client,
         Setting
-
     }
 }
