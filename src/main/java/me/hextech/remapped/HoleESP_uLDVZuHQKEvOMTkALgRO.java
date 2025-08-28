@@ -81,7 +81,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     HoleESP isHole(BlockPos pos) {
-        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && (!this.airYCheck.getValue() || pos.getY() == HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.method_31478() - 1) && CombatUtil.isHard(pos.up())) {
+        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && (!this.airYCheck.getValue() || pos.getY() == HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.getBlockY() - 1) && CombatUtil.isHard(pos.up())) {
             return HoleESP.Air;
         }
         int blockProgress = 0;

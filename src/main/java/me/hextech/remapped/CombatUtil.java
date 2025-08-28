@@ -84,7 +84,7 @@ implements Wrapper {
     }
 
     public static boolean isValid(Entity entity, double range) {
-        boolean invalid = entity == null || !entity.isAlive() || entity.equals((Object)CombatUtil.mc.player) || entity instanceof PlayerEntity && FriendManager.isFriend(entity.getName().getString()) || CombatUtil.mc.player.method_5858(entity) > MathUtil.square(range);
+        boolean invalid = entity == null || !entity.isAlive() || entity.equals((Object)CombatUtil.mc.player) || entity instanceof PlayerEntity && FriendManager.isFriend(entity.getName().getString()) || CombatUtil.mc.player.squaredDistanceTo(entity) > MathUtil.square(range);
         return !invalid;
     }
 
@@ -92,7 +92,7 @@ implements Wrapper {
         BlockPos bestPos = null;
         double bestDistance = range + 1.0f;
         for (BlockPos pos : BlockUtil.getSphere(range)) {
-            if (CombatUtil.mc.player == null || pos.getX() == CombatUtil.mc.player.method_31477() && pos.getZ() == CombatUtil.mc.player.method_31479() || !BlockUtil.isHole(pos, true, true, any) && (!doubleHole || !CombatUtil.isDoubleHole(pos)) || pos.getY() - CombatUtil.mc.player.method_31478() > 1) continue;
+            if (CombatUtil.mc.player == null || pos.getX() == CombatUtil.mc.player.getBlockX() && pos.getZ() == CombatUtil.mc.player.getBlockZ() || !BlockUtil.isHole(pos, true, true, any) && (!doubleHole || !CombatUtil.isDoubleHole(pos)) || pos.getY() - CombatUtil.mc.player.getBlockY() > 1) continue;
             double distance = MathHelper.sqrt((float)((float)CombatUtil.mc.player.squaredDistanceTo((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5)));
             if (bestPos != null && !(distance < bestDistance)) continue;
             bestPos = pos;
@@ -148,7 +148,7 @@ implements Wrapper {
                 closest = player;
                 continue;
             }
-            if (!(CombatUtil.mc.player.getEyePos().squaredDistanceTo(player.getPos()) < CombatUtil.mc.player.method_5858((Entity)closest))) continue;
+            if (!(CombatUtil.mc.player.getEyePos().squaredDistanceTo(player.getPos()) < CombatUtil.mc.player.squaredDistanceTo((Entity)closest))) continue;
             closest = player;
         }
         return closest;

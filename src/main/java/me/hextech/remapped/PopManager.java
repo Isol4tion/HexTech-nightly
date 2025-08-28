@@ -32,7 +32,7 @@ implements Wrapper {
             return;
         }
         for (PlayerEntity player : PopManager.mc.world.getPlayers()) {
-            if (player == null || player.method_5805()) {
+            if (player == null || player.isAlive()) {
                 this.deadPlayer.remove(player);
                 continue;
             }

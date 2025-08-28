@@ -173,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        if (!HoleSnap.mc.player.method_5805() || HoleSnap.mc.player.isFallFlying()) {
+        if (!HoleSnap.mc.player.isAlive() || HoleSnap.mc.player.isFallFlying()) {
             this.disable();
             return;
         }

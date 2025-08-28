@@ -111,7 +111,7 @@ implements Wrapper {
             if (blockState.getBlock().getBlastResistance() < 600.0f) {
                 return null;
             }
-            BlockHitResult hitResult = blockState.method_26220((BlockView)ExplosionUtil.mc.world, blockPos).raycast(start, end, blockPos);
+            BlockHitResult hitResult = blockState.getCollisionShape((BlockView)ExplosionUtil.mc.world, blockPos).raycast(start, end, blockPos);
             return hitResult == null ? null : hitResult.getType();
         }, _null -> HitResult.Type.MISS);
     }
@@ -119,9 +119,9 @@ implements Wrapper {
     public static int getProtectionAmount(Iterable<ItemStack> armorItems) {
         int value = 0;
         for (ItemStack itemStack : armorItems) {
-            int level = EnchantmentHelper.getLevel((Enchantment)Enchantments.field_9111, (ItemStack)itemStack);
+            int level = EnchantmentHelper.getLevel((Enchantment)Enchantments.PROTECTION, (ItemStack)itemStack);
             if (level == 0) {
-                value += EnchantmentHelper.getLevel((Enchantment)Enchantments.field_9107, (ItemStack)itemStack) * 2;
+                value += EnchantmentHelper.getLevel((Enchantment)Enchantments.BLAST_PROTECTION, (ItemStack)itemStack) * 2;
                 continue;
             }
             value += level;

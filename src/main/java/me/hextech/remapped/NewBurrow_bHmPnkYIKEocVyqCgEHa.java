@@ -431,7 +431,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private boolean hasEntity(BlockPos pos) {
         for (Entity entity : BlockUtil.getEntities(new Box(pos))) {
-            if (entity == NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player || !entity.method_5805() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || entity instanceof EndCrystalEntity && this.breakCrystal.getValue() || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
+            if (entity == NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player || !entity.isAlive() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || entity instanceof EndCrystalEntity && this.breakCrystal.getValue() || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
             return true;
         }
         return false;

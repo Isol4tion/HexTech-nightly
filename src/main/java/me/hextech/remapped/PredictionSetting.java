@@ -71,7 +71,7 @@ implements Wrapper {
         }
         if (this.drawnTarget.getValue()) {
             for (PlayerEntity p : PredictionSetting.mc.world.getPlayers()) {
-                if (p == PredictionSetting.mc.player || p.method_5858((Entity)PredictionSetting.mc.player) > 4096.0) continue;
+                if (p == PredictionSetting.mc.player || p.squaredDistanceTo((Entity)PredictionSetting.mc.player) > 4096.0) continue;
                 int ticks = Math.max(this.placeExtrap.getValueInt(), this.breakExtrap.getValueInt());
                 this.pathCache.put(p, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.simulate(p, ticks));
             }

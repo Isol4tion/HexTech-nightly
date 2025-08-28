@@ -36,7 +36,7 @@ extends AltSelectionList_MlYuzYrWmNSiQOBPfePW {
         return this.alt;
     }
 
-    public void method_25343(DrawContext drawContext, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+    public void render(DrawContext drawContext, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
         if (hovered) {
             drawContext.fill(x, y, x + entryWidth, y + entryHeight, new Color(255, 255, 255, 100).getRGB());
         }
@@ -45,16 +45,16 @@ extends AltSelectionList_MlYuzYrWmNSiQOBPfePW {
         drawContext.drawTextWithShadow(textRenderer, "Username: " + this.alt.getEmail(), x + 32 + 3, y + 2, 0xFFFFFF);
     }
 
-    public List<? extends Element> method_25396() {
+    public List<? extends Element> children() {
         return Collections.emptyList();
     }
 
-    public List<? extends Selectable> method_37025() {
+    public List<? extends Selectable> selectableChildren() {
         return Collections.emptyList();
     }
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        double d0 = mouseX - (double)this.this$0.method_25342();
+        double d0 = mouseX - (double)this.this$0.getRowLeft();
         if (d0 <= 32.0 && d0 < 32.0 && d0 > 16.0) {
             this.owner.setSelected(this);
             this.owner.loginToSelected();

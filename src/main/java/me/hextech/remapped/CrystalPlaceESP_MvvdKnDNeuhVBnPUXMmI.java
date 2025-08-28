@@ -90,7 +90,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         this.cryList.forEach((e, renderInfo) -> {
-            if ((double)(System.currentTimeMillis() - renderInfo.time) > this.animationTime.getValue() && !e.method_5805()) {
+            if ((double)(System.currentTimeMillis() - renderInfo.time) > this.animationTime.getValue() && !e.isAlive()) {
                 this.cryList.remove(e);
             }
             if ((double)(System.currentTimeMillis() - renderInfo.time) > this.animationTime.getValue() && (double)CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.player.distanceTo((Entity)e) > this.rangeValue.getValue()) {
