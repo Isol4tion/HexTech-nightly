@@ -104,8 +104,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         FreeCam.mc.player.input.movementForward = 0.0f;
         FreeCam.mc.player.input.movementSideways = 0.0f;
-        FreeCam.mc.player.input.field_3904 = false;
-        FreeCam.mc.player.input.field_3903 = false;
+        FreeCam.mc.player.input.jumping = false;
+        FreeCam.mc.player.input.sneaking = false;
     }
 
     public float getFakeYaw() {

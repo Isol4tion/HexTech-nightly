@@ -153,7 +153,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 position.z = Math.max((double)vector.x, (double)position.z);
                 float diff = (float)(position.z - position.x) / 2.0f;
                 posX = (float)((position.x + (double)diff) * 1.0);
-                posY = (float)(position.y - (double)(target.method_17682() / 2.0f));
+                posY = (float)(position.y - (double)(target.getHeight() / 2.0f));
             }
         }
         if (!this.move.getValue()) {
@@ -178,7 +178,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float maxWidth = (float)Math.max((double)Math.max((double)TargetHud.mc.textRenderer.getWidth(name), (double)(health * 100.0 / 36.0 + 10.0 + (double)TargetHud.mc.textRenderer.getWidth(healthText))), (double)TargetHud.mc.textRenderer.getWidth(popText));
         this.renderRoundedQuad(drawContext.getMatrices(), this.colorBack.getValue(), posX, (int)posY, posX + 46.0f + maxWidth + 5.0f, posY + 55.0f, this.ra.getValue(), 4.0, !(this.blur.getValue() <= 0.0));
         RenderSystem.setShaderColor((float)1.0f, (float)((float)(1.0 - hurtAnimation.getAnimationD())), (float)((float)(1.0 - hurtAnimation.getAnimationD())), (float)1.0f);
-        drawContext.method_25293(((AbstractClientPlayerEntity)target).getSkinTextures().texture(), (int)((double)posX + hurtAnimation.getAnimationD()) + 5, (int)((double)posY + hurtAnimation.getAnimationD()) + 5, (int)(44.0 - hurtAnimation.getAnimationD() * 2.0), (int)(44.0 - hurtAnimation.getAnimationD() * 2.0), 8.0f, 8.0f, 8, 8, 64, 64);
+        drawContext.drawTexture(((AbstractClientPlayerEntity)target).getSkinTextures().texture(), (int)((double)posX + hurtAnimation.getAnimationD()) + 5, (int)((double)posY + hurtAnimation.getAnimationD()) + 5, (int)(44.0 - hurtAnimation.getAnimationD() * 2.0), (int)(44.0 - hurtAnimation.getAnimationD() * 2.0), 8.0f, 8.0f, 8, 8, 64, 64);
         RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
         if (this.customFont.getValue()) {
             FontRenderers.Arial.drawString(drawContext.getMatrices(), name, (int)(posX + 50.0f), (int)posY + 5, this.textColor.getValue().getRGB(), false);

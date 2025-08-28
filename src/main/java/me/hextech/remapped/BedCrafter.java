@@ -55,7 +55,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onUpdate() {
         if (BedCrafter.getEmptySlots() == 0) {
             if (BedCrafter.mc.player.currentScreenHandler instanceof CraftingScreenHandler) {
-                BedCrafter.mc.player.method_7346();
+                BedCrafter.mc.player.closeHandledScreen();
             }
             if (this.disable.getValue()) {
                 this.disable();
@@ -67,13 +67,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             boolean craft = false;
             block0: for (RecipeResultCollection recipeResult : BedCrafter.mc.player.getRecipeBook().getOrderedResults()) {
                 for (RecipeEntry recipe : recipeResult.getRecipes(true)) {
-                    if (!(recipe.value().method_8110(BedCrafter.mc.world.method_30349()).getItem() instanceof BedItem)) continue;
+                    if (!(recipe.value().getResult(BedCrafter.mc.world.getRegistryManager()).getItem() instanceof BedItem)) continue;
                     int bed = 0;
                     for (int i = 0; i < BedCrafter.getEmptySlots(); ++i) {
                         craft = true;
                         if (bed >= this.beds.getValueInt()) continue block0;
                         ++bed;
-                        BedCrafter.mc.interactionManager.method_2912(BedCrafter.mc.player.currentScreenHandler.syncId, recipe, false);
+                        BedCrafter.mc.interactionManager.clickRecipe(BedCrafter.mc.player.currentScreenHandler.syncId, recipe, false);
                         BedCrafter.mc.interactionManager.clickSlot(BedCrafter.mc.player.currentScreenHandler.syncId, 0, 1, SlotActionType.QUICK_MOVE, (PlayerEntity)BedCrafter.mc.player);
                     }
                     continue block0;
@@ -81,7 +81,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (!craft) {
                 if (BedCrafter.mc.player.currentScreenHandler instanceof CraftingScreenHandler) {
-                    BedCrafter.mc.player.method_7346();
+                    BedCrafter.mc.player.closeHandledScreen();
                 }
                 if (this.disable.getValue()) {
                     this.disable();

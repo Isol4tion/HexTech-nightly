@@ -257,7 +257,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.disableTimer.passedMs(this.disableTime.getValueInt())) {
             if (this.close.getValue()) {
                 AutoRegear.mc.player.networkHandler.sendPacket((Packet)new CloseHandledScreenC2SPacket(AutoRegear.mc.player.currentScreenHandler.syncId));
-                AutoRegear.mc.player.method_7346();
+                AutoRegear.mc.player.closeHandledScreen();
             }
             this.disable();
         }

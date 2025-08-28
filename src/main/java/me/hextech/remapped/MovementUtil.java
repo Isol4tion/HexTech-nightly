@@ -17,7 +17,7 @@ implements Wrapper {
     }
 
     public static boolean isJumping() {
-        return MovementUtil.mc.player.input.field_3904;
+        return MovementUtil.mc.player.input.jumping;
     }
 
     public static double getDistance2D() {
@@ -50,23 +50,23 @@ implements Wrapper {
         double velX = 0.0;
         double velZ = 0.0;
         boolean a = false;
-        if (MovementUtil.mc.player.input.field_3910) {
+        if (MovementUtil.mc.player.input.pressingForward) {
             velX += forward.x / 20.0 * bps;
             velZ += forward.z / 20.0 * bps;
             a = true;
         }
-        if (MovementUtil.mc.player.input.field_3909) {
+        if (MovementUtil.mc.player.input.pressingBack) {
             velX -= forward.x / 20.0 * bps;
             velZ -= forward.z / 20.0 * bps;
             a = true;
         }
         boolean b = false;
-        if (MovementUtil.mc.player.input.field_3906) {
+        if (MovementUtil.mc.player.input.pressingRight) {
             velX += right.x / 20.0 * bps;
             velZ += right.z / 20.0 * bps;
             b = true;
         }
-        if (MovementUtil.mc.player.input.field_3908) {
+        if (MovementUtil.mc.player.input.pressingLeft) {
             velX -= right.x / 20.0 * bps;
             velZ -= right.z / 20.0 * bps;
             b = true;

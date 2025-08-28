@@ -54,9 +54,9 @@ implements Wrapper {
         if (ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world != null) {
             fake = new ExtrapolationUtil_GIipvtNGRWEFrnWjqFrx((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.getYaw(), new GameProfile(UUID.randomUUID(), "Predict"));
         }
-        fake.method_33574(center);
+        fake.setPosition(center);
         fake.setHealth(p.getHealth());
-        fake.method_24830(p.isOnGround());
+        fake.setOnGround(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
         p.getStatusEffects().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
         return fake;
@@ -85,7 +85,7 @@ implements Wrapper {
         for (int i = 0; i < ticks; ++i) {
             List collisions = null;
             if (ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world != null) {
-                collisions = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.method_20743(null, box.stretch(x, y, z));
+                collisions = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.getEntityCollisions(null, box.stretch(x, y, z));
             }
             Vec3d adjusted = null;
             if (collisions != null) {
@@ -127,7 +127,7 @@ implements Wrapper {
         for (int i = 0; i < ticks; ++i) {
             List collisions = null;
             if (ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world != null) {
-                collisions = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.method_20743(null, box.stretch(x, y, z));
+                collisions = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.getEntityCollisions(null, box.stretch(x, y, z));
             }
             Vec3d adjusted = null;
             if (collisions != null) {
@@ -161,15 +161,15 @@ implements Wrapper {
         Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(p, ticks, PredictionSetting.INSTANCE.smoothTicks.getValueInt());
         Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
         ExtrapolationUtil fake = new ExtrapolationUtil((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.getYaw(), new GameProfile(UUID.randomUUID(), "SelfPredict"));
-        fake.method_33574(center);
+        fake.setPosition(center);
         fake.setHealth(p.getHealth());
-        fake.method_24830(p.isOnGround());
+        fake.setOnGround(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
         p.getStatusEffects().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
         return fake;
     }
 
     static boolean inside(PlayerEntity p, Box box) {
-        return !ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.method_8587((Entity)p, box);
+        return !ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.isSpaceEmpty((Entity)p, box);
     }
 }

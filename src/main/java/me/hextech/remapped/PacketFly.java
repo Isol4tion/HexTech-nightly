@@ -53,7 +53,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         PacketFly.mc.player.setMaxLength0(0.0, 0.0, 0.0);
         boolean checkCollisionBoxes = this.checkHitBoxes();
-        double d = PacketFly.mc.player.input.field_3904 && (checkCollisionBoxes || !MovementUtil.isMoving()) ? (this.flight.getValue() && !checkCollisionBoxes ? (this.flightMode.getValue() == 0.0 ? (this.resetCounter(10) ? -0.032 : 0.062) : (this.resetCounter(20) ? -0.032 : 0.062)) : 0.062) : (PacketFly.mc.player.input.field_3903 ? -0.062 : (!checkCollisionBoxes ? (this.resetCounter(4) ? (this.flight.getValue() ? -0.04 : 0.0) : 0.0) : (speed = 0.0)));
+        double d = PacketFly.mc.player.input.jumping && (checkCollisionBoxes || !MovementUtil.isMoving()) ? (this.flight.getValue() && !checkCollisionBoxes ? (this.flightMode.getValue() == 0.0 ? (this.resetCounter(10) ? -0.032 : 0.062) : (this.resetCounter(20) ? -0.032 : 0.062)) : 0.062) : (PacketFly.mc.player.input.sneaking ? -0.062 : (!checkCollisionBoxes ? (this.resetCounter(4) ? (this.flight.getValue() ? -0.04 : 0.0) : 0.0) : (speed = 0.0)));
         if (checkCollisionBoxes && MovementUtil.isMoving() && speed != 0.0) {
             speed /= this.antiFactor.getValue();
         }
@@ -78,7 +78,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             event.setY(MovementUtil.getMotionY());
             event.setZ(MovementUtil.getMotionZ());
             if (this.nocliperino.getValue() && this.checkHitBoxes()) {
-                PacketFly.mc.player.field_5960 = true;
+                PacketFly.mc.player.noClip = true;
             }
         }
     }
@@ -108,7 +108,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (event.getPacket() instanceof PlayerPositionLookS2CPacket) {
             PlayerPositionLookS2CPacket packet = (PlayerPositionLookS2CPacket)event.getPacket();
             if (this.setID.getValue()) {
-                this.teleportID = packet.method_11737();
+                this.teleportID = packet.getTeleportId();
             }
         }
     }

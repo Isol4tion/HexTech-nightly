@@ -160,7 +160,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         BlockUtil.placedPos.add(pos);
         boolean sprint = false;
         if (HoleFiller.mc.player != null) {
-            sprint = HoleFiller.mc.player.method_5624();
+            sprint = HoleFiller.mc.player.isSprinting();
         }
         boolean sneak = false;
         if (HoleFiller.mc.world != null) {

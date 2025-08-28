@@ -212,7 +212,7 @@ implements Wrapper {
         placedPos.add(pos);
         boolean sprint = false;
         if (BlockUtil.mc.player != null) {
-            sprint = BlockUtil.mc.player.method_5624();
+            sprint = BlockUtil.mc.player.isSprinting();
         }
         boolean sneak = false;
         if (BlockUtil.mc.world != null) {
@@ -378,7 +378,7 @@ implements Wrapper {
 
     public static boolean isStrictDirection(BlockPos pos, Direction side) {
         BlockState blockState = BlockUtil.mc.world.getBlockState(pos);
-        boolean isFullBox = blockState.isAir() || blockState.method_26234((BlockView)BlockUtil.mc.world, pos) || BlockUtil.getBlock(pos) == Blocks.COBWEB;
+        boolean isFullBox = blockState.isAir() || blockState.isFullCube((BlockView)BlockUtil.mc.world, pos) || BlockUtil.getBlock(pos) == Blocks.COBWEB;
         return BlockUtil.isStrictDirection(pos, side, isFullBox);
     }
 
@@ -437,8 +437,8 @@ implements Wrapper {
 
     public static Stream<WorldChunk> getLoadedChunks() {
         int radius = Math.max(2, BlockUtil.mc.options.getClampedViewDistance()) + 3;
-        int diameter = radius * 2 + 1;
-        ChunkPos center = BlockUtil.mc.player.method_31476();
+        int diameter = radius * 2 + 1;getChunkPos
+        ChunkPos center = BlockUtil.mc.player.getChunkPos();
         ChunkPos min = new ChunkPos(center.x - radius, center.z - radius);
         ChunkPos max = new ChunkPos(center.x + radius, center.z + radius);
         return Stream.iterate(min, pos -> {
@@ -449,7 +449,7 @@ implements Wrapper {
                 ++z;
             }
             return new ChunkPos(x, z);
-        }).limit((long)diameter * (long)diameter).filter(c -> BlockUtil.mc.world.method_8393(c.x, c.z)).map(c -> BlockUtil.mc.world.getChunk(c.x, c.z)).filter(Objects::nonNull);
+        }).limit((long)diameter * (long)diameter).filter(c -> BlockUtil.mc.world.isChunkLoaded(c.x, c.z)).map(c -> BlockUtil.mc.world.getChunk(c.x, c.z)).filter(Objects::nonNull);
     }
 
     public static ArrayList<BlockPos> getSphere(float range) {
@@ -485,11 +485,11 @@ implements Wrapper {
         if (BlockUtil.mc.world.getBlockState(pos).getBlock() == Blocks.COBWEB && WebAuraTick.ignore && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.replace.getValue()) {
             return true;
         }
-        return BlockUtil.getState(pos).method_45474();
+        return BlockUtil.getState(pos).isReplaceable();
     }
 
     public static boolean canClick(BlockPos pos) {
-        return BlockUtil.mc.world.getBlockState(pos).method_51367() && (!shiftBlocks.contains(BlockUtil.getBlock(pos)) && !(BlockUtil.getBlock(pos) instanceof BedBlock) || BlockUtil.mc.player.isSneaking());
+        return BlockUtil.mc.world.getBlockState(pos).isSolid() && (!shiftBlocks.contains(BlockUtil.getBlock(pos)) && !(BlockUtil.getBlock(pos) instanceof BedBlock) || BlockUtil.mc.player.isSneaking());
     }
 
     public static boolean airPlace() {

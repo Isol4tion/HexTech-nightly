@@ -83,8 +83,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         entity.handSwingProgress = e.getPlayer().handSwingProgress;
         entity.field_6279 = e.getPlayer().field_6279;
         entity.method_5660(e.getPlayer().isSneaking());
-        entity.field_42108.setSpeed(e.getPlayer().field_42108.getSpeed());
-        entity.field_42108.pos = e.getPlayer().field_42108.getPos();
+        entity.limbAnimator.setSpeed(e.getPlayer().limbAnimator.getSpeed());
+        entity.limbAnimator.pos = e.getPlayer().limbAnimator.getPos();
         this.popList.add(new PopChams(this, entity));
     }
 
@@ -96,8 +96,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         matrices.translate((float)x, (float)y, (float)z);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotation(MathUtil.rad(180.0f - entity.bodyYaw)));
         PopChams_WNWBvFQQYNjRmTHDKpkM.prepareScale(matrices);
-        modelBase.method_17086((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), mc.getTickDelta());
-        modelBase.method_17087((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float)entity.age, entity.headYaw - entity.bodyYaw, entity.getPitch());
+        modelBase.animateModel((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), mc.getTickDelta());
+        modelBase.setAngles((LivingEntity)((PlayerEntity)entity), entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float)entity.age, entity.headYaw - entity.bodyYaw, entity.getPitch());
         RenderSystem.enableBlend();
         GL11.glDisable((int)2929);
         Tessellator tessellator = Tessellator.getInstance();

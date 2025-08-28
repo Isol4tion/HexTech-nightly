@@ -19,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SplashPotionItem;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.c2s.play.PickFromInventoryC2SPacket;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.screen.slot.SlotActionType;
 
@@ -44,7 +45,7 @@ implements Wrapper {
                 InventoryUtil.switchToSlot(slot - 36);
                 return;
             }
-            mc.getNetworkHandler().sendPacket((Packet)new class_2838(slot));
+            mc.getNetworkHandler().sendPacket((Packet)new PickFromInventoryC2SPacket(slot));
             return;
         }
         InventoryUtil.mc.interactionManager.clickSlot(InventoryUtil.mc.player.currentScreenHandler.syncId, slot, selectedSlot, SlotActionType.SWAP, (PlayerEntity)InventoryUtil.mc.player);
@@ -177,18 +178,18 @@ implements Wrapper {
         return count;
     }
 
-    public static int getArmorCount(ArmorItem.class_8051 type) {
+    public static int getArmorCount(ArmorItem.Type type) {
         int count = 0;
         for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
-            if (!(entry.getValue().getItem() instanceof ArmorItem) || ((ArmorItem)entry.getValue().getItem()).method_48398() != type) continue;
+            if (!(entry.getValue().getItem() instanceof ArmorItem) || ((ArmorItem)entry.getValue().getItem()).getType() != type) continue;
             count += entry.getValue().getCount();
         }
         return count;
     }
 
-    public static boolean CheckArmorType(Item item, ArmorItem.class_8051 type) {
+    public static boolean CheckArmorType(Item item, ArmorItem.Type type) {
         if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.checkArmor.getValue()) {
-            return item instanceof ArmorItem && ((ArmorItem)item).method_48398() == type;
+            return item instanceof ArmorItem && ((ArmorItem)item).getType() == type;
         }
         return false;
     }

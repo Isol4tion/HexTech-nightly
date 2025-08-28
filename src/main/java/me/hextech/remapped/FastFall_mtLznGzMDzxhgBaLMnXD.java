@@ -52,7 +52,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (this.height.getValue() > 0.0 && (double)this.traceDown() > this.height.getValue() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.method_5757() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isSubmergedInWater() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isInLava() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isHoldingOntoLadder() || !this.lagTimer.passedMs(1000L) || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isFallFlying() || Flight.INSTANCE.isOn() || FastFall_mtLznGzMDzxhgBaLMnXD.nullCheck()) {
+        if (this.height.getValue() > 0.0 && (double)this.traceDown() > this.height.getValue() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isInsideWall() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isSubmergedInWater() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isInLava() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isHoldingOntoLadder() || !this.lagTimer.passedMs(1000L) || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isFallFlying() || Flight.INSTANCE.isOn() || FastFall_mtLznGzMDzxhgBaLMnXD.nullCheck()) {
             return;
         }
         if (HoleKickTest.isInWeb((PlayerEntity)FastFall_mtLznGzMDzxhgBaLMnXD.mc.player)) {

@@ -130,10 +130,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double motionDist = Math.sqrt(this.getX() * this.getX() + this.getZ() * this.getZ());
         if (ElytraFly.mc.options.sneakKey.isPressed()) {
             this.setY(-this.sneakDownSpeed.getValue());
-        } else if (!ElytraFly.mc.player.input.field_3904) {
+        } else if (!ElytraFly.mc.player.input.jumping) {
             this.setY(-3.0E-14 * this.downFactor.getValue());
         }
-        if (ElytraFly.mc.player.input.field_3904) {
+        if (ElytraFly.mc.player.input.jumping) {
             if (motionDist > this.upFactor.getValue() / this.upFactor.getMaximum()) {
                 double rawUpSpeed = motionDist * 0.01325;
                 this.setY(this.getY() + rawUpSpeed * 3.2);
@@ -149,7 +149,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.setX(this.getX() + (lookVec.x / lookDist * motionDist - this.getX()) * 0.1);
             this.setZ(this.getZ() + (lookVec.z / lookDist * motionDist - this.getZ()) * 0.1);
         }
-        if (!ElytraFly.mc.player.input.field_3904) {
+        if (!ElytraFly.mc.player.input.jumping) {
             dir = MovementUtil.directionSpeed(this.speed.getValue());
             this.setX(dir[0]);
             this.setZ(dir[1]);

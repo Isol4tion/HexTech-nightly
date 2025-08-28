@@ -11,13 +11,14 @@ import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.MovementUtil;
 import me.hextech.remapped.SliderSetting;
 import net.minecraft.class_1770;
-import net.minecraft.class_1900;
+import net.minecraft.ProtectionEnchantment;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.Packet;
@@ -61,10 +62,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (int s = 0; s < 36; ++s) {
             if (!(AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ArmorItem) && AutoArmor.mc.player.getInventory().getStack(s).getItem() != Items.ELYTRA) continue;
             int protection = this.getProtection(AutoArmor.mc.player.getInventory().getStack(s));
-            EquipmentSlot slot = AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof class_1770 ? EquipmentSlot.CHEST : ((ArmorItem)AutoArmor.mc.player.getInventory().getStack(s).getItem()).method_7685();
+            EquipmentSlot slot = AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ElytraItem ? EquipmentSlot.CHEST : ((ArmorItem)AutoArmor.mc.player.getInventory().getStack(s).getItem()).getSlotType();
             for (Map.Entry e : armorMap.entrySet()) {
                 if (this.autoElytra.getValue() && ElytraFly.INSTANCE.isOn() && e.getKey() == EquipmentSlot.CHEST) {
-                    if (!AutoArmor.mc.player.getInventory().getStack(38).isEmpty() && AutoArmor.mc.player.getInventory().getStack(38).getItem() instanceof class_1770 && class_1770.method_7804((ItemStack)AutoArmor.mc.player.getInventory().getStack(38)) || ((int[])e.getValue())[2] != -1 && !AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2]).isEmpty() && AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2]).getItem() instanceof class_1770 && class_1770.method_7804((ItemStack)AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2])) || AutoArmor.mc.player.getInventory().getStack(s).isEmpty() || !(AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof class_1770) || !class_1770.method_7804((ItemStack)AutoArmor.mc.player.getInventory().getStack(s))) continue;
+                    if (!AutoArmor.mc.player.getInventory().getStack(38).isEmpty() && AutoArmor.mc.player.getInventory().getStack(38).getItem() instanceof ElytraItem && ElytraItem.isUsable((ItemStack)AutoArmor.mc.player.getInventory().getStack(38)) || ((int[])e.getValue())[2] != -1 && !AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2]).isEmpty() && AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2]).getItem() instanceof ElytraItem && ElytraItem.isUsable((ItemStack)AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2])) || AutoArmor.mc.player.getInventory().getStack(s).isEmpty() || !(AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ElytraItem) || !ElytraItem.isUsable((ItemStack)AutoArmor.mc.player.getInventory().getStack(s))) continue;
                     ((int[])e.getValue())[2] = s;
                     continue;
                 }
@@ -99,19 +100,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private int getProtection(ItemStack is) {
         if (is.getItem() instanceof ArmorItem || is.getItem() == Items.ELYTRA) {
             int prot = 0;
-            if (is.getItem() instanceof class_1770) {
-                if (!class_1770.method_7804((ItemStack)is)) {
+            if (is.getItem() instanceof ElytraItem) {
+                if (!ElytraItem.isUsable((ItemStack)is)) {
                     return 0;
                 }
                 prot = 1;
             }
             if (is.hasEnchantments()) {
-                for (Map.Entry e : EnchantmentHelper.method_8222((ItemStack)is).entrySet()) {
-                    if (!(e.getKey() instanceof class_1900)) continue;
+                for (Map.Entry e : EnchantmentHelper.get((ItemStack)is).entrySet()) {
+                    if (!(e.getKey() instanceof ProtectionEnchantment)) continue;
                     prot += ((Integer)e.getValue()).intValue();
                 }
             }
-            return (is.getItem() instanceof ArmorItem ? ((ArmorItem)is.getItem()).method_7687() : 0) + prot;
+            return (is.getItem() instanceof ArmorItem ? ((ArmorItem)is.getItem()).getProtection() : 0) + prot;
         }
         if (!is.isEmpty()) {
             return 0;

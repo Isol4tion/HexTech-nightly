@@ -622,7 +622,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         BlockUtil.placedPos.add(pos);
         boolean sprint = false;
         if (PistonCrystal.mc.player != null) {
-            sprint = PistonCrystal.mc.player.method_5624();
+            sprint = PistonCrystal.mc.player.isSprinting();
         }
         boolean sneak = false;
         if (PistonCrystal.mc.world != null) {

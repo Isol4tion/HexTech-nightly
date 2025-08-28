@@ -161,7 +161,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         CombatUtil.attackCrystal(pos2, rotate, false);
         CombatUtil.attackCrystal(pos3, rotate, false);
         CombatUtil.attackCrystal(pos4, rotate, false);
-        if (Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.method_18276() || this.Trapped(headPos) || this.Trapped(headPos.add(1, 0, 0)) || this.Trapped(headPos.add(-1, 0, 0)) || this.Trapped(headPos.add(0, 0, 1)) || this.Trapped(headPos.add(0, 0, -1)) || this.Trapped(headPos.add(1, 0, -1)) || this.Trapped(headPos.add(-1, 0, -1)) || this.Trapped(headPos.add(1, 0, 1)) || this.Trapped(headPos.add(-1, 0, 1))) {
+        if (Burrow_eOaBGEoOSTDRbYIUAbXC.mc.player.isInSneakingPose() || this.Trapped(headPos) || this.Trapped(headPos.add(1, 0, 0)) || this.Trapped(headPos.add(-1, 0, 0)) || this.Trapped(headPos.add(0, 0, 1)) || this.Trapped(headPos.add(0, 0, -1)) || this.Trapped(headPos.add(1, 0, -1)) || this.Trapped(headPos.add(-1, 0, -1)) || this.Trapped(headPos.add(1, 0, 1)) || this.Trapped(headPos.add(-1, 0, 1))) {
             above = true;
             if (!this.fakeMove.getValue()) {
                 if (!this.Wait.getValue()) {

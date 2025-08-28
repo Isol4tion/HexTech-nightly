@@ -514,7 +514,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         BlockUtil.placedPos.add(pos);
         boolean sprint = false;
         if (HoleKickTest.mc.player != null) {
-            sprint = HoleKickTest.mc.player.method_5624();
+            sprint = HoleKickTest.mc.player.isSprinting();
         }
         boolean sneak = false;
         if (sprint) {
