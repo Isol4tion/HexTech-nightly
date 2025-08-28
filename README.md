@@ -4,7 +4,7 @@
 
 Skidding Time!!!
 
-# 现在的代码无法正常运行，等我们修一修。
+# 现在的代码已经可以正常运行了
 
 ## 后门(已被5k1D移除)
 <img src="photo\1.png" alt="1" style="zoom: 25%;" />
