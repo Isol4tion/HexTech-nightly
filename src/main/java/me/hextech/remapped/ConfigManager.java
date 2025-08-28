@@ -5,27 +5,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 import me.hextech.HexTech;
-import me.hextech.remapped.BindSetting;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.ClickGuiTab;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Setting;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.StringSetting;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import org.apache.commons.io.IOUtils;
 
 public class ConfigManager

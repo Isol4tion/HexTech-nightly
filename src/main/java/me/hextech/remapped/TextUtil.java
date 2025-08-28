@@ -2,12 +2,8 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 import java.util.Objects;
-import me.hextech.remapped.ChatSetting_qVnAbgCzNciNTevKRovy;
-import me.hextech.remapped.ClickGui_ABoiivByuLsVqarYqfYv;
-import me.hextech.remapped.ColorUtil;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.FontRenderers;
-import me.hextech.remapped.Wrapper;
+
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.Camera;
@@ -15,7 +11,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
-import org.joml.Matrix4fc;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11;

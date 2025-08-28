@@ -1,6 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;

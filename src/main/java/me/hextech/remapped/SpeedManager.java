@@ -2,10 +2,7 @@ package me.hextech.remapped;
 
 import java.util.HashMap;
 import me.hextech.HexTech;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.UpdateWalkingEvent;
-import me.hextech.remapped.Wrapper;
-import net.minecraft.entity.Entity;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 

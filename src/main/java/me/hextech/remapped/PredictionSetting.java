@@ -7,26 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn;
-import me.hextech.remapped.JelloUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 
-import me.hextech.remapped.Render3DUtil;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Wrapper;
-import net.minecraft.client.network.ClientPlayerEntity;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 public class PredictionSetting
 extends Module_eSdgMXWuzcxgQVaJFmKZ

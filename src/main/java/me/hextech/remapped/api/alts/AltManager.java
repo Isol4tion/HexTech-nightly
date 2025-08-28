@@ -1,23 +1,19 @@
-package me.hextech.remapped;
+package me.hextech.remapped.api.alts;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import me.hextech.asm.accessors.IMinecraftClient;
-import me.hextech.remapped.Alt;
 import me.hextech.remapped.Manager;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.session.Session;
 import org.apache.commons.io.IOUtils;
 

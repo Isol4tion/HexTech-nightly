@@ -1,9 +1,9 @@
-package me.hextech.remapped;
+package me.hextech.remapped.mod.commands;
 
 import java.util.List;
 import java.util.Objects;
 import me.hextech.remapped.CommandManager;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 
 public abstract class Command
 implements Wrapper {

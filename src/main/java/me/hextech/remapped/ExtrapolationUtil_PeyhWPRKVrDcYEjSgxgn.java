@@ -7,15 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import me.hextech.remapped.PredictionSetting;
-import me.hextech.remapped.Wrapper;
+
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 public final class ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn
 implements Wrapper {

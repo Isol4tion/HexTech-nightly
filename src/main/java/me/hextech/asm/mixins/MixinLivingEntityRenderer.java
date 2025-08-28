@@ -6,7 +6,7 @@ import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import me.hextech.remapped.MathUtil;
 import me.hextech.remapped.NoRender;
 import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;

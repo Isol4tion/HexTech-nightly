@@ -2,10 +2,8 @@ package me.hextech.remapped;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import me.hextech.remapped.AStarCustomPathFinder;
-import me.hextech.remapped.AStarCustomPathFinder_GIsiOdvkuKbgFcjrKqrl;
-import me.hextech.remapped.Vec3;
-import me.hextech.remapped.Wrapper;
+
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.block.CactusBlock;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.EnderChestBlock;

@@ -3,16 +3,10 @@ package me.hextech.remapped;
 import java.util.ArrayList;
 import java.util.HashMap;
 import me.hextech.HexTech;
-import me.hextech.remapped.DeathEvent;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PacketEvent_YXFfxdDjQAfjBumqRbBu;
-import me.hextech.remapped.TotemEvent;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
-import net.minecraft.world.World;
 
 public class PopManager
 implements Wrapper {

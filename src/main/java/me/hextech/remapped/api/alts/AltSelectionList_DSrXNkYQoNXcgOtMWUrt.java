@@ -1,15 +1,10 @@
-package me.hextech.remapped;
+package me.hextech.remapped.api.alts;
 
 import java.util.ArrayList;
 import java.util.List;
 import me.hextech.HexTech;
-import me.hextech.remapped.Alt;
-import me.hextech.remapped.AltScreen;
-import me.hextech.remapped.AltSelectionList;
-import me.hextech.remapped.AltSelectionList_MlYuzYrWmNSiQOBPfePW;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ElementListWidget;
-import net.minecraft.client.gui.widget.EntryListWidget;
 import org.jetbrains.annotations.Nullable;
 
 public class AltSelectionList_DSrXNkYQoNXcgOtMWUrt

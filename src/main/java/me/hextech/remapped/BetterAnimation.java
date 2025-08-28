@@ -1,6 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.util.math.MathHelper;
 
 public class BetterAnimation {

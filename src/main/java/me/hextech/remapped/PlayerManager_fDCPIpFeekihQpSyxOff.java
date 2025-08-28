@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import me.hextech.remapped.BlockPosX;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PlayerManager;
-import me.hextech.remapped.Wrapper;
+
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;

@@ -1,10 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.Wrapper;
-import net.minecraft.entity.Entity;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;

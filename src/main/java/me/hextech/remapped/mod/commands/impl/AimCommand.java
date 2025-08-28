@@ -1,10 +1,11 @@
-package me.hextech.remapped;
+package me.hextech.remapped.mod.commands.impl;
 
 import java.text.DecimalFormat;
 import java.util.List;
-import me.hextech.remapped.Command;
+
 import me.hextech.remapped.CommandManager;
 import me.hextech.remapped.EntityUtil;
+import me.hextech.remapped.mod.commands.Command;
 import net.minecraft.util.math.Vec3d;
 
 public class AimCommand

@@ -1,7 +1,6 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.AltScreen;
-import net.minecraft.client.gui.Element;
+import me.hextech.remapped.api.alts.AltScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;

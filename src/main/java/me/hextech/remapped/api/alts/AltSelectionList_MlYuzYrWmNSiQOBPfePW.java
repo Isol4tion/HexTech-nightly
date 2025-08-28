@@ -1,4 +1,4 @@
-package me.hextech.remapped;
+package me.hextech.remapped.api.alts;
 
 import net.minecraft.client.gui.widget.ElementListWidget;
 

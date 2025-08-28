@@ -4,14 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Objects;
 import me.hextech.HexTech;
-import me.hextech.remapped.DeathEvent;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.TotemEvent;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class HitLog
@@ -94,7 +88,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
         public HitLog_STBbGhMCskXcqFYRXyft(String text) {
             this.text = text;
-            this.x = (double)Wrapper.mc.getWindow().getWidth() / 4.0;
+            this.x = (double) Wrapper.mc.getWindow().getWidth() / 4.0;
             this.y = HitLog.y - 20.0;
             this.alpha = 0.0;
         }

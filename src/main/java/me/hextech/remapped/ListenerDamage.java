@@ -1,12 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
-import me.hextech.remapped.BedAura_BzCWaQEhnpenizjBqrRp;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.PistonCrystal;
-import me.hextech.remapped.SpeedMine;
-import me.hextech.remapped.Wrapper;
-import net.minecraft.entity.Entity;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;

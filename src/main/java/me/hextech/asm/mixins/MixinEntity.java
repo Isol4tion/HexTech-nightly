@@ -7,7 +7,7 @@ import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.NoRender;
 import me.hextech.remapped.Shader_CLqIXXaHSdAoBoxRSgjR;
 import me.hextech.remapped.Velocity;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import me.hextech.remapped.inVelocityEvent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;

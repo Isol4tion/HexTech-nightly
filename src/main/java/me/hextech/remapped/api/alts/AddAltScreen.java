@@ -1,10 +1,7 @@
-package me.hextech.remapped;
+package me.hextech.remapped.api.alts;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.Alt;
-import me.hextech.remapped.AltScreen;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;

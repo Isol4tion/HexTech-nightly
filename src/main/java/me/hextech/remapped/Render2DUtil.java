@@ -3,7 +3,7 @@ package me.hextech.remapped;
 import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
 import me.hextech.HexTech;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferRenderer;

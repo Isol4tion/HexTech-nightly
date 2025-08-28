@@ -2,10 +2,8 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 import java.util.Objects;
-import me.hextech.remapped.AnimateUtil;
-import me.hextech.remapped.ClickGuiTab;
-import me.hextech.remapped.ClickGui_ABoiivByuLsVqarYqfYv;
-import me.hextech.remapped.Wrapper;
+
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.gui.DrawContext;
 
 public abstract class Component

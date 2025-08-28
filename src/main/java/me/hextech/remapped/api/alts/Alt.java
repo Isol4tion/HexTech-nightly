@@ -1,4 +1,4 @@
-package me.hextech.remapped;
+package me.hextech.remapped.api.alts;
 
 public class Alt {
     private String email;

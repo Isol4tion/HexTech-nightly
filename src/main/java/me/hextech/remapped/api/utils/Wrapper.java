@@ -1,4 +1,4 @@
-package me.hextech.remapped;
+package me.hextech.remapped.api.utils;
 
 import net.minecraft.client.MinecraftClient;
 

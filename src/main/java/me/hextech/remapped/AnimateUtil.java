@@ -1,6 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
+import me.hextech.remapped.api.utils.Wrapper;
 
 public class AnimateUtil
 implements Wrapper {

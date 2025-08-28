@@ -2,10 +2,7 @@ package me.hextech.remapped;
 
 import java.util.concurrent.ConcurrentHashMap;
 import me.hextech.HexTech;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.MineManager;
-import me.hextech.remapped.PacketEvent_YXFfxdDjQAfjBumqRbBu;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.network.packet.s2c.play.BlockBreakingProgressS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;

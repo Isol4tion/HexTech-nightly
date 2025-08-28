@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import me.hextech.HexTech;
-import me.hextech.remapped.Command;
-import me.hextech.remapped.CommandManager;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
+import me.hextech.remapped.mod.commands.Command;
 import org.apache.commons.lang3.StringUtils;
 
 public class HelpCommand

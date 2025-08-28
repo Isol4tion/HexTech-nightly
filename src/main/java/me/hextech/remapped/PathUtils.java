@@ -1,11 +1,8 @@
 package me.hextech.remapped;
 
 import java.util.ArrayList;
-import me.hextech.remapped.AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ;
-import me.hextech.remapped.BlockPosX;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.Vec3;
-import me.hextech.remapped.Wrapper;
+
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PlantBlock;

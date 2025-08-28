@@ -2,8 +2,7 @@ package me.hextech.remapped;
 
 import java.text.DecimalFormat;
 import java.util.List;
-import me.hextech.remapped.Command;
-import me.hextech.remapped.CommandManager;
+import me.hextech.remapped.mod.commands.Command;
 
 public class ClipCommand
 extends Command {

@@ -1,17 +1,9 @@
-package me.hextech.remapped;
+package me.hextech.remapped.api.alts;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.AddAltScreen;
-import me.hextech.remapped.Alt;
-import me.hextech.remapped.AltSelectionList;
-import me.hextech.remapped.AltSelectionList_DSrXNkYQoNXcgOtMWUrt;
-import me.hextech.remapped.AltSelectionList_MlYuzYrWmNSiQOBPfePW;
-import me.hextech.remapped.DirectLoginAltScreen;
-import me.hextech.remapped.EditAltScreen;
-import me.hextech.remapped.TokenLoginScreen;
+import me.hextech.remapped.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;

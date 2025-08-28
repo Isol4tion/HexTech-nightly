@@ -4,7 +4,7 @@ import me.hextech.HexTech;
 import me.hextech.remapped.AntiCrawl;
 import me.hextech.remapped.Event;
 import me.hextech.remapped.TravelEvent;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;

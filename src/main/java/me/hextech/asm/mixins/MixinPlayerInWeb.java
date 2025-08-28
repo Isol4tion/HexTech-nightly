@@ -2,7 +2,7 @@ package me.hextech.asm.mixins;
 
 import me.hextech.remapped.FastWeb;
 import me.hextech.remapped.FastWeb_dehcwwTxEbDSnkFtZvNl;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CobwebBlock;
 import net.minecraft.entity.Entity;

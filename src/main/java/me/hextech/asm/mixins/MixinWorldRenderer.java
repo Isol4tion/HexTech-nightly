@@ -5,7 +5,7 @@ import me.hextech.remapped.FreeCam;
 import me.hextech.remapped.NoInterp;
 import me.hextech.remapped.ShaderManager;
 import me.hextech.remapped.Shader_CLqIXXaHSdAoBoxRSgjR;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.render.Camera;

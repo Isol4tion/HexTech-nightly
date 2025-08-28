@@ -1,12 +1,9 @@
-package me.hextech.remapped;
+package me.hextech.remapped.api.alts;
 
 import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
-import me.hextech.remapped.Alt;
-import me.hextech.remapped.AltScreen;
-import me.hextech.remapped.AltSelectionList_DSrXNkYQoNXcgOtMWUrt;
-import me.hextech.remapped.AltSelectionList_MlYuzYrWmNSiQOBPfePW;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;

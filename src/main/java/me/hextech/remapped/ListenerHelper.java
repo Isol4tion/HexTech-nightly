@@ -1,16 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
-import me.hextech.remapped.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.Enum_rNhWITNdkrqkhKfDZgGo;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.ListenerDamage;
-import me.hextech.remapped.ListenerHelperUtil;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Hand;

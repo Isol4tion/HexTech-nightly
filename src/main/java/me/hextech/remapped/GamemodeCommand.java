@@ -1,7 +1,7 @@
 package me.hextech.remapped;
 
 import java.util.List;
-import me.hextech.remapped.Command;
+import me.hextech.remapped.mod.commands.Command;
 import net.minecraft.world.GameMode;
 
 public class GamemodeCommand

@@ -3,11 +3,8 @@ package me.hextech.remapped;
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.PathUtils;
-import me.hextech.remapped.Vec3;
-import me.hextech.remapped.Wrapper;
-import net.minecraft.network.packet.Packet;
+
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.Vec3d;
 

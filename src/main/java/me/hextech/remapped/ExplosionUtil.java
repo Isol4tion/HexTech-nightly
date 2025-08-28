@@ -1,11 +1,8 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;

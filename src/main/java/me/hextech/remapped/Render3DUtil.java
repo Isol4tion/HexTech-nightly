@@ -2,10 +2,8 @@ package me.hextech.remapped;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
-import me.hextech.remapped.BreakESP;
-import me.hextech.remapped.FontRenderers;
-import me.hextech.remapped.SpeedMine;
-import me.hextech.remapped.Wrapper;
+
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Camera;
@@ -17,7 +15,6 @@ import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.decoration.EndCrystalEntity;
-import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;

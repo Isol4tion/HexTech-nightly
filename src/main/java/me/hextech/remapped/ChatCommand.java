@@ -3,7 +3,7 @@ package me.hextech.remapped;
 import java.util.Arrays;
 import java.util.List;
 import me.hextech.HexTech;
-import me.hextech.remapped.Command;
+import me.hextech.remapped.mod.commands.Command;
 
 public class ChatCommand
 extends Command {

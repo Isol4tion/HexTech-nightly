@@ -2,7 +2,7 @@ package me.hextech.asm.mixins;
 
 import me.hextech.remapped.CombatUtil;
 import me.hextech.remapped.MineTweak;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;

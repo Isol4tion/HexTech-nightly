@@ -1,6 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.utils.Wrapper;
 
 public class Mod
 implements Wrapper {

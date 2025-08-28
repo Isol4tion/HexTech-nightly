@@ -1,9 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.asm.accessors.IVec3d;
-import me.hextech.remapped.HoleSnap;
-import me.hextech.remapped.Wrapper;
-import net.minecraft.entity.effect.StatusEffectInstance;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.math.Vec3d;
 

@@ -2,8 +2,8 @@ package me.hextech.remapped;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
-import me.hextech.remapped.ColorUtil;
-import me.hextech.remapped.Wrapper;
+
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;

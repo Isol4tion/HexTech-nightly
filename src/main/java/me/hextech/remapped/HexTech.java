@@ -2,11 +2,8 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 import java.util.Objects;
-import me.hextech.remapped.AltScreen;
-import me.hextech.remapped.ClickGuiScreen;
-import me.hextech.remapped.FontRenderers;
-import me.hextech.remapped.Render2DUtil;
-import me.hextech.remapped.Wrapper;
+import me.hextech.remapped.api.alts.AltScreen;
+import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
