@@ -1,8 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.text.Text;

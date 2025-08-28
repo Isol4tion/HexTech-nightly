@@ -1,15 +1,7 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PacketEvent;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Timer;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.block.Blocks;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;

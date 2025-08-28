@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;

@@ -1,12 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.asm.accessors.IHeldItemRenderer;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.HeldItemRendererEvent;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.SliderSetting;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.RotationAxis;

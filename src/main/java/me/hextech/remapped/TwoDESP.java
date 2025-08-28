@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
 import java.util.ArrayList;
 import me.hextech.HexTech;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferRenderer;

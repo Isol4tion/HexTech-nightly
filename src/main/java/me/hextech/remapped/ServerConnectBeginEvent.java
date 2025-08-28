@@ -1,7 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Event;
-import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
 
@@ -11,7 +10,7 @@ extends Event_auduwKaxKOWXRtyJkCPb {
     private final ServerInfo info;
 
     public ServerConnectBeginEvent(ServerAddress address, ServerInfo info) {
-        super(Event.Pre);
+        super(Stage.Pre);
         this.address = address;
         this.info = info;
     }

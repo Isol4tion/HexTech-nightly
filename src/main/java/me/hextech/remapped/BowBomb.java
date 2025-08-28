@@ -1,17 +1,8 @@
 package me.hextech.remapped;
 
 import java.util.Random;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PacketEvent;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Timer;
-import net.minecraft.entity.Entity;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.item.Items;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;

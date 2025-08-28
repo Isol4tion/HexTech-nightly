@@ -1,8 +1,8 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.AntiCrawl;
-import me.hextech.remapped.Event;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.mod.modules.impl.setting.AntiCrawl;
 import me.hextech.remapped.TravelEvent;
 import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.entity.EntityPose;
@@ -30,7 +30,7 @@ implements Wrapper {
         if (player != MixinPlayerEntity.mc.player) {
             return;
         }
-        TravelEvent event = new TravelEvent(Event.Pre, player);
+        TravelEvent event = new TravelEvent(Event_auduwKaxKOWXRtyJkCPb.Stage.Pre, player);
         HexTech.EVENT_BUS.post(event);
         if (event.isCancelled()) {
             ci.cancel();
@@ -43,7 +43,7 @@ implements Wrapper {
         if (player != MixinPlayerEntity.mc.player) {
             return;
         }
-        TravelEvent event = new TravelEvent(Event.Post, player);
+        TravelEvent event = new TravelEvent(Event_auduwKaxKOWXRtyJkCPb.Stage.Post, player);
         HexTech.EVENT_BUS.post(event);
         if (event.isCancelled()) {
             ci.cancel();

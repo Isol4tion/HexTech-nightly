@@ -1,7 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Event;
-import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class Render3DEvent
@@ -10,7 +9,7 @@ extends Event_auduwKaxKOWXRtyJkCPb {
     private final MatrixStack matrixStack;
 
     public Render3DEvent(MatrixStack matrixStack, float partialTicks) {
-        super(Event.Pre);
+        super(Stage.Pre);
         this.partialTicks = partialTicks;
         this.matrixStack = matrixStack;
     }

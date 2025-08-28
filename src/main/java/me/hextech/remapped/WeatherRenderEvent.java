@@ -1,7 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Event;
-import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.client.render.LightmapTextureManager;
 
 public class WeatherRenderEvent
@@ -13,7 +12,7 @@ extends Event_auduwKaxKOWXRtyJkCPb {
     public double cameraY;
     public double cameraZ;
 
-    public WeatherRenderEvent(Event stage) {
+    public WeatherRenderEvent(Stage stage) {
         super(stage);
         INSTANCE = new WeatherRenderEvent(stage);
     }

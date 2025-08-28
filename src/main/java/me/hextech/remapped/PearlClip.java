@@ -1,17 +1,9 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.AutoPearl;
-import me.hextech.remapped.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.OffTrackEvent;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.UpdateWalkingEvent;
+import me.hextech.remapped.mod.modules.impl.misc.AutoPearl;
+import me.hextech.remapped.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
 import net.minecraft.util.Hand;

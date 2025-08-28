@@ -4,18 +4,9 @@ import com.mojang.authlib.GameProfile;
 import java.util.List;
 import java.util.Random;
 import me.hextech.HexTech;
-import me.hextech.remapped.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.Event;
-import me.hextech.remapped.ForceSync;
-import me.hextech.remapped.MoveEvent;
-import me.hextech.remapped.NoSlow_PaVUKKxFbWGbplzMaucl;
-import me.hextech.remapped.PacketControl;
-import me.hextech.remapped.PortalGui;
-import me.hextech.remapped.RotateEvent;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.UpdateWalkingEvent;
-import me.hextech.remapped.Velocity;
+import me.hextech.remapped.*;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.input.Input;
@@ -26,7 +17,6 @@ import net.minecraft.client.util.ClientPlayerTickable;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MovementType;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerInputC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
@@ -135,7 +125,7 @@ extends AbstractClientPlayerEntity {
         if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.packethook.getValue()) {
             try {
                 UpdateWalkingEvent updateEvent;
-                RotateManager.lastEvent = updateEvent = new UpdateWalkingEvent(Event.Pre);
+                RotateManager.lastEvent = updateEvent = new UpdateWalkingEvent(Event_auduwKaxKOWXRtyJkCPb.Stage.Pre);
                 HexTech.EVENT_BUS.post(updateEvent);
                 this.sendSprintingPacket();
                 boolean bl = this.isSneaking();
@@ -194,7 +184,7 @@ extends AbstractClientPlayerEntity {
                     this.lastOnGround = this.isOnGround();
                     this.autoJumpEnabled = this.client.options.getAutoJump().getValue();
                 }
-                HexTech.EVENT_BUS.post(new UpdateWalkingEvent(Event.Post));
+                HexTech.EVENT_BUS.post(new UpdateWalkingEvent(Event_auduwKaxKOWXRtyJkCPb.Stage.Post));
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -211,7 +201,7 @@ extends AbstractClientPlayerEntity {
         super.tick();
         if (this.hasVehicle()) {
             UpdateWalkingEvent pre;
-            RotateManager.lastEvent = pre = new UpdateWalkingEvent(Event.Pre);
+            RotateManager.lastEvent = pre = new UpdateWalkingEvent(Event_auduwKaxKOWXRtyJkCPb.Stage.Pre);
             HexTech.EVENT_BUS.post(pre);
             if (!pre.isCancelRotate()) {
                 float yaw = this.getYaw();
@@ -227,7 +217,7 @@ extends AbstractClientPlayerEntity {
                 HexTech.ROTATE.rotatePitch = pitch;
                 this.networkHandler.sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, this.isOnGround()));
             }
-            HexTech.EVENT_BUS.post(new UpdateWalkingEvent(Event.Post));
+            HexTech.EVENT_BUS.post(new UpdateWalkingEvent(Event_auduwKaxKOWXRtyJkCPb.Stage.Post));
             this.networkHandler.sendPacket(new PlayerInputC2SPacket(this.sidewaysSpeed, this.forwardSpeed, this.input.jumping, this.input.sneaking));
             Entity root = this.getRootVehicle();
             if (root != this && root.isLogicalSideForUpdatingMovement()) {

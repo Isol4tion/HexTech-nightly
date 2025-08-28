@@ -1,7 +1,7 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.AnimateUtil;
+import me.hextech.remapped.api.utils.render.AnimateUtil;
 import me.hextech.remapped.ChatSetting_qVnAbgCzNciNTevKRovy;
 import me.hextech.remapped.HotbarAnimation;
 import me.hextech.remapped.NoRender;

@@ -1,5 +1,7 @@
 package me.hextech.remapped;
 
+import me.hextech.remapped.api.utils.render.AnimateUtil;
+
 public class HotbarAnimation
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static HotbarAnimation INSTANCE;

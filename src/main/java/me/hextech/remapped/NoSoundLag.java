@@ -1,11 +1,7 @@
 package me.hextech.remapped;
 
 import java.util.ArrayList;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PlaySoundEvent;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 

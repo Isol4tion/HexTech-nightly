@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import me.hextech.asm.accessors.IEntity;
 import me.hextech.asm.accessors.ILivingEntity;
+import me.hextech.remapped.mod.modules.impl.combat.Aura;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -15,7 +17,6 @@ import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.Hand;
 

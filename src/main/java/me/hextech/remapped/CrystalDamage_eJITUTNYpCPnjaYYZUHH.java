@@ -1,13 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.ExplosionUtil;
-import me.hextech.remapped.MeteorExplosionUtil;
-import me.hextech.remapped.MioExplosionUtil_RZgXAJBAUGNbHlXpyNCY;
-import me.hextech.remapped.OyveyExplosionUtil;
-import me.hextech.remapped.ThunderExplosionUtil;
-import net.minecraft.entity.Entity;
+import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;

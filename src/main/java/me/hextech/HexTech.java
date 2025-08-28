@@ -4,7 +4,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.LinkedList;
 import java.util.Queue;
 import me.hextech.remapped.api.alts.AltManager;
-import me.hextech.remapped.BlurManager;
+import me.hextech.remapped.api.utils.render.BlurManager;
 import me.hextech.remapped.CommandManager;
 import me.hextech.remapped.ConfigManager;
 import me.hextech.remapped.EventBus;

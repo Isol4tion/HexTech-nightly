@@ -1,7 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
-import me.hextech.remapped.FadeUtils;
+import me.hextech.remapped.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
 
 public class FadeUtils_DPfHthPqEJdfXfNYhDbG {
     public long length;

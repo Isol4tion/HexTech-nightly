@@ -2,6 +2,9 @@ package me.hextech.remapped;
 
 import me.hextech.HexTech;
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.api.utils.world.BlockUtil;
+import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
+import me.hextech.remapped.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Hand;

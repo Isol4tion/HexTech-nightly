@@ -3,16 +3,11 @@ package me.hextech.remapped;
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.Map;
-import me.hextech.remapped.Beta;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
+
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.fabricmc.fabric.impl.client.rendering.DimensionRenderingRegistryImpl;
 import net.minecraft.world.World;
 
-@Beta
 public class Skybox
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static final CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq skyRenderer = new CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq();

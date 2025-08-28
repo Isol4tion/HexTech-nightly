@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
 import me.hextech.HexTech;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
@@ -58,7 +59,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     public void onUpdateWalkingPost(UpdateWalkingEvent event) {
-        if (event.getStage() == Event.Post) {
+        if (event.getStage() == Event_auduwKaxKOWXRtyJkCPb.Stage.Post) {
             this.lastYaw = DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.getYaw();
             this.lastPitch = DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.getPitch();
         }

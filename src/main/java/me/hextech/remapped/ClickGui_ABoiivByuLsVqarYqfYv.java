@@ -2,7 +2,10 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 import me.hextech.HexTech;
-import net.minecraft.client.gui.screen.Screen;
+import me.hextech.remapped.api.utils.render.AnimateUtil;
+import me.hextech.remapped.mod.gui.clickgui.components.Component;
+import me.hextech.remapped.mod.gui.clickgui.components.impl.BooleanComponent;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 
 public class ClickGui_ABoiivByuLsVqarYqfYv
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

@@ -1,15 +1,8 @@
 package me.hextech.remapped;
 
 import me.hextech.asm.mixins.IClientPlayerInteractionManager;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.SpeedMine;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.item.Items;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.util.math.BlockPos;
 

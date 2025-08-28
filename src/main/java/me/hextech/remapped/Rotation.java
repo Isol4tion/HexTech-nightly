@@ -1,14 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.FreeCam;
-import me.hextech.remapped.HoleSnap;
-import me.hextech.remapped.KeyboardInputEvent;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.inJumpEvent;
-import me.hextech.remapped.inVelocityEvent;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 

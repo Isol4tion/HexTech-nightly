@@ -1,12 +1,7 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.AutoWalk;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Sprint;
-import me.hextech.remapped.UpdateWalkingEvent;
+import me.hextech.remapped.mod.modules.impl.movement.AutoWalk;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;

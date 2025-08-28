@@ -1,7 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Event;
-import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.util.math.Vec3d;
 
 public class OffTrackEvent
@@ -14,7 +13,7 @@ extends Event_auduwKaxKOWXRtyJkCPb {
     private float speed;
 
     public OffTrackEvent() {
-        super(Event.Pre);
+        super(Stage.Pre);
     }
 
     public Vec3d getTarget() {

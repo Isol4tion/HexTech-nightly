@@ -1,7 +1,7 @@
 package me.hextech.asm.mixins;
 
 import it.unimi.dsi.fastutil.Pair;
-import me.hextech.remapped.AutoReconnect;
+import me.hextech.remapped.mod.modules.impl.misc.AutoReconnect;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;

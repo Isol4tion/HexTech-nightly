@@ -1,14 +1,13 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Event;
-import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 
 public class ReceiveMessageEvent
 extends Event_auduwKaxKOWXRtyJkCPb {
     public String message;
 
     public ReceiveMessageEvent(String message) {
-        super(Event.Pre);
+        super(Stage.Pre);
         this.message = message;
     }
 

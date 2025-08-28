@@ -2,10 +2,14 @@ package me.hextech.remapped;
 
 import java.util.ArrayList;
 import me.hextech.HexTech;
+import me.hextech.remapped.api.utils.world.BlockPosX;
+import me.hextech.remapped.api.utils.world.BlockUtil;
+import me.hextech.remapped.mod.modules.impl.combat.AutoAnchor_MDcwoWYRcPYheLZJWRZK;
+import me.hextech.remapped.mod.modules.impl.combat.AutoTrap;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;

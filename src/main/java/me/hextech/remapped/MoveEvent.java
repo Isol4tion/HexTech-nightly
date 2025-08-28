@@ -1,7 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Event;
-import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 
 public class MoveEvent
 extends Event_auduwKaxKOWXRtyJkCPb {
@@ -10,7 +9,7 @@ extends Event_auduwKaxKOWXRtyJkCPb {
     private double z;
 
     public MoveEvent(double x, double y, double z) {
-        super(Event.Pre);
+        super(Stage.Pre);
         this.x = x;
         this.y = y;
         this.z = z;

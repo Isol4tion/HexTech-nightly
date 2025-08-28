@@ -1,7 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Event;
-import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.util.math.Vec3d;
 
 public class inVelocityEvent
@@ -12,7 +11,7 @@ extends Event_auduwKaxKOWXRtyJkCPb {
     Vec3d velocity;
 
     public inVelocityEvent(Vec3d movementInput, float speed, float yaw, Vec3d velocity) {
-        super(Event.Pre);
+        super(Stage.Pre);
         this.movementInput = movementInput;
         this.speed = speed;
         this.yaw = yaw;

@@ -3,6 +3,7 @@ package me.hextech.remapped;
 import java.util.function.Predicate;
 import me.hextech.HexTech;
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.mod.modules.settings.Setting;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.SelectionManager;
 

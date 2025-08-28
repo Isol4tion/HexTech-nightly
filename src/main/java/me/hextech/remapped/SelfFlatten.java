@@ -1,19 +1,9 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.BlockPosX;
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.OffTrackEvent;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Timer;
+import me.hextech.remapped.api.utils.world.BlockPosX;
+import me.hextech.remapped.api.utils.world.BlockUtil;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;

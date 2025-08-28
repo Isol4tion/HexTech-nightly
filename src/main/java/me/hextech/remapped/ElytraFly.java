@@ -1,20 +1,10 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.MovementUtil;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Timer;
-import me.hextech.remapped.TravelEvent;
-import net.minecraft.entity.Entity;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.entity.MovementType;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;

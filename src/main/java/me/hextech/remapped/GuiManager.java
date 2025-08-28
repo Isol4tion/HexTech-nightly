@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import me.hextech.HexTech;
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.mod.gui.clickgui.tabs.ArmorHUD;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import org.lwjgl.opengl.GL11;

@@ -1,13 +1,12 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Event;
-import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 
 public class UpdateWalkingEvent
 extends Event_auduwKaxKOWXRtyJkCPb {
     private boolean cancelRotate = false;
 
-    public UpdateWalkingEvent(Event stage) {
+    public UpdateWalkingEvent(Stage stage) {
         super(stage);
     }
 

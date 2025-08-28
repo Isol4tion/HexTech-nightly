@@ -1,17 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.HoleKickTest;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.MovementUtil;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Step;
-import me.hextech.remapped.UpdateWalkingEvent;
-import net.minecraft.entity.player.PlayerEntity;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 
 public class Step_EShajbhvQeYkCdreEeNY
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

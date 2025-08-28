@@ -7,7 +7,9 @@ import java.nio.charset.StandardCharsets;
 
 import me.hextech.HexTech;
 import me.hextech.asm.accessors.IPlayerMoveC2SPacket;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
 import net.minecraft.client.session.Session;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
@@ -274,7 +276,7 @@ implements Wrapper {
 
     @EventHandler
     public void onUpdateWalkingPost(UpdateWalkingEvent event) {
-        if (event.getStage() == Event.Post) {
+        if (event.getStage() == Event_auduwKaxKOWXRtyJkCPb.Stage.Post) {
             this.setRotation(this.lastYaw, lastPitch, false);
         }
     }

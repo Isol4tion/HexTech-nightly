@@ -1,10 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.FadeUtils_DPfHthPqEJdfXfNYhDbG;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.SliderSetting;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.client.util.math.MatrixStack;
 

@@ -1,6 +1,7 @@
 package me.hextech.remapped;
 
 
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.client.render.BlockBreakingInfo;
 import net.minecraft.util.math.BlockPos;
 
@@ -9,7 +10,7 @@ extends Event_auduwKaxKOWXRtyJkCPb {
     private final BlockBreakingInfo blockBreakingInfo;
 
     public WorldBreakEvent(BlockBreakingInfo pos) {
-        super(Event.Pre);
+        super(Stage.Pre);
         this.blockBreakingInfo = pos;
     }
 

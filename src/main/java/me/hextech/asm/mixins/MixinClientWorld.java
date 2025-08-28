@@ -2,7 +2,7 @@ package me.hextech.asm.mixins;
 
 import java.awt.Color;
 import java.util.function.Supplier;
-import me.hextech.remapped.Ambience;
+import me.hextech.remapped.mod.modules.impl.render.Ambience;
 import me.hextech.remapped.NoRender;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.registry.DynamicRegistryManager;

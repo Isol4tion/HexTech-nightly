@@ -3,6 +3,8 @@ package me.hextech.remapped;
 import me.hextech.HexTech;
 import me.hextech.asm.accessors.IClientWorld;
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.api.utils.world.BlockPosX;
+import me.hextech.remapped.api.utils.world.BlockUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.network.PendingUpdateManager;
 import net.minecraft.client.world.ClientWorld;

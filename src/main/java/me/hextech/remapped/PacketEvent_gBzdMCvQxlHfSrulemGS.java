@@ -1,14 +1,13 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Event;
-import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.network.packet.Packet;
 
 public class PacketEvent_gBzdMCvQxlHfSrulemGS
 extends Event_auduwKaxKOWXRtyJkCPb {
     private final Packet<?> packet;
 
-    public PacketEvent_gBzdMCvQxlHfSrulemGS(Packet<?> packet, Event stage) {
+    public PacketEvent_gBzdMCvQxlHfSrulemGS(Packet<?> packet, Stage stage) {
         super(stage);
         this.packet = packet;
     }

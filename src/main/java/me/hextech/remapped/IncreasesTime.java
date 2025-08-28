@@ -1,12 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.BindSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PacketEvent_YXFfxdDjQAfjBumqRbBu;
-import me.hextech.remapped.SliderSetting;
+import me.hextech.remapped.mod.modules.settings.impl.BindSetting;
 import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
 
 public class IncreasesTime

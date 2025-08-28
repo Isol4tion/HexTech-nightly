@@ -1,7 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.Event;
-import me.hextech.remapped.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -14,7 +13,7 @@ extends Event_auduwKaxKOWXRtyJkCPb {
     private final MatrixStack stack;
 
     public HeldItemRendererEvent(Hand hand, ItemStack item, float equipProgress, MatrixStack stack) {
-        super(Event.Pre);
+        super(Stage.Pre);
         this.hand = hand;
         this.item = item;
         this.ep = equipProgress;

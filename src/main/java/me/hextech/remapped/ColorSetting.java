@@ -3,9 +3,7 @@ package me.hextech.remapped;
 import java.awt.Color;
 import java.util.function.Predicate;
 import me.hextech.HexTech;
-import me.hextech.remapped.ModuleManager;
-import me.hextech.remapped.Setting;
-import me.hextech.remapped.Timer;
+import me.hextech.remapped.mod.modules.settings.Setting;
 
 public class ColorSetting
 extends Setting {

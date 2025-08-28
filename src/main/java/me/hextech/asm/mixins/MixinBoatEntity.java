@@ -1,7 +1,5 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.HexTech;
-import me.hextech.remapped.BoatMoveEvent;
 import me.hextech.remapped.EntityControl;
 import net.minecraft.entity.vehicle.BoatEntity;
 import org.spongepowered.asm.mixin.Mixin;

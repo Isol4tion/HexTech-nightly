@@ -1,6 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.HexTech;
+import me.hextech.remapped.api.utils.render.AnimateUtil;
 
 public class Zoom
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

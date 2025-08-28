@@ -6,6 +6,7 @@ import me.hextech.HexTech;
 import me.hextech.remapped.api.utils.Wrapper;
 import me.hextech.remapped.mod.commands.Command;
 import me.hextech.remapped.mod.commands.impl.AimCommand;
+import me.hextech.remapped.mod.commands.impl.BindCommand;
 import net.minecraft.text.Text;
 
 public class CommandManager

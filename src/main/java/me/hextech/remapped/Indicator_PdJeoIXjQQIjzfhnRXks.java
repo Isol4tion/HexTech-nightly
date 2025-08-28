@@ -2,9 +2,12 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 
+import me.hextech.remapped.api.utils.world.BlockUtil;
+import me.hextech.remapped.mod.modules.impl.combat.AutoAnchor_MDcwoWYRcPYheLZJWRZK;
+import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
+import me.hextech.remapped.mod.modules.impl.combat.AutoTrap;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
 
 public class Indicator_PdJeoIXjQQIjzfhnRXks
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

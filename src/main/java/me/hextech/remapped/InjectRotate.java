@@ -1,6 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
+import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
 import net.minecraft.util.math.MathHelper;
 
 public class InjectRotate {

@@ -2,22 +2,14 @@ package me.hextech.remapped;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Render3DEvent;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.UpdateWalkingEvent;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.world.World;
 
 public class KillEffects
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

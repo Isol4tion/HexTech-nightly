@@ -1,17 +1,8 @@
 package me.hextech.remapped;
 
 import java.awt.Color;
-import me.hextech.remapped.ClickGuiScreen;
-import me.hextech.remapped.ClickGuiTab;
-import me.hextech.remapped.ClickGui_ABoiivByuLsVqarYqfYv;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.ColorUtil;
-import me.hextech.remapped.Component;
-import me.hextech.remapped.GuiManager;
-import me.hextech.remapped.MathUtil;
-import me.hextech.remapped.Render2DUtil;
-import me.hextech.remapped.TextUtil;
-import me.hextech.remapped.Timer;
+
+import me.hextech.remapped.mod.gui.clickgui.components.Component;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;

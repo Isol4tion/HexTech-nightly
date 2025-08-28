@@ -2,16 +2,7 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 import java.util.HashMap;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.ChatSetting;
-import me.hextech.remapped.ChatSetting_FjbVfiTpsZbQdeUlhhhi;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.FadeUtils;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.StringSetting;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.StringVisitable;
 

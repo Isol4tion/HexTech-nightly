@@ -1,15 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.asm.accessors.IUpdateSelectedSlotS2CPacket;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.BypassSetting;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PacketEvent_YXFfxdDjQAfjBumqRbBu;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.network.packet.s2c.play.UpdateSelectedSlotS2CPacket;
 
 public class BypassSetting_RInKGmTQYgWFRhsUOiJP

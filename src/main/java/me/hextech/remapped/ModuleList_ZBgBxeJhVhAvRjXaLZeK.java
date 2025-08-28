@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import me.hextech.HexTech;
+import me.hextech.remapped.api.utils.render.AnimateUtil;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.client.gui.DrawContext;
 import org.lwjgl.opengl.GL11;
 

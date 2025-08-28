@@ -2,9 +2,7 @@ package me.hextech.remapped;
 
 import java.util.function.Predicate;
 import me.hextech.HexTech;
-import me.hextech.remapped.EnumConverter;
-import me.hextech.remapped.ModuleManager;
-import me.hextech.remapped.Setting;
+import me.hextech.remapped.mod.modules.settings.Setting;
 
 public class EnumSetting<T extends Enum<T>>
 extends Setting {

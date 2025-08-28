@@ -1,8 +1,7 @@
 package me.hextech.remapped;
 
 import java.awt.Color;
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
-import me.hextech.remapped.Render3DUtil;
+import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 

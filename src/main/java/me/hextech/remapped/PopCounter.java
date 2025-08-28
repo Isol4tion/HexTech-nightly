@@ -1,14 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.CommandManager;
-import me.hextech.remapped.DeathEvent;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.TotemEvent;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class PopCounter

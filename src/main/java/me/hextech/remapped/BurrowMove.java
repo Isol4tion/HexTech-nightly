@@ -1,15 +1,7 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.AutoAnchor_MDcwoWYRcPYheLZJWRZK;
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.HoleKickTest;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.MoveEvent;
-import me.hextech.remapped.SliderSetting;
-import net.minecraft.entity.player.PlayerEntity;
+import me.hextech.remapped.mod.modules.impl.combat.AutoAnchor_MDcwoWYRcPYheLZJWRZK;
+import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
 
 public class BurrowMove
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

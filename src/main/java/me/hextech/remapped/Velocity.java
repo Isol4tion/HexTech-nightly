@@ -2,20 +2,12 @@ package me.hextech.remapped;
 
 import me.hextech.asm.accessors.IEntityVelocityUpdateS2CPacket;
 import me.hextech.asm.accessors.IExplosionS2CPacket;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.BypassSetting_RInKGmTQYgWFRhsUOiJP;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PacketEvent_YXFfxdDjQAfjBumqRbBu;
-import me.hextech.remapped.SliderSetting;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
-import net.minecraft.world.World;
 
 public class Velocity
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

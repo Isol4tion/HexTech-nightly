@@ -4,30 +4,13 @@ import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.Objects;
 import me.hextech.HexTech;
-import me.hextech.remapped.Beta;
-import me.hextech.remapped.Blink;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.FadeUtils;
-import me.hextech.remapped.FadeUtils_DPfHthPqEJdfXfNYhDbG;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.MovementUtil;
-import me.hextech.remapped.PacketEvent;
-import me.hextech.remapped.PacketEvent_YXFfxdDjQAfjBumqRbBu;
-import me.hextech.remapped.RotateEvent;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Step_EShajbhvQeYkCdreEeNY;
-import me.hextech.remapped.Timer;
+import me.hextech.remapped.mod.modules.impl.player.Blink;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
 
-@Beta
 public class TickShift
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static TickShift INSTANCE;

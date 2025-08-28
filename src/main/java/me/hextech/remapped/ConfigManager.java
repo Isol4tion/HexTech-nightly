@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 import me.hextech.HexTech;
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.mod.modules.settings.Setting;
+import me.hextech.remapped.mod.modules.settings.impl.BindSetting;
+import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import org.apache.commons.io.IOUtils;
 
 public class ConfigManager
