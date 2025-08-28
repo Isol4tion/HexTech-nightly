@@ -13,6 +13,7 @@ import me.hextech.mod.modules.settings.impl.BooleanSetting;
 import me.hextech.mod.modules.settings.impl.EnumSetting;
 import me.hextech.mod.modules.settings.impl.SliderSetting;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
@@ -89,9 +90,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler(priority=100)
     public void invoke(PacketEvent_gBzdMCvQxlHfSrulemGS.Receive event) {
         if (this.mode.is(_hIXwTMQyjavijZllSIBF.Instant)) {
-            final EntityVelocityUpdateS2CPacket packet3 = event.getPacket();
-            if (packet3 instanceof EntityVelocityUpdateS2CPacket) {
-                final EntityVelocityUpdateS2CPacket packet = packet3;
+            Packet<?> packet3 = event.getPacket();
+            if (packet3 instanceof EntityVelocityUpdateS2CPacket packet) {
                 if (Speed.mc.player != null && packet.getId() == Speed.mc.player.getId() && this.velocity.getValue()) {
                     final double speed = Math.sqrt(packet.getVelocityX() * packet.getVelocityX() + packet.getVelocityZ() * packet.getVelocityZ()) / 8000.0;
                     this.lastExp = (this.expTimer.passedMs(this.coolDown.getValueInt()) ? speed : (speed - this.lastExp));
@@ -107,7 +107,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
             }
-            else if (event.getPacket() instanceof PlayerPositionLookS2CPacket) {
+            else if (packet3 instanceof PlayerPositionLookS2CPacket) {
                 this.lagTimer.reset();
                 if (Speed.mc.player != null) {
                     this.distance = 0.0;
@@ -116,9 +116,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.stage = 4;
             }
             else {
-                final ExplosionS2CPacket packet4 = event.getPacket();
-                if (packet4 instanceof ExplosionS2CPacket) {
-                    final ExplosionS2CPacket packet2 = packet4;
+                if (packet3 instanceof ExplosionS2CPacket packet2) {
                     if (this.explosions.getValue() && MovementUtil.isMoving() && Speed.mc.player.squaredDistanceTo(packet2.getX(), packet2.getY(), packet2.getZ()) < 200.0) {
                         final double speed = Math.sqrt(Math.abs(packet2.getPlayerVelocityX() * packet2.getPlayerVelocityX()) + Math.abs(packet2.getPlayerVelocityZ() * packet2.getPlayerVelocityZ()));
                         this.lastExp = (this.expTimer.passedMs(this.coolDown.getValueInt()) ? speed : (speed - this.lastExp));
