@@ -11,6 +11,7 @@ import me.hextech.mod.modules.settings.impl.BooleanSetting;
 import me.hextech.mod.modules.settings.impl.SliderSetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
@@ -45,12 +46,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Velocity.mc.player != null && (Velocity.mc.player.isTouchingWater() || Velocity.mc.player.isSubmergedInWater() || Velocity.mc.player.isInLava()) && this.pauseInLiquid.getValue()) {
             return;
         }
+        Packet<?> packet = e.getPacket();
         if (this.hitboxpush.getValue()) {
-            final EntityStatusS2CPacket packet4 = e.getPacket();
-            if (packet4 instanceof EntityStatusS2CPacket) {
-                final EntityStatusS2CPacket packet = packet4;
-                if (packet.getStatus() == 31) {
-                    final Entity getEntity = packet.getEntity(Velocity.mc.world);
+            if (packet instanceof EntityStatusS2CPacket p) {
+                if (p.getStatus() == 31) {
+                    final Entity getEntity = p.getEntity(Velocity.mc.world);
                     if (getEntity instanceof final FishingBobberEntity fishHook) {
                         if (fishHook.getHookedEntity() == Velocity.mc.player) {
                             e.setCancelled(true);
@@ -74,9 +74,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             return;
         }
-        final EntityVelocityUpdateS2CPacket packet5 = e.getPacket();
-        if (packet5 instanceof EntityVelocityUpdateS2CPacket) {
-            final EntityVelocityUpdateS2CPacket packet3 = packet5;
+        if (packet instanceof EntityVelocityUpdateS2CPacket packet3) {
             if (packet3.getId() == Velocity.mc.player.getId()) {
                 if (this.horizontal.getValue() == 0.0 && this.vertical.getValue() == 0.0) {
                     e.cancel();
