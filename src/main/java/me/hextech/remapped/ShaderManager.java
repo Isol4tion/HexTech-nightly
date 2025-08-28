@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import ladysnake.satin.api.managed.ManagedShaderEffect;
 import ladysnake.satin.api.managed.ShaderEffectManager;
-import me.hextech.remapped.RenderTask;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
@@ -49,11 +48,11 @@ implements Wrapper {
         if (this.shaderBuffer.textureWidth != MCBuffer.textureWidth || this.shaderBuffer.textureHeight != MCBuffer.textureHeight) {
             this.shaderBuffer.resize(MCBuffer.textureWidth, MCBuffer.textureHeight, false);
         }
-        GlStateManager._glBindFramebuffer((int)36009, (int)this.shaderBuffer.fbo);
+        GlStateManager._glBindFramebuffer(36009, this.shaderBuffer.fbo);
         this.shaderBuffer.beginWrite(true);
         runnable.run();
         this.shaderBuffer.endWrite();
-        GlStateManager._glBindFramebuffer((int)36009, (int)MCBuffer.fbo);
+        GlStateManager._glBindFramebuffer(36009, MCBuffer.fbo);
         MCBuffer.beginWrite(false);
         Framebuffer mainBuffer = MinecraftClient.getInstance().getFramebuffer();
         PostEffectProcessor effect = FLOW.getShaderEffect();
@@ -68,7 +67,7 @@ implements Wrapper {
         this.shaderBuffer.clear(false);
         mainBuffer.beginWrite(false);
         RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate((GlStateManager.SrcFactor)GlStateManager.SrcFactor.SRC_ALPHA, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, (GlStateManager.SrcFactor)GlStateManager.SrcFactor.ZERO, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE);
+        RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ZERO, GlStateManager.DstFactor.ONE);
         RenderSystem.backupProjectionMatrix();
         outBuffer.draw(outBuffer.textureWidth, outBuffer.textureHeight, false);
         RenderSystem.restoreProjectionMatrix();
@@ -85,11 +84,11 @@ implements Wrapper {
         if (this.shaderBuffer.textureWidth != MCBuffer.textureWidth || this.shaderBuffer.textureHeight != MCBuffer.textureHeight) {
             this.shaderBuffer.resize(MCBuffer.textureWidth, MCBuffer.textureHeight, false);
         }
-        GlStateManager._glBindFramebuffer((int)36009, (int)this.shaderBuffer.fbo);
+        GlStateManager._glBindFramebuffer(36009, this.shaderBuffer.fbo);
         this.shaderBuffer.beginWrite(true);
         runnable.run();
         this.shaderBuffer.endWrite();
-        GlStateManager._glBindFramebuffer((int)36009, (int)MCBuffer.fbo);
+        GlStateManager._glBindFramebuffer(36009, MCBuffer.fbo);
         MCBuffer.beginWrite(false);
         ManagedShaderEffect shader = this.getShader(mode);
         Framebuffer mainBuffer = MinecraftClient.getInstance().getFramebuffer();
@@ -102,7 +101,7 @@ implements Wrapper {
         this.shaderBuffer.clear(false);
         mainBuffer.beginWrite(false);
         RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate((GlStateManager.SrcFactor)GlStateManager.SrcFactor.SRC_ALPHA, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, (GlStateManager.SrcFactor)GlStateManager.SrcFactor.ZERO, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE);
+        RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ZERO, GlStateManager.DstFactor.ONE);
         RenderSystem.backupProjectionMatrix();
         outBuffer.draw(outBuffer.textureWidth, outBuffer.textureHeight, false);
         RenderSystem.restoreProjectionMatrix();
@@ -290,7 +289,7 @@ implements Wrapper {
         Gradient,
         Snow,
         Flow,
-        Rainbow;
+        Rainbow
     }
 
     record RenderTask(Runnable task, Mode mode) {}

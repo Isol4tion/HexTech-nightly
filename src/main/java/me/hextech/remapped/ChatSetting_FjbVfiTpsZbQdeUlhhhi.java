@@ -7,6 +7,6 @@ public enum ChatSetting_FjbVfiTpsZbQdeUlhhhi {
     HexTech,
     Earth,
     Custom,
-    None;
+    None
 
 }

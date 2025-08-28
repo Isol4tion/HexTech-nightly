@@ -9,13 +9,13 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface IEntityVelocityUpdateS2CPacket {
     @Mutable
     @Accessor(value="velocityX")
-    public void setX(int var1);
+    void setX(int var1);
 
     @Mutable
     @Accessor(value="velocityY")
-    public void setY(int var1);
+    void setY(int var1);
 
     @Mutable
     @Accessor(value="velocityZ")
-    public void setZ(int var1);
+    void setZ(int var1);
 }

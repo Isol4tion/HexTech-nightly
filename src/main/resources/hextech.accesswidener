@@ -8,4 +8,6 @@ accessible field net/minecraft/block/AbstractBlock$AbstractBlockState shapeCache
 accessible field net/minecraft/block/AbstractBlock$AbstractBlockState$ShapeCache isFullCube Z
 accessible method net/minecraft/entity/LivingEntity tryUseTotem (Lnet/minecraft/entity/damage/DamageSource;)Z
 accessible method net/minecraft/client/render/GameRenderer renderHand (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/Camera;F)V
+accessible method net/minecraft/client/world/ClientWorld getPendingUpdateManager ()Lnet/minecraft/client/network/PendingUpdateManager;
+accessible field net/minecraft/entity/LivingEntity jumpingCooldown I
 

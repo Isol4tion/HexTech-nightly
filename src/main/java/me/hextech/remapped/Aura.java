@@ -23,7 +23,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Aura INSTANCE;
     public static Entity target;
     public final EnumSetting<_PJzsesCBLMlruCifoKuT> page = this.add(new EnumSetting<_PJzsesCBLMlruCifoKuT>("Page", _PJzsesCBLMlruCifoKuT.General));
-    public final SliderSetting range = this.add(new SliderSetting("Range", 6.0, (double)0.1f, 7.0, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.General));
+    public final SliderSetting range = this.add(new SliderSetting("Range", 6.0, 0.1f, 7.0, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.General));
     public final BooleanSetting Players = this.add(new BooleanSetting("Players", true, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.Target));
     public final BooleanSetting Mobs = this.add(new BooleanSetting("Mobs", true, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.Target));
     public final BooleanSetting Animals = this.add(new BooleanSetting("Animals", true, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.Target));
@@ -32,13 +32,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final BooleanSetting ghost = this.add(new BooleanSetting("SweepingBypass", false, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.General));
     private final EnumSetting<_VwTXxsLfDdMNyKpyAwyl> cd = this.add(new EnumSetting<_VwTXxsLfDdMNyKpyAwyl>("CooldownMode", _VwTXxsLfDdMNyKpyAwyl.Delay));
     private final SliderSetting cooldown = this.add(new SliderSetting("Cooldown", 1.1f, 0.0, 1.2f, 0.01, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.General));
-    private final SliderSetting wallRange = this.add(new SliderSetting("WallRange", 6.0, (double)0.1f, 7.0, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.General));
+    private final SliderSetting wallRange = this.add(new SliderSetting("WallRange", 6.0, 0.1f, 7.0, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.General));
     private final BooleanSetting whileEating = this.add(new BooleanSetting("WhileUsing", true, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.General));
     private final BooleanSetting weaponOnly = this.add(new BooleanSetting("WeaponOnly", true, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.General));
     private final EnumSetting<SwingSide> swingMode = this.add(new EnumSetting<SwingSide>("Swing", SwingSide.Server, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.General));
     private final BooleanSetting rotate = this.add(new BooleanSetting("Rotation", true, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.Rotate).setParent());
     private final BooleanSetting newRotate = this.add(new BooleanSetting("NewRotate", true, v -> this.rotate.isOpen() && this.page.getValue() == _PJzsesCBLMlruCifoKuT.Rotate));
-    private final SliderSetting yawStep = this.add(new SliderSetting("YawStep", (double)0.3f, (double)0.1f, 1.0, v -> this.rotate.isOpen() && this.newRotate.getValue() && this.page.getValue() == _PJzsesCBLMlruCifoKuT.Rotate));
+    private final SliderSetting yawStep = this.add(new SliderSetting("YawStep", 0.3f, 0.1f, 1.0, v -> this.rotate.isOpen() && this.newRotate.getValue() && this.page.getValue() == _PJzsesCBLMlruCifoKuT.Rotate));
     private final BooleanSetting checkLook = this.add(new BooleanSetting("CheckLook", true, v -> this.rotate.isOpen() && this.newRotate.getValue() && this.page.getValue() == _PJzsesCBLMlruCifoKuT.Rotate));
     private final SliderSetting fov = this.add(new SliderSetting("Fov", 5.0, 0.0, 30.0, v -> this.rotate.isOpen() && this.newRotate.getValue() && this.checkLook.getValue() && this.page.getValue() == _PJzsesCBLMlruCifoKuT.Rotate));
     private final EnumSetting<_EhoXCPdRwyZMhABJnmhT> targetMode = this.add(new EnumSetting<_EhoXCPdRwyZMhABJnmhT>("Filter", _EhoXCPdRwyZMhABJnmhT.DISTANCE, v -> this.page.getValue() == _PJzsesCBLMlruCifoKuT.Target));
@@ -99,7 +99,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             ++this.attackTicks;
             this.tick.reset();
         }
-        if (this.weaponOnly.getValue() && !EntityUtil.isHoldingWeapon((PlayerEntity)Aura.mc.player)) {
+        if (this.weaponOnly.getValue() && !EntityUtil.isHoldingWeapon(Aura.mc.player)) {
             target = null;
             return;
         }
@@ -161,7 +161,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.ghost.getValue() && Criticals.INSTANCE.isOn()) {
             Criticals.INSTANCE.doCrit();
         }
-        Aura.mc.interactionManager.attackEntity((PlayerEntity)Aura.mc.player, target);
+        Aura.mc.interactionManager.attackEntity(Aura.mc.player, target);
         EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
         if (this.ghost.getValue()) {
             InventoryUtil.inventorySwap(slot, Aura.mc.player.getInventory().selectedSlot);
@@ -177,7 +177,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.directionVec = directionVec;
         float[] angle = EntityUtil.getLegitRotations(directionVec);
-        if (Math.abs(MathHelper.wrapDegrees((float)(angle[0] - this.lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees((float)(angle[1] - this.lastPitch))) < this.fov.getValueFloat()) {
+        if (Math.abs(MathHelper.wrapDegrees(angle[0] - this.lastYaw)) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees(angle[1] - this.lastPitch)) < this.fov.getValueFloat()) {
             EntityUtil.sendYawAndPitch(angle[0], angle[1]);
             return true;
         }
@@ -238,7 +238,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (steps < 1.0f && angle != null) {
             float packetPitch;
             float packetYaw = this.lastYaw;
-            float diff = MathHelper.wrapDegrees((float)(angle[0] - packetYaw));
+            float diff = MathHelper.wrapDegrees(angle[0] - packetYaw);
             if (Math.abs(diff) > 90.0f * steps) {
                 angle[0] = packetYaw + diff * (90.0f * steps / Math.abs(diff));
             }
@@ -253,19 +253,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         General,
         Rotate,
         Target,
-        Render;
+        Render
 
     }
 
     public enum _VwTXxsLfDdMNyKpyAwyl {
         Vanilla,
-        Delay;
+        Delay
 
     }
 
     private enum _EhoXCPdRwyZMhABJnmhT {
         DISTANCE,
-        HEALTH;
+        HEALTH
 
     }
 

@@ -9,13 +9,13 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface IPlayerMoveC2SPacket {
     @Mutable
     @Accessor(value="onGround")
-    public void setOnGround(boolean var1);
+    void setOnGround(boolean var1);
 
     @Mutable
     @Accessor(value="pitch")
-    public void setPitch(float var1);
+    void setPitch(float var1);
 
     @Mutable
     @Accessor(value="yaw")
-    public void setYaw(float var1);
+    void setYaw(float var1);
 }

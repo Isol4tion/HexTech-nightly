@@ -56,7 +56,7 @@ public abstract class MixinHeldItemRenderer {
             matrices.push();
             if (item.isOf(Items.CROSSBOW)) {
                 int i;
-                boolean bl2 = CrossbowItem.isCharged((ItemStack)item);
+                boolean bl2 = CrossbowItem.isCharged(item);
                 boolean bl3 = arm == Arm.RIGHT;
                 int n = i = bl3 ? 1 : -1;
                 if (player.isUsingItem() && player.getItemUseTimeLeft() > 0 && player.getActiveHand() == hand) {
@@ -66,12 +66,12 @@ public abstract class MixinHeldItemRenderer {
                     matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((float)i * 65.3f));
                     matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees((float)i * -9.785f));
                     float f = (float)item.getMaxUseTime() - ((float)Wrapper.mc.player.getItemUseTimeLeft() - tickDelta + 1.0f);
-                    float g = f / (float)CrossbowItem.getPullTime((ItemStack)item);
+                    float g = f / (float)CrossbowItem.getPullTime(item);
                     if (g > 1.0f) {
                         g = 1.0f;
                     }
                     if (g > 0.1f) {
-                        float h = MathHelper.sin((float)((f - 0.1f) * 1.3f));
+                        float h = MathHelper.sin((f - 0.1f) * 1.3f);
                         float j = g - 0.1f;
                         float k = h * j;
                         matrices.translate(k * 0.0f, k * 0.004f, k * 0.0f);
@@ -80,9 +80,9 @@ public abstract class MixinHeldItemRenderer {
                     matrices.scale(1.0f, 1.0f, 1.0f + g * 0.2f);
                     matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees((float)i * 45.0f));
                 } else {
-                    float f = -0.4f * MathHelper.sin((float)(MathHelper.sqrt((float)swingProgress) * (float)Math.PI));
-                    float g = 0.2f * MathHelper.sin((float)(MathHelper.sqrt((float)swingProgress) * ((float)Math.PI * 2)));
-                    float h = -0.2f * MathHelper.sin((float)(swingProgress * (float)Math.PI));
+                    float f = -0.4f * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float)Math.PI);
+                    float g = 0.2f * MathHelper.sin(MathHelper.sqrt(swingProgress) * ((float)Math.PI * 2));
+                    float h = -0.2f * MathHelper.sin(swingProgress * (float)Math.PI);
                     matrices.translate((float)i * f, g, h);
                     this.applyEquipOffset(matrices, arm, equipProgress);
                     this.applySwingOffset(matrices, arm, swingProgress);
@@ -93,7 +93,7 @@ public abstract class MixinHeldItemRenderer {
                 }
                 HeldItemRendererEvent event = new HeldItemRendererEvent(hand, item, equipProgress, matrices);
                 HexTech.EVENT_BUS.post(event);
-                this.renderItem((LivingEntity)player, item, bl3 ? ModelTransformationMode.FIRST_PERSON_RIGHT_HAND : ModelTransformationMode.FIRST_PERSON_LEFT_HAND, !bl3, matrices, vertexConsumers, light);
+                this.renderItem(player, item, bl3 ? ModelTransformationMode.FIRST_PERSON_RIGHT_HAND : ModelTransformationMode.FIRST_PERSON_LEFT_HAND, !bl3, matrices, vertexConsumers, light);
             } else {
                 boolean bl2;
                 boolean bl3 = bl2 = arm == Arm.RIGHT;
@@ -122,7 +122,7 @@ public abstract class MixinHeldItemRenderer {
                             f = 1.0f;
                         }
                         if (f > 0.1f) {
-                            float g = MathHelper.sin((float)((m - 0.1f) * 1.3f));
+                            float g = MathHelper.sin((m - 0.1f) * 1.3f);
                             float h = f - 0.1f;
                             float j = g * h;
                             matrices.translate(j * 0.0f, j * 0.004f, j * 0.0f);
@@ -142,7 +142,7 @@ public abstract class MixinHeldItemRenderer {
                             f = 1.0f;
                         }
                         if (f > 0.1f) {
-                            float g = MathHelper.sin((float)((m - 0.1f) * 1.3f));
+                            float g = MathHelper.sin((m - 0.1f) * 1.3f);
                             float h = f - 0.1f;
                             float j = g * h;
                             matrices.translate(j * 0.0f, j * 0.004f, j * 0.0f);
@@ -166,7 +166,7 @@ public abstract class MixinHeldItemRenderer {
                 }
                 HeldItemRendererEvent event = new HeldItemRendererEvent(hand, item, equipProgress, matrices);
                 HexTech.EVENT_BUS.post(event);
-                this.renderItem((LivingEntity)player, item, bl2 ? ModelTransformationMode.FIRST_PERSON_RIGHT_HAND : ModelTransformationMode.FIRST_PERSON_LEFT_HAND, !bl2, matrices, vertexConsumers, light);
+                this.renderItem(player, item, bl2 ? ModelTransformationMode.FIRST_PERSON_RIGHT_HAND : ModelTransformationMode.FIRST_PERSON_LEFT_HAND, !bl2, matrices, vertexConsumers, light);
             }
             matrices.pop();
         }
@@ -179,9 +179,9 @@ public abstract class MixinHeldItemRenderer {
 
     private void applySwingOffset(@NotNull MatrixStack matrices, Arm arm, float swingProgress) {
         int i = arm == Arm.RIGHT ? 1 : -1;
-        float f = MathHelper.sin((float)(swingProgress * swingProgress * (float)Math.PI));
+        float f = MathHelper.sin(swingProgress * swingProgress * (float)Math.PI);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((float)i * (45.0f + f * -20.0f)));
-        float g = MathHelper.sin((float)(MathHelper.sqrt((float)swingProgress) * (float)Math.PI));
+        float g = MathHelper.sin(MathHelper.sqrt(swingProgress) * (float)Math.PI);
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees((float)i * g * -20.0f));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(g * -80.0f));
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((float)i * -45.0f));
@@ -192,12 +192,12 @@ public abstract class MixinHeldItemRenderer {
         float f = (float)Wrapper.mc.player.getItemUseTimeLeft() - tickDelta + 1.0f;
         float g = f / (float)stack.getMaxUseTime();
         if (g < 0.8f) {
-            h = MathHelper.abs((float)(MathHelper.cos((float)(f / 4.0f * (float)Math.PI)) * 0.005f));
+            h = MathHelper.abs(MathHelper.cos(f / 4.0f * (float)Math.PI) * 0.005f);
             matrices.translate(0.0f, h, 0.0f);
         }
         h = 1.0f - (float)Math.pow(g, 27.0);
         int i = arm == Arm.RIGHT ? 1 : -1;
-        matrices.translate((double)(h * 0.6f * (float)i) * ViewModel.INSTANCE.eatX.getValue(), (double)(h * -0.5f) * ViewModel.INSTANCE.eatY.getValue(), (double)(h * 0.0f));
+        matrices.translate((double)(h * 0.6f * (float)i) * ViewModel.INSTANCE.eatX.getValue(), (double)(h * -0.5f) * ViewModel.INSTANCE.eatY.getValue(), h * 0.0f);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((float)i * h * 90.0f));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(h * 10.0f));
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees((float)i * h * 30.0f));
@@ -215,7 +215,7 @@ public abstract class MixinHeldItemRenderer {
         this.applyEquipOffset(matrices, arm, equipProgress);
         float f = (float)Wrapper.mc.player.getItemUseTimeLeft() - tickDelta + 1.0f;
         float g = 1.0f - f / (float)stack.getMaxUseTime();
-        float m = -15.0f + 75.0f * MathHelper.cos((float)(g * 45.0f * (float)Math.PI));
+        float m = -15.0f + 75.0f * MathHelper.cos(g * 45.0f * (float)Math.PI);
         if (arm != Arm.RIGHT) {
             matrices.translate(0.1, 0.83, 0.35);
             matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-80.0f));

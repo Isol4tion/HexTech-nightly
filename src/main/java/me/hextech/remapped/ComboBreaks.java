@@ -50,7 +50,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public enum _PNwHzpQsMnnDslSAEFgc {
         Attack,
-        Defend;
+        Defend
 
     }
 }

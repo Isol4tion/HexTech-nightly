@@ -24,7 +24,7 @@ public class BetterDynamicAnimation {
 
     public void update() {
         this.prevStep = this.step;
-        this.step = MathHelper.clamp((int)(this.step + 1), (int)0, (int)this.maxTicks);
+        this.step = MathHelper.clamp(this.step + 1, 0, this.maxTicks);
     }
 
     public void setValue(double value) {

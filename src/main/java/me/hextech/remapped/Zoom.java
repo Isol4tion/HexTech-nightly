@@ -13,7 +13,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public Zoom() {
         super("Zoom", Module_JlagirAibYQgkHtbRnhw.Render);
         INSTANCE = this;
-        HexTech.EVENT_BUS.subscribe(new Zoom());
+        //HexTech.EVENT_BUS.subscribe(new Zoom());
     }
 
     @EventHandler
@@ -31,7 +31,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     
     @Override
     public void onEnable() {
-        if ((Integer) Zoom.mc.options.getFov().getValue() == 70) {
+        if (Zoom.mc.options.getFov().getValue() == 70) {
             Zoom.mc.options.getFov().setValue(71);
         }
     }

@@ -6,6 +6,6 @@ package me.hextech.remapped;
 public enum Shader {
     Shader,
     Target,
-    Legacy;
+    Legacy
 
 }

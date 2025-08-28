@@ -40,7 +40,7 @@ public class InGameHudMixin {
             Entity cameraEntity = MinecraftClient.getInstance().getCameraEntity();
             int distance = Integer.MAX_VALUE;
             Vec3d position = cameraEntity.getPos();
-            Vec3d point = position.add((rotation = Vec3d.fromPolar((float)this.camera.originalPitch(), (float)this.camera.originalYaw())).getX() * (double)distance, rotation.getY() * (double)distance, rotation.getZ() * (double)distance);
+            Vec3d point = position.add((rotation = Vec3d.fromPolar(this.camera.originalPitch(), this.camera.originalYaw())).getX() * (double)distance, rotation.getY() * (double)distance, rotation.getZ() * (double)distance);
             Vec3d projected = ProjectionUtils.worldToScreen(point);
             if (projected.getZ() < 0.0) {
                 this.offsetCrosshairX = -projected.getX();

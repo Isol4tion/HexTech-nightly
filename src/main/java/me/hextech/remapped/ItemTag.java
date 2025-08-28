@@ -21,7 +21,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (Entity entity : ItemTag.mc.world.getEntities()) {
             if (!(entity instanceof ItemEntity itemEntity)) continue;
             String s = this.count.getValue() ? " x" + itemEntity.getStack().getCount() : "";
-            itemEntity.setCustomName(Text.of((String)((this.customName.getValue() ? itemEntity.getStack().getName() : itemEntity.getStack().getItem().getName()).getString() + s)));
+            itemEntity.setCustomName(Text.of((this.customName.getValue() ? itemEntity.getStack().getName() : itemEntity.getStack().getItem().getName()).getString() + s));
             itemEntity.setCustomNameVisible(true);
         }
     }

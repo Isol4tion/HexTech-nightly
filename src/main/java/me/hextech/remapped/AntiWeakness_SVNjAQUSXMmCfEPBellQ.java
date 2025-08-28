@@ -1,6 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.AntiWeakness;
+
 import me.hextech.remapped.BooleanSetting;
 import me.hextech.remapped.Criticals;
 import me.hextech.remapped.EntityUtil;
@@ -25,7 +25,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public enum AntiWeakness {
         Normal,
         Silent,
-        Inventory;
+        Inventory
     }
     private final SliderSetting delay = this.add(new SliderSetting("Delay", 100, 0, 500).setSuffix("ms"));
     private final EnumSetting<AntiWeakness> swapMode = this.add(new EnumSetting<AntiWeakness>("SwapMode", AntiWeakness.Inventory));
@@ -69,7 +69,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.onlyCrystal.getValue() && !(Criticals.getEntity(packet) instanceof EndCrystalEntity)) {
                 return;
             }
-            this.lastPacket = (PlayerInteractEntityC2SPacket)event.getPacket();
+            this.lastPacket = event.getPacket();
             this.delayTimer.reset();
             this.ignore = true;
             this.doAnti();
@@ -90,15 +90,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.swapMode.getValue() != AntiWeakness.Inventory) {
             InventoryUtil.switchToSlot(strong);
         } else {
-            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.currentScreenHandler.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot, SlotActionType.SWAP, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
+            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.currentScreenHandler.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot, SlotActionType.SWAP, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
         }
-        AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.networkHandler.sendPacket((Packet)this.lastPacket);
+        AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.networkHandler.sendPacket(this.lastPacket);
         if (this.swapMode.getValue() != AntiWeakness.Inventory) {
             if (this.swapMode.getValue() != AntiWeakness.Normal) {
                 InventoryUtil.switchToSlot(old);
             }
         } else {
-            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.currentScreenHandler.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot, SlotActionType.SWAP, (PlayerEntity)AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
+            AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.currentScreenHandler.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot, SlotActionType.SWAP, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
             EntityUtil.syncInventory();
         }
     }

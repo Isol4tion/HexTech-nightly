@@ -47,9 +47,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         fakePlayer = new OtherClientPlayerEntity(Blink.mc.world, new GameProfile(UUID.fromString("11451466-6666-6666-6666-666666666601"), Blink.mc.player.getName().getString()));
-        fakePlayer.copyPositionAndRotation((Entity)Blink.mc.player);
+        fakePlayer.copyPositionAndRotation(Blink.mc.player);
         fakePlayer.getInventory().clone(Blink.mc.player.getInventory());
-        Blink.mc.world.addEntity((Entity)fakePlayer);
+        Blink.mc.world.addEntity(fakePlayer);
         if (this.exp.getValue()) {
             AutoEXP.INSTANCE.enable();
         }
@@ -99,7 +99,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (t instanceof PlayerMoveC2SPacket || this.allPacket.getValue()) {
-            this.packetsList.add((Packet)event.getPacket());
+            this.packetsList.add(event.getPacket());
             event.cancel();
         }
     }

@@ -15,10 +15,11 @@ import me.hextech.remapped.ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn;
 import me.hextech.remapped.JelloUtil;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PredictionSetting_JKvMiRXQVAwkYSSmKMez;
+
 import me.hextech.remapped.Render3DUtil;
 import me.hextech.remapped.SliderSetting;
 import me.hextech.remapped.Wrapper;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -67,11 +68,11 @@ implements Wrapper {
         }
         this.pathCache.clear();
         if (this.drawnSelf.getValue()) {
-            this.pathCache.put((PlayerEntity)PredictionSetting.mc.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.simulate((PlayerEntity)PredictionSetting.mc.player, this.selfExtrap.getValueInt()));
+            this.pathCache.put(PredictionSetting.mc.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.simulate(PredictionSetting.mc.player, this.selfExtrap.getValueInt()));
         }
         if (this.drawnTarget.getValue()) {
             for (PlayerEntity p : PredictionSetting.mc.world.getPlayers()) {
-                if (p == PredictionSetting.mc.player || p.squaredDistanceTo((Entity)PredictionSetting.mc.player) > 4096.0) continue;
+                if (p == PredictionSetting.mc.player || p.squaredDistanceTo(PredictionSetting.mc.player) > 4096.0) continue;
                 int ticks = Math.max(this.placeExtrap.getValueInt(), this.breakExtrap.getValueInt());
                 this.pathCache.put(p, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.simulate(p, ticks));
             }
@@ -79,15 +80,15 @@ implements Wrapper {
         this.pathCache.forEach((real, path) -> {
             switch (this.renderMode.getValue().ordinal()) {
                 case 0: {
-                    this.drawBox(matrices, pt, (PlayerEntity)real, (List<Vec3d>)path);
+                    this.drawBox(matrices, pt, real, path);
                     break;
                 }
                 case 1: {
-                    this.drawJello(matrices, pt, (PlayerEntity)real, (List<Vec3d>)path);
+                    this.drawJello(matrices, pt, real, path);
                     break;
                 }
                 case 2: {
-                    this.drawLinePath(matrices, (List<Vec3d>)path);
+                    this.drawLinePath(matrices, path);
                 }
             }
         });
@@ -109,7 +110,7 @@ implements Wrapper {
         Vec3d last = path.get(path.size() - 1);
         PlayerEntity fake = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createPredict(real, Math.max(this.placeExtrap.getValueInt(), this.breakExtrap.getValueInt()), this.smoothTicks.getValueInt());
         fake.setPosition(last);
-        JelloUtil.drawJello(matrices, (Entity)fake, this.color.getValue());
+        JelloUtil.drawJello(matrices, fake, this.color.getValue());
     }
 
     private void drawLinePath(MatrixStack matrices, List<Vec3d> path) {
@@ -132,31 +133,41 @@ implements Wrapper {
     public enum _JgmYdSqRlhzWcxRMZVQF {
         Prediction,
         IDPrediction,
-        Render;
+        Render
 
     }
 
     public enum _mJSQReswTiaqOSqkjOmh {
         Aurora,
-        HexTech;
+        HexTech
 
     }
 
     public enum _JkDAbATfmVbQbOuEIDLo {
         Box,
         Jello,
-        Line;
+        Line
 
     }
 
-    public class _XBpBEveLWEKUGQPHCCIS {
+    public static class _XBpBEveLWEKUGQPHCCIS {
         public final PlayerEntity player;
         public final PlayerEntity predict;
 
         public _XBpBEveLWEKUGQPHCCIS(PlayerEntity player) {
             this.player = player;
             if (PredictionSetting.INSTANCE.prediction.getValue()) {
-                this.predict = new PredictionSetting_JKvMiRXQVAwkYSSmKMez(this, (World)Wrapper.mc.world, player.getBlockPos(), player.getYaw(), new GameProfile(UUID.fromString("66123666-1234-5432-6666-667563866600"), "PredictEntity339"));
+                this.predict = new PlayerEntity(Wrapper.mc.world, player.getBlockPos(), player.getYaw(), new GameProfile(UUID.fromString("66123666-1234-5432-6666-667563866600"), "PredictEntity339")) {
+                    @Override
+                    public boolean isSpectator() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean isCreative() {
+                        return false;
+                    }
+                };
                 if (PredictionSetting.INSTANCE.mode.getValue() == _mJSQReswTiaqOSqkjOmh.Aurora) {
                     int ticks = PredictionSetting.INSTANCE.breakExtrap.getValueInt();
                     Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(player, ticks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());
@@ -169,9 +180,9 @@ implements Wrapper {
                     this.predict.setOnGround(player.isOnGround());
                     this.predict.getInventory().clone(player.getInventory());
                     this.predict.setPose(player.getPose());
-                    player.getStatusEffects().forEach(arg_0 -> ((PlayerEntity)this.predict).addStatusEffect(arg_0));
+                    player.getStatusEffects().forEach(arg_0 -> this.predict.addStatusEffect(arg_0));
                 } else if (PredictionSetting.INSTANCE.mode.getValue() == _mJSQReswTiaqOSqkjOmh.HexTech) {
-                    this.predict.setPosition(player.getPos().add(CombatUtil.getMotionVec((Entity)player, PredictionSetting.INSTANCE.breakextrap.getValueInt(), true)));
+                    this.predict.setPosition(player.getPos().add(CombatUtil.getMotionVec(player, PredictionSetting.INSTANCE.breakextrap.getValueInt(), true)));
                     this.predict.setHealth(player.getHealth());
                     this.predict.prevX = player.prevX;
                     this.predict.prevZ = player.prevZ;
@@ -179,7 +190,7 @@ implements Wrapper {
                     this.predict.setOnGround(player.isOnGround());
                     this.predict.getInventory().clone(player.getInventory());
                     this.predict.setPose(player.getPose());
-                    for (StatusEffectInstance se : new ArrayList(player.getStatusEffects())) {
+                    for (StatusEffectInstance se : new ArrayList<>(player.getStatusEffects())) {
                         this.predict.addStatusEffect(se);
                     }
                 }

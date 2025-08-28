@@ -49,7 +49,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.progress = 0;
-        if (this.pos != null && !this.pos.equals((Object)EntityUtil.getPlayerPos(true))) {
+        if (this.pos != null && !this.pos.equals(EntityUtil.getPlayerPos(true))) {
             this.crystalPos.clear();
         }
         this.pos = EntityUtil.getPlayerPos(true);
@@ -76,7 +76,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private boolean crystalHere(BlockPos pos) {
         for (Entity entity : Objects.requireNonNull(AntiCev.mc.world).getNonSpectatingEntities(EndCrystalEntity.class, new Box(pos))) {
-            if (!EntityUtil.getEntityPos(entity).equals((Object)pos)) continue;
+            if (!EntityUtil.getEntityPos(entity).equals(pos)) continue;
             return true;
         }
         return false;

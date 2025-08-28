@@ -249,7 +249,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         final int yawPitch = (int)MathHelper.wrapDegrees(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getYaw());
         final int p = this.coords.getValue() ? 0 : 11;
         i = ((HUD_ssNtBhEveKlCmIccBvAN.mc.currentScreen instanceof ChatScreen) ? 14 : 0);
-        final String coordinates = (this.lowerCase.getValue() ? "XYZ: ".toLowerCase() : "XYZ: ") + "§f" + (inHell ? /* invokedynamic(!) */ProcyonInvokeDynamicHelper_1.invoke(posX, posY, posZ, hposX, hposZ) : /* invokedynamic(!) */ProcyonInvokeDynamicHelper_2.invoke(posX, posY, posZ, hposX, hposZ));
+        String coordinates = (this.lowerCase.getValue() ? "XYZ: ".toLowerCase() : "XYZ: ") + "§f" + (inHell ? (posX + ", " + posY + ", " + posZ + " §7[§f" + hposX + ", " + hposZ + "§7]§f") : (posX + ", " + posY + ", " + posZ + "§7 [§f" + hposX + ", " + hposZ + "§7]"));
         final String yaw = this.direction.getValue() ? ((this.lowerCase.getValue() ? "Yaw: ".toLowerCase() : "Yaw: ") + "§f" + yawPitch) : "";
         final String coords = this.coords.getValue() ? coordinates : "";
         i += 10;
@@ -273,9 +273,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Object object = text = this.lowerCase.getValue() ? "Welcome, ".toLowerCase() : "Welcome, ";
         if (this.greeterMode.getValue() == HUD.PLAYER) {
             if (this.greeter.getValue()) {
-                text = (String)text + nameColor + mc.getSession().getUsername();
+                text = text + nameColor + mc.getSession().getUsername();
             }
-            drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, (String)text + "\u00a70 :')", (int)((float)width / 2.0f - (float)HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth((String)text) / 2.0f + 2.0f), 2, this.getColor(this.counter));
+            drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, text + "\u00a70 :')", (int)((float)width / 2.0f - (float)HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth((String)text) / 2.0f + 2.0f), 2, this.getColor(this.counter));
             ++this.counter;
         } else {
             String lel = this.greeterText.getValue();
@@ -292,9 +292,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double y = (double)mc.getWindow().getHeight() / 4.0 + (double)yOffset;
         Objects.requireNonNull(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer);
         int textHeight = 9 + 1;
-        String t1 = "Totem " + String.valueOf(Formatting.YELLOW) + InventoryUtil.getItemCount(Items.TOTEM_OF_UNDYING);
-        String t2 = "Potion " + String.valueOf(Formatting.GRAY) + InventoryUtil.getPotCount(StatusEffects.RESISTANCE);
-        String t3 = "Crystal " + String.valueOf(Formatting.WHITE) + InventoryUtil.getItemCount(Items.END_CRYSTAL);
+        String t1 = "Totem " + Formatting.YELLOW + InventoryUtil.getItemCount(Items.TOTEM_OF_UNDYING);
+        String t2 = "Potion " + Formatting.GRAY + InventoryUtil.getPotCount(StatusEffects.RESISTANCE);
+        String t3 = "Crystal " + Formatting.WHITE + InventoryUtil.getItemCount(Items.END_CRYSTAL);
         String A1 = "\u00a74[\u64cd\u63a7\u529b] | \u00a78\u538b\u5236";
         String D1 = "\u00a73[\u538b\u5236] | \u00a78\u64cd\u63a7\u529b";
         String t4 = "\u9759\u6001\u540c\u6b65";
@@ -302,17 +302,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.totemtext.getValue()) {
             drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, t1, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(t1) / 2)), (int)y, this.getColor(this.counter));
             ++this.counter;
-            y += (double)textHeight;
+            y += textHeight;
         }
         if (this.potiontext.getValue()) {
             drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, t2, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(t2) / 2)), (int)y, this.getColor(this.counter));
             ++this.counter;
-            y += (double)textHeight;
+            y += textHeight;
         }
         if (this.crtstalText.getValue()) {
             drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, t3, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(t3) / 2)), (int)y, this.getColor(this.counter));
             ++this.counter;
-            y += (double)textHeight;
+            y += textHeight;
         }
         if (this.attacktext.getValue()) {
             if (ComboBreaks.INSTANCE.isOn()) {
@@ -322,16 +322,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, D1, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(D1) / 2)), (int)y, this.getColorComboD(this.counter));
             }
             ++this.counter;
-            y += (double)textHeight;
+            y += textHeight;
         }
         for (StatusEffectInstance potionEffect : effects) {
             if (potionEffect.getEffectType() != StatusEffects.RESISTANCE || potionEffect.getAmplifier() + 1 <= 1) continue;
             String str = this.getColoredPotionTimeString(potionEffect);
-            String t31 = "PotionTime " + String.valueOf(Formatting.WHITE) + str;
+            String t31 = "PotionTime " + Formatting.WHITE + str;
             if (!this.potiontext.getValue()) continue;
             drawContext.drawTextWithShadow(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer, t31, (int)(x - (double)(HUD_ssNtBhEveKlCmIccBvAN.mc.textRenderer.getWidth(t31) / 2)), (int)y, this.getColor(this.counter));
             ++this.counter;
-            y += (double)textHeight;
+            y += textHeight;
         }
     }
 
@@ -365,8 +365,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         dfDistance.setRoundingMode(RoundingMode.CEILING);
         StringBuilder distanceSB = new StringBuilder();
         for (PlayerEntity player : HUD_ssNtBhEveKlCmIccBvAN.mc.world.getPlayers()) {
-            if (player.isInvisible() || player.getName().equals((Object)HUD_ssNtBhEveKlCmIccBvAN.mc.player.getName())) continue;
-            int distanceInt = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.distanceTo((Entity)player);
+            if (player.isInvisible() || player.getName().equals(HUD_ssNtBhEveKlCmIccBvAN.mc.player.getName())) continue;
+            int distanceInt = (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.distanceTo(player);
             String distance = dfDistance.format(distanceInt);
             if (distanceInt >= 25) {
                 distanceSB.append(Formatting.GREEN);
@@ -376,7 +376,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 distanceSB.append(Formatting.RED);
             }
             distanceSB.append(distance);
-            retval.put((String)(this.health.getValue() ? String.valueOf(this.getHealthColor(player)) + String.valueOf(HUD_ssNtBhEveKlCmIccBvAN.round2(player.getABSORPTIONAmount() + player.getHealth())) + " " : "") + String.valueOf(HexTech.FRIEND.isFriend(player) ? Formatting.AQUA : Formatting.RESET) + player.getName().getString() + " " + String.valueOf(Formatting.WHITE) + "[" + String.valueOf(Formatting.RESET) + String.valueOf(distanceSB) + "m" + String.valueOf(Formatting.WHITE) + "] " + String.valueOf(Formatting.GREEN), (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.distanceTo((Entity)player));
+            retval.put((this.health.getValue() ? String.valueOf(this.getHealthColor(player)) + HUD_ssNtBhEveKlCmIccBvAN.round2(player.getAbsorptionAmount() + player.getHealth()) + " " : "") + (HexTech.FRIEND.isFriend(player) ? Formatting.AQUA : Formatting.RESET) + player.getName().getString() + " " + Formatting.WHITE + "[" + Formatting.RESET + distanceSB + "m" + Formatting.WHITE + "] " + Formatting.GREEN, (int)HUD_ssNtBhEveKlCmIccBvAN.mc.player.distanceTo(player));
             distanceSB.setLength(0);
         }
         if (!retval.isEmpty()) {
@@ -392,7 +392,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private Formatting getHealthColor(@NotNull PlayerEntity entity) {
-        int health = (int)((float)((int)entity.getHealth()) + entity.getABSORPTIONAmount());
+        int health = (int)((float)((int)entity.getHealth()) + entity.getAbsorptionAmount());
         if (health <= 15 && health > 7) {
             return Formatting.YELLOW;
         }
@@ -404,11 +404,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private String getColoredPotionString(StatusEffectInstance effect) {
         StatusEffect potion = effect.getEffectType();
-        return potion.getName().getString() + " " + (effect.getAmplifier() + 1) + " \u00a7f" + StatusEffectUtil.getDurationText((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.getTickManager().getTickRate()).getString();
+        return potion.getName().getString() + " " + (effect.getAmplifier() + 1) + " \u00a7f" + StatusEffectUtil.getDurationText(effect, 1.0f, HUD_ssNtBhEveKlCmIccBvAN.mc.world.getTickManager().getTickRate()).getString();
     }
 
     private String getColoredPotionTimeString(StatusEffectInstance effect) {
-        return StatusEffectUtil.getDurationText((StatusEffectInstance)effect, (float)1.0f, (float)HUD_ssNtBhEveKlCmIccBvAN.mc.world.getTickManager().getTickRate()).getString();
+        return StatusEffectUtil.getDurationText(effect, 1.0f, HUD_ssNtBhEveKlCmIccBvAN.mc.world.getTickManager().getTickRate()).getString();
     }
 
     private int getColor(int counter) {

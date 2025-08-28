@@ -47,7 +47,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         Object t = event.getPacket();
         if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).getAction() == PlayerActionC2SPacket.Action.RELEASE_USE_ITEM) {
-            BowBomb.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)BowBomb.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
+            BowBomb.mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(BowBomb.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
             if (this.exploit.getValue() == _rjdFZKIVfyUHfSoAeHLl.Fast) {
                 for (int i = 0; i < this.getRuns(); ++i) {
                     this.spoof(BowBomb.mc.player.getX(), this.minimize.getValue() ? BowBomb.mc.player.getY() : BowBomb.mc.player.getY() - 1.0E-10, BowBomb.mc.player.getZ(), true);
@@ -82,9 +82,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void spoof(double x, double y, double z, boolean ground) {
         if (this.rotation.getValue()) {
-            BowBomb.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.Full(x, y, z, BowBomb.mc.player.getYaw(), BowBomb.mc.player.getPitch(), ground));
+            BowBomb.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.Full(x, y, z, BowBomb.mc.player.getYaw(), BowBomb.mc.player.getPitch(), ground));
         } else {
-            BowBomb.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(x, y, z, ground));
+            BowBomb.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(x, y, z, ground));
         }
     }
 
@@ -96,7 +96,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Strong,
         Fast,
         Strict,
-        Phobos;
+        Phobos
 
     }
 }

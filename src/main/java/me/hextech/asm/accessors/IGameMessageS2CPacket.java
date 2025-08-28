@@ -10,5 +10,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface IGameMessageS2CPacket {
     @Mutable
     @Accessor(value="content")
-    public void setContent(Text var1);
+    void setContent(Text var1);
 }

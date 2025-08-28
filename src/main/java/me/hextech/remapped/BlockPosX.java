@@ -8,7 +8,7 @@ import net.minecraft.util.math.Vec3d;
 public class BlockPosX
 extends BlockPos {
     public BlockPosX(double x, double y, double z) {
-        super(MathHelper.floor((double)x), MathHelper.floor((double)y), MathHelper.floor((double)z));
+        super(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
     }
 
     public BlockPosX(double x, double y, double z, boolean fix) {

@@ -31,7 +31,7 @@ import net.minecraft.text.Text;
 
 public class CommandManager
 implements Wrapper {
-    public static final String syncCode;
+    public static final String syncCode = "§)";
     public final AimCommand aim = new AimCommand();
     public final BindCommand bind = new BindCommand();
     public final ClipCommand clip = new ClipCommand();
@@ -80,7 +80,7 @@ implements Wrapper {
             startCode = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.start.getValue();
             endCode = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.end.getValue();
         }
-        CommandManager.mc.inGameHud.getChatHud().addMessage(Text.of((String)("\u00a7(\u00a7r" + startCode + ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.hackName.getValue() + "\u00a7r" + endCode + "\u00a7f " + message)));
+        CommandManager.mc.inGameHud.getChatHud().addMessage(Text.of("\u00a7(\u00a7r" + startCode + ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.hackName.getValue() + "\u00a7r" + endCode + "\u00a7f " + message));
     }
 
     public static void sendChatMessageWidthId(String message, int id) {
@@ -97,14 +97,14 @@ implements Wrapper {
             startCode = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.start.getValue();
             endCode = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.end.getValue();
         }
-        ((IChatHud)CommandManager.mc.inGameHud.getChatHud()).nullpoint_nextgen_master$add(Text.of((String)("\u00a7(\u00a7r" + startCode + ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.hackName.getValue() + "\u00a7r" + endCode + "\u00a7f " + message)), id);
+        ((IChatHud)CommandManager.mc.inGameHud.getChatHud()).nullpoint_nextgen_master$add(Text.of("\u00a7(\u00a7r" + startCode + ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.hackName.getValue() + "\u00a7r" + endCode + "\u00a7f " + message), id);
     }
 
     public static void sendChatMessageWidthIdNoSync(String message, int id) {
         if (Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck()) {
             return;
         }
-        ((IChatHud)CommandManager.mc.inGameHud.getChatHud()).nullpoint_nextgen_master$add(Text.of((String)("\u00a7f" + message)), id);
+        ((IChatHud)CommandManager.mc.inGameHud.getChatHud()).nullpoint_nextgen_master$add(Text.of("\u00a7f" + message), id);
     }
 
     public Command getCommandBySyntax(String string) {

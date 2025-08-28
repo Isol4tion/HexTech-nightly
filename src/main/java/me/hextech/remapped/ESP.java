@@ -60,7 +60,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public static void setupRender() {
         RenderSystem.enableBlend();
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public static void setTrianglePoints(BufferBuilder bufferBuilder, Matrix4f matrix, float x1, float y1, float x2, float y2, float x3, float y3, Color color) {
@@ -95,8 +95,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     float posY = (float)position.y;
                     float endPosX = (float)position.z;
                     float diff = (endPosX - posX) / 2.0f;
-                    float textWidth = FontRenderers.Arial.getStringWidth(entity.getDisplayName().getString()) * 1.0f;
-                    float tagX = (posX + diff - textWidth / 2.0f) * 1.0f;
+                    float textWidth = FontRenderers.Arial.getStringWidth(entity.getDisplayName().getString());
+                    float tagX = (posX + diff - textWidth / 2.0f);
                     FontRenderers.Arial.drawString(context.getMatrices(), entity.getDisplayName().getString(), tagX, posY - 10.0f, this.textcolor.getValue().getRGB());
                 }
             }
@@ -127,7 +127,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float endPosY = (float)position.w;
                 this.drawEquilateralTriangle(bufferBuilder, matrix, posX, posY, endPosX, endPosY, this.boxcolor.getValue());
             }
-            BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
+            BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
             ESP.endRender();
         }
     }
@@ -170,7 +170,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public enum _iJUSlEiinRCZKkYYmFmY {
         None,
-        text;
+        text
 
     }
 }

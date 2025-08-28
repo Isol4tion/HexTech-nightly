@@ -25,7 +25,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static LivingEntity target;
     public static boolean attacking;
     public final EnumSetting<TPAura> page = this.add(new EnumSetting<TPAura>("Page", TPAura.General));
-    public final SliderSetting range = this.add(new SliderSetting("Range", 60.0, (double)0.1f, 250.0, v -> this.page.getValue() == TPAura.General));
+    public final SliderSetting range = this.add(new SliderSetting("Range", 60.0, 0.1f, 250.0, v -> this.page.getValue() == TPAura.General));
     public final BooleanSetting Players = this.add(new BooleanSetting("Players", true, v -> this.page.getValue() == TPAura.Target));
     public final BooleanSetting Mobs = this.add(new BooleanSetting("Mobs", true, v -> this.page.getValue() == TPAura.Target));
     public final BooleanSetting Animals = this.add(new BooleanSetting("Animals", true, v -> this.page.getValue() == TPAura.Target));
@@ -71,7 +71,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             ++this.attackTicks;
             this.tick.reset();
         }
-        if (this.weaponOnly.getValue() && !EntityUtil.isHoldingWeapon((PlayerEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player)) {
+        if (this.weaponOnly.getValue() && !EntityUtil.isHoldingWeapon(TPAura_LycLkxHLQeGfgqfryvmV.mc.player)) {
             target = null;
             return;
         }
@@ -103,43 +103,43 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double maxHealth = 36.0;
         for (Entity e : TPAura_LycLkxHLQeGfgqfryvmV.mc.world.getEntities()) {
             LivingEntity entity;
-            if (!(e instanceof LivingEntity) || !this.isEnemy((Entity)(entity = (LivingEntity)e)) || !CombatUtil.isValid((Entity)entity, this.range.getValue())) continue;
+            if (!(e instanceof LivingEntity) || !this.isEnemy(entity = (LivingEntity)e) || !CombatUtil.isValid(entity, this.range.getValue())) continue;
             if (target == null) {
                 target = entity;
-                distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo((Entity)entity);
-                maxHealth = EntityUtil.getHealth((Entity)entity);
+                distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo(entity);
+                maxHealth = EntityUtil.getHealth(entity);
                 continue;
             }
             if (entity instanceof PlayerEntity && EntityUtil.isArmorLow((PlayerEntity)entity, 10)) {
                 target = entity;
                 break;
             }
-            if (this.targetMode.getValue() == TPAura_XzEqwIDEtUaoPqXpLXTU.HEALTH && (double)EntityUtil.getHealth((Entity)entity) < maxHealth) {
+            if (this.targetMode.getValue() == TPAura_XzEqwIDEtUaoPqXpLXTU.HEALTH && (double)EntityUtil.getHealth(entity) < maxHealth) {
                 target = entity;
-                maxHealth = EntityUtil.getHealth((Entity)entity);
+                maxHealth = EntityUtil.getHealth(entity);
                 continue;
             }
-            if (this.targetMode.getValue() != TPAura_XzEqwIDEtUaoPqXpLXTU.DISTANCE || !((double)TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo((Entity)entity) < distance)) continue;
+            if (this.targetMode.getValue() != TPAura_XzEqwIDEtUaoPqXpLXTU.DISTANCE || !((double)TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo(entity) < distance)) continue;
             target = entity;
-            distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo((Entity)entity);
+            distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo(entity);
         }
         return target;
     }
 
     private void doTPHit(LivingEntity entity) {
         attacking = true;
-        List<Vec3> tpPath = PathUtils.computePath((LivingEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player, entity);
+        List<Vec3> tpPath = PathUtils.computePath(TPAura_LycLkxHLQeGfgqfryvmV.mc.player, entity);
         this.lastPath = new ArrayList<Vec3>(tpPath);
-        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
-        TPAura_LycLkxHLQeGfgqfryvmV.mc.interactionManager.attackEntity((PlayerEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player, (Entity)target);
+        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
+        TPAura_LycLkxHLQeGfgqfryvmV.mc.interactionManager.attackEntity(TPAura_LycLkxHLQeGfgqfryvmV.mc.player, target);
         EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
         tpPath = Lists.reverse(tpPath);
-        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
+        tpPath.forEach(vec3 -> TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));
         if (this.test.getValue()) {
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.354844, 0.0, false));
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, 0.325488, 0.0, false));
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15441, 0.0, false));
-            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15444, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.354844, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(0.0, 0.325488, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15441, 0.0, false));
+            TPAura_LycLkxHLQeGfgqfryvmV.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(0.0, -0.15444, 0.0, false));
         }
         attacking = false;
         this.attackTicks = 0;
@@ -166,7 +166,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
      */
     public enum TPAura_XzEqwIDEtUaoPqXpLXTU {
         DISTANCE,
-        HEALTH;
+        HEALTH
 
     }
 
@@ -175,7 +175,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
      */
     public enum TPAura {
         General,
-        Target;
+        Target
 
     }
 }

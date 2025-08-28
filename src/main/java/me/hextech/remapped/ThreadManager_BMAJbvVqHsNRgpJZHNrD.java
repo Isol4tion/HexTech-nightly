@@ -28,7 +28,7 @@ public class ThreadManager_BMAJbvVqHsNRgpJZHNrD {
                 clientService.setDaemon(true);
                 clientService.start();
             }
-            BlockUtil.placedPos.forEach(pos -> PlaceRender.renderMap.put((BlockPos)pos, PlaceRender.INSTANCE.create((BlockPos)pos)));
+            BlockUtil.placedPos.forEach(pos -> PlaceRender.renderMap.put(pos, PlaceRender.INSTANCE.create(pos)));
             BlockUtil.placedPos.clear();
             HexTech.SERVER.onUpdate();
             HexTech.MODULE.onUpdate();

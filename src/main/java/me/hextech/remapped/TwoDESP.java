@@ -79,7 +79,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (!this.shouldRender(ent)) continue;
             this.drawBox(bufferBuilder, ent, matrix, context);
         }
-        BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
         Render2DUtil.endRender();
         for (Entity ent : TwoDESP.mc.world.getEntities()) {
             if (!this.shouldRender(ent)) continue;
@@ -177,15 +177,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 Color color = this.getcolor(lent.getHealth());
                 Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 4.0), (float)(endPosY + (posY - endPosY) * (double)lent.getHealth() / (double)lent.getMaxHealth()), (float)posX - 3.0f, (float)endPosY, color, color, color, color);
             }
-            if (ent instanceof PlayerEntity) {
-                PlayerEntity player = (PlayerEntity)ent;
+            if (ent instanceof PlayerEntity player) {
                 if (this.renderArmor.getValue()) {
                     double height = (endPosY - posY) / 4.0;
                     ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
-                    stacks.add((ItemStack)player.getInventory().armor.get(3));
-                    stacks.add((ItemStack)player.getInventory().armor.get(2));
-                    stacks.add((ItemStack)player.getInventory().armor.get(1));
-                    stacks.add((ItemStack)player.getInventory().armor.get(0));
+                    stacks.add(player.getInventory().armor.get(3));
+                    stacks.add(player.getInventory().armor.get(2));
+                    stacks.add(player.getInventory().armor.get(1));
+                    stacks.add(player.getInventory().armor.get(0));
                     int i = -1;
                     for (ItemStack armor : stacks) {
                         ++i;
@@ -225,12 +224,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             double posY = position.y;
             double endPosX = position.z;
             double endPosY = position.w;
-            if (ent instanceof ItemEntity) {
-                ItemEntity entity = (ItemEntity)ent;
+            if (ent instanceof ItemEntity entity) {
                 if (this.drawItem.getValue()) {
                     float diff = (float)((endPosX - posX) / 2.0);
-                    float textWidth = FontRenderers.Arial.getWidth(entity.getDisplayName().getString()) * 1.0f;
-                    float tagX = (float)((posX + (double)diff - (double)(textWidth / 2.0f)) * 1.0);
+                    float textWidth = FontRenderers.Arial.getWidth(entity.getDisplayName().getString());
+                    float tagX = (float)((posX + (double) diff - (double) (textWidth / 2.0f)));
                     int count = entity.getStack().getCount();
                     context.drawText(TwoDESP.mc.textRenderer, entity.getDisplayName().getString(), (int)tagX, (int)(posY - 10.0), this.textcolor.getValue().getRGB(), false);
                     if (this.drawItemC.getValue()) {
@@ -238,15 +236,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
             }
-            if (ent instanceof PlayerEntity) {
-                PlayerEntity player = (PlayerEntity)ent;
+            if (ent instanceof PlayerEntity player) {
                 if (this.renderArmor.getValue()) {
                     double height = (endPosY - posY) / 4.0;
                     ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
-                    stacks.add((ItemStack)player.getInventory().armor.get(3));
-                    stacks.add((ItemStack)player.getInventory().armor.get(2));
-                    stacks.add((ItemStack)player.getInventory().armor.get(1));
-                    stacks.add((ItemStack)player.getInventory().armor.get(0));
+                    stacks.add(player.getInventory().armor.get(3));
+                    stacks.add(player.getInventory().armor.get(2));
+                    stacks.add(player.getInventory().armor.get(1));
+                    stacks.add(player.getInventory().armor.get(0));
                     int i = -1;
                     for (ItemStack armor : stacks) {
                         ++i;
@@ -277,7 +274,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public enum TwoDESPMode {
         Setting,
         Target,
-        Color;
+        Color
 
     }
 }

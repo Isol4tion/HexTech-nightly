@@ -14,7 +14,7 @@ implements Wrapper {
         return AnimateUtil.thunder(current, endPoint, speed);
     }
 
-    public static double animate(double current, double endPoint, double speed, AnimateUtil_AcLZzRdHWZkNeKEYTOwI mode) {
+    public static double animate(double current, double endPoint, double speed, _AcLZzRdHWZkNeKEYTOwI mode) {
         switch (mode.ordinal()) {
             case 1: {
                 return AnimateUtil.mio(current, endPoint, speed);
@@ -45,7 +45,7 @@ implements Wrapper {
             speed *= -1.0;
         }
         double diff = endPoint - current;
-        double factor = diff * (double)mc.getTickDelta() / (1.0 / speed * (Math.min(240.0, (double)HexTech.FPS.getFps()) / 240.0));
+        double factor = diff * (double)mc.getTickDelta() / (1.0 / speed * (Math.min(240.0, HexTech.FPS.getFps()) / 240.0));
         if (diff < 0.0 && factor < diff) {
             factor = diff;
         } else if (diff > 0.0 && factor >= diff) {
@@ -111,7 +111,7 @@ implements Wrapper {
         return current + (shouldContinueAnimation ? speed : -speed);
     }
 
-    public enum AnimateUtil_AcLZzRdHWZkNeKEYTOwI {
+    public enum _AcLZzRdHWZkNeKEYTOwI {
         Thunder,
         Mio,
         My,

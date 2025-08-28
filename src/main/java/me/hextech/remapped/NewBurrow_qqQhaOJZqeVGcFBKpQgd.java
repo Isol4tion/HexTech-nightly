@@ -6,6 +6,6 @@ package me.hextech.remapped;
 public enum NewBurrow_qqQhaOJZqeVGcFBKpQgd {
     Bypass,
     Normal,
-    None;
+    None
 
 }

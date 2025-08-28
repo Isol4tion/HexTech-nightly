@@ -74,7 +74,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (bed >= this.beds.getValueInt()) continue block0;
                         ++bed;
                         BedCrafter.mc.interactionManager.clickRecipe(BedCrafter.mc.player.currentScreenHandler.syncId, recipe, false);
-                        BedCrafter.mc.interactionManager.clickSlot(BedCrafter.mc.player.currentScreenHandler.syncId, 0, 1, SlotActionType.QUICK_MOVE, (PlayerEntity)BedCrafter.mc.player);
+                        BedCrafter.mc.interactionManager.clickSlot(BedCrafter.mc.player.currentScreenHandler.syncId, 0, 1, SlotActionType.QUICK_MOVE, BedCrafter.mc.player);
                     }
                     continue block0;
                 }
@@ -106,19 +106,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 bestPos = pos;
                 break;
             }
-            if (!BlockUtil.canPlace(pos) || bestPos != null && !((double)MathHelper.sqrt((float)((float)BedCrafter.mc.player.squaredDistanceTo(pos.toCenterPos()))) < distance)) continue;
+            if (!BlockUtil.canPlace(pos) || bestPos != null && !((double)MathHelper.sqrt((float)BedCrafter.mc.player.squaredDistanceTo(pos.toCenterPos())) < distance)) continue;
             bestPos = pos;
-            distance = MathHelper.sqrt((float)((float)BedCrafter.mc.player.squaredDistanceTo(pos.toCenterPos())));
+            distance = MathHelper.sqrt((float)BedCrafter.mc.player.squaredDistanceTo(pos.toCenterPos()));
         }
         if (bestPos != null) {
             if (!place) {
                 BlockUtil.clickBlock(bestPos, BlockUtil.getClickSide(bestPos), this.rotate.getValue());
             } else {
-                if (InventoryUtil.findItem(Item.fromBlock((Block)Blocks.CRAFTING_TABLE)) == -1) {
+                if (InventoryUtil.findItem(Item.fromBlock(Blocks.CRAFTING_TABLE)) == -1) {
                     return;
                 }
                 int old = BedCrafter.mc.player.getInventory().selectedSlot;
-                InventoryUtil.switchToSlot(InventoryUtil.findItem(Item.fromBlock((Block)Blocks.CRAFTING_TABLE)));
+                InventoryUtil.switchToSlot(InventoryUtil.findItem(Item.fromBlock(Blocks.CRAFTING_TABLE)));
                 BlockUtil.placeBlock(bestPos, this.rotate.getValue());
                 InventoryUtil.switchToSlot(old);
             }

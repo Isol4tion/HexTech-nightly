@@ -154,9 +154,9 @@ extends Tab {
                 child.currentOffset = i - 15;
             }
         }
-        TextUtil.drawString(drawContext, this.title, (double)this.x + (double)this.width / 2.0 - (double)(TextUtil.getWidth(this.title) / 2.0f), (double)(this.y + 2), new Color(255, 255, 255));
+        TextUtil.drawString(drawContext, this.title, (double)this.x + (double)this.width / 2.0 - (double)(TextUtil.getWidth(this.title) / 2.0f), this.y + 2, new Color(255, 255, 255));
         if (this.category != null) {
-            String text = "[" + String.valueOf(HexTech.MODULE.categoryModules.get((Object)this.category)) + "]";
+            String text = "[" + HexTech.MODULE.categoryModules.get(this.category) + "]";
             TextUtil.drawStringWithScale(drawContext, text, (float)(this.x + this.width - 4) - TextUtil.getWidth(text) * 0.5f, (float)(this.y + 2), new Color(255, 255, 255), 0.5f);
         }
     }

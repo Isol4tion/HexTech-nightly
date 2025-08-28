@@ -32,7 +32,7 @@ implements Wrapper {
 
     public void updatePlayers() {
         for (PlayerEntity player : SpeedManager.mc.world.getPlayers()) {
-            if (!((double)SpeedManager.mc.player.distanceTo((Entity)player) < 400.0)) continue;
+            if (!((double)SpeedManager.mc.player.distanceTo(player) < 400.0)) continue;
             double distTraveledLastTickX = player.getX() - player.prevX;
             double distTraveledLastTickZ = player.getZ() - player.prevZ;
             double playerSpeed = distTraveledLastTickX * distTraveledLastTickX + distTraveledLastTickZ * distTraveledLastTickZ;
@@ -54,6 +54,6 @@ implements Wrapper {
     }
 
     public double turnIntoKpH(double input) {
-        return (double)MathHelper.sqrt((float)((float)input)) * 71.2729367892;
+        return (double)MathHelper.sqrt((float)input) * 71.2729367892;
     }
 }

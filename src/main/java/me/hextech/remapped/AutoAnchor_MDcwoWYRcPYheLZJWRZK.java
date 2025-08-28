@@ -4,41 +4,14 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import me.hextech.HexTech;
-import me.hextech.remapped.Aura;
-import me.hextech.remapped.AutoAnchor;
-import me.hextech.remapped.AutoAnchor_fWvHjchZKtWCdDnpHPYc;
-import me.hextech.remapped.AutoCrystal_QcRVYRsOqpKivetoXSJa;
-import me.hextech.remapped.Blink;
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.Burrow_eOaBGEoOSTDRbYIUAbXC;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.ExplosionUtil;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.OffTrackEvent;
-import me.hextech.remapped.PredictionSetting;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.SwingSide;
-import me.hextech.remapped.Timer;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.*;
 import net.minecraft.world.RaycastContext;
 
 public class AutoAnchor_MDcwoWYRcPYheLZJWRZK
@@ -94,7 +67,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final BooleanSetting terrainIgnore = this.add(new BooleanSetting("TerrainIgnore", true, v -> this.page.getValue() == AutoAnchor.Calc));
     private final SliderSetting minPrefer = this.add(new SliderSetting("Prefer", 7.0, 0.0, 36.0, 0.1, v -> this.page.getValue() == AutoAnchor.Calc).setSuffix("dmg"));
     private final SliderSetting maxSelfDamage = this.add(new SliderSetting("MaxSelf", 8.0, 0.0, 36.0, 0.1, v -> this.page.getValue() == AutoAnchor.Calc).setSuffix("dmg"));
-    private final EnumSetting<Aura._nurTqHTNjexQmuWdDgIn> mode = this.add(new EnumSetting<Aura._nurTqHTNjexQmuWdDgIn>("TargetESP", Aura._nurTqHTNjexQmuWdDgIn.Jello, v -> this.page.getValue() == AutoAnchor.Render));
+    private final EnumSetting<Aura.Aura_nurTqHTNjexQmuWdDgIn> mode = this.add(new EnumSetting<Aura.Aura_nurTqHTNjexQmuWdDgIn>("TargetESP", Aura.Aura_nurTqHTNjexQmuWdDgIn.Jello, v -> this.page.getValue() == AutoAnchor.Render));
     private final ColorSetting color = this.add(new ColorSetting("TargetColor", new Color(255, 255, 255, 250), v -> this.page.getValue() == AutoAnchor.Render));
     private final BooleanSetting bold = this.add(new BooleanSetting("Bold", false, v -> this.page.getValue() == AutoAnchor.Render));
     private final Timer delayTimer = new Timer();
@@ -111,13 +84,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public AutoAnchor_MDcwoWYRcPYheLZJWRZK() {
         super("AutoAnchor", Module_JlagirAibYQgkHtbRnhw.Combat);
         INSTANCE = this;
-        HexTech.EVENT_BUS.subscribe(new AutoAnchor_fWvHjchZKtWCdDnpHPYc(this));
+        HexTech.EVENT_BUS.subscribe(new AutoAnchor_fWvHjchZKtWCdDnpHPYc());
     }
 
     public static boolean canSee(Vec3d from, Vec3d to) {
         BlockHitResult result = null;
         if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world != null) {
-            result = AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world.raycast(new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player));
+            result = AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world.raycast(new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player));
         }
         return result == null || result.getType() == HitResult.Type.MISS;
     }
@@ -133,7 +106,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender3D(MatrixStack matrixStack) {
         if (this.displayTarget != null && currentPos != null) {
-            Aura.doRender(matrixStack, mc.getTickDelta(), (Entity)this.displayTarget, this.color.getValue(), this.mode.getValue());
+            Aura.doRender(matrixStack, mc.getTickDelta(), this.displayTarget, this.color.getValue(), this.mode.getValue());
         }
     }
 
@@ -208,7 +181,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (currentPos != null) {
             boolean shouldSpam;
             if (this.breakCrystal.getValue()) {
-                CombatUtil.attackCrystal(new BlockPos((Vec3i)currentPos), this.rotate.getValue(), false);
+                CombatUtil.attackCrystal(new BlockPos(currentPos), this.rotate.getValue(), false);
             }
             boolean bl = shouldSpam = this.spam.getValue() && (!this.mineSpam.getValue() || HexTech.BREAK.isMining(currentPos));
             if (shouldSpam) {
@@ -295,7 +268,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (this.calcTimer.passed((long)this.updateDelay.getValueFloat())) {
             double damage;
-            PredictionSetting._XBpBEveLWEKUGQPHCCIS selfPredict = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player);
+            PredictionSetting._XBpBEveLWEKUGQPHCCIS selfPredict = new PredictionSetting._XBpBEveLWEKUGQPHCCIS(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player);
             this.calcTimer.reset();
             this.tempPos = null;
             double placeDamage = this.minDamage.getValue();
@@ -307,10 +280,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 list.add(new PredictionSetting._XBpBEveLWEKUGQPHCCIS(player));
             }
             for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
-                double d;
+                double d = 0;
                 double selfDamage;
-                BlockPos pos = EntityUtil.getEntityPos((Entity)pap.player, true).up(2);
-                if (!BlockUtil.canPlace(pos, this.range.getValue(), this.breakCrystal.getValue()) && (BlockUtil.getBlock(pos) != Blocks.RESPAWN_ANCHOR || BlockUtil.getClickSideStrict(pos) == null) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getABSORPTIONAmount()))) continue;
+                BlockPos pos = EntityUtil.getEntityPos(pap.player, true).up(2);
+                if (!BlockUtil.canPlace(pos, this.range.getValue(), this.breakCrystal.getValue()) && (BlockUtil.getBlock(pos) != Blocks.RESPAWN_ANCHOR || BlockUtil.getClickSideStrict(pos) == null) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
                 damage = this.getAnchorDamage(pos, pap.player, pap.predict);
                 if (!(d > (double)this.headDamage.getValueFloat())) continue;
                 this.lastDamage = damage;
@@ -337,7 +310,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                             CombatUtil.modifyBlockState = Blocks.OBSIDIAN.getDefaultState();
                             skip = BlockUtil.getClickSideStrict(pos) == null;
                             CombatUtil.modifyPos = null;
-                            if (skip || !((damage = this.getAnchorDamage(pos, pap.player, pap.predict)) >= placeDamage) || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage2 = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage2 > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getABSORPTIONAmount()))) continue;
+                            if (skip || !((damage = this.getAnchorDamage(pos, pap.player, pap.predict)) >= placeDamage) || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage2 = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage2 > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
                             this.lastDamage = damage;
                             this.displayTarget = pap.player;
                             placeDamage = damage;
@@ -349,7 +322,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (damage2 >= this.minPrefer.getValue()) {
                             anchorFound = true;
                         }
-                        if (!anchorFound && damage2 < placeDamage || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage2) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getABSORPTIONAmount()))) continue;
+                        if (!anchorFound && damage2 < placeDamage || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage2) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
                         this.lastDamage = damage2;
                         this.displayTarget = pap.player;
                         breakDamage = damage2;
@@ -456,7 +429,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double bestDamage = this.assistDamage.getValue();
         for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
             double damage;
-            BlockPos pos = EntityUtil.getEntityPos((Entity)pap.player, true).up(2);
+            BlockPos pos = EntityUtil.getEntityPos(pap.player, true).up(2);
             if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world != null && AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.world.getBlockState(pos).getBlock() == Blocks.RESPAWN_ANCHOR) {
                 return;
             }
@@ -488,5 +461,46 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return pos.offset(i);
         }
         return null;
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public class AutoAnchor_fWvHjchZKtWCdDnpHPYc {
+
+        public AutoAnchor_fWvHjchZKtWCdDnpHPYc() {
+        }
+
+        @EventHandler
+        public void onRender3D(Render3DEvent event) {
+            if (currentPos != null) {
+                noPosTimer.reset();
+                placeVec3d = currentPos.toCenterPos();
+            }
+            if (placeVec3d == null) {
+                return;
+            }
+            fade = fadeSpeed.getValue() >= 1.0 ? (noPosTimer.passedMs((long)(startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5) : AnimateUtil.animate(fade, noPosTimer.passedMs((long)(startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5, fadeSpeed.getValue() / 10.0);
+            if (fade == 0.0) {
+                curVec3d = null;
+                return;
+            }
+            curVec3d = curVec3d == null || sliderSpeed.getValue() >= 1.0 ? placeVec3d : new Vec3d(AnimateUtil.animate(curVec3d.x, placeVec3d.x, sliderSpeed.getValue() / 10.0), AnimateUtil.animate(curVec3d.y, placeVec3d.y, sliderSpeed.getValue() / 10.0), AnimateUtil.animate(curVec3d.z, placeVec3d.z, sliderSpeed.getValue() / 10.0));
+            if (render.getValue()) {
+                Box cbox = new Box(curVec3d, curVec3d);
+                cbox = shrink.getValue() ? cbox.expand(fade) : cbox.expand(0.5);
+                MatrixStack matrixStack = event.getMatrixStack();
+                if (fill.booleanValue) {
+                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(fill.getValue(), (int)((double)fill.getValue().getAlpha() * fade * 2.0)));
+                }
+                if (box.booleanValue) {
+                    if (!bold.getValue()) {
+                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(box.getValue(), (int)((double)box.getValue().getAlpha() * fade * 2.0)));
+                    } else {
+                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(box.getValue(), (int)((double)box.getValue().getAlpha() * fade * 2.0)), lineWidth.getValueInt());
+                    }
+                }
+            }
+        }
     }
 }

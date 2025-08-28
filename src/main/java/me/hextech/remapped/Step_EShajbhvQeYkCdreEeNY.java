@@ -44,7 +44,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (this.inWebPause.getValue() && HoleKickTest.isInWeb((PlayerEntity)Step_EShajbhvQeYkCdreEeNY.mc.player) || !Step_EShajbhvQeYkCdreEeNY.mc.player.isOnGround() || this.onlyMoving.getValue() && !MovementUtil.isMoving()) {
+        if (this.inWebPause.getValue() && HoleKickTest.isInWeb(Step_EShajbhvQeYkCdreEeNY.mc.player) || !Step_EShajbhvQeYkCdreEeNY.mc.player.isOnGround() || this.onlyMoving.getValue() && !MovementUtil.isMoving()) {
             Step_EShajbhvQeYkCdreEeNY.mc.player.setStepHeight(0.6f);
             return;
         }

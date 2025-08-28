@@ -8,6 +8,6 @@ public enum BedAura_mDouduXLLBVPsGyiReXU {
     Rotate,
     Calc,
     Predict,
-    Render;
+    Render
 
 }

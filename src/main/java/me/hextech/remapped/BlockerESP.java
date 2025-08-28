@@ -43,11 +43,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float[] offset;
                 for (float x : offset = new float[]{-pOffset, 0.0f, pOffset}) {
                     for (float z : offset) {
-                        BlockPosX tempPos = new BlockPosX(entity.getPos().add((double)x, 0.0, (double)z));
+                        BlockPosX tempPos = new BlockPosX(entity.getPos().add(x, 0.0, z));
                         if (this.isObsidian(tempPos)) {
                             this.renderList.add(tempPos);
                         }
-                        if (!this.isObsidian(tempPos = new BlockPosX(entity.getPos().add((double)x, 0.5, (double)z)))) continue;
+                        if (!this.isObsidian(tempPos = new BlockPosX(entity.getPos().add(x, 0.5, z)))) continue;
                         this.renderList.add(tempPos);
                     }
                 }

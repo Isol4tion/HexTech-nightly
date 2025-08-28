@@ -51,8 +51,8 @@ implements ScreenHandlerProvider<T> {
     public void renderShulkerToolTip(DrawContext context, int mouseX, int mouseY, ItemStack stack) {
         try {
             NbtCompound compoundTag = stack.getSubNbt("BlockEntityTag");
-            DefaultedList itemStacks = DefaultedList.ofSize((int)27, (Object)ItemStack.EMPTY);
-            Inventories.readNbt((NbtCompound)compoundTag, (DefaultedList)itemStacks);
+            DefaultedList itemStacks = DefaultedList.ofSize(27, (Object)ItemStack.EMPTY);
+            Inventories.readNbt(compoundTag, itemStacks);
             this.draw(context, (DefaultedList<ItemStack>)itemStacks, mouseX, mouseY);
         }
         catch (Exception exception) {
@@ -62,15 +62,15 @@ implements ScreenHandlerProvider<T> {
 
     private void draw(DrawContext context, DefaultedList<ItemStack> itemStacks, int mouseX, int mouseY) {
         RenderSystem.disableDepthTest();
-        GL11.glClear((int)256);
+        GL11.glClear(256);
         this.drawBackground(context, mouseX += 8, mouseY -= 82);
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         DiffuseLighting.enableGuiDepthLighting();
         int row = 0;
         int i = 0;
         for (ItemStack itemStack : itemStacks) {
             context.drawItem(itemStack, mouseX + 8 + i * 18, mouseY + 7 + row * 18);
-            context.drawStackOverlay(Wrapper.mc.textRenderer, itemStack, mouseX + 8 + i * 18, mouseY + 7 + row * 18);
+            context.drawItemInSlot(Wrapper.mc.textRenderer, itemStack, mouseX + 8 + i * 18, mouseY + 7 + row * 18);
             if (++i < 9) continue;
             i = 0;
             ++row;

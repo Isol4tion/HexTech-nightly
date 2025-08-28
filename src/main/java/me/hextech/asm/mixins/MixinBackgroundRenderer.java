@@ -18,16 +18,16 @@ public class MixinBackgroundRenderer {
     private static void onApplyFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo info) {
         if (Ambience.INSTANCE.isOn()) {
             if (Ambience.INSTANCE.fog.booleanValue) {
-                RenderSystem.setShaderFogColor((float)((float)Ambience.INSTANCE.fog.getValue().getRed() / 255.0f), (float)((float)Ambience.INSTANCE.fog.getValue().getGreen() / 255.0f), (float)((float)Ambience.INSTANCE.fog.getValue().getBlue() / 255.0f), (float)((float)Ambience.INSTANCE.fog.getValue().getAlpha() / 255.0f));
+                RenderSystem.setShaderFogColor((float)Ambience.INSTANCE.fog.getValue().getRed() / 255.0f, (float)Ambience.INSTANCE.fog.getValue().getGreen() / 255.0f, (float)Ambience.INSTANCE.fog.getValue().getBlue() / 255.0f, (float)Ambience.INSTANCE.fog.getValue().getAlpha() / 255.0f);
             }
             if (Ambience.INSTANCE.fogDistance.getValue()) {
-                RenderSystem.setShaderFogStart((float)Ambience.INSTANCE.fogStart.getValueFloat());
-                RenderSystem.setShaderFogEnd((float)Ambience.INSTANCE.fogEnd.getValueFloat());
+                RenderSystem.setShaderFogStart(Ambience.INSTANCE.fogStart.getValueFloat());
+                RenderSystem.setShaderFogEnd(Ambience.INSTANCE.fogEnd.getValueFloat());
             }
         }
         if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.fog.getValue() && fogType == BackgroundRenderer.FogType.FOG_TERRAIN) {
-            RenderSystem.setShaderFogStart((float)(viewDistance * 4.0f));
-            RenderSystem.setShaderFogEnd((float)(viewDistance * 4.25f));
+            RenderSystem.setShaderFogStart(viewDistance * 4.0f);
+            RenderSystem.setShaderFogEnd(viewDistance * 4.25f);
         }
     }
 

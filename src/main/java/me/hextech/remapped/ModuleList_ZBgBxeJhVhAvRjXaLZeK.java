@@ -7,19 +7,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import me.hextech.HexTech;
-import me.hextech.remapped.AnimateUtil;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.ColorUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.FontRenderers;
-import me.hextech.remapped.ModuleList;
-import me.hextech.remapped.ModuleList_JTSxbGphPlVCUvdsPgfV;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Render2DUtil;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Timer;
 import net.minecraft.client.gui.DrawContext;
 import org.lwjgl.opengl.GL11;
 
@@ -73,7 +60,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onEnable() {
         this.modulesList.clear();
         for (Module_eSdgMXWuzcxgQVaJFmKZ module : HexTech.MODULE.modules) {
-            this.modulesList.add(new ModuleList_JTSxbGphPlVCUvdsPgfV(this, module));
+            this.modulesList.add(new ModuleList_JTSxbGphPlVCUvdsPgfV(module));
         }
     }
 
@@ -139,8 +126,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 drawContext.getMatrices().scale(1.0f, (float)modules.fold, 1.0f);
             }
             if (this.scissor.getValue()) {
-                GL11.glEnable((int)3089);
-                GL11.glScissor((int)0, (int)0, (int)((mc.getWindow().getWidth() / 2 - this.xOffset.getValueInt() - (this.rect.getValue() ? 2 : 0)) * 2), (int)mc.getWindow().getHeight());
+                GL11.glEnable(3089);
+                GL11.glScissor(0, 0, (mc.getWindow().getWidth() / 2 - this.xOffset.getValueInt() - (this.rect.getValue() ? 2 : 0)) * 2, mc.getWindow().getHeight());
             }
             if (this.backGround.getValue()) {
                 Render2DUtil.drawRect(drawContext.getMatrices(), (float)(textX - 1), (float)((int)modules.y), (float)mc.getWindow().getScaledWidth() - (float)this.xOffset.getValueInt() + 1.0f - (float)textX + 1.0f, (float)(this.getFontHeight() + this.height.getValueInt()), this.bgSync.getValue() ? ColorUtil.injectAlpha(this.getColor(counter), (int)((double)this.bgColor.getValue().getAlpha() * modules.fade)) : ColorUtil.injectAlpha(this.bgColor.getValue().getRGB(), (int)((double)this.bgColor.getValue().getAlpha() * modules.fade)));
@@ -151,7 +138,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 drawContext.drawTextWithShadow(ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.textRenderer, this.getSuffix(modules.name), textX, (int)(modules.y + 1.0 + (double)this.textOffset.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int)(255.0 * modules.fade)));
             }
             if (this.scissor.getValue()) {
-                GL11.glDisable((int)3089);
+                GL11.glDisable(3089);
             }
             if (this.fold.getValue()) {
                 drawContext.getMatrices().pop();
@@ -216,5 +203,70 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         Objects.requireNonNull(ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.textRenderer);
         return 9;
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public class ModuleList_JTSxbGphPlVCUvdsPgfV {
+        public final Module_eSdgMXWuzcxgQVaJFmKZ module;
+        public boolean isEnabled = false;
+        public double x = 0.0;
+        public double y = 0.0;
+        public double fade = 0.0;
+        public boolean hide = true;
+        public double fold = 0.0;
+        public String lastName = "";
+        public String name = "";
+        public boolean nameUpdated = false;
+
+        public ModuleList_JTSxbGphPlVCUvdsPgfV( Module_eSdgMXWuzcxgQVaJFmKZ module) {
+            this.module = module;
+        }
+
+        public void enable() {
+            if (this.isEnabled) {
+                return;
+            }
+            this.isEnabled = true;
+        }
+
+        public void disable() {
+            if (!this.isEnabled) {
+                return;
+            }
+            this.isEnabled = false;
+        }
+
+        public void updateName() {
+            String name = this.module.getArrayName();
+            this.lastName = name;
+            if (space.getValue()) {
+                name = this.module.getName().replaceAll("([a-z])([A-Z])", "$1 $2");
+                if (name.startsWith(" ")) {
+                    name = name.replaceFirst(" ", "");
+                }
+                name = name + this.module.getArrayInfo();
+            }
+            this.name = name;
+            update = true;
+        }
+
+        public void update() {
+            String name = this.module.getArrayName();
+            if (!this.lastName.equals(name)) {
+                this.lastName = name;
+                if (space.getValue()) {
+                    name = this.module.getName().replaceAll("([a-z])([A-Z])", "$1 $2");
+                    if (name.startsWith(" ")) {
+                        name = name.replaceFirst(" ", "");
+                    }
+                    name = name + this.module.getArrayInfo();
+                }
+                this.name = name;
+                update = true;
+                this.nameUpdated = true;
+            }
+        }
     }
 }

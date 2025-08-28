@@ -7,6 +7,6 @@ public enum FastWeb {
     Vanilla,
     Strict,
     Custom,
-    Ignore;
+    Ignore
 
 }

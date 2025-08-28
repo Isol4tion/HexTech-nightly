@@ -1,5 +1,6 @@
 package me.hextech.remapped;
 
+import java.util.ArrayList;
 import java.util.List;
 import me.hextech.remapped.BlockPosX;
 import me.hextech.remapped.BooleanSetting;
@@ -13,7 +14,6 @@ import me.hextech.remapped.Timer;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -21,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 
@@ -45,8 +46,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static int findPotionInventorySlot(StatusEffect targetEffect) {
         for (int i = 0; i < 45; ++i) {
             ItemStack itemStack = AutoPot.mc.player.getInventory().getStack(i);
-            if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
-            List effects = PotionContentsComponent.getPotionEffects((ItemStack)itemStack);
+            if (Item.getRawId(itemStack.getItem()) != Item.getRawId(Items.SPLASH_POTION)) continue;
+            List<StatusEffectInstance> effects = new ArrayList<>(PotionUtil.getPotionEffects(itemStack));
             for (StatusEffectInstance effect : effects) {
                 if (effect.getEffectType() != targetEffect) continue;
                 return i < 9 ? i + 36 : i;
@@ -58,8 +59,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static int findPotion(StatusEffect targetEffect) {
         for (int i = 0; i < 9; ++i) {
             ItemStack itemStack = InventoryUtil.getStackInSlot(i);
-            if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
-            List effects = PotionContentsComponent.getPotionEffects((ItemStack)itemStack);
+            if (Item.getRawId(itemStack.getItem()) != Item.getRawId(Items.SPLASH_POTION)) continue;
+            List<StatusEffectInstance> effects = new ArrayList<>(PotionUtil.getPotionEffects(itemStack));
             for (StatusEffectInstance effect : effects) {
                 if (effect.getEffectType() != targetEffect) continue;
                 return i;
@@ -75,7 +76,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (!this.onlyGround.getValue() || AutoPot.mc.player.isOnGround() && !AutoPot.mc.world.isAir((BlockPos)new BlockPosX(AutoPot.mc.player.getPos().add(0.0, -1.0, 0.0)))) {
+        if (!this.onlyGround.getValue() || AutoPot.mc.player.isOnGround() && !AutoPot.mc.world.isAir(new BlockPosX(AutoPot.mc.player.getPos().add(0.0, -1.0, 0.0)))) {
             if (this.speed.getValue() && !AutoPot.mc.player.hasStatusEffect(StatusEffects.SPEED)) {
                 this.throwing = this.checkThrow(StatusEffects.SPEED);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {

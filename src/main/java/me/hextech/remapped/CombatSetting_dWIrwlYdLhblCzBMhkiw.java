@@ -8,6 +8,6 @@ public enum CombatSetting_dWIrwlYdLhblCzBMhkiw {
     OffTrack,
     Inject,
     Priorid,
-    InventStory;
+    InventStory
 
 }

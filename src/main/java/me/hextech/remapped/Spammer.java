@@ -49,7 +49,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.timer.reset();
         Object randomString = this.generateRandomString(this.randoms.getValueInt());
         if (!((String)randomString).isEmpty()) {
-            randomString = " " + (String)randomString;
+            randomString = " " + randomString;
         }
         if (!this.messages.isEmpty()) {
             String selectedMessage = this.messages.get(this.random.nextInt(this.messages.size()));
@@ -66,9 +66,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         playerListEntry = (PlayerListEntry)list.get(this.random.nextInt(size));
                     }
                 }
-                mc.getNetworkHandler().sendChatCommand("tell " + playerListEntry.getProfile().getName() + " " + selectedMessage + (String)randomString);
+                mc.getNetworkHandler().sendChatCommand("tell " + playerListEntry.getProfile().getName() + " " + selectedMessage + randomString);
             } else {
-                mc.getNetworkHandler().sendChatMessage(selectedMessage + (String)randomString);
+                mc.getNetworkHandler().sendChatMessage(selectedMessage + randomString);
             }
         }
     }
@@ -91,7 +91,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 writer.write("\u56fd\u670d2b2t\u6700\u5f3ahack HexTech-Nightly \u6bcb\u5eb8\u7f6e\u7591\uff0c\u83b7\u53d6\u52a0QQ2353761389\n");
                 writer.close();
             }
-            List lines = IOUtils.readLines((InputStream)new FileInputStream(SpammerFile), (Charset)StandardCharsets.UTF_8);
+            List lines = IOUtils.readLines(new FileInputStream(SpammerFile), StandardCharsets.UTF_8);
             this.messages.addAll(lines);
         }
         catch (IOException e) {

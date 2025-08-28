@@ -109,12 +109,12 @@ extends Component {
                 this.b = !this.b;
                 this.timer.reset();
             }
-            TextUtil.drawString(drawContext, this.setting.temp + (this.b ? "_" : ""), (double)(parentX + 4), (double)((float)((double)parentY + this.getTextOffsetY() + (double)offset - 2.0)), 0xFFFFFF);
+            TextUtil.drawString(drawContext, this.setting.temp + (this.b ? "_" : ""), parentX + 4, (float)((double)parentY + this.getTextOffsetY() + (double)offset - 2.0), 0xFFFFFF);
         } else {
             Object value = (double)this.setting.getValueInt() == this.setting.getValue() ? String.valueOf(this.setting.getValueInt()) : String.valueOf(this.setting.getValueFloat());
-            value = (String)value + this.setting.getSuffix();
-            TextUtil.drawString(drawContext, this.setting.getName(), (double)(parentX + 4), (double)((float)((double)parentY + this.getTextOffsetY() + (double)offset - 2.0)), 0xFFFFFF);
-            TextUtil.drawString(drawContext, (String)value, (double)((float)(parentX + parentWidth) - TextUtil.getWidth((String)value) - 5.0f), (double)((float)((double)parentY + this.getTextOffsetY() + (double)offset - 2.0)), 0xFFFFFF);
+            value = value + this.setting.getSuffix();
+            TextUtil.drawString(drawContext, this.setting.getName(), parentX + 4, (float)((double)parentY + this.getTextOffsetY() + (double)offset - 2.0), 0xFFFFFF);
+            TextUtil.drawString(drawContext, (String)value, (float)(parentX + parentWidth) - TextUtil.getWidth((String)value) - 5.0f, (float)((double)parentY + this.getTextOffsetY() + (double)offset - 2.0), 0xFFFFFF);
         }
         return true;
     }

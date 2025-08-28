@@ -24,7 +24,7 @@ public class BetterAnimation {
 
     public void update(boolean update) {
         this.prevTick = this.tick;
-        this.tick = MathHelper.clamp((int)(this.tick + (update ? 1 : -1)), (int)0, (int)this.maxTick);
+        this.tick = MathHelper.clamp(this.tick + (update ? 1 : -1), 0, this.maxTick);
     }
 
     public double getAnimationd() {

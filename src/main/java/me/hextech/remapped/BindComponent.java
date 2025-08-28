@@ -33,7 +33,7 @@ extends Component {
                 this.hover = true;
                 if (mouseClicked) {
                     ClickGuiScreen.clicked = false;
-                    if (this.bind.getName().equals("Key") && InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)340)) {
+                    if (this.bind.getName().equals("Key") && InputUtil.isKeyPressed(mc.getWindow().getHandle(), 340)) {
                         this.bind.setHoldEnable(!this.bind.isHoldEnable());
                     } else {
                         this.bind.setListening(!this.bind.isListening());
@@ -61,11 +61,11 @@ extends Component {
         int y = (int)((double)this.parent.getY() + this.currentOffset - 2.0);
         int width = this.parent.getWidth();
         MatrixStack matrixStack = drawContext.getMatrices();
-        String text = this.hover && this.bind.getName().equals("Key") && InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)340) ? "Hold " + (this.bind.isHoldEnable() ? "\u00a7aOn" : "\u00a7cOff") : (this.bind.isListening() ? this.bind.getName() + ": Press Key.." : this.bind.getName() + ": " + this.bind.getBind());
+        String text = this.hover && this.bind.getName().equals("Key") && InputUtil.isKeyPressed(mc.getWindow().getHandle(), 340) ? "Hold " + (this.bind.isHoldEnable() ? "\u00a7aOn" : "\u00a7cOff") : (this.bind.isListening() ? this.bind.getName() + ": Press Key.." : this.bind.getName() + ": " + this.bind.getBind());
         if (this.hover) {
             Render2DUtil.drawRect(matrixStack, (float)parentX + 1.0f, (float)y + 1.0f, (float)width - 3.0f, (float)this.defaultHeight - 1.0f, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.shColor.getValue());
         }
-        TextUtil.drawString(drawContext, text, (double)(parentX + 4), (double)((float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 2.0f), 0xFFFFFF);
+        TextUtil.drawString(drawContext, text, parentX + 4, (float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 2.0f, 0xFFFFFF);
         return true;
     }
 }

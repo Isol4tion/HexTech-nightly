@@ -29,7 +29,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!EntityUtil.isInsideBlock()) {
             return;
         }
-        double speed = AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null ? (HoleKickTest.isInWeb((PlayerEntity)BurrowMove.mc.player) ? this.wspeed.getValue() : this.aSpeed.getValue()) : this.bSpeed.getValue();
+        double speed = AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null ? (HoleKickTest.isInWeb(BurrowMove.mc.player) ? this.wspeed.getValue() : this.aSpeed.getValue()) : this.bSpeed.getValue();
         double moveSpeed = 0.002873 * speed;
         double n = 0.0;
         if (BurrowMove.mc.player != null) {

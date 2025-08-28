@@ -5,7 +5,7 @@ import net.minecraft.client.gui.hud.ChatHudLine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(value={ChatHudLine.class})
+@Mixin(ChatHudLine.class)
 public abstract class MixinChatHudLine
 implements IChatHudLine {
     @Unique

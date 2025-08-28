@@ -52,7 +52,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public enum _kIBjeDSbfTeuMDPgEQgD {
         Legit,
         Normal,
-        Rage;
+        Rage
 
     }
 }

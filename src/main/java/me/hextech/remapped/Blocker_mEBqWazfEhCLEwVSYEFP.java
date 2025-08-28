@@ -2,24 +2,11 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import me.hextech.HexTech;
-import me.hextech.remapped.BlockUtil;
-import me.hextech.remapped.Blocker;
-import me.hextech.remapped.Blocker_BybKYKuAntfATLqEYmcO;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.CombatUtil;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.InventoryUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.Surround_BjIoVRziuWIfEWTJHPVz;
-import me.hextech.remapped.Timer;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -51,7 +38,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public Blocker_mEBqWazfEhCLEwVSYEFP() {
         super("Blocker", Module_JlagirAibYQgkHtbRnhw.Combat);
         INSTANCE = this;
-        HexTech.EVENT_BUS.subscribe(new Blocker(this));
+        HexTech.EVENT_BUS.subscribe(new Blocker());
     }
 
     @Override
@@ -63,12 +50,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.placeProgress = 0;
-        if (this.playerBP != null && !this.playerBP.equals((Object)EntityUtil.getPlayerPos(true))) {
+        if (this.playerBP != null && !this.playerBP.equals(EntityUtil.getPlayerPos(true))) {
             this.placePos.clear();
         }
         this.playerBP = EntityUtil.getPlayerPos(true);
         if (this.bevelCev.getValue()) {
-            for (Object i : Direction.values()) {
+            for (Direction i : Direction.values()) {
                 BlockPos blockerPos;
                 if (i == Direction.DOWN || this.isBedrock(this.playerBP.offset(i).up()) || !this.crystalHere(blockerPos = this.playerBP.offset(i).up(2)) || this.placePos.contains(blockerPos)) continue;
                 this.placePos.add(blockerPos);
@@ -82,7 +69,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.placePos.removeIf(pos -> !BlockUtil.clientCanPlace(pos, true));
         if (this.feet.getValue() && (!this.onlySurround.getValue() || Surround_BjIoVRziuWIfEWTJHPVz.INSTANCE.isOn())) {
-            for (Object i : Direction.values()) {
+            for (Direction i : Direction.values()) {
                 BlockPos surroundPos;
                 if (i == Direction.DOWN || i == Direction.UP || this.isBedrock(surroundPos = this.playerBP.offset(i)) || !BlockUtil.isMining(surroundPos)) continue;
                 for (Direction direction : Direction.values()) {
@@ -112,7 +99,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean crystalHere(BlockPos pos) {
-        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.world.getNonSpectatingEntities(EndCrystalEntity.class, new Box(pos)).stream().anyMatch(entity -> entity.getBlockPos().equals((Object)pos));
+        return Blocker_mEBqWazfEhCLEwVSYEFP.mc.world.getNonSpectatingEntities(EndCrystalEntity.class, new Box(pos)).stream().anyMatch(entity -> entity.getBlockPos().equals(pos));
     }
 
     private boolean isBedrock(BlockPos pos) {
@@ -157,5 +144,66 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN);
         }
         return InventoryUtil.findBlock(Blocks.OBSIDIAN);
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public class Blocker {
+        public static final HashMap<BlockPos, _FijMAnLaeintSRYqwSXS> renderMap = new HashMap();
+
+        public Blocker() {
+        }
+
+        public static void addBlock(BlockPos pos) {
+            renderMap.put(pos, new _FijMAnLaeintSRYqwSXS(pos));
+        }
+
+        @EventHandler
+        public void onRender3D(Render3DEvent event) {
+            if (!INSTANCE.render.getValue()) {
+                return;
+            }
+            if (renderMap.isEmpty()) {
+                return;
+            }
+            boolean shouldClear = true;
+            for (_FijMAnLaeintSRYqwSXS placePosition : renderMap.values()) {
+                if (!BlockUtil.clientCanPlace(placePosition.pos, true)) {
+                    placePosition.isAir = false;
+                }
+                if (!placePosition.timer.passedMs((long)(delay.getValue() + 100.0)) && placePosition.isAir) {
+                    placePosition.firstFade.reset();
+                }
+                if (placePosition.firstFade.getQuad(FadeUtils.In2) == 1.0) continue;
+                shouldClear = false;
+                MatrixStack matrixStack = event.getMatrixStack();
+                if (INSTANCE.fill.booleanValue) {
+                    Render3DUtil.drawFill(matrixStack, new Box(placePosition.pos), ColorUtil.injectAlpha(INSTANCE.fill.getValue(), (int)((double)fill.getValue().getAlpha() * (1.0 - placePosition.firstFade.getQuad(FadeUtils.In2)))));
+                }
+                if (!INSTANCE.box.booleanValue) continue;
+                Render3DUtil.drawBox(matrixStack, new Box(placePosition.pos), ColorUtil.injectAlpha(INSTANCE.box.getValue(), (int)((double)box.getValue().getAlpha() * (1.0 - placePosition.firstFade.getQuad(FadeUtils.In2)))));
+            }
+            if (shouldClear) {
+                renderMap.clear();
+            }
+        }
+
+        /*
+         * Exception performing whole class analysis ignored.
+         */
+        public static class _FijMAnLaeintSRYqwSXS {
+            public final FadeUtils_DPfHthPqEJdfXfNYhDbG firstFade;
+            public final BlockPos pos;
+            public final Timer timer;
+            public boolean isAir;
+
+            public _FijMAnLaeintSRYqwSXS(BlockPos placePos) {
+                this.firstFade = new FadeUtils_DPfHthPqEJdfXfNYhDbG((long) INSTANCE.fadeTime.getValue());
+                this.pos = placePos;
+                this.timer = new Timer();
+                this.isAir = true;
+            }
+        }
     }
 }

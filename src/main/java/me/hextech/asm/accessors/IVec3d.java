@@ -9,13 +9,13 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface IVec3d {
     @Mutable
     @Accessor(value="x")
-    public void setX(double var1);
+    void setX(double var1);
 
     @Mutable
     @Accessor(value="y")
-    public void setY(double var1);
+    void setY(double var1);
 
     @Mutable
     @Accessor(value="z")
-    public void setZ(double var1);
+    void setZ(double var1);
 }

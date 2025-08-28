@@ -6,6 +6,6 @@ package me.hextech.remapped;
 public enum ModuleList {
     Custom,
     Pulse,
-    Rainbow;
+    Rainbow
 
 }

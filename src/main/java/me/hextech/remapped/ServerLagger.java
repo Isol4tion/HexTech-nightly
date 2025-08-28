@@ -27,6 +27,6 @@ public enum ServerLagger {
     OffhandSpam,
     MultiverseCore,
     Essentials,
-    Promote;
+    Promote
 
 }

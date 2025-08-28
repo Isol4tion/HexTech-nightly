@@ -14,17 +14,17 @@ extends Screen {
     private TextFieldWidget textFieldAltUsername;
 
     protected DirectLoginAltScreen(Screen parent) {
-        super(Text.of((String)"Direct Login"));
+        super(Text.of("Direct Login"));
         this.parent = parent;
     }
 
     public void init() {
         super.init();
-        this.textFieldAltUsername = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 76, 200, 20, Text.of((String)"Enter Name"));
-        this.addDrawableChild((Element)this.textFieldAltUsername);
-        ButtonWidget buttonLoginAlt = ButtonWidget.builder((Text)Text.of((String)"Login"), b -> this.onButtonLoginPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 24, 200, 20).build();
-        this.addDrawableChild((Element)buttonLoginAlt);
-        this.addDrawableChild((Element)ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.client.setScreen(this.parent)).dimensions(this.width / 2 - 100, this.height / 2 + 46, 200, 20).build());
+        this.textFieldAltUsername = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 76, 200, 20, Text.of("Enter Name"));
+        this.addDrawableChild(this.textFieldAltUsername);
+        ButtonWidget buttonLoginAlt = ButtonWidget.builder(Text.of("Login"), b -> this.onButtonLoginPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 24, 200, 20).build();
+        this.addDrawableChild(buttonLoginAlt);
+        this.addDrawableChild(ButtonWidget.builder(Text.of("Cancel"), b -> this.client.setScreen(this.parent)).dimensions(this.width / 2 - 100, this.height / 2 + 46, 200, 20).build());
     }
 
     private void onButtonLoginPressed() {

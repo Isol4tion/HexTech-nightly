@@ -20,7 +20,7 @@ extends AnimalEntity {
     @Inject(method={"isSaddled"}, at={@At(value="HEAD")}, cancellable=true)
     public void onIsSaddled(CallbackInfoReturnable<Boolean> cir) {
         if (EntityControl.INSTANCE.isOn()) {
-            cir.setReturnValue((Object)true);
+            cir.setReturnValue(true);
         }
     }
 }

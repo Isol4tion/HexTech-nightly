@@ -34,11 +34,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.clipIn.getValue()) {
             Direction f = BugClip.mc.player.getHorizontalFacing();
             BugClip.mc.player.setPosition(BugClip.mc.player.getX() + (double)f.getOffsetX() * 0.5, BugClip.mc.player.getY(), BugClip.mc.player.getZ() + (double)f.getOffsetZ() * 0.5);
-            BugClip.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(BugClip.mc.player.getX(), BugClip.mc.player.getY(), BugClip.mc.player.getZ(), true));
+            BugClip.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(BugClip.mc.player.getX(), BugClip.mc.player.getY(), BugClip.mc.player.getZ(), true));
         } else {
-            BugClip.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(BugClip.mc.player.getX(), BugClip.mc.player.getY(), BugClip.mc.player.getZ(), true));
+            BugClip.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(BugClip.mc.player.getX(), BugClip.mc.player.getY(), BugClip.mc.player.getZ(), true));
             BugClip.mc.player.setPosition(this.roundToClosest(BugClip.mc.player.getX(), Math.floor(BugClip.mc.player.getX()) + 0.23, Math.floor(BugClip.mc.player.getX()) + 0.77), BugClip.mc.player.getY(), this.roundToClosest(BugClip.mc.player.getZ(), Math.floor(BugClip.mc.player.getZ()) + 0.23, Math.floor(BugClip.mc.player.getZ()) + 0.77));
-            BugClip.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(this.roundToClosest(BugClip.mc.player.getX(), Math.floor(BugClip.mc.player.getX()) + 0.23, Math.floor(BugClip.mc.player.getX()) + 0.77), BugClip.mc.player.getY(), this.roundToClosest(BugClip.mc.player.getZ(), Math.floor(BugClip.mc.player.getZ()) + 0.23, Math.floor(BugClip.mc.player.getZ()) + 0.77), true));
+            BugClip.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(this.roundToClosest(BugClip.mc.player.getX(), Math.floor(BugClip.mc.player.getX()) + 0.23, Math.floor(BugClip.mc.player.getX()) + 0.77), BugClip.mc.player.getY(), this.roundToClosest(BugClip.mc.player.getZ(), Math.floor(BugClip.mc.player.getZ()) + 0.23, Math.floor(BugClip.mc.player.getZ()) + 0.77), true));
         }
         this.cancelPacket = true;
     }
@@ -76,7 +76,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float packetPitch = packet.getPitch(0.0f);
                 if (this.timer.passedMs(this.delay.getValue())) {
                     this.cancelPacket = false;
-                    BugClip.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.Full(BugClip.mc.player.getX(), BugClip.mc.player.getY() + 1337.0, BugClip.mc.player.getZ(), packetYaw, packetPitch, false));
+                    BugClip.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.Full(BugClip.mc.player.getX(), BugClip.mc.player.getY() + 1337.0, BugClip.mc.player.getZ(), packetYaw, packetPitch, false));
                     this.cancelPacket = true;
                     this.timer.reset();
                 }

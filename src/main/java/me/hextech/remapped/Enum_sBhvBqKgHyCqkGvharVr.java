@@ -16,6 +16,6 @@ public enum Enum_sBhvBqKgHyCqkGvharVr {
     SyncHronize,
     Prediction,
     IDPrediction,
-    Render;
+    Render
 
 }

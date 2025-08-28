@@ -160,6 +160,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             float cos = (float)(Math.cos(rad1) * rad);
             bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
         }
-        BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
     }
 }

@@ -34,13 +34,13 @@ public class MixinChatMessages {
     private static void breakRenderedChatMessageLinesHook(StringVisitable message, int width, TextRenderer textRenderer, CallbackInfoReturnable<List<OrderedText>> cir) {
         TextCollector textCollector = new TextCollector();
         message.visit((style, messagex) -> {
-            textCollector.add(StringVisitable.styled((String)MixinChatMessages.getRenderedChatMessage(messagex), (Style)style));
+            textCollector.add(StringVisitable.styled(MixinChatMessages.getRenderedChatMessage(messagex), style));
             return Optional.empty();
         }, Style.EMPTY);
         ArrayList list = Lists.newArrayList();
         textRenderer.getTextHandler().wrapLines(textCollector.getCombined(), width, Style.EMPTY, (text, lastLineWrapped) -> {
             OrderedText orderedText = Language.getInstance().reorder(text);
-            OrderedText o = lastLineWrapped != false ? OrderedText.concat((OrderedText)SPACES, (OrderedText)orderedText) : orderedText;
+            OrderedText o = lastLineWrapped ? OrderedText.concat(SPACES, orderedText) : orderedText;
             list.add(o);
             ChatSetting_qVnAbgCzNciNTevKRovy.chatMessage.put(o, message);
         });

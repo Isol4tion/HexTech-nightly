@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import ladysnake.satin.api.managed.ManagedShaderEffect;
 import ladysnake.satin.api.managed.ShaderEffectManager;
-import me.hextech.remapped.BlurManager_XkqtwkkpoPNjOLasIQyK;
 import me.hextech.remapped.IShaderEffect;
 import me.hextech.remapped.Wrapper;
 import net.minecraft.client.MinecraftClient;
@@ -44,11 +43,11 @@ implements Wrapper {
         if (this.shaderBuffer.textureWidth != MCBuffer.textureWidth || this.shaderBuffer.textureHeight != MCBuffer.textureHeight) {
             this.shaderBuffer.resize(MCBuffer.textureWidth, MCBuffer.textureHeight, false);
         }
-        GlStateManager._glBindFramebuffer((int)36009, (int)this.shaderBuffer.fbo);
+        GlStateManager._glBindFramebuffer(36009, this.shaderBuffer.fbo);
         this.shaderBuffer.beginWrite(true);
         task.run();
         this.shaderBuffer.endWrite();
-        GlStateManager._glBindFramebuffer((int)36009, (int)MCBuffer.fbo);
+        GlStateManager._glBindFramebuffer(36009, MCBuffer.fbo);
         MCBuffer.beginWrite(false);
         ManagedShaderEffect shader = BLUR;
         Framebuffer mainBuffer = MinecraftClient.getInstance().getFramebuffer();
@@ -57,7 +56,7 @@ implements Wrapper {
         this.shaderBuffer.clear(false);
         mainBuffer.beginWrite(false);
         RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate((GlStateManager.SrcFactor)GlStateManager.SrcFactor.SRC_ALPHA, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, (GlStateManager.SrcFactor)GlStateManager.SrcFactor.ZERO, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE);
+        RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ZERO, GlStateManager.DstFactor.ONE);
         RenderSystem.backupProjectionMatrix();
         outBuffer.draw(outBuffer.textureWidth, outBuffer.textureHeight, false);
         RenderSystem.restoreProjectionMatrix();
@@ -80,7 +79,7 @@ implements Wrapper {
         this.scaledHeight = mc.getWindow().getFramebufferHeight();
         this.scaleFactor = 1;
         boolean flag = mc.getWindow().getScaleFactor() > 1.0;
-        int i = (Integer)BlurManager.mc.options.getGuiScale().getValue();
+        int i = BlurManager.mc.options.getGuiScale().getValue();
         if (i == 0) {
             i = 1000;
         }
@@ -92,8 +91,8 @@ implements Wrapper {
         }
         double scaledWidthD = (double)this.scaledWidth / (double)this.scaleFactor;
         double scaledHeightD = (double)this.scaledHeight / (double)this.scaleFactor;
-        this.scaledWidth = MathHelper.ceil((double)scaledWidthD);
-        this.scaledHeight = MathHelper.ceil((double)scaledHeightD);
+        this.scaledWidth = MathHelper.ceil(scaledWidthD);
+        this.scaledHeight = MathHelper.ceil(scaledHeightD);
     }
 
     public void setupShader(ManagedShaderEffect effect, float Radius, float BlurX, float BlurY, float BlurCoordX, float BlurCoordY, float offsetX, float offsetY) {
@@ -131,5 +130,8 @@ implements Wrapper {
             this.resize(width, height, true);
             this.setClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         }
+    }
+
+    public record BlurManager_XkqtwkkpoPNjOLasIQyK(Runnable task, float Radius, float BlurX, float BlurY, float BlurCoordX, float BlurCoordY, float offsetX, float offsetY) {
     }
 }

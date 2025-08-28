@@ -60,7 +60,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (player == null) {
             return;
         }
-        if (SpeedMine.secondPos != null && !SpeedMine.secondPos.equals((Object)SpeedMine.breakPos)) {
+        if (SpeedMine.secondPos != null && !SpeedMine.secondPos.equals(SpeedMine.breakPos)) {
             return;
         }
         this.doBreak(player);
@@ -70,7 +70,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
      * WARNING - void declaration
      */
     private void doBreak(final PlayerEntity player) {
-        final BlockPos pos = EntityUtil.getEntityPos((Entity)player, true);
+        final BlockPos pos = EntityUtil.getEntityPos(player, true);
         double[] yOffset = { -0.8, 0.5, 1.1 };
         double[] xzOffset = { 0.3, -0.3 };
         for (final PlayerEntity entity : CombatUtil.getEnemies(this.targetRange.getValue())) {
@@ -78,7 +78,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (final double x : xzOffset) {
                     for (final double z : xzOffset) {
                         final BlockPos offsetPos = new BlockPosX(entity.getX() + x, entity.getY() + y, entity.getZ() + z);
-                        if (this.canBreak(offsetPos) && offsetPos.equals((Object)SpeedMine.getBreakPos())) {
+                        if (this.canBreak(offsetPos) && offsetPos.equals(SpeedMine.getBreakPos())) {
                             return;
                         }
                     }
@@ -121,7 +121,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     if (i != Direction.UP) {
                         if (i != Direction.DOWN) {
                             if (AutoMine_TjXbWuTzfnbezzlShKiP.mc.player == null || Math.sqrt(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) <= this.range.getValue()) {
-                                if (AutoMine_TjXbWuTzfnbezzlShKiP.mc.world != null && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.world.isAir(pos.offset(i)) || pos.offset(i).equals((Object)SpeedMine.getBreakPos())) && this.canPlaceCrystal(pos.offset(i), false)) {
+                                if (AutoMine_TjXbWuTzfnbezzlShKiP.mc.world != null && (AutoMine_TjXbWuTzfnbezzlShKiP.mc.world.isAir(pos.offset(i)) || pos.offset(i).equals(SpeedMine.getBreakPos())) && this.canPlaceCrystal(pos.offset(i), false)) {
                                     return;
                                 }
                             }
@@ -141,7 +141,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
                 if (!list.isEmpty()) {
-                    SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance((Position)AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos()))).get());
+                    SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos()))).get());
                 }
                 else {
                     for (final Direction j : Direction.values()) {
@@ -156,7 +156,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         }
                     }
                     if (!list.isEmpty()) {
-                        SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance((Position)AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos()))).get());
+                        SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos()))).get());
                     }
                 }
             }
@@ -206,7 +206,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         for (final double x : xzOffset) {
                             for (final double z : xzOffset) {
                                 final BlockPos offsetPos = new BlockPosX(entity.getX() + x, entity.getY() + y, entity.getZ() + z);
-                                if (this.isObsidian(offsetPos) && offsetPos.equals((Object)SpeedMine.breakPos)) {
+                                if (this.isObsidian(offsetPos) && offsetPos.equals(SpeedMine.breakPos)) {
                                     return;
                                 }
                             }
@@ -224,7 +224,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                                     if (breakData.getEntity() == null) {
                                         continue;
                                     }
-                                    if (breakData.pos.equals((Object)offsetPos4) && breakData.getEntity() != AutoMine_TjXbWuTzfnbezzlShKiP.mc.player) {
+                                    if (breakData.pos.equals(offsetPos4) && breakData.getEntity() != AutoMine_TjXbWuTzfnbezzlShKiP.mc.player) {
                                         return;
                                     }
                                     continue;
@@ -245,7 +245,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                                         if (breakData2.getEntity() == null) {
                                             continue;
                                         }
-                                        if (breakData2.pos.equals((Object)offsetPos5) && breakData2.getEntity() != AutoMine_TjXbWuTzfnbezzlShKiP.mc.player) {
+                                        if (breakData2.pos.equals(offsetPos5) && breakData2.getEntity() != AutoMine_TjXbWuTzfnbezzlShKiP.mc.player) {
                                             return;
                                         }
                                         continue;
@@ -332,6 +332,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (pos == null || AutoMine_TjXbWuTzfnbezzlShKiP.mc.player == null) {
             return false;
         }
-        return this.isObsidian(pos) && (BlockUtil.getClickSideStrict(pos) != null || Objects.equals(SpeedMine.getBreakPos(), pos)) && (!pos.equals((Object)SpeedMine.secondPos) || !(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getMainHandStack().getItem() instanceof PickaxeItem) && !SilentDouble.INSTANCE.isOn());
+        return this.isObsidian(pos) && (BlockUtil.getClickSideStrict(pos) != null || Objects.equals(SpeedMine.getBreakPos(), pos)) && (!pos.equals(SpeedMine.secondPos) || !(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getMainHandStack().getItem() instanceof PickaxeItem) && !SilentDouble.INSTANCE.isOn());
     }
 }

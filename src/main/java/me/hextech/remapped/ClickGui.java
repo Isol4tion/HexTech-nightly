@@ -8,6 +8,6 @@ public enum ClickGui {
     Pull,
     Scissor,
     Reset,
-    None;
+    None
 
 }

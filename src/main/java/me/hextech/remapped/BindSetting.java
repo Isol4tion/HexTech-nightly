@@ -60,7 +60,7 @@ extends Setting {
                 }
             }
         } else {
-            Object object = kn = this.key > 0 ? GLFW.glfwGetKeyName((int)this.key, (int)GLFW.glfwGetKeyScancode((int)this.key)) : "None";
+            Object object = kn = this.key > 0 ? GLFW.glfwGetKeyName(this.key, GLFW.glfwGetKeyScancode(this.key)) : "None";
         }
         if (kn == null) {
             try {

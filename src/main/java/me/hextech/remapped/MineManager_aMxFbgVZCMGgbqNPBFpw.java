@@ -21,19 +21,18 @@ implements Wrapper {
     @EventHandler
     public void onPacket(PacketEvent_YXFfxdDjQAfjBumqRbBu event) {
         Object t = event.getPacket();
-        if (t instanceof BlockBreakingProgressS2CPacket) {
-            BlockBreakingProgressS2CPacket packet = (BlockBreakingProgressS2CPacket)t;
+        if (t instanceof BlockBreakingProgressS2CPacket packet) {
             if (packet.getPos() == null) {
                 return;
             }
             MineManager breakData = new MineManager(packet.getPos(), packet.getEntityId());
-            if (this.breakMap.containsKey(packet.getEntityId()) && this.breakMap.get((Object)Integer.valueOf((int)packet.getEntityId())).pos.equals((Object)packet.getPos())) {
+            if (this.breakMap.containsKey(packet.getEntityId()) && this.breakMap.get(Integer.valueOf(packet.getEntityId())).pos.equals(packet.getPos())) {
                 return;
             }
             if (breakData.getEntity() == null) {
                 return;
             }
-            if (MathHelper.sqrt((float)((float)breakData.getEntity().getEyePos().squaredDistanceTo(packet.getPos().toCenterPos()))) > 8.0f) {
+            if (MathHelper.sqrt((float)breakData.getEntity().getEyePos().squaredDistanceTo(packet.getPos().toCenterPos())) > 8.0f) {
                 return;
             }
             this.breakMap.put(packet.getEntityId(), breakData);
@@ -42,7 +41,7 @@ implements Wrapper {
 
     public boolean isMining(BlockPos pos) {
         for (MineManager breakData : this.breakMap.values()) {
-            if (breakData.getEntity() == null || breakData.getEntity().getEyePos().distanceTo(pos.toCenterPos()) > 7.0 || !breakData.pos.equals((Object)pos)) continue;
+            if (breakData.getEntity() == null || breakData.getEntity().getEyePos().distanceTo(pos.toCenterPos()) > 7.0 || !breakData.pos.equals(pos)) continue;
             return true;
         }
         return false;

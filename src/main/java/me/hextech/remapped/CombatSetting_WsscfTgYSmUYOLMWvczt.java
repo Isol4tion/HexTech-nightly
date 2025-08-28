@@ -5,6 +5,6 @@ package me.hextech.remapped;
  */
 public enum CombatSetting_WsscfTgYSmUYOLMWvczt {
     ChangesLook,
-    LastRotate;
+    LastRotate
 
 }

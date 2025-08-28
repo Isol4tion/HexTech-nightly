@@ -5,6 +5,6 @@ package me.hextech.remapped;
  */
 public enum Enum_EeQOXZQmWkBIGBYWBifQ {
     General,
-    Sync;
+    Sync
 
 }

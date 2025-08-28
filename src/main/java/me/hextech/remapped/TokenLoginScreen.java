@@ -16,22 +16,22 @@ extends Screen {
     private TextFieldWidget textFieldAltUID;
 
     protected TokenLoginScreen(Screen parent) {
-        super(Text.of((String)"Token Login"));
+        super(Text.of("Token Login"));
         this.parent = parent;
     }
 
     public void init() {
         super.init();
-        this.textFieldAltName = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 + 4, 200, 20, Text.of((String)"Enter Name"));
+        this.textFieldAltName = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 + 4, 200, 20, Text.of("Enter Name"));
         this.addDrawableChild(this.textFieldAltName);
-        this.textFieldAltToken = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 76, 200, 20, Text.of((String)"Enter Token"));
+        this.textFieldAltToken = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 76, 200, 20, Text.of("Enter Token"));
         this.textFieldAltToken.setMaxLength(Integer.MAX_VALUE);
         this.addDrawableChild(this.textFieldAltToken);
-        this.textFieldAltUID = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 36, 200, 20, Text.of((String)"Enter UID"));
+        this.textFieldAltUID = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 36, 200, 20, Text.of("Enter UID"));
         this.textFieldAltUID.setMaxLength(Integer.MAX_VALUE);
         this.addDrawableChild(this.textFieldAltUID);
-        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Login"), b -> this.onButtonLoginPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 24 + 8, 200, 20).build());
-        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.client.setScreen(this.parent)).dimensions(this.width / 2 - 100, this.height / 2 + 46 + 8, 200, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.of("Login"), b -> this.onButtonLoginPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 24 + 8, 200, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.of("Cancel"), b -> this.client.setScreen(this.parent)).dimensions(this.width / 2 - 100, this.height / 2 + 46 + 8, 200, 20).build());
     }
 
     private void onButtonLoginPressed() {

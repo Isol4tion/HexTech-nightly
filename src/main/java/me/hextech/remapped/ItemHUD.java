@@ -18,7 +18,6 @@ import net.minecraft.item.Items;
 
 public class ItemHUD
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
-    private static final Stack<Float> alphaMultipliers;
     public static ItemHUD INSTANCE;
     private final SliderSetting xOffset = this.add(new SliderSetting("X", 0, 0, 2000));
     private final SliderSetting yOffset = this.add(new SliderSetting("Y", 10, 0, 2000));
@@ -52,26 +51,26 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender2D(DrawContext drawContext, float tickDelta) {
         ArrayList<ItemStack> list = new ArrayList<ItemStack>();
-        list.add(new ItemStack((ItemConvertible)Items.ENCHANTED_GOLDEN_APPLE, this.getItemCount(Items.ENCHANTED_GOLDEN_APPLE)));
-        list.add(new ItemStack((ItemConvertible)Items.TOTEM_OF_UNDYING, this.getItemCount(Items.TOTEM_OF_UNDYING)));
-        list.add(new ItemStack((ItemConvertible)Items.END_CRYSTAL, this.getItemCount(Items.END_CRYSTAL)));
-        list.add(new ItemStack((ItemConvertible)Items.RESPAWN_ANCHOR, this.getItemCount(Items.RESPAWN_ANCHOR)));
-        list.add(new ItemStack((ItemConvertible)Items.GLOWSTONE, this.getItemCount(Items.GLOWSTONE)));
-        list.add(new ItemStack((ItemConvertible)Items.PISTON, this.getItemCount(Items.PISTON)));
-        list.add(new ItemStack((ItemConvertible)Items.REDSTONE_BLOCK, this.getItemCount(Items.REDSTONE_BLOCK)));
-        list.add(new ItemStack((ItemConvertible)Items.COBWEB, this.getItemCount(Items.COBWEB)));
-        list.add(new ItemStack((ItemConvertible)Items.EXPERIENCE_BOTTLE, this.getItemCount(Items.EXPERIENCE_BOTTLE)));
+        list.add(new ItemStack(Items.ENCHANTED_GOLDEN_APPLE, this.getItemCount(Items.ENCHANTED_GOLDEN_APPLE)));
+        list.add(new ItemStack(Items.TOTEM_OF_UNDYING, this.getItemCount(Items.TOTEM_OF_UNDYING)));
+        list.add(new ItemStack(Items.END_CRYSTAL, this.getItemCount(Items.END_CRYSTAL)));
+        list.add(new ItemStack(Items.RESPAWN_ANCHOR, this.getItemCount(Items.RESPAWN_ANCHOR)));
+        list.add(new ItemStack(Items.GLOWSTONE, this.getItemCount(Items.GLOWSTONE)));
+        list.add(new ItemStack(Items.PISTON, this.getItemCount(Items.PISTON)));
+        list.add(new ItemStack(Items.REDSTONE_BLOCK, this.getItemCount(Items.REDSTONE_BLOCK)));
+        list.add(new ItemStack(Items.COBWEB, this.getItemCount(Items.COBWEB)));
+        list.add(new ItemStack(Items.EXPERIENCE_BOTTLE, this.getItemCount(Items.EXPERIENCE_BOTTLE)));
         for (int i = 0; i < list.size(); ++i) {
-            if (((ItemStack)list.get(i)).getCount() < 1) {
-                ((ItemStack)list.get(i)).setCount(Integer.MAX_VALUE);
+            if (list.get(i).getCount() < 1) {
+                list.get(i).setCount(Integer.MAX_VALUE);
             }
-            ItemHUD.drawItem(drawContext, (ItemStack)list.get(i), this.xOffset.getValueInt() + this.xPlus.getValueInt() * i, this.yOffset.getValueInt(), this.scale.getValueFloat());
+            ItemHUD.drawItem(drawContext, list.get(i), this.xOffset.getValueInt() + this.xPlus.getValueInt() * i, this.yOffset.getValueInt(), this.scale.getValueFloat());
             drawContext.getMatrices().push();
             drawContext.getMatrices().scale(this.scale.getValueFloat(), this.scale.getValueFloat(), this.scale.getValueFloat());
-            if (((ItemStack)list.get(i)).getCount() != Integer.MAX_VALUE) {
-                TextUtil.drawString(drawContext, String.valueOf(((ItemStack)list.get(i)).getCount()), (double)(((float)(this.xOffset.getValueInt() + this.xPlus.getValueInt() * i) + this.TextxPlus.getValueFloat()) / this.scale.getValueFloat()), ((double)this.yOffset.getValueInt() + 12.5 + this.yPlus.getValue()) / (double)this.scale.getValueFloat(), this.textColor.getValue().getRGB());
+            if (list.get(i).getCount() != Integer.MAX_VALUE) {
+                TextUtil.drawString(drawContext, String.valueOf(list.get(i).getCount()), ((float)(this.xOffset.getValueInt() + this.xPlus.getValueInt() * i) + this.TextxPlus.getValueFloat()) / this.scale.getValueFloat(), ((double)this.yOffset.getValueInt() + 12.5 + this.yPlus.getValue()) / (double)this.scale.getValueFloat(), this.textColor.getValue().getRGB());
             } else {
-                TextUtil.drawString(drawContext, "0", (double)(((float)(this.xOffset.getValueInt() + this.xPlus.getValueInt() * i) + this.TextxPlus.getValueFloat()) / this.scale.getValueFloat()), ((double)this.yOffset.getValueInt() + 12.5 + this.yPlus.getValue()) / (double)this.scale.getValueFloat(), this.textColor.getValue().getRGB());
+                TextUtil.drawString(drawContext, "0", ((float)(this.xOffset.getValueInt() + this.xPlus.getValueInt() * i) + this.TextxPlus.getValueFloat()) / this.scale.getValueFloat(), ((double)this.yOffset.getValueInt() + 12.5 + this.yPlus.getValue()) / (double)this.scale.getValueFloat(), this.textColor.getValue().getRGB());
             }
             drawContext.getMatrices().pop();
         }

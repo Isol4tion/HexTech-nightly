@@ -6,6 +6,6 @@ package me.hextech.remapped;
 public enum ClickGui_lDjmIzzmqoIBLakgOLww {
     Vanilla,
     Nullpoint,
-    HexTech;
+    HexTech
 
 }

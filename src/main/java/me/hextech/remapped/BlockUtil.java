@@ -66,7 +66,7 @@ implements Wrapper {
     }
 
     public static boolean isMining(BlockPos pos) {
-        return HexTech.BREAK.isMining(pos) || pos.equals((Object)SpeedMine.breakPos);
+        return HexTech.BREAK.isMining(pos) || pos.equals(SpeedMine.breakPos);
     }
 
     public static boolean canPlace(BlockPos pos) {
@@ -143,13 +143,13 @@ implements Wrapper {
 
     public static Direction getBestNeighboring(BlockPos pos, Direction facing) {
         for (Direction i : Direction.values()) {
-            if (facing != null && pos.offset(i).equals((Object)pos.offset(facing, -1)) || i == Direction.DOWN || BlockUtil.getPlaceSide(pos, false, true) == null) continue;
+            if (facing != null && pos.offset(i).equals(pos.offset(facing, -1)) || i == Direction.DOWN || BlockUtil.getPlaceSide(pos, false, true) == null) continue;
             return i;
         }
         Direction bestFacing = null;
         double distance = 0.0;
         for (Direction i : Direction.values()) {
-            if (facing != null && pos.offset(i).equals((Object)pos.offset(facing, -1)) || i == Direction.DOWN || BlockUtil.getPlaceSide(pos) == null || bestFacing != null && !(BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()) < distance)) continue;
+            if (facing != null && pos.offset(i).equals(pos.offset(facing, -1)) || i == Direction.DOWN || BlockUtil.getPlaceSide(pos) == null || bestFacing != null && !(BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()) < distance)) continue;
             bestFacing = i;
             distance = BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos());
         }
@@ -219,17 +219,17 @@ implements Wrapper {
             boolean bl = sneak = BlockUtil.needSneak(BlockUtil.mc.world.getBlockState(result.getBlockPos()).getBlock()) && !BlockUtil.mc.player.isSneaking();
         }
         if (sprint) {
-            BlockUtil.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
+            BlockUtil.mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(BlockUtil.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
         }
         if (sneak) {
-            BlockUtil.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY));
+            BlockUtil.mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(BlockUtil.mc.player, ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY));
         }
         BlockUtil.clickBlock(pos.offset(side), side.getOpposite(), rotate, Hand.MAIN_HAND, packet);
         if (sneak) {
-            BlockUtil.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY));
+            BlockUtil.mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(BlockUtil.mc.player, ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY));
         }
         if (sprint) {
-            BlockUtil.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)BlockUtil.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
+            BlockUtil.mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(BlockUtil.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
         }
         if (bypass) {
             EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
@@ -269,7 +269,7 @@ implements Wrapper {
         EntityUtil.swingHand(hand, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         if (packet) {
-            BlockUtil.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(BlockUtil.mc.world)));
+            BlockUtil.mc.player.networkHandler.sendPacket(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(BlockUtil.mc.world)));
         } else {
             BlockUtil.mc.interactionManager.interactBlock(BlockUtil.mc.player, hand, result);
         }
@@ -282,7 +282,7 @@ implements Wrapper {
         }
         EntityUtil.swingHand(hand, swingSide);
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
-        BlockUtil.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractBlockC2SPacket(hand, result, BlockUtil.getWorldActionId(BlockUtil.mc.world)));
+        BlockUtil.mc.player.networkHandler.sendPacket(new PlayerInteractBlockC2SPacket(hand, result, BlockUtil.getWorldActionId(BlockUtil.mc.world)));
     }
 
     public static Direction getPlaceSide(BlockPos pos) {
@@ -320,7 +320,7 @@ implements Wrapper {
         for (Direction i : Direction.values()) {
             if (!BlockUtil.canClick(pos.offset(i)) || BlockUtil.canReplace(pos.offset(i)) || (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() != Placement.Legit ? CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite()) : !EntityUtil.canSee(pos.offset(i), i.getOpposite()))) continue;
             double vecDis = BlockUtil.mc.player.squaredDistanceTo(pos.toCenterPos().add((double)i.getVector().getX() * 0.5, (double)i.getVector().getY() * 0.5, (double)i.getVector().getZ() * 0.5));
-            if ((double)MathHelper.sqrt((float)((float)vecDis)) > distance || side != null && !(vecDis < dis)) continue;
+            if ((double)MathHelper.sqrt((float)vecDis) > distance || side != null && !(vecDis < dis)) continue;
             side = i;
             dis = vecDis;
         }
@@ -334,24 +334,24 @@ implements Wrapper {
     }
 
     public static Direction getClickSide(BlockPos pos) {
-        if (pos.equals((Object)EntityUtil.getPlayerPos())) {
+        if (pos.equals(EntityUtil.getPlayerPos())) {
             return Direction.UP;
         }
         Direction side = null;
         double range = 100.0;
         for (Direction i : Direction.values()) {
-            if (!EntityUtil.canSee(pos, i) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()))) > range) continue;
+            if (!EntityUtil.canSee(pos, i) || (double)MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range) continue;
             side = i;
-            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())));
+            range = MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
         }
         if (side != null) {
             return side;
         }
         side = Direction.UP;
         for (Direction i : Direction.values()) {
-            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()))) > range) continue;
+            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double)MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range) continue;
             side = i;
-            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())));
+            range = MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
         }
         return side;
     }
@@ -360,25 +360,25 @@ implements Wrapper {
         Direction side = null;
         double range = 100.0;
         for (Direction i : Direction.values()) {
-            if (!EntityUtil.canSee(pos, i) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()))) > range) continue;
+            if (!EntityUtil.canSee(pos, i) || (double)MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range) continue;
             side = i;
-            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())));
+            range = MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
         }
         if (side != null) {
             return side;
         }
         side = null;
         for (Direction i : Direction.values()) {
-            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double)MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()))) > range) continue;
+            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double)MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range) continue;
             side = i;
-            range = MathHelper.sqrt((float)((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())));
+            range = MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
         }
         return side;
     }
 
     public static boolean isStrictDirection(BlockPos pos, Direction side) {
         BlockState blockState = BlockUtil.mc.world.getBlockState(pos);
-        boolean isFullBox = blockState.isAir() || blockState.isFullCube((BlockView)BlockUtil.mc.world, pos) || BlockUtil.getBlock(pos) == Blocks.COBWEB;
+        boolean isFullBox = blockState.isAir() || blockState.isFullCube(BlockUtil.mc.world, pos) || BlockUtil.getBlock(pos) == Blocks.COBWEB;
         return BlockUtil.isStrictDirection(pos, side, isFullBox);
     }
 
@@ -437,7 +437,7 @@ implements Wrapper {
 
     public static Stream<WorldChunk> getLoadedChunks() {
         int radius = Math.max(2, BlockUtil.mc.options.getClampedViewDistance()) + 3;
-        int diameter = radius * 2 + 1;getChunkPos
+        int diameter = radius * 2 + 1;
         ChunkPos center = BlockUtil.mc.player.getChunkPos();
         ChunkPos min = new ChunkPos(center.x - radius, center.z - radius);
         ChunkPos max = new ChunkPos(center.x + radius, center.z + radius);
@@ -462,7 +462,7 @@ implements Wrapper {
             for (double y = pos.getY() - (double)range; y < pos.getY() + (double)range; y += 1.0) {
                 for (double z = pos.getZ() - (double)range; z < pos.getZ() + (double)range; z += 1.0) {
                     BlockPosX curPos = new BlockPosX(x, y, z);
-                    if (list.contains((Object)curPos)) continue;
+                    if (list.contains(curPos)) continue;
                     list.add(curPos);
                 }
             }

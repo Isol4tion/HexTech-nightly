@@ -8,6 +8,6 @@ public enum Enum_IKgLeKHCELPvcpdGlLhV {
     Meteor,
     Thunder,
     EditionHex,
-    Mio;
+    Mio
 
 }

@@ -329,7 +329,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.breakNumber = 0;
         }
         if ((double)this.breakNumber > this.maxBreak.getValue() - 1.0 && this.maxBreak.getValue() > 0.0 || !this.wait.getValue() && this.isAir(breakPos) && !this.instant.getValue()) {
-            if (breakPos.equals((Object)secondPos)) {
+            if (breakPos.equals(secondPos)) {
                 secondPos = null;
             }
             this.startPacket = false;
@@ -342,7 +342,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.startPacket = false;
             return;
         }
-        if ((double)MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(breakPos.toCenterPos()))) > this.range.getValue()) {
+        if ((double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(breakPos.toCenterPos())) > this.range.getValue()) {
             if (this.farCancel.getValue()) {
                 this.startPacket = false;
                 this.breakNumber = 0;
@@ -350,7 +350,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             return;
         }
-        if (breakPos.equals((Object)AutoAnchor_MDcwoWYRcPYheLZJWRZK.currentPos)) {
+        if (breakPos.equals(AutoAnchor_MDcwoWYRcPYheLZJWRZK.currentPos)) {
             return;
         }
         if (!(this.hotBar.getValue() || SpeedMine.mc.currentScreen == null || SpeedMine.mc.currentScreen instanceof ChatScreen || SpeedMine.mc.currentScreen instanceof InventoryScreen || SpeedMine.mc.currentScreen instanceof ClickGuiScreen)) {
@@ -404,7 +404,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (this.waitPlace.getValue()) {
             for (Direction i : Direction.values()) {
-                if (!breakPos.offset(i).equals((Object)AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos)) continue;
+                if (!breakPos.offset(i).equals(AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos)) continue;
                 if (!CanPlaceCrystal.canPlaceCrystal(AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos, false, false)) break;
                 return;
             }
@@ -443,7 +443,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     } else if (this.invSwapBypass.getValue()) {
                         InventoryUtil.inventorySwap(slot, old);
                     } else {
-                        SpeedMine.mc.interactionManager.clickSlot(SpeedMine.mc.player.currentScreenHandler.syncId, slot, old, SlotActionType.SWAP, (PlayerEntity)SpeedMine.mc.player);
+                        SpeedMine.mc.interactionManager.clickSlot(SpeedMine.mc.player.currentScreenHandler.syncId, slot, old, SlotActionType.SWAP, SpeedMine.mc.player);
                     }
                 }
                 if (this.endSwing.getValue()) {
@@ -457,7 +457,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (this.invSwapBypass.getValue()) {
                             InventoryUtil.inventorySwap(slot, old);
                         } else {
-                            SpeedMine.mc.interactionManager.clickSlot(SpeedMine.mc.player.currentScreenHandler.syncId, slot, old, SlotActionType.SWAP, (PlayerEntity)SpeedMine.mc.player);
+                            SpeedMine.mc.interactionManager.clickSlot(SpeedMine.mc.player.currentScreenHandler.syncId, slot, old, SlotActionType.SWAP, SpeedMine.mc.player);
                         }
                         EntityUtil.syncInventory();
                     }
@@ -546,7 +546,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         event.cancel();
         BlockPos pos = event.getPos();
-        if (pos.equals((Object)breakPos)) {
+        if (pos.equals(breakPos)) {
             return;
         }
         if (godBlocks.contains(SpeedMine.mc.world.getBlockState(pos).getBlock())) {
@@ -555,13 +555,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (breakPos != null && this.preferWeb.getValue() && BlockUtil.getBlock(breakPos) == Blocks.COBWEB) {
             return;
         }
-        if (breakPos != null && this.preferHead.getValue() && EntityUtil.getPlayerPos(true).up().equals((Object)breakPos)) {
+        if (breakPos != null && this.preferHead.getValue() && EntityUtil.getPlayerPos(true).up().equals(breakPos)) {
             return;
         }
         if (BlockUtil.getClickSideStrict(pos) == null) {
             return;
         }
-        if ((double)MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.range.getValue()) {
+        if ((double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.range.getValue()) {
             return;
         }
         breakPos = pos;
@@ -631,7 +631,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             SpeedMine.mc.interactionManager.attackBlock(pos, BlockUtil.getClickSide(pos));
             return;
         }
-        if (pos.equals((Object)breakPos)) {
+        if (pos.equals(breakPos)) {
             return;
         }
         if (godBlocks.contains(SpeedMine.mc.world.getBlockState(pos).getBlock())) {
@@ -640,13 +640,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (breakPos != null && this.preferWeb.getValue() && BlockUtil.getBlock(breakPos) == Blocks.COBWEB) {
             return;
         }
-        if (breakPos != null && this.preferHead.getValue() && EntityUtil.getPlayerPos(true).up().equals((Object)breakPos)) {
+        if (breakPos != null && this.preferHead.getValue() && EntityUtil.getPlayerPos(true).up().equals(breakPos)) {
             return;
         }
         if (BlockUtil.getClickSideStrict(pos) == null) {
             return;
         }
-        if ((double)MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.range.getValue()) {
+        if ((double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.range.getValue()) {
             return;
         }
         breakPos = pos;
@@ -683,7 +683,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float destroySpeed;
                 float digSpeed;
                 ItemStack stack = SpeedMine.mc.player.getInventory().getStack(i);
-                if (stack == ItemStack.EMPTY || !((digSpeed = (float)EnchantmentHelper.getLevel((Enchantment)Enchantments.EFFICIENCY, (ItemStack)stack)) + (destroySpeed = stack.getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
+                if (stack == ItemStack.EMPTY || !((digSpeed = (float)EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, stack)) + (destroySpeed = stack.getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
                 CurrentFastest = digSpeed + destroySpeed;
                 index = i;
             }
@@ -695,7 +695,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
             float destroySpeed;
             float digSpeed;
-            if (entry.getValue().getItem() instanceof AirBlockItem || !((digSpeed = (float)EnchantmentHelper.getLevel((Enchantment)Enchantments.EFFICIENCY, (ItemStack)entry.getValue())) + (destroySpeed = entry.getValue().getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
+            if (entry.getValue().getItem() instanceof AirBlockItem || !((digSpeed = (float)EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, entry.getValue())) + (destroySpeed = entry.getValue().getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
             CurrentFastest = digSpeed + destroySpeed;
             slot.set(entry.getKey());
         }
@@ -708,7 +708,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (event.getPacket() instanceof PlayerMoveC2SPacket) {
-            if (this.bypassGround.getValue() && !SpeedMine.mc.player.isFallFlying() && breakPos != null && (!this.isAir(breakPos) || secondPos != null) && this.bypassTime.getValue() > 0.0 && MathHelper.sqrt((float)((float)breakPos.toCenterPos().squaredDistanceTo(EntityUtil.getEyesPos()))) <= this.range.getValueFloat() + 2.0f) {
+            if (this.bypassGround.getValue() && !SpeedMine.mc.player.isFallFlying() && breakPos != null && (!this.isAir(breakPos) || secondPos != null) && this.bypassTime.getValue() > 0.0 && MathHelper.sqrt((float)breakPos.toCenterPos().squaredDistanceTo(EntityUtil.getEyesPos())) <= this.range.getValueFloat() + 2.0f) {
                 int slot = this.getTool(breakPos);
                 if (slot == -1) {
                     slot = SpeedMine.mc.player.getInventory().selectedSlot;
@@ -732,8 +732,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Object t = event.getPacket();
-        if (t instanceof UpdateSelectedSlotC2SPacket) {
-            UpdateSelectedSlotC2SPacket packet = (UpdateSelectedSlotC2SPacket)t;
+        if (t instanceof UpdateSelectedSlotC2SPacket packet) {
             if (packet.getSelectedSlot() != this.lastSlot) {
                 this.lastSlot = packet.getSelectedSlot();
                 if (this.switchReset.getValue()) {
@@ -749,12 +748,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (((PlayerActionC2SPacket)event.getPacket()).getAction() == PlayerActionC2SPacket.Action.START_DESTROY_BLOCK) {
-            if (breakPos == null || !((PlayerActionC2SPacket)event.getPacket()).getPos().equals((Object)breakPos)) {
+            if (breakPos == null || !((PlayerActionC2SPacket)event.getPacket()).getPos().equals(breakPos)) {
                 return;
             }
             this.startPacket = true;
         } else if (((PlayerActionC2SPacket)event.getPacket()).getAction() == PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK) {
-            if (breakPos == null || !((PlayerActionC2SPacket)event.getPacket()).getPos().equals((Object)breakPos)) {
+            if (breakPos == null || !((PlayerActionC2SPacket)event.getPacket()).getPos().equals(breakPos)) {
                 return;
             }
             if (!this.instant.getValue()) {
@@ -773,7 +772,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public float getBlockStrength(BlockPos position, ItemStack itemStack) {
         BlockState state = SpeedMine.mc.world.getBlockState(position);
-        float hardness = state.getHardness((BlockView)SpeedMine.mc.world, position);
+        float hardness = state.getHardness(SpeedMine.mc.world, position);
         if (hardness < 0.0f) {
             return 0.0f;
         }
@@ -784,7 +783,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         boolean inWeb;
         int efficiencyModifier;
         float digSpeed = this.getDestroySpeed(state, itemStack);
-        if (digSpeed > 1.0f && (efficiencyModifier = EnchantmentHelper.getLevel((Enchantment)Enchantments.EFFICIENCY, (ItemStack)itemStack)) > 0 && !itemStack.isEmpty()) {
+        if (digSpeed > 1.0f && (efficiencyModifier = EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, itemStack)) > 0 && !itemStack.isEmpty()) {
             digSpeed += (float)(StrictMath.pow(efficiencyModifier, 2.0) + 1.0);
         }
         if (SpeedMine.mc.player.hasStatusEffect(StatusEffects.HASTE)) {
@@ -798,10 +797,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 default -> 8.1E-4f;
             });
         }
-        if (SpeedMine.mc.player.isSubmergedInWater() && !EnchantmentHelper.hasAquaAffinity((LivingEntity)SpeedMine.mc.player)) {
+        if (SpeedMine.mc.player.isSubmergedInWater() && !EnchantmentHelper.hasAquaAffinity(SpeedMine.mc.player)) {
             digSpeed /= 5.0f;
         }
-        boolean bl = inWeb = HexTech.PLAYER.isInWeb((PlayerEntity)SpeedMine.mc.player) && SpeedMine.mc.world.getBlockState(breakPos).getBlock() == Blocks.COBWEB;
+        boolean bl = inWeb = HexTech.PLAYER.isInWeb(SpeedMine.mc.player) && SpeedMine.mc.world.getBlockState(breakPos).getBlock() == Blocks.COBWEB;
         if ((!SpeedMine.mc.player.isOnGround() || inWeb) && SpeedMine.INSTANCE.checkGround.getValue() && (!this.smart.getValue() || SpeedMine.mc.player.isFallFlying() || inWeb)) {
             digSpeed /= 5.0f;
         }
@@ -830,7 +829,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Check,
         Place,
         Rotation,
-        Render;
+        Render
 
     }
 }

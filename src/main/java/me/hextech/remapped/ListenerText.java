@@ -8,26 +8,26 @@ import net.minecraft.util.math.Vec3d;
 
 public class ListenerText {
     public static void drawText3D1(String text, Vec3d vec3d, Color color) {
-        Render3DUtil.drawText3D(Text.of((String)text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
+        Render3DUtil.drawText3D(Text.of(text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
     }
 
     public static void drawText3D2(String text, Vec3d vec3d, Color color) {
-        Render3DUtil.drawText3D(Text.of((String)text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
+        Render3DUtil.drawText3D(Text.of(text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
     }
 
     public static void drawText3D3(String text, Vec3d vec3d, Color color) {
-        Render3DUtil.drawText3D(Text.of((String)text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
+        Render3DUtil.drawText3D(Text.of(text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
     }
 
     public static void drawText3D4(String text, Vec3d vec3d, Color color) {
-        Render3DUtil.drawText3D(Text.of((String)text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
+        Render3DUtil.drawText3D(Text.of(text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
     }
 
     public static void drawText3DIF1(String text, Vec3d vec3d, Color color) {
-        Render3DUtil.drawText3D(Text.of((String)text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
+        Render3DUtil.drawText3D(Text.of(text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
     }
 
     public static void drawText3DCleaner(String text, Vec3d vec3d, Color color) {
-        Render3DUtil.drawText3D(Text.of((String)text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
+        Render3DUtil.drawText3D(Text.of(text), vec3d.x, vec3d.y, vec3d.z, 0.0, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.startFadeTime.getValueFloat(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.sliderSpeed.getValueFloat(), color.getRGB());
     }
 }

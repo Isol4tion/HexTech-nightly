@@ -35,7 +35,7 @@ implements Wrapper {
             if (!altFile.exists()) {
                 throw new IOException("File not found! Could not load alts...");
             }
-            List<String> list = IOUtils.readLines((InputStream)new FileInputStream(altFile), (Charset)StandardCharsets.UTF_8);
+            List<String> list = IOUtils.readLines(new FileInputStream(altFile), StandardCharsets.UTF_8);
             for (String s : list) {
                 this.alts.add(new Alt(s));
             }
@@ -50,7 +50,7 @@ implements Wrapper {
         try {
             File altFile = Manager.getFile("alt.txt");
             System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Saving Alts");
-            printwriter = new PrintWriter(new OutputStreamWriter((OutputStream)new FileOutputStream(altFile), StandardCharsets.UTF_8));
+            printwriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(altFile), StandardCharsets.UTF_8));
             for (Alt alt : this.alts) {
                 printwriter.println(alt.getEmail());
             }

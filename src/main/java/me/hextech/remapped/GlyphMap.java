@@ -25,7 +25,6 @@ import net.minecraft.util.Identifier;
 import org.lwjgl.BufferUtils;
 
 class GlyphMap {
-    private static final int PADDING;
     final char fromIncl;
     final char toExcl;
     final Font[] font;
@@ -45,12 +44,12 @@ class GlyphMap {
     public static void registerBufferedImageTexture(Identifier i, BufferedImage bi) {
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-            ImageIO.write((RenderedImage)bi, "png", out);
+            ImageIO.write(bi, "png", out);
             byte[] bytes = out.toByteArray();
-            ByteBuffer data = BufferUtils.createByteBuffer((int)bytes.length).put(bytes);
+            ByteBuffer data = BufferUtils.createByteBuffer(bytes.length).put(bytes);
             data.flip();
-            NativeImageBackedTexture tex = new NativeImageBackedTexture(NativeImage.read((ByteBuffer)data));
-            Wrapper.mc.execute(() -> Wrapper.mc.getTextureManager().registerTexture(i, (AbstractTexture)tex));
+            NativeImageBackedTexture tex = new NativeImageBackedTexture(NativeImage.read(data));
+            Wrapper.mc.execute(() -> Wrapper.mc.getTextureManager().registerTexture(i, tex));
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +60,7 @@ class GlyphMap {
         if (!this.generated) {
             this.generate();
         }
-        return (Glyph)this.glyphs.get(c);
+        return this.glyphs.get(c);
     }
 
     public void destroy() {
@@ -135,7 +134,7 @@ class GlyphMap {
             g2d.setFont(this.getFontForGlyph(glyph.value()));
             FontMetrics fontMetrics = g2d.getFontMetrics();
             g2d.drawString(String.valueOf(glyph.value()), glyph.u(), glyph.v() + fontMetrics.getAscent());
-            this.glyphs.put(glyph.value(), (Object)glyph);
+            this.glyphs.put(glyph.value(), glyph);
         }
         GlyphMap.registerBufferedImageTexture(this.bindToTexture, bi);
         this.generated = true;

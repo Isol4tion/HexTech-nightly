@@ -37,14 +37,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.doSwap(slot);
         Quiver.mc.options.useKey.setPressed(true);
-        Quiver.mc.interactionManager.interactItem((PlayerEntity)Quiver.mc.player, Hand.MAIN_HAND);
+        Quiver.mc.interactionManager.interactItem(Quiver.mc.player, Hand.MAIN_HAND);
     }
 
     @Override
     public void onDisable() {
         if (Quiver.mc.options.useKey.isPressed()) {
             Quiver.mc.options.useKey.setPressed(false);
-            Quiver.mc.interactionManager.stopUsingItem((PlayerEntity)Quiver.mc.player);
+            Quiver.mc.interactionManager.stopUsingItem(Quiver.mc.player);
             if (this.inventory.getValue()) {
                 this.doSwap(slot);
                 EntityUtil.syncInventory();
@@ -60,9 +60,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if ((double)BowItem.getPullProgress((int)Quiver.mc.player.getItemUseTime()) >= 0.13) {
+        if ((double)BowItem.getPullProgress(Quiver.mc.player.getItemUseTime()) >= 0.13) {
             Quiver.mc.options.useKey.setPressed(false);
-            Quiver.mc.interactionManager.stopUsingItem((PlayerEntity)Quiver.mc.player);
+            Quiver.mc.interactionManager.stopUsingItem(Quiver.mc.player);
             if (this.inventory.getValue()) {
                 this.doSwap(slot);
                 EntityUtil.syncInventory();

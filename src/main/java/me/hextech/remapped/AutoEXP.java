@@ -73,7 +73,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int oldSlot = AutoEXP.mc.player.getInventory().selectedSlot;
         if (this.inventory.getValue() && (newSlot = InventoryUtil.findItemInventorySlot(Items.EXPERIENCE_BOTTLE)) != -1) {
             InventoryUtil.inventorySwap(newSlot, AutoEXP.mc.player.getInventory().selectedSlot);
-            AutoEXP.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
+            AutoEXP.mc.player.networkHandler.sendPacket(new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
             InventoryUtil.inventorySwap(newSlot, AutoEXP.mc.player.getInventory().selectedSlot);
             EntityUtil.syncInventory();
             this.delayTimer.reset();
@@ -81,7 +81,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             newSlot = InventoryUtil.findItem(Items.EXPERIENCE_BOTTLE);
             if (newSlot != -1) {
                 InventoryUtil.switchToSlot(newSlot);
-                AutoEXP.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
+                AutoEXP.mc.player.networkHandler.sendPacket(new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, EntityUtil.getWorldActionId(AutoEXP.mc.world)));
                 InventoryUtil.switchToSlot(oldSlot);
                 this.delayTimer.reset();
             }
@@ -119,7 +119,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return false;
         }
         if (this.onlyBroken.getValue()) {
-            DefaultedList armors = AutoEXP.mc.player.getInventory().armor;
+            DefaultedList<ItemStack> armors = AutoEXP.mc.player.getInventory().armor;
             for (ItemStack armor : armors) {
                 if (armor.isEmpty() || EntityUtil.getDamagePercent(armor) >= 100) continue;
                 return true;

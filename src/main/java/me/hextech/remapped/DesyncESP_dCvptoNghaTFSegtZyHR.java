@@ -4,27 +4,19 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
 import me.hextech.HexTech;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.DesyncESP;
-import me.hextech.remapped.DesyncESP_EZqjXHyHjNyfFrdyAmeM;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.Event;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.MathUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.UpdateWalkingEvent;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.RotationAxis;
+import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
 
 public final class DesyncESP_dCvptoNghaTFSegtZyHR
@@ -83,9 +75,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Math.abs(this.lastYaw - HexTech.ROTATE.lastYaw) < 1.0f && Math.abs(this.lastPitch - RotateManager.lastPitch) < 1.0f) {
             return;
         }
-        RenderSystem.depthMask((boolean)false);
+        RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate((int)770, (int)771, (int)0, (int)1);
+        RenderSystem.blendFuncSeparate(770, 771, 0, 1);
         double x = DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.prevX + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.getX() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.prevX) * (double)mc.getTickDelta() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.getEntityRenderDispatcher().camera.getPos().getX();
         double y = DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.prevY + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.getY() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.prevY) * (double)mc.getTickDelta() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.getEntityRenderDispatcher().camera.getPos().getY();
         double z = DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.prevZ + (DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.getZ() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.prevZ) * (double)mc.getTickDelta() - DesyncESP_dCvptoNghaTFSegtZyHR.mc.getEntityRenderDispatcher().camera.getPos().getZ();
@@ -96,21 +88,33 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         matrixStack.translate((float)x, (float)y, (float)z);
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotation(MathUtil.rad(180.0f - bodyYaw)));
         DesyncESP_dCvptoNghaTFSegtZyHR.prepareScale(matrixStack);
-        this.model.modelPlayer.animateModel((LivingEntity)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player, DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.limbAnimator.getPos(mc.getTickDelta()), DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.limbAnimator.getSpeed(mc.getTickDelta()), mc.getTickDelta());
-        this.model.modelPlayer.setAngles((LivingEntity)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player, DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.limbAnimator.getPos(mc.getTickDelta()), DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.limbAnimator.getSpeed(mc.getTickDelta()), (float)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.age, headYaw - bodyYaw, pitch);
+        this.model.modelPlayer.animateModel(DesyncESP_dCvptoNghaTFSegtZyHR.mc.player, DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.limbAnimator.getPos(mc.getTickDelta()), DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.limbAnimator.getSpeed(mc.getTickDelta()), mc.getTickDelta());
+        this.model.modelPlayer.setAngles(DesyncESP_dCvptoNghaTFSegtZyHR.mc.player, DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.limbAnimator.getPos(mc.getTickDelta()), DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.limbAnimator.getSpeed(mc.getTickDelta()), (float)DesyncESP_dCvptoNghaTFSegtZyHR.mc.player.age, headYaw - bodyYaw, pitch);
         RenderSystem.enableBlend();
-        GL11.glDisable((int)2929);
+        GL11.glDisable(2929);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
-        RenderSystem.blendFuncSeparate((GlStateManager.SrcFactor)GlStateManager.SrcFactor.SRC_ALPHA, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, (GlStateManager.SrcFactor)GlStateManager.SrcFactor.ONE, (GlStateManager.DstFactor)GlStateManager.DstFactor.ZERO);
+        RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
-        this.model.modelPlayer.render(matrixStack, (VertexConsumer)buffer, 10, 0, (float)this.color.getValue().getRed() / 255.0f, (float)this.color.getValue().getGreen() / 255.0f, (float)this.color.getValue().getBlue() / 255.0f, (float)this.color.getValue().getAlpha() / 255.0f);
+        this.model.modelPlayer.render(matrixStack, buffer, 10, 0, (float)this.color.getValue().getRed() / 255.0f, (float)this.color.getValue().getGreen() / 255.0f, (float)this.color.getValue().getBlue() / 255.0f, (float)this.color.getValue().getAlpha() / 255.0f);
         tessellator.draw();
         RenderSystem.disableBlend();
-        GL11.glEnable((int)2929);
+        GL11.glEnable(2929);
         matrixStack.pop();
         RenderSystem.disableBlend();
-        RenderSystem.depthMask((boolean)true);
+        RenderSystem.depthMask(true);
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public static class DesyncESP_EZqjXHyHjNyfFrdyAmeM {
+        private final PlayerEntityModel<PlayerEntity> modelPlayer;
+
+        public DesyncESP_EZqjXHyHjNyfFrdyAmeM() {
+            this.modelPlayer = new PlayerEntityModel<>(new EntityRendererFactory.Context(mc.getEntityRenderDispatcher(), mc.getItemRenderer(), mc.getBlockRenderManager(), mc.getEntityRenderDispatcher().getHeldItemRenderer(), mc.getResourceManager(), mc.getEntityModelLoader(), mc.textRenderer).getPart(EntityModelLayers.PLAYER), false);
+            this.modelPlayer.getHead().scale(new Vector3f(-0.3f, -0.3f, -0.3f));
+        }
     }
 }

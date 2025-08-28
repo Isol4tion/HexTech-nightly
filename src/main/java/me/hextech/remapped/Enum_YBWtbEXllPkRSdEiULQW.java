@@ -10,6 +10,6 @@ public enum Enum_YBWtbEXllPkRSdEiULQW {
     CuiCan,
     Sejia,
     TP,
-    Invalid;
+    Invalid
 
 }

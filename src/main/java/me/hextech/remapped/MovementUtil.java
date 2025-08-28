@@ -9,8 +9,8 @@ import net.minecraft.util.math.Vec3d;
 
 public class MovementUtil
 implements Wrapper {
-    private static final double diagonal;
-    private static final Vec3d horizontalVelocity;
+    private static final double diagonal = (double)1.0F / Math.sqrt(2.0F);
+    private static final Vec3d horizontalVelocity = new Vec3d(0.0F, 0.0F, 0.0F);
 
     public static boolean isMoving() {
         return (double)MovementUtil.mc.player.input.movementForward != 0.0 || (double)MovementUtil.mc.player.input.movementSideways != 0.0 || HoleSnap.INSTANCE.isOn();
@@ -29,7 +29,7 @@ implements Wrapper {
     public static double getJumpSpeed() {
         double defaultSpeed = 0.0;
         if (MovementUtil.mc.player.hasStatusEffect(StatusEffects.JUMP_BOOST)) {
-            int amplifier = ((StatusEffectInstance)MovementUtil.mc.player.getActiveStatusEffects().get(StatusEffects.JUMP_BOOST)).getAmplifier();
+            int amplifier = MovementUtil.mc.player.getActiveStatusEffects().get(StatusEffects.JUMP_BOOST).getAmplifier();
             defaultSpeed += (double)(amplifier + 1) * 0.1;
         }
         return defaultSpeed;
@@ -45,8 +45,8 @@ implements Wrapper {
 
     public static Vec3d getHorizontalVelocity(double bps) {
         float yaw = MovementUtil.mc.player.getYaw();
-        Vec3d forward = Vec3d.fromPolar((float)0.0f, (float)yaw);
-        Vec3d right = Vec3d.fromPolar((float)0.0f, (float)(yaw + 90.0f));
+        Vec3d forward = Vec3d.fromPolar(0.0f, yaw);
+        Vec3d right = Vec3d.fromPolar(0.0f, yaw + 90.0f);
         double velX = 0.0;
         double velZ = 0.0;
         boolean a = false;
@@ -136,11 +136,11 @@ implements Wrapper {
     public static double getSpeed(boolean slowness, double defaultSpeed) {
         int amplifier;
         if (MovementUtil.mc.player.hasStatusEffect(StatusEffects.SPEED)) {
-            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.getActiveStatusEffects().get(StatusEffects.SPEED)).getAmplifier();
+            amplifier = MovementUtil.mc.player.getActiveStatusEffects().get(StatusEffects.SPEED).getAmplifier();
             defaultSpeed *= 1.0 + 0.2 * (double)(amplifier + 1);
         }
         if (slowness && MovementUtil.mc.player.hasStatusEffect(StatusEffects.SLOWNESS)) {
-            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.getActiveStatusEffects().get(StatusEffects.SLOWNESS)).getAmplifier();
+            amplifier = MovementUtil.mc.player.getActiveStatusEffects().get(StatusEffects.SLOWNESS).getAmplifier();
             defaultSpeed /= 1.0 + 0.2 * (double)(amplifier + 1);
         }
         if (MovementUtil.mc.player.isSneaking()) {

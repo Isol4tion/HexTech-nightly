@@ -37,9 +37,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (Debug.mc.world != null) {
             for (AbstractClientPlayerEntity player : Debug.mc.world.getPlayers()) {
-                Vec3d vec3d = CombatUtil.getEntityPosVec((PlayerEntity)player, this.ticks.getValueInt());
+                Vec3d vec3d = CombatUtil.getEntityPosVec(player, this.ticks.getValueInt());
                 if (this.prerender.getValue()) {
-                    Render3DUtil.draw3DBox(matrixStack, new Box(BlockPos.ofFloored((Position)vec3d)), this.color.getValue());
+                    Render3DUtil.draw3DBox(matrixStack, new Box(BlockPos.ofFloored(vec3d)), this.color.getValue());
                 }
                 if (!this.chat.getValue()) continue;
                 CommandManager.sendChatMessage(vec3d.x + " " + vec3d.y + " " + vec3d.z);

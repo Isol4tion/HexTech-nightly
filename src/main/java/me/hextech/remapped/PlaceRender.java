@@ -3,7 +3,6 @@ package me.hextech.remapped;
 import java.awt.Color;
 import java.util.HashMap;
 
-import me.hextech.remapped.PlaceRender_BKSSHzfecITsyTxUXmfE;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -30,12 +29,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public PlaceRender_BKSSHzfecITsyTxUXmfE create(BlockPos pos) {
-        return new PlaceRender_BKSSHzfecITsyTxUXmfE(this, pos);
+        return new PlaceRender_BKSSHzfecITsyTxUXmfE( pos);
     }
 
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
-        BlockUtil.placedPos.forEach(pos -> renderMap.put((BlockPos)pos, new PlaceRender_BKSSHzfecITsyTxUXmfE(this, (BlockPos)pos)));
+        BlockUtil.placedPos.forEach(pos -> renderMap.put(pos, new PlaceRender_BKSSHzfecITsyTxUXmfE(pos)));
         BlockUtil.placedPos.clear();
         if (renderMap.isEmpty()) {
             return;
@@ -65,7 +64,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             double alpha = this.mode.getValue() == _MgMtxnzmBTDvbcFtDFtE.Fade || this.mode.getValue() == _MgMtxnzmBTDvbcFtDFtE.All ? 1.0 - quads : 1.0;
             double size = this.mode.getValue() == _MgMtxnzmBTDvbcFtDFtE.Shrink || this.mode.getValue() == _MgMtxnzmBTDvbcFtDFtE.All ? quads : 0.0;
             Box aBox = new Box(placePosition.pos).expand(-size * 0.5, -size * 0.5, -size * 0.5);
-            if (this.colortype.getValue().equals((Object) AutoCrystal_QcRVYRsOqpKivetoXSJa.AutoCrystal_ohSMJidwaoXtIVckTOpo.Custom)) {
+            if (this.colortype.getValue().equals(AutoCrystal_QcRVYRsOqpKivetoXSJa.AutoCrystal_ohSMJidwaoXtIVckTOpo.Custom)) {
                 if (this.fill.booleanValue) {
                     Render3DUtil.drawFill(matrixStack, aBox, ColorUtil.injectAlpha(this.fill.getValue(), (int)((double)this.fill.getValue().getAlpha() * alpha)));
                 }
@@ -73,7 +72,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     Render3DUtil.drawBox(matrixStack, aBox, ColorUtil.injectAlpha(this.box.getValue(), (int)((double)this.box.getValue().getAlpha() * alpha)));
                 }
             }
-            if (!this.colortype.getValue().equals((Object) AutoCrystal_QcRVYRsOqpKivetoXSJa.AutoCrystal_ohSMJidwaoXtIVckTOpo.Sync)) continue;
+            if (!this.colortype.getValue().equals(AutoCrystal_QcRVYRsOqpKivetoXSJa.AutoCrystal_ohSMJidwaoXtIVckTOpo.Sync)) continue;
             if (ColorsSetting.INSTANCE.box.booleanValue) {
                 Render3DUtil.drawFill(matrixStack, aBox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.box.getValue(), (int)((double)ColorsSetting.INSTANCE.box.getValue().getAlpha() * alpha)));
             }
@@ -88,7 +87,21 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public enum _MgMtxnzmBTDvbcFtDFtE {
         Fade,
         Shrink,
-        All;
+        All
 
+    }
+
+    public class PlaceRender_BKSSHzfecITsyTxUXmfE{
+        public final FadeUtils_DPfHthPqEJdfXfNYhDbG fade;
+        public final BlockPos pos;
+        public final Timer timer;
+        public boolean isAir;
+
+        public PlaceRender_BKSSHzfecITsyTxUXmfE(BlockPos placePos) {
+            this.fade = new FadeUtils_DPfHthPqEJdfXfNYhDbG((long) fadeTime.getValue());
+            this.pos = placePos;
+            this.timer = new Timer();
+            this.isAir = true;
+        }
     }
 }

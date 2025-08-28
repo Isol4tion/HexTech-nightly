@@ -73,7 +73,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.stopGround.getValue() && Speed.mc.player.isOnGround()) {
             return;
         }
-        if (HoleKickTest.isInWeb((PlayerEntity)Speed.mc.player) || Speed.mc.player.isSneaking() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.isFallFlying() || EntityUtil.isInsideBlock() || Speed.mc.player.isInLava() || Speed.mc.player.isTouchingWater() || Speed.mc.player.getAbilities().flying) {
+        if (HoleKickTest.isInWeb(Speed.mc.player) || Speed.mc.player.isSneaking() || HoleSnap.INSTANCE.isOn() || INSTANCE.isOn() || Speed.mc.player.isFallFlying() || EntityUtil.isInsideBlock() || Speed.mc.player.isInLava() || Speed.mc.player.isTouchingWater() || Speed.mc.player.getAbilities().flying) {
             return;
         }
         if (!MovementUtil.isMoving()) {
@@ -233,7 +233,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public enum _hIXwTMQyjavijZllSIBF {
         Instant,
-        Strafe;
+        Strafe
 
     }
 }

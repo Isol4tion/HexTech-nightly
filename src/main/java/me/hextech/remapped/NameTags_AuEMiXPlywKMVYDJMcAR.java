@@ -8,6 +8,6 @@ public enum NameTags_AuEMiXPlywKMVYDJMcAR {
     Full,
     Durability,
     Item,
-    OnlyArmor;
+    OnlyArmor
 
 }

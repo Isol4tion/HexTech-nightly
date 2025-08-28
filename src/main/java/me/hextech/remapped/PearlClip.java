@@ -49,7 +49,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean faceVector(Vec3d directionVec) {
         this.directionVec = directionVec;
         float[] angle = EntityUtil.getLegitRotations(directionVec);
-        if (Math.abs(MathHelper.wrapDegrees((float)(angle[0] - lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees((float)(angle[1] - lastPitch))) < this.fov.getValueFloat()) {
+        if (Math.abs(MathHelper.wrapDegrees(angle[0] - lastYaw)) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees(angle[1] - lastPitch)) < this.fov.getValueFloat()) {
             if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.rotatepacket.getValue()) {
                 EntityUtil.sendYawAndPitch(angle[0], angle[1]);
             }
@@ -59,7 +59,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void updatePos() {
-        this.targetPos = new Vec3d(PearlClip.mc.player.getX() + MathHelper.clamp((double)(this.roundToClosest(PearlClip.mc.player.getX(), Math.floor(PearlClip.mc.player.getX()) + 0.241, Math.floor(PearlClip.mc.player.getX()) + 0.759) - PearlClip.mc.player.getX()), (double)-0.2, (double)0.2), PearlClip.mc.player.getY() - 0.5, PearlClip.mc.player.getZ() + MathHelper.clamp((double)(this.roundToClosest(PearlClip.mc.player.getZ(), Math.floor(PearlClip.mc.player.getZ()) + 0.241, Math.floor(PearlClip.mc.player.getZ()) + 0.759) - PearlClip.mc.player.getZ()), (double)-0.2, (double)0.2));
+        this.targetPos = new Vec3d(PearlClip.mc.player.getX() + MathHelper.clamp(this.roundToClosest(PearlClip.mc.player.getX(), Math.floor(PearlClip.mc.player.getX()) + 0.241, Math.floor(PearlClip.mc.player.getX()) + 0.759) - PearlClip.mc.player.getX(), -0.2, 0.2), PearlClip.mc.player.getY() - 0.5, PearlClip.mc.player.getZ() + MathHelper.clamp(this.roundToClosest(PearlClip.mc.player.getZ(), Math.floor(PearlClip.mc.player.getZ()) + 0.241, Math.floor(PearlClip.mc.player.getZ()) + 0.759) - PearlClip.mc.player.getZ(), -0.2, 0.2));
     }
 
     @EventHandler

@@ -38,14 +38,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onRender(Render3DEvent event) {
         if (this.LightningBolt.getValue()) {
             this.renderEntities.forEach((entity, time) -> {
-                LightningEntity lightningEntity = new LightningEntity(EntityType.LIGHTNING_BOLT, (World)KillEffects.mc.world);
+                LightningEntity lightningEntity = new LightningEntity(EntityType.LIGHTNING_BOLT, KillEffects.mc.world);
                 lightningEntity.refreshPositionAfterTeleport(entity.getX(), entity.getY(), entity.getZ());
-                EntitySpawnS2CPacket pac = new EntitySpawnS2CPacket((Entity)lightningEntity);
-                pac.apply((ClientPlayPacketListener)mc.getNetworkHandler());
-                KillEffects.mc.world.playSound((PlayerEntity)KillEffects.mc.player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 10000.0f, 0.16000001f);
-                KillEffects.mc.world.playSound((PlayerEntity)KillEffects.mc.player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.WEATHER, 2.0f, 0.1f);
+                EntitySpawnS2CPacket pac = new EntitySpawnS2CPacket(lightningEntity);
+                pac.apply(mc.getNetworkHandler());
+                KillEffects.mc.world.playSound(KillEffects.mc.player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 10000.0f, 0.16000001f);
+                KillEffects.mc.world.playSound(KillEffects.mc.player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_IMPACT, SoundCategory.WEATHER, 2.0f, 0.1f);
                 this.renderEntities.remove(entity);
-                this.lightingEntities.put((Entity)entity, System.currentTimeMillis());
+                this.lightingEntities.put(entity, System.currentTimeMillis());
             });
         }
     }
@@ -62,7 +62,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (((PlayerEntity)entity).getHealth() > this.gethealth.getValueFloat()) {
                 return;
             }
-            this.renderEntities.put((Entity)entity, System.currentTimeMillis());
+            this.renderEntities.put(entity, System.currentTimeMillis());
         });
         if (!this.lightingEntities.isEmpty()) {
             this.lightingEntities.forEach((entity, time) -> {

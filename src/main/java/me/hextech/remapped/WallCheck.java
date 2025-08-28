@@ -18,7 +18,7 @@ implements Wrapper {
         WallVec = new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() + 1.7, (double)pos.getZ() + 0.5);
         BlockHitResult result = null;
         if (WallCheck.mc.world != null && WallCheck.mc.player != null) {
-            result = WallCheck.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), WallVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)WallCheck.mc.player));
+            result = WallCheck.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), WallVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, WallCheck.mc.player));
         }
         if (result == null || result.getType() == HitResult.Type.MISS) {
             return false;

@@ -6,6 +6,6 @@ package me.hextech.remapped;
 public enum FadeUtils {
     In,
     In2,
-    Out;
+    Out
 
 }

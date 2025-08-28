@@ -6,7 +6,6 @@ import java.util.Objects;
 import me.hextech.HexTech;
 import me.hextech.remapped.DeathEvent;
 import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.HitLog_STBbGhMCskXcqFYRXyft;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.SliderSetting;
@@ -58,14 +57,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             drawContext.drawTextWithShadow(HitLog.mc.textRenderer, log2.text, (int)log2.x, (int)log2.y, new Color(255, 255, 255, (int)log2.alpha).getRGB());
             if (end) continue;
             Objects.requireNonNull(HitLog.mc.textRenderer);
-            y -= (double)(9 + 2);
+            y -= 9 + 2;
         }
     }
 
     @EventHandler
     public void onPlayerDeath(DeathEvent event) {
         PlayerEntity player = event.getPlayer();
-        if (player == HitLog.mc.player || player.distanceTo((Entity)HitLog.mc.player) > 20.0f) {
+        if (player == HitLog.mc.player || player.distanceTo(HitLog.mc.player) > 20.0f) {
             return;
         }
         int popCount = HexTech.POP.popContainer.getOrDefault(player.getName().getString(), 0);
@@ -75,7 +74,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onTotem(TotemEvent event) {
         PlayerEntity player = event.getPlayer();
-        if (player == HitLog.mc.player || player.distanceTo((Entity)HitLog.mc.player) > 20.0f) {
+        if (player == HitLog.mc.player || player.distanceTo(HitLog.mc.player) > 20.0f) {
             return;
         }
         int popCount = HexTech.POP.popContainer.getOrDefault(player.getName().getString(), 1);
@@ -84,5 +83,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public void addLog(String text) {
         this.logList.add(new HitLog_STBbGhMCskXcqFYRXyft(text));
+    }
+
+    static class HitLog_STBbGhMCskXcqFYRXyft {
+        final Timer timer = new Timer();
+        final String text;
+        double x;
+        double y;
+        double alpha;
+
+        public HitLog_STBbGhMCskXcqFYRXyft(String text) {
+            this.text = text;
+            this.x = (double)Wrapper.mc.getWindow().getWidth() / 4.0;
+            this.y = HitLog.y - 20.0;
+            this.alpha = 0.0;
+        }
     }
 }

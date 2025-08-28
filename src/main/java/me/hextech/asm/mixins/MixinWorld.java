@@ -23,18 +23,18 @@ public abstract class MixinWorld {
             if (CombatUtil.terrainIgnore || CombatUtil.modifyPos != null) {
                 WorldChunk worldChunk2 = Wrapper.mc.world.getChunk(pos.getX() >> 4, pos.getZ() >> 4);
                 BlockState tempState2 = worldChunk2.getBlockState(pos);
-                if (CombatUtil.modifyPos != null && pos.equals((Object)CombatUtil.modifyPos)) {
-                    cir.setReturnValue((Object)CombatUtil.modifyBlockState);
+                if (pos.equals(CombatUtil.modifyPos)) {
+                    cir.setReturnValue(CombatUtil.modifyBlockState);
                     return;
                 }
                 if (CombatUtil.terrainIgnore) {
                     if (tempState2.getBlock() == Blocks.OBSIDIAN || tempState2.getBlock() == Blocks.BEDROCK || tempState2.getBlock() == Blocks.ENDER_CHEST || tempState2.getBlock() == Blocks.RESPAWN_ANCHOR || tempState2.getBlock() == Blocks.NETHERITE_BLOCK) {
                         return;
                     }
-                    cir.setReturnValue((Object)Blocks.AIR.getDefaultState());
+                    cir.setReturnValue(Blocks.AIR.getDefaultState());
                 }
             } else if (MineTweak.INSTANCE.isActive && (tempState = (worldChunk = Wrapper.mc.world.getChunk(pos.getX() >> 4, pos.getZ() >> 4)).getBlockState(pos)).getBlock() == Blocks.BEDROCK) {
-                cir.setReturnValue((Object)Blocks.AIR.getDefaultState());
+                cir.setReturnValue(Blocks.AIR.getDefaultState());
             }
         }
     }

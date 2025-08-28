@@ -67,8 +67,7 @@ implements Wrapper {
         }
         for (Module_eSdgMXWuzcxgQVaJFmKZ m : HexTech.MODULE.modules) {
             for (Setting s : m.getSettings()) {
-                if (!(s instanceof BindSetting)) continue;
-                BindSetting bs = (BindSetting)s;
+                if (!(s instanceof BindSetting bs)) continue;
                 bs.setKey(this.getInt(bs.getLine(), bs.getKey()));
                 bs.setHoldEnable(this.getBoolean(bs.getLine() + "_hold", bs.isHoldEnable()));
             }
@@ -83,7 +82,7 @@ implements Wrapper {
             return;
         }
         try {
-            pw = new PrintWriter(new OutputStreamWriter((OutputStream)new FileOutputStream(options), StandardCharsets.UTF_8));
+            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(options), StandardCharsets.UTF_8));
             try {
                 pw.println("prefix:" + HexTech.PREFIX);
                 for (ClickGuiTab tab : HexTech.GUI.tabs) {
@@ -96,30 +95,26 @@ implements Wrapper {
                     for (Setting s : m.getSettings()) {
                         if (s instanceof BindSetting) continue;
                         if (s instanceof BooleanSetting) {
-                            bs = (BooleanSetting)s;
+                            bs = s;
                             pw.println(bs.getLine() + ":" + ((BooleanSetting)bs).getValue());
                             continue;
                         }
-                        if (s instanceof SliderSetting) {
-                            SliderSetting ss = (SliderSetting)s;
+                        if (s instanceof SliderSetting ss) {
                             pw.println(ss.getLine() + ":" + ss.getValue());
                             continue;
                         }
-                        if (s instanceof EnumSetting) {
-                            EnumSetting es = (EnumSetting)s;
-                            pw.println(es.getLine() + ":" + ((Enum)es.getValue()).name());
+                        if (s instanceof EnumSetting es) {
+                            pw.println(es.getLine() + ":" + es.getValue().name());
                             continue;
                         }
-                        if (s instanceof ColorSetting) {
-                            ColorSetting cs = (ColorSetting)s;
+                        if (s instanceof ColorSetting cs) {
                             pw.println(cs.getLine() + ":" + cs.getValue().getRGB());
                             pw.println(cs.getLine() + "Rainbow:" + cs.isRainbow);
                             if (!cs.injectBoolean) continue;
                             pw.println(cs.getLine() + "Boolean:" + cs.booleanValue);
                             continue;
                         }
-                        if (!(s instanceof StringSetting)) continue;
-                        StringSetting ss = (StringSetting)s;
+                        if (!(s instanceof StringSetting ss)) continue;
                         pw.println(ss.getLine() + ":" + ss.getValue());
                     }
                     pw.println(m.getName() + "_state:" + m.isOn());
@@ -133,12 +128,12 @@ implements Wrapper {
             System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to save settings");
         }
         try {
-            pw = new PrintWriter(new OutputStreamWriter((OutputStream)new FileOutputStream(bindFile), StandardCharsets.UTF_8));
+            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(bindFile), StandardCharsets.UTF_8));
             try {
                 for (Module_eSdgMXWuzcxgQVaJFmKZ m : HexTech.MODULE.modules) {
                     for (Setting s : m.getSettings()) {
                         if (!(s instanceof BindSetting)) continue;
-                        bs = (BindSetting)s;
+                        bs = s;
                         pw.println(bs.getLine() + ":" + ((BindSetting)bs).getKey());
                         pw.println(bs.getLine() + "_hold:" + ((BindSetting)bs).isHoldEnable());
                     }
@@ -162,15 +157,15 @@ implements Wrapper {
     }
 
     private void readFile(File file, Hashtable<String, String> table) {
-        Splitter COLON = Splitter.on((char)':').limit(2);
+        Splitter COLON = Splitter.on(':').limit(2);
         if (!file.exists()) {
             return;
         }
         try {
-            List lines = IOUtils.readLines((InputStream)new FileInputStream(file), (Charset)StandardCharsets.UTF_8);
+            List<String> lines = IOUtils.readLines(new FileInputStream(file), StandardCharsets.UTF_8);
             for (String line : lines) {
                 try {
-                    Iterator it = COLON.split((CharSequence)line).iterator();
+                    Iterator it = COLON.split(line).iterator();
                     table.put((String)it.next(), (String)it.next());
                 }
                 catch (Exception ignored) {

@@ -67,7 +67,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.totem.getValue()) {
             return;
         }
-        boolean bl = this.handSlot = (double)(MainHand.mc.player.getABSORPTIONAmount() + MainHand.mc.player.getHealth()) - this.getCrystal() <= this.forceHealth.getValue();
+        boolean bl = this.handSlot = (double)(MainHand.mc.player.getAbsorptionAmount() + MainHand.mc.player.getHealth()) - this.getCrystal() <= this.forceHealth.getValue();
         if (this.minePause.getValue() && this.needSwitch && !MainHand.mc.player.isUsingItem()) {
             return;
         }
@@ -110,7 +110,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 MainHand.mc.player.getInventory().selectedSlot = this.old;
                 this.needSwitch = false;
             }
-            if (SpeedMine.breakPos != null && (double)MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(SpeedMine.breakPos.toCenterPos()))) <= SpeedMine.INSTANCE.range.getValue() && (!BlockUtil.isAir(SpeedMine.breakPos) || SpeedMine.secondPos != null) && (SpeedMine.INSTANCE.done || SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.slot, this.damage.getValue())))) {
+            if (SpeedMine.breakPos != null && (double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(SpeedMine.breakPos.toCenterPos())) <= SpeedMine.INSTANCE.range.getValue() && (!BlockUtil.isAir(SpeedMine.breakPos) || SpeedMine.secondPos != null) && (SpeedMine.INSTANCE.done || SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.slot, this.damage.getValue())))) {
                 this.needSwitch = true;
                 if (MainHand.mc.player.getInventory().selectedSlot != this.slot) {
                     MainHand.mc.player.getInventory().selectedSlot = this.slot;
@@ -150,7 +150,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (Entity entity : MainHand.mc.world.getEntities()) {
             double dmg;
             EndCrystalEntity endCrystal;
-            if (!(entity instanceof EndCrystalEntity) || (endCrystal = (EndCrystalEntity)entity).squaredDistanceTo(MainHand.mc.player.getEyePos()) > 25.0 || !((dmg = (double)this.calculateDamage(endCrystal.getBlockPos().toCenterPos(), (PlayerEntity)MainHand.mc.player, (PlayerEntity)MainHand.mc.player)) > maxDMG)) continue;
+            if (!(entity instanceof EndCrystalEntity) || (endCrystal = (EndCrystalEntity)entity).squaredDistanceTo(MainHand.mc.player.getEyePos()) > 25.0 || !((dmg = this.calculateDamage(endCrystal.getBlockPos().toCenterPos(), MainHand.mc.player, MainHand.mc.player)) > maxDMG)) continue;
             maxDMG = dmg;
         }
         return maxDMG;
@@ -161,7 +161,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public float calculateDamage(Vec3d pos, PlayerEntity player, PlayerEntity predict) {
-        float damage = OyveyExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), (Entity)player, (Entity)predict, 6.0f);
+        float damage = OyveyExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), player, predict, 6.0f);
         return damage;
     }
 
@@ -176,13 +176,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public enum _TQxYHQLcjCDwbwqUjIlv {
         All,
-        Double;
+        Double
 
     }
 
     public enum _zejtTTXMdfbxiOFVgdxG {
         Mine,
-        Totem;
+        Totem
 
     }
 }

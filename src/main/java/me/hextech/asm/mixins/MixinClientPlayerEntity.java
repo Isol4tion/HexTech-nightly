@@ -141,7 +141,7 @@ extends AbstractClientPlayerEntity {
                 boolean bl = this.isSneaking();
                 if (bl != this.lastSneaking) {
                     ClientCommandC2SPacket.Mode mode = bl ? ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY : ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY;
-                    this.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)this, mode));
+                    this.networkHandler.sendPacket(new ClientCommandC2SPacket(this, mode));
                     this.lastSneaking = bl;
                 }
                 if (this.isCamera()) {
@@ -163,23 +163,23 @@ extends AbstractClientPlayerEntity {
                     double g = yaw - HexTech.ROTATE.lastYaw;
                     double h = pitch - RotateManager.lastPitch;
                     ++this.ticksSinceLastPositionPacketSent;
-                    boolean bl2 = MathHelper.squaredMagnitude((double)d, (double)e, (double)f) > MathHelper.square((double)2.0E-4) || this.ticksSinceLastPositionPacketSent >= 20 || ForceSync.INSTANCE.isOn() && ForceSync.INSTANCE.position.getValue();
+                    boolean bl2 = MathHelper.squaredMagnitude(d, e, f) > MathHelper.square(2.0E-4) || this.ticksSinceLastPositionPacketSent >= 20 || ForceSync.INSTANCE.isOn() && ForceSync.INSTANCE.position.getValue();
                     boolean bl4 = bl3 = g != 0.0 || h != 0.0 || ForceSync.INSTANCE.isOn() && ForceSync.INSTANCE.rotate.getValue();
                     if (PacketControl.INSTANCE.isOn()) {
                         bl3 = PacketControl.INSTANCE.full;
                     }
                     if (this.hasVehicle()) {
                         Vec3d vec3d = this.getVelocity();
-                        this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.Full(vec3d.x, -999.0, vec3d.z, yaw, pitch, this.isOnGround()));
+                        this.networkHandler.sendPacket(new PlayerMoveC2SPacket.Full(vec3d.x, -999.0, vec3d.z, yaw, pitch, this.isOnGround()));
                         bl2 = false;
                     } else if (bl2 && bl3) {
-                        this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.Full(this.getX(), this.getY(), this.getZ(), yaw, pitch, this.isOnGround()));
+                        this.networkHandler.sendPacket(new PlayerMoveC2SPacket.Full(this.getX(), this.getY(), this.getZ(), yaw, pitch, this.isOnGround()));
                     } else if (bl2) {
-                        this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(this.getX(), this.getY(), this.getZ(), this.isOnGround()));
+                        this.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(this.getX(), this.getY(), this.getZ(), this.isOnGround()));
                     } else if (bl3) {
-                        this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, this.isOnGround()));
+                        this.networkHandler.sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, this.isOnGround()));
                     } else if (this.lastOnGround != this.isOnGround()) {
-                        this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.OnGroundOnly(this.isOnGround()));
+                        this.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(this.isOnGround()));
                     }
                     if (bl2) {
                         this.lastX = this.getX();
@@ -192,7 +192,7 @@ extends AbstractClientPlayerEntity {
                         this.lastPitch = pitch;
                     }
                     this.lastOnGround = this.isOnGround();
-                    this.autoJumpEnabled = (Boolean)this.client.options.getAutoJump().getValue();
+                    this.autoJumpEnabled = this.client.options.getAutoJump().getValue();
                 }
                 HexTech.EVENT_BUS.post(new UpdateWalkingEvent(Event.Post));
             }
@@ -225,13 +225,13 @@ extends AbstractClientPlayerEntity {
                 pitch = rot.getPitch();
                 HexTech.ROTATE.rotateYaw = yaw;
                 HexTech.ROTATE.rotatePitch = pitch;
-                this.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, this.isOnGround()));
+                this.networkHandler.sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, this.isOnGround()));
             }
             HexTech.EVENT_BUS.post(new UpdateWalkingEvent(Event.Post));
-            this.networkHandler.sendPacket((Packet)new PlayerInputC2SPacket(this.sidewaysSpeed, this.forwardSpeed, this.input.jumping, this.input.sneaking));
+            this.networkHandler.sendPacket(new PlayerInputC2SPacket(this.sidewaysSpeed, this.forwardSpeed, this.input.jumping, this.input.sneaking));
             Entity root = this.getRootVehicle();
             if (root != this && root.isLogicalSideForUpdatingMovement()) {
-                this.networkHandler.sendPacket((Packet)new VehicleMoveC2SPacket(root));
+                this.networkHandler.sendPacket(new VehicleMoveC2SPacket(root));
                 this.sendSprintingPacket();
             }
         } else {

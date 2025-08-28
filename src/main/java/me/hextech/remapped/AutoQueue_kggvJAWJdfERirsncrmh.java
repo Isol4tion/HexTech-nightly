@@ -40,8 +40,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Object object = e.getPacket();
-        if (object instanceof GameMessageS2CPacket) {
-            GameMessageS2CPacket packet = (GameMessageS2CPacket)object;
+        if (object instanceof GameMessageS2CPacket packet) {
             for (String key : asks.keySet()) {
                 String[] abc;
                 if (!packet.content().getString().contains(key)) continue;

@@ -30,11 +30,9 @@ implements Wrapper {
     private final float buttonHeight = 30.0f;
     private final float buttonWidth = 200.0f;
     private final float[] zoom = new float[]{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
-    private static final float MAX_ZOOM;
-    private static final double ZOOM_SPEED;
 
     public HexTech() {
-        super(Text.of((String)"HexTech"));
+        super(Text.of("HexTech"));
     }
 
     public void render(DrawContext drawContext, int mouseX, int mouseY, float tickDelta) {
@@ -98,7 +96,7 @@ implements Wrapper {
             Objects.requireNonNull(this);
             Objects.requireNonNull(this);
             if (this.isMouseHoveringRect(d, d2, 200.0, 30.0, mouseX, mouseY)) {
-                mc.setScreen((Screen)new SelectWorldScreen((Screen)this));
+                mc.setScreen(new SelectWorldScreen(this));
             }
             float y2 = y + this.buttonHeight + buttonSpacing;
             double d3 = x;
@@ -110,7 +108,7 @@ implements Wrapper {
                     HexTech.mc.options.skipMultiplayerWarning = true;
                     HexTech.mc.options.write();
                 }
-                mc.setScreen((Screen)new MultiplayerScreen((Screen)this));
+                mc.setScreen(new MultiplayerScreen(this));
             }
             float y3 = y2 + this.buttonHeight + buttonSpacing;
             double d5 = x;
@@ -118,7 +116,7 @@ implements Wrapper {
             Objects.requireNonNull(this);
             Objects.requireNonNull(this);
             if (this.isMouseHoveringRect(d5, d6, 200.0, 30.0, mouseX, mouseY)) {
-                mc.setScreen((Screen)new OptionsScreen((Screen)this, HexTech.mc.options));
+                mc.setScreen(new OptionsScreen(this, HexTech.mc.options));
             }
             float y4 = y3 + this.buttonHeight + buttonSpacing;
             double d7 = x;
@@ -126,7 +124,7 @@ implements Wrapper {
             Objects.requireNonNull(this);
             Objects.requireNonNull(this);
             if (this.isMouseHoveringRect(d7, d8, 200.0, 30.0, mouseX, mouseY)) {
-                mc.setScreen((Screen)new ClickGuiScreen());
+                mc.setScreen(new ClickGuiScreen());
             }
             float y5 = y4 + this.buttonHeight + buttonSpacing;
             double d9 = x;
@@ -134,7 +132,7 @@ implements Wrapper {
             Objects.requireNonNull(this);
             Objects.requireNonNull(this);
             if (this.isMouseHoveringRect(d9, d10, 200.0, 30.0, mouseX, mouseY)) {
-                mc.setScreen((Screen)new AltScreen(new HexTech()));
+                mc.setScreen(new AltScreen(new HexTech()));
             }
             float y6 = y5 + this.buttonHeight + buttonSpacing;
             double d11 = x;

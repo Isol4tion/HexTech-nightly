@@ -6,6 +6,6 @@ package me.hextech.remapped;
 public enum Cleaner_zDJWekpHpTWvapSemLWN {
     General,
     Rotation,
-    Check;
+    Check
 
 }

@@ -11,6 +11,6 @@ public enum BaseThreadSetting {
     ComboBreaks,
     Packet,
     FadeUtils,
-    Fix;
+    Fix
 
 }

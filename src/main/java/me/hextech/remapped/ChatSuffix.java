@@ -23,12 +23,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (ChatSuffix.nullCheck() || event.isCancelled()) {
             return;
         }
-        Object message = event.message;
-        if (((String)message).startsWith("/") || ((String)message).startsWith("!") || ((String)message).startsWith("+") || ((String)message).startsWith("-") || ((String)message).startsWith("@") || ((String)message).endsWith(this.msg.getValue())) {
+        String message = event.message;
+        if (message.startsWith("/") || message.startsWith("!") || message.startsWith("+") || message.startsWith("-") || message.startsWith("@") || message.endsWith(this.msg.getValue())) {
             return;
         }
         String suffix = this.msg.getValue();
-        event.message = message = (String)message + " " + suffix;
+        event.message = message + " " + suffix;
     }
 
     public String getSuffix() {

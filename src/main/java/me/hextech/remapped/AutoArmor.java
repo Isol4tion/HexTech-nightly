@@ -10,11 +10,11 @@ import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.MovementUtil;
 import me.hextech.remapped.SliderSetting;
-import net.minecraft.class_1770;
-import net.minecraft.ProtectionEnchantment;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.ProtectionEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
@@ -65,7 +65,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             EquipmentSlot slot = AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ElytraItem ? EquipmentSlot.CHEST : ((ArmorItem)AutoArmor.mc.player.getInventory().getStack(s).getItem()).getSlotType();
             for (Map.Entry e : armorMap.entrySet()) {
                 if (this.autoElytra.getValue() && ElytraFly.INSTANCE.isOn() && e.getKey() == EquipmentSlot.CHEST) {
-                    if (!AutoArmor.mc.player.getInventory().getStack(38).isEmpty() && AutoArmor.mc.player.getInventory().getStack(38).getItem() instanceof ElytraItem && ElytraItem.isUsable((ItemStack)AutoArmor.mc.player.getInventory().getStack(38)) || ((int[])e.getValue())[2] != -1 && !AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2]).isEmpty() && AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2]).getItem() instanceof ElytraItem && ElytraItem.isUsable((ItemStack)AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2])) || AutoArmor.mc.player.getInventory().getStack(s).isEmpty() || !(AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ElytraItem) || !ElytraItem.isUsable((ItemStack)AutoArmor.mc.player.getInventory().getStack(s))) continue;
+                    if (!AutoArmor.mc.player.getInventory().getStack(38).isEmpty() && AutoArmor.mc.player.getInventory().getStack(38).getItem() instanceof ElytraItem && ElytraItem.isUsable(AutoArmor.mc.player.getInventory().getStack(38)) || ((int[])e.getValue())[2] != -1 && !AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2]).isEmpty() && AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2]).getItem() instanceof ElytraItem && ElytraItem.isUsable(AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2])) || AutoArmor.mc.player.getInventory().getStack(s).isEmpty() || !(AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ElytraItem) || !ElytraItem.isUsable(AutoArmor.mc.player.getInventory().getStack(s))) continue;
                     ((int[])e.getValue())[2] = s;
                     continue;
                 }
@@ -79,17 +79,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (((int[])equipmentSlotEntry.getValue())[1] == -1 && ((int[])equipmentSlotEntry.getValue())[2] < 9) {
                 if (((int[])equipmentSlotEntry.getValue())[2] != AutoArmor.mc.player.getInventory().selectedSlot) {
                     AutoArmor.mc.player.getInventory().selectedSlot = ((int[])equipmentSlotEntry.getValue())[2];
-                    AutoArmor.mc.player.networkHandler.sendPacket((Packet)new UpdateSelectedSlotC2SPacket(((int[])equipmentSlotEntry.getValue())[2]));
+                    AutoArmor.mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(((int[])equipmentSlotEntry.getValue())[2]));
                 }
-                AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, 36 + ((int[])equipmentSlotEntry.getValue())[2], 1, SlotActionType.QUICK_MOVE, (PlayerEntity)AutoArmor.mc.player);
+                AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, 36 + ((int[])equipmentSlotEntry.getValue())[2], 1, SlotActionType.QUICK_MOVE, AutoArmor.mc.player);
                 EntityUtil.syncInventory();
             } else if (AutoArmor.mc.player.playerScreenHandler == AutoArmor.mc.player.currentScreenHandler) {
                 int armorSlot = ((int[])equipmentSlotEntry.getValue())[0] - 34 + (39 - ((int[])equipmentSlotEntry.getValue())[0]) * 2;
                 int newArmorSlot = ((int[])equipmentSlotEntry.getValue())[2] < 9 ? 36 + ((int[])equipmentSlotEntry.getValue())[2] : ((int[])equipmentSlotEntry.getValue())[2];
-                AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, newArmorSlot, 0, SlotActionType.PICKUP, (PlayerEntity)AutoArmor.mc.player);
-                AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, armorSlot, 0, SlotActionType.PICKUP, (PlayerEntity)AutoArmor.mc.player);
+                AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, newArmorSlot, 0, SlotActionType.PICKUP, AutoArmor.mc.player);
+                AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, armorSlot, 0, SlotActionType.PICKUP, AutoArmor.mc.player);
                 if (((int[])equipmentSlotEntry.getValue())[1] != -1) {
-                    AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, newArmorSlot, 0, SlotActionType.PICKUP, (PlayerEntity)AutoArmor.mc.player);
+                    AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, newArmorSlot, 0, SlotActionType.PICKUP, AutoArmor.mc.player);
                 }
                 EntityUtil.syncInventory();
             }
@@ -101,15 +101,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (is.getItem() instanceof ArmorItem || is.getItem() == Items.ELYTRA) {
             int prot = 0;
             if (is.getItem() instanceof ElytraItem) {
-                if (!ElytraItem.isUsable((ItemStack)is)) {
+                if (!ElytraItem.isUsable(is)) {
                     return 0;
                 }
                 prot = 1;
             }
             if (is.hasEnchantments()) {
-                for (Map.Entry e : EnchantmentHelper.get((ItemStack)is).entrySet()) {
+                for (Map.Entry<Enchantment, Integer> e : EnchantmentHelper.get(is).entrySet()) {
                     if (!(e.getKey() instanceof ProtectionEnchantment)) continue;
-                    prot += ((Integer)e.getValue()).intValue();
+                    prot += e.getValue().intValue();
                 }
             }
             return (is.getItem() instanceof ArmorItem ? ((ArmorItem)is.getItem()).getProtection() : 0) + prot;

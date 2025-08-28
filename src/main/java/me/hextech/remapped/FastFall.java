@@ -5,6 +5,6 @@ package me.hextech.remapped;
  */
 public enum FastFall {
     Fast,
-    Strict;
+    Strict
 
 }

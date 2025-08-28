@@ -7,5 +7,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(value={PlayerMoveC2SPacket.class})
 public interface AccessorPlayerMoveC2SPacket {
     @Accessor(value="pitch")
-    public void setPitch(float var1);
+    void setPitch(float var1);
 }

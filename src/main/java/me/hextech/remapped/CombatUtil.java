@@ -36,7 +36,7 @@ implements Wrapper {
         ArrayList<PlayerEntity> list = new ArrayList<PlayerEntity>();
         if (CombatUtil.mc.world != null) {
             for (PlayerEntity player : CombatUtil.mc.world.getPlayers()) {
-                if (!CombatUtil.isValid((Entity)player, range)) continue;
+                if (!CombatUtil.isValid(player, range)) continue;
                 list.add(player);
             }
         }
@@ -48,7 +48,7 @@ implements Wrapper {
             Iterator iterator;
             if (CombatUtil.mc.world == null || !(iterator = CombatUtil.mc.world.getNonSpectatingEntities(EndCrystalEntity.class, new Box(pos)).iterator()).hasNext()) break block0;
             EndCrystalEntity entity = (EndCrystalEntity)iterator.next();
-            CombatUtil.attackCrystal((Entity)entity, rotate, eatingPause);
+            CombatUtil.attackCrystal(entity, rotate, eatingPause);
         }
     }
 
@@ -57,7 +57,7 @@ implements Wrapper {
             Iterator iterator;
             if (CombatUtil.mc.world == null || !(iterator = CombatUtil.mc.world.getNonSpectatingEntities(EndCrystalEntity.class, box).iterator()).hasNext()) break block0;
             EndCrystalEntity entity = (EndCrystalEntity)iterator.next();
-            CombatUtil.attackCrystal((Entity)entity, rotate, eatingPause);
+            CombatUtil.attackCrystal(entity, rotate, eatingPause);
         }
     }
 
@@ -74,7 +74,7 @@ implements Wrapper {
                 EntityUtil.faceVector(new Vec3d(crystal.getX(), crystal.getY() + 0.25, crystal.getZ()));
             }
             if (CombatUtil.mc.player != null) {
-                CombatUtil.mc.player.networkHandler.sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)crystal, (boolean)CombatUtil.mc.player.isSneaking()));
+                CombatUtil.mc.player.networkHandler.sendPacket(PlayerInteractEntityC2SPacket.attack(crystal, CombatUtil.mc.player.isSneaking()));
             }
             if (CombatUtil.mc.player != null) {
                 CombatUtil.mc.player.resetLastAttackedTicks();
@@ -84,7 +84,7 @@ implements Wrapper {
     }
 
     public static boolean isValid(Entity entity, double range) {
-        boolean invalid = entity == null || !entity.isAlive() || entity.equals((Object)CombatUtil.mc.player) || entity instanceof PlayerEntity && FriendManager.isFriend(entity.getName().getString()) || CombatUtil.mc.player.squaredDistanceTo(entity) > MathUtil.square(range);
+        boolean invalid = entity == null || !entity.isAlive() || entity.equals(CombatUtil.mc.player) || entity instanceof PlayerEntity && FriendManager.isFriend(entity.getName().getString()) || CombatUtil.mc.player.squaredDistanceTo(entity) > MathUtil.square(range);
         return !invalid;
     }
 
@@ -93,7 +93,7 @@ implements Wrapper {
         double bestDistance = range + 1.0f;
         for (BlockPos pos : BlockUtil.getSphere(range)) {
             if (CombatUtil.mc.player == null || pos.getX() == CombatUtil.mc.player.getBlockX() && pos.getZ() == CombatUtil.mc.player.getBlockZ() || !BlockUtil.isHole(pos, true, true, any) && (!doubleHole || !CombatUtil.isDoubleHole(pos)) || pos.getY() - CombatUtil.mc.player.getBlockY() > 1) continue;
-            double distance = MathHelper.sqrt((float)((float)CombatUtil.mc.player.squaredDistanceTo((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5)));
+            double distance = MathHelper.sqrt((float)CombatUtil.mc.player.squaredDistanceTo((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5));
             if (bestPos != null && !(distance < bestDistance)) continue;
             bestPos = pos;
             bestDistance = distance;
@@ -148,7 +148,7 @@ implements Wrapper {
                 closest = player;
                 continue;
             }
-            if (!(CombatUtil.mc.player.getEyePos().squaredDistanceTo(player.getPos()) < CombatUtil.mc.player.squaredDistanceTo((Entity)closest))) continue;
+            if (!(CombatUtil.mc.player.getEyePos().squaredDistanceTo(player.getPos()) < CombatUtil.mc.player.squaredDistanceTo(closest))) continue;
             closest = player;
         }
         return closest;
@@ -158,7 +158,7 @@ implements Wrapper {
         if (ticks <= 0) {
             return entity.getPos();
         }
-        return entity.getPos().add(CombatUtil.getMotionVec((Entity)entity, ticks, true));
+        return entity.getPos().add(CombatUtil.getMotionVec(entity, ticks, true));
     }
 
     public static Vec3d getMotionVec(Entity entity, float ticks, boolean collision) {
@@ -182,7 +182,7 @@ implements Wrapper {
         if (ticks <= 0) {
             return entity.getPos();
         }
-        return entity.getPos().add(CombatUtil.getMotionVecWithY((Entity)entity, ticks, true));
+        return entity.getPos().add(CombatUtil.getMotionVecWithY(entity, ticks, true));
     }
 
     public static Vec3d getMotionVecWithY(Entity entity, int ticks, boolean collision) {

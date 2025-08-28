@@ -119,12 +119,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (!this.canPush(player).booleanValue()) continue;
             for (Direction i : Direction.values()) {
                 BlockPos pos2;
-                if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos2 = EntityUtil.getEntityPos((Entity)player).offset(i), (Entity)player) || !HolePush.mc.world.canCollide((Entity)player, new Box(pos2))) continue;
-                if (this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.getOpposite()), i)) {
+                if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos2 = EntityUtil.getEntityPos(player).offset(i), player) || !HolePush.mc.world.canCollide(player, new Box(pos2))) continue;
+                if (this.tryPush(EntityUtil.getEntityPos(player).offset(i.getOpposite()), i)) {
                     this.timer.reset();
                     return;
                 }
-                if (!this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.getOpposite()).up(), i)) continue;
+                if (!this.tryPush(EntityUtil.getEntityPos(player).offset(i.getOpposite()).up(), i)) continue;
                 this.timer.reset();
                 return;
             }
@@ -132,7 +132,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (float z : offset) {
                     playerPos = new BlockPosX(player.getX() + (double)x, player.getY() + 0.5, player.getZ() + (double)z);
                     for (Direction i : Direction.values()) {
-                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), (Entity)player) || !HolePush.mc.world.canCollide((Entity)player, new Box(pos))) continue;
+                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), player) || !HolePush.mc.world.canCollide(player, new Box(pos))) continue;
                         if (this.tryPush(playerPos.offset(i.getOpposite()), i)) {
                             this.timer.reset();
                         }
@@ -142,17 +142,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
             }
-            if (!HolePush.mc.world.canCollide((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 2.5, player.getZ())))) {
+            if (!HolePush.mc.world.canCollide(player, new Box(new BlockPosX(player.getX(), player.getY() + 2.5, player.getZ())))) {
                 for (Direction i : Direction.values()) {
                     if (i == Direction.UP || i == Direction.DOWN) continue;
-                    BlockPos pos3 = EntityUtil.getEntityPos((Entity)player).offset(i);
-                    Box box = player.getBoundingBox().offset(new Vec3d((double)i.getOffsetX(), (double)i.getOffsetY(), (double)i.getOffsetZ()));
-                    if (this.getBlock(pos3.up()) == Blocks.PISTON_HEAD || HolePush.mc.world.canCollide((Entity)player, box.offset(0.0, 1.0, 0.0)) || this.isTargetHere(pos3, (Entity)player)) continue;
-                    if (this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.getOpposite()).up(), i)) {
+                    BlockPos pos3 = EntityUtil.getEntityPos(player).offset(i);
+                    Box box = player.getBoundingBox().offset(new Vec3d(i.getOffsetX(), i.getOffsetY(), i.getOffsetZ()));
+                    if (this.getBlock(pos3.up()) == Blocks.PISTON_HEAD || HolePush.mc.world.canCollide(player, box.offset(0.0, 1.0, 0.0)) || this.isTargetHere(pos3, player)) continue;
+                    if (this.tryPush(EntityUtil.getEntityPos(player).offset(i.getOpposite()).up(), i)) {
                         this.timer.reset();
                         return;
                     }
-                    if (!this.tryPush(EntityUtil.getEntityPos((Entity)player).offset(i.getOpposite()), i)) continue;
+                    if (!this.tryPush(EntityUtil.getEntityPos(player).offset(i.getOpposite()), i)) continue;
                     this.timer.reset();
                     return;
                 }
@@ -161,7 +161,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (float z : offset) {
                     playerPos = new BlockPosX(player.getX() + (double)x, player.getY() + 0.5, player.getZ() + (double)z);
                     for (Direction i : Direction.values()) {
-                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), (Entity)player)) continue;
+                        if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), player)) continue;
                         if (this.tryPush(playerPos.offset(i.getOpposite()).up(), i)) {
                             this.timer.reset();
                             return;
@@ -403,7 +403,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (float x : new float[]{0.0f, 0.3f, -0.3f}) {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
                 BlockPosX pos = new BlockPosX(player.getX() + (double)x, player.getY() + 1.5, player.getZ() + (double)z);
-                if (!new Box((BlockPos)pos).intersects(player.getBoundingBox()) || HolePush.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.OBSIDIAN && HolePush.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.RESPAWN_ANCHOR && HolePush.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.BEDROCK && HolePush.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.ENDER_CHEST) continue;
+                if (!new Box(pos).intersects(player.getBoundingBox()) || HolePush.mc.world.getBlockState(pos).getBlock() != Blocks.OBSIDIAN && HolePush.mc.world.getBlockState(pos).getBlock() != Blocks.RESPAWN_ANCHOR && HolePush.mc.world.getBlockState(pos).getBlock() != Blocks.BEDROCK && HolePush.mc.world.getBlockState(pos).getBlock() != Blocks.ENDER_CHEST) continue;
                 return true;
             }
         }
@@ -425,16 +425,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         float[] offset = new float[]{-0.25f, 0.0f, 0.25f};
         int progress = 0;
-        if (HolePush.mc.world.canCollide((Entity)player, new Box((BlockPos)new BlockPosX(player.getX() + 1.0, player.getY() + 0.5, player.getZ())))) {
+        if (HolePush.mc.world.canCollide(player, new Box(new BlockPosX(player.getX() + 1.0, player.getY() + 0.5, player.getZ())))) {
             ++progress;
         }
-        if (HolePush.mc.world.canCollide((Entity)player, new Box((BlockPos)new BlockPosX(player.getX() - 1.0, player.getY() + 0.5, player.getZ())))) {
+        if (HolePush.mc.world.canCollide(player, new Box(new BlockPosX(player.getX() - 1.0, player.getY() + 0.5, player.getZ())))) {
             ++progress;
         }
-        if (HolePush.mc.world.canCollide((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ() + 1.0)))) {
+        if (HolePush.mc.world.canCollide(player, new Box(new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ() + 1.0)))) {
             ++progress;
         }
-        if (HolePush.mc.world.canCollide((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ() - 1.0)))) {
+        if (HolePush.mc.world.canCollide(player, new Box(new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ() - 1.0)))) {
             ++progress;
         }
         for (float x : offset) {
@@ -442,8 +442,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 BlockPosX playerPos = new BlockPosX(player.getX() + (double)x, player.getY() + 0.5, player.getZ() + (double)z);
                 for (Direction i : Direction.values()) {
                     BlockPos pos;
-                    if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), (Entity)player)) continue;
-                    if (HolePush.mc.world.canCollide((Entity)player, new Box(pos))) {
+                    if (i == Direction.UP || i == Direction.DOWN || !this.isTargetHere(pos = playerPos.offset(i), player)) continue;
+                    if (HolePush.mc.world.canCollide(player, new Box(pos))) {
                         return true;
                     }
                     if (!((double)progress > this.surroundCheck.getValue() - 1.0)) continue;
@@ -451,12 +451,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
         }
-        if (!HolePush.mc.world.canCollide((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 2.5, player.getZ())))) {
+        if (!HolePush.mc.world.canCollide(player, new Box(new BlockPosX(player.getX(), player.getY() + 2.5, player.getZ())))) {
             for (Direction i : Direction.values()) {
                 if (i == Direction.UP || i == Direction.DOWN) continue;
-                BlockPos pos = EntityUtil.getEntityPos((Entity)player).offset(i);
-                Box box = player.getBoundingBox().offset(new Vec3d((double)i.getOffsetX(), (double)i.getOffsetY(), (double)i.getOffsetZ()));
-                if (this.getBlock(pos.up()) == Blocks.PISTON_HEAD || HolePush.mc.world.canCollide((Entity)player, box.offset(0.0, 1.0, 0.0)) || this.isTargetHere(pos, (Entity)player) || !HolePush.mc.world.canCollide((Entity)player, new Box((BlockPos)new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ())))) continue;
+                BlockPos pos = EntityUtil.getEntityPos(player).offset(i);
+                Box box = player.getBoundingBox().offset(new Vec3d(i.getOffsetX(), i.getOffsetY(), i.getOffsetZ()));
+                if (this.getBlock(pos.up()) == Blocks.PISTON_HEAD || HolePush.mc.world.canCollide(player, box.offset(0.0, 1.0, 0.0)) || this.isTargetHere(pos, player) || !HolePush.mc.world.canCollide(player, new Box(new BlockPosX(player.getX(), player.getY() + 0.5, player.getZ())))) continue;
                 return true;
             }
         }
@@ -481,7 +481,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public enum _yzHmKDmPzgLjnTXAWdrq {
         General,
         Rotate,
-        Check;
+        Check
 
     }
 }

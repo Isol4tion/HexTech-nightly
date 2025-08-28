@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface IEntity {
     @Mutable
     @Accessor(value="pos")
-    public void setPos(Vec3d var1);
+    void setPos(Vec3d var1);
 
     @Accessor(value="dimensions")
-    public EntityDimensions getDimensions();
+    EntityDimensions getDimensions();
 }

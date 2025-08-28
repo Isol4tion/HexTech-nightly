@@ -65,12 +65,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public static void doCircle(MatrixStack matrixStack, Color color, double circleSize, Vec3d pos, int segments) {
         Vec3d camPos = HoleSnap.mc.getBlockEntityRenderDispatcher().camera.getPos();
-        GL11.glDisable((int)2929);
+        GL11.glDisable(2929);
         Matrix4f matrix = matrixStack.peek().getPositionMatrix();
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
         RenderSystem.setShader(GameRenderer::getPositionProgram);
-        RenderSystem.setShaderColor((float)((float)color.getRed() / 255.0f), (float)((float)color.getGreen() / 255.0f), (float)((float)color.getBlue() / 255.0f), (float)((float)color.getAlpha() / 255.0f));
+        RenderSystem.setShaderColor((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
         bufferBuilder.begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION);
         for (double i = 0.0; i < 360.0; i += 360.0 / (double)segments) {
             double x = Math.sin(Math.toRadians(i)) * circleSize;
@@ -79,7 +79,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             bufferBuilder.vertex(matrix, (float)tempPos.x, (float)tempPos.y, (float)tempPos.z).next();
         }
         tessellator.draw();
-        GL11.glEnable((int)2929);
+        GL11.glEnable(2929);
     }
 
     private static Vec2f getRotationFromVec(Vec3d vec) {
@@ -93,11 +93,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return new Vec2f((float)yaw, (float)pitch);
     }
 
-    private static double normalizeAngle(double angleIn) {
-        double d;
+    private static double normalizeAngle(final double angleIn) {
         double angle = angleIn;
-        angle %= 360.0;
-        if (d >= 180.0) {
+        if ((angle %= 360.0) >= 180.0) {
             angle -= 360.0;
         }
         if (angle < -180.0) {
@@ -192,7 +190,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.applyTimer = true;
         this.resetMove = true;
-        float rotation = HoleSnap.getRotationTo((Vec3d)playerPos, (Vec3d)this.targetPos).x;
+        float rotation = HoleSnap.getRotationTo(playerPos, this.targetPos).x;
         float yawRad = rotation / 180.0f * (float)Math.PI;
         double dist = playerPos.distanceTo(this.targetPos);
         double cappedSpeed = Math.min(0.2873, dist);
@@ -211,9 +209,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.targetPos == null || this.holePos == null) {
             return;
         }
-        GL11.glEnable((int)3042);
+        GL11.glEnable(3042);
         Color color = this.color.getValue();
-        Vec3d pos = new Vec3d(this.targetPos.x, (double)this.holePos.getY(), this.targetPos.getZ());
+        Vec3d pos = new Vec3d(this.targetPos.x, this.holePos.getY(), this.targetPos.getZ());
         if (this.fade.getValue()) {
             double temp = 0.01;
             for (double i = 0.0; i < this.circleSize.getValue(); i += temp) {
@@ -222,7 +220,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         } else {
             HoleSnap.doCircle(matrixStack, color, this.circleSize.getValue(), pos, this.segments.getValueInt());
         }
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
-        GL11.glDisable((int)3042);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        GL11.glDisable(3042);
     }
 }

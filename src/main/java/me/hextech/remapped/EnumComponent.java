@@ -55,7 +55,7 @@ extends Component {
         if (GuiManager.currentGrabbed == null && this.isVisible() && mouseClicked) {
             int cy = parentY + offset - 1 + (this.defaultHeight - 2) - 2;
             if (this.setting.popped) {
-                for (Enum o : (Enum[])this.setting.getValue().getClass().getEnumConstants()) {
+                for (Enum o : this.setting.getValue().getClass().getEnumConstants()) {
                     if (mouseX >= (double)parentX && mouseX <= (double)(parentX + parentWidth) && mouseY >= (double)(TextUtil.getHeight() / 2.0f + (float)cy) && mouseY < (double)(TextUtil.getHeight() + TextUtil.getHeight() / 2.0f + (float)cy)) {
                         this.setting.setEnumValue(String.valueOf(o));
                         ClickGuiScreen.clicked = false;
@@ -74,7 +74,7 @@ extends Component {
         }
         if (this.setting.popped && !this.isback) {
             int y = 0;
-            for (Enum ignored : (Enum[])this.setting.getValue().getClass().getEnumConstants()) {
+            for (Enum ignored : this.setting.getValue().getClass().getEnumConstants()) {
                 y = (int)((float)y + TextUtil.getHeight());
             }
             return this.defaultHeight + y;
@@ -94,13 +94,13 @@ extends Component {
         int width = this.parent.getWidth();
         MatrixStack matrixStack = drawContext.getMatrices();
         Render2DUtil.drawRect(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)width - 2.0f, (float)this.defaultHeight - 1.0f, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : HexTech.GUI.getColor());
-        TextUtil.drawString(drawContext, this.setting.getName() + ": " + ((Enum)this.setting.getValue()).name(), (double)(x + 4), (double)y + this.getTextOffsetY(), new Color(-1).getRGB());
-        TextUtil.drawString(drawContext, this.setting.popped ? "-" : "+", (double)(x + width - 11), (double)y + this.getTextOffsetY(), new Color(255, 255, 255).getRGB());
+        TextUtil.drawString(drawContext, this.setting.getName() + ": " + this.setting.getValue().name(), x + 4, (double)y + this.getTextOffsetY(), new Color(-1).getRGB());
+        TextUtil.drawString(drawContext, this.setting.popped ? "-" : "+", x + width - 11, (double)y + this.getTextOffsetY(), new Color(255, 255, 255).getRGB());
         int cy = (int)((double)this.parent.getY() + this.currentOffset - 1.0 + (double)(this.defaultHeight - 2)) - 2;
         if (this.setting.popped && !back) {
-            for (Enum o : (Enum[])this.setting.getValue().getClass().getEnumConstants()) {
+            for (Enum o : this.setting.getValue().getClass().getEnumConstants()) {
                 String s = o.toString();
-                TextUtil.drawString(drawContext, s, (double)width / 2.0 - (double)(TextUtil.getWidth(s) / 2.0f) + 2.0 + (double)x, (double)(TextUtil.getHeight() / 2.0f + (float)cy), ((Enum)this.setting.getValue()).name().equals(s) ? -1 : new Color(120, 120, 120).getRGB());
+                TextUtil.drawString(drawContext, s, (double)width / 2.0 - (double)(TextUtil.getWidth(s) / 2.0f) + 2.0 + (double)x, TextUtil.getHeight() / 2.0f + (float)cy, this.setting.getValue().name().equals(s) ? -1 : new Color(120, 120, 120).getRGB());
                 cy = (int)((float)cy + TextUtil.getHeight());
             }
         }

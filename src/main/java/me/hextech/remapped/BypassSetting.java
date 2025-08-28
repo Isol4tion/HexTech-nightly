@@ -5,6 +5,6 @@ package me.hextech.remapped;
  */
 public enum BypassSetting {
     NCP,
-    Grim;
+    Grim
 
 }

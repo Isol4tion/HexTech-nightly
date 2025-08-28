@@ -84,7 +84,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         None,
         RandomAngle,
         Spin,
-        Static;
+        Static
 
     }
 }

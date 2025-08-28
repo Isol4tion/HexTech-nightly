@@ -5,6 +5,6 @@ package me.hextech.remapped;
  */
 public enum BedAura_uTGCNmVWbsqrhUODnXeN {
     NullPoint,
-    Scanner;
+    Scanner
 
 }

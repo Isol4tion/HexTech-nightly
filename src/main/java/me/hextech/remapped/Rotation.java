@@ -30,9 +30,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (d < 1.0E-7) {
             return Vec3d.ZERO;
         }
-        Vec3d vec3d = (d > 1.0 ? movementInput.normalize() : movementInput).multiply((double)speed);
-        float f = MathHelper.sin((float)(yaw * ((float)Math.PI / 180)));
-        float g = MathHelper.cos((float)(yaw * ((float)Math.PI / 180)));
+        Vec3d vec3d = (d > 1.0 ? movementInput.normalize() : movementInput).multiply(speed);
+        float f = MathHelper.sin(yaw * ((float)Math.PI / 180));
+        float g = MathHelper.cos(yaw * ((float)Math.PI / 180));
         return new Vec3d(vec3d.x * (double)g - vec3d.z * (double)f, vec3d.y, vec3d.z * (double)g + vec3d.x * (double)f);
     }
 
@@ -83,8 +83,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float mF = Rotation.mc.player.input.movementForward;
         float mS = Rotation.mc.player.input.movementSideways;
         float delta = (Rotation.mc.player.getYaw() - fixRotation) * ((float)Math.PI / 180);
-        float cos = MathHelper.cos((float)delta);
-        float sin = MathHelper.sin((float)delta);
+        float cos = MathHelper.cos(delta);
+        float sin = MathHelper.sin(delta);
         Rotation.mc.player.input.movementSideways = Math.round(mS * cos - mF * sin);
         Rotation.mc.player.input.movementForward = Math.round(mF * cos + mS * sin);
     }

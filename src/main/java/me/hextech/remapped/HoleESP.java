@@ -7,6 +7,6 @@ public enum HoleESP {
     None,
     Air,
     Normal,
-    Bedrock;
+    Bedrock
 
 }

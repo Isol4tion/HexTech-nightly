@@ -52,8 +52,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (EntityControl.mc.currentScreen instanceof ChatScreen || EntityControl.mc.currentScreen != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.isOff()) {
             velY = -this.fallSpeed.getValue() / 20.0;
         } else {
-            boolean sprint = InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)EntityControl.mc.options.sprintKey.getBoundKeyTranslationKey()).getCode());
-            boolean jump = InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)EntityControl.mc.options.jumpKey.getBoundKeyTranslationKey()).getCode());
+            boolean sprint = InputUtil.isKeyPressed(mc.getWindow().getHandle(), InputUtil.fromTranslationKey(EntityControl.mc.options.sprintKey.getBoundKeyTranslationKey()).getCode());
+            boolean jump = InputUtil.isKeyPressed(mc.getWindow().getHandle(), InputUtil.fromTranslationKey(EntityControl.mc.options.jumpKey.getBoundKeyTranslationKey()).getCode());
             velY = jump ? (sprint ? -this.fallSpeed.getValue() / 20.0 : this.verticalSpeed.getValue() / 20.0) : (sprint ? -this.verticalSpeed.getValue() / 20.0 : -this.fallSpeed.getValue() / 20.0);
         }
         ((IVec3d)boat.getVelocity()).setX(velX);
@@ -78,8 +78,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (EntityControl.mc.currentScreen instanceof ChatScreen || EntityControl.mc.currentScreen != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.isOff()) {
             velY = -this.fallSpeed.getValue() / 20.0;
         } else {
-            boolean sprint = InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)EntityControl.mc.options.sprintKey.getBoundKeyTranslationKey()).getCode());
-            boolean jump = InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)EntityControl.mc.options.jumpKey.getBoundKeyTranslationKey()).getCode());
+            boolean sprint = InputUtil.isKeyPressed(mc.getWindow().getHandle(), InputUtil.fromTranslationKey(EntityControl.mc.options.sprintKey.getBoundKeyTranslationKey()).getCode());
+            boolean jump = InputUtil.isKeyPressed(mc.getWindow().getHandle(), InputUtil.fromTranslationKey(EntityControl.mc.options.jumpKey.getBoundKeyTranslationKey()).getCode());
             velY = jump ? (sprint ? -this.fallSpeed.getValue() / 20.0 : this.verticalSpeed.getValue() / 20.0) : (sprint ? -this.verticalSpeed.getValue() / 20.0 : -this.fallSpeed.getValue() / 20.0);
         }
         ((IVec3d)boat.getVelocity()).setX(velX);

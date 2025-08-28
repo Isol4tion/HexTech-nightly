@@ -31,14 +31,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.movecheck.getValue() && moveupV.mc.player != null && MovementUtil.isMoving()) {
             return;
         }
-        if (moveupV.mc.player != null && this.noWeb.getValue() && HoleKickTest.isInWeb((PlayerEntity)moveupV.mc.player)) {
+        if (moveupV.mc.player != null && this.noWeb.getValue() && HoleKickTest.isInWeb(moveupV.mc.player)) {
             return;
         }
-        if (moveupV.mc.player != null && (!this.onlyburrow.getValue() || Util.isBurrowed((PlayerEntity)moveupV.mc.player, !this.pEndChest.getValue()))) {
+        if (moveupV.mc.player != null && (!this.onlyburrow.getValue() || Util.isBurrowed(moveupV.mc.player, !this.pEndChest.getValue()))) {
             switch (this.mode.getValue().ordinal()) {
                 case 1: {
                     moveupV.mc.player.setPosition(moveupV.mc.player.getX(), moveupV.mc.player.getY() + 3.0, moveupV.mc.player.getZ());
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(moveupV.mc.player.getX(), moveupV.mc.player.getY(), moveupV.mc.player.getZ(), true));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(moveupV.mc.player.getX(), moveupV.mc.player.getY(), moveupV.mc.player.getZ(), true));
                     break;
                 }
                 case 0: {
@@ -46,12 +46,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     double posY = Math.round(moveupV.mc.player.getY());
                     double posZ = moveupV.mc.player.getZ();
                     boolean onGround = moveupV.mc.player.isOnGround();
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
                     double halfY = 0.005;
                     moveupV.mc.player.setPosition(posX, posY -= halfY, posZ);
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
                     moveupV.mc.player.setPosition(posX, posY -= halfY * 300.0, posZ);
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, onGround));
                 }
             }
         }
@@ -65,7 +65,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public enum _rlgNzzROxlnlLAUMICmS {
         Glitch,
-        Teleport;
+        Teleport
 
     }
 }

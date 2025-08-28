@@ -7,6 +7,6 @@ public enum HUD_awERnEnjBmVoXYDZWizd {
     Custom,
     Pulse,
     Rainbow,
-    PulseRainbow;
+    PulseRainbow
 
 }

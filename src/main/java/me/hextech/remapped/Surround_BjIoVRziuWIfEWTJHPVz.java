@@ -149,7 +149,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         } else if (this.shouldCenter) {
             Vec3d centerPos = EntityUtil.getPlayerPos(true).toCenterPos();
-            float rotation = Surround_BjIoVRziuWIfEWTJHPVz.getRotationTo((Vec3d)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getPos(), (Vec3d)centerPos).x;
+            float rotation = Surround_BjIoVRziuWIfEWTJHPVz.getRotationTo(Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getPos(), centerPos).x;
             float yawRad = rotation / 180.0f * (float)Math.PI;
             double dist = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getPos().distanceTo(new Vec3d(centerPos.x, Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getY(), centerPos.z));
             double cappedSpeed = Math.min(0.2873, dist);
@@ -173,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.startZ = Surround_BjIoVRziuWIfEWTJHPVz.mc.player.getZ();
         }
         BlockPos pos = EntityUtil.getPlayerPos(true);
-        double distanceToStart = MathHelper.sqrt((float)((float)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.squaredDistanceTo(this.startX, this.startY, this.startZ)));
+        double distanceToStart = MathHelper.sqrt((float)Surround_BjIoVRziuWIfEWTJHPVz.mc.player.squaredDistanceTo(this.startX, this.startY, this.startZ));
         if (this.getBlock() == -1) {
             CommandManager.sendChatMessageWidthId("\u00a7c\u00a7oObsidian" + (this.enderChest.getValue() ? "/EnderChest" : "") + "?", this.hashCode());
             this.disable();

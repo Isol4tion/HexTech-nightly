@@ -66,7 +66,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Shader_CLqIXXaHSdAoBoxRSgjR.mc.player == null) {
             return false;
         }
-        if ((double)MathHelper.sqrt((float)((float)Shader_CLqIXXaHSdAoBoxRSgjR.mc.player.squaredDistanceTo(entity.getPos()))) > this.maxRange.getValue()) {
+        if ((double)MathHelper.sqrt((float)Shader_CLqIXXaHSdAoBoxRSgjR.mc.player.squaredDistanceTo(entity.getPos())) > this.maxRange.getValue()) {
             return false;
         }
         if (entity instanceof PlayerEntity) {

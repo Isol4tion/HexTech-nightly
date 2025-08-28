@@ -46,13 +46,13 @@ extends Entity {
     @Inject(method={"getHandSwingDuration"}, at={@At(value="HEAD")}, cancellable=true)
     private void getArmSwingAnimationEnd(CallbackInfoReturnable<Integer> info) {
         if (ViewModel.INSTANCE.isOn() && ViewModel.INSTANCE.slowAnimation.getValue()) {
-            info.setReturnValue((Object)ViewModel.INSTANCE.slowAnimationVal.getValueInt());
+            info.setReturnValue(ViewModel.INSTANCE.slowAnimationVal.getValueInt());
         }
     }
 
     @Inject(method={"setSprinting"}, at={@At(value="HEAD")}, cancellable=true)
     public void setSprintingHook(boolean sprinting, CallbackInfo ci) {
-        if (this == MinecraftClient.getInstance().player && Sprint.INSTANCE.isOn() && Sprint.INSTANCE.mode.getValue() == Sprint._kIBjeDSbfTeuMDPgEQgD.Rage) {
+        if ((Object)this == MinecraftClient.getInstance().player && Sprint.INSTANCE.isOn() && Sprint.INSTANCE.mode.getValue() == Sprint._kIBjeDSbfTeuMDPgEQgD.Rage) {
             ci.cancel();
             sprinting = Sprint.shouldSprint;
             super.setSprinting(sprinting);

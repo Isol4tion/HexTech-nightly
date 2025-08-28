@@ -2,14 +2,13 @@ package me.hextech.remapped;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import me.hextech.remapped.BlockUtil;
 import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import me.hextech.remapped.Wrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.class_2838;
-import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +20,7 @@ import net.minecraft.item.SplashPotionItem;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.PickFromInventoryC2SPacket;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.screen.slot.SlotActionType;
 
 public class InventoryUtil
@@ -45,10 +45,10 @@ implements Wrapper {
                 InventoryUtil.switchToSlot(slot - 36);
                 return;
             }
-            mc.getNetworkHandler().sendPacket((Packet)new PickFromInventoryC2SPacket(slot));
+            mc.getNetworkHandler().sendPacket(new PickFromInventoryC2SPacket(slot));
             return;
         }
-        InventoryUtil.mc.interactionManager.clickSlot(InventoryUtil.mc.player.currentScreenHandler.syncId, slot, selectedSlot, SlotActionType.SWAP, (PlayerEntity)InventoryUtil.mc.player);
+        InventoryUtil.mc.interactionManager.clickSlot(InventoryUtil.mc.player.currentScreenHandler.syncId, slot, selectedSlot, SlotActionType.SWAP, InventoryUtil.mc.player);
     }
 
     public static void doSwap(int slot) {
@@ -58,7 +58,7 @@ implements Wrapper {
 
     public static void switchToSlot(int slot) {
         InventoryUtil.mc.player.getInventory().selectedSlot = slot;
-        mc.getNetworkHandler().sendPacket((Packet)new UpdateSelectedSlotC2SPacket(slot));
+        mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(slot));
     }
 
     public static boolean holdingItem(Class clazz) {
@@ -79,7 +79,7 @@ implements Wrapper {
             return true;
         }
         if (item instanceof BlockItem) {
-            Block block = Block.getBlockFromItem((Item)item);
+            Block block = Block.getBlockFromItem(item);
             return clazz.isInstance(block);
         }
         return false;
@@ -92,7 +92,7 @@ implements Wrapper {
     public static int findItem(Item input) {
         for (int i = 0; i < 9; ++i) {
             Item item = InventoryUtil.getStackInSlot(i).getItem();
-            if (Item.getRawId((Item)item) != Item.getRawId((Item)input)) continue;
+            if (Item.getRawId(item) != Item.getRawId(input)) continue;
             return i;
         }
         return -1;
@@ -168,7 +168,7 @@ implements Wrapper {
         int count = 0;
         block0: for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
             if (!(entry.getValue().getItem() instanceof SplashPotionItem)) continue;
-            ArrayList effects = new ArrayList(PotionContentsComponent.getPotionEffects((ItemStack)entry.getValue()));
+            List<StatusEffectInstance> effects = new ArrayList<>(PotionUtil.getPotionEffects(entry.getValue()));
             for (StatusEffectInstance potionEffect : effects) {
                 if (potionEffect.getEffectType() != potion) continue;
                 count += entry.getValue().getCount();
@@ -198,7 +198,7 @@ implements Wrapper {
         for (int i = 0; i < 9; ++i) {
             ItemStack stack = InventoryUtil.getStackInSlot(i);
             if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof SplashPotionItem)) continue;
-            ArrayList effects = new ArrayList(PotionContentsComponent.getPotionEffects((ItemStack)stack));
+            List<StatusEffectInstance> effects = new ArrayList<>(PotionUtil.getPotionEffects(stack));
             for (StatusEffectInstance potionEffect : effects) {
                 if (potionEffect.getEffectType() != potion) continue;
                 return i;
@@ -219,14 +219,14 @@ implements Wrapper {
     public static int findBlock() {
         for (int i = 0; i < 9; ++i) {
             ItemStack stack = InventoryUtil.getStackInSlot(i);
-            if (!(stack.getItem() instanceof BlockItem) || BlockUtil.shiftBlocks.contains(Block.getBlockFromItem((Item)stack.getItem())) || ((BlockItem)stack.getItem()).getBlock() == Blocks.COBWEB) continue;
+            if (!(stack.getItem() instanceof BlockItem) || BlockUtil.shiftBlocks.contains(Block.getBlockFromItem(stack.getItem())) || ((BlockItem)stack.getItem()).getBlock() == Blocks.COBWEB) continue;
             return i;
         }
         return -1;
     }
 
     public static int findBlockInventorySlot(Block block) {
-        return InventoryUtil.findItemInventorySlot(Item.fromBlock((Block)block));
+        return InventoryUtil.findItemInventorySlot(Item.fromBlock(block));
     }
 
     public static int findItemInventorySlot(Item item) {
@@ -242,7 +242,7 @@ implements Wrapper {
         for (int i = 0; i < 45; ++i) {
             ItemStack stack = InventoryUtil.mc.player.getInventory().getStack(i);
             if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof SplashPotionItem)) continue;
-            ArrayList effects = new ArrayList(PotionContentsComponent.getPotionEffects((ItemStack)stack));
+            List<StatusEffectInstance> effects = new ArrayList<>(PotionUtil.getPotionEffects(stack));
             for (StatusEffectInstance potionEffect : effects) {
                 if (potionEffect.getEffectType() != potion) continue;
                 return i < 9 ? i + 36 : i;

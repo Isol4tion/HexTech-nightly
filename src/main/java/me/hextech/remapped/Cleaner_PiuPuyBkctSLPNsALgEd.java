@@ -6,6 +6,6 @@ package me.hextech.remapped;
 public enum Cleaner_PiuPuyBkctSLPNsALgEd {
     Vanilla,
     NullPoint,
-    HexTech;
+    HexTech
 
 }

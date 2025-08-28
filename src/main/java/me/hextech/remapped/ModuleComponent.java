@@ -74,7 +74,7 @@ extends Component {
         if (this.hovered && GuiManager.currentGrabbed == null) {
             if (mouseClicked) {
                 ClickGuiScreen.clicked = false;
-                if (InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)340)) {
+                if (InputUtil.isKeyPressed(mc.getWindow().getHandle(), 340)) {
                     this.module.drawnSetting.setValue(!this.module.drawnSetting.getValue());
                 } else {
                     this.module.toggle();
@@ -112,14 +112,11 @@ extends Component {
                     i += children.getHeight();
                     continue;
                 }
-                if (children instanceof SliderComponent) {
-                    SliderComponent sliderComponent = (SliderComponent)children;
+                if (children instanceof SliderComponent sliderComponent) {
                     sliderComponent.renderSliderPosition = 0.0;
-                } else if (children instanceof BooleanComponent) {
-                    BooleanComponent booleanComponent = (BooleanComponent)children;
+                } else if (children instanceof BooleanComponent booleanComponent) {
                     booleanComponent.currentWidth = 0.0;
-                } else if (children instanceof ColorComponents) {
-                    ColorComponents colorComponents = (ColorComponents)children;
+                } else if (children instanceof ColorComponents colorComponents) {
                     colorComponents.currentWidth = 0.0;
                 }
                 children.currentOffset = i - this.defaultHeight;
@@ -144,7 +141,7 @@ extends Component {
             }
         }
         if (ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils.Out) >= 1.0 && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.scissor.getValue()) {
-            GL11.glDisable((int)3089);
+            GL11.glDisable(3089);
         }
         this.currentWidth = ModuleComponent.animate(this.currentWidth, this.module.isOn() ? (double)parentWidth - 2.0 : 0.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.booleanSpeed.getValue());
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.moduleEnd.booleanValue) {
@@ -153,10 +150,10 @@ extends Component {
             Render2DUtil.drawRect(matrixStack, (float)(parentX + 1), (float)((int)((double)parentY + this.currentOffset)), (float)this.currentWidth, (float)(this.defaultHeight - 1), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.moduleEnable.getValue());
         }
         Render2DUtil.drawRect(matrixStack, (float)(parentX + 1), (float)((int)((double)parentY + this.currentOffset)), (float)(parentWidth - 2), (float)(this.defaultHeight - 1), this.hovered ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mhColor.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mbgColor.getValue());
-        if (this.hovered && InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)340)) {
-            TextUtil.drawString(drawContext, "Drawn " + (this.module.drawnSetting.getValue() ? "\u00a7aOn" : "\u00a7cOff"), (double)(parentX + 4), (double)((float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 1.0f), -1);
+        if (this.hovered && InputUtil.isKeyPressed(mc.getWindow().getHandle(), 340)) {
+            TextUtil.drawString(drawContext, "Drawn " + (this.module.drawnSetting.getValue() ? "\u00a7aOn" : "\u00a7cOff"), parentX + 4, (float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 1.0f, -1);
         } else {
-            TextUtil.drawString(drawContext, this.text, (double)(parentX + 4), (double)((float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 1.0f), this.module.isOn() ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableText.getValue().getRGB() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue().getRGB());
+            TextUtil.drawString(drawContext, this.text, parentX + 4, (float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 1.0f, this.module.isOn() ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableText.getValue().getRGB() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue().getRGB());
         }
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.bindC.booleanValue && this.module.getBind().getKey() != -1) {
             String bindText = "[" + this.module.getBind().getBind() + "]";
@@ -164,9 +161,9 @@ extends Component {
         }
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.gearColor.booleanValue) {
             if (this.isPopped) {
-                TextUtil.drawString(drawContext, "\u2026", (double)(parentX + parentWidth - 12), (double)parentY + this.getTextOffsetY() + this.currentOffset - 3.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.gearColor.getValue().getRGB());
+                TextUtil.drawString(drawContext, "\u2026", parentX + parentWidth - 12, (double)parentY + this.getTextOffsetY() + this.currentOffset - 3.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.gearColor.getValue().getRGB());
             } else {
-                TextUtil.drawString(drawContext, "+", (double)(parentX + parentWidth - 11), (double)parentY + this.getTextOffsetY() + this.currentOffset, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.gearColor.getValue().getRGB());
+                TextUtil.drawString(drawContext, "+", parentX + parentWidth - 11, (double)parentY + this.getTextOffsetY() + this.currentOffset, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.gearColor.getValue().getRGB());
             }
         }
         return true;
@@ -177,8 +174,8 @@ extends Component {
             return;
         }
         double scaledY = mc.getWindow().getHeight() - (y + height);
-        GL11.glEnable((int)3089);
-        GL11.glScissor((int)x, (int)((int)scaledY), (int)width, (int)height);
+        GL11.glEnable(3089);
+        GL11.glScissor(x, (int)scaledY, width, height);
     }
 
     public void RecalculateExpandedHeight() {

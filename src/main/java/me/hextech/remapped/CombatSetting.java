@@ -5,6 +5,6 @@ package me.hextech.remapped;
  */
 public enum CombatSetting {
     Angle,
-    Vec3d;
+    Vec3d
 
 }

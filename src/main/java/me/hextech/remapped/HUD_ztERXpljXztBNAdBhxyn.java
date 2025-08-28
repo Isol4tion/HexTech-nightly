@@ -7,6 +7,6 @@ public enum HUD_ztERXpljXztBNAdBhxyn {
     ELEMENTS,
     GLOBAL,
     Color,
-    Dev;
+    Dev
 
 }

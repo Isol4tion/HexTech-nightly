@@ -4,7 +4,6 @@ import java.awt.Color;
 import me.hextech.remapped.ClickGuiScreen;
 import me.hextech.remapped.ClickGuiTab;
 import me.hextech.remapped.ClickGui_ABoiivByuLsVqarYqfYv;
-import me.hextech.remapped.ColorComponents_iaNdYpCDFPTJpxKuaChQ;
 import me.hextech.remapped.ColorSetting;
 import me.hextech.remapped.ColorUtil;
 import me.hextech.remapped.Component;
@@ -168,31 +167,31 @@ extends Component {
         int y = (int)((double)this.parent.getY() + this.currentOffset - 2.0);
         int width = this.parent.getWidth();
         MatrixStack matrixStack = drawContext.getMatrices();
-        boolean unShift = !this.hover || !InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)340);
+        boolean unShift = !this.hover || !InputUtil.isKeyPressed(mc.getWindow().getHandle(), 340);
         Render2DUtil.drawRect(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)width - 2.0f, (float)this.defaultHeight - 1.0f, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.shColor.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.sbgColor.getValue());
         if (this.colorSetting.injectBoolean) {
             this.currentWidth = ColorComponents.animate(this.currentWidth, this.colorSetting.booleanValue ? (double)width - 2.0 : 0.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.booleanSpeed.getValue());
-            switch (ColorComponents_iaNdYpCDFPTJpxKuaChQ.$SwitchMap$me$hextech$mod$modules$impl$client$ClickGui$Type[ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue().ordinal()]) {
-                case 1: {
+            switch (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue()) {
+                case Old: {
                     if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainEnd.booleanValue) {
                         Render2DUtil.drawRectHorizontal(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)this.currentWidth, (float)this.defaultHeight - (float)(!ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 1 : 0), this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainEnd.getValue());
                     } else {
                         Render2DUtil.drawRect(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)this.currentWidth, (float)this.defaultHeight - (float)(!ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 1 : 0), this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color);
                     }
                     if (!unShift) break;
-                    TextUtil.drawString(drawContext, this.colorSetting.getName(), (double)(x + 4), (double)y + this.getTextOffsetY(), -1);
+                    TextUtil.drawString(drawContext, this.colorSetting.getName(), x + 4, (double)y + this.getTextOffsetY(), -1);
                     break;
                 }
-                case 2: {
+                case New: {
                     if (!unShift) break;
-                    TextUtil.drawString(drawContext, this.colorSetting.getName(), (double)(x + 4), (double)y + this.getTextOffsetY(), this.colorSetting.booleanValue ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableTextS.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue());
+                    TextUtil.drawString(drawContext, this.colorSetting.getName(), x + 4, (double)y + this.getTextOffsetY(), this.colorSetting.booleanValue ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableTextS.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue());
                 }
             }
         } else if (unShift) {
-            TextUtil.drawString(drawContext, this.colorSetting.getName(), (double)(x + 4), (double)y + this.getTextOffsetY(), -1);
+            TextUtil.drawString(drawContext, this.colorSetting.getName(), x + 4, (double)y + this.getTextOffsetY(), -1);
         }
         if (!unShift) {
-            TextUtil.drawString(drawContext, "\u00a7aL-Copy \u00a7cR-Paste", (double)(x + 4), (double)y + this.getTextOffsetY(), -1);
+            TextUtil.drawString(drawContext, "\u00a7aL-Copy \u00a7cR-Paste", x + 4, (double)y + this.getTextOffsetY(), -1);
         }
         Render2DUtil.drawRound(matrixStack, x + width - 16, (float)((double)y + this.getTextOffsetY()), 12.0f, 8.0f, 1.0f, ColorUtil.injectAlpha(this.getColorSetting().getValue(), 255));
         if (back) {

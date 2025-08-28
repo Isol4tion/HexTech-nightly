@@ -60,8 +60,8 @@ extends Setting {
     public void keyType(int keyCode) {
         switch (keyCode) {
             case 86: {
-                if (!InputUtil.isKeyPressed((long)Wrapper.mc.getWindow().getHandle(), (int)341)) break;
-                this.setValue(this.getValue() + SelectionManager.getClipboard((MinecraftClient)Wrapper.mc));
+                if (!InputUtil.isKeyPressed(Wrapper.mc.getWindow().getHandle(), 341)) break;
+                this.setValue(this.getValue() + SelectionManager.getClipboard(Wrapper.mc));
                 break;
             }
             case 256: 

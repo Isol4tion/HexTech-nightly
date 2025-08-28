@@ -155,9 +155,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (float z : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
                     for (float y : new float[]{0.0f, 1.0f, -1.0f}) {
                         BlockPosX pos = new BlockPosX(playerPos.getX() + (double)x, playerPos.getY() + (double)y, playerPos.getZ() + (double)z);
-                        if (list.contains((Object)pos)) continue;
+                        if (list.contains(pos)) continue;
                         list.add(pos);
-                        if (!this.isTargetHere(pos, player) || me.hextech.remapped.WebAuraTick.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.COBWEB || HexTech.BREAK.isMining(pos)) continue;
+                        if (!this.isTargetHere(pos, player) || me.hextech.remapped.WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.COBWEB || HexTech.BREAK.isMining(pos)) continue;
                         ++webs;
                     }
                 }
@@ -199,7 +199,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.getWebSlot() == -1) {
             return false;
         }
-        if (this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || !this.noMine.getValue() && pos.equals((Object)SpeedMine.breakPos))) {
+        if (this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || !this.noMine.getValue() && pos.equals(SpeedMine.breakPos))) {
             return false;
         }
         if (BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) != null && (me.hextech.remapped.WebAuraTick.mc.world.isAir(pos) || ignore && BlockUtil.getBlock(pos) == Blocks.COBWEB) && pos.getY() < 320) {
@@ -208,7 +208,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (!this.placeBlock(pos, this.rotate.getValue(), webSlot)) {
                 return false;
             }
-            if (this.noMine.getValue() && pos.equals((Object)SpeedMine.breakPos)) {
+            if (this.noMine.getValue() && pos.equals(SpeedMine.breakPos)) {
                 SpeedMine.breakPos = null;
             }
             BlockUtil.placedPos.add(pos);
@@ -231,7 +231,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (float x : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
             for (float z : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
                 BlockPosX pos = new BlockPosX(player.getX() + (double)x, player.getY() + (double)0.15f, player.getZ() + (double)z);
-                if (me.hextech.remapped.WebAuraTick.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.OBSIDIAN && me.hextech.remapped.WebAuraTick.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.BEDROCK && me.hextech.remapped.WebAuraTick.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.ENDER_CHEST && me.hextech.remapped.WebAuraTick.mc.world.getBlockState((BlockPos)pos).getBlock() != Blocks.RESPAWN_ANCHOR) continue;
+                if (me.hextech.remapped.WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.OBSIDIAN && me.hextech.remapped.WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.BEDROCK && me.hextech.remapped.WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.ENDER_CHEST && me.hextech.remapped.WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.RESPAWN_ANCHOR) continue;
                 return true;
             }
         }
@@ -258,7 +258,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         if (this.interact.getValue()) {
-            me.hextech.remapped.WebAuraTick.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(me.hextech.remapped.WebAuraTick.mc.world)));
+            me.hextech.remapped.WebAuraTick.mc.player.networkHandler.sendPacket(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(WebAuraTick.mc.world)));
         }
         if (this.seqpack.getValue()) {
             Module_eSdgMXWuzcxgQVaJFmKZ.sendSequencedPacket(id -> new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, id));

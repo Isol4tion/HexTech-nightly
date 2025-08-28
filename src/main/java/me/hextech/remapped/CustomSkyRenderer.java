@@ -7,5 +7,5 @@ import net.minecraft.client.render.BufferBuilder;
  */
 @FunctionalInterface
 public interface CustomSkyRenderer {
-    public void make(BufferBuilder var1, double var2, double var4, int var6, long var7);
+    void make(BufferBuilder var1, double var2, double var4, int var6, long var7);
 }

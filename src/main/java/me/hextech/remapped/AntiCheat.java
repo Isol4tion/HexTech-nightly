@@ -91,7 +91,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public enum _ylqyOfVuMcYIoHfjTCiI {
         Xin,
-        XiaoSong;
+        XiaoSong
 
     }
 }

@@ -16,17 +16,17 @@ extends Screen {
     private TextFieldWidget textFieldAltUsername;
 
     public AddAltScreen(AltScreen parentScreen) {
-        super(Text.of((String)"Alt Manager"));
+        super(Text.of("Alt Manager"));
         this.parent = parentScreen;
     }
 
     public void init() {
         super.init();
-        this.textFieldAltUsername = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 76, 200, 20, Text.of((String)"Enter Name"));
+        this.textFieldAltUsername = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 76, 200, 20, Text.of("Enter Name"));
         this.textFieldAltUsername.setText("");
         this.addDrawableChild(this.textFieldAltUsername);
-        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Add Alt"), b -> this.onButtonAltAddPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 24, 200, 20).build());
-        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.onButtonCancelPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 46, 200, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.of("Add Alt"), b -> this.onButtonAltAddPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 24, 200, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.of("Cancel"), b -> this.onButtonCancelPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 46, 200, 20).build());
     }
 
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
@@ -42,6 +42,6 @@ extends Screen {
     }
 
     public void onButtonCancelPressed() {
-        this.client.setScreen((Screen)this.parent);
+        this.client.setScreen(this.parent);
     }
 }

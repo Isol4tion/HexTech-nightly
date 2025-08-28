@@ -2,27 +2,6 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 import me.hextech.HexTech;
-import me.hextech.remapped.AnimateUtil;
-import me.hextech.remapped.BooleanComponent;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.ClickGui;
-import me.hextech.remapped.ClickGuiScreen;
-import me.hextech.remapped.ClickGuiTab;
-import me.hextech.remapped.ClickGui_PrFcfRftxumUysizqxkG;
-import me.hextech.remapped.ClickGui_lDjmIzzmqoIBLakgOLww;
-import me.hextech.remapped.ClickGui_qvrpuTqAQSFqXVuTIwHB;
-import me.hextech.remapped.ColorComponents;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.Component;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.FadeUtils_DPfHthPqEJdfXfNYhDbG;
-import me.hextech.remapped.GuiManager;
-import me.hextech.remapped.ModuleComponent;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Notify_EXlgYplaRzfgofOPOkyB;
-import me.hextech.remapped.SliderComponent;
-import me.hextech.remapped.SliderSetting;
 import net.minecraft.client.gui.screen.Screen;
 
 public class ClickGui_ABoiivByuLsVqarYqfYv
@@ -104,18 +83,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     moduleComponent.isPopped = false;
                     for (Component settingComponent : moduleComponent.getSettingsList()) {
                         settingComponent.currentOffset = 0.0;
-                        if (settingComponent instanceof SliderComponent) {
-                            SliderComponent sliderComponent = (SliderComponent)settingComponent;
+                        if (settingComponent instanceof SliderComponent sliderComponent) {
                             sliderComponent.renderSliderPosition = 0.0;
                             continue;
                         }
-                        if (settingComponent instanceof BooleanComponent) {
-                            BooleanComponent booleanComponent = (BooleanComponent)settingComponent;
+                        if (settingComponent instanceof BooleanComponent booleanComponent) {
                             booleanComponent.currentWidth = 0.0;
                             continue;
                         }
-                        if (!(settingComponent instanceof ColorComponents)) continue;
-                        ColorComponents colorComponents = (ColorComponents)settingComponent;
+                        if (!(settingComponent instanceof ColorComponents colorComponents)) continue;
                         colorComponents.currentWidth = 0.0;
                     }
                 }
@@ -129,7 +105,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.disable();
             return;
         }
-        mc.setScreen((Screen)GuiManager.clickGui);
+        mc.setScreen(GuiManager.clickGui);
     }
 
     @Override

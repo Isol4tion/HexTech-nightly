@@ -1,5 +1,6 @@
 package me.hextech.remapped;
 
+import java.util.ArrayList;
 import java.util.List;
 import me.hextech.remapped.BlockPosX;
 import me.hextech.remapped.BlockUtil;
@@ -16,7 +17,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -25,6 +25,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -56,8 +57,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static int findPotionInventorySlot(StatusEffect targetEffect) {
         for (int i = 0; i < 45; ++i) {
             ItemStack itemStack = AutoPotPlus.mc.player.getInventory().getStack(i);
-            if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
-            List effects = PotionContentsComponent.getPotionEffects((ItemStack)itemStack);
+            if (Item.getRawId(itemStack.getItem()) != Item.getRawId(Items.SPLASH_POTION)) continue;
+            List<StatusEffectInstance> effects = new ArrayList<>(PotionUtil.getPotionEffects(itemStack));
             for (StatusEffectInstance effect : effects) {
                 if (effect.getEffectType() != targetEffect) continue;
                 return i < 9 ? i + 36 : i;
@@ -69,8 +70,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static int findPotion(StatusEffect targetEffect) {
         for (int i = 0; i < 9; ++i) {
             ItemStack itemStack = InventoryUtil.getStackInSlot(i);
-            if (Item.getRawId((Item)itemStack.getItem()) != Item.getRawId((Item)Items.SPLASH_POTION)) continue;
-            List effects = PotionContentsComponent.getPotionEffects((ItemStack)itemStack);
+            if (Item.getRawId(itemStack.getItem()) != Item.getRawId(Items.SPLASH_POTION)) continue;
+            List<StatusEffectInstance> effects = new ArrayList<>(PotionUtil.getPotionEffects(itemStack));
             for (StatusEffectInstance effect : effects) {
                 if (effect.getEffectType() != targetEffect) continue;
                 return i;
@@ -135,7 +136,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double diffXZ = Math.sqrt(diffX * diffX + diffZ * diffZ);
         float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
         float pitch = (float)(-Math.toDegrees(Math.atan2(diffY, diffXZ)));
-        return new float[]{MathHelper.wrapDegrees((float)yaw), MathHelper.wrapDegrees((float)pitch)};
+        return new float[]{MathHelper.wrapDegrees(yaw), MathHelper.wrapDegrees(pitch)};
     }
 
     public void throwPotion(StatusEffect targetEffect) {
@@ -172,7 +173,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (float x : new float[]{0.0f, -0.3f, 0.3f}) {
             for (float z : new float[]{0.0f, -0.3f, 0.3f}) {
                 BlockPosX pos = new BlockPosX(AutoPotPlus.mc.player.getX() + (double)x, AutoPotPlus.mc.player.getY() - 0.5, AutoPotPlus.mc.player.getZ() + (double)z);
-                if (BlockUtil.isAir(pos) || AutoPotPlus.mc.world.getBlockState((BlockPos)pos).getBlock() == Blocks.COBWEB) continue;
+                if (BlockUtil.isAir(pos) || AutoPotPlus.mc.world.getBlockState(pos).getBlock() == Blocks.COBWEB) continue;
                 return pos;
             }
         }

@@ -4,7 +4,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
 public class LogoDrawer {
-    public static final Identifier LOGO_TEXTURE;
+    public static final Identifier LOGO_TEXTURE = new Identifier("icon.png");
 
     public static void draw(DrawContext context, int screenWidth, int screenHeight, float alpha) {
         context.setShaderColor(1.0f, 1.0f, 1.0f, alpha);

@@ -76,7 +76,7 @@ public abstract class MixinChatInputSuggestor {
             builder.suggest(prefix);
         } else {
             if (!string2.startsWith(prefix)) return;
-            int count = StringUtils.countMatches((CharSequence)string2, (CharSequence)" ");
+            int count = StringUtils.countMatches(string2, " ");
             List<String> seperated = Arrays.asList(string2.split(" "));
             if (count == 0) {
                 for (Object strObj : HexTech.COMMAND.getCommands().keySet().toArray()) {
@@ -89,7 +89,7 @@ public abstract class MixinChatInputSuggestor {
                 }
                 Command c = HexTech.COMMAND.getCommandBySyntax(seperated.get(0).substring(prefix.length()));
                 if (c == null) {
-                    this.messages.add(Text.of((String)("\u00a7cno commands found: \u00a7e" + seperated.get(0).substring(prefix.length()))).asOrderedText());
+                    this.messages.add(Text.of("\u00a7cno commands found: \u00a7e" + seperated.get(0).substring(prefix.length())).asOrderedText());
                     return;
                 }
                 String[] suggestions = c.getAutocorrect(count, seperated);

@@ -25,7 +25,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.height = FontRenderers.Calibri.getFontHeight();
             this.offset = 0.0f;
             if (Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.isOn()) {
-                this.draw("BURROW", HoleKickTest.isInWeb((PlayerEntity)Indicator_PdJeoIXjQQIjzfhnRXks.mc.player) ? Indicator.Red : Indicator.Green);
+                this.draw("BURROW", HoleKickTest.isInWeb(Indicator_PdJeoIXjQQIjzfhnRXks.mc.player) ? Indicator.Red : Indicator.Green);
             }
             if (BlockUtil.isHole(EntityUtil.getPlayerPos(true))) {
                 this.draw("SAFE", Indicator.Green);

@@ -123,10 +123,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void trapTarget(PlayerEntity target) {
-        if (this.onlyHole.getValue() && !BlockUtil.isHole(EntityUtil.getEntityPos((Entity)target))) {
+        if (this.onlyHole.getValue() && !BlockUtil.isHole(EntityUtil.getEntityPos(target))) {
             return;
         }
-        this.doTrap(EntityUtil.getEntityPos((Entity)target, true));
+        this.doTrap(EntityUtil.getEntityPos(target, true));
     }
 
     private void doTrap(BlockPos pos) {
@@ -332,7 +332,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!((double)this.progress < this.blocksPer.getValue())) {
             return;
         }
-        if ((double)MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.placeRange.getValue()) {
+        if ((double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.placeRange.getValue()) {
             return;
         }
         int old = AutoTrap.mc.player.getInventory().selectedSlot;
@@ -376,7 +376,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!((double)this.progress < this.blocksPer.getValue())) {
             return;
         }
-        if ((double)MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()))) > this.placeRange.getValue()) {
+        if ((double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.placeRange.getValue()) {
             return;
         }
         int old = AutoTrap.mc.player.getInventory().selectedSlot;
@@ -437,7 +437,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public enum _YlnJzIMwjFLWxhoVZoJp {
         Single,
-        Multi;
+        Multi
 
     }
 
@@ -486,7 +486,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     /*
      * Exception performing whole class analysis ignored.
      */
-    public class AutoTrap_RYPZUKNZXVloqcMUfNgc {
+    public static class AutoTrap_RYPZUKNZXVloqcMUfNgc {
         public final FadeUtils_DPfHthPqEJdfXfNYhDbG firstFade;
         public final BlockPos pos;
         public final Color posColor;

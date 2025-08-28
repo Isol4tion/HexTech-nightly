@@ -60,6 +60,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean isOffsetBBEmpty(double offsetX, double offsetY, double offsetZ) {
-        return !SafeWalk.mc.world.canCollide((Entity)SafeWalk.mc.player, SafeWalk.mc.player.getBoundingBox().offset(offsetX, offsetY, offsetZ));
+        return !SafeWalk.mc.world.canCollide(SafeWalk.mc.player, SafeWalk.mc.player.getBoundingBox().offset(offsetX, offsetY, offsetZ));
     }
 }

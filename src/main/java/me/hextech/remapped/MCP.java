@@ -31,15 +31,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (MCP.mc.mouse.wasMiddleButtonClicked()) {
             if (!this.click) {
                 if (MCP.mc.player.getMainHandStack().getItem() == Items.ENDER_PEARL) {
-                    EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(MCP.mc.player.getYaw(), MCP.mc.player.getPitch(), MCP.mc.player.isOnGround()));
-                    MCP.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
+                    EntityUtil.sendLook(new PlayerMoveC2SPacket.LookAndOnGround(MCP.mc.player.getYaw(), MCP.mc.player.getPitch(), MCP.mc.player.isOnGround()));
+                    MCP.mc.player.networkHandler.sendPacket(new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
                 } else {
                     int pearl = this.findItem(Items.ENDER_PEARL);
                     if (pearl != -1) {
                         int old = MCP.mc.player.getInventory().selectedSlot;
                         this.doSwap(pearl);
-                        EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(MCP.mc.player.getYaw(), MCP.mc.player.getPitch(), MCP.mc.player.isOnGround()));
-                        MCP.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
+                        EntityUtil.sendLook(new PlayerMoveC2SPacket.LookAndOnGround(MCP.mc.player.getYaw(), MCP.mc.player.getPitch(), MCP.mc.player.isOnGround()));
+                        MCP.mc.player.networkHandler.sendPacket(new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
                         if (this.inventory.getValue()) {
                             this.doSwap(pearl);
                             EntityUtil.syncInventory();

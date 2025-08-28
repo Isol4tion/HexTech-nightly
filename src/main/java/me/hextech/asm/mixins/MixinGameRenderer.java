@@ -83,7 +83,7 @@ public class MixinGameRenderer {
         if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.nausea.getValue()) {
             return 0.0f;
         }
-        return MathHelper.lerp((float)delta, (float)first, (float)second);
+        return MathHelper.lerp(delta, first, second);
     }
 
     @Inject(method={"tiltViewWhenHurt"}, at={@At(value="HEAD")}, cancellable=true)
@@ -95,9 +95,9 @@ public class MixinGameRenderer {
 
     @Inject(at={@At(value="FIELD", target="Lnet/minecraft/client/render/GameRenderer;renderHand:Z", opcode=180, ordinal=0)}, method={"renderWorld"})
     void render3dHook(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
-        TextUtil.lastProjMat.set((Matrix4fc)RenderSystem.getProjectionMatrix());
-        TextUtil.lastModMat.set((Matrix4fc)RenderSystem.getModelViewMatrix());
-        TextUtil.lastWorldSpaceMatrix.set((Matrix4fc)matrix.peek().getPositionMatrix());
+        TextUtil.lastProjMat.set(RenderSystem.getProjectionMatrix());
+        TextUtil.lastModMat.set(RenderSystem.getModelViewMatrix());
+        TextUtil.lastWorldSpaceMatrix.set(matrix.peek().getPositionMatrix());
         HexTech.FPS.record();
         HexTech.MODULE.render3D(matrix);
     }
@@ -110,21 +110,21 @@ public class MixinGameRenderer {
     @Inject(method={"getFov(Lnet/minecraft/client/render/Camera;FZ)D"}, at={@At(value="TAIL")}, cancellable=true)
     public void getFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cb) {
         if (CustomFov.INSTANCE.isOn()) {
-            if ((Double)cb.getReturnValue() == 70.0 && !CustomFov.INSTANCE.itemFov.getValue()) {
+            if (cb.getReturnValue() == 70.0 && !CustomFov.INSTANCE.itemFov.getValue()) {
                 return;
             }
-            if (CustomFov.INSTANCE.itemFov.getValue() && (Double)cb.getReturnValue() == 70.0) {
-                cb.setReturnValue((Object)CustomFov.INSTANCE.itemFovModifier.getValue());
+            if (CustomFov.INSTANCE.itemFov.getValue() && cb.getReturnValue() == 70.0) {
+                cb.setReturnValue(CustomFov.INSTANCE.itemFovModifier.getValue());
                 return;
             }
             if (CustomFov.INSTANCE.usefov.getValue()) {
-                cb.setReturnValue((Object)CustomFov.INSTANCE.fov.getValue());
+                cb.setReturnValue(CustomFov.INSTANCE.fov.getValue());
             }
-            if ((Double)cb.getReturnValue() == 70.0) {
+            if (cb.getReturnValue() == 70.0) {
                 return;
             }
             if (Zoom.on) {
-                cb.setReturnValue((Object)Math.min(Math.max((Double)cb.getReturnValue() - Zoom.INSTANCE.currentFov, 1.0), 177.0));
+                cb.setReturnValue(Math.min(Math.max(cb.getReturnValue() - Zoom.INSTANCE.currentFov, 1.0), 177.0));
             }
         }
     }
@@ -138,8 +138,8 @@ public class MixinGameRenderer {
                 matrixStack.translate(this.zoomX, -this.zoomY, 0.0f);
                 matrixStack.scale(this.zoom, this.zoom, 1.0f);
             }
-            matrixStack.peek().getPositionMatrix().mul((Matrix4fc)new Matrix4f().setPerspective((float)(fov * 0.01745329238474369), AspectRatio.INSTANCE.ratio.getValueFloat(), 0.05f, this.viewDistance * 4.0f));
-            cir.setReturnValue((Object)matrixStack.peek().getPositionMatrix());
+            matrixStack.peek().getPositionMatrix().mul(new Matrix4f().setPerspective((float)(fov * 0.01745329238474369), AspectRatio.INSTANCE.ratio.getValueFloat(), 0.05f, this.viewDistance * 4.0f));
+            cir.setReturnValue(matrixStack.peek().getPositionMatrix());
         }
     }
 
@@ -180,12 +180,12 @@ public class MixinGameRenderer {
                 this.client.getProfiler().pop();
                 return;
             }
-            if (!MineTweak.INSTANCE.noEntityTrace() && (entityHitResult = ProjectileUtil.raycast((Entity)entity, (Vec3d)vec3d, (Vec3d)vec3d3, (Box)box, entityx -> !entityx.isSpectator() && entityx.canHit(), (double)e)) != null) {
+            if (!MineTweak.INSTANCE.noEntityTrace() && (entityHitResult = ProjectileUtil.raycast(entity, vec3d, vec3d3, box, entityx -> !entityx.isSpectator() && entityx.canHit(), e)) != null) {
                 Entity entity2 = entityHitResult.getEntity();
                 Vec3d vec3d4 = entityHitResult.getPos();
                 double g = vec3d.squaredDistanceTo(vec3d4);
                 if (bl && g > 9.0) {
-                    this.client.crosshairTarget = BlockHitResult.createMissed((Vec3d)vec3d4, (Direction)Direction.getFacing((double)vec3d2.x, (double)vec3d2.y, (double)vec3d2.z), (BlockPos)BlockPos.ofFloored((Position)vec3d4));
+                    this.client.crosshairTarget = BlockHitResult.createMissed(vec3d4, Direction.getFacing(vec3d2.x, vec3d2.y, vec3d2.z), BlockPos.ofFloored(vec3d4));
                 } else if (g < e || this.client.crosshairTarget == null) {
                     this.client.crosshairTarget = entityHitResult;
                     if (entity2 instanceof LivingEntity || entity2 instanceof ItemFrameEntity) {

@@ -20,7 +20,7 @@ import net.minecraft.util.math.Box;
 
 public class BreakESP
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
-    public static final ConcurrentHashMap<String, MineManager> BREAK;
+    public static final ConcurrentHashMap<String, MineManager> BREAK = new ConcurrentHashMap<>();
     public static BreakESP INSTANCE;
     public final BooleanSetting noSelf = this.add(new BooleanSetting("noSelf", true));
     public final SliderSetting namescale = this.add(new SliderSetting("Name", 0.5, 0.0, 0.8, 0.1));
@@ -62,11 +62,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 Render3DUtil.drawBox(matrixStack, cbox, this.box.getValue());
             }
             if (this.name.getValue()) {
-                Render3DUtil.drawText3DBreak(breakData.getEntity().getName().getString(), breakData.pos.toCenterPos().add(0.0, (double)this.nameY.getValueFloat(), 0.0), -1);
+                Render3DUtil.drawText3DBreak(breakData.getEntity().getName().getString(), breakData.pos.toCenterPos().add(0.0, this.nameY.getValueFloat(), 0.0), -1);
             }
             double breakTimeMs = this.breakTime.getValue() * 1000.0;
             if (this.breakName.getValue()) {
-                Render3DUtil.drawText3DBreakMine(Text.of((String)this.df.format(Math.min(1.0, (double)breakData.timer.getPassedTimeMs() / breakTimeMs) * 100.0)), breakData.pos.toCenterPos().add(0.0, (double)(-this.mineY.getValueFloat()), 0.0), 0.0, 0.0, this.minescale.getValueFloat(), ColorUtil.fadeColor(new Color(235, 235, 235), new Color(235, 235, 235), (double)breakData.timer.getPassedTimeMs() / breakTimeMs));
+                Render3DUtil.drawText3DBreakMine(Text.of(this.df.format(Math.min(1.0, (double)breakData.timer.getPassedTimeMs() / breakTimeMs) * 100.0)), breakData.pos.toCenterPos().add(0.0, -this.mineY.getValueFloat(), 0.0), 0.0, 0.0, this.minescale.getValueFloat(), ColorUtil.fadeColor(new Color(235, 235, 235), new Color(235, 235, 235), (double)breakData.timer.getPassedTimeMs() / breakTimeMs));
             }
         });
     }

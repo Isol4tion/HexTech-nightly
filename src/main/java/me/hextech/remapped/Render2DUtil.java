@@ -26,7 +26,7 @@ implements Wrapper {
         bufferBuilder.vertex(matrix, x1, y2, 0.0f).color(startColor.getRGB()).next();
         bufferBuilder.vertex(matrix, x2, y2, 0.0f).color(endColor.getRGB()).next();
         bufferBuilder.vertex(matrix, x2, y1, 0.0f).color(endColor.getRGB()).next();
-        BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
         Render2DUtil.endRender();
     }
 
@@ -40,7 +40,7 @@ implements Wrapper {
         bufferBuilder.vertex(matrix, x, y + height, 0.0f).color(startColor.getRGB()).next();
         bufferBuilder.vertex(matrix, x + width, y + height, 0.0f).color(endColor.getRGB()).next();
         bufferBuilder.vertex(matrix, x + width, y, 0.0f).color(endColor.getRGB()).next();
-        BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
         Render2DUtil.endRender();
     }
 
@@ -54,7 +54,7 @@ implements Wrapper {
         bufferBuilder.vertex(matrix, x, y + height, 0.0f).color(endColor.getRGB()).next();
         bufferBuilder.vertex(matrix, x + width, y + height, 0.0f).color(endColor.getRGB()).next();
         bufferBuilder.vertex(matrix, x + width, y, 0.0f).color(startColor.getRGB()).next();
-        BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
         Render2DUtil.endRender();
     }
 
@@ -68,7 +68,7 @@ implements Wrapper {
         bufferBuilder.vertex(matrix, left, bottom, 0.0f).color(endColor.getRGB()).next();
         bufferBuilder.vertex(matrix, right, bottom, 0.0f).color(endColor.getRGB()).next();
         bufferBuilder.vertex(matrix, right, top, 0.0f).color(startColor.getRGB()).next();
-        BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
         Render2DUtil.endRender();
     }
 
@@ -136,12 +136,12 @@ implements Wrapper {
             float cos = (float)(Math.cos(rad1) * rad);
             bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
         }
-        BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
     }
 
     public static void setupRender() {
         RenderSystem.enableBlend();
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public static void endRender() {

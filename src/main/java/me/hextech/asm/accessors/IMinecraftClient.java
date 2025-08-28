@@ -10,5 +10,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface IMinecraftClient {
     @Mutable
     @Accessor(value="session")
-    public void setSession(Session var1);
+    void setSession(Session var1);
 }

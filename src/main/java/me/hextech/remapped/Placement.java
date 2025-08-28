@@ -4,6 +4,6 @@ public enum Placement {
     Vanilla,
     Strict,
     Legit,
-    AirPlace;
+    AirPlace
 
 }

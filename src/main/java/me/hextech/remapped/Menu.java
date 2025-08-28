@@ -16,21 +16,20 @@ import net.minecraft.util.Identifier;
 
 public class Menu
 extends Screen {
-    private static final Identifier sky;
-    private static final Identifier station;
-    private static final Identifier pillar;
-    private static final Identifier moon;
-    private static final Identifier setting;
-    private static final Identifier exit;
-    private static final Identifier single;
-    private static final Identifier multi;
+    private static final Identifier sky = new Identifier("isolation/sky.png");
+    private static final Identifier station = new Identifier("isolation/station.png");
+    private static final Identifier moon = new Identifier("isolation/moon.png");
+    private static final Identifier setting = new Identifier("isolation/setting.png");
+    private static final Identifier exit = new Identifier("isolation/exit.png");
+    private static final Identifier single = new Identifier("isolation/single.png");
+    private static final Identifier multi = new Identifier("isolation/multi.png");
     float zoomSingle = 1.0f;
     float zoomMulti = 1.0f;
     float zoomSetting = 1.0f;
     float zoomExit = 1.0f;
 
     public Menu() {
-        super((Text)Text.translatable((String)"narrator.screen.title"));
+        super(Text.translatable("narrator.screen.title"));
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
@@ -61,9 +60,9 @@ extends Screen {
             matrices.scale(this.zoomSingle, this.zoomSingle, 1.0f);
             matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
         }
-        RenderSystem.setShaderTexture((int)0, (Identifier)single);
-        RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
-        RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
+        RenderSystem.setShaderTexture(0, single);
+        RenderSystem.texParameter(3553, 10241, 9729);
+        RenderSystem.texParameter(3553, 10240, 9729);
         context.drawTexture(single, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
         matrices.pop();
         matrices.push();
@@ -87,9 +86,9 @@ extends Screen {
             matrices.scale(Math.min(scaled, this.zoomMulti), Math.min(scaled, this.zoomMulti), 1.0f);
             matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
         }
-        RenderSystem.setShaderTexture((int)0, (Identifier)multi);
-        RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
-        RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
+        RenderSystem.setShaderTexture(0, multi);
+        RenderSystem.texParameter(3553, 10241, 9729);
+        RenderSystem.texParameter(3553, 10240, 9729);
         context.drawTexture(multi, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
         matrices.pop();
         matrices.push();
@@ -113,9 +112,9 @@ extends Screen {
             matrices.scale(Math.min(scaled, this.zoomSetting), Math.min(scaled, this.zoomSetting), 1.0f);
             matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
         }
-        RenderSystem.setShaderTexture((int)0, (Identifier)setting);
-        RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
-        RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
+        RenderSystem.setShaderTexture(0, setting);
+        RenderSystem.texParameter(3553, 10241, 9729);
+        RenderSystem.texParameter(3553, 10240, 9729);
         context.drawTexture(setting, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
         matrices.pop();
         matrices.push();
@@ -139,9 +138,9 @@ extends Screen {
             matrices.scale(Math.min(scaled, this.zoomExit), Math.min(scaled, this.zoomExit), 1.0f);
             matrices.translate((float)(-(startX + buttonWidth)), (float)(-(buttonY + buttonWidth)), 0.0f);
         }
-        RenderSystem.setShaderTexture((int)0, (Identifier)exit);
-        RenderSystem.texParameter((int)3553, (int)10241, (int)9729);
-        RenderSystem.texParameter((int)3553, (int)10240, (int)9729);
+        RenderSystem.setShaderTexture(0, exit);
+        RenderSystem.texParameter(3553, 10241, 9729);
+        RenderSystem.texParameter(3553, 10240, 9729);
         context.drawTexture(exit, startX, buttonY, 0, 0.0f, 0.0f, buttonWidth, buttonWidth, buttonWidth, buttonWidth);
         matrices.pop();
         matrices.push();
@@ -172,18 +171,18 @@ extends Screen {
         int charc = (int)((maxButtonWidth - (float)(4 * buttonWidth)) / 5.0f);
         if (button == 0) {
             if (this.isMouseHoveringRect((float)startX, (float)buttonY, buttonWidth, mouseX, mouseY)) {
-                this.client.setScreen((Screen)new SelectWorldScreen((Screen)this));
+                this.client.setScreen(new SelectWorldScreen(this));
             }
             if (this.isMouseHoveringRect((float)(startX += (int)((double)buttonWidth + 0.2 * (double)buttonWidth + (double)charc)), (float)buttonY, buttonWidth, mouseX, mouseY)) {
                 if (!Wrapper.mc.options.skipMultiplayerWarning) {
                     Wrapper.mc.options.skipMultiplayerWarning = true;
                     Wrapper.mc.options.write();
                 }
-                MultiplayerScreen screen = new MultiplayerScreen((Screen)this);
-                Wrapper.mc.setScreen((Screen)screen);
+                MultiplayerScreen screen = new MultiplayerScreen(this);
+                Wrapper.mc.setScreen(screen);
             }
             if (this.isMouseHoveringRect((float)(startX += (int)((double)buttonWidth + 0.2 * (double)buttonWidth + (double)charc)), (float)buttonY, buttonWidth, mouseX, mouseY)) {
-                Wrapper.mc.setScreen((Screen)new OptionsScreen((Screen)this, Wrapper.mc.options));
+                Wrapper.mc.setScreen(new OptionsScreen(this, Wrapper.mc.options));
             }
             if (this.isMouseHoveringRect((float)(startX += (int)((double)buttonWidth + 0.2 * (double)buttonWidth + (double)charc)), (float)buttonY, buttonWidth, mouseX, mouseY)) {
                 Wrapper.mc.stop();

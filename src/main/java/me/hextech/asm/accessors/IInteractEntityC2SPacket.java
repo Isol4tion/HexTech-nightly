@@ -11,8 +11,8 @@ public interface IInteractEntityC2SPacket {
     @Accessor(value="entityId")
     @Final
     @Mutable
-    public void setId(int var1);
+    void setId(int var1);
 
     @Accessor(value="entityId")
-    public int getId();
+    int getId();
 }

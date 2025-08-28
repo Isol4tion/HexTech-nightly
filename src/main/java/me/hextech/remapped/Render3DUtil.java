@@ -51,23 +51,23 @@ implements Wrapper {
     }
 
     public static void drawText3D(String text, Vec3d vec3d, Color color) {
-        Render3DUtil.drawText3D(Text.of((String)text), vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.9, color.getRGB());
+        Render3DUtil.drawText3D(Text.of(text), vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.9, color.getRGB());
     }
 
     public static void drawText3D(String text, Vec3d vec3d, int color) {
-        Render3DUtil.drawText3D(Text.of((String)text), vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 1.0, color);
+        Render3DUtil.drawText3D(Text.of(text), vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 1.0, color);
     }
 
     public static void drawText3DMine(String text, Vec3d vec3d, int color) {
-        Render3DUtil.drawText3D(Text.of((String)text), vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, SpeedMine.INSTANCE.textscale.getValueFloat(), color);
+        Render3DUtil.drawText3D(Text.of(text), vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, SpeedMine.INSTANCE.textscale.getValueFloat(), color);
     }
 
     public static void drawText3DSlient(String text, Vec3d vec3d, int color) {
-        Render3DUtil.drawText3D(Text.of((String)text), vec3d.x, vec3d.y, vec3d.z, 0.0, SpeedMine.INSTANCE.doubletext.getValueFloat(), SpeedMine.INSTANCE.textscale.getValueFloat(), color);
+        Render3DUtil.drawText3D(Text.of(text), vec3d.x, vec3d.y, vec3d.z, 0.0, SpeedMine.INSTANCE.doubletext.getValueFloat(), SpeedMine.INSTANCE.textscale.getValueFloat(), color);
     }
 
     public static void drawText3DBreak(String text, Vec3d vec3d, int color) {
-        Render3DUtil.drawText3D(Text.of((String)text), vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, BreakESP.INSTANCE.namescale.getValueFloat(), color);
+        Render3DUtil.drawText3D(Text.of(text), vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, BreakESP.INSTANCE.namescale.getValueFloat(), color);
     }
 
     public static void drawText3DBreakMine(Text text, Vec3d vec3d, double offX, double offY, double scale, Color color) {
@@ -79,7 +79,7 @@ implements Wrapper {
     }
 
     public static void drawText3D(Text text, double x, double y, double z, double offX, double offY, double scale, int color) {
-        GL11.glDisable((int)2929);
+        GL11.glDisable(2929);
         MatrixStack matrices = Render3DUtil.matrixFrom(x, y, z);
         Camera camera = Render3DUtil.mc.gameRenderer.getCamera();
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-camera.getYaw()));
@@ -88,17 +88,17 @@ implements Wrapper {
         RenderSystem.defaultBlendFunc();
         matrices.translate(offX, offY, 0.0);
         matrices.scale(-0.025f * (float)scale, -0.025f * (float)scale, 1.0f);
-        int halfWidth = Render3DUtil.mc.textRenderer.getWidth((StringVisitable)text) / 2;
-        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate((BufferBuilder)Tessellator.getInstance().getBuffer());
+        int halfWidth = Render3DUtil.mc.textRenderer.getWidth(text) / 2;
+        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
         matrices.push();
         matrices.translate(1.0f, 1.0f, 0.0f);
-        Render3DUtil.mc.textRenderer.draw(Text.of((String)text.getString().replaceAll("\u00a7[a-zA-Z0-9]", "")), (float)(-halfWidth), 0.0f, 0x202020, false, matrices.peek().getPositionMatrix(), (VertexConsumerProvider)immediate, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0xF000F0);
+        Render3DUtil.mc.textRenderer.draw(Text.of(text.getString().replaceAll("\u00a7[a-zA-Z0-9]", "")), (float)(-halfWidth), 0.0f, 0x202020, false, matrices.peek().getPositionMatrix(), immediate, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0xF000F0);
         immediate.draw();
         matrices.pop();
-        Render3DUtil.mc.textRenderer.draw((Text)text.copy(), (float)(-halfWidth), 0.0f, color, false, matrices.peek().getPositionMatrix(), (VertexConsumerProvider)immediate, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0xF000F0);
+        Render3DUtil.mc.textRenderer.draw(text.copy(), (float)(-halfWidth), 0.0f, color, false, matrices.peek().getPositionMatrix(), immediate, TextRenderer.TextLayerType.SEE_THROUGH, 0, 0xF000F0);
         immediate.draw();
         RenderSystem.disableBlend();
-        GL11.glEnable((int)2929);
+        GL11.glEnable(2929);
     }
 
     public static void drawTextIn3D(String text, Vec3d pos, double offX, double offY, double textOffset, Color color) {
@@ -114,7 +114,7 @@ implements Wrapper {
         RenderSystem.defaultBlendFunc();
         matrices.translate(offX, offY - 0.1, -0.01);
         matrices.scale(-0.025f, -0.025f, 0.0f);
-        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate((BufferBuilder)Tessellator.getInstance().getBuffer());
+        VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
         FontRenderers.Arial.drawCenteredString(matrices, text, textOffset, 0.0, color.getRGB());
         immediate.draw();
         RenderSystem.enableCull();
@@ -309,7 +309,7 @@ implements Wrapper {
         BufferBuilder buffer = tessellator.getBuffer();
         RenderSystem.disableCull();
         RenderSystem.setShader(GameRenderer::getRenderTypeLinesProgram);
-        RenderSystem.lineWidth((float)lineWidth);
+        RenderSystem.lineWidth(lineWidth);
         buffer.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
         Box box = b.offset(new Vec3d(b.minX, b.minY, b.minZ).negate());
         float x1 = (float)box.minX;
@@ -318,18 +318,18 @@ implements Wrapper {
         float x2 = (float)box.maxX;
         float y2 = (float)box.maxY;
         float z2 = (float)box.maxZ;
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x1, y1, z1, x2, y1, z1, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x2, y1, z1, x2, y1, z2, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x2, y1, z2, x1, y1, z2, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x1, y1, z2, x1, y1, z1, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x1, y1, z2, x1, y2, z2, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x1, y1, z1, x1, y2, z1, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x2, y1, z2, x2, y2, z2, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x2, y1, z1, x2, y2, z1, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x1, y2, z1, x2, y2, z1, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x2, y2, z1, x2, y2, z2, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x2, y2, z2, x1, y2, z2, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x1, y2, z2, x1, y2, z1, color);
+        Render3DUtil.vertexLine(matrices, buffer, x1, y1, z1, x2, y1, z1, color);
+        Render3DUtil.vertexLine(matrices, buffer, x2, y1, z1, x2, y1, z2, color);
+        Render3DUtil.vertexLine(matrices, buffer, x2, y1, z2, x1, y1, z2, color);
+        Render3DUtil.vertexLine(matrices, buffer, x1, y1, z2, x1, y1, z1, color);
+        Render3DUtil.vertexLine(matrices, buffer, x1, y1, z2, x1, y2, z2, color);
+        Render3DUtil.vertexLine(matrices, buffer, x1, y1, z1, x1, y2, z1, color);
+        Render3DUtil.vertexLine(matrices, buffer, x2, y1, z2, x2, y2, z2, color);
+        Render3DUtil.vertexLine(matrices, buffer, x2, y1, z1, x2, y2, z1, color);
+        Render3DUtil.vertexLine(matrices, buffer, x1, y2, z1, x2, y2, z1, color);
+        Render3DUtil.vertexLine(matrices, buffer, x2, y2, z1, x2, y2, z2, color);
+        Render3DUtil.vertexLine(matrices, buffer, x2, y2, z2, x1, y2, z2, color);
+        Render3DUtil.vertexLine(matrices, buffer, x1, y2, z2, x1, y2, z1, color);
         tessellator.draw();
         RenderSystem.enableCull();
         RenderSystem.enableDepthTest();
@@ -346,7 +346,7 @@ implements Wrapper {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-        RenderSystem.lineWidth((float)lineWidth.floatValue());
+        RenderSystem.lineWidth(lineWidth.floatValue());
         bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION_COLOR);
         for (int i = 0; i <= 180; ++i) {
             bufferBuilder.vertex(matrix.peek().getPositionMatrix(), (float)(x + (double)radius.floatValue() * Math.cos((double)i * pix2 / 45.0)), (float)(y + (double)height.floatValue()), (float)(z + (double)radius.floatValue() * Math.sin((double)i * pix2 / 45.0))).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
@@ -362,12 +362,12 @@ implements Wrapper {
     public static void draw3DBox(MatrixStack matrixStack, Box box, Color color, boolean outline, boolean fill) {
         box = box.offset(Render3DUtil.mc.gameRenderer.getCamera().getPos().negate());
         RenderSystem.enableBlend();
-        GL11.glDisable((int)2929);
+        GL11.glDisable(2929);
         Matrix4f matrix = matrixStack.peek().getPositionMatrix();
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
         if (outline) {
-            RenderSystem.setShaderColor((float)((float)color.getRed() / 255.0f), (float)((float)color.getGreen() / 255.0f), (float)((float)color.getBlue() / 255.0f), (float)((float)color.getAlpha() / 255.0f));
+            RenderSystem.setShaderColor((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
             RenderSystem.setShader(GameRenderer::getPositionProgram);
             bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION);
             bufferBuilder.vertex(matrix, (float)box.minX, (float)box.minY, (float)box.minZ).next();
@@ -397,7 +397,7 @@ implements Wrapper {
             tessellator.draw();
         }
         if (fill) {
-            RenderSystem.setShaderColor((float)((float)color.getRed() / 255.0f), (float)((float)color.getGreen() / 255.0f), (float)((float)color.getBlue() / 255.0f), (float)((float)color.getAlpha() / 255.0f));
+            RenderSystem.setShaderColor((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
             RenderSystem.setShader(GameRenderer::getPositionProgram);
             bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
             bufferBuilder.vertex(matrix, (float)box.minX, (float)box.minY, (float)box.minZ).next();
@@ -426,8 +426,8 @@ implements Wrapper {
             bufferBuilder.vertex(matrix, (float)box.minX, (float)box.maxY, (float)box.minZ).next();
             tessellator.draw();
         }
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
-        GL11.glEnable((int)2929);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        GL11.glEnable(2929);
         RenderSystem.disableBlend();
     }
 
@@ -438,7 +438,7 @@ implements Wrapper {
         Box box = new Box(pos);
         box = box.offset(Render3DUtil.mc.gameRenderer.getCamera().getPos().negate());
         RenderSystem.enableBlend();
-        GL11.glDisable((int)2929);
+        GL11.glDisable(2929);
         Matrix4f matrix = matrixStack.peek().getPositionMatrix();
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
@@ -469,8 +469,8 @@ implements Wrapper {
             tessellator.draw();
             RenderSystem.enableCull();
         }
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
-        GL11.glEnable((int)2929);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        GL11.glEnable(2929);
         RenderSystem.disableBlend();
     }
 
@@ -483,7 +483,7 @@ implements Wrapper {
         BufferBuilder buffer = tessellator.getBuffer();
         RenderSystem.disableCull();
         RenderSystem.setShader(GameRenderer::getRenderTypeLinesProgram);
-        RenderSystem.lineWidth((float)lineWidth);
+        RenderSystem.lineWidth(lineWidth);
         buffer.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
         Box box = b.offset(new Vec3d(b.minX, b.minY, b.minZ).negate());
         float x1 = (float)box.minX;
@@ -491,10 +491,10 @@ implements Wrapper {
         float z1 = (float)box.minZ;
         float x2 = (float)box.maxX;
         float z2 = (float)box.maxZ;
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x1, y1, z1, x2, y1, z1, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x2, y1, z1, x2, y1, z2, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x2, y1, z2, x1, y1, z2, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x1, y1, z2, x1, y1, z1, color);
+        Render3DUtil.vertexLine(matrices, buffer, x1, y1, z1, x2, y1, z1, color);
+        Render3DUtil.vertexLine(matrices, buffer, x2, y1, z1, x2, y1, z2, color);
+        Render3DUtil.vertexLine(matrices, buffer, x2, y1, z2, x1, y1, z2, color);
+        Render3DUtil.vertexLine(matrices, buffer, x1, y1, z2, x1, y1, z1, color);
         tessellator.draw();
         RenderSystem.enableCull();
         RenderSystem.enableDepthTest();
@@ -509,12 +509,12 @@ implements Wrapper {
         BufferBuilder buffer = tessellator.getBuffer();
         RenderSystem.disableCull();
         RenderSystem.setShader(GameRenderer::getRenderTypeLinesProgram);
-        RenderSystem.lineWidth((float)width);
+        RenderSystem.lineWidth(width);
         buffer.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, 0.0, 0.0, 0.0, (float)(x2 - x1), (float)(y2 - y1), (float)(z2 - z1), color);
+        Render3DUtil.vertexLine(matrices, buffer, 0.0, 0.0, 0.0, (float)(x2 - x1), (float)(y2 - y1), (float)(z2 - z1), color);
         tessellator.draw();
         RenderSystem.enableCull();
-        RenderSystem.lineWidth((float)1.0f);
+        RenderSystem.lineWidth(1.0f);
         RenderSystem.disableBlend();
     }
 
@@ -530,7 +530,7 @@ implements Wrapper {
         float xNormal = x2 - x1;
         float yNormal = y2 - y1;
         float zNormal = z2 - z1;
-        float normalSqrt = MathHelper.sqrt((float)(xNormal * xNormal + yNormal * yNormal + zNormal * zNormal));
+        float normalSqrt = MathHelper.sqrt(xNormal * xNormal + yNormal * yNormal + zNormal * zNormal);
         return new Vector3f(xNormal / normalSqrt, yNormal / normalSqrt, zNormal / normalSqrt);
     }
 
@@ -543,7 +543,7 @@ implements Wrapper {
         BufferBuilder buffer = tessellator.getBuffer();
         RenderSystem.disableCull();
         RenderSystem.setShader(GameRenderer::getRenderTypeLinesProgram);
-        RenderSystem.lineWidth((float)lineWidth);
+        RenderSystem.lineWidth(lineWidth);
         buffer.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
         Box box = b.offset(new Vec3d(b.minX, b.minY, b.minZ).negate());
         float x1 = (float)box.minX;
@@ -551,10 +551,10 @@ implements Wrapper {
         float z1 = (float)box.minZ;
         float x2 = (float)box.maxX;
         float z2 = (float)box.maxZ;
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x1, y1, z1, x2, y1, z1, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x2, y1, z1, x2, y1, z2, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x2, y1, z2, x1, y1, z2, color);
-        Render3DUtil.vertexLine(matrices, (VertexConsumer)buffer, x1, y1, z2, x1, y1, z1, color);
+        Render3DUtil.vertexLine(matrices, buffer, x1, y1, z1, x2, y1, z1, color);
+        Render3DUtil.vertexLine(matrices, buffer, x2, y1, z1, x2, y1, z2, color);
+        Render3DUtil.vertexLine(matrices, buffer, x2, y1, z2, x1, y1, z2, color);
+        Render3DUtil.vertexLine(matrices, buffer, x1, y1, z2, x1, y1, z1, color);
         tessellator.draw();
         RenderSystem.enableCull();
         RenderSystem.enableDepthTest();
@@ -567,12 +567,12 @@ implements Wrapper {
             Render3DUtil.drawFadingBox(matrixStack, box, invertFade ? endColor : color, invertFade ? color : endColor, height);
             return;
         }
-        GL11.glEnable((int)3042);
-        GL11.glDisable((int)2929);
+        GL11.glEnable(3042);
+        GL11.glDisable(2929);
         Matrix4f matrix = matrixStack.peek().getPositionMatrix();
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
-        RenderSystem.setShaderColor((float)((float)color.getRed() / 255.0f), (float)((float)color.getGreen() / 255.0f), (float)((float)color.getBlue() / 255.0f), (float)((float)color.getAlpha() / 255.0f));
+        RenderSystem.setShaderColor((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
         RenderSystem.setShader(GameRenderer::getPositionProgram);
         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
         bufferBuilder.vertex(matrix, (float)box.minX, (float)box.minY, (float)box.minZ).next();
@@ -600,8 +600,8 @@ implements Wrapper {
         bufferBuilder.vertex(matrix, (float)box.minX, (float)box.maxY, (float)box.maxZ).next();
         bufferBuilder.vertex(matrix, (float)box.minX, (float)box.maxY, (float)box.minZ).next();
         tessellator.draw();
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
-        GL11.glEnable((int)2929);
-        GL11.glDisable((int)3042);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        GL11.glEnable(2929);
+        GL11.glDisable(3042);
     }
 }

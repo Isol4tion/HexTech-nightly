@@ -52,7 +52,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (packet4 instanceof EntityStatusS2CPacket) {
                 final EntityStatusS2CPacket packet = packet4;
                 if (packet.getStatus() == 31) {
-                    final Entity getEntity = packet.getEntity((World)Velocity.mc.world);
+                    final Entity getEntity = packet.getEntity(Velocity.mc.world);
                     if (getEntity instanceof final FishingBobberEntity fishHook) {
                         if (fishHook.getHookedEntity() == Velocity.mc.player) {
                             e.setCancelled(true);

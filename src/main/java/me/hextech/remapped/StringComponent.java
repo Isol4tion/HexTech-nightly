@@ -80,13 +80,13 @@ extends Component {
         MatrixStack matrixStack = drawContext.getMatrices();
         Object text = this.setting.getValue();
         if (this.setting.isListening() && this.b) {
-            text = (String)text + "_";
+            text = text + "_";
         }
         String string = name = this.setting.isListening() ? "[E]" : this.setting.getName();
         if (this.hover) {
             Render2DUtil.drawRect(matrixStack, (float)parentX + 1.0f, (float)y + 1.0f, (float)width - 3.0f, (float)this.defaultHeight - 1.0f, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.shColor.getValue());
         }
-        TextUtil.drawString(drawContext, (String)text, (double)((float)(parentX + 4) + TextUtil.getWidth(name) / 2.0f), (double)((float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 2.0f), 0xFFFFFF);
+        TextUtil.drawString(drawContext, (String)text, (float)(parentX + 4) + TextUtil.getWidth(name) / 2.0f, (float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 2.0f, 0xFFFFFF);
         TextUtil.drawStringWithScale(drawContext, name, (float)(parentX + 4), (float)((double)parentY + this.getTextOffsetY() + this.currentOffset - 2.0), -1, 0.5f);
         return true;
     }

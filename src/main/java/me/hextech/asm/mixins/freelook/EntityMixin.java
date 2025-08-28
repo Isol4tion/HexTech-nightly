@@ -18,7 +18,7 @@ public abstract class EntityMixin {
 
     @Inject(method={"changeLookDirection"}, at={@At(value="HEAD")}, cancellable=true)
     private void onChangeLookDirection(double cursorDeltaX, double cursorDeltaY, CallbackInfo callback) {
-        if ((Entity)this instanceof ClientPlayerEntity) {
+        if ((Object)this instanceof ClientPlayerEntity) {
             this.camera = FreeLook.INSTANCE.getCameraState();
             if (this.camera.doLock) {
                 this.applyTransformedAngle(cursorDeltaX, cursorDeltaY);
@@ -37,7 +37,7 @@ public abstract class EntityMixin {
         float yaw = this.camera.lookYaw;
         float pitch = this.camera.lookPitch;
         pitch += transformedCursorDeltaY;
-        pitch = MathHelper.clamp((float)pitch, (float)-90.0f, (float)90.0f);
+        pitch = MathHelper.clamp(pitch, -90.0f, 90.0f);
         this.camera.lookYaw = yaw += transformedCursorDeltaX;
         this.camera.lookPitch = pitch;
     }

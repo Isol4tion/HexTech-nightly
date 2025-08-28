@@ -8,7 +8,6 @@ import me.hextech.remapped.ClickGuiScreen;
 import me.hextech.remapped.ClickGuiTab;
 import me.hextech.remapped.ClickGui_ABoiivByuLsVqarYqfYv;
 import me.hextech.remapped.FadeUtils;
-import me.hextech.remapped.GuiManager_MjGlwQPLwZdGSONMNUmp;
 import me.hextech.remapped.ModuleComponent;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
@@ -73,25 +72,25 @@ implements Wrapper {
             this.lastMouseX = dx;
             this.lastMouseY = dy;
         }
-        GL11.glDisable((int)2884);
-        GL11.glBlendFunc((int)770, (int)771);
+        GL11.glDisable(2884);
+        GL11.glBlendFunc(770, 771);
         matrixStack.push();
         this.armorHud.draw(drawContext, tickDelta, this.getColor());
         if (this.isClickGuiOpen()) {
             double quad = ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils.In2);
             boolean s = false;
             if (quad < 1.0) {
-                switch (GuiManager_MjGlwQPLwZdGSONMNUmp.$SwitchMap$me$hextech$mod$modules$impl$client$ClickGui$Mode[ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mode.getValue().ordinal()]) {
-                    case 1: {
+                switch (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mode.getValue()) {
+                    case Scale: {
                         quad = 1.0 - quad;
                         matrixStack.translate(0.0, -100.0 * quad, 0.0);
                         break;
                     }
-                    case 2: {
+                    case Pull: {
                         matrixStack.scale((float)quad, (float)quad, 1.0f);
                         break;
                     }
-                    case 3: {
+                    case Scissor: {
                         this.setScissorRegion(0, 0, mc.getWindow().getWidth(), (int)((double)mc.getWindow().getHeight() * quad));
                         s = true;
                     }
@@ -101,17 +100,17 @@ implements Wrapper {
                 tab.draw(drawContext, tickDelta, this.getColor());
             }
             if (s) {
-                GL11.glDisable((int)3089);
+                GL11.glDisable(3089);
             }
         }
         matrixStack.pop();
-        GL11.glEnable((int)2884);
+        GL11.glEnable(2884);
     }
 
     public void setScissorRegion(int x, int y, int width, int height) {
         double scaledY = mc.getWindow().getHeight() - (y + height);
-        GL11.glEnable((int)3089);
-        GL11.glScissor((int)x, (int)((int)scaledY), (int)width, (int)height);
+        GL11.glEnable(3089);
+        GL11.glScissor(x, (int)scaledY, width, height);
     }
 
     public boolean isClickGuiOpen() {
@@ -124,7 +123,7 @@ implements Wrapper {
         MadCat,
         Moon,
         MoonGod,
-        Mio;
+        Mio
 
     }
 }

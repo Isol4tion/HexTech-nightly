@@ -14,7 +14,7 @@ public class InjectRotate {
         if (steps < 1.0f && angle != null) {
             float packetPitch;
             float packetYaw = AutoCrystal_QcRVYRsOqpKivetoXSJa.lastYaw;
-            float diff = MathHelper.angleBetween((float)angle[0], (float)packetYaw);
+            float diff = MathHelper.angleBetween(angle[0], packetYaw);
             if (Math.abs(diff) > 180.0f * steps) {
                 angle[0] = packetYaw + diff * (180.0f * steps / Math.abs(diff));
             }

@@ -22,7 +22,7 @@ extends Setting {
     }
 
     public void increaseEnum() {
-        this.value = EnumConverter.increaseEnum(this.value);
+        this.value = (T)EnumConverter.increaseEnum(this.value);
     }
 
     public final T getValue() {
@@ -30,9 +30,9 @@ extends Setting {
     }
 
     public void setEnumValue(String value) {
-        for (Enum e : (Enum[])this.value.getClass().getEnumConstants()) {
+        for (Enum e : this.value.getClass().getEnumConstants()) {
             if (!e.name().equalsIgnoreCase(value)) continue;
-            this.value = e;
+            this.value = (T)e;
         }
     }
 
@@ -45,7 +45,7 @@ extends Setting {
         }
         Enum value = converter.doBackward(enumString);
         if (value != null) {
-            this.value = value;
+            this.value = (T)value;
         }
     }
 

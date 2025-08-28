@@ -17,7 +17,7 @@ implements ItemConvertible {
             return;
         }
         if (cir.getReturnValueF() < 1.0f) {
-            cir.setReturnValue((Object)Float.valueOf(1.0f));
+            cir.setReturnValue(1.0f);
         }
     }
 }

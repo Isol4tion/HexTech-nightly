@@ -4,15 +4,6 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import me.hextech.asm.accessors.IEntity;
-import me.hextech.remapped.BooleanSetting;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.FakeLag;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PacketEvent_YXFfxdDjQAfjBumqRbBu;
-import me.hextech.remapped.Render3DUtil;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.UpdateWalkingEvent;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +12,6 @@ import net.minecraft.network.packet.s2c.common.CommonPingS2CPacket;
 import net.minecraft.network.packet.s2c.common.KeepAliveS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityS2CPacket;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 public class FakeLag_pNelqtbEdFyayuoaPLch
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
@@ -43,20 +33,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (this.ping.getValue() && (event.getPacket() instanceof CommonPingS2CPacket || event.getPacket() instanceof KeepAliveS2CPacket)) {
-            this.packet.add(new FakeLag(this, (Packet)event.getPacket()));
+            this.packet.add(new FakeLag(event.getPacket()));
             event.cancel();
             return;
         }
         Object t = event.getPacket();
-        if (t instanceof EntityS2CPacket && (entity = (entityS2CPacket = (EntityS2CPacket)t).getEntity((World)FakeLag_pNelqtbEdFyayuoaPLch.mc.world)) instanceof PlayerEntity) {
+        if (t instanceof EntityS2CPacket && (entity = (entityS2CPacket = (EntityS2CPacket)t).getEntity(FakeLag_pNelqtbEdFyayuoaPLch.mc.world)) instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
             if (player == FakeLag_pNelqtbEdFyayuoaPLch.mc.player) {
                 return;
             }
             if (map.containsKey(player) && this.entity.getValue()) {
-                Vec3d vec3d = new Vec3d((double)entityS2CPacket.getDeltaX(), (double)entityS2CPacket.getDeltaY(), (double)entityS2CPacket.getDeltaZ());
+                Vec3d vec3d = new Vec3d(entityS2CPacket.getDeltaX(), entityS2CPacket.getDeltaY(), entityS2CPacket.getDeltaZ());
                 if (map.get(player).distanceTo(FakeLag_pNelqtbEdFyayuoaPLch.mc.player.getPos()) < vec3d.distanceTo(FakeLag_pNelqtbEdFyayuoaPLch.mc.player.getPos())) {
-                    this.packet.add(new FakeLag(this, (Packet)entityS2CPacket));
+                    this.packet.add(new FakeLag( entityS2CPacket));
                     event.cancel();
                 }
             }
@@ -102,5 +92,34 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.packet.removeIf(FakeLag::send);
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public class FakeLag {
+        final Timer timer;
+        final int delay;
+        Packet pp;
+
+        public FakeLag(Packet p) {
+            this.pp = p;
+            this.timer = new Timer();
+            this.delay = spoof.getValueInt();
+        }
+
+        public boolean send() {
+            if (this.timer.passedMs(this.delay)) {
+                this.apply();
+                return true;
+            }
+            return false;
+        }
+
+        public void apply() {
+            if (this.pp != null) {
+                this.pp.apply(mc.player.networkHandler);
+            }
+        }
     }
 }

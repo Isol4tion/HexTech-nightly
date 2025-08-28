@@ -28,18 +28,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (HexTech.POP.popContainer.containsKey(player.getName().getString())) {
             int l_Count = HexTech.POP.popContainer.get(player.getName().getString());
             if (l_Count == 1) {
-                if (player.equals((Object)PopCounter.mc.player)) {
+                if (player.equals(PopCounter.mc.player)) {
                     this.sendMessage("\u00a7f\u4f60\u00a7r\u5df2\u7ecf\u5931\u53bb\u4e86\u00a7f" + l_Count + "\u00a7r \u56fe\u817e", player.getId());
                 } else {
                     this.sendMessage("\u00a7f" + player.getName().getString() + "\u00a7r\u51fb\u7834\u654c\u4eba\u00a7f" + l_Count + "\u00a7r \u56fe\u817e", player.getId());
                 }
-            } else if (player.equals((Object)PopCounter.mc.player)) {
+            } else if (player.equals(PopCounter.mc.player)) {
                 this.sendMessage("\u00a7f\u4f60\u00a7r\u5df2\u7ecf\u5931\u53bb\u4e86 \u00a7f" + l_Count + "\u00a7r \u56fe\u817e", player.getId());
             } else {
                 this.sendMessage("\u00a7f" + player.getName().getString() + "\u00a7r\u51fb\u7834\u654c\u4eba\u00a7f" + l_Count + "\u00a7r \u56fe\u817e", player.getId());
             }
         } else if (this.unPop.getValue()) {
-            if (player.equals((Object)PopCounter.mc.player)) {
+            if (player.equals(PopCounter.mc.player)) {
                 this.sendMessage("\u00a7f\u4f60\u00a7r[\u786e\u8ba4\u6b7b\u4ea1]", player.getId());
             } else {
                 this.sendMessage("\u00a7f" + player.getName().getString() + "\u00a7r[\u786e\u8ba4\u6b7b\u4ea1]", player.getId());
@@ -55,12 +55,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             l_Count = HexTech.POP.popContainer.get(player.getName().getString());
         }
         if (l_Count == 1) {
-            if (player.equals((Object)PopCounter.mc.player)) {
+            if (player.equals(PopCounter.mc.player)) {
                 this.sendMessage("\u00a7f\u4f60\u00a7r\u6b63\u5728\u4e22\u5931 \u00a7f" + l_Count + "\u00a7r \u56fe\u817e", player.getId());
             } else {
                 this.sendMessage("\u00a7f" + player.getName().getString() + " \u00a7r\u51fb\u7834\u654c\u4eba \u00a7f" + l_Count + "\u00a7r \u56fe\u817e", player.getId());
             }
-        } else if (player.equals((Object)PopCounter.mc.player)) {
+        } else if (player.equals(PopCounter.mc.player)) {
             this.sendMessage("\u00a7f\u4f60\u00a7r\u5931\u53bb\u4e86\u00a7f" + l_Count + "\u00a7r \u56fe\u817e", player.getId());
         } else {
             this.sendMessage("\u00a7f" + player.getName().getString() + " \u00a7r\u51fb\u7834\u654c\u4eba \u00a7f" + l_Count + "\u00a7r \u56fe\u817e", player.getId());
@@ -83,7 +83,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public enum _jJlsegqwuwGfJNTYElis {
         Notify,
         Chat,
-        Both;
+        Both
 
     }
 }

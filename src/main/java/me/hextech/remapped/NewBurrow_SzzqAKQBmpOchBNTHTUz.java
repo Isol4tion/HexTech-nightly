@@ -13,6 +13,6 @@ public enum NewBurrow_SzzqAKQBmpOchBNTHTUz {
     Rotation,
     Fly,
     Glide,
-    HexTech;
+    HexTech
 
 }

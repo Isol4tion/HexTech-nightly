@@ -71,7 +71,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!BurrowAssist.canbur()) {
             return;
         }
-        if (BurrowAssist.mc.player.isOnGround() && this.getPlayerSpeed((PlayerEntity)BurrowAssist.mc.player) < (double)this.speed.getValueInt() && (this.ccheck.getValue() && this.mcheck.getValue() ? this.findcrystal() || this.checkmine(this.mself.getValue()) : !(this.ccheck.getValue() && !this.findcrystal() || this.mcheck.getValue() && !this.checkmine(this.mself.getValue())))) {
+        if (BurrowAssist.mc.player.isOnGround() && this.getPlayerSpeed(BurrowAssist.mc.player) < (double)this.speed.getValueInt() && (this.ccheck.getValue() && this.mcheck.getValue() ? this.findcrystal() || this.checkmine(this.mself.getValue()) : !(this.ccheck.getValue() && !this.findcrystal() || this.mcheck.getValue() && !this.checkmine(this.mself.getValue())))) {
             if (Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.isOn()) {
                 return;
             }
@@ -81,9 +81,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean findcrystal() {
-        PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)BurrowAssist.mc.player);
+        PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS(BurrowAssist.mc.player);
         for (Entity crystal : BurrowAssist.mc.world.getEntities()) {
-            float f;
+            float f = 0.0f;
             if (!(crystal instanceof EndCrystalEntity) || EntityUtil.getEyesPos().distanceTo(crystal.getPos()) > this.cRange.getValue()) continue;
             float selfDamage = this.calculateDamage(crystal.getPos(), self.player, self.predict);
             if ((double)f < this.breakMinSelf.getValue()) continue;
@@ -100,7 +100,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public double turnIntoKpH(double input) {
-        return (double)MathHelper.sqrt((float)((float)input)) * 71.2729367892;
+        return (double)MathHelper.sqrt((float)input) * 71.2729367892;
     }
 
     public float calculateDamage(Vec3d pos, PlayerEntity player, PlayerEntity predict) {
@@ -123,7 +123,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (MineManager breakData : new HashMap<Integer, MineManager>(HexTech.BREAK.breakMap).values()) {
             if (breakData == null || breakData.getEntity() == null) continue;
             for (BlockPos pos1 : pos) {
-                if (!pos1.equals((Object)breakData.pos) || breakData.getEntity() == BurrowAssist.mc.player) continue;
+                if (!pos1.equals(breakData.pos) || breakData.getEntity() == BurrowAssist.mc.player) continue;
                 return true;
             }
         }
@@ -131,7 +131,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return false;
         }
         for (BlockPos pos1 : pos) {
-            if (!pos1.equals((Object)SpeedMine.breakPos)) continue;
+            if (!pos1.equals(SpeedMine.breakPos)) continue;
             return true;
         }
         return false;

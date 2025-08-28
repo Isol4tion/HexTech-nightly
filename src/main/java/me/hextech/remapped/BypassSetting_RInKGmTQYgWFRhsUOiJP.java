@@ -36,8 +36,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return;
             }
             Object t = event.getPacket();
-            if (t instanceof UpdateSelectedSlotS2CPacket) {
-                UpdateSelectedSlotS2CPacket packet = (UpdateSelectedSlotS2CPacket)t;
+            if (t instanceof UpdateSelectedSlotS2CPacket packet) {
                 int slot = BypassSetting_RInKGmTQYgWFRhsUOiJP.mc.player.getInventory().selectedSlot;
                 if (packet.getSlot() != slot) {
                     ((IUpdateSelectedSlotS2CPacket)packet).setslot(slot);

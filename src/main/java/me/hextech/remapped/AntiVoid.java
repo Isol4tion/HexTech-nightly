@@ -21,7 +21,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onUpdate() {
         boolean isVoid = true;
         for (int i = (int)AntiVoid.mc.player.getY(); i > this.voidHeight.getValueInt() - 1; --i) {
-            if (AntiVoid.mc.world.getBlockState((BlockPos)new BlockPosX(AntiVoid.mc.player.getX(), i, AntiVoid.mc.player.getZ())).getBlock() == Blocks.AIR) continue;
+            if (AntiVoid.mc.world.getBlockState(new BlockPosX(AntiVoid.mc.player.getX(), i, AntiVoid.mc.player.getZ())).getBlock() == Blocks.AIR) continue;
             isVoid = false;
             break;
         }

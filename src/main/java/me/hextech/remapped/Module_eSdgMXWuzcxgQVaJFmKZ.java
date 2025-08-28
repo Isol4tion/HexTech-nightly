@@ -11,7 +11,6 @@ import me.hextech.remapped.ColorSetting;
 import me.hextech.remapped.CommandManager;
 import me.hextech.remapped.EnumSetting;
 import me.hextech.remapped.Mod;
-import me.hextech.remapped.Module;
 import me.hextech.remapped.ModuleManager;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Notify;
@@ -57,7 +56,7 @@ extends Mod {
         if (mc.getNetworkHandler() == null || Module_eSdgMXWuzcxgQVaJFmKZ.mc.world == null) {
             return;
         }
-        try (PendingUpdateManager pendingUpdateManager = Module_eSdgMXWuzcxgQVaJFmKZ.mc.world.getPendingUpdateManager().incrementSequence();){
+        try (PendingUpdateManager pendingUpdateManager = Module_eSdgMXWuzcxgQVaJFmKZ.mc.world.getPendingUpdateManager().incrementSequence()){
             int i = pendingUpdateManager.getSequence();
             mc.getNetworkHandler().sendPacket(packetCreator.predict(i));
         }
@@ -104,14 +103,14 @@ extends Mod {
             return;
         }
         if (!Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck() && this.drawnSetting.getValue()) {
+            int id = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.onlyOne.getValue() ? -1 : this.hashCode();
             if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Both) {
-                id = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.onlyOne.getValue() ? -1 : this.hashCode();
-                switch (Module.$SwitchMap$me$hextech$mod$modules$impl$setting$ChatSetting$Style[ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.messageStyle.getValue().ordinal()]) {
-                    case 1: {
+                switch (ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.messageStyle.getValue()) {
+                    case HexTech: {
                         CommandManager.sendChatMessageWidthId("\u00a7f" + this.getName() + " \u00a7a\u221a", id);
                         break;
                     }
-                    case 2: {
+                    case Earth: {
                         CommandManager.sendChatMessageWidthIdNoSync("\u00a7l" + this.getName() + " \u00a7aEnabled", id);
                     }
                 }
@@ -119,13 +118,12 @@ extends Mod {
             } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Notify) {
                 Module_eSdgMXWuzcxgQVaJFmKZ.sendNotify("\u00a7f[\u00a7b" + this.getName() + "\u00a7f]\u00a77 toggled \u00a7aon");
             } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Chat) {
-                id = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.onlyOne.getValue() ? -1 : this.hashCode();
-                switch (Module.$SwitchMap$me$hextech$mod$modules$impl$setting$ChatSetting$Style[ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.messageStyle.getValue().ordinal()]) {
-                    case 1: {
+                switch (ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.messageStyle.getValue()) {
+                    case HexTech: {
                         CommandManager.sendChatMessageWidthId("\u00a7f" + this.getName() + " \u00a7a\u221a", id);
                         break;
                     }
-                    case 2: {
+                    case Earth: {
                         CommandManager.sendChatMessageWidthIdNoSync("\u00a7l" + this.getName() + " \u00a7aEnabled", id);
                     }
                 }
@@ -147,15 +145,14 @@ extends Mod {
             return;
         }
         if (!Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck() && this.drawnSetting.getValue()) {
-            int id;
-            int n = id = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.onlyOne.getValue() ? -1 : this.hashCode();
+            int id = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.onlyOne.getValue() ? -1 : this.hashCode();
             if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Both) {
-                switch (Module.$SwitchMap$me$hextech$mod$modules$impl$setting$ChatSetting$Style[ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.messageStyle.getValue().ordinal()]) {
-                    case 1: {
+                switch (ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.messageStyle.getValue()) {
+                    case HexTech: {
                         CommandManager.sendChatMessageWidthId("\u00a7f" + this.getName() + " \u00a7cX", id);
                         break;
                     }
-                    case 2: {
+                    case Earth: {
                         CommandManager.sendChatMessageWidthIdNoSync("\u00a7l" + this.getName() + " \u00a7cDisabled", id);
                     }
                 }
@@ -163,12 +160,12 @@ extends Mod {
             } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Notify) {
                 Module_eSdgMXWuzcxgQVaJFmKZ.sendNotify("\u00a7f[\u00a7b" + this.getName() + "\u00a7f]\u00a77 toggled \u00a74off");
             } else if (Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.isOn() && Notify_EXlgYplaRzfgofOPOkyB.INSTANCE.type.getValue() == Notify._hvcAdwcUFPZabyUezEMv.Chat) {
-                switch (Module.$SwitchMap$me$hextech$mod$modules$impl$setting$ChatSetting$Style[ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.messageStyle.getValue().ordinal()]) {
-                    case 1: {
+                switch (ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.messageStyle.getValue()) {
+                    case HexTech: {
                         CommandManager.sendChatMessageWidthId("\u00a7f" + this.getName() + " \u00a7cX", id);
                         break;
                     }
-                    case 2: {
+                    case Earth: {
                         CommandManager.sendChatMessageWidthIdNoSync("\u00a7l" + this.getName() + " \u00a7cDisabled", id);
                     }
                 }
@@ -198,7 +195,7 @@ extends Mod {
             return true;
         }
         try {
-            key = InputUtil.fromTranslationKey((String)("key.keyboard." + rkey.toLowerCase())).getCode();
+            key = InputUtil.fromTranslationKey("key.keyboard." + rkey.toLowerCase()).getCode();
         }
         catch (NumberFormatException e) {
             if (!Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck()) {

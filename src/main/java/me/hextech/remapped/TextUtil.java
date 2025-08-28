@@ -47,7 +47,7 @@ implements Wrapper {
             } else {
                 drawContext.drawTextWithShadow(TextUtil.mc.textRenderer, String.valueOf(c), (int)x, (int)y, ColorUtil.pulseColor(startColor, endColor, index, counter, speed).getRGB());
             }
-            x += (double)TextUtil.mc.textRenderer.getWidth(String.valueOf(c));
+            x += TextUtil.mc.textRenderer.getWidth(String.valueOf(c));
         }
         return (int)x;
     }
@@ -111,7 +111,7 @@ implements Wrapper {
                 matrixStack.translate(x / scale / 2.0f, y / scale / 2.0f, 0.0f);
             }
         }
-        TextUtil.drawString(drawContext, text, (double)x, (double)y, color);
+        TextUtil.drawString(drawContext, text, x, y, color);
         matrixStack.pop();
     }
 
@@ -139,16 +139,16 @@ implements Wrapper {
         Camera camera = TextUtil.mc.getEntityRenderDispatcher().camera;
         int displayHeight = mc.getWindow().getHeight();
         int[] viewport = new int[4];
-        GL11.glGetIntegerv((int)2978, (int[])viewport);
+        GL11.glGetIntegerv(2978, viewport);
         Vector3f target = new Vector3f();
         double deltaX = pos.x - camera.getPos().x;
         double deltaY = pos.y - camera.getPos().y;
         double deltaZ = pos.z - camera.getPos().z;
-        Vector4f transformedCoordinates = new Vector4f((float)deltaX, (float)deltaY, (float)deltaZ, 1.0f).mul((Matrix4fc)lastWorldSpaceMatrix);
-        Matrix4f matrixProj = new Matrix4f((Matrix4fc)lastProjMat);
-        Matrix4f matrixModel = new Matrix4f((Matrix4fc)lastModMat);
-        matrixProj.mul((Matrix4fc)matrixModel).project(transformedCoordinates.x(), transformedCoordinates.y(), transformedCoordinates.z(), viewport, target);
-        return new Vec3d((double)target.x / mc.getWindow().getScaleFactor(), (double)((float)displayHeight - target.y) / mc.getWindow().getScaleFactor(), (double)target.z);
+        Vector4f transformedCoordinates = new Vector4f((float)deltaX, (float)deltaY, (float)deltaZ, 1.0f).mul(lastWorldSpaceMatrix);
+        Matrix4f matrixProj = new Matrix4f(lastProjMat);
+        Matrix4f matrixModel = new Matrix4f(lastModMat);
+        matrixProj.mul(matrixModel).project(transformedCoordinates.x(), transformedCoordinates.y(), transformedCoordinates.z(), viewport, target);
+        return new Vec3d((double)target.x / mc.getWindow().getScaleFactor(), (double)((float)displayHeight - target.y) / mc.getWindow().getScaleFactor(), target.z);
     }
 
     public static void drawText(DrawContext context, String text, Vec3d vector) {
@@ -165,7 +165,7 @@ implements Wrapper {
             float scale = (float)Math.max(1.0 - EntityUtil.getEyesPos().distanceTo(preVec) * 0.025, 0.0);
             float diff = (float)(endPosX - posX) / 2.0f;
             float textWidth = (float)TextUtil.mc.textRenderer.getWidth(text) * scale;
-            float tagX = (float)((posX + (double)diff - (double)(textWidth / 2.0f)) * 1.0);
+            float tagX = (float)((posX + (double) diff - (double) (textWidth / 2.0f)));
             context.getMatrices().push();
             context.getMatrices().scale(scale, scale, scale);
             TextRenderer textRenderer = TextUtil.mc.textRenderer;

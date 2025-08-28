@@ -93,7 +93,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             ++blockProgress;
         }
-        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.up()) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.up(2)) && blockProgress > 3 && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.canCollide((Entity)HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player, new Box(pos.down()))) {
+        if (HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.up()) && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.isAir(pos.up(2)) && blockProgress > 3 && HoleESP_uLDVZuHQKEvOMTkALgRO.mc.world.canCollide(HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player, new Box(pos.down()))) {
             if (bedRock) {
                 return HoleESP.Bedrock;
             }
@@ -118,7 +118,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (BlockPos pos : list) {
             double distance = HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.getPos().distanceTo(pos.toCenterPos());
             double alpha = distance > this.startFade.getValue() ? Math.max(Math.min(1.0, 1.0 - (distance - this.startFade.getValue()) / (this.distance.getValue() - this.startFade.getValue())), 0.0) : 1.0;
-            Box espBox = new Box((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), (double)(pos.getX() + 1), (double)pos.getY() + height, (double)(pos.getZ() + 1));
+            Box espBox = new Box(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, (double)pos.getY() + height, pos.getZ() + 1);
             if (fill.booleanValue) {
                 if (fade.booleanValue) {
                     Render3DUtil.drawFadeFill(matrixStack, espBox, ColorUtil.injectAlpha(fill.getValue(), (int)((double)fill.getValue().getAlpha() * alpha)), ColorUtil.injectAlpha(fade.getValue(), (int)((double)fade.getValue().getAlpha() * alpha)));

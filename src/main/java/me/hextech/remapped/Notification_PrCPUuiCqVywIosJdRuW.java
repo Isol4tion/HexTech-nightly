@@ -6,6 +6,6 @@ package me.hextech.remapped;
 public enum Notification_PrCPUuiCqVywIosJdRuW {
     Notify,
     Chat,
-    Both;
+    Both
 
 }

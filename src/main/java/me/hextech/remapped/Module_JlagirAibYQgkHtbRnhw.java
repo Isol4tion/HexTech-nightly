@@ -10,6 +10,6 @@ public enum Module_JlagirAibYQgkHtbRnhw {
     Movement,
     Player,
     Client,
-    Setting;
+    Setting
 
 }

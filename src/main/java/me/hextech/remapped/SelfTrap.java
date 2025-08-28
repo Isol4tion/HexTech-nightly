@@ -123,7 +123,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         } else if (this.shouldCenter) {
             Vec3d centerPos = EntityUtil.getPlayerPos(true).toCenterPos();
-            float rotation = SelfTrap.getRotationTo((Vec3d)SelfTrap.mc.player.getPos(), (Vec3d)centerPos).x;
+            float rotation = SelfTrap.getRotationTo(SelfTrap.mc.player.getPos(), centerPos).x;
             float yawRad = rotation / 180.0f * (float)Math.PI;
             double dist = SelfTrap.mc.player.getPos().distanceTo(new Vec3d(centerPos.x, SelfTrap.mc.player.getY(), centerPos.z));
             double cappedSpeed = Math.min(0.2873, dist);
@@ -146,7 +146,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.startZ = SelfTrap.mc.player.getZ();
         }
         BlockPos pos = EntityUtil.getPlayerPos(true);
-        double distanceToStart = MathHelper.sqrt((float)((float)SelfTrap.mc.player.squaredDistanceTo(this.startX, this.startY, this.startZ)));
+        double distanceToStart = MathHelper.sqrt((float)SelfTrap.mc.player.squaredDistanceTo(this.startX, this.startY, this.startZ));
         if (this.getBlock() == -1) {
             CommandManager.sendChatMessageWidthId("\u00a7c\u00a7oObsidian" + (this.enderChest.getValue() ? "/EnderChest" : "") + "?", this.hashCode());
             this.disable();

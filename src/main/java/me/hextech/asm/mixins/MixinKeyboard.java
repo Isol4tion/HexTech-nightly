@@ -46,7 +46,7 @@ implements Wrapper {
                     HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting)setting).filter(StringSetting::isListening).forEach(setting -> setting.charType((char)codePoint)));
                     HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof SliderSetting).map(setting -> (SliderSetting)setting).filter(SliderSetting::isListening).forEach(setting -> setting.charType((char)codePoint)));
                 }
-                Screen.wrapScreenError(() -> MixinKeyboard.lambda$onChar$8((Element)element, codePoint, modifiers), (String)"charTyped event handler", (String)element.getClass().getCanonicalName());
+                Screen.wrapScreenError(() -> MixinKeyboard.lambda$onChar$8(element, codePoint, modifiers), "charTyped event handler", element.getClass().getCanonicalName());
             } else {
                 char[] var6;
                 for (char c : var6 = Character.toChars(codePoint)) {
@@ -54,7 +54,7 @@ implements Wrapper {
                         HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting)setting).filter(StringSetting::isListening).forEach(setting -> setting.charType(c)));
                         HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof SliderSetting).map(setting -> (SliderSetting)setting).filter(SliderSetting::isListening).forEach(setting -> setting.charType((char)codePoint)));
                     }
-                    Screen.wrapScreenError(() -> MixinKeyboard.lambda$onChar$17((Element)element, c, modifiers), (String)"charTyped event handler", (String)element.getClass().getCanonicalName());
+                    Screen.wrapScreenError(() -> MixinKeyboard.lambda$onChar$17(element, c, modifiers), "charTyped event handler", element.getClass().getCanonicalName());
                 }
             }
         }

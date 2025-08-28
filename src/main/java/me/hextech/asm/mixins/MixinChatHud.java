@@ -57,19 +57,19 @@ implements IChatHud {
 
     @Inject(method={"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"}, at={@At(value="INVOKE", target="Ljava/util/List;add(ILjava/lang/Object;)V", ordinal=0, shift=At.Shift.AFTER)})
     private void onAddMessageAfterNewChatHudLineVisible(Text message, MessageSignatureData signature, int ticks, MessageIndicator indicator, boolean refresh, CallbackInfo info) {
-        ((IChatHudLine)this.visibleMessages.get(0)).nullpoint_nextgen_master$setId(this.nullpoint_nextId);
+        ((IChatHudLine)(Object)this.visibleMessages.get(0)).nullpoint_nextgen_master$setId(this.nullpoint_nextId);
     }
 
     @Inject(method={"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"}, at={@At(value="INVOKE", target="Ljava/util/List;add(ILjava/lang/Object;)V", ordinal=1, shift=At.Shift.AFTER)})
     private void onAddMessageAfterNewChatHudLine(Text message, MessageSignatureData signature, int ticks, MessageIndicator indicator, boolean refresh, CallbackInfo info) {
-        ((IChatHudLine)this.messages.get(0)).nullpoint_nextgen_master$setId(this.nullpoint_nextId);
+        ((IChatHudLine)(Object)this.messages.get(0)).nullpoint_nextgen_master$setId(this.nullpoint_nextId);
     }
 
     @Inject(at={@At(value="HEAD")}, method={"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"})
     private void onAddMessage(Text message, @Nullable MessageSignatureData signature, int ticks, @Nullable MessageIndicator indicator, boolean refresh, CallbackInfo info) {
         if (this.nullpoint_nextId != 0) {
-            this.visibleMessages.removeIf(msg -> msg == null || ((IChatHudLine)msg).nullpoint_nextgen_master$getId() == this.nullpoint_nextId);
-            this.messages.removeIf(msg -> msg == null || ((IChatHudLine)msg).nullpoint_nextgen_master$getId() == this.nullpoint_nextId);
+            this.visibleMessages.removeIf(msg -> msg == null || ((IChatHudLine)(Object)msg).nullpoint_nextgen_master$getId() == this.nullpoint_nextId);
+            this.messages.removeIf(msg -> msg == null || ((IChatHudLine)(Object)msg).nullpoint_nextgen_master$getId() == this.nullpoint_nextId);
         }
     }
 

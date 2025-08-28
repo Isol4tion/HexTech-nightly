@@ -24,7 +24,7 @@ extends Screen {
     private AltSelectionList_DSrXNkYQoNXcgOtMWUrt altListSelector;
 
     public AltScreen(Screen parentScreen) {
-        super(Text.of((String)"Alt Manager"));
+        super(Text.of("Alt Manager"));
         this.parentScreen = parentScreen;
     }
 
@@ -33,14 +33,14 @@ extends Screen {
         this.altListSelector = new AltSelectionList_DSrXNkYQoNXcgOtMWUrt(this, this.client, this.width, this.height, 32, this.height - 64);
         this.altListSelector.updateAlts();
         this.addDrawableChild(this.altListSelector);
-        this.deleteButton = ButtonWidget.builder((Text)Text.of((String)"Delete Alt"), b -> this.deleteSelected()).dimensions(this.width / 2 - 154, this.height - 28, 100, 20).build();
+        this.deleteButton = ButtonWidget.builder(Text.of("Delete Alt"), b -> this.deleteSelected()).dimensions(this.width / 2 - 154, this.height - 28, 100, 20).build();
         this.deleteButton.active = false;
         this.addDrawableChild(this.deleteButton);
-        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Token Login"), b -> this.client.setScreen((Screen)new TokenLoginScreen(this))).dimensions(this.width / 2 - 154, this.height - 52, 100, 20).build());
-        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Direct Login"), b -> this.client.setScreen((Screen)new DirectLoginAltScreen(this))).dimensions(this.width / 2 - 50, this.height - 52, 100, 20).build());
-        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Add Alt"), b -> this.client.setScreen((Screen)new AddAltScreen(this))).dimensions(this.width / 2 + 54, this.height - 52, 100, 20).build());
-        this.addDrawableChild(ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.client.setScreen(this.parentScreen)).dimensions(this.width / 2 + 54, this.height - 28, 100, 20).build());
-        this.editButton = ButtonWidget.builder((Text)Text.of((String)"EditionHex Alt"), b -> this.editSelected()).dimensions(this.width / 2 - 50, this.height - 28, 100, 20).build();
+        this.addDrawableChild(ButtonWidget.builder(Text.of("Token Login"), b -> this.client.setScreen(new TokenLoginScreen(this))).dimensions(this.width / 2 - 154, this.height - 52, 100, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.of("Direct Login"), b -> this.client.setScreen(new DirectLoginAltScreen(this))).dimensions(this.width / 2 - 50, this.height - 52, 100, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.of("Add Alt"), b -> this.client.setScreen(new AddAltScreen(this))).dimensions(this.width / 2 + 54, this.height - 52, 100, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.of("Cancel"), b -> this.client.setScreen(this.parentScreen)).dimensions(this.width / 2 + 54, this.height - 28, 100, 20).build());
+        this.editButton = ButtonWidget.builder(Text.of("EditionHex Alt"), b -> this.editSelected()).dimensions(this.width / 2 - 50, this.height - 28, 100, 20).build();
         this.editButton.active = false;
         this.addDrawableChild(this.editButton);
     }
@@ -56,7 +56,7 @@ extends Screen {
     }
 
     public void refreshAltList() {
-        this.client.setScreen((Screen)new AltScreen(this.parentScreen));
+        this.client.setScreen(new AltScreen(this.parentScreen));
     }
 
     public void setSelected(AltSelectionList_MlYuzYrWmNSiQOBPfePW selected) {
@@ -83,7 +83,7 @@ extends Screen {
         if (alt == null) {
             return;
         }
-        this.client.setScreen((Screen)new EditAltScreen(this, alt));
+        this.client.setScreen(new EditAltScreen(this, alt));
     }
 
     public void deleteSelected() {

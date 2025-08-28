@@ -36,7 +36,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         PacketByteBuf packetBuf = new PacketByteBuf(Unpooled.buffer());
         packet.write(packetBuf);
         packetBuf.readVarInt();
-        return (_QenzavIULhSqCVPmsILH)packetBuf.readEnumConstant(_QenzavIULhSqCVPmsILH.class);
+        return packetBuf.readEnumConstant(_QenzavIULhSqCVPmsILH.class);
     }
 
     @Override
@@ -58,20 +58,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void doCrit() {
         if (Aura.INSTANCE.isOn() && (Criticals.mc.player.isOnGround() || Criticals.mc.player.getAbilities().flying) && !Criticals.mc.player.isInLava() && !Criticals.mc.player.isSubmergedInWater()) {
             if (this.mode.getValue() == _llXqHCnomcmaIkSSIBHS.Strict && Criticals.mc.world.getBlockState(Criticals.mc.player.getBlockPos()).getBlock() != Blocks.COBWEB) {
-                Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 0.062600301692775, Criticals.mc.player.getZ(), false));
-                Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 0.07260029960661, Criticals.mc.player.getZ(), false));
-                Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
-                Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 0.062600301692775, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 0.07260029960661, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
             } else if (this.mode.getValue() == _llXqHCnomcmaIkSSIBHS.NCP) {
-                Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 0.0625, Criticals.mc.player.getZ(), false));
-                Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 0.0625, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
             } else if (this.mode.getValue() == _llXqHCnomcmaIkSSIBHS.Packet) {
-                Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 1.058293536E-5, Criticals.mc.player.getZ(), false));
-                Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 9.16580235E-6, Criticals.mc.player.getZ(), false));
-                Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 1.0371854E-7, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 1.058293536E-5, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 9.16580235E-6, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 1.0371854E-7, Criticals.mc.player.getZ(), false));
             } else if (this.mode.getValue() == _llXqHCnomcmaIkSSIBHS.LowPacket) {
-                Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 2.71875E-7, Criticals.mc.player.getZ(), false));
-                Criticals.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY() + 2.71875E-7, Criticals.mc.player.getZ(), false));
+                Criticals.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(Criticals.mc.player.getX(), Criticals.mc.player.getY(), Criticals.mc.player.getZ(), false));
             }
         }
     }
@@ -80,13 +80,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         NCP,
         Strict,
         Packet,
-        LowPacket;
+        LowPacket
 
     }
     public enum _QenzavIULhSqCVPmsILH {
         INTERACT,
         ATTACK,
-        INTERACT_AT;
+        INTERACT_AT
 
     }
 }

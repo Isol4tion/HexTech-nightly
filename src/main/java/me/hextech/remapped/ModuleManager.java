@@ -262,11 +262,11 @@ implements Wrapper {
     }
 
     public void render3D(MatrixStack matrixStack) {
-        GL11.glEnable((int)3042);
-        GL11.glBlendFunc((int)770, (int)771);
-        GL11.glEnable((int)2848);
-        GL11.glEnable((int)2884);
-        GL11.glDisable((int)2929);
+        GL11.glEnable(3042);
+        GL11.glBlendFunc(770, 771);
+        GL11.glEnable(2848);
+        GL11.glEnable(2884);
+        GL11.glDisable(2929);
         matrixStack.push();
         this.modules.stream().filter(Module_eSdgMXWuzcxgQVaJFmKZ::isOn).forEach(module -> {
             try {
@@ -283,15 +283,15 @@ implements Wrapper {
             CommandManager.sendChatMessage("\u00a74[!] " + e.getMessage());
         }
         matrixStack.pop();
-        GL11.glEnable((int)2929);
-        GL11.glDisable((int)3042);
-        GL11.glDisable((int)2848);
+        GL11.glEnable(2929);
+        GL11.glDisable(3042);
+        GL11.glDisable(2848);
     }
 
     public void addModule(Module_eSdgMXWuzcxgQVaJFmKZ module) {
         module.add(module.getBind());
         this.modules.add(module);
-        this.categoryModules.put(module.getCategory(), this.categoryModules.getOrDefault((Object)module.getCategory(), 0) + 1);
+        this.categoryModules.put(module.getCategory(), this.categoryModules.getOrDefault(module.getCategory(), 0) + 1);
     }
 
     public void disableAll() {

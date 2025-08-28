@@ -27,7 +27,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final SliderSetting downFactor = this.add(new SliderSetting("DownFactor", 1.0, 0.0, 10.0));
     public final SliderSetting speed = this.add(new SliderSetting("Speed", 1.0, 0.1f, 10.0));
     public final BooleanSetting speedLimit = this.add(new BooleanSetting("SpeedLimit", true));
-    public final SliderSetting maxSpeed = this.add(new SliderSetting("MaxSpeed", 2.5, (double)0.1f, 10.0, v -> this.speedLimit.getValue()));
+    public final SliderSetting maxSpeed = this.add(new SliderSetting("MaxSpeed", 2.5, 0.1f, 10.0, v -> this.speedLimit.getValue()));
     public final BooleanSetting noDrag = this.add(new BooleanSetting("NoDrag", false));
     private final BooleanSetting instantFly = this.add(new BooleanSetting("InstantFly", true));
     private final SliderSetting sneakDownSpeed = this.add(new SliderSetting("DownSpeed", 1.0, 0.1f, 10.0));
@@ -98,7 +98,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     return;
                 }
                 this.instantFlyTimer.reset();
-                ElytraFly.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)ElytraFly.mc.player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
+                ElytraFly.mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(ElytraFly.mc.player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
                 this.hasTouchedGround = false;
                 this.strictTimer.reset();
             }
@@ -108,11 +108,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     protected final Vec3d getRotationVector(float pitch, float yaw) {
         float f = pitch * ((float)Math.PI / 180);
         float g = -yaw * ((float)Math.PI / 180);
-        float h = MathHelper.cos((float)g);
-        float i = MathHelper.sin((float)g);
-        float j = MathHelper.cos((float)f);
-        float k = MathHelper.sin((float)f);
-        return new Vec3d((double)(i * j), (double)(-k), (double)(h * j));
+        float h = MathHelper.cos(g);
+        float i = MathHelper.sin(g);
+        float j = MathHelper.cos(f);
+        float k = MathHelper.sin(f);
+        return new Vec3d(i * j, -k, h * j);
     }
 
     public final Vec3d getRotationVec(float tickDelta) {

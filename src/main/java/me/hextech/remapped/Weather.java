@@ -39,7 +39,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     private void onWeather(WeatherRenderEvent event) {
-        if (((Enum<?>)this.precipitationSetting.getValue()).equals((Object) WeatherMode.Both)) {
+        if (((Enum<?>)this.precipitationSetting.getValue()).equals(WeatherMode.Both)) {
             this.render(event, WeatherMode.Rain);
             this.render(event, WeatherMode.Snow);
             event.cancel();
@@ -59,15 +59,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float blue = (float)this.weatherColor.getValue().getBlue() / 255.0f;
         float green = (float)this.weatherColor.getValue().getGreen() / 255.0f;
         manager.enable();
-        int cameraIntX = MathHelper.floor((double)cameraX);
-        int cameraIntY = MathHelper.floor((double)cameraY);
-        int cameraIntZ = MathHelper.floor((double)cameraZ);
+        int cameraIntX = MathHelper.floor(cameraX);
+        int cameraIntY = MathHelper.floor(cameraY);
+        int cameraIntZ = MathHelper.floor(cameraZ);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
         RenderSystem.disableCull();
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
-        RenderSystem.depthMask((boolean)MinecraftClient.isFabulousGraphicsOrBetter());
+        RenderSystem.depthMask(MinecraftClient.isFabulousGraphicsOrBetter());
         RenderSystem.setShader(GameRenderer::getParticleProgram);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
         int expand = this.expandSize.getValueInt();
@@ -82,7 +82,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (coordPos < 0 || coordPos > 1023) continue;
                 double xCoord = (double)weatherXCoords[coordPos] * 0.5;
                 double zCoord = (double)weatherYCoords[coordPos] * 0.5;
-                mutable.set((double)xRange, cameraY, (double)zRange);
+                mutable.set(xRange, cameraY, zRange);
                 int maxHeight = this.height.getValueInt();
                 int minIntY = cameraIntY - expand;
                 int expandedCameraY = cameraIntY + expand;
@@ -94,7 +94,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 int maxRenderY = Math.max(maxHeight, cameraIntY);
                 if (minIntY == expandedCameraY) continue;
-                Random random = Random.create((long)((long)xRange * (long)xRange * 3121L + (long)xRange * 45238971L ^ (long)zRange * (long)zRange * 418711L + (long)zRange * 13761L));
+                Random random = Random.create((long)xRange * (long)xRange * 3121L + (long)xRange * 45238971L ^ (long)zRange * (long)zRange * 418711L + (long)zRange * 13761L);
                 mutable.set(xRange, minIntY, zRange);
                 Biome.Precipitation precipitation = precipitationType.toMC();
                 if (precipitation == Biome.Precipitation.RAIN) {
@@ -103,7 +103,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                             tessellator.draw();
                         }
                         tessPosition = 0;
-                        RenderSystem.setShaderTexture((int)0, (Identifier)RAIN);
+                        RenderSystem.setShaderTexture(0, RAIN);
                         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
                     }
                     int randomSeed = this.ticks + xRange * xRange * 3121 + xRange * 45238971 + zRange * zRange * 418711 + zRange * 13761 & 0x1F;
@@ -113,7 +113,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     float dLength = (float)Math.sqrt(xOffset * xOffset + yOffset * yOffset) / (float)expand;
                     weatherAlpha = ((1.0f - dLength * dLength) * 0.5f + 0.5f) * f;
                     mutable.set(xRange, maxRenderY, zRange);
-                    int lightmapCoord = WorldRenderer.getLightmapCoordinates((BlockRenderView) Weather.mc.world, (BlockPos)mutable);
+                    int lightmapCoord = WorldRenderer.getLightmapCoordinates(Weather.mc.world, mutable);
                     bufferBuilder.vertex((double)xRange - cameraX - xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ - zCoord + 0.5).texture(0.0f, (float)minIntY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).light(lightmapCoord).next();
                     bufferBuilder.vertex((double)xRange - cameraX + xCoord + 0.5, (double)expandedCameraY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f, (float)minIntY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).light(lightmapCoord).next();
                     bufferBuilder.vertex((double)xRange - cameraX + xCoord + 0.5, (double)minIntY - cameraY, (double)zRange - cameraZ + zCoord + 0.5).texture(1.0f, (float)expandedCameraY * 0.25f + texTextureV).color(red, green, blue, weatherAlpha).light(lightmapCoord).next();
@@ -126,7 +126,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         tessellator.draw();
                     }
                     tessPosition = 1;
-                    RenderSystem.setShaderTexture((int)0, (Identifier)SNOW);
+                    RenderSystem.setShaderTexture(0, SNOW);
                     bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
                 }
                 float snowSmooth = -((float)(this.ticks & 0x1FF) + tickDelta) / 512.0f;
@@ -137,7 +137,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 weatherAlpha = (float)Math.sqrt(xOffset * xOffset + yOffset * yOffset) / (float)expand;
                 float snowAlpha = ((1.0f - weatherAlpha * weatherAlpha) * 0.3f + 0.5f) * f;
                 mutable.set(xRange, maxRenderY, zRange);
-                int lightMapCoord = WorldRenderer.getLightmapCoordinates((BlockRenderView) Weather.mc.world, (BlockPos)mutable);
+                int lightMapCoord = WorldRenderer.getLightmapCoordinates(Weather.mc.world, mutable);
                 int lightmapCalcV = lightMapCoord >> 16 & 0xFFFF;
                 int lightmapCalcU = lightMapCoord & 0xFFFF;
                 int lightmapV = (lightmapCalcV * 3 + 240) / 4;

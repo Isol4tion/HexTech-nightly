@@ -51,9 +51,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (event.isPost()) {
             return;
         }
-        PacketFly.mc.player.setMaxLength0(0.0, 0.0, 0.0);
+        PacketFly.mc.player.setVelocity(0.0, 0.0, 0.0);
         boolean checkCollisionBoxes = this.checkHitBoxes();
-        double d = PacketFly.mc.player.input.jumping && (checkCollisionBoxes || !MovementUtil.isMoving()) ? (this.flight.getValue() && !checkCollisionBoxes ? (this.flightMode.getValue() == 0.0 ? (this.resetCounter(10) ? -0.032 : 0.062) : (this.resetCounter(20) ? -0.032 : 0.062)) : 0.062) : (PacketFly.mc.player.input.sneaking ? -0.062 : (!checkCollisionBoxes ? (this.resetCounter(4) ? (this.flight.getValue() ? -0.04 : 0.0) : 0.0) : (speed = 0.0)));
+        speed = PacketFly.mc.player.input.jumping && (checkCollisionBoxes || !MovementUtil.isMoving()) ? (this.flight.getValue() && !checkCollisionBoxes ? (this.flightMode.getValue() == 0.0 ? (this.resetCounter(10) ? -0.032 : 0.062) : (this.resetCounter(20) ? -0.032 : 0.062)) : 0.062) : (PacketFly.mc.player.input.sneaking ? -0.062 : (!checkCollisionBoxes ? (this.resetCounter(4) ? (this.flight.getValue() ? -0.04 : 0.0) : 0.0) : (speed = 0.0)));
         if (checkCollisionBoxes && MovementUtil.isMoving() && speed != 0.0) {
             speed /= this.antiFactor.getValue();
         }
@@ -89,7 +89,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (PacketFly.nullCheck()) {
             return;
         }
-        if (event.getPacket() instanceof PlayerMoveC2SPacket && !this.packets.remove(packet = (PlayerMoveC2SPacket)event.getPacket())) {
+        if (event.getPacket() instanceof PlayerMoveC2SPacket && !this.packets.remove(packet = event.getPacket())) {
             if (event.getPacket() instanceof PlayerMoveC2SPacket.LookAndOnGround && !this.antiRotation.getValue()) {
                 return;
             }
@@ -106,7 +106,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (event.getPacket() instanceof PlayerPositionLookS2CPacket) {
-            PlayerPositionLookS2CPacket packet = (PlayerPositionLookS2CPacket)event.getPacket();
+            PlayerPositionLookS2CPacket packet = event.getPacket();
             if (this.setID.getValue()) {
                 this.teleportID = packet.getTeleportId();
             }
@@ -114,7 +114,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean checkHitBoxes() {
-        return PacketFly.mc.world.canCollide((Entity)PacketFly.mc.player, PacketFly.mc.player.getBoundingBox().expand(-0.0625, -0.0625, -0.0625));
+        return PacketFly.mc.world.canCollide(PacketFly.mc.player, PacketFly.mc.player.getBoundingBox().expand(-0.0625, -0.0625, -0.0625));
     }
 
     private boolean resetCounter(int counter) {
@@ -151,9 +151,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Vec3d vec = new Vec3d(x, y, z);
         Vec3d position = PacketFly.mc.player.getPos().add(vec);
         Vec3d outOfBoundsVec = this.outOfBoundsVec(position);
-        this.packetSender((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.PositionAndOnGround(position.x, position.y, position.z, PacketFly.mc.player.isOnGround()));
+        this.packetSender(new PlayerMoveC2SPacket.PositionAndOnGround(position.x, position.y, position.z, PacketFly.mc.player.isOnGround()));
         if (this.invalidPacket.getValue()) {
-            this.packetSender((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.PositionAndOnGround(outOfBoundsVec.x, outOfBoundsVec.y, outOfBoundsVec.z, PacketFly.mc.player.isOnGround()));
+            this.packetSender(new PlayerMoveC2SPacket.PositionAndOnGround(outOfBoundsVec.x, outOfBoundsVec.y, outOfBoundsVec.z, PacketFly.mc.player.isOnGround()));
         }
         if (this.setPos.getValue()) {
             PacketFly.mc.player.setPosition(position.x, position.y, position.z);
@@ -163,7 +163,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void teleportPacket(boolean shouldTeleport) {
         if (shouldTeleport) {
-            PacketFly.mc.player.networkHandler.sendPacket((Packet)new TeleportConfirmC2SPacket(++this.teleportID));
+            PacketFly.mc.player.networkHandler.sendPacket(new TeleportConfirmC2SPacket(++this.teleportID));
         }
     }
 
@@ -173,6 +173,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void packetSender(PlayerMoveC2SPacket packet) {
         this.packets.add(packet);
-        PacketFly.mc.player.networkHandler.sendPacket((Packet)packet);
+        PacketFly.mc.player.networkHandler.sendPacket(packet);
     }
 }

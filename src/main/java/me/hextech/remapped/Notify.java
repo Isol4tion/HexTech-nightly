@@ -27,7 +27,7 @@ public class Notify {
      */
     public enum _eNVZNRNonauDhUZRxBAg {
         Line,
-        Fill;
+        Fill
 
     }
 
@@ -37,7 +37,7 @@ public class Notify {
     public enum _hvcAdwcUFPZabyUezEMv {
         Notify,
         Chat,
-        Both;
+        Both
 
     }
 }

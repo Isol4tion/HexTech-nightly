@@ -14,15 +14,15 @@ public class PearlUtil
 implements Wrapper {
     public static void doPearl(float yaw, float pitch, boolean inv) {
         if (PearlUtil.mc.player.getMainHandStack().getItem() == Items.ENDER_PEARL) {
-            EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(PearlUtil.mc.player.getYaw(), PearlUtil.mc.player.getPitch(), PearlUtil.mc.player.isOnGround()));
-            PearlUtil.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
+            EntityUtil.sendLook(new PlayerMoveC2SPacket.LookAndOnGround(PearlUtil.mc.player.getYaw(), PearlUtil.mc.player.getPitch(), PearlUtil.mc.player.isOnGround()));
+            PearlUtil.mc.player.networkHandler.sendPacket(new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
         } else {
             int pearl = PearlUtil.findItem(Items.ENDER_PEARL, inv);
             if (pearl != -1) {
                 int old = PearlUtil.mc.player.getInventory().selectedSlot;
                 PearlUtil.doSwap(pearl, inv);
-                EntityUtil.sendLook((PlayerMoveC2SPacket)new PlayerMoveC2SPacket.LookAndOnGround(PearlUtil.mc.player.getYaw(), PearlUtil.mc.player.getPitch(), PearlUtil.mc.player.isOnGround()));
-                PearlUtil.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
+                EntityUtil.sendLook(new PlayerMoveC2SPacket.LookAndOnGround(PearlUtil.mc.player.getYaw(), PearlUtil.mc.player.getPitch(), PearlUtil.mc.player.isOnGround()));
+                PearlUtil.mc.player.networkHandler.sendPacket(new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
                 if (inv) {
                     PearlUtil.doSwap(pearl, true);
                     EntityUtil.syncInventory();

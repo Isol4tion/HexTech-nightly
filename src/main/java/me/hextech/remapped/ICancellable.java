@@ -1,11 +1,11 @@
 package me.hextech.remapped;
 
 public interface ICancellable {
-    default public void cancel() {
+    default void cancel() {
         this.setCancelled(true);
     }
 
-    public boolean isCancelled();
+    boolean isCancelled();
 
-    public void setCancelled(boolean var1);
+    void setCancelled(boolean var1);
 }

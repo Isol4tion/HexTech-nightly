@@ -32,7 +32,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private ShulkerBoxBlockEntity getBlock() {
         for (BlockEntity entity : BlockUtil.getTileEntities()) {
             ShulkerBoxBlockEntity shulker;
-            if (!(entity instanceof ShulkerBoxBlockEntity) || (double)MathHelper.sqrt((float)((float)AntiRegear.mc.player.squaredDistanceTo((shulker = (ShulkerBoxBlockEntity)entity).getPos().toCenterPos()))) <= this.safeRange.getValue() || !((double)MathHelper.sqrt((float)((float)AntiRegear.mc.player.squaredDistanceTo(shulker.getPos().toCenterPos()))) <= this.range.getValue())) continue;
+            if (!(entity instanceof ShulkerBoxBlockEntity) || (double)MathHelper.sqrt((float)AntiRegear.mc.player.squaredDistanceTo((shulker = (ShulkerBoxBlockEntity)entity).getPos().toCenterPos())) <= this.safeRange.getValue() || !((double)MathHelper.sqrt((float)AntiRegear.mc.player.squaredDistanceTo(shulker.getPos().toCenterPos())) <= this.range.getValue())) continue;
             return shulker;
         }
         return null;

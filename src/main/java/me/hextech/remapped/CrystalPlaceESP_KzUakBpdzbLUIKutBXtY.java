@@ -5,6 +5,6 @@ package me.hextech.remapped;
  */
 public enum CrystalPlaceESP_KzUakBpdzbLUIKutBXtY {
     Normal,
-    New;
+    New
 
 }

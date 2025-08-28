@@ -94,7 +94,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             final VertexConsumerProvider.Immediate immediate = TotemAnimation.mc.getBufferBuilders().getEntityVertexConsumers();
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f - f);
-            TotemAnimation.mc.getItemRenderer().renderItem(this.floatingItem, ModelTransformationMode.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrixStack, (VertexConsumerProvider) immediate, (World) TotemAnimation.mc.world, 0);
+            TotemAnimation.mc.getItemRenderer().renderItem(this.floatingItem, ModelTransformationMode.FIXED, 15728880, OverlayTexture.DEFAULT_UV, matrixStack, immediate, TotemAnimation.mc.world, 0);
             matrixStack.pop();
             immediate.draw();
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -105,10 +105,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private int getTime() {
-        if (((Enum)this.mode.getValue()).equals((Object)_ZVxiGMTWPCIGCYyTrffL.FadeOut)) {
+        if (this.mode.getValue().equals(_ZVxiGMTWPCIGCYyTrffL.FadeOut)) {
             return 10;
         }
-        if (((Enum)this.mode.getValue()).equals((Object)_ZVxiGMTWPCIGCYyTrffL.Insert)) {
+        if (this.mode.getValue().equals(_ZVxiGMTWPCIGCYyTrffL.Insert)) {
             return 20;
         }
         return 40;
@@ -122,7 +122,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Fall,
         Rocket,
         Roll,
-        Off;
+        Off
 
     }
 }

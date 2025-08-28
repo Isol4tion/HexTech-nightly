@@ -44,7 +44,7 @@ extends Tab {
                 int damage = EntityUtil.getDamagePercent(armor);
                 int yOffset = this.height / 2;
                 drawContext.drawItem(armor, this.x + this.width - xOff, this.y + yOffset);
-                drawContext.drawStackOverlay(this.mc.textRenderer, armor, this.x + this.width - xOff, this.y + yOffset);
+                drawContext.drawItemInSlot(this.mc.textRenderer, armor, this.x + this.width - xOff, this.y + yOffset);
                 TextRenderer textRenderer = this.mc.textRenderer;
                 String string = String.valueOf(damage);
                 int n = this.x + this.width + 8 - xOff - this.mc.textRenderer.getWidth(String.valueOf(damage)) / 2;

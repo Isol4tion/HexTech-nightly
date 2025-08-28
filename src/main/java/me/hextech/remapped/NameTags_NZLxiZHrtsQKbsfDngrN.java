@@ -14,7 +14,6 @@ import me.hextech.remapped.FontRenderers;
 import me.hextech.remapped.FreeCam;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.NameTags;
 import me.hextech.remapped.NameTags_AuEMiXPlywKMVYDJMcAR;
 import me.hextech.remapped.NameTags_VRQxrjlOGbJxMNTCEBWa;
 import me.hextech.remapped.Render2DUtil;
@@ -40,10 +39,10 @@ public class NameTags_NZLxiZHrtsQKbsfDngrN
 extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static NameTags_NZLxiZHrtsQKbsfDngrN INSTANCE;
     public final EnumSetting<NameTags_VRQxrjlOGbJxMNTCEBWa> font = this.add(new EnumSetting<NameTags_VRQxrjlOGbJxMNTCEBWa>("FontMode", NameTags_VRQxrjlOGbJxMNTCEBWa.Fast));
-    private final SliderSetting scale = this.add(new SliderSetting("Scale", (double)0.68f, (double)0.1f, 2.0, 0.01));
-    private final SliderSetting minScale = this.add(new SliderSetting("MinScale", (double)0.2f, (double)0.1f, 1.0, 0.01));
+    private final SliderSetting scale = this.add(new SliderSetting("Scale", 0.68f, 0.1f, 2.0, 0.01));
+    private final SliderSetting minScale = this.add(new SliderSetting("MinScale", 0.2f, 0.1f, 1.0, 0.01));
     private final SliderSetting scaled = this.add(new SliderSetting("Scaled", 1.0, 0.0, 2.0, 0.01));
-    private final SliderSetting offset = this.add(new SliderSetting("Offset", (double)0.315f, (double)0.001f, 1.0, 0.001));
+    private final SliderSetting offset = this.add(new SliderSetting("Offset", 0.315f, 0.001f, 1.0, 0.001));
     private final SliderSetting height = this.add(new SliderSetting("Height", 0.0, -3.0, 3.0, 0.01));
     private final BooleanSetting gamemode = this.add(new BooleanSetting("Gamemode", false));
     private final BooleanSetting ping = this.add(new BooleanSetting("Ping", false));
@@ -56,7 +55,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final ColorSetting friendColor = this.add(new ColorSetting("FriendColor", new Color(-14811363, true)));
     private final ColorSetting color = this.add(new ColorSetting("Color", new Color(-1, true)));
     private final SliderSetting armorHeight = this.add(new SliderSetting("ArmorHeight", 0.3f, -10.0, 10.0));
-    private final SliderSetting armorScale = this.add(new SliderSetting("ArmorScale", (double)0.9f, (double)0.1f, 2.0, 0.01f));
+    private final SliderSetting armorScale = this.add(new SliderSetting("ArmorScale", 0.9f, 0.1f, 2.0, 0.01f));
     private final EnumSetting<NameTags_AuEMiXPlywKMVYDJMcAR> armorMode = this.add(new EnumSetting<NameTags_AuEMiXPlywKMVYDJMcAR>("ArmorMode", NameTags_AuEMiXPlywKMVYDJMcAR.Full));
 
     public NameTags_NZLxiZHrtsQKbsfDngrN() {
@@ -112,41 +111,41 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             position.x = Math.min(vector.x, position.x);
             position.y = Math.min(vector.y, position.y);
             position.z = Math.max(vector.x, position.z);
-            Object final_string = "";
+            String final_string = "";
             if (this.ping.getValue()) {
-                final_string = (String)final_string + NameTags_NZLxiZHrtsQKbsfDngrN.getEntityPing(ent) + "ms ";
+                final_string = final_string + NameTags_NZLxiZHrtsQKbsfDngrN.getEntityPing(ent) + "ms ";
             }
             if (this.gamemode.getValue()) {
-                final_string = (String)final_string + this.translateGamemode(NameTags_NZLxiZHrtsQKbsfDngrN.getEntityGamemode(ent)) + " ";
+                final_string = final_string + this.translateGamemode(NameTags_NZLxiZHrtsQKbsfDngrN.getEntityGamemode(ent)) + " ";
             }
-            final_string = (String)final_string + String.valueOf(Formatting.RESET) + ent.getName().getString();
+            final_string = final_string + Formatting.RESET + ent.getName().getString();
             if (this.health.getValue()) {
-                final_string = (String)final_string + " " + String.valueOf(this.getHealthColor(ent)) + NameTags_NZLxiZHrtsQKbsfDngrN.round2(ent.getABSORPTIONAmount() + ent.getHealth());
+                final_string = final_string + " " + this.getHealthColor(ent) + NameTags_NZLxiZHrtsQKbsfDngrN.round2(ent.getAbsorptionAmount() + ent.getHealth());
             }
             if (this.distance.getValue()) {
-                final_string = (String)final_string + " " + String.valueOf(Formatting.RESET) + String.format("%.1f", Float.valueOf(NameTags_NZLxiZHrtsQKbsfDngrN.mc.player.distanceTo((Entity)ent))) + "m";
+                final_string = final_string + " " + Formatting.RESET + String.format("%.1f", Float.valueOf(NameTags_NZLxiZHrtsQKbsfDngrN.mc.player.distanceTo(ent))) + "m";
             }
             if (this.pops.getValue() && HexTech.POP.getPop(ent.getName().getString()) != 0) {
-                final_string = (String)final_string + " \u00a7bPop " + String.valueOf(Formatting.LIGHT_PURPLE) + HexTech.POP.getPop(ent.getName().getString());
+                final_string = final_string + " \u00a7bPop " + Formatting.LIGHT_PURPLE + HexTech.POP.getPop(ent.getName().getString());
             }
             double posX = position.x;
             double posY = position.y;
             double endPosX = position.z;
             float diff = (float)(endPosX - posX) / 2.0f;
-            float textWidth = this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy ? FontRenderers.Arial.getWidth((String)final_string) * 1.0f : (float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer.getWidth((String)final_string);
-            float tagX = (float)((posX + (double)diff - (double)(textWidth / 2.0f)) * 1.0);
+            float textWidth = this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy ? FontRenderers.Arial.getWidth(final_string) : (float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer.getWidth(final_string);
+            float tagX = (float)((posX + (double) diff - (double) (textWidth / 2.0f)));
             ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
             stacks.add(ent.getMainHandStack());
-            stacks.add((ItemStack)ent.getInventory().armor.get(3));
-            stacks.add((ItemStack)ent.getInventory().armor.get(2));
-            stacks.add((ItemStack)ent.getInventory().armor.get(1));
-            stacks.add((ItemStack)ent.getInventory().armor.get(0));
+            stacks.add(ent.getInventory().armor.get(3));
+            stacks.add(ent.getInventory().armor.get(2));
+            stacks.add(ent.getInventory().armor.get(1));
+            stacks.add(ent.getInventory().armor.get(0));
             stacks.add(ent.getOffHandStack());
             context.getMatrices().push();
             context.getMatrices().translate(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float)(posY - 13.0) + 6.5f, 0.0f);
-            float size = (float)Math.max(1.0 - (double)MathHelper.sqrt((float)((float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.cameraEntity.squaredDistanceTo(preVec))) * 0.01 * this.scaled.getValue(), 0.0);
+            float size = (float)Math.max(1.0 - (double)MathHelper.sqrt((float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.cameraEntity.squaredDistanceTo(preVec)) * 0.01 * this.scaled.getValue(), 0.0);
             context.getMatrices().scale(Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), 1.0f);
-            context.getMatrices().translate(0.0f, this.offset.getValueFloat() * MathHelper.sqrt((float)((float)EntityUtil.getEyesPos().squaredDistanceTo(preVec))), 0.0f);
+            context.getMatrices().translate(0.0f, this.offset.getValueFloat() * MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(preVec)), 0.0f);
             context.getMatrices().translate(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float)(posY - 13.0 + 6.5)), 0.0f);
             float item_offset = 0.0f;
             if (this.armorMode.getValue() != NameTags_AuEMiXPlywKMVYDJMcAR.None) {
@@ -158,7 +157,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         context.getMatrices().translate(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float)(posY - 13.0) + 6.5f, 0.0f);
                         context.getMatrices().scale(this.armorScale.getValueFloat(), this.armorScale.getValueFloat(), 1.0f);
                         context.getMatrices().translate(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float)(posY - 13.0 + 6.5)), 0.0f);
-                        context.getMatrices().translate(posX - 52.5 + (double)item_offset, (double)((float)(posY - 29.0) + this.armorHeight.getValueFloat()), 0.0);
+                        context.getMatrices().translate(posX - 52.5 + (double)item_offset, (float)(posY - 29.0) + this.armorHeight.getValueFloat(), 0.0);
                         float durability = armorComponent.getMaxDamage() - armorComponent.getDamage();
                         int percent = (int)(durability / (float)armorComponent.getMaxDamage() * 100.0f);
                         Color color = percent <= 33 ? Color.RED : (percent <= 66 ? Color.ORANGE : Color.GREEN);
@@ -167,19 +166,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                                 if (count <= 1 || count >= 6) break;
                                 DiffuseLighting.disableGuiDepthLighting();
                                 context.drawItem(armorComponent, 0, 0);
-                                context.drawStackOverlay(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
+                                context.drawItemInSlot(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
                                 break;
                             }
                             case 3: {
                                 DiffuseLighting.disableGuiDepthLighting();
                                 context.drawItem(armorComponent, 0, 0);
-                                context.drawStackOverlay(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
+                                context.drawItemInSlot(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
                                 break;
                             }
                             case 1: {
                                 DiffuseLighting.disableGuiDepthLighting();
                                 context.drawItem(armorComponent, 0, 0);
-                                context.drawStackOverlay(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
+                                context.drawItemInSlot(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
                                 if (armorComponent.getMaxDamage() <= 0) break;
                                 if (this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy) {
                                     FontRenderers.Arial.drawString(context.getMatrices(), String.valueOf(percent), 9.0f - FontRenderers.Arial.getWidth(String.valueOf(percent)) / 2.0f, -FontRenderers.Arial.getFontHeight() + 3.0f, color.getRGB());
@@ -193,7 +192,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                                 break;
                             }
                             case 2: {
-                                context.drawStackOverlay(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
+                                context.drawItemInSlot(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, armorComponent, 0, 0);
                                 if (armorComponent.getMaxDamage() <= 0) break;
                                 if (!armorComponent.isItemBarVisible()) {
                                     int i = armorComponent.getItemBarStep();
@@ -252,7 +251,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                                     }
                                 }
                                 if (this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy) {
-                                    FontRenderers.Arial.drawString(context.getMatrices(), encName, posX - 50.0 + (double)item_offset, (double)((float)posY - 45.0f + enchantmentY), -1);
+                                    FontRenderers.Arial.drawString(context.getMatrices(), encName, posX - 50.0 + (double)item_offset, (float)posY - 45.0f + enchantmentY, -1);
                                 } else {
                                     context.getMatrices().push();
                                     context.getMatrices().translate(posX - 50.0 + (double)item_offset, posY - 45.0 + (double)enchantmentY, 0.0);
@@ -276,11 +275,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 Render2DUtil.drawRect(context.getMatrices(), tagX + textWidth + 2.0f, (float)(posY - 14.0), 1.0f, 12.0f, this.outline.getValue());
             }
             if (this.font.getValue() == NameTags_VRQxrjlOGbJxMNTCEBWa.Fancy) {
-                FontRenderers.Arial.drawString(context.getMatrices(), (String)final_string, tagX, (float)posY - 10.0f, HexTech.FRIEND.isFriend(ent) ? this.friendColor.getValue().getRGB() : this.color.getValue().getRGB());
+                FontRenderers.Arial.drawString(context.getMatrices(), final_string, tagX, (float)posY - 10.0f, HexTech.FRIEND.isFriend(ent) ? this.friendColor.getValue().getRGB() : this.color.getValue().getRGB());
             } else {
                 context.getMatrices().push();
                 context.getMatrices().translate(tagX, (float)posY - 11.0f, 0.0f);
-                context.drawText(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, (String)final_string, 0, 0, HexTech.FRIEND.isFriend(ent) ? this.friendColor.getValue().getRGB() : this.color.getValue().getRGB(), true);
+                context.drawText(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, final_string, 0, 0, HexTech.FRIEND.isFriend(ent) ? this.friendColor.getValue().getRGB() : this.color.getValue().getRGB(), true);
                 context.getMatrices().pop();
             }
             context.getMatrices().pop();
@@ -291,17 +290,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (gamemode == null) {
             return "\u00a77[BOT]";
         }
-        return switch (NameTags.$SwitchMap$net$minecraft$world$GameMode[gamemode.ordinal()]) {
-            default -> throw new IncompatibleClassChangeError();
-            case 1 -> "\u00a7b[S]";
-            case 2 -> "\u00a7c[C]";
-            case 3 -> "\u00a77[SP]";
-            case 4 -> "\u00a7e[A]";
+        return switch (gamemode) {
+            case SURVIVAL -> "\u00a7b[S]";
+            case CREATIVE -> "\u00a7c[C]";
+            case SPECTATOR -> "\u00a77[SP]";
+            case ADVENTURE -> "\u00a7e[A]";
         };
     }
 
     private Formatting getHealthColor(@NotNull PlayerEntity entity) {
-        int health = (int)((float)((int)entity.getHealth()) + entity.getABSORPTIONAmount());
+        int health = (int)((float)((int)entity.getHealth()) + entity.getAbsorptionAmount());
         if (health >= 30) {
             return Formatting.DARK_GREEN;
         }

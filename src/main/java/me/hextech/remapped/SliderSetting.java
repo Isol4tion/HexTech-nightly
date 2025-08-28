@@ -38,7 +38,7 @@ extends Setting {
     }
 
     public SliderSetting(String name, int value, int min, int max) {
-        this(name, (double)value, (double)min, (double)max, 1.0);
+        this(name, value, min, max, 1.0);
     }
 
     public SliderSetting(String name, double value, double min, double max, double increment, Predicate visibilityIn) {
@@ -129,8 +129,8 @@ extends Setting {
     public void keyType(int keyCode) {
         switch (keyCode) {
             case 86: {
-                if (!InputUtil.isKeyPressed((long)Wrapper.mc.getWindow().getHandle(), (int)341)) break;
-                this.temp = this.temp + SelectionManager.getClipboard((MinecraftClient)Wrapper.mc);
+                if (!InputUtil.isKeyPressed(Wrapper.mc.getWindow().getHandle(), 341)) break;
+                this.temp = this.temp + SelectionManager.getClipboard(Wrapper.mc);
                 break;
             }
             case 256: 

@@ -7,6 +7,6 @@ public enum Blocker_BybKYKuAntfATLqEYmcO {
     General,
     Target,
     Check,
-    Render;
+    Render
 
 }

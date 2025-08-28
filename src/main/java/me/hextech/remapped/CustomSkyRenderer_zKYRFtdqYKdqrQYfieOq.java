@@ -24,11 +24,11 @@ import org.joml.Vector3f;
 
 public class CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq
 implements DimensionRenderingRegistry.SkyRenderer {
-    private static final Identifier NEBULA_1;
-    private static final Identifier NEBULA_2;
-    private static final Identifier HORIZON;
-    private static final Identifier STARS;
-    private static final Identifier FOG;
+    private static final Identifier NEBULA_1 = id("textures/sky/nebula_2.png");
+    private static final Identifier NEBULA_2 = id("textures/sky/nebula_3.png");
+    private static final Identifier HORIZON = id("textures/sky/nebula_1.png");
+    private static final Identifier STARS = id("textures/sky/stars.png");
+    private static final Identifier FOG = id("textures/sky/fog.png");
     private VertexBuffer nebula1;
     private VertexBuffer nebula2;
     private VertexBuffer horizon;
@@ -78,34 +78,34 @@ implements DimensionRenderingRegistry.SkyRenderer {
         float time2 = time * 2.0f;
         float time3 = time * 3.0f;
         BackgroundRenderer.applyFogColor();
-        RenderSystem.depthMask((boolean)false);
+        RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
-        RenderSystem.blendFunc((GlStateManager.SrcFactor)GlStateManager.SrcFactor.SRC_ALPHA, (GlStateManager.DstFactor)GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         float blindA = 1.0f;
         float blind02 = blindA * 0.2f;
         float blind06 = blindA * 0.6f;
         if (blindA > 0.0f) {
             matrices.push();
             matrices.multiply(new Quaternionf().rotationXYZ(0.0f, time, 0.0f));
-            RenderSystem.setShaderTexture((int)0, (Identifier)HORIZON);
+            RenderSystem.setShaderTexture(0, HORIZON);
             Color color = Skybox.INSTANCE.color.getValue();
             this.renderBuffer(matrices, projectionMatrix, this.horizon, VertexFormats.POSITION_TEXTURE, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, 0.7f * blindA);
             matrices.pop();
             matrices.push();
             matrices.multiply(new Quaternionf().rotationXYZ(0.0f, -time, 0.0f));
-            RenderSystem.setShaderTexture((int)0, (Identifier)NEBULA_1);
+            RenderSystem.setShaderTexture(0, NEBULA_1);
             color = Skybox.INSTANCE.color2.getValue();
             this.renderBuffer(matrices, projectionMatrix, this.nebula1, VertexFormats.POSITION_TEXTURE, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, blind02);
             matrices.pop();
             matrices.push();
             matrices.multiply(new Quaternionf().rotationXYZ(0.0f, time2, 0.0f));
-            RenderSystem.setShaderTexture((int)0, (Identifier)NEBULA_2);
+            RenderSystem.setShaderTexture(0, NEBULA_2);
             color = Skybox.INSTANCE.color3.getValue();
             this.renderBuffer(matrices, projectionMatrix, this.nebula2, VertexFormats.POSITION_TEXTURE, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, blind02);
             matrices.pop();
             if (Skybox.INSTANCE.stars.getValue()) {
-                RenderSystem.setShaderTexture((int)0, (Identifier)STARS);
+                RenderSystem.setShaderTexture(0, STARS);
                 matrices.push();
                 matrices.multiply(new Quaternionf().setAngleAxis(time, this.axis3.x, this.axis3.y, this.axis3.z));
                 color = Skybox.INSTANCE.color4.getValue();
@@ -123,7 +123,7 @@ implements DimensionRenderingRegistry.SkyRenderer {
             if (a > 1.0f) {
                 a = 1.0f;
             }
-            RenderSystem.setShaderTexture((int)0, (Identifier)FOG);
+            RenderSystem.setShaderTexture(0, FOG);
             this.renderBuffer(matrices, projectionMatrix, this.fog, VertexFormats.POSITION_TEXTURE, 0.3061791f, 0.2449433f, 0.3061791f, a);
         }
         if (Skybox.INSTANCE.stars.getValue() && blindA > 0.0f) {
@@ -136,14 +136,14 @@ implements DimensionRenderingRegistry.SkyRenderer {
             this.renderBuffer(matrices, projectionMatrix, this.stars2, VertexFormats.POSITION, 0.95f, 0.64f, 0.93f, blind06);
             matrices.pop();
         }
-        RenderSystem.depthMask((boolean)true);
+        RenderSystem.depthMask(true);
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     private void renderBuffer(MatrixStack matrices, Matrix4f matrix4f, VertexBuffer buffer, VertexFormat format, float r, float g, float b, float a) {
-        RenderSystem.setShaderColor((float)r, (float)g, (float)b, (float)a);
+        RenderSystem.setShaderColor(r, g, b, a);
         buffer.bind();
         if (format == VertexFormats.POSITION) {
             buffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionProgram());
@@ -195,7 +195,7 @@ implements DimensionRenderingRegistry.SkyRenderer {
             double posX = random.nextDouble() * 2.0 - 1.0;
             double posY = random.nextDouble() * 2.0 - 1.0;
             double posZ = random.nextDouble() * 2.0 - 1.0;
-            double size = CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq.randRange(minSize, maxSize, (Random)random);
+            double size = CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq.randRange(minSize, maxSize, random);
             double length = posX * posX + posY * posY + posZ * posZ;
             if (!(length < 1.0) || !(length > 0.001)) continue;
             length = 1.0 / Math.sqrt(length);
@@ -233,7 +233,7 @@ implements DimensionRenderingRegistry.SkyRenderer {
             double posX = random.nextDouble() * 2.0 - 1.0;
             double posY = random.nextDouble() * 2.0 - 1.0;
             double posZ = random.nextDouble() * 2.0 - 1.0;
-            double size = CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq.randRange(minSize, maxSize, (Random)random);
+            double size = CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq.randRange(minSize, maxSize, random);
             double length = posX * posX + posY * posY + posZ * posZ;
             if (!(length < 1.0) || !(length > 0.001)) continue;
             length = 1.0 / Math.sqrt(length);
@@ -274,7 +274,7 @@ implements DimensionRenderingRegistry.SkyRenderer {
             double posX = random.nextDouble() * 2.0 - 1.0;
             double posY = random.nextDouble() - 0.5;
             double posZ = random.nextDouble() * 2.0 - 1.0;
-            double size = CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq.randRange(minSize, maxSize, (Random)random);
+            double size = CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq.randRange(minSize, maxSize, random);
             double length = posX * posX + posY * posY + posZ * posZ;
             double distance = 2.0;
             if (!(length < 1.0) || !(length > 0.001)) continue;

@@ -58,8 +58,8 @@ public abstract class CameraMixin {
             float pitchDiff = camera.lookPitch - camera.originalPitch();
             float yawStep = speed * (yawDiff * steps);
             float pitchStep = speed * (pitchDiff * steps);
-            float yaw = MathHelper.stepTowards((float)camera.lookYaw, (float)camera.originalYaw(), (float)(yawStep * delta));
-            float pitch = MathHelper.stepTowards((float)camera.lookPitch, (float)camera.originalPitch(), (float)(pitchStep * delta));
+            float yaw = MathHelper.stepTowards(camera.lookYaw, camera.originalYaw(), yawStep * delta);
+            float pitch = MathHelper.stepTowards(camera.lookPitch, camera.originalPitch(), pitchStep * delta);
             camera.lookYaw = yaw;
             camera.lookPitch = pitch;
             args.set(0, (Object)Float.valueOf(yaw));

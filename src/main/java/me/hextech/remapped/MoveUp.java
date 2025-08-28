@@ -34,31 +34,31 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (MoveUp.mc.player != null && this.noWeb.getValue() && HoleKickTest.isInWeb((PlayerEntity)MoveUp.mc.player)) {
+        if (MoveUp.mc.player != null && this.noWeb.getValue() && HoleKickTest.isInWeb(MoveUp.mc.player)) {
             return;
         }
         if (MoveUp.mc.player != null && this.onlyGround.getValue() && !MoveUp.mc.player.isOnGround()) {
             return;
         }
-        if (MoveUp.mc.player != null && (!this.onlyburrow.getValue() || Util.isBurrowed((PlayerEntity)MoveUp.mc.player, !this.pEndChest.getValue()))) {
+        if (MoveUp.mc.player != null && (!this.onlyburrow.getValue() || Util.isBurrowed(MoveUp.mc.player, !this.pEndChest.getValue()))) {
             switch (this.mode.getValue().ordinal()) {
                 case 1: {
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + 0.4199999868869781, MoveUp.mc.player.getZ(), false));
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + 0.7531999805212017, MoveUp.mc.player.getZ(), false));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + 0.4199999868869781, MoveUp.mc.player.getZ(), false));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + 0.7531999805212017, MoveUp.mc.player.getZ(), false));
                     MoveUp.mc.player.setPosition(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + (double)this.setPosition.getValueFloat(), MoveUp.mc.player.getZ());
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY(), MoveUp.mc.player.getZ(), true));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY(), MoveUp.mc.player.getZ(), true));
                     break;
                 }
                 case 0: {
-                    if (MoveUp.mc.player == null || this.onlyburrow.getValue() && !Util.isBurrowed((PlayerEntity)MoveUp.mc.player, !this.pEndChest.getValue())) break;
+                    if (MoveUp.mc.player == null || this.onlyburrow.getValue() && !Util.isBurrowed(MoveUp.mc.player, !this.pEndChest.getValue())) break;
                     double y = 0.0;
                     double velocity = 0.42;
                     while (y < 1.1) {
                         velocity = (velocity - 0.08) * 0.98;
-                        this.sendPacket((Packet<?>)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + (y += velocity), MoveUp.mc.player.getZ(), false));
+                        this.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + (y += velocity), MoveUp.mc.player.getZ(), false));
                     }
                     for (int i = 0; i < this.rubberbandPackets.getValueInt(); ++i) {
-                        this.sendPacket((Packet<?>)new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + y + (double)this.rubberbandOffset.getValueInt(), MoveUp.mc.player.getZ(), false));
+                        this.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(MoveUp.mc.player.getX(), MoveUp.mc.player.getY() + y + (double)this.rubberbandOffset.getValueInt(), MoveUp.mc.player.getZ(), false));
                     }
                     break;
                 }
@@ -74,7 +74,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public enum _FPLgygTQIdxRiYXqovqv {
         Packet,
-        Jump;
+        Jump
 
     }
 }

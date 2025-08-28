@@ -9,6 +9,6 @@ public enum NoSlow {
     GrimSwap,
     MatrixNcp,
     Delay,
-    StrictNCP2;
+    StrictNCP2
 
 }

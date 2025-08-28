@@ -41,9 +41,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (int slot2 = 35; slot2 >= 9; --slot2) {
                     ItemStack stack2;
                     if (slot1 == slot2 || (stack2 = CleanInventory.mc.player.getInventory().getStack(slot2)).getCount() == stack2.getMaxCount() || !this.canMerge(stack, stack2)) continue;
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot2, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot1, 0, SlotActionType.PICKUP, CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot2, 0, SlotActionType.PICKUP, CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot1, 0, SlotActionType.PICKUP, CleanInventory.mc.player);
                     this.timer.reset();
                     return;
                 }
@@ -52,7 +52,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.sort.getValue()) {
             for (slot1 = 9; slot1 < 36; ++slot1) {
                 int minId;
-                int id = Item.getRawId((Item)CleanInventory.mc.player.getInventory().getStack(slot1).getItem());
+                int id = Item.getRawId(CleanInventory.mc.player.getInventory().getStack(slot1).getItem());
                 if (CleanInventory.mc.player.getInventory().getStack(slot1).isEmpty()) {
                     id = 114514;
                 }
@@ -60,10 +60,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (int slot2 = 35; slot2 > slot1; --slot2) {
                     int itemID;
                     ItemStack stack = CleanInventory.mc.player.getInventory().getStack(slot2);
-                    if (stack.isEmpty() || (itemID = Item.getRawId((Item)stack.getItem())) != minId) continue;
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot2, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
-                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot1, 0, SlotActionType.PICKUP, (PlayerEntity)CleanInventory.mc.player);
+                    if (stack.isEmpty() || (itemID = Item.getRawId(stack.getItem())) != minId) continue;
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot1, 0, SlotActionType.PICKUP, CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot2, 0, SlotActionType.PICKUP, CleanInventory.mc.player);
+                    CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot1, 0, SlotActionType.PICKUP, CleanInventory.mc.player);
                     this.timer.reset();
                     return;
                 }
@@ -76,13 +76,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (int slot1 = slot + 1; slot1 < 36; ++slot1) {
             int itemID;
             ItemStack stack = CleanInventory.mc.player.getInventory().getStack(slot1);
-            if (stack.isEmpty() || (itemID = Item.getRawId((Item)stack.getItem())) >= id) continue;
+            if (stack.isEmpty() || (itemID = Item.getRawId(stack.getItem())) >= id) continue;
             id = itemID;
         }
         return id;
     }
 
     private boolean canMerge(ItemStack source, ItemStack stack) {
-        return source.getItem() == stack.getItem() && source.getName().equals((Object)stack.getName());
+        return source.getItem() == stack.getItem() && source.getName().equals(stack.getName());
     }
 }

@@ -8,6 +8,6 @@ public enum AutoAnchor {
     Calc,
     Rotate,
     Assist,
-    Render;
+    Render
 
 }

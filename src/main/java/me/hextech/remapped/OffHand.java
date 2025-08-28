@@ -55,12 +55,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.timer.passedMs(200L)) {
             return;
         }
-        if ((double)(OffHand.mc.player.getHealth() + OffHand.mc.player.getABSORPTIONAmount()) > this.health.getValue()) {
+        if ((double)(OffHand.mc.player.getHealth() + OffHand.mc.player.getAbsorptionAmount()) > this.health.getValue()) {
             int itemSlot;
             if (!this.mainHand.getValue() && this.crystal.getValue() && OffHand.mc.player.getOffHandStack().getItem() != Items.END_CRYSTAL && (itemSlot = InventoryUtil.findItemInventorySlot(Items.END_CRYSTAL)) != -1) {
-                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
-                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, 45, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
-                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
+                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, OffHand.mc.player);
+                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, 45, 0, SlotActionType.PICKUP, OffHand.mc.player);
+                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, OffHand.mc.player);
                 EntityUtil.syncInventory();
                 this.timer.reset();
             }
@@ -74,15 +74,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.mainHand.getValue()) {
                 InventoryUtil.switchToSlot(0);
                 if (OffHand.mc.player.getInventory().getStack(0).getItem() != Items.TOTEM_OF_UNDYING) {
-                    OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
-                    OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, 36, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
-                    OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
+                    OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, OffHand.mc.player);
+                    OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, 36, 0, SlotActionType.PICKUP, OffHand.mc.player);
+                    OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, OffHand.mc.player);
                     EntityUtil.syncInventory();
                 }
             } else {
-                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
-                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, 45, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
-                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, (PlayerEntity)OffHand.mc.player);
+                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, OffHand.mc.player);
+                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, 45, 0, SlotActionType.PICKUP, OffHand.mc.player);
+                OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, OffHand.mc.player);
                 EntityUtil.syncInventory();
             }
             this.timer.reset();

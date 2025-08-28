@@ -38,7 +38,7 @@ extends Command {
                 friends.append(name);
                 first = false;
             }
-            CommandManager.sendChatMessage("\u00a7e[~] \u00a7bFriends\u00a7e:\u00a7a" + String.valueOf(friends));
+            CommandManager.sendChatMessage("\u00a7e[~] \u00a7bFriends\u00a7e:\u00a7a" + friends);
             return;
         }
         if (parameters[0].equals("add")) {

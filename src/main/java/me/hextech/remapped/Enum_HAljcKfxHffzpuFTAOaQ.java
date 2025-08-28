@@ -6,6 +6,6 @@ package me.hextech.remapped;
 public enum Enum_HAljcKfxHffzpuFTAOaQ {
     Bypass,
     Normal,
-    None;
+    None
 
 }

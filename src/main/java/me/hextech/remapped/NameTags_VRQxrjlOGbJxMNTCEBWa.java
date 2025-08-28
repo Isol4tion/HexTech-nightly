@@ -5,6 +5,6 @@ package me.hextech.remapped;
  */
 public enum NameTags_VRQxrjlOGbJxMNTCEBWa {
     Fancy,
-    Fast;
+    Fast
 
 }

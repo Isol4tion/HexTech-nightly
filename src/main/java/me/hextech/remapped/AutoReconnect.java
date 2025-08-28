@@ -23,6 +23,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     private void onGameJoined(ServerConnectBeginEvent event) {
-        this.lastServerConnection = new ObjectObjectImmutablePair((Object)event.getAddress(), (Object)event.getInfo());
+        this.lastServerConnection = new ObjectObjectImmutablePair(event.getAddress(), event.getInfo());
     }
 }

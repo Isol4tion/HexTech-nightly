@@ -77,7 +77,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static Color rainbowHSB(int delay, float s, float b) {
-        double rainbowState = Math.ceil((double)((double)(System.currentTimeMillis() + (long)delay) / 20.0));
+        double rainbowState = Math.ceil((double)(System.currentTimeMillis() + (long)delay) / 20.0);
         return new Color((float)((rainbowState %= 360.0) / 360.0), s, b);
     }
 
@@ -100,7 +100,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public static void setupRender() {
         RenderSystem.enableBlend();
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     @Override
@@ -126,7 +126,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onRender2D(DrawContext drawContext, float tickDelta) {
         ClientPlayerEntity target = null;
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOn() && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget.isDead()) {
-            target = AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget;
+            target = (ClientPlayerEntity) AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget;
             this.direction = true;
         } else if (TargetHud.mc.currentScreen instanceof ChatScreen) {
             target = TargetHud.mc.player;
@@ -140,7 +140,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         drawContext.getMatrices().push();
         float posX = 114514.0f;
         float posY = 114514.0f;
-        if (this.move.getValue() && (double)target.distanceTo((Entity)TargetHud.mc.player) <= this.moveDis.getValue()) {
+        if (this.move.getValue() && (double)target.distanceTo(TargetHud.mc.player) <= this.moveDis.getValue()) {
             double x = target.prevX + (target.getX() - target.prevX) * (double)mc.getTickDelta();
             double y = target.prevY + (target.getY() - target.prevY) * (double)mc.getTickDelta();
             double z = target.prevZ + (target.getZ() - target.prevZ) * (double)mc.getTickDelta();
@@ -148,11 +148,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
             if (vector.z > 0.0 && vector.z < 1.0) {
                 Vector4d position = new Vector4d(vector.x, vector.y, vector.z, 0.0);
-                position.x = Math.min((double)vector.x, (double)position.x);
-                position.y = Math.min((double)vector.y, (double)position.y);
-                position.z = Math.max((double)vector.x, (double)position.z);
+                position.x = Math.min(vector.x, position.x);
+                position.y = Math.min(vector.y, position.y);
+                position.z = Math.max(vector.x, position.z);
                 float diff = (float)(position.z - position.x) / 2.0f;
-                posX = (float)((position.x + (double)diff) * 1.0);
+                posX = (float)((position.x + (double) diff));
                 posY = (float)(position.y - (double)(target.getHeight() / 2.0f));
             }
         }
@@ -166,20 +166,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float hurtPercent = (float)target.hurtTime / 8.0f;
         hurtAnimation.setValue(hurtPercent);
         String name = "Enemy: " + target.getName().getString();
-        double health = target.getHealth() + target.getABSORPTIONAmount();
+        double health = target.getHealth() + target.getAbsorptionAmount();
         healthAnimation.setValue(health);
         health = healthAnimation.getAnimationD();
-        String healthText = "Health: " + Math.round((double)health);
+        String healthText = "Health: " + Math.round(health);
         String pops = "0";
         if (HexTech.POP.popContainer.containsKey(target.getName().getString())) {
             pops = String.valueOf(HexTech.POP.popContainer.get(target.getName().getString()));
         }
         String popText = "Kills: " + pops;
-        float maxWidth = (float)Math.max((double)Math.max((double)TargetHud.mc.textRenderer.getWidth(name), (double)(health * 100.0 / 36.0 + 10.0 + (double)TargetHud.mc.textRenderer.getWidth(healthText))), (double)TargetHud.mc.textRenderer.getWidth(popText));
+        float maxWidth = (float)Math.max(Math.max(TargetHud.mc.textRenderer.getWidth(name), health * 100.0 / 36.0 + 10.0 + (double)TargetHud.mc.textRenderer.getWidth(healthText)), TargetHud.mc.textRenderer.getWidth(popText));
         this.renderRoundedQuad(drawContext.getMatrices(), this.colorBack.getValue(), posX, (int)posY, posX + 46.0f + maxWidth + 5.0f, posY + 55.0f, this.ra.getValue(), 4.0, !(this.blur.getValue() <= 0.0));
-        RenderSystem.setShaderColor((float)1.0f, (float)((float)(1.0 - hurtAnimation.getAnimationD())), (float)((float)(1.0 - hurtAnimation.getAnimationD())), (float)1.0f);
-        drawContext.drawTexture(((AbstractClientPlayerEntity)target).getSkinTextures().texture(), (int)((double)posX + hurtAnimation.getAnimationD()) + 5, (int)((double)posY + hurtAnimation.getAnimationD()) + 5, (int)(44.0 - hurtAnimation.getAnimationD() * 2.0), (int)(44.0 - hurtAnimation.getAnimationD() * 2.0), 8.0f, 8.0f, 8, 8, 64, 64);
-        RenderSystem.setShaderColor((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+        RenderSystem.setShaderColor(1.0f, (float)(1.0 - hurtAnimation.getAnimationD()), (float)(1.0 - hurtAnimation.getAnimationD()), 1.0f);
+        drawContext.drawTexture(target.getSkinTextures().texture(), (int)((double)posX + hurtAnimation.getAnimationD()) + 5, (int)((double)posY + hurtAnimation.getAnimationD()) + 5, (int)(44.0 - hurtAnimation.getAnimationD() * 2.0), (int)(44.0 - hurtAnimation.getAnimationD() * 2.0), 8.0f, 8.0f, 8, 8, 64, 64);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         if (this.customFont.getValue()) {
             FontRenderers.Arial.drawString(drawContext.getMatrices(), name, (int)(posX + 50.0f), (int)posY + 5, this.textColor.getValue().getRGB(), false);
         } else {
@@ -290,17 +290,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             double[] current = map[i];
             double rad = current[2];
             for (double r = (double)i * 90.0; r < 90.0 + (double)i * 90.0; r += 90.0 / samples) {
-                float rad1 = (float)Math.toRadians((double)r);
-                float sin = (float)((double)Math.sin((float)rad1) * rad);
-                float cos = (float)((double)Math.cos((float)rad1) * rad);
+                float rad1 = (float)Math.toRadians(r);
+                float sin = (float)((double)Math.sin(rad1) * rad);
+                float cos = (float)((double)Math.cos(rad1) * rad);
                 bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
             }
-            float rad1 = (float)Math.toRadians((double)(90.0 + (double)i * 90.0));
-            float sin = (float)((double)Math.sin((float)rad1) * rad);
-            float cos = (float)((double)Math.cos((float)rad1) * rad);
+            float rad1 = (float)Math.toRadians(90.0 + (double)i * 90.0);
+            float sin = (float)((double)Math.sin(rad1) * rad);
+            float cos = (float)((double)Math.cos(rad1) * rad);
             bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
         }
-        BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bufferBuilder.end());
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
     }
 
     public void renderRoundedQuad(MatrixStack stack, Color c, double x, double y, double x1, double y1, double rad, double samples, boolean blur) {
@@ -311,8 +311,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float min = 1000000.0f;
         PlayerEntity best = null;
         for (PlayerEntity player : TargetHud.mc.world.getPlayers()) {
-            if (!(player.distanceTo((Entity)TargetHud.mc.player) < min) || player.isDead() || player == TargetHud.mc.player || HexTech.FRIEND.isFriend(player)) continue;
-            min = player.distanceTo((Entity)TargetHud.mc.player);
+            if (!(player.distanceTo(TargetHud.mc.player) < min) || player.isDead() || player == TargetHud.mc.player || HexTech.FRIEND.isFriend(player)) continue;
+            min = player.distanceTo(TargetHud.mc.player);
             best = player;
         }
         return best;

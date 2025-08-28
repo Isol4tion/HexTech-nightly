@@ -1,11 +1,11 @@
 package me.hextech.remapped;
 
 public interface IListener {
-    public void call(Object var1);
+    void call(Object var1);
 
-    public Class<?> getTarget();
+    Class<?> getTarget();
 
-    public int getPriority();
+    int getPriority();
 
-    public boolean isStatic();
+    boolean isStatic();
 }

@@ -49,13 +49,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if ((float)stack.getCount() > this.forceMin.getValueFloat() ? !this.timer.passedS(this.delay.getValue()) : !this.timer.passedS(this.forceDelay.getValue())) {
                 return false;
             }
-            Replenish.mc.interactionManager.clickSlot(Replenish.mc.player.playerScreenHandler.syncId, i, 0, SlotActionType.QUICK_MOVE, (PlayerEntity)Replenish.mc.player);
+            Replenish.mc.interactionManager.clickSlot(Replenish.mc.player.playerScreenHandler.syncId, i, 0, SlotActionType.QUICK_MOVE, Replenish.mc.player);
             return true;
         }
         return false;
     }
 
     private boolean canMerge(ItemStack source, ItemStack stack) {
-        return source.getItem() == stack.getItem() && source.getName().equals((Object)stack.getName());
+        return source.getItem() == stack.getItem() && source.getName().equals(stack.getName());
     }
 }

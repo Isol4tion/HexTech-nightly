@@ -24,7 +24,7 @@ implements Wrapper {
     private final ArrayList<Snow> snow = new ArrayList();
 
     public ClickGuiScreen() {
-        super(Text.of((String)"ClickGui"));
+        super(Text.of("ClickGui"));
     }
 
     public boolean shouldPause() {

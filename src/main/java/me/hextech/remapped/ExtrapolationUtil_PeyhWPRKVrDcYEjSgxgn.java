@@ -7,11 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import me.hextech.remapped.ExtrapolationUtil;
-import me.hextech.remapped.ExtrapolationUtil_GIipvtNGRWEFrnWjqFrx;
 import me.hextech.remapped.PredictionSetting;
 import me.hextech.remapped.Wrapper;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
@@ -28,7 +27,7 @@ implements Wrapper {
         }
         HashMap<AbstractClientPlayerEntity, List> newMap = new HashMap<AbstractClientPlayerEntity, List>();
         for (AbstractClientPlayerEntity p : ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.getPlayers()) {
-            List list = motionHistory.computeIfAbsent((PlayerEntity)p, k -> new ArrayList());
+            List list = motionHistory.computeIfAbsent(p, k -> new ArrayList());
             list.add(0, p.getPos().subtract(p.prevX, p.prevY, p.prevZ));
             if (list.size() > 20) {
                 list.remove(20);
@@ -50,15 +49,25 @@ implements Wrapper {
     public static PlayerEntity createPredict(PlayerEntity p, int ticks, int smooth) {
         Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(p, ticks, smooth);
         Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
-        ExtrapolationUtil_GIipvtNGRWEFrnWjqFrx fake = null;
+        PlayerEntity fake = null;
         if (ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world != null) {
-            fake = new ExtrapolationUtil_GIipvtNGRWEFrnWjqFrx((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.getYaw(), new GameProfile(UUID.randomUUID(), "Predict"));
+            fake = new PlayerEntity(ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.getYaw(), new GameProfile(UUID.randomUUID(), "Predict")) {
+                @Override
+                public boolean isSpectator() {
+                    return false;
+                }
+
+                @Override
+                public boolean isCreative() {
+                    return false;
+                }
+            };
         }
         fake.setPosition(center);
         fake.setHealth(p.getHealth());
         fake.setOnGround(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
-        p.getStatusEffects().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
+        p.getStatusEffects().forEach(fake::addStatusEffect);
         return fake;
     }
 
@@ -72,7 +81,7 @@ implements Wrapper {
             Vec3d v = list.get(i);
             sum = sum.add(v.x, 0.0, v.z);
         }
-        return new Vec3d(sum.x / (double)s, list.get((int)0).y, sum.z / (double)s);
+        return new Vec3d(sum.x / (double)s, list.get(0).y, sum.z / (double)s);
     }
 
     private static Box simulate(PlayerEntity p, Vec3d motion, int ticks) {
@@ -89,7 +98,7 @@ implements Wrapper {
             }
             Vec3d adjusted = null;
             if (collisions != null) {
-                adjusted = Entity.adjustMovementForCollisions(null, (Vec3d)new Vec3d(x, y, z), (Box)box, (World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, (List)collisions);
+                adjusted = Entity.adjustMovementForCollisions(null, new Vec3d(x, y, z), box, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, collisions);
             }
             boolean canStep = false;
             if (adjusted != null) {
@@ -97,13 +106,13 @@ implements Wrapper {
             }
             if (canStep) {
                 Vec3d comb;
-                Vec3d step = Entity.adjustMovementForCollisions(null, (Vec3d)new Vec3d(x, stepHeight, z), (Box)box, (World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, (List)collisions);
-                Vec3d stepY = Entity.adjustMovementForCollisions(null, (Vec3d)new Vec3d(0.0, stepHeight, 0.0), (Box)box.stretch(x, 0.0, z), (World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, (List)collisions);
-                if (stepY.y < stepHeight && (comb = stepY.add(Entity.adjustMovementForCollisions(null, (Vec3d)new Vec3d(x, 0.0, z), (Box)box.offset(stepY), (World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, (List)collisions))).horizontalLengthSquared() > step.horizontalLengthSquared()) {
+                Vec3d step = Entity.adjustMovementForCollisions(null, new Vec3d(x, stepHeight, z), box, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, collisions);
+                Vec3d stepY = Entity.adjustMovementForCollisions(null, new Vec3d(0.0, stepHeight, 0.0), box.stretch(x, 0.0, z), ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, collisions);
+                if (stepY.y < stepHeight && (comb = stepY.add(Entity.adjustMovementForCollisions(null, new Vec3d(x, 0.0, z), box.offset(stepY), ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, collisions))).horizontalLengthSquared() > step.horizontalLengthSquared()) {
                     step = comb;
                 }
                 if (step.horizontalLengthSquared() > adjusted.horizontalLengthSquared()) {
-                    adjusted = step.add(Entity.adjustMovementForCollisions(null, (Vec3d)new Vec3d(0.0, -step.y + y, 0.0), (Box)box.offset(step), (World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, (List)collisions));
+                    adjusted = step.add(Entity.adjustMovementForCollisions(null, new Vec3d(0.0, -step.y + y, 0.0), box.offset(step), ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, collisions));
                 }
             }
             if (onGround = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.inside(p, (box = box.offset(adjusted)).offset(0.0, -0.04, 0.0))) {
@@ -131,7 +140,7 @@ implements Wrapper {
             }
             Vec3d adjusted = null;
             if (collisions != null) {
-                adjusted = Entity.adjustMovementForCollisions(null, (Vec3d)new Vec3d(x, y, z), (Box)box, (World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, (List)collisions);
+                adjusted = Entity.adjustMovementForCollisions(null, new Vec3d(x, y, z), box, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, collisions);
             }
             boolean canStep = false;
             if (adjusted != null) {
@@ -139,13 +148,13 @@ implements Wrapper {
             }
             if (canStep) {
                 Vec3d comb;
-                Vec3d step = Entity.adjustMovementForCollisions(null, (Vec3d)new Vec3d(x, stepHeight, z), (Box)box, (World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, (List)collisions);
-                Vec3d stepY = Entity.adjustMovementForCollisions(null, (Vec3d)new Vec3d(0.0, stepHeight, 0.0), (Box)box.stretch(x, 0.0, z), (World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, (List)collisions);
-                if (stepY.y < stepHeight && (comb = stepY.add(Entity.adjustMovementForCollisions(null, (Vec3d)new Vec3d(x, 0.0, z), (Box)box.offset(stepY), (World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, (List)collisions))).horizontalLengthSquared() > step.horizontalLengthSquared()) {
+                Vec3d step = Entity.adjustMovementForCollisions(null, new Vec3d(x, stepHeight, z), box, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, collisions);
+                Vec3d stepY = Entity.adjustMovementForCollisions(null, new Vec3d(0.0, stepHeight, 0.0), box.stretch(x, 0.0, z), ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, collisions);
+                if (stepY.y < stepHeight && (comb = stepY.add(Entity.adjustMovementForCollisions(null, new Vec3d(x, 0.0, z), box.offset(stepY), ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, collisions))).horizontalLengthSquared() > step.horizontalLengthSquared()) {
                     step = comb;
                 }
                 if (step.horizontalLengthSquared() > adjusted.horizontalLengthSquared()) {
-                    adjusted = step.add(Entity.adjustMovementForCollisions(null, (Vec3d)new Vec3d(0.0, -step.y + y, 0.0), (Box)box.offset(step), (World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, (List)collisions));
+                    adjusted = step.add(Entity.adjustMovementForCollisions(null, new Vec3d(0.0, -step.y + y, 0.0), box.offset(step), ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, collisions));
                 }
             }
             if (onGround = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.inside(p, (box = box.offset(adjusted)).offset(0.0, -0.04, 0.0))) {
@@ -160,16 +169,26 @@ implements Wrapper {
     public static PlayerEntity createSelfPredict(PlayerEntity p, int ticks) {
         Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(p, ticks, PredictionSetting.INSTANCE.smoothTicks.getValueInt());
         Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
-        ExtrapolationUtil fake = new ExtrapolationUtil((World)ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.getYaw(), new GameProfile(UUID.randomUUID(), "SelfPredict"));
+        PlayerEntity fake = new PlayerEntity(ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world, p.getBlockPos(), p.getYaw(), new GameProfile(UUID.randomUUID(), "SelfPredict")) {
+            @Override
+            public boolean isSpectator() {
+                return false;
+            }
+
+            @Override
+            public boolean isCreative() {
+                return false;
+            }
+        };
         fake.setPosition(center);
         fake.setHealth(p.getHealth());
         fake.setOnGround(p.isOnGround());
         fake.getInventory().clone(p.getInventory());
-        p.getStatusEffects().forEach(arg_0 -> ((PlayerEntity)fake).addStatusEffect(arg_0));
+        p.getStatusEffects().forEach(fake::addStatusEffect);
         return fake;
     }
 
     static boolean inside(PlayerEntity p, Box box) {
-        return !ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.isSpaceEmpty((Entity)p, box);
+        return !ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.mc.world.isSpaceEmpty(p, box);
     }
 }

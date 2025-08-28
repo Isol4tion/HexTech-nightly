@@ -6,6 +6,6 @@ package me.hextech.remapped;
 public enum ChatSetting {
     HexTech,
     Earth,
-    None;
+    None
 
 }

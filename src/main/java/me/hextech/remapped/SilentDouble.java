@@ -37,7 +37,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void update() {
-        if (this.mode.getValue().equals((Object)_JPSoqiNZyGTsyFDufNku.SilentDouble)) {
+        if (this.mode.getValue().equals(_JPSoqiNZyGTsyFDufNku.SilentDouble)) {
             if (this.pause.getValue() && SilentDouble.mc.player.isUsingItem()) {
                 return;
             }
@@ -50,28 +50,28 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (SpeedMine.secondPos != null && SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.getTool(SpeedMine.secondPos), this.lastdmg.getValueFloat()))) {
                 if (SilentDouble.mc.player.getMainHandStack().getItem() == Items.ENCHANTED_GOLDEN_APPLE) {
                     if (!SilentDouble.mc.options.useKey.isPressed()) {
-                        SilentDouble.mc.player.networkHandler.sendPacket((Packet)new UpdateSelectedSlotC2SPacket(this.getTool(SpeedMine.secondPos)));
+                        SilentDouble.mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(this.getTool(SpeedMine.secondPos)));
                         swithc2 = 1;
                     } else if (swithc2 == 1) {
-                        SilentDouble.mc.player.networkHandler.sendPacket((Packet)new UpdateSelectedSlotC2SPacket(slotMain));
+                        SilentDouble.mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(slotMain));
                         if (this.syncinv.getValue()) {
                             EntityUtil.syncInventory();
                         }
                     }
                 } else {
-                    SilentDouble.mc.player.networkHandler.sendPacket((Packet)new UpdateSelectedSlotC2SPacket(this.getTool(SpeedMine.secondPos)));
+                    SilentDouble.mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(this.getTool(SpeedMine.secondPos)));
                     swithc2 = 1;
                 }
             }
             if (SpeedMine.secondPos != null && SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.getTool(SpeedMine.secondPos), this.enddmg.getValueFloat())) && swithc2 == 1) {
-                SilentDouble.mc.player.networkHandler.sendPacket((Packet)new UpdateSelectedSlotC2SPacket(slotMain));
+                SilentDouble.mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(slotMain));
                 if (this.syncinv.getValue()) {
                     EntityUtil.syncInventory();
                 }
             }
         }
-        if (this.mode.getValue().equals((Object)_JPSoqiNZyGTsyFDufNku.Switch)) {
-            this.sendPacket((Packet<?>)new UpdateSelectedSlotC2SPacket(SilentDouble.mc.player.getInventory().selectedSlot));
+        if (this.mode.getValue().equals(_JPSoqiNZyGTsyFDufNku.Switch)) {
+            this.sendPacket(new UpdateSelectedSlotC2SPacket(SilentDouble.mc.player.getInventory().selectedSlot));
         } else if (this.mode.getValue() == _JPSoqiNZyGTsyFDufNku.Switch && SpeedMine.INSTANCE.lastSlot != -1) {
             SilentDouble.mc.player.getInventory().selectedSlot = SpeedMine.INSTANCE.lastSlot;
             ((IClientPlayerInteractionManager)SilentDouble.mc.interactionManager).syncSelected();
@@ -87,7 +87,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public enum _JPSoqiNZyGTsyFDufNku {
         SilentDouble,
         Switch,
-        None;
+        None
 
     }
 }

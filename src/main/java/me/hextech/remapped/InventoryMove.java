@@ -39,12 +39,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void update() {
         if (!(InventoryMove.mc.currentScreen instanceof ChatScreen)) {
             for (KeyBinding k : new KeyBinding[]{InventoryMove.mc.options.backKey, InventoryMove.mc.options.leftKey, InventoryMove.mc.options.rightKey, InventoryMove.mc.options.jumpKey}) {
-                k.setPressed(InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)k.getBoundKeyTranslationKey()).getCode()));
+                k.setPressed(InputUtil.isKeyPressed(mc.getWindow().getHandle(), InputUtil.fromTranslationKey(k.getBoundKeyTranslationKey()).getCode()));
             }
-            InventoryMove.mc.options.forwardKey.setPressed(AutoWalk.INSTANCE.isOn() || InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)InventoryMove.mc.options.forwardKey.getBoundKeyTranslationKey()).getCode()));
-            InventoryMove.mc.options.sprintKey.setPressed(Sprint.INSTANCE.isOn() || InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)InventoryMove.mc.options.sprintKey.getBoundKeyTranslationKey()).getCode()));
+            InventoryMove.mc.options.forwardKey.setPressed(AutoWalk.INSTANCE.isOn() || InputUtil.isKeyPressed(mc.getWindow().getHandle(), InputUtil.fromTranslationKey(InventoryMove.mc.options.forwardKey.getBoundKeyTranslationKey()).getCode()));
+            InventoryMove.mc.options.sprintKey.setPressed(Sprint.INSTANCE.isOn() || InputUtil.isKeyPressed(mc.getWindow().getHandle(), InputUtil.fromTranslationKey(InventoryMove.mc.options.sprintKey.getBoundKeyTranslationKey()).getCode()));
             if (this.sneak.getValue()) {
-                InventoryMove.mc.options.sneakKey.setPressed(InputUtil.isKeyPressed((long)mc.getWindow().getHandle(), (int)InputUtil.fromTranslationKey((String)InventoryMove.mc.options.sneakKey.getBoundKeyTranslationKey()).getCode()));
+                InventoryMove.mc.options.sneakKey.setPressed(InputUtil.isKeyPressed(mc.getWindow().getHandle(), InputUtil.fromTranslationKey(InventoryMove.mc.options.sneakKey.getBoundKeyTranslationKey()).getCode()));
             }
         }
     }

@@ -29,7 +29,7 @@ extends World {
     private void onGetSkyColor(Vec3d cameraPos, float tickDelta, CallbackInfoReturnable<Vec3d> info) {
         if (Ambience.INSTANCE.isOn() && Ambience.INSTANCE.sky.booleanValue) {
             Color sky = Ambience.INSTANCE.sky.getValue();
-            info.setReturnValue((Object)new Vec3d((double)sky.getRed() / 255.0, (double)sky.getGreen() / 255.0, (double)sky.getBlue() / 255.0));
+            info.setReturnValue(new Vec3d((double)sky.getRed() / 255.0, (double)sky.getGreen() / 255.0, (double)sky.getBlue() / 255.0));
         }
     }
 

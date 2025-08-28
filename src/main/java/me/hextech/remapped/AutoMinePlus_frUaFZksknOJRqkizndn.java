@@ -43,13 +43,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (player == null) {
             return;
         }
-        if (this.coverMode.getValue() == AutoMinePlus_iBVeFXhOwamRbRZuxxcN.Sync && SpeedMine.secondPos != null && !SpeedMine.secondPos.equals((Object)SpeedMine.breakPos)) {
+        if (this.coverMode.getValue() == AutoMinePlus_iBVeFXhOwamRbRZuxxcN.Sync && SpeedMine.secondPos != null && !SpeedMine.secondPos.equals(SpeedMine.breakPos)) {
             return;
         }
         if (Blink.INSTANCE.isOn()) {
             return;
         }
-        BlockPos pos = EntityUtil.getEntityPos((Entity)player);
+        BlockPos pos = EntityUtil.getEntityPos(player);
         if (AutoMinePlus_frUaFZksknOJRqkizndn.mc.world.getBlockState(pos).getBlock() == Blocks.BEDROCK && this.checkBedrock.getValue()) {
             return;
         }
@@ -70,7 +70,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (final double x : xzOffset) {
                     for (final double z : xzOffset) {
                         final BlockPos offsetPos = new BlockPosX(entity.getX() + x, entity.getY() + y, entity.getZ() + z);
-                        if (this.canBreak(offsetPos) && offsetPos.equals((Object)SpeedMine.getBreakPos())) {
+                        if (this.canBreak(offsetPos) && offsetPos.equals(SpeedMine.getBreakPos())) {
                             return;
                         }
                     }
@@ -106,7 +106,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     if (i != Direction.UP) {
                         if (i != Direction.DOWN) {
                             if (Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) <= this.range.getValue()) {
-                                if ((AutoMinePlus_frUaFZksknOJRqkizndn.mc.world.isAir(pos.offset(i)) || pos.offset(i).equals((Object)SpeedMine.getBreakPos())) && this.canPlaceCrystal(pos.offset(i), false)) {
+                                if ((AutoMinePlus_frUaFZksknOJRqkizndn.mc.world.isAir(pos.offset(i)) || pos.offset(i).equals(SpeedMine.getBreakPos())) && this.canPlaceCrystal(pos.offset(i), false)) {
                                     return;
                                 }
                             }
@@ -126,7 +126,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
                 if (!list.isEmpty()) {
-                    SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
+                    SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                 }
                 else {
                     for (final Direction j : Direction.values()) {
@@ -141,7 +141,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         }
                     }
                     if (!list.isEmpty()) {
-                        SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
+                        SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                     }
                 }
             }
@@ -159,7 +159,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
                 if (!list.isEmpty()) {
-                    SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
+                    SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                 }
                 else {
                     for (final Direction j : Direction.values()) {
@@ -174,7 +174,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         }
                     }
                     if (!list.isEmpty()) {
-                        SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
+                        SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                     }
                 }
             }
@@ -183,7 +183,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     if (i != Direction.UP) {
                         if (i != Direction.DOWN) {
                             if (Math.sqrt(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos().squaredDistanceTo(pos.offset(i).toCenterPos())) <= this.range.getValue()) {
-                                if (pos.offset(i).equals((Object)SpeedMine.getBreakPos()) && SpeedMine.secondPos == null) {
+                                if (pos.offset(i).equals(SpeedMine.getBreakPos()) && SpeedMine.secondPos == null) {
                                     return;
                                 }
                             }
@@ -203,7 +203,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
                 if (!list.isEmpty()) {
-                    SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
+                    SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                 }
                 else {
                     for (final Direction j : Direction.values()) {
@@ -218,7 +218,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         }
                     }
                     if (!list.isEmpty()) {
-                        SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance((Position)AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
+                        SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                     }
                 }
             }
@@ -287,7 +287,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean canBreak(BlockPos pos) {
-        return !(!this.isObsidian(pos) || BlockUtil.getClickSide(pos) == null && !SpeedMine.getBreakPos().equals((Object)pos) || pos.equals((Object)SpeedMine.secondPos) && this.second.getValue());
+        return !(!this.isObsidian(pos) || BlockUtil.getClickSide(pos) == null && !SpeedMine.getBreakPos().equals(pos) || pos.equals(SpeedMine.secondPos) && this.second.getValue());
     }
 
     /*
@@ -295,8 +295,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
      */
     public enum AutoMinePlus_iBVeFXhOwamRbRZuxxcN {
         Sync,
-        Normal;
-    
+        Normal
+
     }
 
     /*
@@ -306,7 +306,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Normal,
         Always,
         First,
-        Blocker;
-    
+        Blocker
+
     }
 }

@@ -33,18 +33,17 @@ implements Wrapper {
         if (ListenerHelperUtil.mc.player == null) return false;
         if (side == null) return false;
         Vec3d vec3d = new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5);
-        if (!(pos.toCenterPos().add(vec3d).distanceTo(ListenerHelperUtil.mc.player.getEyePos()) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue())) return false;
-        return true;
+        return pos.toCenterPos().add(vec3d).distanceTo(ListenerHelperUtil.mc.player.getEyePos()) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue();
     }
 
     public static float calculateBase(BlockPos pos, PlayerEntity player, PlayerEntity predict) {
-        return ListenerHelperUtil.calculateObsidian(pos.down(), new Vec3d((double)pos.getX() + 0.5, (double)pos.getY(), (double)pos.getZ() + 0.5), player, predict);
+        return ListenerHelperUtil.calculateObsidian(pos.down(), new Vec3d((double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5), player, predict);
     }
 
     public static float calculateObsidian(BlockPos obs, Vec3d pos, PlayerEntity player, PlayerEntity predict) {
         CombatUtil.modifyPos = obs;
         CombatUtil.modifyBlockState = Blocks.OBSIDIAN.getDefaultState();
-        float damage = ExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), (Entity)player, (Entity)predict, 6.0f);
+        float damage = ExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), player, predict, 6.0f);
         CombatUtil.modifyPos = null;
         CombatUtil.terrainIgnore = false;
         return damage;
@@ -54,7 +53,7 @@ implements Wrapper {
         Vec3d testVec = new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() + 1.7, (double)pos.getZ() + 0.5);
         BlockHitResult result = null;
         if (ListenerHelperUtil.mc.world != null && ListenerHelperUtil.mc.player != null) {
-            result = ListenerHelperUtil.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)ListenerHelperUtil.mc.player));
+            result = ListenerHelperUtil.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, ListenerHelperUtil.mc.player));
         }
         if (result == null || result.getType() == HitResult.Type.MISS) {
             return false;
@@ -65,7 +64,7 @@ implements Wrapper {
     public static boolean canSee(Vec3d from, Vec3d to) {
         BlockHitResult result = null;
         if (ListenerHelperUtil.mc.world != null && ListenerHelperUtil.mc.player != null) {
-            result = ListenerHelperUtil.mc.world.raycast(new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)ListenerHelperUtil.mc.player));
+            result = ListenerHelperUtil.mc.world.raycast(new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, ListenerHelperUtil.mc.player));
         }
         return result == null || result.getType() == HitResult.Type.MISS;
     }

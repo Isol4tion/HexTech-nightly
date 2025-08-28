@@ -60,7 +60,7 @@ extends EntityRenderer<EndCrystalEntity> {
     @Unique
     private float yOffset(EndCrystalEntity crystal, float tickDelta) {
         float f = ((float)crystal.endCrystalAge + tickDelta) * CrystalChams.INSTANCE.floatValue.getValueFloat();
-        float g = MathHelper.sin((float)(f * 0.2f)) / 2.0f + 0.5f;
+        float g = MathHelper.sin(f * 0.2f) / 2.0f + 0.5f;
         g = (g * g + g) * 0.4f * CrystalChams.INSTANCE.bounceHeight.getValueFloat();
         return g - 1.4f + CrystalChams.INSTANCE.floatOffset.getValueFloat();
     }
@@ -71,7 +71,7 @@ extends EntityRenderer<EndCrystalEntity> {
         if (!module.sync.getValue()) {
             return;
         }
-        END_CRYSTAL = RenderLayer.getEntityTranslucent((Identifier)(module.isOn() && !module.texture.getValue() ? this.BLANK : TEXTURE));
+        END_CRYSTAL = RenderLayer.getEntityTranslucent(module.isOn() && !module.texture.getValue() ? this.BLANK : TEXTURE);
         if (!module.isOn()) {
             return;
         }
@@ -119,8 +119,8 @@ extends EntityRenderer<EndCrystalEntity> {
             float q = (float)((double)n - endCrystalEntity.getY());
             float r = (float)((double)o - endCrystalEntity.getZ());
             matrixStack.translate(p, q, r);
-            EnderDragonEntityRenderer.renderCrystalBeam((float)(-p), (float)(-q + h), (float)(-r), (float)g, (int)endCrystalEntity.endCrystalAge, (MatrixStack)matrixStack, (VertexConsumerProvider)vertexConsumerProvider, (int)i);
+            EnderDragonEntityRenderer.renderCrystalBeam(-p, -q + h, -r, g, endCrystalEntity.endCrystalAge, matrixStack, vertexConsumerProvider, i);
         }
-        super.render((Entity)endCrystalEntity, f, g, matrixStack, vertexConsumerProvider, i);
+        super.render(endCrystalEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }
 }

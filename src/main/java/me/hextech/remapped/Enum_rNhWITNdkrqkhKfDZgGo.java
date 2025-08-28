@@ -7,6 +7,6 @@ public enum Enum_rNhWITNdkrqkhKfDZgGo {
     Off,
     Normal,
     Silent,
-    Inventory;
+    Inventory
 
 }

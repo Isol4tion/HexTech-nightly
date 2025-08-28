@@ -70,7 +70,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.onlyBlink.getValue() && Blink.INSTANCE.isOff()) {
             return;
         }
-        this.timer.setMs(Math.min(Math.max(0L, this.timer.getPassedTimeMs()), (long)this.accumulate.getValueInt()));
+        this.timer.setMs(Math.min(Math.max(0L, this.timer.getPassedTimeMs()), this.accumulate.getValueInt()));
         if (MovementUtil.isMoving() && !EntityUtil.isInsideBlock()) {
             if (!this.moving) {
                 if (this.timer.passedMs(this.minAccumulate.getValue())) {
@@ -86,7 +86,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 HexTech.TIMER.reset();
             } else if (this.smooth.getValue()) {
                 double timer = (double)HexTech.TIMER.getDefault() + (1.0 - this.end.getQuad(this.quad.getValue())) * (double)(this.multiplier.getValueFloat() - 1.0f) * ((double)this.lastMs / this.accumulate.getValue());
-                HexTech.TIMER.set((float)Math.max((double)HexTech.TIMER.getDefault(), timer));
+                HexTech.TIMER.set((float)Math.max(HexTech.TIMER.getDefault(), timer));
             } else {
                 HexTech.TIMER.set(this.multiplier.getValueFloat());
             }

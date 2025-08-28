@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 public class LambdaListener_AbcZKcjDwtaoZeuwqpJc
 implements IListener {
-    private static boolean isJava1dot8 = System.getProperty("java.version").startsWith("1.8");
+    private static final boolean isJava1dot8 = System.getProperty("java.version").startsWith("1.8");
     private static Constructor<MethodHandles.Lookup> lookupConstructor;
     private static Method privateLookupInMethod;
     private final Class<?> target;

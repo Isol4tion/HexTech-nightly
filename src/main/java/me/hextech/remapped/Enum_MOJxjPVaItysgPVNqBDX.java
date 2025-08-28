@@ -8,6 +8,6 @@ public enum Enum_MOJxjPVaItysgPVNqBDX {
     intersic,
     Above,
     LagMode,
-    Rotate;
+    Rotate
 
 }

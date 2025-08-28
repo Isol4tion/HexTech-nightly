@@ -16,10 +16,10 @@ public class MathUtil {
         Direction direction3;
         float f = pitch * ((float)Math.PI / 180);
         float g = -yaw * ((float)Math.PI / 180);
-        float h = MathHelper.sin((float)f);
-        float i = MathHelper.cos((float)f);
-        float j = MathHelper.sin((float)g);
-        float k = MathHelper.cos((float)g);
+        float h = MathHelper.sin(f);
+        float i = MathHelper.cos(f);
+        float j = MathHelper.sin(g);
+        float k = MathHelper.cos(g);
         boolean bl = j > 0.0f;
         boolean bl2 = h < 0.0f;
         boolean bl3 = k > 0.0f;

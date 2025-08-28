@@ -44,20 +44,20 @@ public abstract class MixinLivingEntityRenderer<T extends LivingEntity, M extend
     public void onRenderPre(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
         if (MinecraftClient.getInstance().player != null && livingEntity == MinecraftClient.getInstance().player && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotations.getValue()) {
             this.originalYaw = livingEntity.getYaw();
-            this.originalHeadYaw = ((LivingEntity)livingEntity).headYaw;
-            this.originalBodyYaw = ((LivingEntity)livingEntity).bodyYaw;
+            this.originalHeadYaw = livingEntity.headYaw;
+            this.originalBodyYaw = livingEntity.bodyYaw;
             this.originalPitch = livingEntity.getPitch();
-            this.originalPrevYaw = ((LivingEntity)livingEntity).prevYaw;
-            this.originalPrevHeadYaw = ((LivingEntity)livingEntity).prevHeadYaw;
-            this.originalPrevBodyYaw = ((LivingEntity)livingEntity).prevBodyYaw;
+            this.originalPrevYaw = livingEntity.prevYaw;
+            this.originalPrevHeadYaw = livingEntity.prevHeadYaw;
+            this.originalPrevBodyYaw = livingEntity.prevBodyYaw;
             livingEntity.setYaw(RotateManager.getRenderYawOffset());
-            ((LivingEntity)livingEntity).headYaw = RotateManager.getRotationYawHead();
-            ((LivingEntity)livingEntity).bodyYaw = RotateManager.getRenderYawOffset();
+            livingEntity.headYaw = RotateManager.getRotationYawHead();
+            livingEntity.bodyYaw = RotateManager.getRenderYawOffset();
             livingEntity.setPitch(RotateManager.getRenderPitch());
-            ((LivingEntity)livingEntity).prevYaw = RotateManager.getPrevRenderYawOffset();
-            ((LivingEntity)livingEntity).prevHeadYaw = RotateManager.getPrevRotationYawHead();
-            ((LivingEntity)livingEntity).prevBodyYaw = RotateManager.getPrevRenderYawOffset();
-            ((LivingEntity)livingEntity).prevPitch = RotateManager.getPrevPitch();
+            livingEntity.prevYaw = RotateManager.getPrevRenderYawOffset();
+            livingEntity.prevHeadYaw = RotateManager.getPrevRotationYawHead();
+            livingEntity.prevBodyYaw = RotateManager.getPrevRenderYawOffset();
+            livingEntity.prevPitch = RotateManager.getPrevPitch();
         }
         this.lastEntity = livingEntity;
     }
@@ -66,13 +66,13 @@ public abstract class MixinLivingEntityRenderer<T extends LivingEntity, M extend
     public void onRenderPost(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
         if (MinecraftClient.getInstance().player != null && livingEntity == MinecraftClient.getInstance().player && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotations.getValue()) {
             livingEntity.setYaw(this.originalYaw);
-            ((LivingEntity)livingEntity).headYaw = this.originalHeadYaw;
-            ((LivingEntity)livingEntity).bodyYaw = this.originalBodyYaw;
+            livingEntity.headYaw = this.originalHeadYaw;
+            livingEntity.bodyYaw = this.originalBodyYaw;
             livingEntity.setPitch(this.originalPitch);
-            ((LivingEntity)livingEntity).prevYaw = this.originalPrevYaw;
-            ((LivingEntity)livingEntity).prevHeadYaw = this.originalPrevHeadYaw;
-            ((LivingEntity)livingEntity).prevBodyYaw = this.originalPrevBodyYaw;
-            ((LivingEntity)livingEntity).prevPitch = this.originalPitch;
+            livingEntity.prevYaw = this.originalPrevYaw;
+            livingEntity.prevHeadYaw = this.originalPrevHeadYaw;
+            livingEntity.prevBodyYaw = this.originalPrevBodyYaw;
+            livingEntity.prevPitch = this.originalPitch;
         }
     }
 

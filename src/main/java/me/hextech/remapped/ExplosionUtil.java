@@ -28,16 +28,15 @@ implements Wrapper {
         if (BlockUtil.getBlock(pos) == Blocks.RESPAWN_ANCHOR) {
             CombatUtil.modifyPos = pos;
             CombatUtil.modifyBlockState = Blocks.AIR.getDefaultState();
-            float damage = ExplosionUtil.calculateDamage(pos.toCenterPos().getX(), pos.toCenterPos().getY(), pos.toCenterPos().getZ(), (Entity)target, (Entity)predict, 5.0f);
+            float damage = ExplosionUtil.calculateDamage(pos.toCenterPos().getX(), pos.toCenterPos().getY(), pos.toCenterPos().getZ(), target, predict, 5.0f);
             CombatUtil.modifyPos = null;
             return damage;
         }
-        return ExplosionUtil.calculateDamage(pos.toCenterPos().getX(), pos.toCenterPos().getY(), pos.toCenterPos().getZ(), (Entity)target, (Entity)predict, 5.0f);
+        return ExplosionUtil.calculateDamage(pos.toCenterPos().getX(), pos.toCenterPos().getY(), pos.toCenterPos().getZ(), target, predict, 5.0f);
     }
 
     public static float calculateDamage(double posX, double posY, double posZ, Entity entity, Entity predict, float power) {
-        if (entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity)entity;
+        if (entity instanceof PlayerEntity player) {
             if (player.getAbilities().creativeMode) {
                 return 0.0f;
             }
@@ -46,7 +45,7 @@ implements Wrapper {
             predict = entity;
         }
         float doubleExplosionSize = 2.0f * power;
-        double distancedsize = (double)MathHelper.sqrt((float)((float)predict.squaredDistanceTo(posX, posY, posZ))) / (double)doubleExplosionSize;
+        double distancedsize = (double)MathHelper.sqrt((float)predict.squaredDistanceTo(posX, posY, posZ)) / (double)doubleExplosionSize;
         Vec3d vec3d = new Vec3d(posX, posY, posZ);
         double blockDensity = 0.0;
         try {
@@ -63,17 +62,16 @@ implements Wrapper {
 
     public static float getDamageAfterAbsorb(float damage, float totalArmor, float toughnessAttribute) {
         float f = 2.0f + toughnessAttribute / 4.0f;
-        float f1 = MathHelper.clamp((float)(totalArmor - damage / f), (float)(totalArmor * 0.2f), (float)20.0f);
+        float f1 = MathHelper.clamp(totalArmor - damage / f, totalArmor * 0.2f, 20.0f);
         return damage * (1.0f - f1 / 25.0f);
     }
 
     public static float getBlastReduction(LivingEntity entity, float damageI) {
         float damage = damageI;
-        if (entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity)entity;
+        if (entity instanceof PlayerEntity player) {
             damage = ExplosionUtil.getDamageAfterAbsorb(damage, player.getArmor(), (float)player.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
             int k = ExplosionUtil.getProtectionAmount(player.getArmorItems());
-            float f = MathHelper.clamp((float)k, (float)0.0f, (float)20.0f);
+            float f = MathHelper.clamp((float)k, 0.0f, 20.0f);
             damage *= 1.0f - f / 25.0f;
             if (player.hasStatusEffect(StatusEffects.RESISTANCE)) {
                 damage -= damage / 4.0f;
@@ -93,8 +91,8 @@ implements Wrapper {
                 for (int m = 0; m <= 1; ++m) {
                     double p;
                     double o;
-                    double n = MathHelper.lerp((double)k, (double)box.minX, (double)box.maxX);
-                    Vec3d vec3d = new Vec3d(n, o = MathHelper.lerp((double)l, (double)box.minY, (double)box.maxY), p = MathHelper.lerp((double)m, (double)box.minZ, (double)box.maxZ));
+                    double n = MathHelper.lerp(k, box.minX, box.maxX);
+                    Vec3d vec3d = new Vec3d(n, o = MathHelper.lerp(l, box.minY, box.maxY), p = MathHelper.lerp(m, box.minZ, box.maxZ));
                     if (ExplosionUtil.raycast(vec3d, source) == HitResult.Type.MISS) {
                         ++miss;
                     }
@@ -106,12 +104,12 @@ implements Wrapper {
     }
 
     private static HitResult.Type raycast(Vec3d start, Vec3d end) {
-        return (HitResult.Type)BlockView.raycast((Vec3d)start, (Vec3d)end, null, (_null, blockPos) -> {
+        return BlockView.raycast(start, end, null, (_null, blockPos) -> {
             BlockState blockState = ExplosionUtil.mc.world.getBlockState(blockPos);
             if (blockState.getBlock().getBlastResistance() < 600.0f) {
                 return null;
             }
-            BlockHitResult hitResult = blockState.getCollisionShape((BlockView)ExplosionUtil.mc.world, blockPos).raycast(start, end, blockPos);
+            BlockHitResult hitResult = blockState.getCollisionShape(ExplosionUtil.mc.world, blockPos).raycast(start, end, blockPos);
             return hitResult == null ? null : hitResult.getType();
         }, _null -> HitResult.Type.MISS);
     }
@@ -119,9 +117,9 @@ implements Wrapper {
     public static int getProtectionAmount(Iterable<ItemStack> armorItems) {
         int value = 0;
         for (ItemStack itemStack : armorItems) {
-            int level = EnchantmentHelper.getLevel((Enchantment)Enchantments.PROTECTION, (ItemStack)itemStack);
+            int level = EnchantmentHelper.getLevel(Enchantments.PROTECTION, itemStack);
             if (level == 0) {
-                value += EnchantmentHelper.getLevel((Enchantment)Enchantments.BLAST_PROTECTION, (ItemStack)itemStack) * 2;
+                value += EnchantmentHelper.getLevel(Enchantments.BLAST_PROTECTION, itemStack) * 2;
                 continue;
             }
             value += level;

@@ -96,7 +96,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        int block;
+        int block = -1;
         if (HoleFiller.nullCheck()) {
             return;
         }
@@ -123,11 +123,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (PlayerEntity target : CombatUtil.getEnemies(this.targetRange.getRange())) {
             list.add(new PredictionSetting._XBpBEveLWEKUGQPHCCIS(target));
         }
-        PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)HoleFiller.mc.player);
+        PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS(HoleFiller.mc.player);
         if (!list.isEmpty()) {
             for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
                 for (BlockPos pos : BlockUtil.getSphere(this.range.getValueFloat(), pap.player.getPos())) {
-                    if (!BlockUtil.isHole(pos, true, true, this.any.getValue()) && (!this.doubleHole.getValue() || !CombatUtil.isDoubleHole(pos)) || HoleFiller.mc.player.squaredDistanceTo(pos.toCenterPos()) < this.saferange.getValue() || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals((Object)SpeedMine.breakPos)) || this.progress >= this.blocksPer.getValueInt() || !BlockUtil.canPlace(pos, this.placeRange.getValue()) || BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) == null || !HoleFiller.mc.world.isAir(pos)) continue;
+                    if (!BlockUtil.isHole(pos, true, true, this.any.getValue()) && (!this.doubleHole.getValue() || !CombatUtil.isDoubleHole(pos)) || HoleFiller.mc.player.squaredDistanceTo(pos.toCenterPos()) < this.saferange.getValue() || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals(SpeedMine.breakPos)) || this.progress >= this.blocksPer.getValueInt() || !BlockUtil.canPlace(pos, this.placeRange.getValue()) || BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) == null || !HoleFiller.mc.world.isAir(pos)) continue;
                     int oldSlot = HoleFiller.mc.player.getInventory().selectedSlot;
                     this.doSwap(block);
                     this.placeBlock(pos, this.rotate.getValue());
@@ -167,17 +167,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             boolean bl = sneak = HoleFiller.needSneak(HoleFiller.mc.world.getBlockState(result.getBlockPos()).getBlock()) && !HoleFiller.mc.player.isSneaking();
         }
         if (sprint) {
-            HoleFiller.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
+            HoleFiller.mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(HoleFiller.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
         }
         if (sneak) {
-            HoleFiller.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY));
+            HoleFiller.mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(HoleFiller.mc.player, ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY));
         }
         this.clickBlock(pos.offset(side), side.getOpposite(), rotate);
         if (sneak) {
-            HoleFiller.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY));
+            HoleFiller.mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(HoleFiller.mc.player, ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY));
         }
         if (sprint) {
-            HoleFiller.mc.player.networkHandler.sendPacket((Packet)new ClientCommandC2SPacket((Entity)HoleFiller.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
+            HoleFiller.mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(HoleFiller.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
         }
         EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         return true;
@@ -190,7 +190,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
-        HoleFiller.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(HoleFiller.mc.world)));
+        HoleFiller.mc.player.networkHandler.sendPacket(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(HoleFiller.mc.world)));
         return true;
     }
 
@@ -201,7 +201,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.directionVec = directionVec;
         float[] angle = EntityUtil.getLegitRotations(directionVec);
-        if (Math.abs(MathHelper.wrapDegrees((float)(angle[0] - this.lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees((float)(angle[1] - this.lastPitch))) < this.fov.getValueFloat()) {
+        if (Math.abs(MathHelper.wrapDegrees(angle[0] - this.lastYaw)) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees(angle[1] - this.lastPitch)) < this.fov.getValueFloat()) {
             EntityUtil.sendYawAndPitch(angle[0], angle[1]);
             return true;
         }
@@ -218,7 +218,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (steps < 1.0f && angle != null) {
             float packetPitch;
             float packetYaw = this.lastYaw;
-            float diff = MathHelper.wrapDegrees((float)(angle[0] - packetYaw));
+            float diff = MathHelper.wrapDegrees(angle[0] - packetYaw);
             if (Math.abs(diff) > 90.0f * steps) {
                 angle[0] = packetYaw + diff * (90.0f * steps / Math.abs(diff));
             }
@@ -246,7 +246,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public enum _sZEAolNLTvldDiHjSnlT {
         General,
-        Rotate;
+        Rotate
 
     }
 }

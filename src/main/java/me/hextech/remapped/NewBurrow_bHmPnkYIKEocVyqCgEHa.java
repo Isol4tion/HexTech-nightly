@@ -130,7 +130,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.needStep && this.rotater.passed(100L)) {
             this.needStep = false;
         }
-        if (HexTech.PLAYER.isInWeb((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player)) {
+        if (HexTech.PLAYER.isInWeb(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player)) {
             this.webTimer.reset();
             this.needAntiLag = true;
             return;
@@ -256,10 +256,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
         } else {
-            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.4199999868869781, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.7531999805212017, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.9999957640154541, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-            mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.1661092609382138, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+            mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.4199999868869781, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+            mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.7531999805212017, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+            mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 0.9999957640154541, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+            mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.1661092609382138, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
         }
         this.doSwap(block);
         if (this.rotate.getValue() == NewBurrow_qqQhaOJZqeVGcFBKpQgd.Bypass) {
@@ -301,60 +301,60 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double distance = 0.0;
                 BlockPos bestPos = null;
                 for (BlockPos blockPos : list) {
-                    if (!this.canMove(blockPos) || (double)MathHelper.sqrt((float)((float)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.squaredDistanceTo(blockPos.toCenterPos().add(0.0, -0.5, 0.0)))) < this.smartDistance.getValue() || bestPos != null && !(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.squaredDistanceTo(blockPos.toCenterPos()) < distance)) continue;
+                    if (!this.canMove(blockPos) || (double)MathHelper.sqrt((float)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.squaredDistanceTo(blockPos.toCenterPos().add(0.0, -0.5, 0.0))) < this.smartDistance.getValue() || bestPos != null && !(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.squaredDistanceTo(blockPos.toCenterPos()) < distance)) continue;
                     bestPos = blockPos;
                     distance = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.squaredDistanceTo(blockPos.toCenterPos());
                 }
                 if (bestPos == null) break;
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.getX() + 0.5, (double)bestPos.getY(), (double)bestPos.getZ() + 0.5, false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.getX() + 0.5, bestPos.getY(), (double)bestPos.getZ() + 0.5, false));
                 break;
             }
             case 1: {
                 int i = 0;
                 while ((double)i < this.invalids.getValue()) {
-                    mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1337.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1337.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                     ++i;
                 }
                 break;
             }
             case 7: {
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.16610926093821, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.170005801788139, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.2426308013947485, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.640088003576279, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.16610926093821, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.170005801788139, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.2426308013947485, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.640088003576279, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 8: {
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0001, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0405, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0802, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.1027, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0001, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0405, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.0802, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.1027, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 2: {
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 2.3400880035762786, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 5: {
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.9, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + 1.9, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 3: {
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), -70.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), -70.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 4: {
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), -7.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), -7.0, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 9: {
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.height.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.height.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), false));
                 break;
             }
             case 6: {
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.LookAndOnGround(-180.0f, -90.0f, false));
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.LookAndOnGround(180.0f, 90.0f, false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(-180.0f, -90.0f, false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(180.0f, 90.0f, false));
             }
         }
         if (this.disable.getValue()) {
@@ -365,7 +365,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void placeBlock(BlockPos pos, boolean rotate) {
         if (this.canPlace(pos) && !this.placePos.contains(pos) && this.progress < this.blocksPer.getValueInt()) {
             Direction side;
-            if (this.noMine.getValue() && pos.equals((Object)SpeedMine.breakPos) && SpeedMine.INSTANCE.isOn()) {
+            if (this.noMine.getValue() && pos.equals(SpeedMine.breakPos) && SpeedMine.INSTANCE.isOn()) {
                 SpeedMine.breakPos = null;
             }
             this.placePos.add(pos);
@@ -373,7 +373,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 ++this.progress;
                 BlockUtil.placedPos.add(pos);
                 if (this.sound.getValue()) {
-                    NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.playSound((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0f, 0.8f);
+                    NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.playSound(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0f, 0.8f);
                 }
                 BlockUtil.clickBlock(pos, Direction.DOWN, rotate, this.packetPlace.getValue());
             }
@@ -383,7 +383,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             ++this.progress;
             BlockUtil.placedPos.add(pos);
             if (this.sound.getValue()) {
-                NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.playSound((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0f, 0.8f);
+                NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.playSound(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0f, 0.8f);
             }
             BlockUtil.clickBlock(pos.offset(side), side.getOpposite(), rotate, this.packetPlace.getValue());
             this.timer.reset();
@@ -401,14 +401,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void gotoPos(BlockPos offPos) {
         if (this.gotoMode.is(NewBurrow.Alien)) {
             if (this.rotate.getValue() == NewBurrow_qqQhaOJZqeVGcFBKpQgd.None) {
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround((double)offPos.getX() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), (double)offPos.getZ() + 0.5, false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround((double)offPos.getX() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), (double)offPos.getZ() + 0.5, false));
             } else {
-                mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.Full((double)offPos.getX() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), (double)offPos.getZ() + 0.5, HexTech.ROTATE.rotateYaw, 90.0f, false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.Full((double)offPos.getX() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), (double)offPos.getZ() + 0.5, HexTech.ROTATE.rotateYaw, 90.0f, false));
             }
         } else if (Math.abs((double)offPos.getX() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX()) < Math.abs((double)offPos.getZ() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ())) {
-            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + ((double)offPos.getZ() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ()), true));
+            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + ((double)offPos.getZ() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ()), true));
         } else {
-            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() + ((double)offPos.getX() + 0.2 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX()), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), true));
+            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() + ((double)offPos.getX() + 0.2 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX()), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), true));
         }
     }
 
@@ -417,7 +417,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean canPlace(BlockPos pos) {
-        if (this.noSelfPos.getValue() && pos.equals((Object)EntityUtil.getPlayerPos())) {
+        if (this.noSelfPos.getValue() && pos.equals(EntityUtil.getPlayerPos())) {
             return false;
         }
         if (!BlockUtil.airPlace() && BlockUtil.getPlaceSide(pos) == null) {
@@ -442,7 +442,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean trapped(BlockPos pos) {
-        return (NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.canCollide((Entity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.COBWEB) && this.checkSelf(pos.down(2));
+        return (NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.canCollide(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.COBWEB) && this.checkSelf(pos.down(2));
     }
 
     private int getBlock() {

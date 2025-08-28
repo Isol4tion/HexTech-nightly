@@ -102,11 +102,17 @@ extends ReentrantThreadExecutor<Runnable> {
         HexTech.ROTATE.run();
     }
 
+
+    /**
+     * @author
+     * @reason
+     */
     @Overwrite
     private String getWindowTitle() {
+        StringBuilder stringBuilder = new StringBuilder("Ez Cracked By Isol4ion.(github.com/Isol4ion)");
         if (!HexTech.isLoaded) {
-            return "Ez Cracked By Isol4ion.(github.com/Isol4ion) \u5e7b\u5f71\u76fe\u62ef\u6551\u4e0d\u4e86\u72c2\u5984\u81ea\u5927\u7684\u4f60";
+            stringBuilder = new StringBuilder("Ez Cracked By Isol4ion.(github.com/Isol4ion) \u5e7b\u5f71\u76fe\u62ef\u6551\u4e0d\u4e86\u72c2\u5984\u81ea\u5927\u7684\u4f60");
         }
-        return "Ez Cracked By Isol4ion.(github.com/Isol4ion)";
+        return stringBuilder.toString();
     }
 }

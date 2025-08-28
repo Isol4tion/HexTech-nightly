@@ -32,7 +32,7 @@ public abstract class MixinCamera {
     @Inject(method={"clipToSpace"}, at={@At(value="HEAD")}, cancellable=true)
     private void onClipToSpace(double desiredCameraDistance, CallbackInfoReturnable<Double> info) {
         if (CameraClip.INSTANCE.isOn()) {
-            info.setReturnValue((Object)CameraClip.INSTANCE.getDistance());
+            info.setReturnValue(CameraClip.INSTANCE.getDistance());
         }
     }
 
@@ -46,14 +46,14 @@ public abstract class MixinCamera {
     @ModifyArgs(method={"update"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/render/Camera;setRotation(FF)V"))
     private void setRotationHook(Args args) {
         if (FreeCam.INSTANCE.isOn()) {
-            args.setAll(new Object[]{Float.valueOf(FreeCam.INSTANCE.getFakeYaw()), Float.valueOf(FreeCam.INSTANCE.getFakePitch())});
+            args.setAll(Float.valueOf(FreeCam.INSTANCE.getFakeYaw()), Float.valueOf(FreeCam.INSTANCE.getFakePitch()));
         }
     }
 
     @ModifyArgs(method={"update"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/render/Camera;setPos(DDD)V"))
     private void setPosHook(Args args) {
         if (FreeCam.INSTANCE.isOn()) {
-            args.setAll(new Object[]{FreeCam.INSTANCE.getFakeX(), FreeCam.INSTANCE.getFakeY(), FreeCam.INSTANCE.getFakeZ()});
+            args.setAll(FreeCam.INSTANCE.getFakeX(), FreeCam.INSTANCE.getFakeY(), FreeCam.INSTANCE.getFakeZ());
         }
     }
 }

@@ -1,7 +1,6 @@
 package me.hextech.remapped;
 
 import java.awt.Color;
-import me.hextech.remapped.BooleanComponent_iwxfewPNzPrRDgHmnnjX;
 import me.hextech.remapped.BooleanSetting;
 import me.hextech.remapped.ClickGuiScreen;
 import me.hextech.remapped.ClickGuiTab;
@@ -65,22 +64,22 @@ extends Component {
         MatrixStack matrixStack = drawContext.getMatrices();
         Render2DUtil.drawRect(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)width - 2.0f, (float)this.defaultHeight - 1.0f, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.shColor.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.sbgColor.getValue());
         this.currentWidth = BooleanComponent.animate(this.currentWidth, this.setting.getValue() ? (double)width - 2.0 : 0.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.booleanSpeed.getValue());
-        switch (BooleanComponent_iwxfewPNzPrRDgHmnnjX.$SwitchMap$me$hextech$mod$modules$impl$client$ClickGui$Type[ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue().ordinal()]) {
-            case 1: {
-                TextUtil.drawString(drawContext, this.setting.getName(), (double)(x + 4), (double)y + this.getTextOffsetY(), this.setting.getValue() ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableTextS.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue());
+        switch (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue()) {
+            case Old: {
+                TextUtil.drawString(drawContext, this.setting.getName(), x + 4, (double)y + this.getTextOffsetY(), this.setting.getValue() ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableTextS.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue());
                 break;
             }
-            case 2: {
+            case New: {
                 if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.booleanValue) {
                     Render2DUtil.drawRectHorizontal(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)this.currentWidth, (float)this.defaultHeight - (float)(!ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 1 : 0), this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainEnd.getValue());
                 } else {
                     Render2DUtil.drawRect(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)this.currentWidth, (float)this.defaultHeight - (float)(!ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 1 : 0), this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color);
                 }
-                TextUtil.drawString(drawContext, this.setting.getName(), (double)(x + 4), (double)y + this.getTextOffsetY(), new Color(-1).getRGB());
+                TextUtil.drawString(drawContext, this.setting.getName(), x + 4, (double)y + this.getTextOffsetY(), new Color(-1).getRGB());
             }
         }
         if (this.setting.parent) {
-            TextUtil.drawString(drawContext, this.setting.popped ? "-" : "+", (double)(x + width - 11), (double)y + this.getTextOffsetY(), new Color(255, 255, 255).getRGB());
+            TextUtil.drawString(drawContext, this.setting.popped ? "-" : "+", x + width - 11, (double)y + this.getTextOffsetY(), new Color(255, 255, 255).getRGB());
         }
         return true;
     }

@@ -34,10 +34,10 @@ import org.lwjgl.opengl.GL11;
 public class FontRenderer
 implements Closeable {
     private static final Char2IntArrayMap colorCodes;
-    private static final int BLOCK_SIZE;
+    private static final int BLOCK_SIZE  = 256;
     private static final Object2ObjectArrayMap<Identifier, ObjectList<_ZitfNZXjZiLiXZJDgFqm>> GLYPH_PAGE_CACHE;
-    private static final char RND_START;
-    private static final char RND_END;
+    private static final char RND_START = 'a';
+    private static final char RND_END = 'z';
     private static final Random RND;
     private final float originalSize;
     private final ObjectList<GlyphMap> maps = new ObjectArrayList();
@@ -47,7 +47,7 @@ implements Closeable {
     private int previousGameScale = -1;
 
     public FontRenderer(Font @NotNull [] fonts, float sizePx) {
-        Preconditions.checkArgument((fonts.length > 0 ? 1 : 0) != 0, (Object)"fonts.length == 0");
+        Preconditions.checkArgument((fonts.length > 0 ? 1 : 0) != 0, "fonts.length == 0");
         this.originalSize = sizePx;
         this.init(fonts, sizePx);
     }
@@ -112,7 +112,7 @@ implements Closeable {
     @NotNull
     private GlyphMap generateMap(char from, char to) {
         GlyphMap gm = new GlyphMap(from, to, this.fonts, FontRenderer.randomIdentifier());
-        this.maps.add((Object)gm);
+        this.maps.add(gm);
         return gm;
     }
 
@@ -127,7 +127,7 @@ implements Closeable {
     }
 
     private Glyph locateGlyph1(char glyph) {
-        return (Glyph)this.allGlyphs.computeIfAbsent(glyph, this::locateGlyph0);
+        return this.allGlyphs.computeIfAbsent(glyph, this::locateGlyph0);
     }
 
     public void drawString(@NotNull MatrixStack stack, @NotNull String s, float x, float y, float r, float g, float b, float a) {
@@ -146,8 +146,8 @@ implements Closeable {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
-        GL11.glTexParameteri((int)3553, (int)10241, (int)9729);
-        GL11.glTexParameteri((int)3553, (int)10240, (int)9729);
+        GL11.glTexParameteri(3553, 10241, 9729);
+        GL11.glTexParameteri(3553, 10240, 9729);
         RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
         BufferBuilder bb = Tessellator.getInstance().getBuffer();
         Matrix4f mat = stack.peek().getPositionMatrix();
@@ -189,13 +189,13 @@ implements Closeable {
             if (glyph.value() != ' ') {
                 Identifier i1 = glyph.owner().bindToTexture;
                 _ZitfNZXjZiLiXZJDgFqm entry = new _ZitfNZXjZiLiXZJDgFqm(xOffset, yOffset, r2, g2, b2, glyph);
-                ((ObjectList)GLYPH_PAGE_CACHE.computeIfAbsent((Object)i1, integer -> new ObjectArrayList())).add((Object)entry);
+                GLYPH_PAGE_CACHE.computeIfAbsent(i1, integer -> new ObjectArrayList()).add(entry);
             }
             xOffset += (float)glyph.width();
         }
         for (Identifier identifier : GLYPH_PAGE_CACHE.keySet()) {
-            RenderSystem.setShaderTexture((int)0, (Identifier)identifier);
-            List objects = (List)GLYPH_PAGE_CACHE.get((Object)identifier);
+            RenderSystem.setShaderTexture(0, identifier);
+            List<_ZitfNZXjZiLiXZJDgFqm> objects = GLYPH_PAGE_CACHE.get(identifier);
             bb.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
             for (_ZitfNZXjZiLiXZJDgFqm object : objects) {
                 float xo = object.atX;
@@ -216,7 +216,7 @@ implements Closeable {
                 bb.vertex(mat, xo + w, yo + 0.0f, 0.0f).texture(u2, v1).color(cr, cg, cb, a).next();
                 bb.vertex(mat, xo + 0.0f, yo + 0.0f, 0.0f).texture(u1, v1).color(cr, cg, cb, a).next();
             }
-            BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bb.end());
+            BufferRenderer.drawWithGlobalProgram(bb.end());
         }
         stack.pop();
         GLYPH_PAGE_CACHE.clear();
@@ -230,8 +230,8 @@ implements Closeable {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
-        GL11.glTexParameteri((int)3553, (int)10241, (int)9729);
-        GL11.glTexParameteri((int)3553, (int)10240, (int)9729);
+        GL11.glTexParameteri(3553, 10241, 9729);
+        GL11.glTexParameteri(3553, 10240, 9729);
         RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
         BufferBuilder bb = Tessellator.getInstance().getBuffer();
         Matrix4f mat = stack.peek().getPositionMatrix();
@@ -254,13 +254,13 @@ implements Closeable {
             if (glyph.value() != ' ') {
                 Identifier i1 = glyph.owner().bindToTexture;
                 _ZitfNZXjZiLiXZJDgFqm entry = new _ZitfNZXjZiLiXZJDgFqm(xOffset, yOffset, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, glyph);
-                ((ObjectList)GLYPH_PAGE_CACHE.computeIfAbsent((Object)i1, integer -> new ObjectArrayList())).add((Object)entry);
+                (GLYPH_PAGE_CACHE.computeIfAbsent(i1, integer -> new ObjectArrayList())).add(entry);
             }
             xOffset += (float)glyph.width();
         }
         for (Identifier identifier : GLYPH_PAGE_CACHE.keySet()) {
-            RenderSystem.setShaderTexture((int)0, (Identifier)identifier);
-            List objects = (List)GLYPH_PAGE_CACHE.get((Object)identifier);
+            RenderSystem.setShaderTexture(0, identifier);
+            List<_ZitfNZXjZiLiXZJDgFqm> objects = GLYPH_PAGE_CACHE.get(identifier);
             bb.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
             for (_ZitfNZXjZiLiXZJDgFqm object : objects) {
                 float xo = object.atX;
@@ -281,7 +281,7 @@ implements Closeable {
                 bb.vertex(mat, xo + w, yo + 0.0f, 0.0f).texture(u2, v1).color(cr, cg, cb, a).next();
                 bb.vertex(mat, xo + 0.0f, yo + 0.0f, 0.0f).texture(u1, v1).color(cr, cg, cb, a).next();
             }
-            BufferRenderer.drawWithGlobalProgram((BufferBuilder.BuiltBuffer)bb.end());
+            BufferRenderer.drawWithGlobalProgram(bb.end());
         }
         stack.pop();
         GLYPH_PAGE_CACHE.clear();

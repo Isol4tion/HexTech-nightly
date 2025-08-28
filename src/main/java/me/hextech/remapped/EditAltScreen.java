@@ -20,19 +20,19 @@ extends Screen {
     private TextFieldWidget textFieldAltUsername;
 
     public EditAltScreen(AltScreen parentScreen, Alt alt) {
-        super(Text.of((String)"Alt Manager"));
+        super(Text.of("Alt Manager"));
         this.parent = parentScreen;
         this.alt = alt;
     }
 
     public void init() {
         super.init();
-        this.textFieldAltUsername = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 76, 200, 20, Text.of((String)"Enter Name"));
+        this.textFieldAltUsername = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, this.height / 2 - 76, 200, 20, Text.of("Enter Name"));
         this.textFieldAltUsername.setText(this.alt == null ? "" : this.alt.getEmail());
-        this.addDrawableChild((Element)this.textFieldAltUsername);
-        this.buttonSaveAlt = ButtonWidget.builder((Text)Text.of((String)"Save Alt"), b -> this.onButtonAltEditPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 24, 200, 20).build();
-        this.addDrawableChild((Element)this.buttonSaveAlt);
-        this.addDrawableChild((Element)ButtonWidget.builder((Text)Text.of((String)"Cancel"), b -> this.onButtonCancelPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 46, 200, 20).build());
+        this.addDrawableChild(this.textFieldAltUsername);
+        this.buttonSaveAlt = ButtonWidget.builder(Text.of("Save Alt"), b -> this.onButtonAltEditPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 24, 200, 20).build();
+        this.addDrawableChild(this.buttonSaveAlt);
+        this.addDrawableChild(ButtonWidget.builder(Text.of("Cancel"), b -> this.onButtonCancelPressed()).dimensions(this.width / 2 - 100, this.height / 2 + 46, 200, 20).build());
     }
 
     public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
@@ -48,6 +48,6 @@ extends Screen {
     }
 
     public void onButtonCancelPressed() {
-        this.client.setScreen((Screen)this.parent);
+        this.client.setScreen(this.parent);
     }
 }

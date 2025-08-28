@@ -40,8 +40,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onPacketReceive(PacketEvent_YXFfxdDjQAfjBumqRbBu event) {
         Object object = event.getPacket();
-        if (object instanceof PlayerListS2CPacket) {
-            PlayerListS2CPacket packet = (PlayerListS2CPacket)object;
+        if (object instanceof PlayerListS2CPacket packet) {
             if (packet.getActions().contains(PlayerListS2CPacket.Action.ADD_PLAYER)) {
                 for (PlayerListS2CPacket.Entry addedPlayer : packet.getPlayerAdditionEntries()) {
                     for (UUID uuid : this.logoutCache.keySet()) {
@@ -68,8 +67,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.playerCache.clear();
         } else {
             object = event.getPacket();
-            if (object instanceof PlayerRemoveS2CPacket) {
-                PlayerRemoveS2CPacket packet = (PlayerRemoveS2CPacket)object;
+            if (object instanceof PlayerRemoveS2CPacket packet) {
                 for (UUID uuid2 : packet.profileIds()) {
                     for (UUID uuid : this.playerCache.keySet()) {
                         if (!uuid.equals(uuid2)) continue;
@@ -106,7 +104,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onUpdate() {
         for (PlayerEntity player : LogoutSpots.mc.world.getPlayers()) {
-            if (player == null || player.equals((Object)LogoutSpots.mc.player)) continue;
+            if (player == null || player.equals(LogoutSpots.mc.player)) continue;
             this.playerCache.put(player.getGameProfile().getId(), player);
         }
     }
@@ -118,7 +116,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (data == null) continue;
             Render3DUtil.draw3DBox(matrixStack, ((IEntity)data).getDimensions().getBoxAt(data.getPos()), this.color.getValue(), this.outline.getValue(), this.box.getValue());
             if (!this.text.getValue()) continue;
-            Render3DUtil.drawText3D(data.getName().getString(), new Vec3d(data.getX(), ((IEntity)data).getDimensions().getBoxAt((Vec3d)data.getPos()).maxY + 0.5, data.getZ()), ColorUtil.injectAlpha(this.color.getValue(), 255));
+            Render3DUtil.drawText3D(data.getName().getString(), new Vec3d(data.getX(), ((IEntity)data).getDimensions().getBoxAt(data.getPos()).maxY + 0.5, data.getZ()), ColorUtil.injectAlpha(this.color.getValue(), 255));
         }
     }
 }

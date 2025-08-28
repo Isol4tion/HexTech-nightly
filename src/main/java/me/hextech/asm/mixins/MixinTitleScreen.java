@@ -22,20 +22,20 @@ extends Screen {
     @Inject(method={"tick"}, at={@At(value="HEAD")})
     private void tick(CallbackInfo ci) {
         if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.Nullpoint) {
-            this.client.setScreen((Screen)new Menu());
+            this.client.setScreen(new Menu());
         }
         if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.HexTech) {
-            this.client.setScreen((Screen)new HexTech());
+            this.client.setScreen(new HexTech());
         }
     }
 
     @Inject(method={"init"}, at={@At(value="HEAD")})
     private void init(CallbackInfo ci) {
         if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.Nullpoint) {
-            this.client.setScreen((Screen)new Menu());
+            this.client.setScreen(new Menu());
         }
         if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.HexTech) {
-            this.client.setScreen((Screen)new HexTech());
+            this.client.setScreen(new HexTech());
         }
     }
 }

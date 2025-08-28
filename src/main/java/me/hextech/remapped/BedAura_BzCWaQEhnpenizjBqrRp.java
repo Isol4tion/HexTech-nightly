@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 import me.hextech.HexTech;
-import me.hextech.remapped.BedAura;
 import me.hextech.remapped.BedAura_mDouduXLLBVPsGyiReXU;
 import me.hextech.remapped.BedAura_uTGCNmVWbsqrhUODnXeN;
 import me.hextech.remapped.Beta;
@@ -193,13 +192,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (PlayerEntity target : CombatUtil.getEnemies(this.targetRange.getRange())) {
                 list.add(new PredictionSetting._XBpBEveLWEKUGQPHCCIS(target));
             }
-            PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)BedAura_BzCWaQEhnpenizjBqrRp.mc.player);
+            PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS(BedAura_BzCWaQEhnpenizjBqrRp.mc.player);
             for (BlockPos pos : BlockUtil.getSphere((float)this.range.getValue())) {
                 if (!this.canPlaceBed(pos) && !(BlockUtil.getBlock(pos) instanceof BedBlock)) continue;
                 for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
                     float damage = this.calculateDamage(pos, pap.player, pap.predict);
                     float selfDamage = this.calculateDamage(pos, self.player, self.predict);
-                    if ((double)selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getHealth() + BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getABSORPTIONAmount()) - this.antiSuicide.getValue() || damage < EntityUtil.getHealth((Entity)pap.player) && (damage < this.placeMinDamage.getValueFloat() || this.smart.getValue() && damage < selfDamage) || placePos != null && !(damage > this.lastDamage)) continue;
+                    if ((double)selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getHealth() + BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getAbsorptionAmount()) - this.antiSuicide.getValue() || damage < EntityUtil.getHealth(pap.player) && (damage < this.placeMinDamage.getValueFloat() || this.smart.getValue() && damage < selfDamage) || placePos != null && !(damage > this.lastDamage)) continue;
                     this.displayTarget = pap.player;
                     placePos = pos;
                     this.lastDamage = damage;
@@ -246,7 +245,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.breakTimer.reset();
             EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
             BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
-            BedAura_BzCWaQEhnpenizjBqrRp.mc.player.networkHandler.sendPacket((Packet)new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(BedAura_BzCWaQEhnpenizjBqrRp.mc.world)));
+            BedAura_BzCWaQEhnpenizjBqrRp.mc.player.networkHandler.sendPacket(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, BlockUtil.getWorldActionId(BedAura_BzCWaQEhnpenizjBqrRp.mc.world)));
         }
     }
 
@@ -322,7 +321,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.nowBB == null) {
                 this.nowBB = this.lastBB;
             }
-            if (this.renderPos == null || !this.renderPos.equals((Object)placePos)) {
+            if (this.renderPos == null || !this.renderPos.equals(placePos)) {
                 this.animation.setLength(this.animationTime.getValue() * 1000.0 <= 0.0 ? 0L : (long)(Math.abs(this.nowBB.minX - this.lastBB.minX) + Math.abs(this.nowBB.minY - this.lastBB.minY) + Math.abs(this.nowBB.minZ - this.lastBB.minZ) <= 5.0 ? (double)((long)((Math.abs(this.nowBB.minX - this.lastBB.minX) + Math.abs(this.nowBB.minY - this.lastBB.minY) + Math.abs(this.nowBB.minZ - this.lastBB.minZ)) * (this.animationTime.getValue() * 1000.0))) : this.animationTime.getValue() * 5000.0));
                 this.animation.reset();
                 this.renderPos = placePos;
@@ -368,21 +367,21 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             CombatUtil.terrainIgnore = true;
         }
         float damage = 0.0f;
-        switch (BedAura.$SwitchMap$me$hextech$mod$modules$impl$combat$autocrystal$mode$Enum$CalcMode[this.calcMode.getValue().ordinal()]) {
-            case 1: {
+        switch (this.calcMode.getValue()) {
+            case Meteor: {
                 damage = (float)MeteorExplosionUtil.crystalDamage(player, pos, predict);
                 break;
             }
-            case 2: {
+            case Thunder: {
                 damage = ThunderExplosionUtil.calculateDamage(pos, player, predict, 6.0f);
                 break;
             }
-            case 3: {
-                damage = OyveyExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), (Entity)player, (Entity)predict, 6.0f);
+            case OyVey: {
+                damage = OyveyExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), player, predict, 6.0f);
                 break;
             }
-            case 4: {
-                damage = ExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), (Entity)player, (Entity)predict, 6.0f);
+            case EditionHex: {
+                damage = ExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), player, predict, 6.0f);
             }
         }
         CombatUtil.terrainIgnore = false;
@@ -404,7 +403,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return true;
         }
         Vec3d hitVec = pos.toCenterPos().add(new Vec3d(0.0, -0.5, 0.0));
-        return Direction.fromHorizontalDegrees((double)EntityUtil.getLegitRotations(hitVec)[0]) == facing;
+        return Direction.fromRotation(EntityUtil.getLegitRotations(hitVec)[0]) == facing;
     }
 
     public boolean faceVector(Vec3d directionVec) {
@@ -414,7 +413,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.directionVec = directionVec;
         float[] angle = EntityUtil.getLegitRotations(directionVec);
-        if (Math.abs(MathHelper.wrapDegrees((float)(angle[0] - this.lastYaw))) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees((float)(angle[1] - this.lastPitch))) < this.fov.getValueFloat()) {
+        if (Math.abs(MathHelper.wrapDegrees(angle[0] - this.lastYaw)) < this.fov.getValueFloat() && Math.abs(MathHelper.wrapDegrees(angle[1] - this.lastPitch)) < this.fov.getValueFloat()) {
             if (this.sync.getValue()) {
                 EntityUtil.sendYawAndPitch(angle[0], angle[1]);
             }
@@ -433,7 +432,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (steps < 1.0f && angle != null) {
             float packetPitch;
             float packetYaw = this.lastYaw;
-            float diff = MathHelper.wrapDegrees((float)(angle[0] - this.lastYaw));
+            float diff = MathHelper.wrapDegrees(angle[0] - this.lastYaw);
             if (Math.abs(diff) > 90.0f * steps) {
                 angle[0] = packetYaw + diff * (90.0f * steps / Math.abs(diff));
             }

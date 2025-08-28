@@ -32,7 +32,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if ((double)(now - this.lastTime) >= this.delay.getValue()) {
             this.sneaking = !this.sneaking;
             ClientCommandC2SPacket.Mode mode = this.sneaking ? ClientCommandC2SPacket.Mode.PRESS_SHIFT_KEY : ClientCommandC2SPacket.Mode.RELEASE_SHIFT_KEY;
-            mc.getNetworkHandler().sendPacket((Packet)new ClientCommandC2SPacket((Entity)AutoFuck.mc.player, mode));
+            mc.getNetworkHandler().sendPacket(new ClientCommandC2SPacket(AutoFuck.mc.player, mode));
             this.lastTime = now;
         }
     }

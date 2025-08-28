@@ -42,11 +42,11 @@ extends Screen {
     private void addButtons(CallbackInfo ci, ButtonWidget buttonWidget) {
         AutoReconnect autoReconnect = AutoReconnect.INSTANCE;
         if (autoReconnect.lastServerConnection != null) {
-            this.reconnectBtn = new ButtonWidget.Builder((Text)Text.literal((String)this.getText()), button -> this.tryConnecting()).build();
+            this.reconnectBtn = new ButtonWidget.Builder(Text.literal(this.getText()), button -> this.tryConnecting()).build();
             this.grid.add((Widget)this.reconnectBtn);
-            this.grid.add((Widget)new ButtonWidget.Builder((Text)Text.literal((String)"Toggle Auto Reconnect"), button -> {
+            this.grid.add((Widget)new ButtonWidget.Builder(Text.literal("Toggle Auto Reconnect"), button -> {
                 autoReconnect.toggle();
-                this.reconnectBtn.setMessage((Text)Text.literal((String)this.getText()));
+                this.reconnectBtn.setMessage(Text.literal(this.getText()));
                 this.time = autoReconnect.delay.getValueInt() * 20;
             }).build());
         }
@@ -62,7 +62,7 @@ extends Screen {
         } else {
             this.time -= 1.0;
             if (this.reconnectBtn != null) {
-                this.reconnectBtn.setMessage((Text)Text.literal((String)this.getText()));
+                this.reconnectBtn.setMessage(Text.literal(this.getText()));
             }
         }
     }
@@ -71,7 +71,7 @@ extends Screen {
     private String getText() {
         String reconnectText = "Reconnect";
         if (AutoReconnect.INSTANCE.isOn()) {
-            reconnectText = (String)reconnectText + " " + String.format("(%.1f)", this.time / 20.0);
+            reconnectText = reconnectText + " " + String.format("(%.1f)", this.time / 20.0);
         }
         return reconnectText;
     }
@@ -79,6 +79,6 @@ extends Screen {
     @Unique
     private void tryConnecting() {
         Pair<ServerAddress, ServerInfo> lastServer = AutoReconnect.INSTANCE.lastServerConnection;
-        ConnectScreen.connect((Screen)new TitleScreen(), (MinecraftClient)MinecraftClient.getInstance(), (ServerAddress)((ServerAddress)lastServer.left()), (ServerInfo)((ServerInfo)lastServer.right()), (boolean)false);
+        ConnectScreen.connect(new TitleScreen(), MinecraftClient.getInstance(), lastServer.left(), lastServer.right(), false);
     }
 }

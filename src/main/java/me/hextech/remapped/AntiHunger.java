@@ -30,14 +30,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         PacketByteBuf packetBuf = new PacketByteBuf(Unpooled.buffer());
         packet.write(packetBuf);
         packetBuf.readVarInt();
-        return (AntiHunger_zYbEBAOiuFfDBojQHScp)packetBuf.readEnumConstant(AntiHunger_zYbEBAOiuFfDBojQHScp.class);
+        return packetBuf.readEnumConstant(AntiHunger_zYbEBAOiuFfDBojQHScp.class);
     }
 
     @EventHandler(priority=-100)
     public void onPacketSend(PacketEvent event) {
         Object t = event.getPacket();
-        if (t instanceof ClientCommandC2SPacket) {
-            ClientCommandC2SPacket packet = (ClientCommandC2SPacket)t;
+        if (t instanceof ClientCommandC2SPacket packet) {
             if (this.sprint.getValue() && packet.getMode() == ClientCommandC2SPacket.Mode.START_SPRINTING) {
                 event.cancel();
             }

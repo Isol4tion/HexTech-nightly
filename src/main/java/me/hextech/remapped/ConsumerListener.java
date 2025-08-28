@@ -21,7 +21,7 @@ implements IListener {
 
     @Override
     public void call(Object event) {
-        this.executor.accept(event);
+        this.executor.accept((T)event);
     }
 
     @Override

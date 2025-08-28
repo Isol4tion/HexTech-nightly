@@ -11,6 +11,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.BlockPos;
@@ -185,19 +186,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @EventHandler
     public void onPacket(PacketEvent event) {
-        PlayerMoveC2SPacket packet;
-        Object t;
-        if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.raytracebypass.getValue() && (t = event.getPacket()) instanceof PlayerMoveC2SPacket) {
-            packet = (PlayerMoveC2SPacket)t;
+        Packet<?> p = event.getPacket();
+        if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.raytracebypass.getValue() && p instanceof PlayerMoveC2SPacket packet) {
             if (RotateManager.lastPitch != -91.0f) {
                 ((IPlayerMoveC2SPacket)packet).setPitch(-91.0f);
             }
         }
         if (this.antiopen.getValue()) {
-            if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.nullCheck() || !((t = event.getPacket()) instanceof PlayerInteractBlockC2SPacket)) {
+            if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.nullCheck() || !(p instanceof PlayerInteractBlockC2SPacket packet)) {
                 return;
             }
-            packet = (PlayerInteractBlockC2SPacket)t;
             Block block = BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.world.getBlockState(packet.getBlockHitResult().getBlockPos()).getBlock();
             if (!BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.isSneaking() && (block instanceof ChestBlock || block instanceof EnderChestBlock)) {
                 event.cancel();
@@ -260,7 +258,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (target.hurtTime > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.HurtTime.getValueInt()) continue;
             list.add(new PredictionSetting._XBpBEveLWEKUGQPHCCIS(target));
         }
-        PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS((PlayerEntity)BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player);
+        PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player);
         if (!list.isEmpty()) {
             for (BlockPos pos : BlockUtil.getSphere((float)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue() + 1.0f)) {
                 CombatUtil.modifyPos = null;
@@ -272,7 +270,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     float selfDamage;
                     if (pos.down().getY() > pap.player.getBlockY() || AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lite.getValue() && ListenerHelperUtil.liteCheck(pos.toCenterPos().add(0.0, -0.5, 0.0), pap.predict.getPos())) continue;
                     float damage = ListenerHelperUtil.calculateBase(pos, pap.player, pap.predict);
-                    if (this.tempPos != null && !(damage > this.tempDamage) || (double)(selfDamage = ListenerHelperUtil.calculateBase(pos, self.player, self.predict)) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.maxSelf.getValue() || AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.noSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.getHealth() + BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.getABSORPTIONAmount()) - AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.noSuicide.getValue() || damage < EntityUtil.getHealth((Entity)pap.player) && ((double)damage < ListenerDamage.getDamage(pap.player) || AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.smart.getValue() && (ListenerDamage.getDamage(pap.player) == AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forceMin.getValue() ? (double)damage < (double)selfDamage - 2.5 : damage < selfDamage))) continue;
+                    if (this.tempPos != null && !(damage > this.tempDamage) || (double)(selfDamage = ListenerHelperUtil.calculateBase(pos, self.player, self.predict)) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.maxSelf.getValue() || AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.noSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.getHealth() + BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.getAbsorptionAmount()) - AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.noSuicide.getValue() || damage < EntityUtil.getHealth(pap.player) && ((double)damage < ListenerDamage.getDamage(pap.player) || AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.smart.getValue() && (ListenerDamage.getDamage(pap.player) == AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forceMin.getValue() ? (double)damage < (double)selfDamage - 2.5 : damage < selfDamage))) continue;
                     this.displayTarget = pap.player;
                     this.tempPos = pos.down();
                     this.tempDamage = damage;

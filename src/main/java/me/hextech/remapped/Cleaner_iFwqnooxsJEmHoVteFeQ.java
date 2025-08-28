@@ -3,6 +3,9 @@ package me.hextech.remapped;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
+
+import com.mojang.authlib.GameProfile;
 import me.hextech.HexTech;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -140,10 +143,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.delayTimer.reset();
-        List<BlockPos> webPos = this.getWebPos((PlayerEntity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player);
+        List<BlockPos> webPos = this.getWebPos(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player);
         if (webPos.size() >= 1) {
             for (BlockPos pos : BlockUtil.getSphere(this.range.getValueFloat())) {
-                if (this.behindWall(pos) || !this.canExplodeReach(pos, webPos.get(0), 6.1f) || !((double)this.calculateDamage(pos.toCenterPos(), (PlayerEntity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player, (PlayerEntity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player) <= this.maxSelf.getValue())) continue;
+                if (this.behindWall(pos) || !this.canExplodeReach(pos, webPos.get(0), 6.1f) || !((double)this.calculateDamage(pos.toCenterPos(), Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player, Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player) <= this.maxSelf.getValue())) continue;
                 if (this.attack.getValue()) {
                     this.doBreak(pos);
                 }
@@ -157,7 +160,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public float calculateDamage(Vec3d pos, PlayerEntity player, PlayerEntity predict) {
-        float damage = OyveyExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), (Entity)player, (Entity)predict, 6.0f);
+        float damage = OyveyExplosionUtil.calculateDamage(pos.getX(), pos.getY(), pos.getZ(), player, predict, 6.0f);
         CombatUtil.modifyPos = null;
         return damage;
     }
@@ -240,7 +243,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void doBreak(BlockPos pos) {
         this.noPosTimer.reset();
         this.lastBreakTimer.reset();
-        Iterator<EndCrystalEntity> iterator = BlockUtil.getEndCrystals(new Box((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), (double)(pos.getX() + 1), (double)(pos.getY() + 2), (double)(pos.getZ() + 1))).iterator();
+        Iterator<EndCrystalEntity> iterator = BlockUtil.getEndCrystals(new Box(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1)).iterator();
         if (iterator.hasNext()) {
             EndCrystalEntity entity = iterator.next();
             if (this.rotate.getValue() && this.onBreak.getValue() && !this.faceVector(entity.getPos().add(0.0, this.yOffset.getValue(), 0.0))) {
@@ -251,7 +254,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             CombatUtil.breakTimer.reset();
             this.syncPos = pos;
-            mc.getNetworkHandler().sendPacket((Packet)PlayerInteractEntityC2SPacket.attack((Entity)entity, (boolean)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.isSneaking()));
+            mc.getNetworkHandler().sendPacket(PlayerInteractEntityC2SPacket.attack(entity, Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.isSneaking()));
             Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.resetLastAttackedTicks();
             EntityUtil.swingHand(Hand.MAIN_HAND, this.swingMode.getValue());
             if (pos != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player != null && this.afterBreak.getValue() && (!this.yawStep.getValue() || !this.checkFov.getValue() || HexTech.ROTATE.inFov(entity.getPos(), this.fov.getValueFloat()))) {
@@ -260,13 +263,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.forceWeb.getValue() && WebAuraTick.INSTANCE.isOn()) {
                 WebAuraTick.force = true;
             }
-            return;
         }
     }
 
     public boolean behindWall(BlockPos pos) {
         Vec3d testVec = new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() + 1.7, (double)pos.getZ() + 0.5);
-        BlockHitResult result = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player));
+        BlockHitResult result = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player));
         if (result == null || result.getType() == HitResult.Type.MISS) {
             return false;
         }
@@ -281,8 +283,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Direction side = BlockUtil.getClickSideStrict(pos);
         if (side == null) return false;
         Vec3d vec3d = new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5);
-        if (!(pos.toCenterPos().add(vec3d).distanceTo(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getEyePos()) <= this.range.getValue())) return false;
-        return true;
+        return pos.toCenterPos().add(vec3d).distanceTo(Cleaner_iFwqnooxsJEmHoVteFeQ.mc.player.getEyePos()) <= this.range.getValue();
     }
 
     public boolean canPlaceCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
@@ -321,7 +322,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             BlockPosX currentBlockPos = new BlockPosX(currentPos);
             BlockState blockState = null;
             if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null) {
-                blockState = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState((BlockPos)currentBlockPos);
+                blockState = Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.getBlockState(currentBlockPos);
             }
             if (!(blockState == null || !blockState.isAir() && (resistance = blockState.getBlock().getBlastResistance()) > power)) continue;
             return false;
@@ -332,10 +333,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public boolean willBlockBeDestroyedByExplosion(World world, BlockPos explosionPos, BlockPos pos2, float power) {
         float blastResistance;
         float exposure;
-        Explosion explosion = new Explosion(world, null, (double)explosionPos.getX(), (double)explosionPos.getY(), (double)explosionPos.getZ(), power, false, Explosion.DestructionType.DESTROY);
+        Explosion explosion = new Explosion(world, null, explosionPos.getX(), explosionPos.getY(), explosionPos.getZ(), power, false, Explosion.DestructionType.DESTROY);
         BlockState blockState = world.getBlockState(pos2);
         float doubleExplosionSize = 2.0f * explosion.getPower();
-        double distancedsize = (double)MathHelper.sqrt((float)((float)explosionPos.getSquaredDistance((Vec3i)pos2))) / (double)doubleExplosionSize;
+        double distancedsize = (double)MathHelper.sqrt((float)explosionPos.getSquaredDistance(pos2)) / (double)doubleExplosionSize;
         float damage = (float)((1.0 - distancedsize) * (double)(exposure = this.getExposure(explosionPos.toCenterPos(), pos2)));
         return (double)damage > (double)(blastResistance = blockState.getBlock().getBlastResistance()) * 3.5;
     }
@@ -353,11 +354,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (double k = 0.0; k <= 1.0; k += d) {
                 for (double l = 0.0; l <= 1.0; l += e) {
                     for (double m = 0.0; m <= 1.0; m += f) {
-                        double n = MathHelper.lerp((double)k, (double)box.minX, (double)box.maxX);
-                        double o = MathHelper.lerp((double)l, (double)box.minY, (double)box.maxY);
-                        double p = MathHelper.lerp((double)m, (double)box.minZ, (double)box.maxZ);
+                        double n = MathHelper.lerp(k, box.minX, box.maxX);
+                        double o = MathHelper.lerp(l, box.minY, box.maxY);
+                        double p = MathHelper.lerp(m, box.minZ, box.maxZ);
                         Vec3d vec3d = new Vec3d(n + g, o, p + h);
-                        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.raycast(new RaycastContext(vec3d, source, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, (Entity)new Cleaner_KppopygwsrtGITfPgSgG((Cleaner_iFwqnooxsJEmHoVteFeQ)this, (Cleaner_iFwqnooxsJEmHoVteFeQ)this, (BlockPos)pos2).predict)).getType() == HitResult.Type.MISS) {
+                        if (Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world != null && Cleaner_iFwqnooxsJEmHoVteFeQ.mc.world.raycast(new RaycastContext(vec3d, source, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, new Cleaner_KppopygwsrtGITfPgSgG(this, pos2).predict)).getType() == HitResult.Type.MISS) {
                             ++i;
                         }
                         ++j;
@@ -381,5 +382,29 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.directionVec = directionVec;
         return HexTech.ROTATE.inFov(directionVec, this.fov.getValueFloat());
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public static class Cleaner_KppopygwsrtGITfPgSgG {
+        final PlayerEntity predict;
+
+        public Cleaner_KppopygwsrtGITfPgSgG(Cleaner_iFwqnooxsJEmHoVteFeQ cleaner, BlockPos pos) {
+            this.predict = new PlayerEntity(mc.world, pos.down(), 0.0f, new GameProfile(UUID.fromString("66123666-1234-5432-6666-667563866600"), "PredictEntity339")) {
+                @Override
+                public boolean isSpectator() {
+                    return false;
+                }
+
+                @Override
+                public boolean isCreative() {
+                    return false;
+                }
+            };
+            this.predict.setPosition(pos.toCenterPos().add(0.0, -1.0, 0.0));
+            this.predict.setHealth(20.0f);
+            this.predict.setOnGround(true);
+        }
     }
 }
