@@ -10,9 +10,9 @@ import me.hextech.remapped.MovementUtil;
 import me.hextech.remapped.SliderSetting;
 import me.hextech.remapped.Timer;
 import me.hextech.remapped.TravelEvent;
-import net.minecraft.class_1770;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MovementType;
+import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
@@ -80,7 +80,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.hasTouchedGround = true;
         }
         for (ItemStack is : ElytraFly.mc.player.getArmorItems()) {
-            if (is.getItem() instanceof class_1770) {
+            if (is.getItem() instanceof ElytraItem) {
                 this.hasElytra = true;
                 break;
             }
