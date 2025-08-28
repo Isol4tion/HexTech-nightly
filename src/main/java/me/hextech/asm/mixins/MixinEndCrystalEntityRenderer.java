@@ -34,24 +34,24 @@ extends EntityRenderer<EndCrystalEntity> {
     @Mutable
     @Final
     @Shadow
-    private static RenderLayer field_21736;
+    private static RenderLayer END_CRYSTAL;
     @Shadow
     @Final
-    private static Identifier field_4663;
+    private static Identifier TEXTURE;
     @Final
     @Shadow
-    private static float field_21002;
+    private static float SINE_45_DEGREES;
     @Unique
     final Identifier BLANK = new Identifier("textures/blank.png");
     @Final
     @Shadow
-    private ModelPart field_21003;
+    private ModelPart core;
     @Final
     @Shadow
-    private ModelPart field_21004;
+    private ModelPart frame;
     @Final
     @Shadow
-    private ModelPart field_21005;
+    private ModelPart bottom;
 
     protected MixinEndCrystalEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
@@ -71,7 +71,7 @@ extends EntityRenderer<EndCrystalEntity> {
         if (!module.sync.getValue()) {
             return;
         }
-        field_21736 = RenderLayer.getEntityTranslucent((Identifier)(module.isOn() && !module.texture.getValue() ? this.BLANK : field_4663));
+        END_CRYSTAL = RenderLayer.getEntityTranslucent((Identifier)(module.isOn() && !module.texture.getValue() ? this.BLANK : TEXTURE));
         if (!module.isOn()) {
             return;
         }
@@ -79,34 +79,34 @@ extends EntityRenderer<EndCrystalEntity> {
         matrixStack.push();
         float h = this.yOffset(endCrystalEntity, g);
         float j = (float)((double)(((float)endCrystalEntity.endCrystalAge + g) * 3.0f) * module.spinValue.getValue());
-        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(field_21736);
+        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(END_CRYSTAL);
         matrixStack.push();
         matrixStack.scale(2.0f * module.scale.getValueFloat(), 2.0f * module.scale.getValueFloat(), 2.0f * module.scale.getValueFloat());
         matrixStack.translate(0.0f, -0.5f, 0.0f);
         int k = OverlayTexture.DEFAULT_UV;
         if (endCrystalEntity.shouldShowBottom()) {
-            this.field_21005.render(matrixStack, vertexConsumer, i, k);
+            this.bottom.render(matrixStack, vertexConsumer, i, k);
         }
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(j));
         matrixStack.translate(0.0f, 1.5f + h / 2.0f, 0.0f);
-        matrixStack.multiply(new Quaternionf().setAngleAxis(1.0471976f, field_21002, 0.0f, field_21002));
+        matrixStack.multiply(new Quaternionf().setAngleAxis(1.0471976f, SINE_45_DEGREES, 0.0f, SINE_45_DEGREES));
         Color color = module.outerFrame.getValue();
         if (module.outerFrame.booleanValue) {
-            this.field_21004.render(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
+            this.frame.render(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
         }
         matrixStack.scale(0.875f, 0.875f, 0.875f);
-        matrixStack.multiply(new Quaternionf().setAngleAxis(1.0471976f, field_21002, 0.0f, field_21002));
+        matrixStack.multiply(new Quaternionf().setAngleAxis(1.0471976f, SINE_45_DEGREES, 0.0f, SINE_45_DEGREES));
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(j));
         color = module.innerFrame.getValue();
         if (module.innerFrame.booleanValue) {
-            this.field_21004.render(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
+            this.frame.render(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
         }
         matrixStack.scale(0.875f, 0.875f, 0.875f);
-        matrixStack.multiply(new Quaternionf().setAngleAxis(1.0471976f, field_21002, 0.0f, field_21002));
+        matrixStack.multiply(new Quaternionf().setAngleAxis(1.0471976f, SINE_45_DEGREES, 0.0f, SINE_45_DEGREES));
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(j));
         color = module.core.getValue();
         if (module.core.booleanValue) {
-            this.field_21003.render(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
+            this.core.render(matrixStack, vertexConsumer, i, k, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
         }
         matrixStack.pop();
         matrixStack.pop();

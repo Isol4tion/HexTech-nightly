@@ -45,15 +45,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinGameRenderer {
     @Shadow
     @Final
-    MinecraftClient field_4015;
+    MinecraftClient client;
     @Shadow
-    private float field_4005;
+    private float zoom;
     @Shadow
-    private float field_3988;
+    private float zoomX;
     @Shadow
-    private float field_4004;
+    private float zoomY;
     @Shadow
-    private float field_4025;
+    private float viewDistance;
 
     @Inject(method={"showFloatingItem"}, at={@At(value="HEAD")}, cancellable=true)
     private void onShowFloatingItem(ItemStack floatingItem, CallbackInfo info) {
@@ -134,11 +134,11 @@ public class MixinGameRenderer {
         if (AspectRatio.INSTANCE.isOn()) {
             MatrixStack matrixStack = new MatrixStack();
             matrixStack.peek().getPositionMatrix().identity();
-            if (this.field_4005 != 1.0f) {
-                matrixStack.translate(this.field_3988, -this.field_4004, 0.0f);
-                matrixStack.scale(this.field_4005, this.field_4005, 1.0f);
+            if (this.zoom != 1.0f) {
+                matrixStack.translate(this.zoomX, -this.zoomY, 0.0f);
+                matrixStack.scale(this.zoom, this.zoom, 1.0f);
             }
-            matrixStack.peek().getPositionMatrix().mul((Matrix4fc)new Matrix4f().setPerspective((float)(fov * 0.01745329238474369), AspectRatio.INSTANCE.ratio.getValueFloat(), 0.05f, this.field_4025 * 4.0f));
+            matrixStack.peek().getPositionMatrix().mul((Matrix4fc)new Matrix4f().setPerspective((float)(fov * 0.01745329238474369), AspectRatio.INSTANCE.ratio.getValueFloat(), 0.05f, this.viewDistance * 4.0f));
             cir.setReturnValue((Object)matrixStack.peek().getPositionMatrix());
         }
     }
@@ -151,33 +151,33 @@ public class MixinGameRenderer {
 
     @Unique
     public void update(float tickDelta) {
-        Entity entity = this.field_4015.getCameraEntity();
-        if (entity != null && this.field_4015.world != null) {
+        Entity entity = this.client.getCameraEntity();
+        if (entity != null && this.client.world != null) {
             EntityHitResult entityHitResult;
-            this.field_4015.getProfiler().push("pick");
-            this.field_4015.targetedEntity = null;
-            double d = this.field_4015.interactionManager.getReachDistance();
+            this.client.getProfiler().push("pick");
+            this.client.targetedEntity = null;
+            double d = this.client.interactionManager.getReachDistance();
             MineTweak.INSTANCE.isActive = MineTweak.INSTANCE.ghostHand();
-            this.field_4015.crosshairTarget = entity.raycast(d, tickDelta, false);
+            this.client.crosshairTarget = entity.raycast(d, tickDelta, false);
             MineTweak.INSTANCE.isActive = false;
             Vec3d vec3d = entity.getCameraPosVec(tickDelta);
             boolean bl = false;
             double e = d;
-            if (this.field_4015.interactionManager.hasExtendedReach()) {
+            if (this.client.interactionManager.hasExtendedReach()) {
                 d = e = 6.0;
             } else if (d > 3.0) {
                 bl = true;
             }
             e *= e;
-            if (this.field_4015.crosshairTarget != null) {
-                e = this.field_4015.crosshairTarget.getPos().squaredDistanceTo(vec3d);
+            if (this.client.crosshairTarget != null) {
+                e = this.client.crosshairTarget.getPos().squaredDistanceTo(vec3d);
             }
             Vec3d vec3d2 = entity.getRotationVec(1.0f);
             Vec3d vec3d3 = vec3d.add(vec3d2.x * d, vec3d2.y * d, vec3d2.z * d);
             Box box = entity.getBoundingBox().stretch(vec3d2.multiply(d)).expand(1.0, 1.0, 1.0);
             if (FreeCam.INSTANCE.isOn()) {
-                this.field_4015.crosshairTarget = InteractUtil.getRtxTarget(FreeCam.INSTANCE.getFakeYaw(), FreeCam.INSTANCE.getFakePitch(), FreeCam.INSTANCE.getFakeX(), FreeCam.INSTANCE.getFakeY(), FreeCam.INSTANCE.getFakeZ());
-                this.field_4015.getProfiler().pop();
+                this.client.crosshairTarget = InteractUtil.getRtxTarget(FreeCam.INSTANCE.getFakeYaw(), FreeCam.INSTANCE.getFakePitch(), FreeCam.INSTANCE.getFakeX(), FreeCam.INSTANCE.getFakeY(), FreeCam.INSTANCE.getFakeZ());
+                this.client.getProfiler().pop();
                 return;
             }
             if (!MineTweak.INSTANCE.noEntityTrace() && (entityHitResult = ProjectileUtil.raycast((Entity)entity, (Vec3d)vec3d, (Vec3d)vec3d3, (Box)box, entityx -> !entityx.isSpectator() && entityx.canHit(), (double)e)) != null) {
@@ -185,15 +185,15 @@ public class MixinGameRenderer {
                 Vec3d vec3d4 = entityHitResult.getPos();
                 double g = vec3d.squaredDistanceTo(vec3d4);
                 if (bl && g > 9.0) {
-                    this.field_4015.crosshairTarget = BlockHitResult.createMissed((Vec3d)vec3d4, (Direction)Direction.getFacing((double)vec3d2.x, (double)vec3d2.y, (double)vec3d2.z), (BlockPos)BlockPos.ofFloored((Position)vec3d4));
-                } else if (g < e || this.field_4015.crosshairTarget == null) {
-                    this.field_4015.crosshairTarget = entityHitResult;
+                    this.client.crosshairTarget = BlockHitResult.createMissed((Vec3d)vec3d4, (Direction)Direction.getFacing((double)vec3d2.x, (double)vec3d2.y, (double)vec3d2.z), (BlockPos)BlockPos.ofFloored((Position)vec3d4));
+                } else if (g < e || this.client.crosshairTarget == null) {
+                    this.client.crosshairTarget = entityHitResult;
                     if (entity2 instanceof LivingEntity || entity2 instanceof ItemFrameEntity) {
-                        this.field_4015.targetedEntity = entity2;
+                        this.client.targetedEntity = entity2;
                     }
                 }
             }
-            this.field_4015.getProfiler().pop();
+            this.client.getProfiler().pop();
         }
     }
 }

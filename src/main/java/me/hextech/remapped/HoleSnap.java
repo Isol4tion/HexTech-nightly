@@ -203,7 +203,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Math.abs(x) < 0.1 && Math.abs(z) < 0.1 && playerPos.y <= (double)this.holePos.getY() + 0.5) {
             this.disable();
         }
-        this.stuckTicks = HoleSnap.mc.player.field_5976 ? ++this.stuckTicks : 0;
+        this.stuckTicks = HoleSnap.mc.player.horizontalCollision ? ++this.stuckTicks : 0;
     }
 
     @Override

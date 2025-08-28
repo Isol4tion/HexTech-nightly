@@ -23,36 +23,36 @@ implements IShaderEffect {
     private final List<String> fakedBufferNames = new ArrayList<String>();
     @Shadow
     @Final
-    private Map<String, Framebuffer> field_1495;
+    private Map<String, Framebuffer> targetsByName;
     @Shadow
     @Final
-    private List<PostEffectPass> field_1497;
+    private List<PostEffectPass> passes;
 
     @Override
     public void nullpoint_nextgen_master$addFakeTargetHook(String name, Framebuffer buffer) {
-        Framebuffer previousFramebuffer = this.field_1495.get(name);
+        Framebuffer previousFramebuffer = this.targetsByName.get(name);
         if (previousFramebuffer == buffer) {
             return;
         }
         if (previousFramebuffer != null) {
-            for (PostEffectPass pass : this.field_1497) {
-                if (pass.field_1536 == previousFramebuffer) {
+            for (PostEffectPass pass : this.passes) {
+                if (pass.input == previousFramebuffer) {
                     ((IPostProcessShader)pass).setInput(buffer);
                 }
-                if (pass.field_1538 != previousFramebuffer) continue;
+                if (pass.output != previousFramebuffer) continue;
                 ((IPostProcessShader)pass).setOutput(buffer);
             }
-            this.field_1495.remove(name);
+            this.targetsByName.remove(name);
             this.fakedBufferNames.remove(name);
         }
-        this.field_1495.put(name, buffer);
+        this.targetsByName.put(name, buffer);
         this.fakedBufferNames.add(name);
     }
 
     @Inject(method={"close"}, at={@At(value="HEAD")})
     void deleteFakeBuffersHook(CallbackInfo ci) {
         for (String fakedBufferName : this.fakedBufferNames) {
-            this.field_1495.remove(fakedBufferName);
+            this.targetsByName.remove(fakedBufferName);
         }
     }
 }

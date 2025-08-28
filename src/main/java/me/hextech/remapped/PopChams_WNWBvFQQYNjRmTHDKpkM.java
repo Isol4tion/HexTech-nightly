@@ -64,7 +64,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             person.modelPlayer.leftSleeve.visible = false;
             person.modelPlayer.rightSleeve.visible = false;
             person.modelPlayer.jacket.visible = false;
-            person.modelPlayer.field_3394.visible = false;
+            person.modelPlayer.hat.visible = false;
             this.renderEntity(matrixStack, (LivingEntity)person.player, (BipedEntityModel<PlayerEntity>)person.modelPlayer, person.getAlpha());
         });
         RenderSystem.disableBlend();

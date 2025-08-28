@@ -175,7 +175,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         if (this.jumpCooldown.getValue()) {
-            BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.field_6228 = 0;
+            BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.jumpingCooldown = 0;
         }
         if (this.multiThread.getValue()) {
             this.updateCrystalPos();

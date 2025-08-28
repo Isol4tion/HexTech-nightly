@@ -166,10 +166,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.stealCountList[7] = (int)(this.anchor.getValue() - (double)InventoryUtil.getItemCount(Item.fromBlock((Block)Blocks.RESPAWN_ANCHOR)));
         this.stealCountList[8] = (int)(this.pearl.getValue() - (double)InventoryUtil.getItemCount(Items.ENDER_PEARL));
         this.stealCountList[9] = (int)(this.turtleMaster.getValue() - (double)InventoryUtil.getPotCount(StatusEffects.RESISTANCE));
-        this.stealCountList[10] = (int)(this.helmet.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.class_8051.field_41934));
-        this.stealCountList[11] = (int)(this.chestplate.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.class_8051.field_41935));
-        this.stealCountList[12] = (int)(this.leggings.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.class_8051.field_41936));
-        this.stealCountList[13] = (int)(this.boots.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.class_8051.field_41937));
+        this.stealCountList[10] = (int)(this.helmet.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.Type.HELMET));
+        this.stealCountList[11] = (int)(this.chestplate.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.Type.CHESTPLATE));
+        this.stealCountList[12] = (int)(this.leggings.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.Type.LEGGINGS));
+        this.stealCountList[13] = (int)(this.boots.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.Type.BOOTS));
         this.stealCountList[14] = (int)(this.elytra.getValue() - (double)InventoryUtil.getItemCount(Items.ELYTRA));
         this.stealCountList[15] = (int)(this.sword.getValue() - (double)InventoryUtil.getClassCount(SwordItem.class));
         this.stealCountList[16] = (int)(this.pickaxe.getValue() - (double)InventoryUtil.getClassCount(PickaxeItem.class));
@@ -242,9 +242,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         ScreenHandler screenHandler = AutoRegear.mc.player.currentScreenHandler;
         if (screenHandler instanceof ShulkerBoxScreenHandler) {
             ShulkerBoxScreenHandler shulker = (ShulkerBoxScreenHandler)screenHandler;
-            for (Slot slot : shulker.field_7761) {
+            for (Slot slot : shulker.slots) {
                 if (slot.id >= 27 || slot.getStack().isEmpty() || this.smart.getValue() && !this.needSteal(slot.getStack()) || !((double)InventoryUtil.getEmptySlotCount() > this.empty.getValue())) continue;
-                AutoRegear.mc.interactionManager.clickSlot(shulker.field_7763, slot.id, 0, SlotActionType.QUICK_MOVE, (PlayerEntity)AutoRegear.mc.player);
+                AutoRegear.mc.interactionManager.clickSlot(shulker.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, (PlayerEntity)AutoRegear.mc.player);
                 take = true;
             }
         }
@@ -308,19 +308,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return true;
             }
         }
-        if (InventoryUtil.CheckArmorType(i.getItem(), ArmorItem.class_8051.field_41934) && this.stealCountList[10] > 0) {
+        if (InventoryUtil.CheckArmorType(i.getItem(), ArmorItem.Type.HELMET) && this.stealCountList[10] > 0) {
             this.stealCountList[10] = this.stealCountList[10] - i.getCount();
             return true;
         }
-        if (InventoryUtil.CheckArmorType(i.getItem(), ArmorItem.class_8051.field_41935) && this.stealCountList[11] > 0) {
+        if (InventoryUtil.CheckArmorType(i.getItem(), ArmorItem.Type.CHESTPLATE) && this.stealCountList[11] > 0) {
             this.stealCountList[11] = this.stealCountList[11] - i.getCount();
             return true;
         }
-        if (InventoryUtil.CheckArmorType(i.getItem(), ArmorItem.class_8051.field_41936) && this.stealCountList[12] > 0) {
+        if (InventoryUtil.CheckArmorType(i.getItem(), ArmorItem.Type.LEGGINGS) && this.stealCountList[12] > 0) {
             this.stealCountList[12] = this.stealCountList[12] - i.getCount();
             return true;
         }
-        if (InventoryUtil.CheckArmorType(i.getItem(), ArmorItem.class_8051.field_41937) && this.stealCountList[13] > 0) {
+        if (InventoryUtil.CheckArmorType(i.getItem(), ArmorItem.Type.BOOTS) && this.stealCountList[13] > 0) {
             this.stealCountList[13] = this.stealCountList[13] - i.getCount();
             return true;
         }

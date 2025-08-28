@@ -31,11 +31,11 @@ extends Screen
 implements ScreenHandlerProvider<T> {
     @Shadow
     @Nullable
-    protected Slot field_2787;
+    protected Slot focusedSlot;
     @Shadow
-    protected int field_2776;
+    protected int x;
     @Shadow
-    protected int field_2800;
+    protected int y;
 
     protected MixinHandledScreen(Text title) {
         super(title);
@@ -43,8 +43,8 @@ implements ScreenHandlerProvider<T> {
 
     @Inject(method={"render"}, at={@At(value="TAIL")})
     private void onRender(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (this.field_2787 != null && !this.field_2787.getStack().isEmpty() && this.client.player.playerScreenHandler.getCursorStack().isEmpty() && this.hasItems(this.field_2787.getStack()) && ShulkerViewer.INSTANCE.isOn()) {
-            this.renderShulkerToolTip(context, mouseX, mouseY, this.field_2787.getStack());
+        if (this.focusedSlot != null && !this.focusedSlot.getStack().isEmpty() && this.client.player.playerScreenHandler.getCursorStack().isEmpty() && this.hasItems(this.focusedSlot.getStack()) && ShulkerViewer.INSTANCE.isOn()) {
+            this.renderShulkerToolTip(context, mouseX, mouseY, this.focusedSlot.getStack());
         }
     }
 

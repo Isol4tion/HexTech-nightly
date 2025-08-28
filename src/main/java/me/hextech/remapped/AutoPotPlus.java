@@ -109,10 +109,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     this.throwPotion(StatusEffects.RESISTANCE);
                 }
             }
-            if (this.strength.getValue() && !AutoPotPlus.mc.player.hasStatusEffect(StatusEffects.field_5910)) {
-                this.throwing = this.checkThrow(StatusEffects.field_5910);
+            if (this.strength.getValue() && !AutoPotPlus.mc.player.hasStatusEffect(StatusEffects.STRENGTH)) {
+                this.throwing = this.checkThrow(StatusEffects.STRENGTH);
                 if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 1000.0)) {
-                    this.throwPotion(StatusEffects.field_5910);
+                    this.throwPotion(StatusEffects.STRENGTH);
                 }
             }
         }

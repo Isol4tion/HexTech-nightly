@@ -20,9 +20,9 @@ extends MixinParticle {
         TotemParticleEvent event = new TotemParticleEvent(velocityX, velocityY, velocityZ);
         HexTech.EVENT_BUS.post(event);
         if (event.isCancelled()) {
-            this.field_3852 = event.velocityX;
-            this.field_3869 = event.velocityY;
-            this.field_3850 = event.velocityZ;
+            this.velocityX = event.velocityX;
+            this.velocityY = event.velocityY;
+            this.velocityZ = event.velocityZ;
             Color color = event.color;
             if (color != null) {
                 this.setColor((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f);
