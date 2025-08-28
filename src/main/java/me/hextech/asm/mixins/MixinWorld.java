@@ -1,8 +1,8 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.api.utils.combat.CombatUtil;
-import me.hextech.remapped.MineTweak;
-import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.api.utils.Wrapper;
+import me.hextech.api.utils.combat.CombatUtil;
+import me.hextech.mod.modules.impl.player.MineTweak;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;

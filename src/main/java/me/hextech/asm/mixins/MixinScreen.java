@@ -1,6 +1,6 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
+import me.hextech.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import org.spongepowered.asm.mixin.Mixin;

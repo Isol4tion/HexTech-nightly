@@ -1,9 +1,9 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
-import me.hextech.remapped.GameLeftEvent;
-import me.hextech.remapped.SendMessageEvent;
+import me.hextech.api.events.impl.GameLeftEvent;
+import me.hextech.api.events.impl.SendMessageEvent;
+import me.hextech.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientCommonNetworkHandler;
 import net.minecraft.client.network.ClientConnectionState;

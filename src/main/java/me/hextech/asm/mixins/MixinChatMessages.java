@@ -1,10 +1,7 @@
 package me.hextech.asm.mixins;
 
 import com.google.common.collect.Lists;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import me.hextech.remapped.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
+import me.hextech.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.ChatMessages;
 import net.minecraft.client.util.TextCollector;
@@ -18,6 +15,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Mixin(value={ChatMessages.class})
 public class MixinChatMessages {

@@ -1,7 +1,7 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.TimerEvent;
+import me.hextech.api.events.impl.TimerEvent;
 import net.minecraft.client.render.RenderTickCounter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

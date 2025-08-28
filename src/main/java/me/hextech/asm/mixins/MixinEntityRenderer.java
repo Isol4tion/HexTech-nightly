@@ -1,6 +1,6 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.NameTags_NZLxiZHrtsQKbsfDngrN;
+import me.hextech.mod.modules.impl.render.NameTags_NZLxiZHrtsQKbsfDngrN;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;

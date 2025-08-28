@@ -1,27 +1,14 @@
 package me.hextech;
 
+import me.hextech.api.alts.AltManager;
+import me.hextech.api.events.eventbus.EventBus;
+import me.hextech.api.managers.*;
+import me.hextech.api.utils.render.BlurManager;
+import net.fabricmc.api.ModInitializer;
+
 import java.lang.invoke.MethodHandles;
 import java.util.LinkedList;
 import java.util.Queue;
-import me.hextech.remapped.api.alts.AltManager;
-import me.hextech.remapped.api.utils.render.BlurManager;
-import me.hextech.remapped.api.managers.CommandManager;
-import me.hextech.remapped.api.managers.ConfigManager;
-import me.hextech.remapped.api.events.eventbus.EventBus;
-import me.hextech.remapped.FPSManager;
-import me.hextech.remapped.FriendManager;
-import me.hextech.remapped.GuiManager;
-import me.hextech.remapped.MineManager_aMxFbgVZCMGgbqNPBFpw;
-import me.hextech.remapped.ModuleManager;
-import me.hextech.remapped.PlayerManager_fDCPIpFeekihQpSyxOff;
-import me.hextech.remapped.PopManager;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.ServerManager;
-import me.hextech.remapped.ShaderManager;
-import me.hextech.remapped.SpeedManager;
-import me.hextech.remapped.ThreadManager_BMAJbvVqHsNRgpJZHNrD;
-import me.hextech.remapped.TimerManager;
-import net.fabricmc.api.ModInitializer;
 
 public final class HexTech
 implements ModInitializer {

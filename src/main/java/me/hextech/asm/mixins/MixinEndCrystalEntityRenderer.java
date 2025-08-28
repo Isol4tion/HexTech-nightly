@@ -1,7 +1,6 @@
 package me.hextech.asm.mixins;
 
-import java.awt.Color;
-import me.hextech.remapped.mod.modules.impl.render.CrystalChams;
+import me.hextech.mod.modules.impl.render.CrystalChams;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -18,14 +17,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import org.joml.Quaternionf;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.awt.*;
 
 @Mixin(value={EndCrystalEntityRenderer.class})
 public abstract class MixinEndCrystalEntityRenderer

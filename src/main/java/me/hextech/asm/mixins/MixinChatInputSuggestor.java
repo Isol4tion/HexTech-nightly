@@ -2,15 +2,10 @@ package me.hextech.asm.mixins;
 
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import me.hextech.HexTech;
-import me.hextech.remapped.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
-import me.hextech.remapped.mod.commands.Command;
-import me.hextech.remapped.Render2DUtil;
+import me.hextech.api.utils.render.Render2DUtil;
+import me.hextech.mod.commands.Command;
+import me.hextech.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatInputSuggestor;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -24,6 +19,12 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Mixin(value={ChatInputSuggestor.class})
 public abstract class MixinChatInputSuggestor {

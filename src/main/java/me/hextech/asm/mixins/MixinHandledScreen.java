@@ -1,10 +1,9 @@
 package me.hextech.asm.mixins;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.awt.Color;
-import me.hextech.remapped.Render2DUtil;
-import me.hextech.remapped.ShulkerViewer;
-import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.api.utils.Wrapper;
+import me.hextech.api.utils.render.Render2DUtil;
+import me.hextech.mod.modules.impl.misc.ShulkerViewer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -24,6 +23,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.awt.*;
 
 @Mixin(value={HandledScreen.class})
 public abstract class MixinHandledScreen<T extends ScreenHandler>

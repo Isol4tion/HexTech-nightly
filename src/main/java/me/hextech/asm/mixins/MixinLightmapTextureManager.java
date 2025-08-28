@@ -1,8 +1,7 @@
 package me.hextech.asm.mixins;
 
-import java.awt.Color;
-import me.hextech.remapped.mod.modules.impl.render.Ambience;
-import me.hextech.remapped.NoRender;
+import me.hextech.mod.modules.impl.render.Ambience;
+import me.hextech.mod.modules.impl.render.NoRender;
 import net.minecraft.client.render.LightmapTextureManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -10,6 +9,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
+
+import java.awt.*;
 
 @Mixin(value={LightmapTextureManager.class})
 public class MixinLightmapTextureManager {

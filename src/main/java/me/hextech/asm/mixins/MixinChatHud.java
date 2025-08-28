@@ -1,15 +1,13 @@
 package me.hextech.asm.mixins;
 
-import java.util.HashMap;
-import java.util.List;
 import me.hextech.HexTech;
-import me.hextech.remapped.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
-import me.hextech.remapped.api.utils.render.ColorUtil;
-import me.hextech.remapped.api.utils.render.FadeUtils_DPfHthPqEJdfXfNYhDbG;
-import me.hextech.remapped.IChatHud;
-import me.hextech.remapped.IChatHudLine;
-import me.hextech.remapped.ReceiveMessageEvent;
-import me.hextech.remapped.TextUtil;
+import me.hextech.api.events.impl.ReceiveMessageEvent;
+import me.hextech.api.interfaces.IChatHud;
+import me.hextech.api.interfaces.IChatHudLine;
+import me.hextech.api.utils.render.ColorUtil;
+import me.hextech.api.utils.render.FadeUtils_DPfHthPqEJdfXfNYhDbG;
+import me.hextech.api.utils.render.TextUtil;
+import me.hextech.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.ChatHud;
@@ -28,6 +26,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.HashMap;
+import java.util.List;
 
 @Mixin(value={ChatHud.class})
 public abstract class MixinChatHud

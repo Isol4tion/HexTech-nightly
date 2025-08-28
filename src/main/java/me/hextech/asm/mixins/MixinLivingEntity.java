@@ -1,16 +1,12 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.Sprint;
-import me.hextech.remapped.ViewModel;
+import me.hextech.mod.modules.impl.movement.Sprint;
+import me.hextech.mod.modules.impl.render.ViewModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.attribute.*;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;

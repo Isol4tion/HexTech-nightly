@@ -1,13 +1,19 @@
 package me.hextech.asm.mixins;
 
 import com.mojang.authlib.GameProfile;
-import java.util.List;
-import java.util.Random;
 import me.hextech.HexTech;
-import me.hextech.remapped.*;
-import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
-import me.hextech.remapped.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
-import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
+import me.hextech.api.events.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.api.events.impl.MoveEvent;
+import me.hextech.api.events.impl.RotateEvent;
+import me.hextech.api.events.impl.UpdateWalkingEvent;
+import me.hextech.api.managers.RotateManager;
+import me.hextech.mod.modules.impl.misc.PortalGui;
+import me.hextech.mod.modules.impl.movement.NoSlow_PaVUKKxFbWGbplzMaucl;
+import me.hextech.mod.modules.impl.movement.Velocity;
+import me.hextech.mod.modules.impl.player.ForceSync;
+import me.hextech.mod.modules.impl.player.PacketControl;
+import me.hextech.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
+import me.hextech.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.input.Input;
@@ -31,6 +37,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
+import java.util.Random;
 
 @Mixin(value={ClientPlayerEntity.class})
 public abstract class MixinClientPlayerEntity

@@ -1,10 +1,9 @@
 package me.hextech.asm.mixins;
 
-import java.util.Objects;
 import me.hextech.HexTech;
-import me.hextech.remapped.HeldItemRendererEvent;
-import me.hextech.remapped.ViewModel;
-import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.api.events.impl.HeldItemRendererEvent;
+import me.hextech.api.utils.Wrapper;
+import me.hextech.mod.modules.impl.render.ViewModel;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.HeldItemRenderer;
@@ -26,6 +25,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Objects;
 
 @Mixin(value={HeldItemRenderer.class})
 public abstract class MixinHeldItemRenderer {

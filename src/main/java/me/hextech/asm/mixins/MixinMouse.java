@@ -1,8 +1,8 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.mod.gui.clickgui.ClickGuiScreen;
-import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.api.utils.Wrapper;
+import me.hextech.mod.gui.clickgui.ClickGuiScreen;
 import net.minecraft.client.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

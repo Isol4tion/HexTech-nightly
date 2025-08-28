@@ -1,11 +1,11 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.mod.gui.clickgui.ClickGuiScreen;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.StringSetting;
-import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.api.utils.Wrapper;
+import me.hextech.mod.gui.clickgui.ClickGuiScreen;
+import me.hextech.mod.modules.Module_eSdgMXWuzcxgQVaJFmKZ;
+import me.hextech.mod.modules.settings.impl.SliderSetting;
+import me.hextech.mod.modules.settings.impl.StringSetting;
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Element;

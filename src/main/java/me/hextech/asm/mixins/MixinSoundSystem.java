@@ -1,7 +1,7 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.PlaySoundEvent;
+import me.hextech.api.events.impl.PlaySoundEvent;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundSystem;
 import org.spongepowered.asm.mixin.Mixin;

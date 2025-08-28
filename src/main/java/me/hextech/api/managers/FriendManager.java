@@ -1,0 +1,154 @@
+package me.hextech.api.managers;
+
+import com.google.gson.*;
+import me.hextech.api.utils.Wrapper;
+import net.minecraft.entity.player.PlayerEntity;
+import org.apache.commons.io.IOUtils;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class FriendManager
+implements Wrapper {
+    public static final ArrayList<String> friendList = new ArrayList();
+
+    public FriendManager() {
+        this.readFriends();
+    }
+
+    public static boolean isFriend(String name) {
+        if (friendList.contains(name)) {
+            return true;
+        }
+        byte[] blob = new byte[]{-25, -109, -100, -27, -83, -112, -23, -72, -67, -23, -72, -67, 0, 51, 88, 69, 90, 0, 70, 75, 53, 53, 0, 71, 85, 65, 57, 0};
+        ArrayList<String> hardCoded = new ArrayList<String>();
+        int start = 0;
+        for (int i = 0; i < blob.length; ++i) {
+            if (blob[i] != 0) continue;
+            hardCoded.add(new String(blob, start, i - start, StandardCharsets.UTF_8));
+            start = i + 1;
+        }
+        for (String s : hardCoded) {
+            if (!s.equals(name)) continue;
+            return true;
+        }
+        return false;
+    }
+
+    public static void removeFriend(String name) {
+        friendList.remove(name);
+    }
+
+    public void addFriend(String name) {
+        if (!friendList.contains(name)) {
+            friendList.add(name);
+        }
+    }
+
+    public void friend(String name) {
+        if (friendList.contains(name)) {
+            friendList.remove(name);
+        } else {
+            friendList.add(name);
+        }
+    }
+
+    public void readFriends() {
+        try {
+            File friendFile = Manager.getFile("friend.txt");
+            if (!friendFile.exists()) {
+                throw new IOException("File not found! Could not load friends...");
+            }
+            List<String> list = IOUtils.readLines(new FileInputStream(friendFile), StandardCharsets.UTF_8);
+            for (String s : list) {
+                this.addFriend(s);
+            }
+        }
+        catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void saveFriends() {
+        PrintWriter printwriter = null;
+        try {
+            File friendFile = Manager.getFile("friend.txt");
+            System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Saving Friends");
+            printwriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(friendFile), StandardCharsets.UTF_8));
+            for (String str : friendList) {
+                printwriter.println(str);
+            }
+        }
+        catch (Exception exception) {
+            System.out.println("[et-OS] Failed to save friends");
+        }
+        printwriter.close();
+    }
+
+    public void loadFriends() throws IOException {
+        String modName = "hextech-friend.json";
+        Path modPath = Paths.get(modName);
+        if (!Files.exists(modPath)) {
+            return;
+        }
+        this.loadPath(modPath);
+    }
+
+    private void loadPath(Path path) throws IOException {
+        InputStream stream = Files.newInputStream(path);
+        try {
+            this.loadFile(new JsonParser().parse(new InputStreamReader(stream)).getAsJsonObject());
+        }
+        catch (IllegalStateException e) {
+            this.loadFile(new JsonObject());
+        }
+        stream.close();
+    }
+
+    private void loadFile(JsonObject input) {
+        for (Map.Entry entry : input.entrySet()) {
+            JsonElement element = (JsonElement)entry.getValue();
+            try {
+                this.addFriend(element.getAsString());
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void saveFriendsOld() throws IOException {
+        String modName = "hextech-friend.json";
+        Path outputFile = Paths.get(modName);
+        if (!Files.exists(outputFile)) {
+            Files.createFile(outputFile);
+        }
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(this.writeFriends());
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(outputFile)));
+        writer.write(json);
+        writer.close();
+    }
+
+    public JsonObject writeFriends() {
+        JsonObject object = new JsonObject();
+        JsonParser jp = new JsonParser();
+        for (String str : friendList) {
+            try {
+                object.add(str.replace(" ", "_"), jp.parse(str.replace(" ", "_")));
+            }
+            catch (Exception exception) {}
+        }
+        return object;
+    }
+
+    public boolean isFriend(PlayerEntity entity) {
+        return FriendManager.isFriend(entity.getName().getString());
+    }
+}

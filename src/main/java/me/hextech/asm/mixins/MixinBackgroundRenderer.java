@@ -1,8 +1,8 @@
 package me.hextech.asm.mixins;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.hextech.remapped.mod.modules.impl.render.Ambience;
-import me.hextech.remapped.NoRender;
+import me.hextech.mod.modules.impl.render.Ambience;
+import me.hextech.mod.modules.impl.render.NoRender;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;

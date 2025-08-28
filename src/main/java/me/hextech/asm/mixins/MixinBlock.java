@@ -1,6 +1,6 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.NoSlow_PaVUKKxFbWGbplzMaucl;
+import me.hextech.mod.modules.impl.movement.NoSlow_PaVUKKxFbWGbplzMaucl;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemConvertible;
 import org.spongepowered.asm.mixin.Mixin;

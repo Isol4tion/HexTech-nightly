@@ -1,9 +1,9 @@
 package me.hextech.asm.mixins.freelook;
 
-import me.hextech.remapped.mod.modules.impl.player.freelook.CameraState;
-import me.hextech.remapped.mod.modules.impl.render.Crosshair;
-import me.hextech.remapped.FreeLook;
-import me.hextech.remapped.ProjectionUtils;
+import me.hextech.api.utils.world.ProjectionUtils;
+import me.hextech.mod.modules.impl.player.freelook.CameraState;
+import me.hextech.mod.modules.impl.player.freelook.FreeLook;
+import me.hextech.mod.modules.impl.render.Crosshair;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;

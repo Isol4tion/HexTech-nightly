@@ -1,12 +1,13 @@
 package me.hextech.asm.mixins;
 
-import java.util.Iterator;
-import me.hextech.remapped.Velocity;
+import me.hextech.mod.modules.impl.movement.Velocity;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+
+import java.util.Iterator;
 
 @Mixin(value={FlowableFluid.class})
 public class MixinFlowableFluid {

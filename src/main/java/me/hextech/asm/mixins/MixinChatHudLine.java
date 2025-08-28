@@ -1,6 +1,6 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.IChatHudLine;
+import me.hextech.api.interfaces.IChatHudLine;
 import net.minecraft.client.gui.hud.ChatHudLine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

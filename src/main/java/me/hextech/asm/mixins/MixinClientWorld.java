@@ -1,9 +1,7 @@
 package me.hextech.asm.mixins;
 
-import java.awt.Color;
-import java.util.function.Supplier;
-import me.hextech.remapped.mod.modules.impl.render.Ambience;
-import me.hextech.remapped.NoRender;
+import me.hextech.mod.modules.impl.render.Ambience;
+import me.hextech.mod.modules.impl.render.NoRender;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKey;
@@ -17,6 +15,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.awt.*;
+import java.util.function.Supplier;
 
 @Mixin(value={ClientWorld.class})
 public abstract class MixinClientWorld

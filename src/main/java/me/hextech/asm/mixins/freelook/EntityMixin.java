@@ -1,7 +1,7 @@
 package me.hextech.asm.mixins.freelook;
 
-import me.hextech.remapped.mod.modules.impl.player.freelook.CameraState;
-import me.hextech.remapped.FreeLook;
+import me.hextech.mod.modules.impl.player.freelook.CameraState;
+import me.hextech.mod.modules.impl.player.freelook.FreeLook;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;

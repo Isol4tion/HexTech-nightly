@@ -1,6 +1,6 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.mod.modules.impl.movement.EntityControl;
+import me.hextech.mod.modules.impl.movement.EntityControl;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.AnimalEntity;

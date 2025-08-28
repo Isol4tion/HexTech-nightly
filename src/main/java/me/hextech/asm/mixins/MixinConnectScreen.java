@@ -1,7 +1,7 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.ServerConnectBeginEvent;
+import me.hextech.api.events.impl.ServerConnectBeginEvent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.multiplayer.ConnectScreen;
 import net.minecraft.client.network.ServerAddress;

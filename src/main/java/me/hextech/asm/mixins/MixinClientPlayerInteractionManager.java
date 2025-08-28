@@ -1,9 +1,9 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.api.events.impl.ClickBlockEvent;
-import me.hextech.remapped.MineTweak;
-import me.hextech.remapped.Reach;
+import me.hextech.api.events.impl.ClickBlockEvent;
+import me.hextech.mod.modules.impl.player.MineTweak;
+import me.hextech.mod.modules.impl.player.Reach;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;

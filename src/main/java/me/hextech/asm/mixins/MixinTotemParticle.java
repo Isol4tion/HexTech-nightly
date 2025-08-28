@@ -1,9 +1,7 @@
 package me.hextech.asm.mixins;
 
-import java.awt.Color;
 import me.hextech.HexTech;
-import me.hextech.asm.mixins.MixinParticle;
-import me.hextech.remapped.TotemParticleEvent;
+import me.hextech.api.events.impl.TotemParticleEvent;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.particle.TotemParticle;
 import net.minecraft.client.world.ClientWorld;
@@ -11,6 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.awt.*;
 
 @Mixin(value={TotemParticle.class})
 public abstract class MixinTotemParticle

@@ -1,10 +1,7 @@
 package me.hextech.asm.mixins;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import me.hextech.api.interfaces.IShaderEffect;
 import me.hextech.asm.accessors.IPostProcessShader;
-import me.hextech.remapped.IShaderEffect;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectPass;
 import net.minecraft.client.gl.PostEffectProcessor;
@@ -15,6 +12,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Mixin(value={PostEffectProcessor.class})
 public abstract class MixinShaderEffect

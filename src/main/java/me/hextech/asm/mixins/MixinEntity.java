@@ -1,14 +1,14 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.mod.modules.impl.player.freelook.CameraState;
-import me.hextech.remapped.FreeLook;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.NoRender;
-import me.hextech.remapped.Shader_CLqIXXaHSdAoBoxRSgjR;
-import me.hextech.remapped.Velocity;
-import me.hextech.remapped.api.utils.Wrapper;
-import me.hextech.remapped.inVelocityEvent;
+import me.hextech.api.events.impl.inVelocityEvent;
+import me.hextech.api.utils.Wrapper;
+import me.hextech.mod.modules.Module_eSdgMXWuzcxgQVaJFmKZ;
+import me.hextech.mod.modules.impl.movement.Velocity;
+import me.hextech.mod.modules.impl.player.freelook.CameraState;
+import me.hextech.mod.modules.impl.player.freelook.FreeLook;
+import me.hextech.mod.modules.impl.render.NoRender;
+import me.hextech.mod.modules.impl.render.Shader_CLqIXXaHSdAoBoxRSgjR;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;

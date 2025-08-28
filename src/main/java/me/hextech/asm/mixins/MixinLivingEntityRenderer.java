@@ -1,12 +1,11 @@
 package me.hextech.asm.mixins;
 
-import java.awt.Color;
-import me.hextech.remapped.api.utils.render.ColorUtil;
-import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.MathUtil;
-import me.hextech.remapped.NoRender;
-import me.hextech.remapped.RotateManager;
-import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.api.managers.RotateManager;
+import me.hextech.api.utils.Wrapper;
+import me.hextech.api.utils.math.MathUtil;
+import me.hextech.api.utils.render.ColorUtil;
+import me.hextech.mod.modules.impl.render.NoRender;
+import me.hextech.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -20,6 +19,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.awt.*;
 
 @Mixin(value={LivingEntityRenderer.class})
 public abstract class MixinLivingEntityRenderer<T extends LivingEntity, M extends EntityModel<T>> {

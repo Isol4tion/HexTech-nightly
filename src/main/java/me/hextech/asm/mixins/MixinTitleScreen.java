@@ -1,8 +1,8 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
-import me.hextech.remapped.HexTech;
-import me.hextech.remapped.Menu;
+import me.hextech.api.utils.render.HexTech;
+import me.hextech.api.utils.render.Menu;
+import me.hextech.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.text.Text;

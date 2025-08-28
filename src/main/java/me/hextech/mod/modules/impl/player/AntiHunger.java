@@ -1,0 +1,58 @@
+package me.hextech.mod.modules.impl.player;
+
+import io.netty.buffer.Unpooled;
+import me.hextech.api.events.eventbus.EventHandler;
+import me.hextech.api.events.impl.PacketEvent_gBzdMCvQxlHfSrulemGS;
+import me.hextech.asm.accessors.IPlayerMoveC2SPacket;
+import me.hextech.mod.modules.Module_eSdgMXWuzcxgQVaJFmKZ;
+import me.hextech.mod.modules.settings.impl.BooleanSetting;
+import net.minecraft.entity.Entity;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
+import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+import org.jetbrains.annotations.NotNull;
+
+public class AntiHunger
+extends Module_eSdgMXWuzcxgQVaJFmKZ {
+    public static AntiHunger INSTANCE;
+    public final BooleanSetting sprint = this.add(new BooleanSetting("Sprint", true));
+    public final BooleanSetting ground = this.add(new BooleanSetting("Ground", true));
+
+    public AntiHunger() {
+        super("AntiHunger", "lol", Category.Player);
+        INSTANCE = this;
+    }
+
+    public static Entity getEntity(@NotNull PlayerInteractEntityC2SPacket packet) {
+        PacketByteBuf packetBuf = new PacketByteBuf(Unpooled.buffer());
+        packet.write(packetBuf);
+        return AntiHunger.mc.world.getEntityById(packetBuf.readVarInt());
+    }
+
+    public static AntiHunger_zYbEBAOiuFfDBojQHScp getInteractType(@NotNull PlayerInteractEntityC2SPacket packet) {
+        PacketByteBuf packetBuf = new PacketByteBuf(Unpooled.buffer());
+        packet.write(packetBuf);
+        packetBuf.readVarInt();
+        return packetBuf.readEnumConstant(AntiHunger_zYbEBAOiuFfDBojQHScp.class);
+    }
+
+    @EventHandler(priority=-100)
+    public void onPacketSend(PacketEvent_gBzdMCvQxlHfSrulemGS.Send event) {
+        Object t = event.getPacket();
+        if (t instanceof ClientCommandC2SPacket packet) {
+            if (this.sprint.getValue() && packet.getMode() == ClientCommandC2SPacket.Mode.START_SPRINTING) {
+                event.cancel();
+            }
+        }
+        if (event.getPacket() instanceof PlayerMoveC2SPacket && this.ground.getValue() && AntiHunger.mc.player.fallDistance <= 0.0f && !AntiHunger.mc.interactionManager.isBreakingBlock()) {
+            ((IPlayerMoveC2SPacket)event.getPacket()).setOnGround(false);
+        }
+    }
+
+    public enum AntiHunger_zYbEBAOiuFfDBojQHScp {
+        INTERACT,
+        ATTACK,
+        INTERACT_AT
+    }
+}

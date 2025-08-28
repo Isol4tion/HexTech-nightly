@@ -1,10 +1,10 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
-import me.hextech.remapped.mod.modules.impl.setting.AntiCrawl;
-import me.hextech.remapped.TravelEvent;
-import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.api.events.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.api.events.impl.TravelEvent;
+import me.hextech.api.utils.Wrapper;
+import me.hextech.mod.modules.impl.setting.AntiCrawl;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;

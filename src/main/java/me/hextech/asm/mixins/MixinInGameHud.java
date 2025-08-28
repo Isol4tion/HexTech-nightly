@@ -1,10 +1,10 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.api.utils.render.AnimateUtil;
-import me.hextech.remapped.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
-import me.hextech.remapped.HotbarAnimation;
-import me.hextech.remapped.NoRender;
+import me.hextech.api.utils.render.AnimateUtil;
+import me.hextech.mod.modules.impl.render.HotbarAnimation;
+import me.hextech.mod.modules.impl.render.NoRender;
+import me.hextech.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import org.spongepowered.asm.mixin.Mixin;
