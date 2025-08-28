@@ -4,6 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
 
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.mod.gui.font.FontRenderers;
+import me.hextech.remapped.mod.modules.impl.render.BreakESP;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Camera;

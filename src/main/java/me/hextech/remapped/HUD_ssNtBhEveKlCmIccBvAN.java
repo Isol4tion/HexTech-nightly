@@ -8,7 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import me.hextech.HexTech;
+import me.hextech.remapped.api.utils.render.ColorUtil;
+import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
+import me.hextech.remapped.mod.modules.impl.setting.ComboBreaks;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.entity.effect.StatusEffect;

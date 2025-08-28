@@ -1,8 +1,11 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.api.utils.world.BlockPosX;
 import me.hextech.remapped.api.utils.world.BlockUtil;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;

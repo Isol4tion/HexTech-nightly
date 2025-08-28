@@ -4,6 +4,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
 import java.util.Objects;
 
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
@@ -16,7 +19,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.biome.Biome;
 
 public class Weather

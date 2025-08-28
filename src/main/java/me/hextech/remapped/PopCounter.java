@@ -1,7 +1,11 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.events.impl.DeathEvent;
+import me.hextech.remapped.api.managers.CommandManager;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class PopCounter

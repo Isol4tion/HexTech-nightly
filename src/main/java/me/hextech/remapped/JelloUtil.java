@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
 
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.api.utils.render.ColorUtil;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;

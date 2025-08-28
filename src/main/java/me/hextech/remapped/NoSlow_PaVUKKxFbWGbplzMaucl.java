@@ -3,7 +3,10 @@ package me.hextech.remapped;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;

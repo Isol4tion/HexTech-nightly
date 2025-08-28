@@ -2,9 +2,14 @@ package me.hextech.remapped;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
+
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.api.utils.render.AnimateUtil;
+import me.hextech.remapped.api.utils.render.ColorUtil;
 import me.hextech.remapped.api.utils.world.BlockUtil;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;

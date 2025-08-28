@@ -1,6 +1,6 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.CameraClip;
+import me.hextech.remapped.mod.modules.impl.render.CameraClip;
 import me.hextech.remapped.FreeCam;
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;

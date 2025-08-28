@@ -1,11 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.asm.accessors.IPlayerMoveC2SPacket;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.PacketEvent;
-import me.hextech.remapped.SliderSetting;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;

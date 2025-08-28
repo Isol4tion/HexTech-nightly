@@ -1,7 +1,9 @@
 package me.hextech.remapped;
 
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.api.utils.world.BlockUtil;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.entity.player.PlayerEntity;

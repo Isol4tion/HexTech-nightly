@@ -2,10 +2,16 @@ package me.hextech.remapped;
 
 import java.util.Iterator;
 import me.hextech.HexTech;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.managers.CommandManager;
+import me.hextech.remapped.api.utils.combat.CombatUtil;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.api.utils.world.BlockUtil;
 import me.hextech.remapped.mod.modules.impl.combat.AutoAnchor_MDcwoWYRcPYheLZJWRZK;
 import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FacingBlock;

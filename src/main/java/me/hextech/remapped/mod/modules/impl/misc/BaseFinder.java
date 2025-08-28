@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import me.hextech.remapped.*;
+import me.hextech.remapped.api.managers.CommandManager;
 import me.hextech.remapped.api.utils.world.BlockUtil;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.client.util.math.MatrixStack;

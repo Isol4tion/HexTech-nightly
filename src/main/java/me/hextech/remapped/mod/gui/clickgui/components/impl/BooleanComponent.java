@@ -3,7 +3,10 @@ package me.hextech.remapped.mod.gui.clickgui.components.impl;
 import java.awt.Color;
 
 import me.hextech.remapped.*;
+import me.hextech.remapped.mod.gui.clickgui.ClickGuiScreen;
 import me.hextech.remapped.mod.gui.clickgui.components.Component;
+import me.hextech.remapped.mod.gui.clickgui.tabs.ClickGuiTab;
+import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;

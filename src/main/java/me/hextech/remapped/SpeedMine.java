@@ -8,11 +8,23 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import me.hextech.HexTech;
 import me.hextech.asm.accessors.IPlayerMoveC2SPacket;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.events.impl.ClickBlockEvent;
+import me.hextech.remapped.api.utils.combat.CanPlaceCrystal;
+import me.hextech.remapped.api.utils.combat.CombatUtil;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
+import me.hextech.remapped.api.utils.render.ColorUtil;
+import me.hextech.remapped.api.utils.render.FadeUtils_DPfHthPqEJdfXfNYhDbG;
 import me.hextech.remapped.api.utils.world.BlockUtil;
+import me.hextech.remapped.mod.gui.clickgui.ClickGuiScreen;
 import me.hextech.remapped.mod.modules.impl.combat.AutoAnchor_MDcwoWYRcPYheLZJWRZK;
 import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
+import me.hextech.remapped.mod.modules.impl.setting.BypassSetting_RInKGmTQYgWFRhsUOiJP;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import me.hextech.remapped.mod.modules.settings.impl.BindSetting;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -109,7 +121,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final BooleanSetting slientdouble = this.add(new BooleanSetting("DoubleText", true, v -> this.page.is(_uySyZpuFdxDcRzYECOEM.Render)));
     private final BooleanSetting box = this.add(new BooleanSetting("Box", true, v -> this.page.is(_uySyZpuFdxDcRzYECOEM.Render)));
     private final BooleanSetting outline = this.add(new BooleanSetting("Outline", true, v -> this.page.is(_uySyZpuFdxDcRzYECOEM.Render)));
-    private final EnumSetting<FadeUtils> quad = this.add(new EnumSetting<FadeUtils>("Quad", FadeUtils.In, v -> this.page.is(_uySyZpuFdxDcRzYECOEM.Render)));
+    private final EnumSetting<FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad> quad = this.add(new EnumSetting<FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad>("Quad", FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In, v -> this.page.is(_uySyZpuFdxDcRzYECOEM.Render)));
     private final Timer mineTimer = new Timer();
     private final FadeUtils_DPfHthPqEJdfXfNYhDbG animationTime = new FadeUtils_DPfHthPqEJdfXfNYhDbG(1000L);
     private final FadeUtils_DPfHthPqEJdfXfNYhDbG secondAnim = new FadeUtils_DPfHthPqEJdfXfNYhDbG(1000L);
@@ -314,7 +326,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.startPacket = false;
             return;
         }
-        if ((double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(breakPos.toCenterPos())) > this.range.getValue()) {
+        if ((double)MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(breakPos.toCenterPos())) > this.range.getValue()) {
             if (this.farCancel.getValue()) {
                 this.startPacket = false;
                 this.breakNumber = 0;

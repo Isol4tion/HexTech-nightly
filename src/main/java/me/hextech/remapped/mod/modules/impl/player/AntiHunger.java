@@ -3,6 +3,7 @@ package me.hextech.remapped.mod.modules.impl.player;
 import io.netty.buffer.Unpooled;
 import me.hextech.asm.accessors.IPlayerMoveC2SPacket;
 import me.hextech.remapped.*;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;

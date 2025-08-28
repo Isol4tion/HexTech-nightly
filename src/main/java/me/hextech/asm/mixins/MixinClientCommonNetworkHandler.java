@@ -1,6 +1,6 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.CommandManager;
+import me.hextech.remapped.api.managers.CommandManager;
 import me.hextech.remapped.SilentDisconnect;
 import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.network.ClientCommonNetworkHandler;

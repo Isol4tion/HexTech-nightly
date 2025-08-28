@@ -5,8 +5,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import me.hextech.HexTech;
 import me.hextech.remapped.*;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.utils.combat.CombatUtil;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
+import me.hextech.remapped.api.utils.render.ColorUtil;
+import me.hextech.remapped.api.utils.render.FadeUtils_DPfHthPqEJdfXfNYhDbG;
 import me.hextech.remapped.api.utils.world.BlockUtil;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -475,9 +483,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (!placePosition.timer.passedMs((long)(AutoTrap.this.delay.getValue() + 100.0)) && placePosition.isAir) {
                     placePosition.firstFade.reset();
                 }
-                if (placePosition.firstFade.getQuad(FadeUtils.In2) == 1.0) continue;
+                if (placePosition.firstFade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2) == 1.0) continue;
                 shouldClear = false;
-                this.drawBlock(placePosition.pos, (double)AutoTrap.this.color.getValue().getAlpha() * (1.0 - placePosition.firstFade.getQuad(FadeUtils.In2)), placePosition.posColor, event.getMatrixStack());
+                this.drawBlock(placePosition.pos, (double)AutoTrap.this.color.getValue().getAlpha() * (1.0 - placePosition.firstFade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2)), placePosition.posColor, event.getMatrixStack());
             }
             if (shouldClear) {
                 PlaceMap.clear();

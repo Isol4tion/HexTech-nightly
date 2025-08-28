@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import me.hextech.remapped.ChatSetting_qVnAbgCzNciNTevKRovy;
+import me.hextech.remapped.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.ChatMessages;
 import net.minecraft.client.util.TextCollector;

@@ -1,7 +1,10 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.mod.modules.impl.combat.HoleKickTest;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 
 public class Step_EShajbhvQeYkCdreEeNY
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

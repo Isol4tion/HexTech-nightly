@@ -9,11 +9,24 @@ import java.util.Random;
 import me.hextech.HexTech;
 import me.hextech.asm.accessors.IInteractEntityC2SPacket;
 import me.hextech.remapped.*;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.managers.CommandManager;
+import me.hextech.remapped.api.utils.combat.CanPlaceCrystal;
+import me.hextech.remapped.api.utils.combat.CombatUtil;
+import me.hextech.remapped.api.utils.combat.CrystalDamage_eJITUTNYpCPnjaYYZUHH;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
+import me.hextech.remapped.api.utils.entity.ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn;
 import me.hextech.remapped.api.utils.render.AnimateUtil;
+import me.hextech.remapped.api.utils.render.ColorUtil;
 import me.hextech.remapped.api.utils.world.BlockUtil;
 import me.hextech.remapped.mod.modules.impl.player.Blink;
 import me.hextech.remapped.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
+import me.hextech.remapped.mod.modules.impl.setting.ComboBreaks;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorsSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -840,5 +853,48 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private record AutoCrystal_DyfHylndhLrmDUsYPHRl(int crystalId, Vec3d crystalPos, long executeAt) {
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public enum Enum_IKgLeKHCELPvcpdGlLhV {
+        OyVey,
+        Meteor,
+        Thunder,
+        EditionHex,
+        Mio
+
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public enum Enum_rNhWITNdkrqkhKfDZgGo {
+        Off,
+        Normal,
+        Silent,
+        Inventory
+
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public enum Enum_sBhvBqKgHyCqkGvharVr {
+        General,
+        Place,
+        Break,
+        Rotation,
+        Calculations,
+        Obsidian,
+        AntiSurround,
+        ForcePlace,
+        Cancel,
+        SyncHronize,
+        Prediction,
+        IDPrediction,
+        Render
+
     }
 }

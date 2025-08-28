@@ -4,12 +4,20 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.hextech.remapped.api.utils.render.FadeUtils_DPfHthPqEJdfXfNYhDbG;
+import me.hextech.remapped.mod.gui.clickgui.ClickGuiScreen;
 import me.hextech.remapped.mod.gui.clickgui.components.Component;
 import me.hextech.remapped.mod.gui.clickgui.components.impl.BindComponent;
 import me.hextech.remapped.mod.gui.clickgui.components.impl.BooleanComponent;
+import me.hextech.remapped.mod.gui.clickgui.components.impl.ColorComponents;
+import me.hextech.remapped.mod.gui.clickgui.components.impl.EnumComponent;
+import me.hextech.remapped.mod.gui.clickgui.tabs.ClickGuiTab;
+import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
 import me.hextech.remapped.mod.modules.settings.Setting;
 import me.hextech.remapped.mod.modules.settings.impl.BindSetting;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
@@ -85,7 +93,7 @@ extends Component {
         int parentWidth = this.parent.getWidth();
         MatrixStack matrixStack = drawContext.getMatrices();
         this.currentOffset = ModuleComponent.animate(this.currentOffset, offset);
-        if (ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils.Out) >= 1.0 && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.scissor.getValue()) {
+        if (ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.Out) >= 1.0 && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.scissor.getValue()) {
             this.setScissorRegion(parentX * 2, (int)(((double)parentY + this.currentOffset + (double)this.defaultHeight) * 2.0), parentWidth * 2, mc.getWindow().getHeight() - (int)((double)parentY + this.currentOffset + (double)this.defaultHeight));
         }
         if (this.popped) {
@@ -125,7 +133,7 @@ extends Component {
                 children.currentOffset = this.currentOffset;
             }
         }
-        if (ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils.Out) >= 1.0 && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.scissor.getValue()) {
+        if (ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.Out) >= 1.0 && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.scissor.getValue()) {
             GL11.glDisable(3089);
         }
         this.currentWidth = ModuleComponent.animate(this.currentWidth, this.module.isOn() ? (double)parentWidth - 2.0 : 0.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.booleanSpeed.getValue());

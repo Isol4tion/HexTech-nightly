@@ -6,7 +6,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import java.awt.Color;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.api.utils.render.AnimateUtil;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;

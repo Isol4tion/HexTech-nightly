@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.api.utils.world.BlockPosX;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.attribute.EntityAttributes;

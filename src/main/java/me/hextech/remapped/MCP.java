@@ -1,5 +1,6 @@
 package me.hextech.remapped;
 
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;

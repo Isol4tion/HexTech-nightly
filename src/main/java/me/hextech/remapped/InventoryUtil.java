@@ -7,6 +7,7 @@ import java.util.Map;
 
 import me.hextech.remapped.api.utils.Wrapper;
 import me.hextech.remapped.api.utils.world.BlockUtil;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.effect.StatusEffect;

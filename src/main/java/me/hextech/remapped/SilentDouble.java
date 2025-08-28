@@ -1,7 +1,9 @@
 package me.hextech.remapped;
 
 import me.hextech.asm.mixins.IClientPlayerInteractionManager;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.util.math.BlockPos;

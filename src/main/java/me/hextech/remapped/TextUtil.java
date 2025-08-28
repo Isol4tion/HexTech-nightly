@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.util.Objects;
 
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
+import me.hextech.remapped.api.utils.render.ColorUtil;
+import me.hextech.remapped.mod.gui.font.FontRenderers;
+import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
+import me.hextech.remapped.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.Camera;
@@ -68,7 +73,7 @@ implements Wrapper {
             } else {
                 TextUtil.drawString(drawContext, String.valueOf(c), x, y, ColorUtil.pulseColor(startColor, endColor, index, counter, speed).getRGB(), customFont);
             }
-            x += customFont ? (double)FontRenderers.Arial.getWidth(String.valueOf(c)) : (double)TextUtil.mc.textRenderer.getWidth(String.valueOf(c));
+            x += customFont ? (double) FontRenderers.Arial.getWidth(String.valueOf(c)) : (double)TextUtil.mc.textRenderer.getWidth(String.valueOf(c));
         }
     }
 

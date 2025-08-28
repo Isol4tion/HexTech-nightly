@@ -2,7 +2,7 @@ package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
 import me.hextech.remapped.api.utils.render.AnimateUtil;
-import me.hextech.remapped.ChatSetting_qVnAbgCzNciNTevKRovy;
+import me.hextech.remapped.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
 import me.hextech.remapped.HotbarAnimation;
 import me.hextech.remapped.NoRender;
 import net.minecraft.client.gui.DrawContext;

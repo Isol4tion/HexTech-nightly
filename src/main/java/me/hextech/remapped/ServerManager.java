@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayDeque;
 import me.hextech.HexTech;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.network.packet.s2c.play.WorldTimeUpdateS2CPacket;

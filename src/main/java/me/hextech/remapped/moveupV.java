@@ -1,6 +1,9 @@
 package me.hextech.remapped;
 
+import me.hextech.remapped.mod.modules.impl.combat.Burrow_eOaBGEoOSTDRbYIUAbXC;
+import me.hextech.remapped.mod.modules.impl.combat.HoleKickTest;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class moveupV

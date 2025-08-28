@@ -1,7 +1,7 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.CameraState;
+import me.hextech.remapped.mod.modules.impl.player.freelook.CameraState;
 import me.hextech.remapped.FreeLook;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.NoRender;

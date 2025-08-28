@@ -2,7 +2,7 @@ package me.hextech.remapped.mod.modules.impl.misc;
 
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair;
-import me.hextech.remapped.EventHandler;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.ServerConnectBeginEvent;

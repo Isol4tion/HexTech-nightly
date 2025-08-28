@@ -1,6 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;

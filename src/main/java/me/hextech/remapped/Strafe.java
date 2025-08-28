@@ -1,6 +1,9 @@
 package me.hextech.remapped;
 
 import java.util.Objects;
+
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.entity.effect.StatusEffects;
 

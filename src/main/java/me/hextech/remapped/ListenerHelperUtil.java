@@ -1,8 +1,12 @@
 package me.hextech.remapped;
 
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.api.utils.combat.CombatUtil;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.api.utils.world.BlockUtil;
+import me.hextech.remapped.api.utils.world.ExplosionUtil;
 import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;

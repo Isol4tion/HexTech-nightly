@@ -1,7 +1,6 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.FastWeb;
-import me.hextech.remapped.FastWeb_dehcwwTxEbDSnkFtZvNl;
+import me.hextech.remapped.mod.modules.impl.movement.FastWeb_dehcwwTxEbDSnkFtZvNl;
 import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CobwebBlock;
@@ -22,9 +21,9 @@ public class MixinPlayerInWeb {
             if (FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.groundcheck.getValue() && Wrapper.mc.player.isOnGround()) {
                 return;
             }
-            if (FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.mode.is(FastWeb.Ignore)) {
+            if (FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.mode.is(FastWeb_dehcwwTxEbDSnkFtZvNl.Mode.Ignore)) {
                 ci.cancel();
-            } else if (FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.mode.is(FastWeb.Custom)) {
+            } else if (FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.mode.is(FastWeb_dehcwwTxEbDSnkFtZvNl.Mode.Custom)) {
                 ci.cancel();
                 entity.slowMovement(state, new Vec3d(FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.xZSlow.getValue() / 100.0, FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.ySlow.getValue() / 100.0, FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.xZSlow.getValue() / 100.0));
             }

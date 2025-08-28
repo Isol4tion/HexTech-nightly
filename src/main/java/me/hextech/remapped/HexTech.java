@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.Objects;
 import me.hextech.remapped.api.alts.AltScreen;
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.mod.gui.clickgui.ClickGuiScreen;
+import me.hextech.remapped.mod.gui.font.FontRenderers;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;

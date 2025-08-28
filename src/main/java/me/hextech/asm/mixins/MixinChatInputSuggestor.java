@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import me.hextech.HexTech;
-import me.hextech.remapped.ChatSetting_qVnAbgCzNciNTevKRovy;
+import me.hextech.remapped.mod.modules.impl.setting.ChatSetting_qVnAbgCzNciNTevKRovy;
 import me.hextech.remapped.mod.commands.Command;
 import me.hextech.remapped.Render2DUtil;
 import net.minecraft.client.gui.DrawContext;

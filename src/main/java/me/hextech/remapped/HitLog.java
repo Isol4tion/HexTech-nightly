@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Objects;
 import me.hextech.HexTech;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.events.impl.DeathEvent;
 import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerEntity;

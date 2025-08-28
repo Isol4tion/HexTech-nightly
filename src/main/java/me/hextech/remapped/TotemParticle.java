@@ -2,13 +2,10 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 import java.util.Random;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.ColorUtil;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.SliderSetting;
-import me.hextech.remapped.TotemParticleEvent;
+
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.utils.render.ColorUtil;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
 
 public class TotemParticle
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

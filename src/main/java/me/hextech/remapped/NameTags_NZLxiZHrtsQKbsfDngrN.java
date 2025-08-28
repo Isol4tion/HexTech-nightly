@@ -6,7 +6,11 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Objects;
 import me.hextech.HexTech;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
+import me.hextech.remapped.mod.gui.font.FontRenderers;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
@@ -132,7 +136,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             context.getMatrices().translate(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float)(posY - 13.0) + 6.5f, 0.0f);
             float size = (float)Math.max(1.0 - (double)MathHelper.sqrt((float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.cameraEntity.squaredDistanceTo(preVec)) * 0.01 * this.scaled.getValue(), 0.0);
             context.getMatrices().scale(Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), 1.0f);
-            context.getMatrices().translate(0.0f, this.offset.getValueFloat() * MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(preVec)), 0.0f);
+            context.getMatrices().translate(0.0f, this.offset.getValueFloat() * MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(preVec)), 0.0f);
             context.getMatrices().translate(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float)(posY - 13.0 + 6.5)), 0.0f);
             float item_offset = 0.0f;
             if (this.armorMode.getValue() != NameTags_AuEMiXPlywKMVYDJMcAR.None) {

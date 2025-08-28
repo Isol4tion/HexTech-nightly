@@ -3,7 +3,7 @@ package me.hextech.asm.mixins;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.hextech.HexTech;
 import me.hextech.remapped.mod.modules.impl.render.AspectRatio;
-import me.hextech.remapped.CustomFov;
+import me.hextech.remapped.mod.modules.impl.render.CustomFov;
 import me.hextech.remapped.FreeCam;
 import me.hextech.remapped.InteractUtil;
 import me.hextech.remapped.MineTweak;

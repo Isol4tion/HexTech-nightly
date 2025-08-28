@@ -3,6 +3,8 @@ package me.hextech.remapped;
 import java.util.ArrayList;
 import java.util.HashMap;
 import me.hextech.HexTech;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.events.impl.DeathEvent;
 import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

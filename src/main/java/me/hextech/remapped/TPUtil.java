@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.Vec3d;
 

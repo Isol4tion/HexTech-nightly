@@ -2,16 +2,8 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.HUD_ssNtBhEveKlCmIccBvAN;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Notification;
-import me.hextech.remapped.Notification_PrCPUuiCqVywIosJdRuW;
-import me.hextech.remapped.Notification_UtrzOkjpnGqedJBDTCjT;
-import me.hextech.remapped.Render2DUtil;
-import me.hextech.remapped.SliderSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.client.gui.DrawContext;
 
 public class Notification_lQoZqJolJVHgxQLLpwsm

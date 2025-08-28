@@ -1,6 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.api.utils.world.BlockUtil;
 
 public class ThreadManager_BMAJbvVqHsNRgpJZHNrD {

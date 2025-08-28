@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import me.hextech.remapped.api.utils.Wrapper;
 import me.hextech.remapped.api.utils.path.AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ;
 import me.hextech.remapped.api.utils.world.BlockPosX;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PlantBlock;

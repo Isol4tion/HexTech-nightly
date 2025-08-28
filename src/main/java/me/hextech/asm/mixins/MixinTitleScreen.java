@@ -1,7 +1,6 @@
 package me.hextech.asm.mixins;
 
-import me.hextech.remapped.ClickGui_ABoiivByuLsVqarYqfYv;
-import me.hextech.remapped.ClickGui_lDjmIzzmqoIBLakgOLww;
+import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
 import me.hextech.remapped.HexTech;
 import me.hextech.remapped.Menu;
 import net.minecraft.client.gui.screen.Screen;
@@ -21,20 +20,20 @@ extends Screen {
 
     @Inject(method={"tick"}, at={@At(value="HEAD")})
     private void tick(CallbackInfo ci) {
-        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.Nullpoint) {
+        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.Page.Nullpoint) {
             this.client.setScreen(new Menu());
         }
-        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.HexTech) {
+        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.Page.HexTech) {
             this.client.setScreen(new HexTech());
         }
     }
 
     @Inject(method={"init"}, at={@At(value="HEAD")})
     private void init(CallbackInfo ci) {
-        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.Nullpoint) {
+        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.Page.Nullpoint) {
             this.client.setScreen(new Menu());
         }
-        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_lDjmIzzmqoIBLakgOLww.HexTech) {
+        if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.Page.HexTech) {
             this.client.setScreen(new HexTech());
         }
     }

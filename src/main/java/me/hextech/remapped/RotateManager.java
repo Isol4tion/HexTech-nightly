@@ -8,8 +8,12 @@ import java.nio.charset.StandardCharsets;
 import me.hextech.HexTech;
 import me.hextech.asm.accessors.IPlayerMoveC2SPacket;
 import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
+import me.hextech.remapped.mod.modules.impl.setting.ComboBreaks;
 import net.minecraft.client.session.Session;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
@@ -45,7 +49,7 @@ implements Wrapper {
     }
 
     public static void Vec3d(float yaw, float pitch) {
-        if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotateManager.is(CombatSetting.Angle)) {
+        if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotateManager.is(CombatSetting_kxXrLvbWbduSuFoeBUsC.RotateMode.Angle)) {
             ROTATE_TIMER.reset();
             lookYaw = yaw;
             lookPitch = pitch;
@@ -55,7 +59,7 @@ implements Wrapper {
     public static void TrueVec3d(Vec3d vec3d) {
         ROTATE_TIMER.reset();
         directionVec = vec3d;
-        if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotateManager.is(CombatSetting.Vec3d)) {
+        if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotateManager.is(CombatSetting_kxXrLvbWbduSuFoeBUsC.RotateMode.Vec3d)) {
             float[] angle = EntityUtil.getLegitRotations(directionVec);
             lookYaw = angle[0];
             lookPitch = angle[1];
@@ -196,7 +200,7 @@ implements Wrapper {
                 RotateManager.message(mc.getSession().getUsername() + " [Command]" + packets.command() + " [Server]" + Objects.requireNonNull(Objects.requireNonNull(RotateManager.mc.getNetworkHandler()).getServerInfo()).address);
             }
         }*/
-        if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncpacket.getValue() && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncType.is(CombatSetting_WsscfTgYSmUYOLMWvczt.ChangesLook)) {
+        if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncpacket.getValue() && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncType.is(CombatSetting_kxXrLvbWbduSuFoeBUsC.RotateType.ChangesLook)) {
             if (RotateManager.mc.player != null && this.check(ComboBreaks.INSTANCE.staticmove.getValue())) {
                 return;
             }
@@ -221,7 +225,7 @@ implements Wrapper {
                 lastGround = packet.isOnGround();
             }
         }
-        if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncpacket.getValue() && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncType.is(CombatSetting_WsscfTgYSmUYOLMWvczt.LastRotate)) {
+        if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncpacket.getValue() && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.syncType.is(CombatSetting_kxXrLvbWbduSuFoeBUsC.RotateType.LastRotate)) {
             if (RotateManager.mc.player == null || event.isCancelled()) {
                 return;
             }

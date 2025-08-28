@@ -2,6 +2,8 @@ package me.hextech.remapped;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

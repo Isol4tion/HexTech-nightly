@@ -1,9 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.MovementUtil;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 
 public class Sprint
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

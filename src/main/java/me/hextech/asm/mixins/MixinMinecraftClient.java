@@ -1,8 +1,8 @@
 package me.hextech.asm.mixins;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.ClickGui_ABoiivByuLsVqarYqfYv;
-import me.hextech.remapped.FontRenderers;
+import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
+import me.hextech.remapped.mod.gui.font.FontRenderers;
 import me.hextech.remapped.MineTweak;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;

@@ -1,7 +1,6 @@
 package me.hextech.remapped.api.alts;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;

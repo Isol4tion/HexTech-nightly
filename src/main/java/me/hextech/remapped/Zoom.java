@@ -1,5 +1,6 @@
 package me.hextech.remapped;
 
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.api.utils.render.AnimateUtil;
 
 public class Zoom

@@ -2,6 +2,9 @@ package me.hextech.remapped;
 
 import me.hextech.asm.accessors.IEntityVelocityUpdateS2CPacket;
 import me.hextech.asm.accessors.IExplosionS2CPacket;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
+import me.hextech.remapped.mod.modules.impl.setting.BypassSetting_RInKGmTQYgWFRhsUOiJP;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.FishingBobberEntity;

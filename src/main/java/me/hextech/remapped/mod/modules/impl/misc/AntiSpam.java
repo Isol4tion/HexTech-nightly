@@ -1,6 +1,6 @@
 package me.hextech.remapped.mod.modules.impl.misc;
 
-import me.hextech.remapped.EventHandler;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.PacketEvent_YXFfxdDjQAfjBumqRbBu;

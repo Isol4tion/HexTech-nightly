@@ -1,8 +1,8 @@
 package me.hextech.remapped;
 
 import java.awt.Font;
-import me.hextech.remapped.FontAdapter;
-import me.hextech.remapped.FontRenderer;
+import me.hextech.remapped.mod.gui.font.FontAdapter;
+import me.hextech.remapped.mod.gui.font.FontRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class RendererFontAdapter

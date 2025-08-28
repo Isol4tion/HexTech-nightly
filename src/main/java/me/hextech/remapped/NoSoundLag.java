@@ -1,6 +1,8 @@
 package me.hextech.remapped;
 
 import java.util.ArrayList;
+
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;

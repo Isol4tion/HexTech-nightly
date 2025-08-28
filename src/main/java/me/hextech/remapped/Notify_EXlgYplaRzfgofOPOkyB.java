@@ -2,14 +2,9 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 import java.util.concurrent.CopyOnWriteArrayList;
-import me.hextech.remapped.ClickGui_ABoiivByuLsVqarYqfYv;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Notify;
-import me.hextech.remapped.Render2DUtil;
-import me.hextech.remapped.SliderSetting;
+import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.client.gui.DrawContext;
 
 public class Notify_EXlgYplaRzfgofOPOkyB

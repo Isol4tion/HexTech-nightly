@@ -1,5 +1,7 @@
 package me.hextech.remapped;
 
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+
 import java.lang.invoke.LambdaMetafactory;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;

@@ -1,8 +1,8 @@
 package me.hextech.asm.mixins;
 
 import java.awt.Color;
-import me.hextech.remapped.ColorUtil;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
+import me.hextech.remapped.api.utils.render.ColorUtil;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import me.hextech.remapped.MathUtil;
 import me.hextech.remapped.NoRender;
 import me.hextech.remapped.RotateManager;

@@ -4,7 +4,11 @@ import java.awt.Color;
 import java.util.ArrayList;
 import me.hextech.HexTech;
 import me.hextech.remapped.api.utils.Wrapper;
-import me.hextech.remapped.mod.gui.clickgui.tabs.ArmorHUD;
+import me.hextech.remapped.api.utils.render.FadeUtils_DPfHthPqEJdfXfNYhDbG;
+import me.hextech.remapped.mod.gui.clickgui.ClickGuiScreen;
+import me.hextech.remapped.mod.gui.elements.ArmorHUD;
+import me.hextech.remapped.mod.gui.clickgui.tabs.ClickGuiTab;
+import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import org.lwjgl.opengl.GL11;
@@ -69,7 +73,7 @@ implements Wrapper {
         matrixStack.push();
         this.armorHud.draw(drawContext, tickDelta, this.getColor());
         if (this.isClickGuiOpen()) {
-            double quad = ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils.In2);
+            double quad = ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2);
             boolean s = false;
             if (quad < 1.0) {
                 switch (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mode.getValue()) {

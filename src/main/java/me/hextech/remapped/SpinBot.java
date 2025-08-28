@@ -1,6 +1,9 @@
 package me.hextech.remapped;
 
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.item.BowItem;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 

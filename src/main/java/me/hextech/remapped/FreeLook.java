@@ -1,11 +1,8 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
-import me.hextech.remapped.CameraState;
-import me.hextech.remapped.EventHandler;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Render3DEvent;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
+import me.hextech.remapped.mod.modules.impl.player.freelook.CameraState;
 
 public class FreeLook
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

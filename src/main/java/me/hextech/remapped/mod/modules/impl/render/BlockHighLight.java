@@ -4,7 +4,9 @@ import java.awt.Color;
 
 import me.hextech.remapped.*;
 import me.hextech.remapped.api.utils.render.AnimateUtil;
+import me.hextech.remapped.api.utils.render.ColorUtil;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;

@@ -2,6 +2,8 @@ package me.hextech.remapped;
 
 import io.netty.util.internal.ConcurrentSet;
 import java.util.Set;
+
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.network.packet.c2s.play.TeleportConfirmC2SPacket;

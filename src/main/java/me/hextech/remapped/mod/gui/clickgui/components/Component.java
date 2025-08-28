@@ -3,8 +3,8 @@ package me.hextech.remapped.mod.gui.clickgui.components;
 import java.awt.Color;
 import java.util.Objects;
 
-import me.hextech.remapped.ClickGuiTab;
-import me.hextech.remapped.ClickGui_ABoiivByuLsVqarYqfYv;
+import me.hextech.remapped.mod.gui.clickgui.tabs.ClickGuiTab;
+import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
 import me.hextech.remapped.api.utils.Wrapper;
 import me.hextech.remapped.api.utils.render.AnimateUtil;
 import net.minecraft.client.gui.DrawContext;

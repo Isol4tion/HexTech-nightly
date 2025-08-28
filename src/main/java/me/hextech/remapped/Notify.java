@@ -1,6 +1,6 @@
 package me.hextech.remapped;
 
-import me.hextech.remapped.FadeUtils_DPfHthPqEJdfXfNYhDbG;
+import me.hextech.remapped.api.utils.render.FadeUtils_DPfHthPqEJdfXfNYhDbG;
 
 /*
  * Exception performing whole class analysis ignored.

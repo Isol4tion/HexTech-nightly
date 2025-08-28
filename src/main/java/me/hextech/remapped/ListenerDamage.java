@@ -1,6 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
 import me.hextech.remapped.mod.modules.impl.combat.BedAura_BzCWaQEhnpenizjBqrRp;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,7 +14,7 @@ implements Wrapper {
         if (!SpeedMine.INSTANCE.obsidian.isPressed() && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.slowPlace.getValue() && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastBreakTimer.passedMs((long)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.slowDelay.getValue()) && (!BedAura_BzCWaQEhnpenizjBqrRp.INSTANCE.isOn() || BedAura_BzCWaQEhnpenizjBqrRp.INSTANCE.getBed() == -1)) {
             return AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.slowMinDamage.getValue();
         }
-        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forcePlace.getValue() && (double)EntityUtil.getHealth(target) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forceMaxHealth.getValue() && !SpeedMine.INSTANCE.obsidian.isPressed() && !PistonCrystal.INSTANCE.isOn()) {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forcePlace.getValue() && (double) EntityUtil.getHealth(target) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forceMaxHealth.getValue() && !SpeedMine.INSTANCE.obsidian.isPressed() && !PistonCrystal.INSTANCE.isOn()) {
             return AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forceMin.getValue();
         }
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.armorBreaker.getValue()) {

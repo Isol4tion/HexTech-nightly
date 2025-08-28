@@ -3,6 +3,8 @@ package me.hextech.remapped;
 import java.io.File;
 import java.util.List;
 import me.hextech.HexTech;
+import me.hextech.remapped.api.managers.CommandManager;
+import me.hextech.remapped.api.managers.ConfigManager;
 import me.hextech.remapped.mod.commands.Command;
 
 public class LoadCommand

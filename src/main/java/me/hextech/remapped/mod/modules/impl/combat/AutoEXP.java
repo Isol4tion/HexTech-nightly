@@ -1,8 +1,8 @@
 package me.hextech.remapped.mod.modules.impl.combat;
 
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
-import me.hextech.remapped.EntityUtil;
-import me.hextech.remapped.EventHandler;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.InventoryUtil;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;

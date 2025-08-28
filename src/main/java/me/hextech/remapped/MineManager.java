@@ -1,6 +1,8 @@
 package me.hextech.remapped;
 
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.api.utils.render.FadeUtils_DPfHthPqEJdfXfNYhDbG;
+import me.hextech.remapped.mod.modules.impl.render.BreakESP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -17,7 +19,7 @@ public class MineManager {
     public MineManager(BlockPos pos, int entityId) {
         this.pos = pos;
         this.entityId = entityId;
-        this.fade = new FadeUtils_DPfHthPqEJdfXfNYhDbG((long)BreakESP.INSTANCE.animationTime.getValue());
+        this.fade = new FadeUtils_DPfHthPqEJdfXfNYhDbG((long) BreakESP.INSTANCE.animationTime.getValue());
         this.timer = new Timer();
     }
 

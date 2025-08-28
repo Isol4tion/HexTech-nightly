@@ -1,6 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.remapped.api.utils.render.AnimateUtil;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 
 public class HotbarAnimation
 extends Module_eSdgMXWuzcxgQVaJFmKZ {

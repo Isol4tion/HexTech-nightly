@@ -1,6 +1,7 @@
 package me.hextech.remapped;
 
 import me.hextech.HexTech;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.mod.modules.settings.impl.BindSetting;
 import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
 

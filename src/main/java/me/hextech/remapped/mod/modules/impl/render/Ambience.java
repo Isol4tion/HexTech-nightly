@@ -2,8 +2,8 @@ package me.hextech.remapped.mod.modules.impl.render;
 
 import java.awt.Color;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.EventHandler;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.PacketEvent_YXFfxdDjQAfjBumqRbBu;

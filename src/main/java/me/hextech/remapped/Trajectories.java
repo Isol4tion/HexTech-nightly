@@ -1,14 +1,9 @@
 package me.hextech.remapped;
 
 import java.awt.Color;
-import me.hextech.remapped.ColorSetting;
-import me.hextech.remapped.MathUtil;
-import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
-import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
-import me.hextech.remapped.Render3DUtil;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;

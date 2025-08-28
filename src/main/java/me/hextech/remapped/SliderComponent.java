@@ -2,7 +2,10 @@ package me.hextech.remapped;
 
 import java.awt.Color;
 
+import me.hextech.remapped.mod.gui.clickgui.ClickGuiScreen;
 import me.hextech.remapped.mod.gui.clickgui.components.Component;
+import me.hextech.remapped.mod.gui.clickgui.tabs.ClickGuiTab;
+import me.hextech.remapped.mod.modules.impl.client.ClickGui_ABoiivByuLsVqarYqfYv;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 
@@ -86,8 +89,8 @@ extends Component {
             return false;
         }
         this.renderSliderPosition = SliderComponent.animate(this.renderSliderPosition, Math.floor((double)(parentWidth - 2) * this.currentSliderPosition), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.sliderSpeed.getValue());
-        float height = ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue() == ClickGui_qvrpuTqAQSFqXVuTIwHB.New ? 1.0f : (float)(this.defaultHeight - (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 0 : 1));
-        float f = y = ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue() == ClickGui_qvrpuTqAQSFqXVuTIwHB.New ? (float)(parentY + offset + this.defaultHeight - 3) : (float)(parentY + offset - 1);
+        float height = ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.UIType.New ? 1.0f : (float)(this.defaultHeight - (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 0 : 1));
+        float f = y = ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.UIType.New ? (float)(parentY + offset + this.defaultHeight - 3) : (float)(parentY + offset - 1);
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainEnd.booleanValue) {
             Render2DUtil.drawRectHorizontal(matrixStack, parentX + 1, y, (int)this.renderSliderPosition, height, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainEnd.getValue());
         } else {

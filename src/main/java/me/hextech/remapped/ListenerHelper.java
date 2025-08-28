@@ -2,6 +2,7 @@ package me.hextech.remapped;
 
 import me.hextech.HexTech;
 import me.hextech.remapped.api.utils.Wrapper;
+import me.hextech.remapped.api.utils.entity.EntityUtil;
 import me.hextech.remapped.api.utils.world.BlockUtil;
 import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
 import me.hextech.remapped.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
@@ -19,7 +20,7 @@ implements Wrapper {
     }
 
     private static int getBlock() {
-        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == AutoCrystal_QcRVYRsOqpKivetoXSJa.Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
             return InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN);
         }
         return InventoryUtil.findBlock(Blocks.OBSIDIAN);
@@ -69,7 +70,7 @@ implements Wrapper {
             BlockUtil.placedPos.add(pos);
             BlockUtil.clickBlock(pos.offset(side), side.getOpposite(), false, Hand.MAIN_HAND);
         }
-        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == AutoCrystal_QcRVYRsOqpKivetoXSJa.Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
             ListenerHelper.doSwap(block);
             EntityUtil.syncInventory();
         } else {
@@ -79,7 +80,7 @@ implements Wrapper {
     }
 
     private static void doSwap(int slot) {
-        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
+        if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.autoSwap.getValue() == AutoCrystal_QcRVYRsOqpKivetoXSJa.Enum_rNhWITNdkrqkhKfDZgGo.Inventory) {
             if (ListenerHelper.mc.player != null) {
                 InventoryUtil.inventorySwap(slot, ListenerHelper.mc.player.getInventory().selectedSlot);
             }

@@ -1,12 +1,10 @@
 package me.hextech.remapped.mod.modules.impl.setting;
 
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
-import me.hextech.remapped.Burrow_eOaBGEoOSTDRbYIUAbXC;
-import me.hextech.remapped.BypassSetting_RInKGmTQYgWFRhsUOiJP;
-import me.hextech.remapped.CombatSetting_kxXrLvbWbduSuFoeBUsC;
-import me.hextech.remapped.CommandManager;
-import me.hextech.remapped.EnumSetting;
-import me.hextech.remapped.FastWeb_dehcwwTxEbDSnkFtZvNl;
+import me.hextech.remapped.mod.modules.impl.combat.Burrow_eOaBGEoOSTDRbYIUAbXC;
+import me.hextech.remapped.api.managers.CommandManager;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
+import me.hextech.remapped.mod.modules.impl.movement.FastWeb_dehcwwTxEbDSnkFtZvNl;
 import me.hextech.remapped.Module_JlagirAibYQgkHtbRnhw;
 import me.hextech.remapped.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.remapped.Notify_EXlgYplaRzfgofOPOkyB;

@@ -3,9 +3,14 @@ package me.hextech.remapped;
 import java.awt.Color;
 import java.util.HashMap;
 
+import me.hextech.remapped.api.utils.render.ColorUtil;
+import me.hextech.remapped.api.utils.render.FadeUtils_DPfHthPqEJdfXfNYhDbG;
 import me.hextech.remapped.api.utils.world.BlockUtil;
 import me.hextech.remapped.mod.modules.impl.combat.AutoCrystal_QcRVYRsOqpKivetoXSJa;
 import me.hextech.remapped.mod.modules.settings.impl.BooleanSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorSetting;
+import me.hextech.remapped.mod.modules.settings.impl.ColorsSetting;
+import me.hextech.remapped.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -22,7 +27,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final ColorSetting fill = this.add(new ColorSetting("Fill", new Color(255, 255, 255, 100)).injectBoolean(true));
     private final ColorSetting tryPlaceBox = this.add(new ColorSetting("TryPlaceBox", new Color(178, 178, 178, 255)).injectBoolean(true));
     private final ColorSetting tryPlaceFill = this.add(new ColorSetting("TryPlaceFill", new Color(255, 119, 119, 157)).injectBoolean(true));
-    private final EnumSetting<FadeUtils> quad = this.add(new EnumSetting<FadeUtils>("Quad", FadeUtils.In));
+    private final EnumSetting<FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad> quad = this.add(new EnumSetting<FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad>("Quad", FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In));
     private final EnumSetting<_MgMtxnzmBTDvbcFtDFtE> mode = this.add(new EnumSetting<_MgMtxnzmBTDvbcFtDFtE>("Mode", _MgMtxnzmBTDvbcFtDFtE.All));
 
     public PlaceRender() {

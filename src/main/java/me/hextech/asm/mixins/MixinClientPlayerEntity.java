@@ -7,6 +7,7 @@ import me.hextech.HexTech;
 import me.hextech.remapped.*;
 import me.hextech.remapped.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import me.hextech.remapped.mod.modules.impl.setting.BaseThreadSetting_TYdViPaJQVoRZLdgWIXF;
+import me.hextech.remapped.mod.modules.impl.setting.CombatSetting_kxXrLvbWbduSuFoeBUsC;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.input.Input;

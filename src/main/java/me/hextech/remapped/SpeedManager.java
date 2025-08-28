@@ -2,6 +2,7 @@ package me.hextech.remapped;
 
 import java.util.HashMap;
 import me.hextech.HexTech;
+import me.hextech.remapped.api.events.eventbus.EventHandler;
 import me.hextech.remapped.api.utils.Wrapper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;

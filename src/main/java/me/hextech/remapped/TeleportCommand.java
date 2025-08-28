@@ -2,6 +2,8 @@ package me.hextech.remapped;
 
 import java.text.DecimalFormat;
 import java.util.List;
+
+import me.hextech.remapped.api.managers.CommandManager;
 import me.hextech.remapped.mod.commands.Command;
 
 public class TeleportCommand
