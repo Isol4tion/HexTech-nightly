@@ -24,7 +24,7 @@ extends Command {
             if (RejoinCommand.mc.world != null && mc.getCurrentServerEntry() != null) {
                 ServerInfo lastestServerEntry = mc.getCurrentServerEntry();
                 new DisconnectS2CPacket(Text.of((String)"Self kick")).apply((ClientCommonPacketListener)RejoinCommand.mc.player.networkHandler);
-                ConnectScreen.method_36877((Screen)new TitleScreen(), (MinecraftClient)mc, (ServerAddress)ServerAddress.parse((String)lastestServerEntry.address), (ServerInfo)lastestServerEntry, (boolean)false);
+                ConnectScreen.connect((Screen)new TitleScreen(), (MinecraftClient)mc, (ServerAddress)ServerAddress.parse((String)lastestServerEntry.address), (ServerInfo)lastestServerEntry, (boolean)false);
             }
         });
     }

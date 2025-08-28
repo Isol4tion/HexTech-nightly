@@ -25,7 +25,7 @@ public class PopChams {
         this.this$0 = popChams_WNWBvFQQYNjRmTHDKpkM;
         this.player = player;
         this.modelPlayer = new PlayerEntityModel(new EntityRendererFactory.Context(Wrapper.mc.getEntityRenderDispatcher(), Wrapper.mc.getItemRenderer(), Wrapper.mc.getBlockRenderManager(), Wrapper.mc.getEntityRenderDispatcher().getHeldItemRenderer(), Wrapper.mc.getResourceManager(), Wrapper.mc.getLoadedEntityModels(), Wrapper.mc.textRenderer).getPart(EntityModelLayers.PLAYER), false);
-        this.modelPlayer.method_2838().scale(new Vector3f(-0.3f, -0.3f, -0.3f));
+        this.modelPlayer.getHead().scale(new Vector3f(-0.3f, -0.3f, -0.3f));
         this.alpha = popChams_WNWBvFQQYNjRmTHDKpkM.color.getValue().getAlpha();
     }
 
@@ -33,7 +33,7 @@ public class PopChams {
         if (this.alpha <= 0) {
             arrayList.remove(this);
             this.player.kill();
-            this.player.method_5650(Entity.RemovalReason.KILLED);
+            this.player.remove(Entity.RemovalReason.KILLED);
             this.player.onRemoved();
             return;
         }

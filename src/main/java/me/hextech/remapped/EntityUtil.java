@@ -178,7 +178,7 @@ implements Wrapper {
                 break;
             }
             case 2: {
-                EntityUtil.mc.player.method_23667(hand, false);
+                EntityUtil.mc.player.swingHand(hand, false);
                 break;
             }
             case 3: {

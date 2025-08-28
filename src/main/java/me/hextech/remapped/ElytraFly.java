@@ -116,7 +116,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public final Vec3d getRotationVec(float tickDelta) {
-        return this.getRotationVector(-this.upPitch.getValueFloat(), ElytraFly.mc.player.method_5705(tickDelta));
+        return this.getRotationVector(-this.upPitch.getValueFloat(), ElytraFly.mc.player.getYaw(tickDelta));
     }
 
     @EventHandler
@@ -165,7 +165,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.setZ(this.getZ() * this.maxSpeed.getValue() / finalDist);
         }
         event.cancel();
-        ElytraFly.mc.player.method_5784(MovementType.SELF, ElytraFly.mc.player.getVelocity());
+        ElytraFly.mc.player.move(MovementType.SELF, ElytraFly.mc.player.getVelocity());
     }
 
     private double getX() {

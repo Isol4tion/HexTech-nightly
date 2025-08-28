@@ -81,8 +81,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         entity.bodyYaw = e.getPlayer().bodyYaw;
         entity.headYaw = e.getPlayer().headYaw;
         entity.handSwingProgress = e.getPlayer().handSwingProgress;
-        entity.field_6279 = e.getPlayer().field_6279;
-        entity.method_5660(e.getPlayer().isSneaking());
+        entity.handSwingTicks = e.getPlayer().handSwingTicks;
+        entity.setSneaking(e.getPlayer().isSneaking());
         entity.limbAnimator.setSpeed(e.getPlayer().limbAnimator.getSpeed());
         entity.limbAnimator.pos = e.getPlayer().limbAnimator.getPos();
         this.popList.add(new PopChams(this, entity));

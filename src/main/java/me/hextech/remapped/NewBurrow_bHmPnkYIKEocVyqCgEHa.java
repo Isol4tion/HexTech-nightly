@@ -160,7 +160,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Blink.INSTANCE.isOn()) {
             return;
         }
-        int oldSlot = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getInventory().field_7545;
+        int oldSlot = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getInventory().selectedSlot;
         int block = this.getBlock();
         if (block == -1) {
             CommandManager.sendChatMessageWidthId("\u00a7c\u00a7oObsidian" + (this.enderChest.getValue() ? "/EnderChest" : "") + "?", this.hashCode());
@@ -301,7 +301,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double distance = 0.0;
                 BlockPos bestPos = null;
                 for (BlockPos blockPos : list) {
-                    if (!this.canMove(blockPos) || (double)MathHelper.method_15355((float)((float)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.squaredDistanceTo(blockPos.toCenterPos().method_1031(0.0, -0.5, 0.0)))) < this.smartDistance.getValue() || bestPos != null && !(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.squaredDistanceTo(blockPos.toCenterPos()) < distance)) continue;
+                    if (!this.canMove(blockPos) || (double)MathHelper.sqrt((float)((float)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.squaredDistanceTo(blockPos.toCenterPos().add(0.0, -0.5, 0.0)))) < this.smartDistance.getValue() || bestPos != null && !(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.squaredDistanceTo(blockPos.toCenterPos()) < distance)) continue;
                     bestPos = blockPos;
                     distance = NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.squaredDistanceTo(blockPos.toCenterPos());
                 }
@@ -373,7 +373,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 ++this.progress;
                 BlockUtil.placedPos.add(pos);
                 if (this.sound.getValue()) {
-                    NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.playSound((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, pos, SoundEvents.field_14574, SoundCategory.field_15245, 1.0f, 0.8f);
+                    NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.playSound((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0f, 0.8f);
                 }
                 BlockUtil.clickBlock(pos, Direction.DOWN, rotate, this.packetPlace.getValue());
             }
@@ -383,16 +383,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             ++this.progress;
             BlockUtil.placedPos.add(pos);
             if (this.sound.getValue()) {
-                NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.playSound((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, pos, SoundEvents.field_14574, SoundCategory.field_15245, 1.0f, 0.8f);
+                NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.playSound((PlayerEntity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1.0f, 0.8f);
             }
-            BlockUtil.clickBlock(pos.offset(side), side.method_10153(), rotate, this.packetPlace.getValue());
+            BlockUtil.clickBlock(pos.offset(side), side.getOpposite(), rotate, this.packetPlace.getValue());
             this.timer.reset();
         }
     }
 
     private void doSwap(int slot) {
         if (this.inventory.getValue()) {
-            InventoryUtil.inventorySwap(slot, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getInventory().field_7545);
+            InventoryUtil.inventorySwap(slot, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getInventory().selectedSlot);
         } else {
             InventoryUtil.switchToSlot(slot);
         }
@@ -406,9 +406,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 mc.getNetworkHandler().sendPacket((Packet)new PlayerMoveC2SPacket.Full((double)offPos.getX() + 0.5, NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), (double)offPos.getZ() + 0.5, HexTech.ROTATE.rotateYaw, 90.0f, false));
             }
         } else if (Math.abs((double)offPos.getX() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX()) < Math.abs((double)offPos.getZ() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ())) {
-            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.field_3944.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + ((double)offPos.getZ() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ()), true));
+            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ() + ((double)offPos.getZ() + 0.5 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ()), true));
         } else {
-            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.field_3944.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() + ((double)offPos.getX() + 0.2 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX()), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), true));
+            NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.networkHandler.sendPacket((Packet)new PlayerMoveC2SPacket.PositionAndOnGround(NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX() + ((double)offPos.getX() + 0.2 - NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getX()), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getY() + this.moveUp.getValue(), NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getZ(), true));
         }
     }
 
@@ -438,23 +438,23 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private boolean checkSelf(BlockPos pos) {
-        return NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getBoundingBox().method_994(new Box(pos));
+        return NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player.getBoundingBox().intersects(new Box(pos));
     }
 
     private boolean trapped(BlockPos pos) {
-        return (NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.canCollide((Entity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.field_10343) && this.checkSelf(pos.down(2));
+        return (NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.world.canCollide((Entity)NewBurrow_bHmPnkYIKEocVyqCgEHa.mc.player, new Box(pos)) || BlockUtil.getBlock(pos) == Blocks.COBWEB) && this.checkSelf(pos.down(2));
     }
 
     private int getBlock() {
         if (this.inventory.getValue()) {
-            if (InventoryUtil.findBlockInventorySlot(Blocks.field_10540) != -1 || !this.enderChest.getValue()) {
-                return InventoryUtil.findBlockInventorySlot(Blocks.field_10540);
+            if (InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN) != -1 || !this.enderChest.getValue()) {
+                return InventoryUtil.findBlockInventorySlot(Blocks.OBSIDIAN);
             }
-            return InventoryUtil.findBlockInventorySlot(Blocks.field_10443);
+            return InventoryUtil.findBlockInventorySlot(Blocks.ENDER_CHEST);
         }
-        if (InventoryUtil.findBlock(Blocks.field_10540) != -1 || !this.enderChest.getValue()) {
-            return InventoryUtil.findBlock(Blocks.field_10540);
+        if (InventoryUtil.findBlock(Blocks.OBSIDIAN) != -1 || !this.enderChest.getValue()) {
+            return InventoryUtil.findBlock(Blocks.OBSIDIAN);
         }
-        return InventoryUtil.findBlock(Blocks.field_10443);
+        return InventoryUtil.findBlock(Blocks.ENDER_CHEST);
     }
 }

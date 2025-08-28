@@ -28,8 +28,8 @@ implements Wrapper {
 
     public static double getJumpSpeed() {
         double defaultSpeed = 0.0;
-        if (MovementUtil.mc.player.hasStatusEffect(StatusEffects.field_5913)) {
-            int amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.field_5913)).getAmplifier();
+        if (MovementUtil.mc.player.hasStatusEffect(StatusEffects.JUMP_BOOST)) {
+            int amplifier = ((StatusEffectInstance)MovementUtil.mc.player.getActiveStatusEffects().get(StatusEffects.JUMP_BOOST)).getAmplifier();
             defaultSpeed += (double)(amplifier + 1) * 0.1;
         }
         return defaultSpeed;
@@ -136,11 +136,11 @@ implements Wrapper {
     public static double getSpeed(boolean slowness, double defaultSpeed) {
         int amplifier;
         if (MovementUtil.mc.player.hasStatusEffect(StatusEffects.SPEED)) {
-            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.SPEED)).getAmplifier();
+            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.getActiveStatusEffects().get(StatusEffects.SPEED)).getAmplifier();
             defaultSpeed *= 1.0 + 0.2 * (double)(amplifier + 1);
         }
         if (slowness && MovementUtil.mc.player.hasStatusEffect(StatusEffects.SLOWNESS)) {
-            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.method_6088().get(StatusEffects.SLOWNESS)).getAmplifier();
+            amplifier = ((StatusEffectInstance)MovementUtil.mc.player.getActiveStatusEffects().get(StatusEffects.SLOWNESS)).getAmplifier();
             defaultSpeed /= 1.0 + 0.2 * (double)(amplifier + 1);
         }
         if (MovementUtil.mc.player.isSneaking()) {

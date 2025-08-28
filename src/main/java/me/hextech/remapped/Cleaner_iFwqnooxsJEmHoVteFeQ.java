@@ -335,7 +335,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Explosion explosion = new Explosion(world, null, (double)explosionPos.getX(), (double)explosionPos.getY(), (double)explosionPos.getZ(), power, false, Explosion.DestructionType.DESTROY);
         BlockState blockState = world.getBlockState(pos2);
         float doubleExplosionSize = 2.0f * explosion.getPower();
-        double distancedsize = (double)MathHelper.sqrt((float)((float)explosionPos.method_10262((Vec3i)pos2))) / (double)doubleExplosionSize;
+        double distancedsize = (double)MathHelper.sqrt((float)((float)explosionPos.getSquaredDistance((Vec3i)pos2))) / (double)doubleExplosionSize;
         float damage = (float)((1.0 - distancedsize) * (double)(exposure = this.getExposure(explosionPos.toCenterPos(), pos2)));
         return (double)damage > (double)(blastResistance = blockState.getBlock().getBlastResistance()) * 3.5;
     }
