@@ -17,4 +17,4 @@ Skidding Time!!!
 ## 感谢
 
 + NoWhisper: Remap这个程序。
-+ 5k1D: 反编译、制作可构建的代码。
++ 5k1D、eternity2333、RageCat420: 反编译、制作可构建的代码。
