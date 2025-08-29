@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BlockUtil
-implements Wrapper {
+        implements Wrapper {
     public static final List<Block> shiftBlocks = new ArrayList<Block>();
     public static final ArrayList<BlockPos> placedPos = new ArrayList();
 
@@ -50,7 +50,8 @@ implements Wrapper {
         ArrayList<EndCrystalEntity> list = new ArrayList<EndCrystalEntity>();
         for (Entity entity : BlockUtil.mc.world.getEntities()) {
             EndCrystalEntity crystal;
-            if (!(entity instanceof EndCrystalEntity) || !(crystal = (EndCrystalEntity)entity).getBoundingBox().intersects(box)) continue;
+            if (!(entity instanceof EndCrystalEntity) || !(crystal = (EndCrystalEntity) entity).getBoundingBox().intersects(box))
+                continue;
             list.add(crystal);
         }
         return list;
@@ -115,7 +116,8 @@ implements Wrapper {
 
     public static boolean hasEntity(BlockPos pos, boolean ignoreCrystal) {
         for (Entity entity : BlockUtil.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
-            if (!entity.isAlive() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || ignoreCrystal && entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
+            if (!entity.isAlive() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || ignoreCrystal && entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue())
+                continue;
             return true;
         }
         return false;
@@ -131,7 +133,8 @@ implements Wrapper {
 
     public static boolean hasEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal) {
         for (Entity entity : BlockUtil.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
-            if (!entity.isAlive() || ignoreCrystal && entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
+            if (!entity.isAlive() || ignoreCrystal && entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue())
+                continue;
             return true;
         }
         return false;
@@ -139,7 +142,8 @@ implements Wrapper {
 
     public static boolean hasEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
         for (Entity entity : BlockUtil.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
-            if (!entity.isAlive() || ignoreItem && entity instanceof ItemEntity || ignoreCrystal && entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
+            if (!entity.isAlive() || ignoreItem && entity instanceof ItemEntity || ignoreCrystal && entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue())
+                continue;
             return true;
         }
         return false;
@@ -147,13 +151,15 @@ implements Wrapper {
 
     public static Direction getBestNeighboring(BlockPos pos, Direction facing) {
         for (Direction i : Direction.values()) {
-            if (facing != null && pos.offset(i).equals(pos.offset(facing, -1)) || i == Direction.DOWN || BlockUtil.getPlaceSide(pos, false, true) == null) continue;
+            if (facing != null && pos.offset(i).equals(pos.offset(facing, -1)) || i == Direction.DOWN || BlockUtil.getPlaceSide(pos, false, true) == null)
+                continue;
             return i;
         }
         Direction bestFacing = null;
         double distance = 0.0;
         for (Direction i : Direction.values()) {
-            if (facing != null && pos.offset(i).equals(pos.offset(facing, -1)) || i == Direction.DOWN || BlockUtil.getPlaceSide(pos) == null || bestFacing != null && !(BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()) < distance)) continue;
+            if (facing != null && pos.offset(i).equals(pos.offset(facing, -1)) || i == Direction.DOWN || BlockUtil.getPlaceSide(pos) == null || bestFacing != null && !(BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()) < distance))
+                continue;
             bestFacing = i;
             distance = BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos());
         }
@@ -170,7 +176,7 @@ implements Wrapper {
         boolean offhand = BlockUtil.mc.player.getOffHandStack().getItem() == Items.END_CRYSTAL;
         BlockPos obsPos = pos.down();
         Direction facing = BlockUtil.getClickSide(obsPos);
-        Vec3d vec = obsPos.toCenterPos().add((double)facing.getVector().getX() * 0.5, (double)facing.getVector().getY() * 0.5, (double)facing.getVector().getZ() * 0.5);
+        Vec3d vec = obsPos.toCenterPos().add((double) facing.getVector().getX() * 0.5, (double) facing.getVector().getY() * 0.5, (double) facing.getVector().getZ() * 0.5);
         if (rotate) {
             EntityUtil.faceVector(vec);
         }
@@ -207,7 +213,7 @@ implements Wrapper {
         if ((side = BlockUtil.getPlaceSide(pos)) == null) {
             return;
         }
-        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
         if (rotate) {
             EntityUtil.faceVector(directionVec);
         }
@@ -247,7 +253,8 @@ implements Wrapper {
     public static boolean isHole(BlockPos pos, boolean canStand, boolean checkTrap, boolean anyBlock) {
         int blockProgress = 0;
         for (Direction i : Direction.values()) {
-            if (i == Direction.UP || i == Direction.DOWN || (!anyBlock || BlockUtil.mc.world.isAir(pos.offset(i))) && !CombatUtil.isHard(pos.offset(i))) continue;
+            if (i == Direction.UP || i == Direction.DOWN || (!anyBlock || BlockUtil.mc.world.isAir(pos.offset(i))) && !CombatUtil.isHard(pos.offset(i)))
+                continue;
             ++blockProgress;
         }
         return (!checkTrap || BlockUtil.getBlock(pos) == Blocks.AIR && BlockUtil.getBlock(pos.add(0, 1, 0)) == Blocks.AIR && BlockUtil.getBlock(pos.add(0, 2, 0)) == Blocks.AIR) && blockProgress > 3 && (!canStand || BlockUtil.getState(pos.add(0, -1, 0)).blocksMovement());
@@ -266,7 +273,7 @@ implements Wrapper {
     }
 
     public static void clickBlock(BlockPos pos, Direction side, boolean rotate, Hand hand, boolean packet) {
-        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
         if (rotate) {
             EntityUtil.faceVector(directionVec);
         }
@@ -280,7 +287,7 @@ implements Wrapper {
     }
 
     public static void clickBlock(BlockPos pos, Direction side, boolean rotate, Hand hand, SwingSide swingSide) {
-        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
         if (rotate) {
             EntityUtil.faceVector(directionVec);
         }
@@ -297,8 +304,9 @@ implements Wrapper {
         double dis = 114514.0;
         Direction side = null;
         for (Direction i : Direction.values()) {
-            if (!BlockUtil.canClick(pos.offset(i)) || BlockUtil.canReplace(pos.offset(i)) || legit && !EntityUtil.canSee(pos.offset(i), i.getOpposite()) || strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite())) continue;
-            double vecDis = BlockUtil.mc.player.squaredDistanceTo(pos.toCenterPos().add((double)i.getVector().getX() * 0.5, (double)i.getVector().getY() * 0.5, (double)i.getVector().getZ() * 0.5));
+            if (!BlockUtil.canClick(pos.offset(i)) || BlockUtil.canReplace(pos.offset(i)) || legit && !EntityUtil.canSee(pos.offset(i), i.getOpposite()) || strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite()))
+                continue;
+            double vecDis = BlockUtil.mc.player.squaredDistanceTo(pos.toCenterPos().add((double) i.getVector().getX() * 0.5, (double) i.getVector().getY() * 0.5, (double) i.getVector().getZ() * 0.5));
             if (side != null && !(vecDis < dis)) continue;
             side = i;
             dis = vecDis;
@@ -322,9 +330,10 @@ implements Wrapper {
         double dis = 114514.0;
         Direction side = null;
         for (Direction i : Direction.values()) {
-            if (!BlockUtil.canClick(pos.offset(i)) || BlockUtil.canReplace(pos.offset(i)) || (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() != Placement.Legit ? CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite()) : !EntityUtil.canSee(pos.offset(i), i.getOpposite()))) continue;
-            double vecDis = BlockUtil.mc.player.squaredDistanceTo(pos.toCenterPos().add((double)i.getVector().getX() * 0.5, (double)i.getVector().getY() * 0.5, (double)i.getVector().getZ() * 0.5));
-            if ((double)MathHelper.sqrt((float)vecDis) > distance || side != null && !(vecDis < dis)) continue;
+            if (!BlockUtil.canClick(pos.offset(i)) || BlockUtil.canReplace(pos.offset(i)) || (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() != Placement.Legit ? CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite()) : !EntityUtil.canSee(pos.offset(i), i.getOpposite())))
+                continue;
+            double vecDis = BlockUtil.mc.player.squaredDistanceTo(pos.toCenterPos().add((double) i.getVector().getX() * 0.5, (double) i.getVector().getY() * 0.5, (double) i.getVector().getZ() * 0.5));
+            if ((double) MathHelper.sqrt((float) vecDis) > distance || side != null && !(vecDis < dis)) continue;
             side = i;
             dis = vecDis;
         }
@@ -344,18 +353,20 @@ implements Wrapper {
         Direction side = null;
         double range = 100.0;
         for (Direction i : Direction.values()) {
-            if (!EntityUtil.canSee(pos, i) || (double)MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range) continue;
+            if (!EntityUtil.canSee(pos, i) || (double) MathHelper.sqrt((float) BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range)
+                continue;
             side = i;
-            range = MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
+            range = MathHelper.sqrt((float) BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
         }
         if (side != null) {
             return side;
         }
         side = Direction.UP;
         for (Direction i : Direction.values()) {
-            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double)MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range) continue;
+            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double) MathHelper.sqrt((float) BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range)
+                continue;
             side = i;
-            range = MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
+            range = MathHelper.sqrt((float) BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
         }
         return side;
     }
@@ -364,18 +375,20 @@ implements Wrapper {
         Direction side = null;
         double range = 100.0;
         for (Direction i : Direction.values()) {
-            if (!EntityUtil.canSee(pos, i) || (double)MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range) continue;
+            if (!EntityUtil.canSee(pos, i) || (double) MathHelper.sqrt((float) BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range)
+                continue;
             side = i;
-            range = MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
+            range = MathHelper.sqrt((float) BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
         }
         if (side != null) {
             return side;
         }
         side = null;
         for (Direction i : Direction.values()) {
-            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double)MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range) continue;
+            if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && (!BlockUtil.isStrictDirection(pos, i) || !BlockUtil.isAir(pos.offset(i))) || (double) MathHelper.sqrt((float) BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos())) > range)
+                continue;
             side = i;
-            range = MathHelper.sqrt((float)BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
+            range = MathHelper.sqrt((float) BlockUtil.mc.player.squaredDistanceTo(pos.offset(i).toCenterPos()));
         }
         return side;
     }
@@ -390,7 +403,7 @@ implements Wrapper {
         if (EntityUtil.getPlayerPos().getY() - pos.getY() >= 0 && side == Direction.DOWN) {
             return false;
         }
-        if (BypassSetting_RInKGmTQYgWFRhsUOiJP.INSTANCE.grim.getValue() ? side == Direction.UP && (double)(pos.getY() + 1) > BlockUtil.mc.player.getEyePos().getY() : side == Direction.UP && (double)pos.getY() > BlockUtil.mc.player.getEyePos().getY()) {
+        if (BypassSetting_RInKGmTQYgWFRhsUOiJP.INSTANCE.grim.getValue() ? side == Direction.UP && (double) (pos.getY() + 1) > BlockUtil.mc.player.getEyePos().getY() : side == Direction.UP && (double) pos.getY() > BlockUtil.mc.player.getEyePos().getY()) {
             return false;
         }
         if (BlockUtil.getBlock(pos.offset(side)) == Blocks.OBSIDIAN || BlockUtil.getBlock(pos.offset(side)) == Blocks.BEDROCK || BlockUtil.getBlock(pos.offset(side)) == Blocks.RESPAWN_ANCHOR) {
@@ -432,7 +445,7 @@ implements Wrapper {
     }
 
     public static PendingUpdateManager getUpdateManager(ClientWorld world) {
-        return ((IClientWorld)world).acquirePendingUpdateManager();
+        return ((IClientWorld) world).acquirePendingUpdateManager();
     }
 
     public static ArrayList<BlockEntity> getTileEntities() {
@@ -453,7 +466,7 @@ implements Wrapper {
                 ++z;
             }
             return new ChunkPos(x, z);
-        }).limit((long)diameter * (long)diameter).filter(c -> BlockUtil.mc.world.isChunkLoaded(c.x, c.z)).map(c -> BlockUtil.mc.world.getChunk(c.x, c.z)).filter(Objects::nonNull);
+        }).limit((long) diameter * (long) diameter).filter(c -> BlockUtil.mc.world.isChunkLoaded(c.x, c.z)).map(c -> BlockUtil.mc.world.getChunk(c.x, c.z)).filter(Objects::nonNull);
     }
 
     public static ArrayList<BlockPos> getSphere(float range) {
@@ -462,9 +475,9 @@ implements Wrapper {
 
     public static ArrayList<BlockPos> getSphere(float range, Vec3d pos) {
         ArrayList<BlockPos> list = new ArrayList<BlockPos>();
-        for (double x = pos.getX() - (double)range; x < pos.getX() + (double)range; x += 1.0) {
-            for (double y = pos.getY() - (double)range; y < pos.getY() + (double)range; y += 1.0) {
-                for (double z = pos.getZ() - (double)range; z < pos.getZ() + (double)range; z += 1.0) {
+        for (double x = pos.getX() - (double) range; x < pos.getX() + (double) range; x += 1.0) {
+            for (double y = pos.getY() - (double) range; y < pos.getY() + (double) range; y += 1.0) {
+                for (double z = pos.getZ() - (double) range; z < pos.getZ() + (double) range; z += 1.0) {
                     BlockPosX curPos = new BlockPosX(x, y, z);
                     if (list.contains(curPos)) continue;
                     list.add(curPos);

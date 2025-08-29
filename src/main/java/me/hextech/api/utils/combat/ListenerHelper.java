@@ -16,7 +16,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 public class ListenerHelper
-implements Wrapper {
+        implements Wrapper {
     public static Block getBlock(BlockPos pos) {
         return BlockUtil.getState(pos).getBlock();
     }
@@ -29,8 +29,9 @@ implements Wrapper {
     }
 
     public static void tryBase() {
-        for (BlockPos pos : BlockUtil.getSphere((float)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue() + 1.0f)) {
-            if (ListenerHelperUtil.behindWall(pos) || !ListenerHelperUtil.canBasePlaceCrystal(pos.up(), false, false) || !ListenerHelperUtil.canTouch(pos) || (double)ListenerHelperUtil.calculateObsidian(pos, pos.up().toCenterPos(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget) < AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.minDamage.getValue()) continue;
+        for (BlockPos pos : BlockUtil.getSphere((float) AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue() + 1.0f)) {
+            if (ListenerHelperUtil.behindWall(pos) || !ListenerHelperUtil.canBasePlaceCrystal(pos.up(), false, false) || !ListenerHelperUtil.canTouch(pos) || (double) ListenerHelperUtil.calculateObsidian(pos, pos.up().toCenterPos(), AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.displayTarget) < AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.minDamage.getValue())
+                continue;
             ListenerHelper.doBase(pos);
         }
     }
@@ -39,10 +40,10 @@ implements Wrapper {
         if (!AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.obsidian.getValue()) {
             return;
         }
-        if (!BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.placeBaseTimer.passedMs((long)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.placeObsDelay.getValue())) {
+        if (!BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.placeBaseTimer.passedMs((long) AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.placeObsDelay.getValue())) {
             return;
         }
-        if ((double)BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.tempDamage < ListenerDamage.getDamage(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.displayTarget)) {
+        if ((double) BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.tempDamage < ListenerDamage.getDamage(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.displayTarget)) {
             return;
         }
         int block = ListenerHelper.getBlock();
@@ -53,7 +54,7 @@ implements Wrapper {
         if (side == null) {
             return;
         }
-        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
         if (!BlockUtil.canPlace(pos, AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue())) {
             return;
         }

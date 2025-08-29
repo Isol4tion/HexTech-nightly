@@ -16,7 +16,7 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class PlaceRender
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static final HashMap<BlockPos, PlaceRender_BKSSHzfecITsyTxUXmfE> renderMap = new HashMap<>();
     public static PlaceRender INSTANCE;
     public final EnumSetting<AutoCrystal_QcRVYRsOqpKivetoXSJa.AutoCrystal_ohSMJidwaoXtIVckTOpo> colortype = this.add(new EnumSetting<AutoCrystal_QcRVYRsOqpKivetoXSJa.AutoCrystal_ohSMJidwaoXtIVckTOpo>("ColorType", AutoCrystal_QcRVYRsOqpKivetoXSJa.AutoCrystal_ohSMJidwaoXtIVckTOpo.Custom));
@@ -37,7 +37,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public PlaceRender_BKSSHzfecITsyTxUXmfE create(BlockPos pos) {
-        return new PlaceRender_BKSSHzfecITsyTxUXmfE( pos);
+        return new PlaceRender_BKSSHzfecITsyTxUXmfE(pos);
     }
 
     @Override
@@ -74,18 +74,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Box aBox = new Box(placePosition.pos).expand(-size * 0.5, -size * 0.5, -size * 0.5);
             if (this.colortype.getValue().equals(AutoCrystal_QcRVYRsOqpKivetoXSJa.AutoCrystal_ohSMJidwaoXtIVckTOpo.Custom)) {
                 if (this.fill.booleanValue) {
-                    Render3DUtil.drawFill(matrixStack, aBox, ColorUtil.injectAlpha(this.fill.getValue(), (int)((double)this.fill.getValue().getAlpha() * alpha)));
+                    Render3DUtil.drawFill(matrixStack, aBox, ColorUtil.injectAlpha(this.fill.getValue(), (int) ((double) this.fill.getValue().getAlpha() * alpha)));
                 }
                 if (this.box.booleanValue) {
-                    Render3DUtil.drawBox(matrixStack, aBox, ColorUtil.injectAlpha(this.box.getValue(), (int)((double)this.box.getValue().getAlpha() * alpha)));
+                    Render3DUtil.drawBox(matrixStack, aBox, ColorUtil.injectAlpha(this.box.getValue(), (int) ((double) this.box.getValue().getAlpha() * alpha)));
                 }
             }
-            if (!this.colortype.getValue().equals(AutoCrystal_QcRVYRsOqpKivetoXSJa.AutoCrystal_ohSMJidwaoXtIVckTOpo.Sync)) continue;
+            if (!this.colortype.getValue().equals(AutoCrystal_QcRVYRsOqpKivetoXSJa.AutoCrystal_ohSMJidwaoXtIVckTOpo.Sync))
+                continue;
             if (ColorsSetting.INSTANCE.box.booleanValue) {
-                Render3DUtil.drawFill(matrixStack, aBox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.box.getValue(), (int)((double)ColorsSetting.INSTANCE.box.getValue().getAlpha() * alpha)));
+                Render3DUtil.drawFill(matrixStack, aBox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.box.getValue(), (int) ((double) ColorsSetting.INSTANCE.box.getValue().getAlpha() * alpha)));
             }
             if (!ColorsSetting.INSTANCE.online.booleanValue) continue;
-            Render3DUtil.drawBox(matrixStack, aBox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.online.getValue(), (int)((double)ColorsSetting.INSTANCE.online.getValue().getAlpha() * alpha)));
+            Render3DUtil.drawBox(matrixStack, aBox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.online.getValue(), (int) ((double) ColorsSetting.INSTANCE.online.getValue().getAlpha() * alpha)));
         }
         if (shouldClear) {
             renderMap.clear();
@@ -99,7 +100,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     }
 
-    public class PlaceRender_BKSSHzfecITsyTxUXmfE{
+    public class PlaceRender_BKSSHzfecITsyTxUXmfE {
         public final FadeUtils_DPfHthPqEJdfXfNYhDbG fade;
         public final BlockPos pos;
         public final Timer timer;

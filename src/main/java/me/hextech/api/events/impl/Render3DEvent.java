@@ -4,7 +4,7 @@ import me.hextech.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class Render3DEvent
-extends Event_auduwKaxKOWXRtyJkCPb {
+        extends Event_auduwKaxKOWXRtyJkCPb {
     private final float partialTicks;
     private final MatrixStack matrixStack;
 

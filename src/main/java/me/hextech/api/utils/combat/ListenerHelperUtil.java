@@ -21,7 +21,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
 public class ListenerHelperUtil
-implements Wrapper {
+        implements Wrapper {
     /*
      * Enabled force condition propagation
      * Lifted jumps to return sites
@@ -30,12 +30,12 @@ implements Wrapper {
         Direction side = BlockUtil.getClickSideStrict(pos);
         if (ListenerHelperUtil.mc.player == null) return false;
         if (side == null) return false;
-        Vec3d vec3d = new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5);
+        Vec3d vec3d = new Vec3d((double) side.getVector().getX() * 0.5, (double) side.getVector().getY() * 0.5, (double) side.getVector().getZ() * 0.5);
         return pos.toCenterPos().add(vec3d).distanceTo(ListenerHelperUtil.mc.player.getEyePos()) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue();
     }
 
     public static float calculateBase(BlockPos pos, PlayerEntity player, PlayerEntity predict) {
-        return ListenerHelperUtil.calculateObsidian(pos.down(), new Vec3d((double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5), player, predict);
+        return ListenerHelperUtil.calculateObsidian(pos.down(), new Vec3d((double) pos.getX() + 0.5, pos.getY(), (double) pos.getZ() + 0.5), player, predict);
     }
 
     public static float calculateObsidian(BlockPos obs, Vec3d pos, PlayerEntity player, PlayerEntity predict) {
@@ -48,7 +48,7 @@ implements Wrapper {
     }
 
     public static boolean behindWall(BlockPos pos) {
-        Vec3d testVec = new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() + 1.7, (double)pos.getZ() + 0.5);
+        Vec3d testVec = new Vec3d((double) pos.getX() + 0.5, (double) pos.getY() + 1.7, (double) pos.getZ() + 0.5);
         BlockHitResult result = null;
         if (ListenerHelperUtil.mc.world != null && ListenerHelperUtil.mc.player != null) {
             result = ListenerHelperUtil.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, ListenerHelperUtil.mc.player));
@@ -88,12 +88,14 @@ implements Wrapper {
     private static boolean noEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
         if (ListenerHelperUtil.mc.world != null) {
             for (Entity entity : ListenerHelperUtil.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
-                if (!entity.isAlive() || ignoreItem && entity instanceof ItemEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
+                if (!entity.isAlive() || ignoreItem && entity instanceof ItemEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue())
+                    continue;
                 if (entity instanceof EndCrystalEntity) {
                     if (!ignoreCrystal) {
                         return false;
                     }
-                    if (ListenerHelperUtil.mc.player != null && (ListenerHelperUtil.mc.player.canSee(entity) || ListenerHelperUtil.mc.player.getEyePos().distanceTo(entity.getPos()) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue())) continue;
+                    if (ListenerHelperUtil.mc.player != null && (ListenerHelperUtil.mc.player.canSee(entity) || ListenerHelperUtil.mc.player.getEyePos().distanceTo(entity.getPos()) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue()))
+                        continue;
                 }
                 return false;
             }

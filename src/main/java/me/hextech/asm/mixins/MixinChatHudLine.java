@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ChatHudLine.class)
 public abstract class MixinChatHudLine
-implements IChatHudLine {
+        implements IChatHudLine {
     @Unique
     private int id = 0;
 

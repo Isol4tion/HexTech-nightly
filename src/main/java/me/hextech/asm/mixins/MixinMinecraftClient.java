@@ -26,9 +26,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={MinecraftClient.class})
+@Mixin(value = {MinecraftClient.class})
 public abstract class MixinMinecraftClient
-extends ReentrantThreadExecutor<Runnable> {
+        extends ReentrantThreadExecutor<Runnable> {
     @Shadow
     public int attackCooldown;
     @Shadow
@@ -47,20 +47,19 @@ extends ReentrantThreadExecutor<Runnable> {
         super(string);
     }
 
-    @Inject(method={"<init>"}, at={@At(value="FIELD", target="Lnet/minecraft/client/MinecraftClient;instance:Lnet/minecraft/client/MinecraftClient;")})
+    @Inject(method = {"<init>"}, at = {@At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;instance:Lnet/minecraft/client/MinecraftClient;")})
     private void onInstanceConstruct(RunArgs args, CallbackInfo ci) {
         System.setProperty("java.awt.headless", "false");
     }
 
-    @Inject(method={"<init>"}, at={@At(value="TAIL")})
+    @Inject(method = {"<init>"}, at = {@At(value = "TAIL")})
     void postWindowInit(RunArgs args, CallbackInfo ci) throws Throwable {
         HexTech.load();
         try {
             FontRenderers.Arial = FontRenderers.createArial(ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.fontsize.getValueFloat());
             FontRenderers.Calibri = FontRenderers.create("calibri", 1, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.fontsize.getValueFloat());
             FontRenderers.ui = FontRenderers.create("tahoma", 0, 16.0f);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -75,12 +74,12 @@ extends ReentrantThreadExecutor<Runnable> {
         return null;
     }
 
-    @Inject(method={"handleBlockBreaking"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"handleBlockBreaking"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void handleBlockBreaking(boolean breaking, CallbackInfo ci) {
         if (this.attackCooldown <= 0 && this.player.isUsingItem() && MineTweak.INSTANCE.multiTask()) {
             if (breaking && this.crosshairTarget != null && this.crosshairTarget.getType() == HitResult.Type.BLOCK) {
                 Direction direction;
-                BlockHitResult blockHitResult = (BlockHitResult)this.crosshairTarget;
+                BlockHitResult blockHitResult = (BlockHitResult) this.crosshairTarget;
                 BlockPos blockPos = blockHitResult.getBlockPos();
                 if (!this.world.getBlockState(blockPos).isAir() && this.interactionManager.updateBlockBreakingProgress(blockPos, direction = blockHitResult.getSide())) {
                     this.particleManager.addBlockBreakingParticles(blockPos, direction);
@@ -93,7 +92,7 @@ extends ReentrantThreadExecutor<Runnable> {
         }
     }
 
-    @Inject(at={@At(value="TAIL")}, method={"tick()V"})
+    @Inject(at = {@At(value = "TAIL")}, method = {"tick()V"})
     public void tickTail(CallbackInfo info) {
         HexTech.SERVER.run();
         if (this.world != null) {

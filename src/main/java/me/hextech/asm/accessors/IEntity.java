@@ -7,12 +7,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(value={Entity.class})
+@Mixin(value = {Entity.class})
 public interface IEntity {
     @Mutable
-    @Accessor(value="pos")
+    @Accessor(value = "pos")
     void setPos(Vec3d var1);
 
-    @Accessor(value="dimensions")
+    @Accessor(value = "dimensions")
     EntityDimensions getDimensions();
 }

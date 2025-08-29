@@ -8,7 +8,7 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 
 public class DirectLoginAltScreen
-extends Screen {
+        extends Screen {
     private final Screen parent;
     private TextFieldWidget textFieldAltUsername;
 

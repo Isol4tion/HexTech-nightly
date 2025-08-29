@@ -7,7 +7,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 public class HitboxDesync
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public HitboxDesync() {
         super("HitboxDesync", Category.Player);
@@ -28,6 +28,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private Vec3d merge(Vec3d a, Direction facing) {
-        return new Vec3d(a.x * (double)Math.abs(facing.getUnitVector().x()), a.y * (double)Math.abs(facing.getUnitVector().y()), a.z * (double)Math.abs(facing.getUnitVector().z()));
+        return new Vec3d(a.x * (double) Math.abs(facing.getUnitVector().x()), a.y * (double) Math.abs(facing.getUnitVector().y()), a.z * (double) Math.abs(facing.getUnitVector().z()));
     }
 }

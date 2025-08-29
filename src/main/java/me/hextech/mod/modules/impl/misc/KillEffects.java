@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class KillEffects
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static KillEffects INSTANCE;
     public final SliderSetting gethealth = this.add(new SliderSetting("Health", 0, 0, 36));
     public final SliderSetting staytime = this.add(new SliderSetting("Time", 0.0, 0.0, 5000.0, 1.0));
@@ -57,14 +57,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (entity == KillEffects.mc.player || this.renderEntities.containsKey(entity) || this.lightingEntities.containsKey(entity)) {
                 return;
             }
-            if (((PlayerEntity)entity).getHealth() > this.gethealth.getValueFloat()) {
+            if (((PlayerEntity) entity).getHealth() > this.gethealth.getValueFloat()) {
                 return;
             }
             this.renderEntities.put(entity, System.currentTimeMillis());
         });
         if (!this.lightingEntities.isEmpty()) {
             this.lightingEntities.forEach((entity, time) -> {
-                if ((float)(System.currentTimeMillis() - time) > this.staytime.getValueFloat() && this.remove.getValue()) {
+                if ((float) (System.currentTimeMillis() - time) > this.staytime.getValueFloat() && this.remove.getValue()) {
                     this.lightingEntities.remove(entity);
                 }
             });

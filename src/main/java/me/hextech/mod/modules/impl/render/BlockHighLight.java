@@ -17,7 +17,7 @@ import net.minecraft.util.math.Vec3d;
 import java.awt.*;
 
 public class BlockHighLight
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     static Vec3d placeVec3d;
     static Vec3d curVec3d;
     final BooleanSetting center = this.add(new BooleanSetting("Center", true));
@@ -40,7 +40,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (BlockHighLight.mc.crosshairTarget == null || !((hitResult = BlockHighLight.mc.crosshairTarget) instanceof BlockHitResult)) {
             return;
         }
-        BlockHitResult hitResult2 = (BlockHitResult)hitResult;
+        BlockHitResult hitResult2 = (BlockHitResult) hitResult;
         if (BlockHighLight.mc.crosshairTarget.getType() == HitResult.Type.BLOCK) {
             this.noPosTimer.reset();
             Vec3d vec3d = placeVec3d = this.center.getValue() ? hitResult2.getBlockPos().toCenterPos() : BlockHighLight.mc.crosshairTarget.getPos();
@@ -48,7 +48,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (placeVec3d == null) {
             return;
         }
-        this.fade = this.fadeSpeed.getValue() >= 1.0 ? (this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5) : AnimateUtil.animate(this.fade, this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5, this.fadeSpeed.getValue() / 10.0);
+        this.fade = this.fadeSpeed.getValue() >= 1.0 ? (this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5) : AnimateUtil.animate(this.fade, this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5, this.fadeSpeed.getValue() / 10.0);
         if (this.fade == 0.0) {
             curVec3d = null;
             return;
@@ -57,10 +57,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Box box = new Box(curVec3d, curVec3d);
         box = this.shrink.getValue() ? box.expand(this.fade) : box.expand(0.5);
         if (this.fill.booleanValue) {
-            Render3DUtil.drawFill(matrixStack, box, ColorUtil.injectAlpha(this.fill.getValue(), (int)((double)this.fill.getValue().getAlpha() * this.fade * 2.0)));
+            Render3DUtil.drawFill(matrixStack, box, ColorUtil.injectAlpha(this.fill.getValue(), (int) ((double) this.fill.getValue().getAlpha() * this.fade * 2.0)));
         }
         if (this.box.booleanValue) {
-            Render3DUtil.drawBox(matrixStack, box, ColorUtil.injectAlpha(this.box.getValue(), (int)((double)this.box.getValue().getAlpha() * this.fade * 2.0)));
+            Render3DUtil.drawBox(matrixStack, box, ColorUtil.injectAlpha(this.box.getValue(), (int) ((double) this.box.getValue().getAlpha() * this.fade * 2.0)));
         }
     }
 }

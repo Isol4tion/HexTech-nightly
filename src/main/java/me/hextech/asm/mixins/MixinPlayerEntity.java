@@ -14,19 +14,19 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value={PlayerEntity.class})
+@Mixin(value = {PlayerEntity.class})
 public class MixinPlayerEntity
-implements Wrapper {
-    @Inject(method={"canChangeIntoPose"}, at={@At(value="RETURN")}, cancellable=true)
+        implements Wrapper {
+    @Inject(method = {"canChangeIntoPose"}, at = {@At(value = "RETURN")}, cancellable = true)
     private void poseNotCollide(EntityPose pose, CallbackInfoReturnable<Boolean> cir) {
-        if ((Object)this == MixinPlayerEntity.mc.player && !AntiCrawl.INSTANCE.crawl.getValue() && pose == EntityPose.SWIMMING) {
+        if ((Object) this == MixinPlayerEntity.mc.player && !AntiCrawl.INSTANCE.crawl.getValue() && pose == EntityPose.SWIMMING) {
             cir.setReturnValue(false);
         }
     }
 
-    @Inject(method={"travel"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"travel"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onTravelPre(Vec3d movementInput, CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity)(Object)this;
+        PlayerEntity player = (PlayerEntity) (Object) this;
         if (player != MixinPlayerEntity.mc.player) {
             return;
         }
@@ -37,9 +37,9 @@ implements Wrapper {
         }
     }
 
-    @Inject(method={"travel"}, at={@At(value="RETURN")}, cancellable=true)
+    @Inject(method = {"travel"}, at = {@At(value = "RETURN")}, cancellable = true)
     private void onTravelPost(Vec3d movementInput, CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity)(Object)this;
+        PlayerEntity player = (PlayerEntity) (Object) this;
         if (player != MixinPlayerEntity.mc.player) {
             return;
         }

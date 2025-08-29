@@ -16,7 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.explosion.Explosion;
 
 public class MeteorExplosionUtil
-implements Wrapper {
+        implements Wrapper {
     public static final Explosion explosion = new Explosion(MeteorExplosionUtil.mc.world, null, 0.0, 0.0, 0.0, 6.0f, false, Explosion.DestructionType.DESTROY);
 
     public static double crystalDamage(PlayerEntity player, BlockPos pos, PlayerEntity predict) {
@@ -54,12 +54,12 @@ implements Wrapper {
         double damage = (impact * impact + impact) / 2.0 * 7.0 * 10.0 + 1.0;
         damage = MeteorExplosionUtil.getDamageForDifficulty(damage);
         damage = MeteorExplosionUtil.resistanceReduction(player, damage);
-        damage = DamageUtil.getDamageLeft((float)damage, (float)player.getArmor(), (float)player.getAttributeInstance(EntityAttributes.GENERIC_ARMOR_TOUGHNESS).getValue());
-        ((IExplosion)explosion).setWorld(MeteorExplosionUtil.mc.world);
-        ((IExplosion)explosion).setX(pos.x);
-        ((IExplosion)explosion).setY(pos.y);
-        ((IExplosion)explosion).setZ(pos.z);
-        ((IExplosion)explosion).setPower(power);
+        damage = DamageUtil.getDamageLeft((float) damage, (float) player.getArmor(), (float) player.getAttributeInstance(EntityAttributes.GENERIC_ARMOR_TOUGHNESS).getValue());
+        ((IExplosion) explosion).setWorld(MeteorExplosionUtil.mc.world);
+        ((IExplosion) explosion).setX(pos.x);
+        ((IExplosion) explosion).setY(pos.y);
+        ((IExplosion) explosion).setZ(pos.z);
+        ((IExplosion) explosion).setPower(power);
         damage = MeteorExplosionUtil.blastProtReduction(player, damage, explosion);
         if (damage < 0.0) {
             damage = 0.0;
@@ -81,13 +81,13 @@ implements Wrapper {
         if (protLevel > 20) {
             protLevel = 20;
         }
-        return (damage *= 1.0 - (double)protLevel / 25.0) < 0.0 ? 0.0 : damage;
+        return (damage *= 1.0 - (double) protLevel / 25.0) < 0.0 ? 0.0 : damage;
     }
 
     private static double resistanceReduction(LivingEntity player, double damage) {
         if (player.hasStatusEffect(StatusEffects.RESISTANCE)) {
             int lvl = player.getStatusEffect(StatusEffects.RESISTANCE).getAmplifier() + 1;
-            damage *= 1.0 - (double)lvl * 0.2;
+            damage *= 1.0 - (double) lvl * 0.2;
         }
         return damage < 0.0 ? 0.0 : damage;
     }

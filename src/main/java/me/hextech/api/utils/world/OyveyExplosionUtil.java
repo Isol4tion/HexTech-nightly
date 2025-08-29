@@ -16,7 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.explosion.Explosion;
 
 public class OyveyExplosionUtil
-implements Wrapper {
+        implements Wrapper {
     public static float anchorDamage(BlockPos pos, PlayerEntity target, PlayerEntity predict) {
         if (BlockUtil.getBlock(pos) == Blocks.RESPAWN_ANCHOR) {
             CombatUtil.modifyPos = pos;
@@ -33,22 +33,21 @@ implements Wrapper {
             predict = entity;
         }
         float doubleExplosionSize = 2.0f * power;
-        double distancedsize = (double)MathHelper.sqrt((float)predict.squaredDistanceTo(posX, posY, posZ)) / (double)doubleExplosionSize;
+        double distancedsize = (double) MathHelper.sqrt((float) predict.squaredDistanceTo(posX, posY, posZ)) / (double) doubleExplosionSize;
         Vec3d vec3d = new Vec3d(posX, posY, posZ);
         double blockDensity = 0.0;
         try {
             blockDensity = Explosion.getExposure(vec3d, predict);
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             // empty catch block
         }
         double v = (1.0 - distancedsize) * blockDensity;
-        float damage = (int)((v * v + v) / 2.0 * 7.0 * (double)doubleExplosionSize + 1.0);
+        float damage = (int) ((v * v + v) / 2.0 * 7.0 * (double) doubleExplosionSize + 1.0);
         double finald = 1.0;
         if (entity instanceof LivingEntity) {
-            finald = OyveyExplosionUtil.getBlastReduction((LivingEntity)entity, OyveyExplosionUtil.getDamageMultiplied(damage), new Explosion(OyveyExplosionUtil.mc.world, entity, posX, posY, posZ, power, false, Explosion.DestructionType.DESTROY));
+            finald = OyveyExplosionUtil.getBlastReduction((LivingEntity) entity, OyveyExplosionUtil.getDamageMultiplied(damage), new Explosion(OyveyExplosionUtil.mc.world, entity, posX, posY, posZ, power, false, Explosion.DestructionType.DESTROY));
         }
-        return (float)finald;
+        return (float) finald;
     }
 
     public static float getDamageAfterAbsorb(float damage, float totalArmor, float toughnessAttribute) {
@@ -61,9 +60,9 @@ implements Wrapper {
         float damage = damageI;
         if (entity instanceof PlayerEntity player) {
             DamageSource ds = OyveyExplosionUtil.mc.world.getDamageSources().explosion(explosion);
-            damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, player.getArmor(), (float)player.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
+            damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, player.getArmor(), (float) player.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
             int k = EnchantmentHelper.getProtectionAmount(player.getArmorItems(), ds);
-            float f = MathHelper.clamp((float)k, 0.0f, 20.0f);
+            float f = MathHelper.clamp((float) k, 0.0f, 20.0f);
             damage *= 1.0f - f / 25.0f;
             if (player.hasStatusEffect(StatusEffects.RESISTANCE)) {
                 damage -= damage / 4.0f;
@@ -71,7 +70,7 @@ implements Wrapper {
             damage = Math.max(damage, 0.0f);
             return damage;
         }
-        damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float)entity.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
+        damage = OyveyExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float) entity.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
         return damage;
     }
 

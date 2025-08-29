@@ -17,7 +17,7 @@ import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 
 public class Velocity
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Velocity INSTANCE;
     public final BooleanSetting noExplosions = this.add(new BooleanSetting("Explosions", false));
     public final BooleanSetting waterPush = this.add(new BooleanSetting("Water", true));
@@ -78,11 +78,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (packet3.getId() == Velocity.mc.player.getId()) {
                 if (this.horizontal.getValue() == 0.0 && this.vertical.getValue() == 0.0) {
                     e.cancel();
-                }
-                else {
-                    ((IEntityVelocityUpdateS2CPacket)packet3).setX((int)(packet3.getVelocityX() * h));
-                    ((IEntityVelocityUpdateS2CPacket)packet3).setY((int)(packet3.getVelocityY() * v));
-                    ((IEntityVelocityUpdateS2CPacket)packet3).setZ((int)(packet3.getVelocityZ() * h));
+                } else {
+                    ((IEntityVelocityUpdateS2CPacket) packet3).setX((int) (packet3.getVelocityX() * h));
+                    ((IEntityVelocityUpdateS2CPacket) packet3).setY((int) (packet3.getVelocityY() * v));
+                    ((IEntityVelocityUpdateS2CPacket) packet3).setZ((int) (packet3.getVelocityZ() * h));
                 }
             }
         }

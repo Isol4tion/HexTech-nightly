@@ -12,7 +12,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.*;
 
 public final class ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn
-implements Wrapper {
+        implements Wrapper {
     private static final Map<PlayerEntity, List<Vec3d>> motionHistory = new HashMap<PlayerEntity, List<Vec3d>>();
 
     public static void updateHistory() {
@@ -75,7 +75,7 @@ implements Wrapper {
             Vec3d v = list.get(i);
             sum = sum.add(v.x, 0.0, v.z);
         }
-        return new Vec3d(sum.x / (double)s, list.get(0).y, sum.z / (double)s);
+        return new Vec3d(sum.x / (double) s, list.get(0).y, sum.z / (double) s);
     }
 
     private static Box simulate(PlayerEntity p, Vec3d motion, int ticks) {

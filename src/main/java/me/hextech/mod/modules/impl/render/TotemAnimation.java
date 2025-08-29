@@ -12,7 +12,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
 public class TotemAnimation
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static TotemAnimation instance;
     private final EnumSetting mode = this.add(new EnumSetting<>("Mode", _ZVxiGMTWPCIGCYyTrffL.FadeOut));
     private ItemStack floatingItem = null;

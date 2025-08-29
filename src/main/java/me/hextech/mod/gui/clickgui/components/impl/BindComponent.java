@@ -15,7 +15,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import java.awt.*;
 
 public class BindComponent
-extends Component {
+        extends Component {
     private final BindSetting bind;
     boolean hover = false;
 
@@ -30,7 +30,7 @@ extends Component {
             int parentX = this.parent.getX();
             int parentY = this.parent.getY();
             int parentWidth = this.parent.getWidth();
-            if (GuiManager.currentGrabbed == null && this.isVisible() && mouseX >= (double)(parentX + 1) && mouseX <= (double)(parentX + parentWidth - 1) && mouseY >= (double)(parentY + offset) && mouseY <= (double)(parentY + offset + this.defaultHeight - 2)) {
+            if (GuiManager.currentGrabbed == null && this.isVisible() && mouseX >= (double) (parentX + 1) && mouseX <= (double) (parentX + parentWidth - 1) && mouseY >= (double) (parentY + offset) && mouseY <= (double) (parentY + offset + this.defaultHeight - 2)) {
                 this.hover = true;
                 if (mouseClicked) {
                     ClickGuiScreen.clicked = false;
@@ -56,17 +56,17 @@ extends Component {
         int parentX = this.parent.getX();
         int parentY = this.parent.getY();
         this.currentOffset = BindComponent.animate(this.currentOffset, offset);
-        if (back && Math.abs(this.currentOffset - (double)offset) <= 0.5) {
+        if (back && Math.abs(this.currentOffset - (double) offset) <= 0.5) {
             return false;
         }
-        int y = (int)((double)this.parent.getY() + this.currentOffset - 2.0);
+        int y = (int) ((double) this.parent.getY() + this.currentOffset - 2.0);
         int width = this.parent.getWidth();
         MatrixStack matrixStack = drawContext.getMatrices();
         String text = this.hover && this.bind.getName().equals("Key") && InputUtil.isKeyPressed(mc.getWindow().getHandle(), 340) ? "Hold " + (this.bind.isHoldEnable() ? "\u00a7aOn" : "\u00a7cOff") : (this.bind.isListening() ? this.bind.getName() + ": Press Key.." : this.bind.getName() + ": " + this.bind.getBind());
         if (this.hover) {
-            Render2DUtil.drawRect(matrixStack, (float)parentX + 1.0f, (float)y + 1.0f, (float)width - 3.0f, (float)this.defaultHeight - 1.0f, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.shColor.getValue());
+            Render2DUtil.drawRect(matrixStack, (float) parentX + 1.0f, (float) y + 1.0f, (float) width - 3.0f, (float) this.defaultHeight - 1.0f, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.shColor.getValue());
         }
-        TextUtil.drawString(drawContext, text, parentX + 4, (float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 2.0f, 0xFFFFFF);
+        TextUtil.drawString(drawContext, text, parentX + 4, (float) ((double) parentY + this.getTextOffsetY() + this.currentOffset) - 2.0f, 0xFFFFFF);
         return true;
     }
 }

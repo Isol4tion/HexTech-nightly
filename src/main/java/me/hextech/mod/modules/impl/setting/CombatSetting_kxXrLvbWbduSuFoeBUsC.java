@@ -8,7 +8,7 @@ import me.hextech.mod.modules.settings.impl.EnumSetting;
 import me.hextech.mod.modules.settings.impl.SliderSetting;
 
 public class CombatSetting_kxXrLvbWbduSuFoeBUsC
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static CombatSetting_kxXrLvbWbduSuFoeBUsC INSTANCE;
     public final EnumSetting<Page> page = this.add(new EnumSetting<Page>("Page", Page.Combat));
     public final BooleanSetting lowVersion = this.add(new BooleanSetting("1.12", false, v -> this.page.getValue() == Page.Combat));

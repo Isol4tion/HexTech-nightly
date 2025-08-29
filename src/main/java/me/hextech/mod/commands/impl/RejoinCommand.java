@@ -11,7 +11,7 @@ import net.minecraft.text.Text;
 import java.util.List;
 
 public class RejoinCommand
-extends Command {
+        extends Command {
     public RejoinCommand() {
         super("rejoin", "rejoin", "");
     }

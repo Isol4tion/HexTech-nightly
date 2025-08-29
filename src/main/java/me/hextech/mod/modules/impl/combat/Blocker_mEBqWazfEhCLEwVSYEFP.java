@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Blocker_mEBqWazfEhCLEwVSYEFP
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Blocker_mEBqWazfEhCLEwVSYEFP INSTANCE;
     final Timer timer = new Timer();
     private final EnumSetting<Page> page = this.add(new EnumSetting<Page>("Page", Page.General));
@@ -74,7 +74,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.bevelCev.getValue()) {
             for (Direction i : Direction.values()) {
                 BlockPos blockerPos;
-                if (i == Direction.DOWN || this.isBedrock(this.playerBP.offset(i).up()) || !this.crystalHere(blockerPos = this.playerBP.offset(i).up(2)) || this.placePos.contains(blockerPos)) continue;
+                if (i == Direction.DOWN || this.isBedrock(this.playerBP.offset(i).up()) || !this.crystalHere(blockerPos = this.playerBP.offset(i).up(2)) || this.placePos.contains(blockerPos))
+                    continue;
                 this.placePos.add(blockerPos);
             }
         }
@@ -88,7 +89,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.feet.getValue() && (!this.onlySurround.getValue() || Surround_BjIoVRziuWIfEWTJHPVz.INSTANCE.isOn())) {
             for (Direction i : Direction.values()) {
                 BlockPos surroundPos;
-                if (i == Direction.DOWN || i == Direction.UP || this.isBedrock(surroundPos = this.playerBP.offset(i)) || !BlockUtil.isMining(surroundPos)) continue;
+                if (i == Direction.DOWN || i == Direction.UP || this.isBedrock(surroundPos = this.playerBP.offset(i)) || !BlockUtil.isMining(surroundPos))
+                    continue;
                 for (Direction direction : Direction.values()) {
                     if (direction == Direction.DOWN || direction == Direction.UP) continue;
                     BlockPos defensePos = this.playerBP.offset(i).offset(direction);
@@ -124,7 +126,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void tryPlaceObsidian(BlockPos pos) {
-        if (!((double)this.placeProgress < this.blocksPer.getValue())) {
+        if (!((double) this.placeProgress < this.blocksPer.getValue())) {
             return;
         }
         if (this.detectMining.getValue() && BlockUtil.isMining(pos)) {
@@ -166,6 +168,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     /*
      * Exception performing whole class analysis ignored.
      */
+    public enum Page {
+        General,
+        Target,
+        Check,
+        Render
+
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
     public class Blocker {
         public static final HashMap<BlockPos, _FijMAnLaeintSRYqwSXS> renderMap = new HashMap();
 
@@ -189,17 +202,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (!BlockUtil.clientCanPlace(placePosition.pos, true)) {
                     placePosition.isAir = false;
                 }
-                if (!placePosition.timer.passedMs((long)(delay.getValue() + 100.0)) && placePosition.isAir) {
+                if (!placePosition.timer.passedMs((long) (delay.getValue() + 100.0)) && placePosition.isAir) {
                     placePosition.firstFade.reset();
                 }
                 if (placePosition.firstFade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2) == 1.0) continue;
                 shouldClear = false;
                 MatrixStack matrixStack = event.getMatrixStack();
                 if (INSTANCE.fill.booleanValue) {
-                    Render3DUtil.drawFill(matrixStack, new Box(placePosition.pos), ColorUtil.injectAlpha(INSTANCE.fill.getValue(), (int)((double)fill.getValue().getAlpha() * (1.0 - placePosition.firstFade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2)))));
+                    Render3DUtil.drawFill(matrixStack, new Box(placePosition.pos), ColorUtil.injectAlpha(INSTANCE.fill.getValue(), (int) ((double) fill.getValue().getAlpha() * (1.0 - placePosition.firstFade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2)))));
                 }
                 if (!INSTANCE.box.booleanValue) continue;
-                Render3DUtil.drawBox(matrixStack, new Box(placePosition.pos), ColorUtil.injectAlpha(INSTANCE.box.getValue(), (int)((double)box.getValue().getAlpha() * (1.0 - placePosition.firstFade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2)))));
+                Render3DUtil.drawBox(matrixStack, new Box(placePosition.pos), ColorUtil.injectAlpha(INSTANCE.box.getValue(), (int) ((double) box.getValue().getAlpha() * (1.0 - placePosition.firstFade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2)))));
             }
             if (shouldClear) {
                 renderMap.clear();
@@ -222,16 +235,5 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.isAir = true;
             }
         }
-    }
-
-    /*
-     * Exception performing whole class analysis ignored.
-     */
-    public enum Page {
-        General,
-        Target,
-        Check,
-        Render
-
     }
 }

@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value={GameRenderer.class})
+@Mixin(value = {GameRenderer.class})
 public class MixinGameRenderer {
     @Shadow
     @Final
@@ -45,14 +45,14 @@ public class MixinGameRenderer {
     @Shadow
     private float viewDistance;
 
-    @Inject(method={"showFloatingItem"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"showFloatingItem"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onShowFloatingItem(ItemStack floatingItem, CallbackInfo info) {
         if (floatingItem.getItem() == Items.TOTEM_OF_UNDYING && NoRender.INSTANCE.isOn() && NoRender.INSTANCE.totem.getValue()) {
             info.cancel();
         }
     }
 
-    @Inject(method={"showFloatingItem"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"showFloatingItem"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void showFloatingItemHook(ItemStack floatingItem, CallbackInfo info) {
         if (TotemAnimation.instance.isOn()) {
             TotemAnimation.instance.showFloatingItem(floatingItem);
@@ -60,7 +60,7 @@ public class MixinGameRenderer {
         }
     }
 
-    @Inject(method={"renderFloatingItem"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"renderFloatingItem"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void renderFloatingItemHook(int scaledWidth, int scaledHeight, float tickDelta, CallbackInfo ci) {
         if (TotemAnimation.instance.isOn()) {
             TotemAnimation.instance.renderFloatingItem(scaledWidth, scaledHeight, tickDelta);
@@ -68,7 +68,7 @@ public class MixinGameRenderer {
         }
     }
 
-    @Redirect(method={"renderWorld"}, at=@At(value="INVOKE", target="Lnet/minecraft/util/math/MathHelper;lerp(FFF)F"))
+    @Redirect(method = {"renderWorld"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F"))
     private float applyCameraTransformationsMathHelperLerpProxy(float delta, float first, float second) {
         if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.nausea.getValue()) {
             return 0.0f;
@@ -76,14 +76,14 @@ public class MixinGameRenderer {
         return MathHelper.lerp(delta, first, second);
     }
 
-    @Inject(method={"tiltViewWhenHurt"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"tiltViewWhenHurt"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void tiltViewWhenHurtHook(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
         if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.hurtCam.getValue()) {
             ci.cancel();
         }
     }
 
-    @Inject(at={@At(value="FIELD", target="Lnet/minecraft/client/render/GameRenderer;renderHand:Z", opcode=180, ordinal=0)}, method={"renderWorld"})
+    @Inject(at = {@At(value = "FIELD", target = "Lnet/minecraft/client/render/GameRenderer;renderHand:Z", opcode = 180, ordinal = 0)}, method = {"renderWorld"})
     void render3dHook(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
         TextUtil.lastProjMat.set(RenderSystem.getProjectionMatrix());
         TextUtil.lastModMat.set(RenderSystem.getModelViewMatrix());
@@ -92,12 +92,12 @@ public class MixinGameRenderer {
         HexTech.MODULE.render3D(matrix);
     }
 
-    @Inject(method={"renderWorld"}, at={@At(value="INVOKE", target="Lnet/minecraft/client/render/GameRenderer;renderHand(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/Camera;F)V", shift=At.Shift.AFTER)})
+    @Inject(method = {"renderWorld"}, at = {@At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;renderHand(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/Camera;F)V", shift = At.Shift.AFTER)})
     public void postRender3dHook(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
         HexTech.SHADER.renderShaders();
     }
 
-    @Inject(method={"getFov(Lnet/minecraft/client/render/Camera;FZ)D"}, at={@At(value="TAIL")}, cancellable=true)
+    @Inject(method = {"getFov(Lnet/minecraft/client/render/Camera;FZ)D"}, at = {@At(value = "TAIL")}, cancellable = true)
     public void getFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cb) {
         if (CustomFov.INSTANCE.isOn()) {
             if (cb.getReturnValue() == 70.0 && !CustomFov.INSTANCE.itemFov.getValue()) {
@@ -119,7 +119,7 @@ public class MixinGameRenderer {
         }
     }
 
-    @Inject(method={"getBasicProjectionMatrix"}, at={@At(value="TAIL")}, cancellable=true)
+    @Inject(method = {"getBasicProjectionMatrix"}, at = {@At(value = "TAIL")}, cancellable = true)
     public void getBasicProjectionMatrixHook(double fov, CallbackInfoReturnable<Matrix4f> cir) {
         if (AspectRatio.INSTANCE.isOn()) {
             MatrixStack matrixStack = new MatrixStack();
@@ -128,12 +128,12 @@ public class MixinGameRenderer {
                 matrixStack.translate(this.zoomX, -this.zoomY, 0.0f);
                 matrixStack.scale(this.zoom, this.zoom, 1.0f);
             }
-            matrixStack.peek().getPositionMatrix().mul(new Matrix4f().setPerspective((float)(fov * 0.01745329238474369), AspectRatio.INSTANCE.ratio.getValueFloat(), 0.05f, this.viewDistance * 4.0f));
+            matrixStack.peek().getPositionMatrix().mul(new Matrix4f().setPerspective((float) (fov * 0.01745329238474369), AspectRatio.INSTANCE.ratio.getValueFloat(), 0.05f, this.viewDistance * 4.0f));
             cir.setReturnValue(matrixStack.peek().getPositionMatrix());
         }
     }
 
-    @Inject(method={"updateTargetedEntity"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"updateTargetedEntity"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void updateTargetedEntityHook(float tickDelta, CallbackInfo ci) {
         ci.cancel();
         this.update(tickDelta);

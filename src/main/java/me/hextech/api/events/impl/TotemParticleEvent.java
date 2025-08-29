@@ -5,7 +5,7 @@ import me.hextech.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import java.awt.*;
 
 public class TotemParticleEvent
-extends Event_auduwKaxKOWXRtyJkCPb {
+        extends Event_auduwKaxKOWXRtyJkCPb {
     public double velocityX;
     public double velocityY;
     public double velocityZ;

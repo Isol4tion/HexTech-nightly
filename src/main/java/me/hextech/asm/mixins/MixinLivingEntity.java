@@ -17,9 +17,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value={LivingEntity.class})
+@Mixin(value = {LivingEntity.class})
 public abstract class MixinLivingEntity
-extends Entity {
+        extends Entity {
     @Final
     @Shadow
     private static EntityAttributeModifier SPRINTING_SPEED_BOOST;
@@ -39,16 +39,16 @@ extends Entity {
         return null;
     }
 
-    @Inject(method={"getHandSwingDuration"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"getHandSwingDuration"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void getArmSwingAnimationEnd(CallbackInfoReturnable<Integer> info) {
         if (ViewModel.INSTANCE.isOn() && ViewModel.INSTANCE.slowAnimation.getValue()) {
             info.setReturnValue(ViewModel.INSTANCE.slowAnimationVal.getValueInt());
         }
     }
 
-    @Inject(method={"setSprinting"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"setSprinting"}, at = {@At(value = "HEAD")}, cancellable = true)
     public void setSprintingHook(boolean sprinting, CallbackInfo ci) {
-        if ((Object)this == MinecraftClient.getInstance().player && Sprint.INSTANCE.isOn() && Sprint.INSTANCE.mode.getValue() == Sprint._kIBjeDSbfTeuMDPgEQgD.Rage) {
+        if ((Object) this == MinecraftClient.getInstance().player && Sprint.INSTANCE.isOn() && Sprint.INSTANCE.mode.getValue() == Sprint._kIBjeDSbfTeuMDPgEQgD.Rage) {
             ci.cancel();
             sprinting = Sprint.shouldSprint;
             super.setSprinting(sprinting);

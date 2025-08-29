@@ -13,9 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Mixin(value={ShulkerBoxBlock.class})
+@Mixin(value = {ShulkerBoxBlock.class})
 public class MixinShulkerBoxBlock {
-    @Inject(method={"appendTooltip"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"appendTooltip"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onAppendTooltip(ItemStack stack, BlockView world, List<Text> tooltip, TooltipContext options, CallbackInfo ci) {
         if (ShulkerViewer.INSTANCE.isOn()) {
             ci.cancel();

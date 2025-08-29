@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class NameTags_NZLxiZHrtsQKbsfDngrN
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static NameTags_NZLxiZHrtsQKbsfDngrN INSTANCE;
     public final EnumSetting<Font> font = this.add(new EnumSetting<Font>("FontMode", Font.Fast));
     private final SliderSetting scale = this.add(new SliderSetting("Scale", 0.68f, 0.1f, 2.0, 0.01));
@@ -97,10 +97,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onRender2D(DrawContext context, float tickDelta) {
         for (PlayerEntity ent : NameTags_NZLxiZHrtsQKbsfDngrN.mc.world.getPlayers()) {
             Vec3d vector;
-            if (ent == NameTags_NZLxiZHrtsQKbsfDngrN.mc.player && NameTags_NZLxiZHrtsQKbsfDngrN.mc.options.getPerspective().isFirstPerson() && FreeCam.INSTANCE.isOff()) continue;
-            double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.getTickDelta();
-            double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.getTickDelta();
-            double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.getTickDelta();
+            if (ent == NameTags_NZLxiZHrtsQKbsfDngrN.mc.player && NameTags_NZLxiZHrtsQKbsfDngrN.mc.options.getPerspective().isFirstPerson() && FreeCam.INSTANCE.isOff())
+                continue;
+            double x = ent.prevX + (ent.getX() - ent.prevX) * (double) mc.getTickDelta();
+            double y = ent.prevY + (ent.getY() - ent.prevY) * (double) mc.getTickDelta();
+            double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double) mc.getTickDelta();
             Vec3d preVec = vector = new Vec3d(x, y + this.height.getValue() + ent.getBoundingBox().getLengthY() + 0.3, z);
             vector = TextUtil.worldSpaceToScreenSpace(new Vec3d(vector.x, vector.y, vector.z));
             if (!(vector.z > 0.0) || !(vector.z < 1.0)) continue;
@@ -128,9 +129,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             double posX = position.x;
             double posY = position.y;
             double endPosX = position.z;
-            float diff = (float)(endPosX - posX) / 2.0f;
-            float textWidth = this.font.getValue() == Font.Fancy ? FontRenderers.Arial.getWidth(final_string) : (float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer.getWidth(final_string);
-            float tagX = (float)((posX + (double) diff - (double) (textWidth / 2.0f)));
+            float diff = (float) (endPosX - posX) / 2.0f;
+            float textWidth = this.font.getValue() == Font.Fancy ? FontRenderers.Arial.getWidth(final_string) : (float) NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer.getWidth(final_string);
+            float tagX = (float) ((posX + (double) diff - (double) (textWidth / 2.0f)));
             ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
             stacks.add(ent.getMainHandStack());
             stacks.add(ent.getInventory().armor.get(3));
@@ -139,11 +140,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             stacks.add(ent.getInventory().armor.get(0));
             stacks.add(ent.getOffHandStack());
             context.getMatrices().push();
-            context.getMatrices().translate(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float)(posY - 13.0) + 6.5f, 0.0f);
-            float size = (float)Math.max(1.0 - (double)MathHelper.sqrt((float)NameTags_NZLxiZHrtsQKbsfDngrN.mc.cameraEntity.squaredDistanceTo(preVec)) * 0.01 * this.scaled.getValue(), 0.0);
+            context.getMatrices().translate(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float) (posY - 13.0) + 6.5f, 0.0f);
+            float size = (float) Math.max(1.0 - (double) MathHelper.sqrt((float) NameTags_NZLxiZHrtsQKbsfDngrN.mc.cameraEntity.squaredDistanceTo(preVec)) * 0.01 * this.scaled.getValue(), 0.0);
             context.getMatrices().scale(Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), Math.max(this.scale.getValueFloat() * size, this.minScale.getValueFloat()), 1.0f);
             context.getMatrices().translate(0.0f, this.offset.getValueFloat() * MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(preVec)), 0.0f);
-            context.getMatrices().translate(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float)(posY - 13.0 + 6.5)), 0.0f);
+            context.getMatrices().translate(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float) (posY - 13.0 + 6.5)), 0.0f);
             float item_offset = 0.0f;
             if (this.armorMode.getValue() != ArmorMode.None) {
                 int count = 0;
@@ -151,12 +152,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     ++count;
                     if (!armorComponent.isEmpty()) {
                         context.getMatrices().push();
-                        context.getMatrices().translate(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float)(posY - 13.0) + 6.5f, 0.0f);
+                        context.getMatrices().translate(tagX - 2.0f + (textWidth + 4.0f) / 2.0f, (float) (posY - 13.0) + 6.5f, 0.0f);
                         context.getMatrices().scale(this.armorScale.getValueFloat(), this.armorScale.getValueFloat(), 1.0f);
-                        context.getMatrices().translate(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float)(posY - 13.0 + 6.5)), 0.0f);
-                        context.getMatrices().translate(posX - 52.5 + (double)item_offset, (float)(posY - 29.0) + this.armorHeight.getValueFloat(), 0.0);
+                        context.getMatrices().translate(-(tagX - 2.0f + (textWidth + 4.0f) / 2.0f), -((float) (posY - 13.0 + 6.5)), 0.0f);
+                        context.getMatrices().translate(posX - 52.5 + (double) item_offset, (float) (posY - 29.0) + this.armorHeight.getValueFloat(), 0.0);
                         float durability = armorComponent.getMaxDamage() - armorComponent.getDamage();
-                        int percent = (int)(durability / (float)armorComponent.getMaxDamage() * 100.0f);
+                        int percent = (int) (durability / (float) armorComponent.getMaxDamage() * 100.0f);
                         Color color = percent <= 33 ? Color.RED : (percent <= 66 ? Color.ORANGE : Color.GREEN);
                         switch (this.armorMode.getValue().ordinal()) {
                             case 4: {
@@ -210,7 +211,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (this.enchants.getValue()) {
                             float enchantmentY = 0.0f;
                             NbtList enchants = armorComponent.getEnchantments();
-                            block26: for (int index = 0; index < enchants.size(); ++index) {
+                            block26:
+                            for (int index = 0; index < enchants.size(); ++index) {
                                 String encName;
                                 String id = enchants.getCompound(index).getString("id");
                                 short level = enchants.getCompound(index).getShort("lvl");
@@ -248,10 +250,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                                     }
                                 }
                                 if (this.font.getValue() == Font.Fancy) {
-                                    FontRenderers.Arial.drawString(context.getMatrices(), encName, posX - 50.0 + (double)item_offset, (float)posY - 45.0f + enchantmentY, -1);
+                                    FontRenderers.Arial.drawString(context.getMatrices(), encName, posX - 50.0 + (double) item_offset, (float) posY - 45.0f + enchantmentY, -1);
                                 } else {
                                     context.getMatrices().push();
-                                    context.getMatrices().translate(posX - 50.0 + (double)item_offset, posY - 45.0 + (double)enchantmentY, 0.0);
+                                    context.getMatrices().translate(posX - 50.0 + (double) item_offset, posY - 45.0 + (double) enchantmentY, 0.0);
                                     context.drawText(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, encName, 0, 0, -1, true);
                                     context.getMatrices().pop();
                                 }
@@ -263,19 +265,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
             if (this.rect.booleanValue) {
-                Render2DUtil.drawRect(context.getMatrices(), tagX - 2.0f, (float)(posY - 13.0), textWidth + 4.0f, 11.0f, this.rect.getValue());
+                Render2DUtil.drawRect(context.getMatrices(), tagX - 2.0f, (float) (posY - 13.0), textWidth + 4.0f, 11.0f, this.rect.getValue());
             }
             if (this.outline.booleanValue) {
-                Render2DUtil.drawRect(context.getMatrices(), tagX - 3.0f, (float)(posY - 14.0), textWidth + 6.0f, 1.0f, this.outline.getValue());
-                Render2DUtil.drawRect(context.getMatrices(), tagX - 3.0f, (float)(posY - 2.0), textWidth + 6.0f, 1.0f, this.outline.getValue());
-                Render2DUtil.drawRect(context.getMatrices(), tagX - 3.0f, (float)(posY - 14.0), 1.0f, 12.0f, this.outline.getValue());
-                Render2DUtil.drawRect(context.getMatrices(), tagX + textWidth + 2.0f, (float)(posY - 14.0), 1.0f, 12.0f, this.outline.getValue());
+                Render2DUtil.drawRect(context.getMatrices(), tagX - 3.0f, (float) (posY - 14.0), textWidth + 6.0f, 1.0f, this.outline.getValue());
+                Render2DUtil.drawRect(context.getMatrices(), tagX - 3.0f, (float) (posY - 2.0), textWidth + 6.0f, 1.0f, this.outline.getValue());
+                Render2DUtil.drawRect(context.getMatrices(), tagX - 3.0f, (float) (posY - 14.0), 1.0f, 12.0f, this.outline.getValue());
+                Render2DUtil.drawRect(context.getMatrices(), tagX + textWidth + 2.0f, (float) (posY - 14.0), 1.0f, 12.0f, this.outline.getValue());
             }
             if (this.font.getValue() == Font.Fancy) {
-                FontRenderers.Arial.drawString(context.getMatrices(), final_string, tagX, (float)posY - 10.0f, HexTech.FRIEND.isFriend(ent) ? this.friendColor.getValue().getRGB() : this.color.getValue().getRGB());
+                FontRenderers.Arial.drawString(context.getMatrices(), final_string, tagX, (float) posY - 10.0f, HexTech.FRIEND.isFriend(ent) ? this.friendColor.getValue().getRGB() : this.color.getValue().getRGB());
             } else {
                 context.getMatrices().push();
-                context.getMatrices().translate(tagX, (float)posY - 11.0f, 0.0f);
+                context.getMatrices().translate(tagX, (float) posY - 11.0f, 0.0f);
                 context.drawText(NameTags_NZLxiZHrtsQKbsfDngrN.mc.textRenderer, final_string, 0, 0, HexTech.FRIEND.isFriend(ent) ? this.friendColor.getValue().getRGB() : this.color.getValue().getRGB(), true);
                 context.getMatrices().pop();
             }
@@ -296,7 +298,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private Formatting getHealthColor(@NotNull PlayerEntity entity) {
-        int health = (int)((float)((int)entity.getHealth()) + entity.getAbsorptionAmount());
+        int health = (int) ((float) ((int) entity.getHealth()) + entity.getAbsorptionAmount());
         if (health >= 30) {
             return Formatting.DARK_GREEN;
         }

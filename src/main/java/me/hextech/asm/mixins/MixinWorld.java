@@ -13,9 +13,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value={World.class})
+@Mixin(value = {World.class})
 public abstract class MixinWorld {
-    @Inject(method={"getBlockState"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"getBlockState"}, at = {@At(value = "HEAD")}, cancellable = true)
     public void blockStateHook(BlockPos pos, CallbackInfoReturnable<BlockState> cir) {
         if (Wrapper.mc.world != null && Wrapper.mc.world.isInBuildLimit(pos)) {
             WorldChunk worldChunk;

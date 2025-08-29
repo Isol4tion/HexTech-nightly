@@ -26,10 +26,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
 
-@Mixin(value={HandledScreen.class})
+@Mixin(value = {HandledScreen.class})
 public abstract class MixinHandledScreen<T extends ScreenHandler>
-extends Screen
-implements ScreenHandlerProvider<T> {
+        extends Screen
+        implements ScreenHandlerProvider<T> {
     @Shadow
     @Nullable
     protected Slot focusedSlot;
@@ -42,7 +42,7 @@ implements ScreenHandlerProvider<T> {
         super(title);
     }
 
-    @Inject(method={"render"}, at={@At(value="TAIL")})
+    @Inject(method = {"render"}, at = {@At(value = "TAIL")})
     private void onRender(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (this.focusedSlot != null && !this.focusedSlot.getStack().isEmpty() && this.client.player.playerScreenHandler.getCursorStack().isEmpty() && this.hasItems(this.focusedSlot.getStack()) && ShulkerViewer.INSTANCE.isOn()) {
             this.renderShulkerToolTip(context, mouseX, mouseY, this.focusedSlot.getStack());
@@ -52,11 +52,10 @@ implements ScreenHandlerProvider<T> {
     public void renderShulkerToolTip(DrawContext context, int mouseX, int mouseY, ItemStack stack) {
         try {
             NbtCompound compoundTag = stack.getSubNbt("BlockEntityTag");
-            DefaultedList itemStacks = DefaultedList.ofSize(27, (Object)ItemStack.EMPTY);
+            DefaultedList itemStacks = DefaultedList.ofSize(27, (Object) ItemStack.EMPTY);
             Inventories.readNbt(compoundTag, itemStacks);
-            this.draw(context, (DefaultedList<ItemStack>)itemStacks, mouseX, mouseY);
-        }
-        catch (Exception exception) {
+            this.draw(context, (DefaultedList<ItemStack>) itemStacks, mouseX, mouseY);
+        } catch (Exception exception) {
             // empty catch block
         }
     }
@@ -81,7 +80,7 @@ implements ScreenHandlerProvider<T> {
     }
 
     private void drawBackground(DrawContext context, int x, int y) {
-        Render2DUtil.drawRect(context.getMatrices(), (float)x, (float)y, 176.0f, 67.0f, new Color(0, 0, 0, 120));
+        Render2DUtil.drawRect(context.getMatrices(), (float) x, (float) y, 176.0f, 67.0f, new Color(0, 0, 0, 120));
     }
 
     private boolean hasItems(ItemStack itemStack) {

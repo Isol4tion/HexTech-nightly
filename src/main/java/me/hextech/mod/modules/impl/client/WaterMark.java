@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class WaterMark
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private final BooleanSetting lowercase = this.add(new BooleanSetting("LowerCase", false));
     private final SliderSetting offset = this.add(new SliderSetting("Offset", 2, 0, 20));
@@ -50,8 +50,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         try {
             this.lexendFont = this.createFontAdapter(this.fontSize.getValueFloat(), "lexenddeca-regular");
             this.currentFontSize = this.fontSize.getValueFloat();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -93,9 +92,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.background.getValue()) {
             int n;
             int textWidth;
-            int n2 = textWidth = this.customFont.getValue() && this.lexendFont != null ? (int)this.lexendFont.getStringWidth(textToRender) : WaterMark.mc.textRenderer.getWidth(textToRender);
+            int n2 = textWidth = this.customFont.getValue() && this.lexendFont != null ? (int) this.lexendFont.getStringWidth(textToRender) : WaterMark.mc.textRenderer.getWidth(textToRender);
             if (this.customFont.getValue() && this.lexendFont != null) {
-                n = (int)this.lexendFont.getFontHeight();
+                n = (int) this.lexendFont.getFontHeight();
             } else {
                 Objects.requireNonNull(WaterMark.mc.textRenderer);
                 n = 9;
@@ -112,9 +111,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             Render2DUtil.drawRound(matrixStack, x, y + headerHeight, bgWidth, bgHeight - headerHeight, this.round.getValueFloat(), this.bodyColor.getValue());
             if (this.customFont.getValue() && this.lexendFont != null) {
-                this.lexendFont.drawString(drawContext.getMatrices(), textToRender, x + 5.0f, y + (bgHeight - (float)textHeight) / 2.0f, -1);
+                this.lexendFont.drawString(drawContext.getMatrices(), textToRender, x + 5.0f, y + (bgHeight - (float) textHeight) / 2.0f, -1);
             } else {
-                drawContext.drawTextWithShadow(WaterMark.mc.textRenderer, textToRender, (int)(x + 5.0f), (int)(y + (bgHeight - (float)textHeight) / 2.0f), -1);
+                drawContext.drawTextWithShadow(WaterMark.mc.textRenderer, textToRender, (int) (x + 5.0f), (int) (y + (bgHeight - (float) textHeight) / 2.0f), -1);
             }
         } else if (this.customFont.getValue() && this.lexendFont != null) {
             this.lexendFont.drawString(drawContext.getMatrices(), textToRender, x, y, -1);
@@ -126,10 +125,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void renderRoundedQuad(MatrixStack matrices, Color c, double fromX, double fromY, double toX, double toY, double radC1, double radC2, double radC3, double radC4, double samples) {
         int color = c.getRGB();
         Matrix4f matrix = matrices.peek().getPositionMatrix();
-        float f = (float)(color >> 24 & 0xFF) / 255.0f;
-        float g = (float)(color >> 16 & 0xFF) / 255.0f;
-        float h = (float)(color >> 8 & 0xFF) / 255.0f;
-        float k = (float)(color & 0xFF) / 255.0f;
+        float f = (float) (color >> 24 & 0xFF) / 255.0f;
+        float g = (float) (color >> 16 & 0xFF) / 255.0f;
+        float h = (float) (color >> 8 & 0xFF) / 255.0f;
+        float k = (float) (color & 0xFF) / 255.0f;
         Render2DUtil.setupRender();
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         this.renderRoundedQuadInternal(matrix, g, h, k, f, fromX, fromY, toX, toY, radC1, radC2, radC3, radC4, samples);
@@ -143,16 +142,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (int i = 0; i < 4; ++i) {
             double[] current = map[i];
             double rad = current[2];
-            for (double r = (double)i * 90.0; r < 90.0 + (double)i * 90.0; r += 90.0 / samples) {
-                float rad1 = (float)Math.toRadians(r);
-                float sin = (float)(Math.sin(rad1) * rad);
-                float cos = (float)(Math.cos(rad1) * rad);
-                bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
+            for (double r = (double) i * 90.0; r < 90.0 + (double) i * 90.0; r += 90.0 / samples) {
+                float rad1 = (float) Math.toRadians(r);
+                float sin = (float) (Math.sin(rad1) * rad);
+                float cos = (float) (Math.cos(rad1) * rad);
+                bufferBuilder.vertex(matrix, (float) current[0] + sin, (float) current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
             }
-            float rad1 = (float)Math.toRadians(90.0 + (double)i * 90.0);
-            float sin = (float)(Math.sin(rad1) * rad);
-            float cos = (float)(Math.cos(rad1) * rad);
-            bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
+            float rad1 = (float) Math.toRadians(90.0 + (double) i * 90.0);
+            float sin = (float) (Math.sin(rad1) * rad);
+            float cos = (float) (Math.cos(rad1) * rad);
+            bufferBuilder.vertex(matrix, (float) current[0] + sin, (float) current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
         }
         BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
     }

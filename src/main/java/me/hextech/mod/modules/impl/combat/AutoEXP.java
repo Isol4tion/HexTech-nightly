@@ -16,7 +16,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
 
 public class AutoEXP
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AutoEXP INSTANCE;
     public final BooleanSetting down = this.add(new BooleanSetting("Down", true));
     public final BooleanSetting onlyBroken = this.add(new BooleanSetting("OnlyBroken", true));
@@ -46,7 +46,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.throwing = this.checkThrow();
-        if (this.isThrow() && this.delayTimer.passedMs((long)this.delay.getValueInt() * 20L) && (!this.onlyGround.getValue() || AutoEXP.mc.player.isOnGround())) {
+        if (this.isThrow() && this.delayTimer.passedMs((long) this.delay.getValueInt() * 20L) && (!this.onlyGround.getValue() || AutoEXP.mc.player.isOnGround())) {
             this.exp = InventoryUtil.getItemCount(Items.EXPERIENCE_BOTTLE) - 1;
             this.throwExp();
         }
@@ -86,7 +86,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    @EventHandler(priority=-200)
+    @EventHandler(priority = -200)
     public void RotateEvent(RotateEvent event) {
         if (!this.down.getValue()) {
             return;

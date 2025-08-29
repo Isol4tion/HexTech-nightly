@@ -11,7 +11,7 @@ import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.Hand;
 
 public class MCP
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static MCP INSTANCE;
     private final BooleanSetting inventory = this.add(new BooleanSetting("InventorySwap", true));
     boolean click = false;

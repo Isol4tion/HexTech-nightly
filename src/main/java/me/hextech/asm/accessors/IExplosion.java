@@ -7,33 +7,33 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(value={Explosion.class})
+@Mixin(value = {Explosion.class})
 public interface IExplosion {
     @Mutable
-    @Accessor(value="x")
+    @Accessor(value = "x")
     void setX(double var1);
 
     @Mutable
-    @Accessor(value="y")
+    @Accessor(value = "y")
     void setY(double var1);
 
     @Mutable
-    @Accessor(value="z")
+    @Accessor(value = "z")
     void setZ(double var1);
 
     @Mutable
-    @Accessor(value="power")
+    @Accessor(value = "power")
     void setPower(float var1);
 
     @Mutable
-    @Accessor(value="entity")
+    @Accessor(value = "entity")
     void setEntity(Entity var1);
 
     @Mutable
-    @Accessor(value="world")
+    @Accessor(value = "world")
     World getWorld();
 
     @Mutable
-    @Accessor(value="world")
+    @Accessor(value = "world")
     void setWorld(World var1);
 }

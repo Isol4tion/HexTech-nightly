@@ -11,7 +11,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import java.util.Objects;
 
 public class Strafe
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Strafe INSTANCE;
     private final BooleanSetting airStop = this.add(new BooleanSetting("AirStop", true));
     private final BooleanSetting slowCheck = this.add(new BooleanSetting("SlowCheck", true));
@@ -41,7 +41,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public double getBaseMoveSpeed() {
         double n = 0.2873;
         if (!(!Strafe.mc.player.hasStatusEffect(StatusEffects.SPEED) || this.slowCheck.getValue() && Strafe.mc.player.hasStatusEffect(StatusEffects.SLOWNESS))) {
-            n *= 1.0 + 0.2 * (double)(Objects.requireNonNull(Strafe.mc.player.getStatusEffect(StatusEffects.SPEED)).getAmplifier() + 1);
+            n *= 1.0 + 0.2 * (double) (Objects.requireNonNull(Strafe.mc.player.getStatusEffect(StatusEffects.SPEED)).getAmplifier() + 1);
         }
         return n;
     }

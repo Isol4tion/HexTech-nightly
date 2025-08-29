@@ -10,7 +10,7 @@ import me.hextech.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class moveupV
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     final EnumSetting<_rlgNzzROxlnlLAUMICmS> mode = this.add(new EnumSetting<_rlgNzzROxlnlLAUMICmS>("Mode", _rlgNzzROxlnlLAUMICmS.Teleport));
     private final BooleanSetting noWeb = this.add(new BooleanSetting("PauseWeb", true));
     private final BooleanSetting onlyburrow = this.add(new BooleanSetting("OnlyBurrow", true));

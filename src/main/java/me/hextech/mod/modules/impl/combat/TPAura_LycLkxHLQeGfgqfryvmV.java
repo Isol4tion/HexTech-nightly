@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TPAura_LycLkxHLQeGfgqfryvmV
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static TPAura_LycLkxHLQeGfgqfryvmV INSTANCE;
     public static LivingEntity target;
     public static boolean attacking;
@@ -60,7 +60,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static float getAttackCooldownProgressPerTick() {
-        return (float)(1.0 / TPAura_LycLkxHLQeGfgqfryvmV.mc.player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_SPEED) * 20.0);
+        return (float) (1.0 / TPAura_LycLkxHLQeGfgqfryvmV.mc.player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_SPEED) * 20.0);
     }
 
     @Override
@@ -71,7 +71,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (this.lastPath != null) {
             for (Vec3 vec3 : this.lastPath) {
-                Render3DUtil.draw3DBox(matrixStack, ((IEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player).getDimensions().getBoxAt(vec3.mc()), new Color(255, 255, 255, 150), true, true);
+                Render3DUtil.draw3DBox(matrixStack, ((IEntity) TPAura_LycLkxHLQeGfgqfryvmV.mc.player).getDimensions().getBoxAt(vec3.mc()), new Color(255, 255, 255, 150), true, true);
             }
         }
     }
@@ -100,9 +100,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean auraReady() {
         int at = this.attackTicks;
         if (this.cd.getValue() == Aura._VwTXxsLfDdMNyKpyAwyl.Vanilla) {
-            at = ((ILivingEntity)TPAura_LycLkxHLQeGfgqfryvmV.mc.player).getLastAttackedTicks();
+            at = ((ILivingEntity) TPAura_LycLkxHLQeGfgqfryvmV.mc.player).getLastAttackedTicks();
         }
-        if (!((double)Math.max((float)at / TPAura_LycLkxHLQeGfgqfryvmV.getAttackCooldownProgressPerTick(), 0.0f) >= this.cooldown.getValue())) {
+        if (!((double) Math.max((float) at / TPAura_LycLkxHLQeGfgqfryvmV.getAttackCooldownProgressPerTick(), 0.0f) >= this.cooldown.getValue())) {
             return false;
         }
         return this.whileEating.getValue() || !TPAura_LycLkxHLQeGfgqfryvmV.mc.player.isUsingItem();
@@ -114,23 +114,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double maxHealth = 36.0;
         for (Entity e : TPAura_LycLkxHLQeGfgqfryvmV.mc.world.getEntities()) {
             LivingEntity entity;
-            if (!(e instanceof LivingEntity) || !this.isEnemy(entity = (LivingEntity)e) || !CombatUtil.isValid(entity, this.range.getValue())) continue;
+            if (!(e instanceof LivingEntity) || !this.isEnemy(entity = (LivingEntity) e) || !CombatUtil.isValid(entity, this.range.getValue()))
+                continue;
             if (target == null) {
                 target = entity;
                 distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo(entity);
                 maxHealth = EntityUtil.getHealth(entity);
                 continue;
             }
-            if (entity instanceof PlayerEntity && EntityUtil.isArmorLow((PlayerEntity)entity, 10)) {
+            if (entity instanceof PlayerEntity && EntityUtil.isArmorLow((PlayerEntity) entity, 10)) {
                 target = entity;
                 break;
             }
-            if (this.targetMode.getValue() == TPAura_XzEqwIDEtUaoPqXpLXTU.HEALTH && (double)EntityUtil.getHealth(entity) < maxHealth) {
+            if (this.targetMode.getValue() == TPAura_XzEqwIDEtUaoPqXpLXTU.HEALTH && (double) EntityUtil.getHealth(entity) < maxHealth) {
                 target = entity;
                 maxHealth = EntityUtil.getHealth(entity);
                 continue;
             }
-            if (this.targetMode.getValue() != TPAura_XzEqwIDEtUaoPqXpLXTU.DISTANCE || !((double)TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo(entity) < distance)) continue;
+            if (this.targetMode.getValue() != TPAura_XzEqwIDEtUaoPqXpLXTU.DISTANCE || !((double) TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo(entity) < distance))
+                continue;
             target = entity;
             distance = TPAura_LycLkxHLQeGfgqfryvmV.mc.player.distanceTo(entity);
         }

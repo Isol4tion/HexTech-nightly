@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
 
-@Mixin(value={TotemParticle.class})
+@Mixin(value = {TotemParticle.class})
 public abstract class MixinTotemParticle
-extends MixinParticle {
-    @Inject(method={"<init>"}, at={@At(value="TAIL")})
+        extends MixinParticle {
+    @Inject(method = {"<init>"}, at = {@At(value = "TAIL")})
     private void hookInit(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider, CallbackInfo ci) {
         TotemParticleEvent event = new TotemParticleEvent(velocityX, velocityY, velocityZ);
         HexTech.EVENT_BUS.post(event);
@@ -25,8 +25,8 @@ extends MixinParticle {
             this.velocityZ = event.velocityZ;
             Color color = event.color;
             if (color != null) {
-                this.setColor((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f);
-                this.setAlpha((float)color.getAlpha() / 255.0f);
+                this.setColor((float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f, (float) color.getBlue() / 255.0f);
+                this.setAlpha((float) color.getAlpha() / 255.0f);
             }
         }
     }

@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class AltManager
-implements Wrapper {
+        implements Wrapper {
     private final ArrayList<Alt> alts = new ArrayList();
 
     public AltManager() {
@@ -31,8 +31,7 @@ implements Wrapper {
             for (String s : list) {
                 this.alts.add(new Alt(s));
             }
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
@@ -46,8 +45,7 @@ implements Wrapper {
             for (Alt alt : this.alts) {
                 printwriter.println(alt.getEmail());
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to save alts");
         }
         printwriter.close();
@@ -67,18 +65,16 @@ implements Wrapper {
 
     public void loginCracked(String alt) {
         try {
-            ((IMinecraftClient)Wrapper.mc).setSession(new Session(alt, UUID.fromString("66123666-1234-5432-6666-667563866600"), "", Optional.empty(), Optional.empty(), Session.AccountType.MOJANG));
-        }
-        catch (Exception e) {
+            ((IMinecraftClient) Wrapper.mc).setSession(new Session(alt, UUID.fromString("66123666-1234-5432-6666-667563866600"), "", Optional.empty(), Optional.empty(), Session.AccountType.MOJANG));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loginToken(String name, String token, String uuid) {
         try {
-            ((IMinecraftClient)Wrapper.mc).setSession(new Session(name, UUID.fromString(uuid), token, Optional.empty(), Optional.empty(), Session.AccountType.MOJANG));
-        }
-        catch (Exception e) {
+            ((IMinecraftClient) Wrapper.mc).setSession(new Session(name, UUID.fromString(uuid), token, Optional.empty(), Optional.empty(), Session.AccountType.MOJANG));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

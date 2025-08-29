@@ -4,7 +4,7 @@ import me.hextech.HexTech;
 import me.hextech.api.utils.Wrapper;
 
 public class AnimateUtil
-implements Wrapper {
+        implements Wrapper {
     public static double animate(double current, double endPoint, double speed) {
         if (speed >= 1.0) {
             return endPoint;
@@ -46,13 +46,13 @@ implements Wrapper {
             speed *= -1.0;
         }
         double diff = endPoint - current;
-        double factor = diff * (double)mc.getTickDelta() / (1.0 / speed * (Math.min(240.0, HexTech.FPS.getFps()) / 240.0));
+        double factor = diff * (double) mc.getTickDelta() / (1.0 / speed * (Math.min(240.0, HexTech.FPS.getFps()) / 240.0));
         if (diff < 0.0 && factor < diff) {
             factor = diff;
         } else if (diff > 0.0 && factor >= diff) {
             factor = diff;
         }
-        return current + factor * (double)negative;
+        return current + factor * (double) negative;
     }
 
     public static double old(double current, double endPoint, double speed) {
@@ -71,7 +71,7 @@ implements Wrapper {
         } else if (diff > 0.0 && factor >= diff) {
             factor = diff;
         }
-        return current + factor * (double)negative;
+        return current + factor * (double) negative;
     }
 
     public static double my(double current, double endPoint, double speed) {
@@ -84,13 +84,13 @@ implements Wrapper {
             speed *= -1.0;
         }
         double diff = endPoint - current;
-        double factor = diff * (double)mc.getTickDelta() * speed;
+        double factor = diff * (double) mc.getTickDelta() * speed;
         if (diff < 0.0 && factor < diff) {
             factor = diff;
         } else if (diff > 0.0 && factor >= diff) {
             factor = diff;
         }
-        return current + factor * (double)negative;
+        return current + factor * (double) negative;
     }
 
     public static double thunder(double current, double endPoint, double speed) {

@@ -21,7 +21,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class RotateManager
-implements Wrapper {
+        implements Wrapper {
     public static final Timer ROTATE_TIMER = new Timer();
     public static Vec3d directionVec;
     public static float lookYaw;
@@ -102,10 +102,10 @@ implements Wrapper {
     //EZ backdoor
 
     public float[] offtrackStep(Vec3d vec, float steps) {
-        float yawDelta = MathHelper.wrapDegrees((float)MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(vec.z - RotateManager.mc.player.getZ(), vec.x - RotateManager.mc.player.getX())) - 90.0) - this.rotateYaw);
-        float pitchDelta = (float)(-Math.toDegrees(Math.atan2(vec.y - (RotateManager.mc.player.getPos().y + (double)RotateManager.mc.player.getEyeHeight(RotateManager.mc.player.getPose())), Math.sqrt(Math.pow(vec.x - RotateManager.mc.player.getX(), 2.0) + Math.pow(vec.z - RotateManager.mc.player.getZ(), 2.0))))) - this.rotatePitch;
-        float angleToRad = (float)Math.toRadians(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.minrad.getValueFloat() * (float)(RotateManager.mc.player.age % 30));
-        yawDelta = (float)((double)yawDelta + Math.sin(angleToRad) * 3.0) + MathUtil.random(-1.0f, 1.0f);
+        float yawDelta = MathHelper.wrapDegrees((float) MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(vec.z - RotateManager.mc.player.getZ(), vec.x - RotateManager.mc.player.getX())) - 90.0) - this.rotateYaw);
+        float pitchDelta = (float) (-Math.toDegrees(Math.atan2(vec.y - (RotateManager.mc.player.getPos().y + (double) RotateManager.mc.player.getEyeHeight(RotateManager.mc.player.getPose())), Math.sqrt(Math.pow(vec.x - RotateManager.mc.player.getX(), 2.0) + Math.pow(vec.z - RotateManager.mc.player.getZ(), 2.0))))) - this.rotatePitch;
+        float angleToRad = (float) Math.toRadians(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.minrad.getValueFloat() * (float) (RotateManager.mc.player.age % 30));
+        yawDelta = (float) ((double) yawDelta + Math.sin(angleToRad) * 3.0) + MathUtil.random(-1.0f, 1.0f);
         pitchDelta += MathUtil.random(-0.6f, 0.6f);
         if (yawDelta > 180.0f) {
             yawDelta -= 180.0f;
@@ -116,7 +116,7 @@ implements Wrapper {
         float newYaw = this.rotateYaw + (yawDelta > 0.0f ? clampedYawDelta : -clampedYawDelta);
         float newPitch = MathHelper.clamp(this.rotatePitch + clampedPitchDelta, -90.0f, 90.0f);
         double gcdFix = Math.pow(RotateManager.mc.options.getMouseSensitivity().getValue() * 0.6 + 0.2, 3.0) * 1.2;
-        return new float[]{(float)((double)newYaw - (double)(newYaw - this.rotateYaw) % gcdFix), (float)((double)newPitch - (double)(newPitch - this.rotatePitch) % gcdFix)};
+        return new float[]{(float) ((double) newYaw - (double) (newYaw - this.rotateYaw) % gcdFix), (float) ((double) newPitch - (double) (newPitch - this.rotatePitch) % gcdFix)};
     }
 
     public float[] injectStep(float[] angle, float steps) {
@@ -153,7 +153,7 @@ implements Wrapper {
         }
     }
 
-    @EventHandler(priority=-200)
+    @EventHandler(priority = -200)
     public void update(UpdateWalkingEvent event) {
         if (Rotation.INSTANCE.isOn() && event.isPost()) {
             RotateEvent rotateEvent = new RotateEvent(RotateManager.mc.player.getYaw(), RotateManager.mc.player.getPitch());
@@ -170,7 +170,7 @@ implements Wrapper {
         }
     }
 
-    @EventHandler(priority=-200)
+    @EventHandler(priority = -200)
     public void onLastRotation(RotateEvent event) {
         OffTrackEvent offtrackevent = new OffTrackEvent();
         HexTech.EVENT_BUS.post(offtrackevent);
@@ -182,14 +182,14 @@ implements Wrapper {
             float[] newAngle = this.offtrackStep(offtrackevent.getTarget(), offtrackevent.getSpeed());
             event.setYaw(newAngle[0]);
             event.setPitch(newAngle[1]);
-        } else if (!event.isModified() && !ROTATE_TIMER.passed((long)(CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotateTime.getValue() * 1000.0)) && directionVec != null) {
+        } else if (!event.isModified() && !ROTATE_TIMER.passed((long) (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.rotateTime.getValue() * 1000.0)) && directionVec != null) {
             float[] newAngle = this.offtrackStep(directionVec, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.offstep.getValueFloat());
             event.setYaw(newAngle[0]);
             event.setPitch(newAngle[1]);
         }
     }
 
-    @EventHandler(priority=-999)
+    @EventHandler(priority = -999)
     public void onPacketSend(PacketEvent_gBzdMCvQxlHfSrulemGS.Send event) {
         Packet<?> t = event.getPacket();
 
@@ -213,8 +213,8 @@ implements Wrapper {
                         float yaw = packet.getYaw(this.lastYaw);
                         float pitch = packet.getPitch(lastPitch);
                         if (yaw == RotateManager.mc.player.getYaw() && pitch == RotateManager.mc.player.getPitch()) {
-                            ((IPlayerMoveC2SPacket)event.getPacket()).setYaw(this.rotateYaw);
-                            ((IPlayerMoveC2SPacket)event.getPacket()).setPitch(this.rotatePitch);
+                            ((IPlayerMoveC2SPacket) event.getPacket()).setYaw(this.rotateYaw);
+                            ((IPlayerMoveC2SPacket) event.getPacket()).setPitch(this.rotatePitch);
                         }
                     }
                     this.lastYaw = packet.getYaw(this.lastYaw);
@@ -254,13 +254,13 @@ implements Wrapper {
         double diffY = vec.y - eyesPos.y;
         double diffZ = vec.z - eyesPos.z;
         double diffXZ = Math.sqrt(diffX * diffX + diffZ * diffZ);
-        float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
-        float pitch = (float)(-Math.toDegrees(Math.atan2(diffY, diffXZ)));
+        float yaw = (float) Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
+        float pitch = (float) (-Math.toDegrees(Math.atan2(diffY, diffXZ)));
         return new float[]{MathHelper.wrapDegrees(yaw), MathHelper.wrapDegrees(pitch)};
     }
 
     public boolean inFov(Vec3d directionVec, float fov) {
-        float[] angle = this.getRotation(new Vec3d(RotateManager.mc.player.getX(), RotateManager.mc.player.getY() + (double)RotateManager.mc.player.getEyeHeight(RotateManager.mc.player.getPose()), RotateManager.mc.player.getZ()), directionVec);
+        float[] angle = this.getRotation(new Vec3d(RotateManager.mc.player.getX(), RotateManager.mc.player.getY() + (double) RotateManager.mc.player.getEyeHeight(RotateManager.mc.player.getPose()), RotateManager.mc.player.getZ()), directionVec);
         return this.inFov(angle[0], angle[1], fov);
     }
 
@@ -268,7 +268,7 @@ implements Wrapper {
         return MathHelper.angleBetween(yaw, this.rotateYaw) + Math.abs(pitch - this.rotatePitch) <= fov;
     }
 
-    @EventHandler(priority=100)
+    @EventHandler(priority = 100)
     public void onReceivePacket(PacketEvent_gBzdMCvQxlHfSrulemGS.Receive event) {
         Object t = event.getPacket();
         if (t instanceof PlayerPositionLookS2CPacket packet) {
@@ -307,7 +307,7 @@ implements Wrapper {
         float result = offsetIn;
         double xDif = RotateManager.mc.player.getX() - RotateManager.mc.player.prevX;
         if (xDif * xDif + (zDif = RotateManager.mc.player.getZ() - RotateManager.mc.player.prevZ) * zDif > 0.002500000176951289) {
-            offset = (float)MathHelper.atan2(zDif, xDif) * 57.295776f - 90.0f;
+            offset = (float) MathHelper.atan2(zDif, xDif) * 57.295776f - 90.0f;
             float wrap = MathHelper.abs(MathHelper.wrapDegrees(yaw) - offset);
             result = 95.0f < wrap && wrap < 265.0f ? offset - 180.0f : offset;
         }

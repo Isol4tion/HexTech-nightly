@@ -10,7 +10,7 @@ import net.minecraft.client.util.SelectionManager;
 import java.util.function.Predicate;
 
 public class StringSetting
-extends Setting {
+        extends Setting {
     public static StringSetting current;
     private boolean isListening = false;
     private String text;
@@ -64,8 +64,8 @@ extends Setting {
                 this.setValue(this.getValue() + SelectionManager.getClipboard(Wrapper.mc));
                 break;
             }
-            case 256: 
-            case 257: 
+            case 256:
+            case 257:
             case 335: {
                 this.setListening(false);
                 break;

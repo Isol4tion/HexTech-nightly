@@ -8,7 +8,7 @@ import me.hextech.mod.modules.settings.impl.SliderSetting;
 import java.awt.*;
 
 public class CrystalChams
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static CrystalChams INSTANCE;
     public final ColorSetting core = this.add(new ColorSetting("Core", new Color(255, 255, 255, 255)).injectBoolean(true));
     public final BooleanSetting sync = this.add(new BooleanSetting("sync", true));

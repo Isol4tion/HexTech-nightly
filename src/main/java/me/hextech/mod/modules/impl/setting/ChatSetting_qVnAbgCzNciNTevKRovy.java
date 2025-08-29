@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class ChatSetting_qVnAbgCzNciNTevKRovy
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static final HashMap<OrderedText, StringVisitable> chatMessage = new HashMap();
     public static ChatSetting_qVnAbgCzNciNTevKRovy INSTANCE;
     public final StringSetting hackName = this.add(new StringSetting("Name", "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c"));

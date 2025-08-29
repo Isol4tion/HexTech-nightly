@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModuleComponent
-extends Component {
+        extends Component {
     private final String text;
     private final Module_eSdgMXWuzcxgQVaJFmKZ module;
     private final ClickGuiTab parent;
@@ -37,7 +37,7 @@ extends Component {
         this.parent = parent;
         this.module = module;
         for (Setting setting : this.module.getSettings()) {
-            Component c = setting.hide ? null : (setting instanceof SliderSetting ? new SliderComponent(this.parent, (SliderSetting)setting) : (setting instanceof BooleanSetting ? new BooleanComponent(this.parent, (BooleanSetting)setting) : (setting instanceof BindSetting ? new BindComponent(this.parent, (BindSetting)setting) : (setting instanceof EnumSetting ? new EnumComponent(this.parent, (EnumSetting)setting) : (setting instanceof ColorSetting ? new ColorComponents(this.parent, (ColorSetting)setting) : (setting instanceof StringSetting ? new StringComponent(this.parent, (StringSetting)setting) : null))))));
+            Component c = setting.hide ? null : (setting instanceof SliderSetting ? new SliderComponent(this.parent, (SliderSetting) setting) : (setting instanceof BooleanSetting ? new BooleanComponent(this.parent, (BooleanSetting) setting) : (setting instanceof BindSetting ? new BindComponent(this.parent, (BindSetting) setting) : (setting instanceof EnumSetting ? new EnumComponent(this.parent, (EnumSetting) setting) : (setting instanceof ColorSetting ? new ColorComponents(this.parent, (ColorSetting) setting) : (setting instanceof StringSetting ? new StringComponent(this.parent, (StringSetting) setting) : null))))));
             if (c == null) continue;
             this.settingsList.add(c);
         }
@@ -60,7 +60,7 @@ extends Component {
                 i += children.getHeight();
             }
         }
-        boolean bl = this.hovered = mouseX >= (double)parentX && mouseX <= (double)(parentX + parentWidth) && mouseY >= (double)(parentY + offset) && mouseY <= (double)(parentY + offset + this.defaultHeight - 1);
+        boolean bl = this.hovered = mouseX >= (double) parentX && mouseX <= (double) (parentX + parentWidth) && mouseY >= (double) (parentY + offset) && mouseY <= (double) (parentY + offset + this.defaultHeight - 1);
         if (this.hovered && GuiManager.currentGrabbed == null) {
             if (mouseClicked) {
                 ClickGuiScreen.clicked = false;
@@ -91,7 +91,7 @@ extends Component {
         MatrixStack matrixStack = drawContext.getMatrices();
         this.currentOffset = ModuleComponent.animate(this.currentOffset, offset);
         if (ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.Out) >= 1.0 && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.scissor.getValue()) {
-            this.setScissorRegion(parentX * 2, (int)(((double)parentY + this.currentOffset + (double)this.defaultHeight) * 2.0), parentWidth * 2, mc.getWindow().getHeight() - (int)((double)parentY + this.currentOffset + (double)this.defaultHeight));
+            this.setScissorRegion(parentX * 2, (int) (((double) parentY + this.currentOffset + (double) this.defaultHeight) * 2.0), parentWidth * 2, mc.getWindow().getHeight() - (int) ((double) parentY + this.currentOffset + (double) this.defaultHeight));
         }
         if (this.popped) {
             this.isPopped = true;
@@ -116,7 +116,7 @@ extends Component {
             boolean finish = false;
             for (Component children : this.settingsList) {
                 if (!children.isVisible()) continue;
-                if (!children.draw((int)this.currentOffset, drawContext, partialTicks, color, true)) {
+                if (!children.draw((int) this.currentOffset, drawContext, partialTicks, color, true)) {
                     finish = true;
                     continue;
                 }
@@ -133,27 +133,27 @@ extends Component {
         if (ClickGui_ABoiivByuLsVqarYqfYv.fade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.Out) >= 1.0 && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.scissor.getValue()) {
             GL11.glDisable(3089);
         }
-        this.currentWidth = ModuleComponent.animate(this.currentWidth, this.module.isOn() ? (double)parentWidth - 2.0 : 0.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.booleanSpeed.getValue());
+        this.currentWidth = ModuleComponent.animate(this.currentWidth, this.module.isOn() ? (double) parentWidth - 2.0 : 0.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.booleanSpeed.getValue());
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.moduleEnd.booleanValue) {
-            Render2DUtil.drawRectHorizontal(matrixStack, parentX + 1, (int)((double)parentY + this.currentOffset), (float)this.currentWidth, this.defaultHeight - 1, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.moduleEnable.getValue(), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.moduleEnd.getValue());
+            Render2DUtil.drawRectHorizontal(matrixStack, parentX + 1, (int) ((double) parentY + this.currentOffset), (float) this.currentWidth, this.defaultHeight - 1, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.moduleEnable.getValue(), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.moduleEnd.getValue());
         } else {
-            Render2DUtil.drawRect(matrixStack, (float)(parentX + 1), (float)((int)((double)parentY + this.currentOffset)), (float)this.currentWidth, (float)(this.defaultHeight - 1), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.moduleEnable.getValue());
+            Render2DUtil.drawRect(matrixStack, (float) (parentX + 1), (float) ((int) ((double) parentY + this.currentOffset)), (float) this.currentWidth, (float) (this.defaultHeight - 1), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.moduleEnable.getValue());
         }
-        Render2DUtil.drawRect(matrixStack, (float)(parentX + 1), (float)((int)((double)parentY + this.currentOffset)), (float)(parentWidth - 2), (float)(this.defaultHeight - 1), this.hovered ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mhColor.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mbgColor.getValue());
+        Render2DUtil.drawRect(matrixStack, (float) (parentX + 1), (float) ((int) ((double) parentY + this.currentOffset)), (float) (parentWidth - 2), (float) (this.defaultHeight - 1), this.hovered ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mhColor.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mbgColor.getValue());
         if (this.hovered && InputUtil.isKeyPressed(mc.getWindow().getHandle(), 340)) {
-            TextUtil.drawString(drawContext, "Drawn " + (this.module.drawnSetting.getValue() ? "\u00a7aOn" : "\u00a7cOff"), parentX + 4, (float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 1.0f, -1);
+            TextUtil.drawString(drawContext, "Drawn " + (this.module.drawnSetting.getValue() ? "\u00a7aOn" : "\u00a7cOff"), parentX + 4, (float) ((double) parentY + this.getTextOffsetY() + this.currentOffset) - 1.0f, -1);
         } else {
-            TextUtil.drawString(drawContext, this.text, parentX + 4, (float)((double)parentY + this.getTextOffsetY() + this.currentOffset) - 1.0f, this.module.isOn() ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableText.getValue().getRGB() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue().getRGB());
+            TextUtil.drawString(drawContext, this.text, parentX + 4, (float) ((double) parentY + this.getTextOffsetY() + this.currentOffset) - 1.0f, this.module.isOn() ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableText.getValue().getRGB() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue().getRGB());
         }
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.bindC.booleanValue && this.module.getBind().getKey() != -1) {
             String bindText = "[" + this.module.getBind().getBind() + "]";
-            TextUtil.drawStringWithScale(drawContext, bindText, (float)(parentX + 5) + TextUtil.getWidth(this.text), (float)((double)parentY + this.getTextOffsetY() + this.currentOffset - (double)(TextUtil.getHeight() / 4.0f)), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.bindC.getValue(), 0.5f);
+            TextUtil.drawStringWithScale(drawContext, bindText, (float) (parentX + 5) + TextUtil.getWidth(this.text), (float) ((double) parentY + this.getTextOffsetY() + this.currentOffset - (double) (TextUtil.getHeight() / 4.0f)), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.bindC.getValue(), 0.5f);
         }
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.gearColor.booleanValue) {
             if (this.isPopped) {
-                TextUtil.drawString(drawContext, "\u2026", parentX + parentWidth - 12, (double)parentY + this.getTextOffsetY() + this.currentOffset - 3.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.gearColor.getValue().getRGB());
+                TextUtil.drawString(drawContext, "\u2026", parentX + parentWidth - 12, (double) parentY + this.getTextOffsetY() + this.currentOffset - 3.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.gearColor.getValue().getRGB());
             } else {
-                TextUtil.drawString(drawContext, "+", parentX + parentWidth - 11, (double)parentY + this.getTextOffsetY() + this.currentOffset, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.gearColor.getValue().getRGB());
+                TextUtil.drawString(drawContext, "+", parentX + parentWidth - 11, (double) parentY + this.getTextOffsetY() + this.currentOffset, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.gearColor.getValue().getRGB());
             }
         }
         return true;
@@ -165,7 +165,7 @@ extends Component {
         }
         double scaledY = mc.getWindow().getHeight() - (y + height);
         GL11.glEnable(3089);
-        GL11.glScissor(x, (int)scaledY, width, height);
+        GL11.glScissor(x, (int) scaledY, width, height);
     }
 
     public void RecalculateExpandedHeight() {

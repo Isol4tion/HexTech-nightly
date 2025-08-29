@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockerESP
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     final List<BlockPos> renderList = new ArrayList<BlockPos>();
     private final ColorSetting color = this.add(new ColorSetting("Color", new Color(255, 255, 255, 100)));
     private final BooleanSetting box = this.add(new BooleanSetting("Box", true));
@@ -36,7 +36,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender3D(MatrixStack matrixStack, float partialTicks) {
         this.renderList.clear();
-        float pOffset = (float)CombatSetting_kxXrLvbWbduSuFoeBUsC.getOffset();
+        float pOffset = (float) CombatSetting_kxXrLvbWbduSuFoeBUsC.getOffset();
         for (Entity entity : CombatUtil.getEnemies(10.0)) {
             BlockPos pos;
             if (this.burrow.getValue()) {

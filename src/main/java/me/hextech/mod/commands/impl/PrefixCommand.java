@@ -7,7 +7,7 @@ import me.hextech.mod.commands.Command;
 import java.util.List;
 
 public class PrefixCommand
-extends Command {
+        extends Command {
     public PrefixCommand() {
         super("prefix", "Set prefix", "[prefix]");
     }

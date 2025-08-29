@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class HoleESP_uLDVZuHQKEvOMTkALgRO
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final SliderSetting startFade = this.add(new SliderSetting("AlphaFade", 5.0, 1.0, 20.0));
     public final SliderSetting distance = this.add(new SliderSetting("Distance", 6.0, 1.0, 20.0));
     public final SliderSetting airHeight = this.add(new SliderSetting("AirHeight", 1.0, -3.0, 3.0, 0.1));
@@ -116,16 +116,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (BlockPos pos : list) {
             double distance = HoleESP_uLDVZuHQKEvOMTkALgRO.mc.player.getPos().distanceTo(pos.toCenterPos());
             double alpha = distance > this.startFade.getValue() ? Math.max(Math.min(1.0, 1.0 - (distance - this.startFade.getValue()) / (this.distance.getValue() - this.startFade.getValue())), 0.0) : 1.0;
-            Box espBox = new Box(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, (double)pos.getY() + height, pos.getZ() + 1);
+            Box espBox = new Box(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, (double) pos.getY() + height, pos.getZ() + 1);
             if (fill.booleanValue) {
                 if (fade.booleanValue) {
-                    Render3DUtil.drawFadeFill(matrixStack, espBox, ColorUtil.injectAlpha(fill.getValue(), (int)((double)fill.getValue().getAlpha() * alpha)), ColorUtil.injectAlpha(fade.getValue(), (int)((double)fade.getValue().getAlpha() * alpha)));
+                    Render3DUtil.drawFadeFill(matrixStack, espBox, ColorUtil.injectAlpha(fill.getValue(), (int) ((double) fill.getValue().getAlpha() * alpha)), ColorUtil.injectAlpha(fade.getValue(), (int) ((double) fade.getValue().getAlpha() * alpha)));
                 } else {
-                    Render3DUtil.drawFill(matrixStack, espBox, ColorUtil.injectAlpha(fill.getValue(), (int)((double)fill.getValue().getAlpha() * alpha)));
+                    Render3DUtil.drawFill(matrixStack, espBox, ColorUtil.injectAlpha(fill.getValue(), (int) ((double) fill.getValue().getAlpha() * alpha)));
                 }
             }
             if (!box.booleanValue) continue;
-            Render3DUtil.drawBox(matrixStack, espBox, ColorUtil.injectAlpha(box.getValue(), (int)((double)box.getValue().getAlpha() * alpha)));
+            Render3DUtil.drawBox(matrixStack, espBox, ColorUtil.injectAlpha(box.getValue(), (int) ((double) box.getValue().getAlpha() * alpha)));
         }
     }
 

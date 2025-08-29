@@ -5,9 +5,9 @@ import net.minecraft.client.gui.hud.ChatHudLine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(value={ChatHudLine.Visible.class})
+@Mixin(value = {ChatHudLine.Visible.class})
 public class MixinChatHudLineVisible
-implements IChatHudLine {
+        implements IChatHudLine {
     @Unique
     private int id = 0;
 

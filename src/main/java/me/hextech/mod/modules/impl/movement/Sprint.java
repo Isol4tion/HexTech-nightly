@@ -5,7 +5,7 @@ import me.hextech.mod.modules.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.mod.modules.settings.impl.EnumSetting;
 
 public class Sprint
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Sprint INSTANCE;
     public static boolean shouldSprint;
     public final EnumSetting<_kIBjeDSbfTeuMDPgEQgD> mode = this.add(new EnumSetting<_kIBjeDSbfTeuMDPgEQgD>("Mode", _kIBjeDSbfTeuMDPgEQgD.Normal));

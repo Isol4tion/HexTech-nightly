@@ -4,7 +4,7 @@ import me.hextech.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.util.math.Vec3d;
 
 public class inVelocityEvent
-extends Event_auduwKaxKOWXRtyJkCPb {
+        extends Event_auduwKaxKOWXRtyJkCPb {
     Vec3d movementInput;
     float speed;
     float yaw;

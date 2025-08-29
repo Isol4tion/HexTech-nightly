@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class ConfigManager
-implements Wrapper {
+        implements Wrapper {
     public static boolean canSave = true;
     public static File options = Manager.getFile("options.txt");
     public static File bindFile = Manager.getFile("binds.txt");
@@ -84,7 +84,7 @@ implements Wrapper {
                         if (s instanceof BindSetting) continue;
                         if (s instanceof BooleanSetting) {
                             bs = s;
-                            pw.println(bs.getLine() + ":" + ((BooleanSetting)bs).getValue());
+                            pw.println(bs.getLine() + ":" + ((BooleanSetting) bs).getValue());
                             continue;
                         }
                         if (s instanceof SliderSetting ss) {
@@ -107,12 +107,10 @@ implements Wrapper {
                     }
                     pw.println(m.getName() + "_state:" + m.isOn());
                 }
-            }
-            finally {
+            } finally {
                 pw.close();
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to save settings");
         }
         try {
@@ -122,16 +120,14 @@ implements Wrapper {
                     for (Setting s : m.getSettings()) {
                         if (!(s instanceof BindSetting)) continue;
                         bs = s;
-                        pw.println(bs.getLine() + ":" + ((BindSetting)bs).getKey());
-                        pw.println(bs.getLine() + "_hold:" + ((BindSetting)bs).isHoldEnable());
+                        pw.println(bs.getLine() + ":" + ((BindSetting) bs).getKey());
+                        pw.println(bs.getLine() + "_hold:" + ((BindSetting) bs).isHoldEnable());
                     }
                 }
-            }
-            finally {
+            } finally {
                 pw.close();
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to save bind settings");
         }
     }
@@ -154,14 +150,12 @@ implements Wrapper {
             for (String line : lines) {
                 try {
                     Iterator it = COLON.split(line).iterator();
-                    table.put((String)it.next(), (String)it.next());
-                }
-                catch (Exception ignored) {
+                    table.put((String) it.next(), (String) it.next());
+                } catch (Exception ignored) {
                     System.out.println("Skipping bad line: " + line);
                 }
             }
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             System.out.println("[\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c] Failed to load " + file.getName());
         }
     }

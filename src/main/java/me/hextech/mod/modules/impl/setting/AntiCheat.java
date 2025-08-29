@@ -11,7 +11,7 @@ import me.hextech.mod.modules.settings.impl.EnumSetting;
 import me.hextech.mod.modules.settings.impl.SliderSetting;
 
 public class AntiCheat
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final EnumSetting<_ylqyOfVuMcYIoHfjTCiI> page = this.add(new EnumSetting<_ylqyOfVuMcYIoHfjTCiI>("Page", _ylqyOfVuMcYIoHfjTCiI.XiaoSong));
     public final SliderSetting xiaosongstepHeight = this.add(new SliderSetting("StepHeight[CN]", 3, 0, 4, v -> this.page.is(_ylqyOfVuMcYIoHfjTCiI.XiaoSong)));
     public final SliderSetting xinstepHeight = this.add(new SliderSetting("StepHeight[Xin]", 2, 0, 4, v -> this.page.is(_ylqyOfVuMcYIoHfjTCiI.Xin)));

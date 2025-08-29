@@ -11,7 +11,7 @@ import me.hextech.mod.modules.settings.impl.EnumSetting;
 import me.hextech.mod.modules.settings.impl.SliderSetting;
 
 public class Step_EShajbhvQeYkCdreEeNY
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Step_EShajbhvQeYkCdreEeNY INSTANCE;
     public final SliderSetting height = this.add(new SliderSetting("Height", 1.0, 0.0, 5.0, 0.5));
     public final BooleanSetting onlyMoving = this.add(new BooleanSetting("OnlyMoving", true));
@@ -69,7 +69,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (offsets == null) {
             return 1.0;
         }
-        return 1.0 / (double)offsets.length;
+        return 1.0 / (double) offsets.length;
     }
 
     public double[] getOffset(double height) {

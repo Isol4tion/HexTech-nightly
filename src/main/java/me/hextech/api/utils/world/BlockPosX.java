@@ -6,13 +6,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class BlockPosX
-extends BlockPos {
+        extends BlockPos {
     public BlockPosX(double x, double y, double z) {
         super(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
     }
 
     public BlockPosX(double x, double y, double z, boolean fix) {
-        this(x, y + (double)(fix ? BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.blockposx.getValueFloat() : 0.0f), z);
+        this(x, y + (double) (fix ? BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.blockposx.getValueFloat() : 0.0f), z);
     }
 
     public BlockPosX(Vec3d vec3d) {

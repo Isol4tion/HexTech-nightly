@@ -11,7 +11,7 @@ import org.joml.Matrix4f;
 import java.awt.*;
 
 public class Render2DUtil
-implements Wrapper {
+        implements Wrapper {
     public static void horizontalGradient(MatrixStack matrices, float x1, float y1, float x2, float y2, Color startColor, Color endColor) {
         Matrix4f matrix = matrices.peek().getPositionMatrix();
         BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
@@ -110,7 +110,7 @@ implements Wrapper {
     public static void renderRoundedQuad(MatrixStack matrices, Color c, double fromX, double fromY, double toX, double toY, double radius, double samples) {
         Render2DUtil.setupRender();
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-        Render2DUtil.renderRoundedQuadInternal(matrices.peek().getPositionMatrix(), (float)c.getRed() / 255.0f, (float)c.getGreen() / 255.0f, (float)c.getBlue() / 255.0f, (float)c.getAlpha() / 255.0f, fromX, fromY, toX, toY, radius, samples);
+        Render2DUtil.renderRoundedQuadInternal(matrices.peek().getPositionMatrix(), (float) c.getRed() / 255.0f, (float) c.getGreen() / 255.0f, (float) c.getBlue() / 255.0f, (float) c.getAlpha() / 255.0f, fromX, fromY, toX, toY, radius, samples);
         Render2DUtil.endRender();
     }
 
@@ -121,16 +121,16 @@ implements Wrapper {
         for (int i = 0; i < 4; ++i) {
             double[] current = map[i];
             double rad = current[2];
-            for (double r = (double)i * 90.0; r < 90.0 + (double)i * 90.0; r += 90.0 / samples) {
-                float rad1 = (float)Math.toRadians(r);
-                float sin = (float)(Math.sin(rad1) * rad);
-                float cos = (float)(Math.cos(rad1) * rad);
-                bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
+            for (double r = (double) i * 90.0; r < 90.0 + (double) i * 90.0; r += 90.0 / samples) {
+                float rad1 = (float) Math.toRadians(r);
+                float sin = (float) (Math.sin(rad1) * rad);
+                float cos = (float) (Math.cos(rad1) * rad);
+                bufferBuilder.vertex(matrix, (float) current[0] + sin, (float) current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
             }
-            float rad1 = (float)Math.toRadians(90.0 + (double)i * 90.0);
-            float sin = (float)(Math.sin(rad1) * rad);
-            float cos = (float)(Math.cos(rad1) * rad);
-            bufferBuilder.vertex(matrix, (float)current[0] + sin, (float)current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
+            float rad1 = (float) Math.toRadians(90.0 + (double) i * 90.0);
+            float sin = (float) (Math.sin(rad1) * rad);
+            float cos = (float) (Math.cos(rad1) * rad);
+            bufferBuilder.vertex(matrix, (float) current[0] + sin, (float) current[1] + cos, 0.0f).color(cr, cg, cb, ca).next();
         }
         BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
     }

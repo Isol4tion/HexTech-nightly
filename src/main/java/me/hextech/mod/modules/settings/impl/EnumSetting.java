@@ -8,7 +8,7 @@ import me.hextech.mod.modules.settings.Setting;
 import java.util.function.Predicate;
 
 public class EnumSetting<T extends Enum<T>>
-extends Setting {
+        extends Setting {
     public boolean popped = false;
     private T value;
 
@@ -33,7 +33,7 @@ extends Setting {
     public void setEnumValue(String value) {
         for (Enum e : this.value.getClass().getEnumConstants()) {
             if (!e.name().equalsIgnoreCase(value)) continue;
-            this.value = (T)e;
+            this.value = (T) e;
         }
     }
 
@@ -46,7 +46,7 @@ extends Setting {
         }
         Enum value = converter.doBackward(enumString);
         if (value != null) {
-            this.value = (T)value;
+            this.value = (T) value;
         }
     }
 

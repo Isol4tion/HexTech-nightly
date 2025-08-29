@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Mixin(value={PostEffectProcessor.class})
+@Mixin(value = {PostEffectProcessor.class})
 public abstract class MixinShaderEffect
-implements IShaderEffect {
+        implements IShaderEffect {
     @Unique
     private final List<String> fakedBufferNames = new ArrayList<String>();
     @Shadow
@@ -38,10 +38,10 @@ implements IShaderEffect {
         if (previousFramebuffer != null) {
             for (PostEffectPass pass : this.passes) {
                 if (pass.input == previousFramebuffer) {
-                    ((IPostProcessShader)pass).setInput(buffer);
+                    ((IPostProcessShader) pass).setInput(buffer);
                 }
                 if (pass.output != previousFramebuffer) continue;
-                ((IPostProcessShader)pass).setOutput(buffer);
+                ((IPostProcessShader) pass).setOutput(buffer);
             }
             this.targetsByName.remove(name);
             this.fakedBufferNames.remove(name);
@@ -50,7 +50,7 @@ implements IShaderEffect {
         this.fakedBufferNames.add(name);
     }
 
-    @Inject(method={"close"}, at={@At(value="HEAD")})
+    @Inject(method = {"close"}, at = {@At(value = "HEAD")})
     void deleteFakeBuffersHook(CallbackInfo ci) {
         for (String fakedBufferName : this.fakedBufferNames) {
             this.targetsByName.remove(fakedBufferName);

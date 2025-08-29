@@ -6,7 +6,7 @@ import me.hextech.api.events.impl.Render3DEvent;
 import me.hextech.mod.modules.Module_eSdgMXWuzcxgQVaJFmKZ;
 
 public class FreeLook
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static FreeLook INSTANCE;
     private final CameraState camera = new CameraState();
 

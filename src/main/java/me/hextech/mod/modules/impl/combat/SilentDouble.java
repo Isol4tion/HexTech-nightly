@@ -11,7 +11,7 @@ import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.util.math.BlockPos;
 
 public class SilentDouble
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static int slotMain;
     public static int swithc2;
     public static SilentDouble INSTANCE;
@@ -71,7 +71,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.sendPacket(new UpdateSelectedSlotC2SPacket(SilentDouble.mc.player.getInventory().selectedSlot));
         } else if (this.mode.getValue() == _JPSoqiNZyGTsyFDufNku.Switch && SpeedMine.INSTANCE.lastSlot != -1) {
             SilentDouble.mc.player.getInventory().selectedSlot = SpeedMine.INSTANCE.lastSlot;
-            ((IClientPlayerInteractionManager)SilentDouble.mc.interactionManager).syncSelected();
+            ((IClientPlayerInteractionManager) SilentDouble.mc.interactionManager).syncSelected();
             SpeedMine.INSTANCE.lastSlot = -1;
         }
         boolean canUpdate = false;

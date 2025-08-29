@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ModuleList_ZBgBxeJhVhAvRjXaLZeK
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static ModuleList_ZBgBxeJhVhAvRjXaLZeK INSTANCE;
     public final EnumSetting<AnimateUtil._AcLZzRdHWZkNeKEYTOwI> animMode = this.add(new EnumSetting<AnimateUtil._AcLZzRdHWZkNeKEYTOwI>("AnimMode", AnimateUtil._AcLZzRdHWZkNeKEYTOwI.Mio));
     public final SliderSetting disableSpeed = this.add(new SliderSetting("DisableSpeed", 0.2, -0.2, 1.0, 0.01));
@@ -119,34 +119,34 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (modules.hide) {
                 modules.updateName();
                 modules.x = 0.0;
-                modules.y = this.animY.getValue() ? (double)startY : (double)lastY;
+                modules.y = this.animY.getValue() ? (double) startY : (double) lastY;
                 modules.nameUpdated = false;
                 modules.hide = false;
             }
             if (modules.nameUpdated) {
                 modules.nameUpdated = false;
-                modules.y = this.animY.getValue() && !modules.isEnabled ? (double)startY : (double)lastY;
+                modules.y = this.animY.getValue() && !modules.isEnabled ? (double) startY : (double) lastY;
             } else {
-                modules.y = this.animate(modules.y, this.animY.getValue() && !modules.isEnabled ? (double)startY : (double)lastY, this.ySpeed.getValue());
+                modules.y = this.animate(modules.y, this.animY.getValue() && !modules.isEnabled ? (double) startY : (double) lastY, this.ySpeed.getValue());
             }
             ++counter;
-            int textX = (int)((double)mc.getWindow().getScaledWidth() - modules.x - this.xOffset.getValue() - (double)(this.rect.getValue() ? 2 : 0));
+            int textX = (int) ((double) mc.getWindow().getScaledWidth() - modules.x - this.xOffset.getValue() - (double) (this.rect.getValue() ? 2 : 0));
             if (this.fold.getValue()) {
                 drawContext.getMatrices().push();
                 drawContext.getMatrices().translate(0.0, modules.y * (1.0 - modules.fold), 0.0);
-                drawContext.getMatrices().scale(1.0f, (float)modules.fold, 1.0f);
+                drawContext.getMatrices().scale(1.0f, (float) modules.fold, 1.0f);
             }
             if (this.scissor.getValue()) {
                 GL11.glEnable(3089);
                 GL11.glScissor(0, 0, (mc.getWindow().getWidth() / 2 - this.xOffset.getValueInt() - (this.rect.getValue() ? 2 : 0)) * 2, mc.getWindow().getHeight());
             }
             if (this.backGround.getValue()) {
-                Render2DUtil.drawRect(drawContext.getMatrices(), (float)(textX - 1), (float)((int)modules.y), (float)mc.getWindow().getScaledWidth() - (float)this.xOffset.getValueInt() + 1.0f - (float)textX + 1.0f, (float)(this.getFontHeight() + this.height.getValueInt()), this.bgSync.getValue() ? ColorUtil.injectAlpha(this.getColor(counter), (int)((double)this.bgColor.getValue().getAlpha() * modules.fade)) : ColorUtil.injectAlpha(this.bgColor.getValue().getRGB(), (int)((double)this.bgColor.getValue().getAlpha() * modules.fade)));
+                Render2DUtil.drawRect(drawContext.getMatrices(), (float) (textX - 1), (float) ((int) modules.y), (float) mc.getWindow().getScaledWidth() - (float) this.xOffset.getValueInt() + 1.0f - (float) textX + 1.0f, (float) (this.getFontHeight() + this.height.getValueInt()), this.bgSync.getValue() ? ColorUtil.injectAlpha(this.getColor(counter), (int) ((double) this.bgColor.getValue().getAlpha() * modules.fade)) : ColorUtil.injectAlpha(this.bgColor.getValue().getRGB(), (int) ((double) this.bgColor.getValue().getAlpha() * modules.fade)));
             }
             if (this.font.getValue()) {
-                FontRenderers.Arial.drawString(drawContext.getMatrices(), this.getSuffix(modules.name), textX, (int)(modules.y + 1.0 + (double)this.textOffset.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int)(255.0 * modules.fade)));
+                FontRenderers.Arial.drawString(drawContext.getMatrices(), this.getSuffix(modules.name), textX, (int) (modules.y + 1.0 + (double) this.textOffset.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int) (255.0 * modules.fade)));
             } else {
-                drawContext.drawTextWithShadow(ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.textRenderer, this.getSuffix(modules.name), textX, (int)(modules.y + 1.0 + (double)this.textOffset.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int)(255.0 * modules.fade)));
+                drawContext.drawTextWithShadow(ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.textRenderer, this.getSuffix(modules.name), textX, (int) (modules.y + 1.0 + (double) this.textOffset.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int) (255.0 * modules.fade)));
             }
             if (this.scissor.getValue()) {
                 GL11.glDisable(3089);
@@ -155,7 +155,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 drawContext.getMatrices().pop();
             }
             if (this.rect.getValue()) {
-                Render2DUtil.drawRect(drawContext.getMatrices(), (float)mc.getWindow().getScaledWidth() - (float)this.xOffset.getValueInt() - 1.0f, (float)((int)modules.y), 1.0f, (float)(this.getFontHeight() + this.height.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int)(255.0 * modules.fade)));
+                Render2DUtil.drawRect(drawContext.getMatrices(), (float) mc.getWindow().getScaledWidth() - (float) this.xOffset.getValueInt() - 1.0f, (float) ((int) modules.y), 1.0f, (float) (this.getFontHeight() + this.height.getValueInt()), ColorUtil.injectAlpha(this.getColor(counter), (int) (255.0 * modules.fade)));
             }
             if (!modules.isEnabled && this.preY.getValue()) continue;
             if (this.down.getValue()) {
@@ -195,25 +195,35 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return ColorUtil.pulseColor(this.color.getValue(), this.endColor.getValue(), delay, this.pulseCounter.getValueInt(), this.pulseSpeed.getValue());
         }
         if (this.colorMode.getValue() == ColorMode.Rainbow) {
-            double rainbowState = Math.ceil(((double)this.progress + (double)delay * this.rainbowDelay.getValue()) / 20.0);
-            return Color.getHSBColor((float)(rainbowState % 360.0 / 360.0), this.saturation.getValueFloat() / 255.0f, 1.0f);
+            double rainbowState = Math.ceil(((double) this.progress + (double) delay * this.rainbowDelay.getValue()) / 20.0);
+            return Color.getHSBColor((float) (rainbowState % 360.0 / 360.0), this.saturation.getValueFloat() / 255.0f, 1.0f);
         }
         return this.color.getValue();
     }
 
     private int getStringWidth(String text) {
         if (this.font.getValue()) {
-            return (int)FontRenderers.Arial.getWidth(text);
+            return (int) FontRenderers.Arial.getWidth(text);
         }
         return ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.textRenderer.getWidth(text);
     }
 
     private int getFontHeight() {
         if (this.font.getValue()) {
-            return (int)FontRenderers.Arial.getFontHeight();
+            return (int) FontRenderers.Arial.getFontHeight();
         }
         Objects.requireNonNull(ModuleList_ZBgBxeJhVhAvRjXaLZeK.mc.textRenderer);
         return 9;
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public enum ColorMode {
+        Custom,
+        Pulse,
+        Rainbow
+
     }
 
     /*
@@ -231,7 +241,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         public String name = "";
         public boolean nameUpdated = false;
 
-        public ModuleList_JTSxbGphPlVCUvdsPgfV( Module_eSdgMXWuzcxgQVaJFmKZ module) {
+        public ModuleList_JTSxbGphPlVCUvdsPgfV(Module_eSdgMXWuzcxgQVaJFmKZ module) {
             this.module = module;
         }
 
@@ -279,15 +289,5 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.nameUpdated = true;
             }
         }
-    }
-
-    /*
-     * Exception performing whole class analysis ignored.
-     */
-    public enum ColorMode {
-        Custom,
-        Pulse,
-        Rainbow
-
     }
 }

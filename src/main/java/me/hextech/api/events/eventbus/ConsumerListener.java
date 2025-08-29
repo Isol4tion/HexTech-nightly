@@ -3,7 +3,7 @@ package me.hextech.api.events.eventbus;
 import java.util.function.Consumer;
 
 public class ConsumerListener<T>
-implements IListener {
+        implements IListener {
     private final Class<?> target;
     private final int priority;
     private final Consumer<T> executor;
@@ -20,7 +20,7 @@ implements IListener {
 
     @Override
     public void call(Object event) {
-        this.executor.accept((T)event);
+        this.executor.accept((T) event);
     }
 
     @Override

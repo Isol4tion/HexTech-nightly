@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final ConcurrentHashMap<EndCrystalEntity, CrystalPlaceESP> cryList = new ConcurrentHashMap();
     private final Timer timer = new Timer();
     BooleanSetting range = this.add(new BooleanSetting("Check Range", true)).setParent();
@@ -46,18 +46,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION_COLOR);
         GL11.glLineWidth(2.0f);
-        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().getX();
-        double y = ent.prevY + (double)height + (ent.getY() - ent.prevY) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().getY();
-        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().getZ();
+        double x = ent.prevX + (ent.getX() - ent.prevX) * (double) mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().getX();
+        double y = ent.prevY + (double) height + (ent.getY() - ent.prevY) * (double) mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().getY();
+        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double) mc.getTickDelta() - CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.getEntityRenderDispatcher().camera.getPos().getZ();
         stack.push();
         stack.translate(x, y, z);
         Matrix4f matrix = stack.peek().getPositionMatrix();
         for (int i = 0; i <= 180; ++i) {
-            bufferBuilder.vertex(matrix, (float)((double)radius * Math.cos((double)i * 6.28 / 45.0)), up, (float)((double)radius * Math.sin((double)i * 6.28 / 45.0))).color(color.getRGB()).next();
+            bufferBuilder.vertex(matrix, (float) ((double) radius * Math.cos((double) i * 6.28 / 45.0)), up, (float) ((double) radius * Math.sin((double) i * 6.28 / 45.0))).color(color.getRGB()).next();
         }
         tessellator.draw();
         Render3DUtil.endRender();
-        stack.translate(-x, -y + (double)height, -z);
+        stack.translate(-x, -y + (double) height, -z);
         GL11.glEnable(2929);
         stack.pop();
     }
@@ -71,28 +71,29 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return mc.world.getEntities().iterator();
             }
         }) {
-            if (!(e2 instanceof EndCrystalEntity) || this.range.getValue() && (double)CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.player.distanceTo(e2) > this.rangeValue.getValue() || this.cryList.containsKey(e2)) continue;
-            this.cryList.put((EndCrystalEntity)e2, new CrystalPlaceESP((EndCrystalEntity)e2, System.currentTimeMillis()));
+            if (!(e2 instanceof EndCrystalEntity) || this.range.getValue() && (double) CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.player.distanceTo(e2) > this.rangeValue.getValue() || this.cryList.containsKey(e2))
+                continue;
+            this.cryList.put((EndCrystalEntity) e2, new CrystalPlaceESP((EndCrystalEntity) e2, System.currentTimeMillis()));
         }
         if (this.mode.getValue().equals(Mode.Normal)) {
             this.cryList.forEach((e, renderInfo) -> this.draw(matrixStack, renderInfo.entity(), renderInfo.time(), renderInfo.time()));
         } else if (this.mode.getValue().equals(Mode.New)) {
             int time = 0;
             int i = 0;
-            while ((double)i < this.pointsNew.getValue()) {
+            while ((double) i < this.pointsNew.getValue()) {
                 if (this.timer.passedMs(500L)) {
                     int finalTime = time;
-                    this.cryList.forEach((e, renderInfo) -> this.draw(matrixStack, renderInfo.entity(), renderInfo.time() - (long)finalTime, renderInfo.time() - (long)finalTime));
+                    this.cryList.forEach((e, renderInfo) -> this.draw(matrixStack, renderInfo.entity(), renderInfo.time() - (long) finalTime, renderInfo.time() - (long) finalTime));
                 }
-                time = (int)((double)time + this.interval.getValue());
+                time = (int) ((double) time + this.interval.getValue());
                 ++i;
             }
         }
         this.cryList.forEach((e, renderInfo) -> {
-            if ((double)(System.currentTimeMillis() - renderInfo.time()) > this.animationTime.getValue() && !e.isAlive()) {
+            if ((double) (System.currentTimeMillis() - renderInfo.time()) > this.animationTime.getValue() && !e.isAlive()) {
                 this.cryList.remove(e);
             }
-            if ((double)(System.currentTimeMillis() - renderInfo.time()) > this.animationTime.getValue() && (double)CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.player.distanceTo(e) > this.rangeValue.getValue()) {
+            if ((double) (System.currentTimeMillis() - renderInfo.time()) > this.animationTime.getValue() && (double) CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.mc.player.distanceTo(e) > this.rangeValue.getValue()) {
                 this.cryList.remove(e);
             }
         });
@@ -101,8 +102,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void draw(MatrixStack matrixStack, EndCrystalEntity entity, long radTime, long heightTime) {
         long rad = System.currentTimeMillis() - radTime;
         long height = System.currentTimeMillis() - heightTime;
-        if ((double)rad <= this.animationTime.getValue()) {
-            CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.drawCircle3D(matrixStack, entity, (float)rad / this.fadeSpeed.getValueFloat(), (float)height / 1000.0f, (float)rad / this.upSpeed.getValueFloat(), this.color.getValue());
+        if ((double) rad <= this.animationTime.getValue()) {
+            CrystalPlaceESP_MvvdKnDNeuhVBnPUXMmI.drawCircle3D(matrixStack, entity, (float) rad / this.fadeSpeed.getValueFloat(), (float) height / 1000.0f, (float) rad / this.upSpeed.getValueFloat(), this.color.getValue());
         }
     }
 

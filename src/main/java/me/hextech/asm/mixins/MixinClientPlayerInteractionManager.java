@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value={ClientPlayerInteractionManager.class})
+@Mixin(value = {ClientPlayerInteractionManager.class})
 public class MixinClientPlayerInteractionManager {
 //    @Shadow
 //    private ItemStack selectedStack;
@@ -25,19 +25,19 @@ public class MixinClientPlayerInteractionManager {
 //        return MineTweak.INSTANCE.noReset() ? this.selectedStack : value.getReachDistance();
 //    }todo
 
-    @ModifyConstant(method={"updateBlockBreakingProgress"}, constant={@Constant(intValue=5)})
+    @ModifyConstant(method = {"updateBlockBreakingProgress"}, constant = {@Constant(intValue = 5)})
     private int MiningCooldownFix(int value) {
         return MineTweak.INSTANCE.noDelay() ? 0 : value;
     }
 
-    @Inject(method={"cancelBlockBreaking"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"cancelBlockBreaking"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void hookCancelBlockBreaking(CallbackInfo callbackInfo) {
         if (MineTweak.INSTANCE.noAbort()) {
             callbackInfo.cancel();
         }
     }
 
-    @Inject(at={@At(value="HEAD")}, method={"getReachDistance()F"}, cancellable=true)
+    @Inject(at = {@At(value = "HEAD")}, method = {"getReachDistance()F"}, cancellable = true)
     private void onGetReachDistance(CallbackInfoReturnable<Float> ci) {
         Reach reachHack = Reach.INSTANCE;
         if (reachHack.isOn()) {
@@ -45,7 +45,7 @@ public class MixinClientPlayerInteractionManager {
         }
     }
 
-    @Inject(at={@At(value="HEAD")}, method={"hasExtendedReach()Z"}, cancellable=true)
+    @Inject(at = {@At(value = "HEAD")}, method = {"hasExtendedReach()Z"}, cancellable = true)
     private void hasExtendedReach(CallbackInfoReturnable<Boolean> cir) {
         Reach reachHack = Reach.INSTANCE;
         if (reachHack.isOn()) {
@@ -53,7 +53,7 @@ public class MixinClientPlayerInteractionManager {
         }
     }
 
-    @Inject(method={"attackBlock"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"attackBlock"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onAttackBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
         ClickBlockEvent event = new ClickBlockEvent(pos, direction);
         HexTech.EVENT_BUS.post(event);

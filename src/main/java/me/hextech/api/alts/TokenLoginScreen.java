@@ -8,7 +8,7 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 
 public class TokenLoginScreen
-extends Screen {
+        extends Screen {
     private final Screen parent;
     private TextFieldWidget textFieldAltName;
     private TextFieldWidget textFieldAltToken;

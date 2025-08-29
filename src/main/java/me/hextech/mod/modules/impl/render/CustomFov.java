@@ -5,7 +5,7 @@ import me.hextech.mod.modules.settings.impl.BooleanSetting;
 import me.hextech.mod.modules.settings.impl.SliderSetting;
 
 public class CustomFov
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static CustomFov INSTANCE;
     public final BooleanSetting usefov = this.add(new BooleanSetting("CustomFov", true));
     public final SliderSetting fov = this.add(new SliderSetting("Fov", 120, 0, 160));

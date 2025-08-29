@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ
-implements Wrapper {
+        implements Wrapper {
     private static final Vec3[] flatCardinalDirections = new Vec3[]{new Vec3(1.0F, 0.0F, 0.0F), new Vec3(-1.0F, 0.0F, 0.0F), new Vec3(0.0F, 0.0F, 1.0F), new Vec3(0.0F, 0.0F, -1.0F)};
     private final Vec3 startVec3;
     private final Vec3 endVec3;
@@ -23,7 +23,7 @@ implements Wrapper {
     }
 
     public static boolean checkPositionValidity(Vec3 loc, boolean checkGround) {
-        return AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ.checkPositionValidity((int)loc.getX(), (int)loc.getY(), (int)loc.getZ(), checkGround);
+        return AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ.checkPositionValidity((int) loc.getX(), (int) loc.getY(), (int) loc.getZ(), checkGround);
     }
 
     public static boolean checkPositionValidity(int x, int y, int z, boolean checkGround) {
@@ -55,7 +55,8 @@ implements Wrapper {
         ArrayList<Vec3> initPath = new ArrayList<Vec3>();
         initPath.add(this.startVec3);
         this.hubsToWork.add(new AStarCustomPathFinder_GIsiOdvkuKbgFcjrKqrl(this.startVec3, null, initPath, this.startVec3.squareDistanceTo(this.endVec3), 0.0, 0.0));
-        block0: for (int i = 0; i < loops; ++i) {
+        block0:
+        for (int i = 0; i < loops; ++i) {
             this.hubsToWork.sort(new AStarCustomPathFinder());
             int j = 0;
             if (this.hubsToWork.size() == 0) break;
@@ -66,10 +67,12 @@ implements Wrapper {
                 this.hubs.add(o);
                 for (Vec3 direction : flatCardinalDirections) {
                     Vec3 loc = o.getLoc().add(direction).floor();
-                    if (AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ.checkPositionValidity(loc, false) && this.addHub(o, loc, 0.0)) break block0;
+                    if (AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ.checkPositionValidity(loc, false) && this.addHub(o, loc, 0.0))
+                        break block0;
                 }
                 Vec3 loc1 = o.getLoc().addVector(0.0, 1.0, 0.0).floor();
-                if ((!AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ.checkPositionValidity(loc1, false) || !this.addHub(o, loc1, 0.0)) && (!AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ.checkPositionValidity(loc2 = o.getLoc().addVector(0.0, -1.0, 0.0).floor(), false) || !this.addHub(o, loc2, 0.0))) continue;
+                if ((!AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ.checkPositionValidity(loc1, false) || !this.addHub(o, loc1, 0.0)) && (!AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ.checkPositionValidity(loc2 = o.getLoc().addVector(0.0, -1.0, 0.0).floor(), false) || !this.addHub(o, loc2, 0.0)))
+                    continue;
                 break block0;
             }
         }

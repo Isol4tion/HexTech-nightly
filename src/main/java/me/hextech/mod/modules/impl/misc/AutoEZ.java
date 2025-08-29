@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 public class AutoEZ
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final EnumSetting<_TjwHGYKUAEgXsMpgUbfm> type = this.add(new EnumSetting<_TjwHGYKUAEgXsMpgUbfm>("Type", _TjwHGYKUAEgXsMpgUbfm.HEXTECH));
     private final SliderSetting range = this.add(new SliderSetting("Range", 10.0, 0.0, 20.0, 1.0));
     private final StringSetting msg = this.add(new StringSetting("Custom", "EZ %player%-BY Hextech-nightly", v -> this.type.getValue() == _TjwHGYKUAEgXsMpgUbfm.Custom));
@@ -30,7 +30,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onDeath(DeathEvent event) {
         PlayerEntity player = event.getPlayer();
         if (AutoEZ.mc.player != null && player != AutoEZ.mc.player && !HexTech.FRIEND.isFriend(player)) {
-            if (this.range.getValue() > 0.0 && (double)AutoEZ.mc.player.distanceTo(player) > this.range.getValue()) {
+            if (this.range.getValue() > 0.0 && (double) AutoEZ.mc.player.distanceTo(player) > this.range.getValue()) {
                 return;
             }
             switch (this.type.getValue().ordinal()) {

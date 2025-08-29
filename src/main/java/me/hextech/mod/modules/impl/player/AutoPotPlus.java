@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoPotPlus
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AutoPotPlus INSTANCE;
     private final SliderSetting delay = this.add(new SliderSetting("Delay", 5, 0, 10).setSuffix("s"));
     private final BooleanSetting checkRang = this.add(new BooleanSetting("CheckRang", true).setParent());
@@ -134,8 +134,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double diffY = vec.y - eyesPos.y;
         double diffZ = vec.z - eyesPos.z;
         double diffXZ = Math.sqrt(diffX * diffX + diffZ * diffZ);
-        float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
-        float pitch = (float)(-Math.toDegrees(Math.atan2(diffY, diffXZ)));
+        float yaw = (float) Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
+        float pitch = (float) (-Math.toDegrees(Math.atan2(diffY, diffXZ)));
         return new float[]{MathHelper.wrapDegrees(yaw), MathHelper.wrapDegrees(pitch)};
     }
 
@@ -172,8 +172,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public BlockPos findPos() {
         for (float x : new float[]{0.0f, -0.3f, 0.3f}) {
             for (float z : new float[]{0.0f, -0.3f, 0.3f}) {
-                BlockPosX pos = new BlockPosX(AutoPotPlus.mc.player.getX() + (double)x, AutoPotPlus.mc.player.getY() - 0.5, AutoPotPlus.mc.player.getZ() + (double)z);
-                if (BlockUtil.isAir(pos) || AutoPotPlus.mc.world.getBlockState(pos).getBlock() == Blocks.COBWEB) continue;
+                BlockPosX pos = new BlockPosX(AutoPotPlus.mc.player.getX() + (double) x, AutoPotPlus.mc.player.getY() - 0.5, AutoPotPlus.mc.player.getZ() + (double) z);
+                if (BlockUtil.isAir(pos) || AutoPotPlus.mc.world.getBlockState(pos).getBlock() == Blocks.COBWEB)
+                    continue;
                 return pos;
             }
         }

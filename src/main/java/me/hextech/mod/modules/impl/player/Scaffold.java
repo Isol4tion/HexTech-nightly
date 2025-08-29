@@ -27,7 +27,7 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 
 public class Scaffold
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private static Vec3d lastVec3d;
     public final SliderSetting rotateTime = this.add(new SliderSetting("KeepRotate", 1000.0, 0.0, 3000.0, 10.0));
     private final BooleanSetting tower = this.add(new BooleanSetting("Tower", true));
@@ -47,7 +47,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         super("Scaffold", Category.Player);
     }
 
-    @EventHandler(priority=100)
+    @EventHandler(priority = 100)
     public void onRotation(RotateEvent event) {
         if (this.rotate.getValue() && !this.timer.passedMs(this.rotateTime.getValueInt()) && this.angle != null) {
             event.setYaw(this.angle[0]);
@@ -68,7 +68,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 GL11.glEnable(3042);
                 double temp = 0.01;
                 for (double i = 0.0; i < 0.8; i += temp) {
-                    HoleSnap.doCircle(matrixStack, ColorUtil.injectAlpha(this.color.getValue(), (int)Math.min((double)(this.color.getValue().getAlpha() * 2) / (0.8 / temp), 255.0)), i, new Vec3d(MathUtil.interpolate(Scaffold.mc.player.lastRenderX, Scaffold.mc.player.getX(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.lastRenderY, Scaffold.mc.player.getY(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.lastRenderZ, Scaffold.mc.player.getZ(), partialTicks)), 5);
+                    HoleSnap.doCircle(matrixStack, ColorUtil.injectAlpha(this.color.getValue(), (int) Math.min((double) (this.color.getValue().getAlpha() * 2) / (0.8 / temp), 255.0)), i, new Vec3d(MathUtil.interpolate(Scaffold.mc.player.lastRenderX, Scaffold.mc.player.getX(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.lastRenderY, Scaffold.mc.player.getY(), partialTicks), MathUtil.interpolate(Scaffold.mc.player.lastRenderZ, Scaffold.mc.player.getZ(), partialTicks)), 5);
                 }
                 RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
                 GL11.glDisable(3042);
@@ -94,7 +94,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double distance = 1000.0;
                 BlockPos bestPos = null;
                 for (Direction i : Direction.values()) {
-                    if (i == Direction.UP || !BlockUtil.canPlace(placePos.offset(i)) || bestPos != null && !(Scaffold.mc.player.squaredDistanceTo(placePos.offset(i).toCenterPos()) < distance)) continue;
+                    if (i == Direction.UP || !BlockUtil.canPlace(placePos.offset(i)) || bestPos != null && !(Scaffold.mc.player.squaredDistanceTo(placePos.offset(i).toCenterPos()) < distance))
+                        continue;
                     bestPos = placePos.offset(i);
                     distance = Scaffold.mc.player.squaredDistanceTo(placePos.offset(i).toCenterPos());
                 }
@@ -106,7 +107,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             if (this.rotate.getValue()) {
                 Direction side = BlockUtil.getPlaceSide(placePos);
-                this.angle = EntityUtil.getLegitRotations(placePos.offset(side).toCenterPos().add((double)side.getOpposite().getVector().getX() * 0.5, (double)side.getOpposite().getVector().getY() * 0.5, (double)side.getOpposite().getVector().getZ() * 0.5));
+                this.angle = EntityUtil.getLegitRotations(placePos.offset(side).toCenterPos().add((double) side.getOpposite().getVector().getX() * 0.5, (double) side.getOpposite().getVector().getY() * 0.5, (double) side.getOpposite().getVector().getZ() * 0.5));
                 this.timer.reset();
             }
             InventoryUtil.switchToSlot(block);

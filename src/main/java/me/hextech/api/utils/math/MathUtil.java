@@ -15,8 +15,8 @@ import java.util.Map;
 public class MathUtil {
     public static Direction getFacingOrder(float yaw, float pitch) {
         Direction direction3;
-        float f = pitch * ((float)Math.PI / 180);
-        float g = -yaw * ((float)Math.PI / 180);
+        float f = pitch * ((float) Math.PI / 180);
+        float g = -yaw * ((float) Math.PI / 180);
         float h = MathHelper.sin(f);
         float i = MathHelper.cos(f);
         float j = MathHelper.sin(g);
@@ -60,19 +60,19 @@ public class MathUtil {
     }
 
     public static float random(float min, float max) {
-        return (float)(Math.random() * (double)(max - min) + (double)min);
+        return (float) (Math.random() * (double) (max - min) + (double) min);
     }
 
     public static double random(double min, double max) {
-        return (float)(Math.random() * (max - min) + min);
+        return (float) (Math.random() * (max - min) + min);
     }
 
     public static float rad(float angle) {
-        return (float)((double)angle * Math.PI / 180.0);
+        return (float) ((double) angle * Math.PI / 180.0);
     }
 
     public static double interpolate(double previous, double current, float delta) {
-        return previous + (current - previous) * (double)delta;
+        return previous + (current - previous) * (double) delta;
     }
 
     public static float round(float value, int places) {
@@ -99,12 +99,12 @@ public class MathUtil {
     }
 
     public static Direction getDirectionFromEntityLiving(BlockPos pos, LivingEntity entity) {
-        if (Math.abs(entity.getX() - ((double)pos.getX() + 0.5)) < 2.0 && Math.abs(entity.getZ() - ((double)pos.getZ() + 0.5)) < 2.0) {
-            double d0 = entity.getY() + (double)entity.getEyeHeight(entity.getPose());
-            if (d0 - (double)pos.getY() > 2.0) {
+        if (Math.abs(entity.getX() - ((double) pos.getX() + 0.5)) < 2.0 && Math.abs(entity.getZ() - ((double) pos.getZ() + 0.5)) < 2.0) {
+            double d0 = entity.getY() + (double) entity.getEyeHeight(entity.getPose());
+            if (d0 - (double) pos.getY() > 2.0) {
                 return Direction.UP;
             }
-            if ((double)pos.getY() - d0 > 0.0) {
+            if ((double) pos.getY() - d0 > 0.0) {
                 return Direction.DOWN;
             }
         }

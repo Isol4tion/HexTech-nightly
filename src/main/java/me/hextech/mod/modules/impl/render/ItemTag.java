@@ -7,7 +7,7 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.text.Text;
 
 public class ItemTag
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final BooleanSetting customName = this.add(new BooleanSetting("CustomName", false));
     public final BooleanSetting count = this.add(new BooleanSetting("Count", true));
 

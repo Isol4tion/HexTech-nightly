@@ -44,8 +44,7 @@ class GlyphMap {
             data.flip();
             NativeImageBackedTexture tex = new NativeImageBackedTexture(NativeImage.read(data));
             Wrapper.mc.execute(() -> Wrapper.mc.getTextureManager().registerTexture(i, tex));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -82,7 +81,7 @@ class GlyphMap {
             return;
         }
         int range = this.toExcl - this.fromIncl - 1;
-        int charsVert = (int)(Math.ceil(Math.sqrt(range)) * 1.5);
+        int charsVert = (int) (Math.ceil(Math.sqrt(range)) * 1.5);
         this.glyphs.clear();
         int generatedChars = 0;
         int charNX = 0;
@@ -95,11 +94,11 @@ class GlyphMap {
         AffineTransform af = new AffineTransform();
         FontRenderContext frc = new FontRenderContext(af, true, true);
         while (generatedChars <= range) {
-            char currentChar = (char)(this.fromIncl + generatedChars);
+            char currentChar = (char) (this.fromIncl + generatedChars);
             Font font = this.getFontForGlyph(currentChar);
             Rectangle2D stringBounds = font.getStringBounds(String.valueOf(currentChar), frc);
-            int width = (int)Math.ceil(stringBounds.getWidth());
-            int height = (int)Math.ceil(stringBounds.getHeight());
+            int width = (int) Math.ceil(stringBounds.getWidth());
+            int height = (int) Math.ceil(stringBounds.getHeight());
             ++generatedChars;
             maxX = Math.max(maxX, currentX + width);
             maxY = Math.max(maxY, currentY + height);

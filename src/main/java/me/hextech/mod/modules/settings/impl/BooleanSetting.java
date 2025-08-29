@@ -7,7 +7,7 @@ import me.hextech.mod.modules.settings.Setting;
 import java.util.function.Predicate;
 
 public class BooleanSetting
-extends Setting {
+        extends Setting {
     public boolean parent = false;
     public boolean popped = false;
     public Runnable task = null;

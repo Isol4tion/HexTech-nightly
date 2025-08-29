@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Toggle2Command
-extends Command {
+        extends Command {
     public Toggle2Command() {
         super("t", "Toggle module", "[module]");
     }
@@ -37,7 +37,8 @@ extends Command {
             ModuleManager cm = HexTech.MODULE;
             ArrayList<String> correct = new ArrayList<String>();
             for (Module_eSdgMXWuzcxgQVaJFmKZ x : cm.modules) {
-                if (!input.equalsIgnoreCase(HexTech.PREFIX + "toggle") && !x.getName().toLowerCase().startsWith(input)) continue;
+                if (!input.equalsIgnoreCase(HexTech.PREFIX + "toggle") && !x.getName().toLowerCase().startsWith(input))
+                    continue;
                 correct.add(x.getName());
             }
             int numCmds = correct.size();

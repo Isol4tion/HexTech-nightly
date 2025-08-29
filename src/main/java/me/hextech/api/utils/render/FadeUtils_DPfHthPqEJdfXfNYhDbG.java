@@ -29,15 +29,15 @@ public class FadeUtils_DPfHthPqEJdfXfNYhDbG {
     }
 
     public double getFadeOne() {
-        return this.isEnd() ? (double)BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.fadeInEnd.getValueFloat() : (double)this.getTime() / (double)this.length;
+        return this.isEnd() ? (double) BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.fadeInEnd.getValueFloat() : (double) this.getTime() / (double) this.length;
     }
 
     public double getFadeInDefault() {
-        return Math.tanh((double)this.getTime() / (double)this.length * (double)BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.fadeInlength.getValueFloat());
+        return Math.tanh((double) this.getTime() / (double) this.length * (double) BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.fadeInlength.getValueFloat());
     }
 
     public double getFadeOutDefault() {
-        return 1.0 - Math.tanh((double)this.getTime() / (double)this.length * (double)BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.fadeInlength.getValueFloat());
+        return 1.0 - Math.tanh((double) this.getTime() / (double) this.length * (double) BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.fadeInlength.getValueFloat());
     }
 
     public double getEpsEzFadeIn() {
@@ -49,7 +49,7 @@ public class FadeUtils_DPfHthPqEJdfXfNYhDbG {
     }
 
     public double easeOutQuad() {
-        return 1.0 - ((double)BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.fadeInQuad.getValueFloat() - this.getFadeOne()) * (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.fadeInQuad.getValue() - this.getFadeOne());
+        return 1.0 - ((double) BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.fadeInQuad.getValueFloat() - this.getFadeOne()) * (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.fadeInQuad.getValue() - this.getFadeOne());
     }
 
     public double easeInQuad() {

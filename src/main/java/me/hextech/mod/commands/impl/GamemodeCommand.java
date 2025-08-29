@@ -6,7 +6,7 @@ import net.minecraft.world.GameMode;
 import java.util.List;
 
 public class GamemodeCommand
-extends Command {
+        extends Command {
     public GamemodeCommand() {
         super("gamemode", "change gamemode(client side)", "[gamemode]");
     }

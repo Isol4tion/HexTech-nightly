@@ -10,7 +10,7 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class InventoryMove
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final BooleanSetting sneak = this.add(new BooleanSetting("Sneak", false));
 
     public InventoryMove() {

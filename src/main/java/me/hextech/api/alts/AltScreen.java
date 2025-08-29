@@ -8,7 +8,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
 public class AltScreen
-extends Screen {
+        extends Screen {
     private final Screen parentScreen;
     private ButtonWidget editButton;
     private ButtonWidget deleteButton;
@@ -65,12 +65,12 @@ extends Screen {
         if (altselectionlist$entry == null) {
             return;
         }
-        Alt alt = ((AltSelectionList)altselectionlist$entry).getAltData();
+        Alt alt = ((AltSelectionList) altselectionlist$entry).getAltData();
         HexTech.ALT.loginCracked(alt.getEmail());
     }
 
     public void editSelected() {
-        Alt alt = ((AltSelectionList)this.altListSelector.getSelectedOrNull()).getAltData();
+        Alt alt = ((AltSelectionList) this.altListSelector.getSelectedOrNull()).getAltData();
         if (alt == null) {
             return;
         }
@@ -78,7 +78,7 @@ extends Screen {
     }
 
     public void deleteSelected() {
-        Alt alt = ((AltSelectionList)this.altListSelector.getSelectedOrNull()).getAltData();
+        Alt alt = ((AltSelectionList) this.altListSelector.getSelectedOrNull()).getAltData();
         if (alt == null) {
             return;
         }

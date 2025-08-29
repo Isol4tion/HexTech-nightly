@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public final class HexTech
-implements ModInitializer {
+        implements ModInitializer {
     public static final String NAME;
     public static final String LOG_NAME;
     public static final String CHAT_NAME;
@@ -40,6 +40,18 @@ implements ModInitializer {
     public static ThreadManager_BMAJbvVqHsNRgpJZHNrD THREAD;
     public static boolean isLoaded;
 
+    static {
+        VERSION = "8";
+        CHAT_NAME = "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c";
+        LOG_NAME = "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c";
+        NAME = "HexTech";
+        EVENT_BUS = new EventBus();
+        MESSAGE_QUEUE = new LinkedList<String>();
+        COMMAND_QUEUE = new LinkedList<String>();
+        PREFIX = ".";
+        isLoaded = false;
+    }
+
     public static void update() {
         if (thread == null || !thread.isAlive() || thread.isInterrupted()) {
             thread = new Thread(() -> {
@@ -51,8 +63,7 @@ implements ModInitializer {
                             }
                             MODULE.onThread();
                         }
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -65,7 +76,7 @@ implements ModInitializer {
     }
 
     public static void load() throws Throwable {
-        EVENT_BUS.registerLambdaFactory((lookupInMethod, klass) -> (MethodHandles.Lookup)lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
+        EVENT_BUS.registerLambdaFactory((lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
         CONFIG = new ConfigManager();
         PREFIX = CONFIG.getString("prefix", ".");
         MODULE = new ModuleManager();
@@ -119,8 +130,7 @@ implements ModInitializer {
     public void onInitialize() {
         try {
             isLoaded = false;
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
         thread = new Thread(() -> {
@@ -132,24 +142,11 @@ implements ModInitializer {
                         }
                         MODULE.onThread();
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
         thread.start();
-    }
-
-    static {
-        VERSION = "8";
-        CHAT_NAME = "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c";
-        LOG_NAME = "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c";
-        NAME = "HexTech";
-        EVENT_BUS = new EventBus();
-        MESSAGE_QUEUE = new LinkedList<String>();
-        COMMAND_QUEUE = new LinkedList<String>();
-        PREFIX = ".";
-        isLoaded = false;
     }
 }

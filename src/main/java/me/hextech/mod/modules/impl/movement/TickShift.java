@@ -24,9 +24,14 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class TickShift
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static TickShift INSTANCE;
     static DecimalFormat df;
+
+    static {
+        df = new DecimalFormat("0.0");
+    }
+
     public final BooleanSetting usestep = this.add(new BooleanSetting("UseStep", true));
     private final BooleanSetting onlyBlink = this.add(new BooleanSetting("OnlyBlink", true));
     private final SliderSetting multiplier = this.add(new SliderSetting("Speed", 2.0, 1.0, 10.0, 0.1));
@@ -54,7 +59,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static float nextFloat(float startInclusive, float endInclusive) {
-        return startInclusive == endInclusive || endInclusive - startInclusive <= 0.0f ? startInclusive : (float)((double)startInclusive + (double)(endInclusive - startInclusive) * Math.random());
+        return startInclusive == endInclusive || endInclusive - startInclusive <= 0.0f ? startInclusive : (float) ((double) startInclusive + (double) (endInclusive - startInclusive) * Math.random());
     }
 
     @Override
@@ -80,8 +85,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.timer2.passed(this.lastMs)) {
                 HexTech.TIMER.reset();
             } else if (this.smooth.getValue()) {
-                double timer = (double)HexTech.TIMER.getDefault() + (1.0 - this.end.getQuad(this.quad.getValue())) * (double)(this.multiplier.getValueFloat() - 1.0f) * ((double)this.lastMs / this.accumulate.getValue());
-                HexTech.TIMER.set((float)Math.max(HexTech.TIMER.getDefault(), timer));
+                double timer = (double) HexTech.TIMER.getDefault() + (1.0 - this.end.getQuad(this.quad.getValue())) * (double) (this.multiplier.getValueFloat() - 1.0f) * ((double) this.lastMs / this.accumulate.getValue());
+                HexTech.TIMER.set((float) Math.max(HexTech.TIMER.getDefault(), timer));
             } else {
                 HexTech.TIMER.set(this.multiplier.getValueFloat());
             }
@@ -100,7 +105,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (this.indicator.getValue()) {
             double current = this.moving ? Math.max(this.lastMs - this.timer2.getPassedTimeMs(), 0L) : this.timer.getPassedTimeMs();
-            boolean completed = this.moving && current > 0.0 || current >= (double)this.minAccumulate.getValueInt();
+            boolean completed = this.moving && current > 0.0 || current >= (double) this.minAccumulate.getValueInt();
             double max = this.accumulate.getValue();
             String text = df.format(current / max * 100.0) + "%";
             TextRenderer textRenderer = TickShift.mc.textRenderer;
@@ -165,9 +170,5 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.rotationMode == 2) {
             event.setRotation(event.getYaw() + TickShift.nextFloat(1.0f, 3.0f), event.getPitch() + TickShift.nextFloat(1.0f, 3.0f));
         }
-    }
-
-    static {
-        df = new DecimalFormat("0.0");
     }
 }

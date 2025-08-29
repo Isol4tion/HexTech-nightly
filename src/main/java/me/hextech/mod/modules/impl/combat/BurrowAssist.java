@@ -22,9 +22,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BurrowAssist
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static BurrowAssist INSTANCE;
     public static Timer delay;
+
+    static {
+        delay = new Timer();
+    }
+
     public final HashMap<PlayerEntity, Double> playerSpeeds = new HashMap();
     private final SliderSetting Delay = this.add(new SliderSetting("Delay", 100, 0, 1000));
     private final SliderSetting predictTicks = this.add(new SliderSetting("PredictTicks", 4, 0, 10));
@@ -57,7 +62,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (BurrowAssist.nullCheck()) {
             return;
         }
-        if (!delay.passed((long)this.Delay.getValue())) {
+        if (!delay.passed((long) this.Delay.getValue())) {
             return;
         }
         if (this.pause.getValue() && BurrowAssist.mc.player.isUsingItem()) {
@@ -69,7 +74,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!BurrowAssist.canbur()) {
             return;
         }
-        if (BurrowAssist.mc.player.isOnGround() && this.getPlayerSpeed(BurrowAssist.mc.player) < (double)this.speed.getValueInt() && (this.ccheck.getValue() && this.mcheck.getValue() ? this.findcrystal() || this.checkmine(this.mself.getValue()) : !(this.ccheck.getValue() && !this.findcrystal() || this.mcheck.getValue() && !this.checkmine(this.mself.getValue())))) {
+        if (BurrowAssist.mc.player.isOnGround() && this.getPlayerSpeed(BurrowAssist.mc.player) < (double) this.speed.getValueInt() && (this.ccheck.getValue() && this.mcheck.getValue() ? this.findcrystal() || this.checkmine(this.mself.getValue()) : !(this.ccheck.getValue() && !this.findcrystal() || this.mcheck.getValue() && !this.checkmine(this.mself.getValue())))) {
             if (Burrow_eOaBGEoOSTDRbYIUAbXC.INSTANCE.isOn()) {
                 return;
             }
@@ -82,9 +87,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS(BurrowAssist.mc.player);
         for (Entity crystal : BurrowAssist.mc.world.getEntities()) {
             float f = 0.0f;
-            if (!(crystal instanceof EndCrystalEntity) || EntityUtil.getEyesPos().distanceTo(crystal.getPos()) > this.cRange.getValue()) continue;
+            if (!(crystal instanceof EndCrystalEntity) || EntityUtil.getEyesPos().distanceTo(crystal.getPos()) > this.cRange.getValue())
+                continue;
             float selfDamage = this.calculateDamage(crystal.getPos(), self.player, self.predict);
-            if ((double)f < this.breakMinSelf.getValue()) continue;
+            if ((double) f < this.breakMinSelf.getValue()) continue;
             return true;
         }
         return false;
@@ -98,7 +104,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public double turnIntoKpH(double input) {
-        return (double)MathHelper.sqrt((float)input) * 71.2729367892;
+        return (double) MathHelper.sqrt((float) input) * 71.2729367892;
     }
 
     public float calculateDamage(Vec3d pos, PlayerEntity player, PlayerEntity predict) {
@@ -133,9 +139,5 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return true;
         }
         return false;
-    }
-
-    static {
-        delay = new Timer();
     }
 }

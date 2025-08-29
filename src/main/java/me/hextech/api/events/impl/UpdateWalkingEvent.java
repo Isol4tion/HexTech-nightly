@@ -3,7 +3,7 @@ package me.hextech.api.events.impl;
 import me.hextech.api.events.Event_auduwKaxKOWXRtyJkCPb;
 
 public class UpdateWalkingEvent
-extends Event_auduwKaxKOWXRtyJkCPb {
+        extends Event_auduwKaxKOWXRtyJkCPb {
     private boolean cancelRotate = false;
 
     public UpdateWalkingEvent(Stage stage) {

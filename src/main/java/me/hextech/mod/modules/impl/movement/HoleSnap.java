@@ -26,7 +26,7 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 
 public class HoleSnap
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static HoleSnap INSTANCE;
     public final BooleanSetting any = this.add(new BooleanSetting("AnyHole", true));
     public final SliderSetting timer = this.add(new SliderSetting("Timer", 1.0, 0.1, 8.0, 0.1));
@@ -64,13 +64,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
         RenderSystem.setShader(GameRenderer::getPositionProgram);
-        RenderSystem.setShaderColor((float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
+        RenderSystem.setShaderColor((float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f, (float) color.getBlue() / 255.0f, (float) color.getAlpha() / 255.0f);
         bufferBuilder.begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION);
-        for (double i = 0.0; i < 360.0; i += 360.0 / (double)segments) {
+        for (double i = 0.0; i < 360.0; i += 360.0 / (double) segments) {
             double x = Math.sin(Math.toRadians(i)) * circleSize;
             double z = Math.cos(Math.toRadians(i)) * circleSize;
             Vec3d tempPos = new Vec3d(pos.x + x, pos.y, pos.z + z).add(-camPos.x, -camPos.y, -camPos.z);
-            bufferBuilder.vertex(matrix, (float)tempPos.x, (float)tempPos.y, (float)tempPos.z).next();
+            bufferBuilder.vertex(matrix, (float) tempPos.x, (float) tempPos.y, (float) tempPos.z).next();
         }
         tessellator.draw();
         GL11.glEnable(2929);
@@ -84,7 +84,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double d3 = vec.x;
         double yaw = HoleSnap.normalizeAngle(Math.toDegrees(Math.atan2(d2, d3)) - 90.0);
         double pitch = HoleSnap.normalizeAngle(Math.toDegrees(-Math.atan2(vec.y, xz)));
-        return new Vec2f((float)yaw, (float)pitch);
+        return new Vec2f((float) yaw, (float) pitch);
     }
 
     private static double normalizeAngle(final double angleIn) {
@@ -98,7 +98,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return angle;
     }
 
-    @EventHandler(priority=-99)
+    @EventHandler(priority = -99)
     public void onTimer(TimerEvent event) {
         if (this.applyTimer) {
             event.set(this.timer.getValueFloat());
@@ -113,7 +113,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.resetMove = false;
-        this.holePos = CombatUtil.getHole((float)this.range.getValue(), true, this.any.getValue());
+        this.holePos = CombatUtil.getHole((float) this.range.getValue(), true, this.any.getValue());
         if (this.step.getValue()) {
             Step_EShajbhvQeYkCdreEeNY.INSTANCE.enable();
         }
@@ -153,7 +153,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.applyTimer = true;
         if (!BlockUtil.isHole(this.holePos) && !CombatUtil.isDoubleHole(this.holePos)) {
-            this.holePos = CombatUtil.getHole((float)this.range.getValue(), true, this.any.getValue());
+            this.holePos = CombatUtil.getHole((float) this.range.getValue(), true, this.any.getValue());
         }
     }
 
@@ -161,7 +161,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onMove(MoveEvent event) {
         Direction facing;
         ++this.enabledTicks;
-        if ((double)this.enabledTicks > this.timeoutTicks.getValue() - 1.0) {
+        if ((double) this.enabledTicks > this.timeoutTicks.getValue() - 1.0) {
             this.disable();
             return;
         }
@@ -178,21 +178,21 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Vec3d playerPos = HoleSnap.mc.player.getPos();
-        this.targetPos = new Vec3d((double)this.holePos.getX() + 0.5, HoleSnap.mc.player.getY(), (double)this.holePos.getZ() + 0.5);
+        this.targetPos = new Vec3d((double) this.holePos.getX() + 0.5, HoleSnap.mc.player.getY(), (double) this.holePos.getZ() + 0.5);
         if (CombatUtil.isDoubleHole(this.holePos) && (facing = CombatUtil.is3Block(this.holePos)) != null) {
-            this.targetPos = this.targetPos.add(new Vec3d((double)facing.getVector().getX() * 0.5, (double)facing.getVector().getY() * 0.5, (double)facing.getVector().getZ() * 0.5));
+            this.targetPos = this.targetPos.add(new Vec3d((double) facing.getVector().getX() * 0.5, (double) facing.getVector().getY() * 0.5, (double) facing.getVector().getZ() * 0.5));
         }
         this.applyTimer = true;
         this.resetMove = true;
         float rotation = HoleSnap.getRotationTo(playerPos, this.targetPos).x;
-        float yawRad = rotation / 180.0f * (float)Math.PI;
+        float yawRad = rotation / 180.0f * (float) Math.PI;
         double dist = playerPos.distanceTo(this.targetPos);
         double cappedSpeed = Math.min(0.2873, dist);
-        double x = (double)(-((float)Math.sin(yawRad))) * cappedSpeed;
-        double z = (double)((float)Math.cos(yawRad)) * cappedSpeed;
+        double x = (double) (-((float) Math.sin(yawRad))) * cappedSpeed;
+        double z = (double) ((float) Math.cos(yawRad)) * cappedSpeed;
         event.setX(x);
         event.setZ(z);
-        if (Math.abs(x) < 0.1 && Math.abs(z) < 0.1 && playerPos.y <= (double)this.holePos.getY() + 0.5) {
+        if (Math.abs(x) < 0.1 && Math.abs(z) < 0.1 && playerPos.y <= (double) this.holePos.getY() + 0.5) {
             this.disable();
         }
         this.stuckTicks = HoleSnap.mc.player.horizontalCollision ? ++this.stuckTicks : 0;
@@ -209,7 +209,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.fade.getValue()) {
             double temp = 0.01;
             for (double i = 0.0; i < this.circleSize.getValue(); i += temp) {
-                HoleSnap.doCircle(matrixStack, ColorUtil.injectAlpha(color, (int)Math.min((double)(color.getAlpha() * 2) / (this.circleSize.getValue() / temp), 255.0)), i, pos, this.segments.getValueInt());
+                HoleSnap.doCircle(matrixStack, ColorUtil.injectAlpha(color, (int) Math.min((double) (color.getAlpha() * 2) / (this.circleSize.getValue() / temp), 255.0)), i, pos, this.segments.getValueInt());
             }
         } else {
             HoleSnap.doCircle(matrixStack, color, this.circleSize.getValue(), pos, this.segments.getValueInt());

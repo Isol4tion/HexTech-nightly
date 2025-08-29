@@ -18,7 +18,7 @@ import net.minecraft.network.packet.s2c.play.VehicleMoveS2CPacket;
 import net.minecraft.util.math.Vec3d;
 
 public class EntityControl
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static EntityControl INSTANCE;
     public final BooleanSetting fly = this.add(new BooleanSetting("Fly", true));
     public final SliderSetting speed = this.add(new SliderSetting("Speed", 5.0, 0.1, 50.0));
@@ -55,9 +55,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             boolean jump = InputUtil.isKeyPressed(mc.getWindow().getHandle(), InputUtil.fromTranslationKey(EntityControl.mc.options.jumpKey.getBoundKeyTranslationKey()).getCode());
             velY = jump ? (sprint ? -this.fallSpeed.getValue() / 20.0 : this.verticalSpeed.getValue() / 20.0) : (sprint ? -this.verticalSpeed.getValue() / 20.0 : -this.fallSpeed.getValue() / 20.0);
         }
-        ((IVec3d)boat.getVelocity()).setX(velX);
-        ((IVec3d)boat.getVelocity()).setY(velY);
-        ((IVec3d)boat.getVelocity()).setZ(velZ);
+        ((IVec3d) boat.getVelocity()).setX(velX);
+        ((IVec3d) boat.getVelocity()).setY(velY);
+        ((IVec3d) boat.getVelocity()).setZ(velZ);
     }
 
     @EventHandler
@@ -81,9 +81,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             boolean jump = InputUtil.isKeyPressed(mc.getWindow().getHandle(), InputUtil.fromTranslationKey(EntityControl.mc.options.jumpKey.getBoundKeyTranslationKey()).getCode());
             velY = jump ? (sprint ? -this.fallSpeed.getValue() / 20.0 : this.verticalSpeed.getValue() / 20.0) : (sprint ? -this.verticalSpeed.getValue() / 20.0 : -this.fallSpeed.getValue() / 20.0);
         }
-        ((IVec3d)boat.getVelocity()).setX(velX);
-        ((IVec3d)boat.getVelocity()).setY(velY);
-        ((IVec3d)boat.getVelocity()).setZ(velZ);
+        ((IVec3d) boat.getVelocity()).setX(velX);
+        ((IVec3d) boat.getVelocity()).setY(velY);
+        ((IVec3d) boat.getVelocity()).setZ(velZ);
     }
 
     @EventHandler

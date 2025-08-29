@@ -17,7 +17,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class ElytraFly
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static ElytraFly INSTANCE;
     public final SliderSetting upPitch = this.add(new SliderSetting("UpPitch", 0.0, 0.0, 90.0));
     public final SliderSetting upFactor = this.add(new SliderSetting("UpFactor", 1.0, 0.0, 10.0));
@@ -83,7 +83,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             this.hasElytra = false;
         }
-        if (this.strictTimer.passedMs(1500L) && !this.strictTimer.passedMs(2000L) || EntityUtil.isElytraFlying() && (double)HexTech.TIMER.get() == 0.3) {
+        if (this.strictTimer.passedMs(1500L) && !this.strictTimer.passedMs(2000L) || EntityUtil.isElytraFlying() && (double) HexTech.TIMER.get() == 0.3) {
             HexTech.TIMER.reset();
         }
         if (!ElytraFly.mc.player.isFallFlying()) {
@@ -91,7 +91,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 HexTech.TIMER.set(0.3f);
             }
             if (!ElytraFly.mc.player.isOnGround() && this.instantFly.getValue() && ElytraFly.mc.player.getVelocity().getY() < 0.0) {
-                if (!this.instantFlyTimer.passedMs((long)(1000.0 * this.timeout.getValue()))) {
+                if (!this.instantFlyTimer.passedMs((long) (1000.0 * this.timeout.getValue()))) {
                     return;
                 }
                 this.instantFlyTimer.reset();
@@ -103,8 +103,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     protected final Vec3d getRotationVector(float pitch, float yaw) {
-        float f = pitch * ((float)Math.PI / 180);
-        float g = -yaw * ((float)Math.PI / 180);
+        float f = pitch * ((float) Math.PI / 180);
+        float g = -yaw * ((float) Math.PI / 180);
         float h = MathHelper.cos(g);
         float i = MathHelper.sin(g);
         float j = MathHelper.cos(f);
@@ -152,9 +152,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.setZ(dir[1]);
         }
         if (!this.noDrag.getValue()) {
-            this.setY(this.getY() * (double)0.99f);
-            this.setX(this.getX() * (double)0.98f);
-            this.setZ(this.getZ() * (double)0.99f);
+            this.setY(this.getY() * (double) 0.99f);
+            this.setX(this.getX() * (double) 0.98f);
+            this.setZ(this.getZ() * (double) 0.99f);
         }
         double finalDist = Math.sqrt(this.getX() * this.getX() + this.getZ() * this.getZ());
         if (this.speedLimit.getValue() && finalDist > this.maxSpeed.getValue()) {

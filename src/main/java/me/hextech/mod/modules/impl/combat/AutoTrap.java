@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AutoTrap
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AutoTrap INSTANCE;
     public final SliderSetting delay = this.add(new SliderSetting("Delay", 100, 0, 500).setSuffix("ms"));
     public final BooleanSetting render = this.add(new BooleanSetting("Render", true));
@@ -109,7 +109,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.target = null;
             return;
         }
-        if (!this.timer.passedMs((long)this.delay.getValue())) {
+        if (!this.timer.passedMs((long) this.delay.getValue())) {
             return;
         }
         if (this.targetMod.getValue() == _YlnJzIMwjFLWxhoVZoJp.Single) {
@@ -163,8 +163,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         if (this.headExtend.getValue()) {
-            for (final int x : new int[] { 1, 0, -1 }) {
-                for (final int z : new int[] { 1, 0, -1 }) {
+            for (final int x : new int[]{1, 0, -1}) {
+                for (final int z : new int[]{1, 0, -1}) {
                     final BlockPos offsetPos2 = pos.add(z, 0, x);
                     if (this.checkEntity(new BlockPos(offsetPos2))) {
                         this.tryPlaceBlock(offsetPos2.up(2), this.headAnchor.getValue());
@@ -246,8 +246,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                             if (BlockUtil.getPlaceSide(offsetPos) == null && BlockUtil.clientCanPlace(offsetPos, this.breakCrystal.getValue())) {
                                 if (this.getHelper(offsetPos) != null) {
                                     this.tryPlaceObsidian(this.getHelper(offsetPos));
-                                }
-                                else if (BlockUtil.getPlaceSide(offsetPos.down()) == null && BlockUtil.clientCanPlace(offsetPos.down(), this.breakCrystal.getValue()) && this.getHelper(offsetPos.down()) != null) {
+                                } else if (BlockUtil.getPlaceSide(offsetPos.down()) == null && BlockUtil.clientCanPlace(offsetPos.down(), this.breakCrystal.getValue()) && this.getHelper(offsetPos.down()) != null) {
                                     this.tryPlaceObsidian(this.getHelper(offsetPos.down()));
                                 }
                             }
@@ -265,8 +264,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (BlockUtil.getPlaceSide(offsetPos) == null && BlockUtil.clientCanPlace(offsetPos, this.breakCrystal.getValue())) {
                             if (this.getHelper(offsetPos) != null) {
                                 this.tryPlaceObsidian(this.getHelper(offsetPos));
-                            }
-                            else if (BlockUtil.getPlaceSide(offsetPos.down()) == null && BlockUtil.clientCanPlace(offsetPos.down(), this.breakCrystal.getValue()) && this.getHelper(offsetPos.down()) != null) {
+                            } else if (BlockUtil.getPlaceSide(offsetPos.down()) == null && BlockUtil.clientCanPlace(offsetPos.down(), this.breakCrystal.getValue()) && this.getHelper(offsetPos.down()) != null) {
                                 this.tryPlaceObsidian(this.getHelper(offsetPos.down()));
                             }
                         }
@@ -275,8 +273,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         if (this.extend.getValue()) {
-            for (final int x : new int[] { 1, 0, -1 }) {
-                for (final int z : new int[] { 1, 0, -1 }) {
+            for (final int x : new int[]{1, 0, -1}) {
+                for (final int z : new int[]{1, 0, -1}) {
                     final BlockPos offsetPos2 = pos.add(x, 0, z);
                     if (this.checkEntity(new BlockPos(offsetPos2))) {
                         this.doTrap(offsetPos2);
@@ -299,7 +297,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return null;
         }
         for (Direction i : Direction.values()) {
-            if (this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)) || CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite(), true) || !BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
+            if (this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)) || CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.placement.getValue() == Placement.Strict && !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite(), true) || !BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue(), this.breakCrystal.getValue()))
+                continue;
             return pos.offset(i);
         }
         return null;
@@ -310,7 +309,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return null;
         }
         for (Direction i : Direction.values()) {
-            if (i == ignore || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite(), true) || !BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue(), this.breakCrystal.getValue())) continue;
+            if (i == ignore || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite(), true) || !BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue(), this.breakCrystal.getValue()))
+                continue;
             return pos.offset(i);
         }
         return null;
@@ -344,10 +344,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.rotate.getValue() && !this.faceVector(this.directionVec)) {
             return;
         }
-        if (!((double)this.progress < this.blocksPer.getValue())) {
+        if (!((double) this.progress < this.blocksPer.getValue())) {
             return;
         }
-        if ((double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.placeRange.getValue()) {
+        if ((double) MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.placeRange.getValue()) {
             return;
         }
         int old = AutoTrap.mc.player.getInventory().selectedSlot;
@@ -388,10 +388,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.rotate.getValue() && !this.faceVector(this.directionVec)) {
             return;
         }
-        if (!((double)this.progress < this.blocksPer.getValue())) {
+        if (!((double) this.progress < this.blocksPer.getValue())) {
             return;
         }
-        if ((double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.placeRange.getValue()) {
+        if ((double) MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.placeRange.getValue()) {
             return;
         }
         int old = AutoTrap.mc.player.getInventory().selectedSlot;
@@ -456,48 +456,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     }
 
-    public class _WyicUWrboAjyTEvkkOOH {
-        public static final HashMap<BlockPos, AutoTrap_RYPZUKNZXVloqcMUfNgc> PlaceMap = new HashMap();
-
-        public static void addBlock(BlockPos pos) {
-            if (BlockUtil.clientCanPlace(pos, true) && !PlaceMap.containsKey(pos)) {
-                PlaceMap.put(pos, new AutoTrap_RYPZUKNZXVloqcMUfNgc(pos));
-            }
-        }
-
-        private void drawBlock(BlockPos pos, double alpha, Color color, MatrixStack matrixStack) {
-            if (AutoTrap.this.sync.getValue()) {
-                color = AutoTrap.INSTANCE.color.getValue();
-            }
-            Render3DUtil.draw3DBox(matrixStack, new Box(pos), ColorUtil.injectAlpha(color, (int)alpha), AutoTrap.this.outline.getValue(), AutoTrap.this.box.getValue());
-        }
-
-        @EventHandler
-        public void onRender3D(Render3DEvent event) {
-            if (!AutoTrap.this.render.getValue()) {
-                return;
-            }
-            if (PlaceMap.isEmpty()) {
-                return;
-            }
-            boolean shouldClear = true;
-            for (AutoTrap_RYPZUKNZXVloqcMUfNgc placePosition : PlaceMap.values()) {
-                if (!BlockUtil.clientCanPlace(placePosition.pos, true)) {
-                    placePosition.isAir = false;
-                }
-                if (!placePosition.timer.passedMs((long)(AutoTrap.this.delay.getValue() + 100.0)) && placePosition.isAir) {
-                    placePosition.firstFade.reset();
-                }
-                if (placePosition.firstFade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2) == 1.0) continue;
-                shouldClear = false;
-                this.drawBlock(placePosition.pos, (double)AutoTrap.this.color.getValue().getAlpha() * (1.0 - placePosition.firstFade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2)), placePosition.posColor, event.getMatrixStack());
-            }
-            if (shouldClear) {
-                PlaceMap.clear();
-            }
-        }
-    }
-
     /*
      * Exception performing whole class analysis ignored.
      */
@@ -515,6 +473,48 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.timer = new Timer();
             this.isAir = true;
             this.timer.reset();
+        }
+    }
+
+    public class _WyicUWrboAjyTEvkkOOH {
+        public static final HashMap<BlockPos, AutoTrap_RYPZUKNZXVloqcMUfNgc> PlaceMap = new HashMap();
+
+        public static void addBlock(BlockPos pos) {
+            if (BlockUtil.clientCanPlace(pos, true) && !PlaceMap.containsKey(pos)) {
+                PlaceMap.put(pos, new AutoTrap_RYPZUKNZXVloqcMUfNgc(pos));
+            }
+        }
+
+        private void drawBlock(BlockPos pos, double alpha, Color color, MatrixStack matrixStack) {
+            if (AutoTrap.this.sync.getValue()) {
+                color = AutoTrap.INSTANCE.color.getValue();
+            }
+            Render3DUtil.draw3DBox(matrixStack, new Box(pos), ColorUtil.injectAlpha(color, (int) alpha), AutoTrap.this.outline.getValue(), AutoTrap.this.box.getValue());
+        }
+
+        @EventHandler
+        public void onRender3D(Render3DEvent event) {
+            if (!AutoTrap.this.render.getValue()) {
+                return;
+            }
+            if (PlaceMap.isEmpty()) {
+                return;
+            }
+            boolean shouldClear = true;
+            for (AutoTrap_RYPZUKNZXVloqcMUfNgc placePosition : PlaceMap.values()) {
+                if (!BlockUtil.clientCanPlace(placePosition.pos, true)) {
+                    placePosition.isAir = false;
+                }
+                if (!placePosition.timer.passedMs((long) (AutoTrap.this.delay.getValue() + 100.0)) && placePosition.isAir) {
+                    placePosition.firstFade.reset();
+                }
+                if (placePosition.firstFade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2) == 1.0) continue;
+                shouldClear = false;
+                this.drawBlock(placePosition.pos, (double) AutoTrap.this.color.getValue().getAlpha() * (1.0 - placePosition.firstFade.getQuad(FadeUtils_DPfHthPqEJdfXfNYhDbG.Quad.In2)), placePosition.posColor, event.getMatrixStack());
+            }
+            if (shouldClear) {
+                PlaceMap.clear();
+            }
         }
     }
 }

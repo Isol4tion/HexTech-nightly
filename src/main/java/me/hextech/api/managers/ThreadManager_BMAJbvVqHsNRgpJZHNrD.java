@@ -17,7 +17,7 @@ public class ThreadManager_BMAJbvVqHsNRgpJZHNrD {
         clientService.start();
     }
 
-    @EventHandler(priority=200)
+    @EventHandler(priority = 200)
     public void onEvent(TickEvent event) {
         if (event.isPre()) {
             if (!clientService.isAlive()) {
@@ -39,15 +39,14 @@ public class ThreadManager_BMAJbvVqHsNRgpJZHNrD {
      * Exception performing whole class analysis ignored.
      */
     public static class ThreadManager
-    extends Thread {
+            extends Thread {
         @Override
         public void run() {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
                     if (HexTech.MODULE == null) continue;
                     HexTech.MODULE.onThread();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

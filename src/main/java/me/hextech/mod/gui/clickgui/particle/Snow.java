@@ -36,7 +36,7 @@ public class Snow {
     }
 
     public void drawSnow(DrawContext drawContext) {
-        Render2DUtil.drawRect(drawContext.getMatrices(), (float)this.getX(), (float)this.getY(), (float)this.size, (float)this.size, -1714829883);
+        Render2DUtil.drawRect(drawContext.getMatrices(), (float) this.getX(), (float) this.getY(), (float) this.size, (float) this.size, -1714829883);
         this.setY(this.getY() + this.fallingSpeed);
         if (this.getY() > MinecraftClient.getInstance().getWindow().getScaledHeight() + 10 || this.getY() < -10) {
             this.setY(-10);

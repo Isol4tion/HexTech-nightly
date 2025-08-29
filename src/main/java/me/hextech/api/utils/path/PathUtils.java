@@ -15,7 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
 
 public class PathUtils
-implements Wrapper {
+        implements Wrapper {
     private static boolean canPassThrough(BlockPos pos) {
         Block block = PathUtils.mc.world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ())).getBlock();
         return block == Blocks.AIR || block instanceof PlantBlock || block == Blocks.VINE || block == Blocks.LADDER || block == Blocks.WATER || block == Blocks.WATER_CAULDRON || block instanceof WallSignBlock;
@@ -52,12 +52,13 @@ implements Wrapper {
                     double bigX = Math.max(lastDashLoc.getX(), pathElm.getX());
                     double bigY = Math.max(lastDashLoc.getY(), pathElm.getY());
                     double bigZ = Math.max(lastDashLoc.getZ(), pathElm.getZ());
-                    int x = (int)smallX;
-                    block1: while ((double)x <= bigX) {
-                        int y = (int)smallY;
-                        while ((double)y <= bigY) {
-                            int z = (int)smallZ;
-                            while ((double)z <= bigZ) {
+                    int x = (int) smallX;
+                    block1:
+                    while ((double) x <= bigX) {
+                        int y = (int) smallY;
+                        while ((double) y <= bigY) {
+                            int z = (int) smallZ;
+                            while ((double) z <= bigZ) {
                                 if (!AStarCustomPathFinder_VSltHecsGAqplnRtLzRQ.checkPositionValidity(x, y, z, false)) {
                                     canContinue = false;
                                     break block1;

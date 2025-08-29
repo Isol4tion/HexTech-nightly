@@ -11,9 +11,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 
 public class ListenerDamage
-implements Wrapper {
+        implements Wrapper {
     public static double getDamage(PlayerEntity target) {
-        if (!SpeedMine.INSTANCE.obsidian.isPressed() && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.slowPlace.getValue() && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastBreakTimer.passedMs((long)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.slowDelay.getValue()) && (!BedAura_BzCWaQEhnpenizjBqrRp.INSTANCE.isOn() || BedAura_BzCWaQEhnpenizjBqrRp.INSTANCE.getBed() == -1)) {
+        if (!SpeedMine.INSTANCE.obsidian.isPressed() && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.slowPlace.getValue() && AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastBreakTimer.passedMs((long) AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.slowDelay.getValue()) && (!BedAura_BzCWaQEhnpenizjBqrRp.INSTANCE.isOn() || BedAura_BzCWaQEhnpenizjBqrRp.INSTANCE.getBed() == -1)) {
             return AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.slowMinDamage.getValue();
         }
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forcePlace.getValue() && (double) EntityUtil.getHealth(target) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forceMaxHealth.getValue() && !SpeedMine.INSTANCE.obsidian.isPressed() && !PistonCrystal.INSTANCE.isOn()) {
@@ -22,7 +22,8 @@ implements Wrapper {
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.armorBreaker.getValue()) {
             DefaultedList<ItemStack> armors = target.getInventory().armor;
             for (ItemStack armor : armors) {
-                if (armor.isEmpty() || (double)EntityUtil.getDamagePercent(armor) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.maxDurable.getValue()) continue;
+                if (armor.isEmpty() || (double) EntityUtil.getDamagePercent(armor) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.maxDurable.getValue())
+                    continue;
                 return AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.armorBreakerDamage.getValue();
             }
         }

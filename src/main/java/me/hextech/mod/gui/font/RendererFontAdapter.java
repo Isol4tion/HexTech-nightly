@@ -5,7 +5,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import java.awt.*;
 
 public class RendererFontAdapter
-implements FontAdapter {
+        implements FontAdapter {
     final FontRenderer fontRenderer;
     final float si;
 
@@ -28,21 +28,21 @@ implements FontAdapter {
         if ((color1 & 0xFC000000) == 0) {
             color1 |= 0xFF000000;
         }
-        float a = (float)(color1 >> 24 & 0xFF) / 255.0f;
-        float r = (float)(color1 >> 16 & 0xFF) / 255.0f;
-        float g = (float)(color1 >> 8 & 0xFF) / 255.0f;
-        float b = (float)(color1 & 0xFF) / 255.0f;
+        float a = (float) (color1 >> 24 & 0xFF) / 255.0f;
+        float r = (float) (color1 >> 16 & 0xFF) / 255.0f;
+        float g = (float) (color1 >> 8 & 0xFF) / 255.0f;
+        float b = (float) (color1 & 0xFF) / 255.0f;
         this.drawString(matrices, text, x, y, r, g, b, a);
     }
 
     @Override
     public void drawString(MatrixStack matrices, String text, double x, double y, int color) {
-        this.drawString(matrices, text, (float)x, (float)y, color);
+        this.drawString(matrices, text, (float) x, (float) y, color);
     }
 
     @Override
     public void drawString(MatrixStack matrices, String text, float x, float y, float r, float g, float b, float a) {
-        float v = (float)((int)(a * 255.0f)) / 255.0f;
+        float v = (float) ((int) (a * 255.0f)) / 255.0f;
         this.fontRenderer.drawString(matrices, text, x, y - 3.0f, r, g, b, v);
     }
 
@@ -57,16 +57,16 @@ implements FontAdapter {
         if ((color1 & 0xFC000000) == 0) {
             color1 |= 0xFF000000;
         }
-        float a = (float)(color1 >> 24 & 0xFF) / 255.0f;
-        float r = (float)(color1 >> 16 & 0xFF) / 255.0f;
-        float g = (float)(color1 >> 8 & 0xFF) / 255.0f;
-        float b = (float)(color1 & 0xFF) / 255.0f;
+        float a = (float) (color1 >> 24 & 0xFF) / 255.0f;
+        float r = (float) (color1 >> 16 & 0xFF) / 255.0f;
+        float g = (float) (color1 >> 8 & 0xFF) / 255.0f;
+        float b = (float) (color1 & 0xFF) / 255.0f;
         this.drawCenteredString(matrices, text, x, y, r, g, b, a);
     }
 
     @Override
     public void drawCenteredString(MatrixStack matrices, String text, double x, double y, float r, float g, float b, float a) {
-        this.fontRenderer.drawCenteredString(matrices, text, (float)x, (float)y, r, g, b, a);
+        this.fontRenderer.drawCenteredString(matrices, text, (float) x, (float) y, r, g, b, a);
     }
 
     @Override
@@ -103,7 +103,7 @@ implements FontAdapter {
     public String trimStringToWidth(String in, double width) {
         StringBuilder sb = new StringBuilder();
         for (char c : in.toCharArray()) {
-            if ((double)this.getWidth(sb.toString() + c) >= width) {
+            if ((double) this.getWidth(sb.toString() + c) >= width) {
                 return sb.toString();
             }
             sb.append(c);

@@ -28,7 +28,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.UUID;
 
 public class FakePlayer
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static FakePlayer INSTANCE;
     public static OtherClientPlayerEntity fakePlayer;
     private final StringSetting name = this.add(new StringSetting("Name", "7XED1337"));
@@ -109,12 +109,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 fakePlayer.setStackInHand(Hand.OFF_HAND, new ItemStack(Items.TOTEM_OF_UNDYING));
             }
             if ((t = event.getPacket()) instanceof ExplosionS2CPacket) {
-                ExplosionS2CPacket explosion = (ExplosionS2CPacket)t;
+                ExplosionS2CPacket explosion = (ExplosionS2CPacket) t;
                 Vec3d vec3d = new Vec3d(explosion.getX(), explosion.getY(), explosion.getZ());
-                if (MathHelper.sqrt((float)vec3d.squaredDistanceTo(fakePlayer.getPos())) > 10.0f) {
+                if (MathHelper.sqrt((float) vec3d.squaredDistanceTo(fakePlayer.getPos())) > 10.0f) {
                     return;
                 }
-                float damage = BlockUtil.getBlock(new BlockPosX(explosion.getX(), explosion.getY(), explosion.getZ())) == Blocks.RESPAWN_ANCHOR ? (float)AutoAnchor_MDcwoWYRcPYheLZJWRZK.INSTANCE.getAnchorDamage(new BlockPosX(explosion.getX(), explosion.getY(), explosion.getZ()), fakePlayer, fakePlayer) : CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateCrystalDamage(new Vec3d(explosion.getX(), explosion.getY(), explosion.getZ()), fakePlayer, fakePlayer);
+                float damage = BlockUtil.getBlock(new BlockPosX(explosion.getX(), explosion.getY(), explosion.getZ())) == Blocks.RESPAWN_ANCHOR ? (float) AutoAnchor_MDcwoWYRcPYheLZJWRZK.INSTANCE.getAnchorDamage(new BlockPosX(explosion.getX(), explosion.getY(), explosion.getZ()), fakePlayer, fakePlayer) : CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateCrystalDamage(new Vec3d(explosion.getX(), explosion.getY(), explosion.getZ()), fakePlayer, fakePlayer);
                 fakePlayer.onDamaged(FakePlayer.mc.world.getDamageSources().generic());
                 if (fakePlayer.getAbsorptionAmount() >= damage) {
                     fakePlayer.setAbsorptionAmount(fakePlayer.getAbsorptionAmount() - damage);

@@ -3,7 +3,7 @@ package me.hextech.api.events.impl;
 import me.hextech.api.events.Event_auduwKaxKOWXRtyJkCPb;
 
 public class ReceiveMessageEvent
-extends Event_auduwKaxKOWXRtyJkCPb {
+        extends Event_auduwKaxKOWXRtyJkCPb {
     public String message;
 
     public ReceiveMessageEvent(String message) {

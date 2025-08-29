@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 
 public class CanPlaceCrystal
-implements Wrapper {
+        implements Wrapper {
     public static boolean canPlaceCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
         if (CanPlaceCrystal.mc.world == null || CanPlaceCrystal.mc.player == null) {
             return false;
@@ -27,12 +27,14 @@ implements Wrapper {
     private static boolean hasEntityBlockCrystal(BlockPos pos, boolean ignoreCrystal, boolean ignoreItem) {
         if (CanPlaceCrystal.mc.world != null) {
             for (Entity entity : CanPlaceCrystal.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
-                if (!entity.isAlive() || ignoreItem && entity instanceof ItemEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
+                if (!entity.isAlive() || ignoreItem && entity instanceof ItemEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue())
+                    continue;
                 if (entity instanceof EndCrystalEntity) {
                     if (!ignoreCrystal) {
                         return false;
                     }
-                    if (CanPlaceCrystal.mc.player != null && (CanPlaceCrystal.mc.player.canSee(entity) || CanPlaceCrystal.mc.player.getEyePos().distanceTo(entity.getPos()) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue())) continue;
+                    if (CanPlaceCrystal.mc.player != null && (CanPlaceCrystal.mc.player.canSee(entity) || CanPlaceCrystal.mc.player.getEyePos().distanceTo(entity.getPos()) <= AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.wallRange.getValue()))
+                        continue;
                 }
                 return false;
             }

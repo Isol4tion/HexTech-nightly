@@ -4,7 +4,7 @@ import net.minecraft.client.particle.Particle;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-@Mixin(value={Particle.class})
+@Mixin(value = {Particle.class})
 public abstract class MixinParticle {
     @Shadow
     protected double velocityX;

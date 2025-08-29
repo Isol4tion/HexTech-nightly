@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XinBurrow
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static XinBurrow INSTANCE;
     private final Timer timer = new Timer();
     private final Timer webTimer = new Timer();
@@ -152,14 +152,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.gotoPos(offPos);
             } else {
                 for (Direction direction : Direction.values()) {
-                    if (direction == Direction.UP || direction == Direction.DOWN || !this.checkSelf(offPos = playerPos.offset(direction)) || BlockUtil.canReplace(offPos) || this.headFill.getValue() && BlockUtil.canReplace(offPos.up())) continue;
+                    if (direction == Direction.UP || direction == Direction.DOWN || !this.checkSelf(offPos = playerPos.offset(direction)) || BlockUtil.canReplace(offPos) || this.headFill.getValue() && BlockUtil.canReplace(offPos.up()))
+                        continue;
                     this.gotoPos(offPos);
                     moved = true;
                     break;
                 }
                 if (!moved) {
                     for (Direction direction : Direction.values()) {
-                        if (direction == Direction.UP || direction == Direction.DOWN || !this.checkSelf(offPos = playerPos.offset(direction))) continue;
+                        if (direction == Direction.UP || direction == Direction.DOWN || !this.checkSelf(offPos = playerPos.offset(direction)))
+                            continue;
                         this.gotoPos(offPos);
                         moved = true;
                         break;
@@ -169,7 +171,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                             return;
                         }
                         for (Direction direction : Direction.values()) {
-                            if (direction == Direction.UP || direction == Direction.DOWN || !this.canMove(offPos = playerPos.offset(direction))) continue;
+                            if (direction == Direction.UP || direction == Direction.DOWN || !this.canMove(offPos = playerPos.offset(direction)))
+                                continue;
                             this.gotoPos(offPos);
                             moved = true;
                             break;
@@ -230,12 +233,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double distance = 0.0;
                 BlockPos bestPos = null;
                 for (BlockPos blockPos : list) {
-                    if (!this.canMove(blockPos) || (double)MathHelper.sqrt((float)XinBurrow.mc.player.squaredDistanceTo(blockPos.toCenterPos().add(0.0, -0.5, 0.0))) < this.smartDistance.getValue() || bestPos != null && !(XinBurrow.mc.player.squaredDistanceTo(blockPos.toCenterPos()) < distance)) continue;
+                    if (!this.canMove(blockPos) || (double) MathHelper.sqrt((float) XinBurrow.mc.player.squaredDistanceTo(blockPos.toCenterPos().add(0.0, -0.5, 0.0))) < this.smartDistance.getValue() || bestPos != null && !(XinBurrow.mc.player.squaredDistanceTo(blockPos.toCenterPos()) < distance))
+                        continue;
                     bestPos = blockPos;
                     distance = XinBurrow.mc.player.squaredDistanceTo(blockPos.toCenterPos());
                 }
                 if (bestPos == null) break;
-                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround((double)bestPos.getX() + 0.5, bestPos.getY(), (double)bestPos.getZ() + 0.5, false));
+                mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround((double) bestPos.getX() + 0.5, bestPos.getY(), (double) bestPos.getZ() + 0.5, false));
                 break;
             }
             case 1: {
@@ -319,9 +323,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private void gotoPos(BlockPos offPos) {
         if (this.rotate.getValue() == _uPHLOgEUPRaLZqLkrbQU.None) {
-            mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround((double)offPos.getX() + 0.5, XinBurrow.mc.player.getY() + 0.1, (double)offPos.getZ() + 0.5, false));
+            mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround((double) offPos.getX() + 0.5, XinBurrow.mc.player.getY() + 0.1, (double) offPos.getZ() + 0.5, false));
         } else {
-            mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.Full((double)offPos.getX() + 0.5, XinBurrow.mc.player.getY() + 0.1, (double)offPos.getZ() + 0.5, HexTech.ROTATE.rotateYaw, 90.0f, false));
+            mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.Full((double) offPos.getX() + 0.5, XinBurrow.mc.player.getY() + 0.1, (double) offPos.getZ() + 0.5, HexTech.ROTATE.rotateYaw, 90.0f, false));
         }
     }
 
@@ -347,7 +351,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private boolean hasEntity(BlockPos pos) {
         for (Entity entity : BlockUtil.getEntities(new Box(pos))) {
-            if (entity == XinBurrow.mc.player || !entity.isAlive() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || entity instanceof EndCrystalEntity && this.breakCrystal.getValue()) continue;
+            if (entity == XinBurrow.mc.player || !entity.isAlive() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || entity instanceof EndCrystalEntity && this.breakCrystal.getValue())
+                continue;
             return true;
         }
         return false;

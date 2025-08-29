@@ -22,8 +22,8 @@ import java.util.*;
 import java.util.List;
 
 public class PredictionSetting
-extends Module_eSdgMXWuzcxgQVaJFmKZ
-implements Wrapper {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ
+        implements Wrapper {
     public static PredictionSetting INSTANCE;
     public final EnumSetting<Page> page = this.add(new EnumSetting<Page>("Page", Page.Prediction));
     public final EnumSetting<Mode> mode = this.add(new EnumSetting<Mode>("Mode", Mode.HexTech, v -> this.page.getValue() == Page.Prediction));
@@ -65,7 +65,8 @@ implements Wrapper {
         }
         if (this.drawnTarget.getValue()) {
             for (PlayerEntity p : PredictionSetting.mc.world.getPlayers()) {
-                if (p == PredictionSetting.mc.player || p.squaredDistanceTo(PredictionSetting.mc.player) > 4096.0) continue;
+                if (p == PredictionSetting.mc.player || p.squaredDistanceTo(PredictionSetting.mc.player) > 4096.0)
+                    continue;
                 int ticks = Math.max(this.placeExtrap.getValueInt(), this.breakExtrap.getValueInt());
                 this.pathCache.put(p, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.simulate(p, ticks));
             }
@@ -114,9 +115,9 @@ implements Wrapper {
         for (int i = 1; i < path.size(); ++i) {
             Vec3d cur = path.get(i);
             for (int j = 1; j <= this.subSteps.getValueInt(); ++j) {
-                double t = (double)j / (double)this.subSteps.getValueInt();
+                double t = (double) j / (double) this.subSteps.getValueInt();
                 Vec3d interp = new Vec3d(prev.x + (cur.x - prev.x) * t, prev.y + (cur.y - prev.y) * t, prev.z + (cur.z - prev.z) * t);
-                Vec3d before = new Vec3d(prev.x + (cur.x - prev.x) * (t - 1.0 / (double)this.subSteps.getValueInt()), prev.y + (cur.y - prev.y) * (t - 1.0 / (double)this.subSteps.getValueInt()), prev.z + (cur.z - prev.z) * (t - 1.0 / (double)this.subSteps.getValueInt()));
+                Vec3d before = new Vec3d(prev.x + (cur.x - prev.x) * (t - 1.0 / (double) this.subSteps.getValueInt()), prev.y + (cur.y - prev.y) * (t - 1.0 / (double) this.subSteps.getValueInt()), prev.z + (cur.z - prev.z) * (t - 1.0 / (double) this.subSteps.getValueInt()));
                 Render3DUtil.drawLine(before.x, before.y, before.z, interp.x, interp.y, interp.z, this.color.getValue(), this.lineWidth.getValueFloat());
             }
             prev = cur;
@@ -163,7 +164,7 @@ implements Wrapper {
                 };
                 if (PredictionSetting.INSTANCE.mode.getValue() == Mode.Aurora) {
                     int ticks = PredictionSetting.INSTANCE.breakExtrap.getValueInt();
-                    Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(player, ticks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());
+                    Box future = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.extrapolate(player, ticks, (int) PredictionSetting.INSTANCE.extrapTicks.getValue());
                     Vec3d center = new Vec3d((future.minX + future.maxX) / 2.0, future.minY, (future.minZ + future.maxZ) / 2.0);
                     this.predict.setPosition(center);
                     this.predict.setHealth(player.getHealth());

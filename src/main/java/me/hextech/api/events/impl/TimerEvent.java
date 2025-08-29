@@ -3,7 +3,7 @@ package me.hextech.api.events.impl;
 import me.hextech.api.events.Event_auduwKaxKOWXRtyJkCPb;
 
 public class TimerEvent
-extends Event_auduwKaxKOWXRtyJkCPb {
+        extends Event_auduwKaxKOWXRtyJkCPb {
     private float timer = 1.0f;
     private boolean modified;
 

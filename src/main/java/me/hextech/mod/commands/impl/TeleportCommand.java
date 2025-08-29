@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class TeleportCommand
-extends Command {
+        extends Command {
     public TeleportCommand() {
         super("tp", "Teleports the player certain blocks away (Vanilla only)", "[x] [y] [z]");
     }

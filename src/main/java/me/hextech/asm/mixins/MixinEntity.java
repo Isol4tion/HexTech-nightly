@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-@Mixin(value={Entity.class})
+@Mixin(value = {Entity.class})
 public abstract class MixinEntity {
     @Unique
     private CameraState camera;
@@ -37,24 +37,24 @@ public abstract class MixinEntity {
             return Vec3d.ZERO;
         }
         Vec3d vec3d = (d > 1.0 ? movementInput.normalize() : movementInput).multiply(speed);
-        float f = MathHelper.sin(yaw * ((float)Math.PI / 180));
-        float g = MathHelper.cos(yaw * ((float)Math.PI / 180));
-        return new Vec3d(vec3d.x * (double)g - vec3d.z * (double)f, vec3d.y, vec3d.z * (double)g + vec3d.x * (double)f);
+        float f = MathHelper.sin(yaw * ((float) Math.PI / 180));
+        float g = MathHelper.cos(yaw * ((float) Math.PI / 180));
+        return new Vec3d(vec3d.x * (double) g - vec3d.z * (double) f, vec3d.y, vec3d.z * (double) g + vec3d.x * (double) f);
     }
 
-    @Inject(at={@At(value="HEAD")}, method={"isInvisibleTo(Lnet/minecraft/entity/player/PlayerEntity;)Z"}, cancellable=true)
+    @Inject(at = {@At(value = "HEAD")}, method = {"isInvisibleTo(Lnet/minecraft/entity/player/PlayerEntity;)Z"}, cancellable = true)
     private void onIsInvisibleCheck(PlayerEntity message, CallbackInfoReturnable<Boolean> cir) {
         if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.invisible.getValue()) {
             cir.setReturnValue(false);
         }
     }
 
-    @Inject(method={"updateVelocity"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"updateVelocity"}, at = {@At(value = "HEAD")}, cancellable = true)
     public void updateVelocityHook(float speed, Vec3d movementInput, CallbackInfo ci) {
         if (Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck()) {
             return;
         }
-        if ((Object)this == Wrapper.mc.player) {
+        if ((Object) this == Wrapper.mc.player) {
             ci.cancel();
             inVelocityEvent event = new inVelocityEvent(movementInput, speed, Wrapper.mc.player.getYaw(), MixinEntity.movementInputToVelocity(movementInput, speed, Wrapper.mc.player.getYaw()));
             HexTech.EVENT_BUS.post(event);
@@ -62,36 +62,36 @@ public abstract class MixinEntity {
         }
     }
 
-    @Inject(method={"isGlowing"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"isGlowing"}, at = {@At(value = "HEAD")}, cancellable = true)
     void isGlowingHook(CallbackInfoReturnable<Boolean> cir) {
         if (Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.isOn()) {
-            cir.setReturnValue(Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.shouldRender((Entity)(Object) this));
+            cir.setReturnValue(Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.shouldRender((Entity) (Object) this));
         }
     }
 
-    @ModifyArgs(method={"pushAwayFrom"}, at=@At(value="INVOKE", target="Lnet/minecraft/entity/Entity;addVelocity(DDD)V"))
+    @ModifyArgs(method = {"pushAwayFrom"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;addVelocity(DDD)V"))
     private void pushAwayFromHook(Args args) {
-        if ((Object)this == MinecraftClient.getInstance().player) {
+        if ((Object) this == MinecraftClient.getInstance().player) {
             double value = 1.0;
             if (Velocity.INSTANCE.isOn() && Velocity.INSTANCE.entityPush.getValue()) {
                 value = 0.0;
             }
-            args.set(0, (Object)((Double)args.get(0) * value));
-            args.set(1, (Object)((Double)args.get(1) * value));
-            args.set(2, (Object)((Double)args.get(2) * value));
+            args.set(0, (Object) ((Double) args.get(0) * value));
+            args.set(1, (Object) ((Double) args.get(1) * value));
+            args.set(2, (Object) ((Double) args.get(2) * value));
         }
     }
 
-    @Inject(method={"isOnFire"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"isOnFire"}, at = {@At(value = "HEAD")}, cancellable = true)
     void isOnFireHook(CallbackInfoReturnable<Boolean> cir) {
         if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.fireEntity.getValue()) {
             cir.setReturnValue(false);
         }
     }
 
-    @Inject(method={"changeLookDirection"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"changeLookDirection"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onChangeLookDirection(double cursorDeltaX, double cursorDeltaY, CallbackInfo callback) {
-        if ((Entity)(Object)this instanceof ClientPlayerEntity) {
+        if ((Entity) (Object) this instanceof ClientPlayerEntity) {
             this.camera = FreeLook.INSTANCE.getCameraState();
             if (this.camera.doLock) {
                 this.applyTransformedAngle(cursorDeltaX, cursorDeltaY);
@@ -105,8 +105,8 @@ public abstract class MixinEntity {
     @Unique
     private void applyTransformedAngle(double cursorDeltaX, double cursorDeltaY) {
         float cursorDeltaMultiplier = 0.15f;
-        float transformedCursorDeltaX = (float)cursorDeltaX * cursorDeltaMultiplier;
-        float transformedCursorDeltaY = (float)cursorDeltaY * cursorDeltaMultiplier;
+        float transformedCursorDeltaX = (float) cursorDeltaX * cursorDeltaMultiplier;
+        float transformedCursorDeltaY = (float) cursorDeltaY * cursorDeltaMultiplier;
         float yaw = this.camera.lookYaw;
         float pitch = this.camera.lookPitch;
         pitch += transformedCursorDeltaY;

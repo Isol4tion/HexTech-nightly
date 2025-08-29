@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.SlotActionType;
 
 public class CleanInventory
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final BooleanSetting stack = this.add(new BooleanSetting("Stack", true));
     private final BooleanSetting sort = this.add(new BooleanSetting("Sort", true));
     private final SliderSetting delay = this.add(new SliderSetting("Delay", 0.1, 0.0, 5.0, 0.01).setSuffix("s"));
@@ -38,7 +38,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (stack.isEmpty() || !stack.isStackable() || stack.getCount() == stack.getMaxCount()) continue;
                 for (int slot2 = 35; slot2 >= 9; --slot2) {
                     ItemStack stack2;
-                    if (slot1 == slot2 || (stack2 = CleanInventory.mc.player.getInventory().getStack(slot2)).getCount() == stack2.getMaxCount() || !this.canMerge(stack, stack2)) continue;
+                    if (slot1 == slot2 || (stack2 = CleanInventory.mc.player.getInventory().getStack(slot2)).getCount() == stack2.getMaxCount() || !this.canMerge(stack, stack2))
+                        continue;
                     CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot1, 0, SlotActionType.PICKUP, CleanInventory.mc.player);
                     CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot2, 0, SlotActionType.PICKUP, CleanInventory.mc.player);
                     CleanInventory.mc.interactionManager.clickSlot(CleanInventory.mc.player.playerScreenHandler.syncId, slot1, 0, SlotActionType.PICKUP, CleanInventory.mc.player);

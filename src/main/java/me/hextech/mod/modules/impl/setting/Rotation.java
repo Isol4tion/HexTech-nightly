@@ -12,7 +12,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class Rotation
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Rotation INSTANCE;
     public static float fixRotation;
     public final BooleanSetting fixrotate = this.add(new BooleanSetting("RotateFix", true));
@@ -30,9 +30,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return Vec3d.ZERO;
         }
         Vec3d vec3d = (d > 1.0 ? movementInput.normalize() : movementInput).multiply(speed);
-        float f = MathHelper.sin(yaw * ((float)Math.PI / 180));
-        float g = MathHelper.cos(yaw * ((float)Math.PI / 180));
-        return new Vec3d(vec3d.x * (double)g - vec3d.z * (double)f, vec3d.y, vec3d.z * (double)g + vec3d.x * (double)f);
+        float f = MathHelper.sin(yaw * ((float) Math.PI / 180));
+        float g = MathHelper.cos(yaw * ((float) Math.PI / 180));
+        return new Vec3d(vec3d.x * (double) g - vec3d.z * (double) f, vec3d.y, vec3d.z * (double) g + vec3d.x * (double) f);
     }
 
     @EventHandler
@@ -81,7 +81,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         float mF = Rotation.mc.player.input.movementForward;
         float mS = Rotation.mc.player.input.movementSideways;
-        float delta = (Rotation.mc.player.getYaw() - fixRotation) * ((float)Math.PI / 180);
+        float delta = (Rotation.mc.player.getYaw() - fixRotation) * ((float) Math.PI / 180);
         float cos = MathHelper.cos(delta);
         float sin = MathHelper.sin(delta);
         Rotation.mc.player.input.movementSideways = Math.round(mS * cos - mF * sin);

@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Notification_lQoZqJolJVHgxQLLpwsm
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static final ArrayList<NotificationInfo> notifyList = new ArrayList();
     public static Notification_lQoZqJolJVHgxQLLpwsm INSTANCE;
     public final EnumSetting<Mode> type = this.add(new EnumSetting<Mode>("Type", Mode.Chat));
@@ -31,7 +31,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @Override
     public void onRender2D(DrawContext drawContext, float tickDelta) {
         boolean bl = true;
-        int n = (int)(379.0 - this.notifyY.getValue());
+        int n = (int) (379.0 - this.notifyY.getValue());
         int n2 = this.notifyX.getValueInt() + 500;
         for (NotificationInfo notifys : notifyList) {
             if (notifys == null || notifys.first == null || notifys.firstFade == null || notifys.delayed < 1) continue;
@@ -40,17 +40,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 notifys.end = true;
                 notifys.endFade.reset();
             }
-            n = (int)((double)n - 18.0 * notifys.yFade.easeOutQuad());
+            n = (int) ((double) n - 18.0 * notifys.yFade.easeOutQuad());
             String string = notifys.first;
-            double d = notifys.delayed < 5 ? (double)n2 - (double)(Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string) + 10) * (1.0 - notifys.endFade.easeOutQuad()) : (double)n2 - (double)(Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string) + 10) * notifys.firstFade.easeOutQuad();
-            Render2DUtil.drawRound(drawContext.getMatrices(), (int)d, n, 5.0f, 50.0f, 0.0f, this.typeColor.getValue());
-            Render2DUtil.drawRound(drawContext.getMatrices(), (int)d + 5, n, 5 + Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string), 50.0f, 0.0f, this.fillcolor.getValue());
-            drawContext.drawText(Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer, string, 10 + (int)d, 4 + n, new Color(255, 255, 255, 255).getRGB(), true);
+            double d = notifys.delayed < 5 ? (double) n2 - (double) (Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string) + 10) * (1.0 - notifys.endFade.easeOutQuad()) : (double) n2 - (double) (Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string) + 10) * notifys.firstFade.easeOutQuad();
+            Render2DUtil.drawRound(drawContext.getMatrices(), (int) d, n, 5.0f, 50.0f, 0.0f, this.typeColor.getValue());
+            Render2DUtil.drawRound(drawContext.getMatrices(), (int) d + 5, n, 5 + Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string), 50.0f, 0.0f, this.fillcolor.getValue());
+            drawContext.drawText(Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer, string, 10 + (int) d, 4 + n, new Color(255, 255, 255, 255).getRGB(), true);
             if (notifys.delayed < 5) {
-                n = (int)((double)n + 18.0 * notifys.yFade.easeOutQuad() - 18.0 * (1.0 - notifys.endFade.easeOutQuad()));
+                n = (int) ((double) n + 18.0 * notifys.yFade.easeOutQuad() - 18.0 * (1.0 - notifys.endFade.easeOutQuad()));
                 continue;
             }
-            Render2DUtil.drawRect(drawContext.getMatrices(), (float)((int)d) + 2.0f, (float)(n + 14), (float)((10 + Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string)) * (notifys.delayed - 4) - 2) / 62.0f, 1.0f, this.linecolor.getValue());
+            Render2DUtil.drawRect(drawContext.getMatrices(), (float) ((int) d) + 2.0f, (float) (n + 14), (float) ((10 + Notification_lQoZqJolJVHgxQLLpwsm.mc.textRenderer.getWidth(string)) * (notifys.delayed - 4) - 2) / 62.0f, 1.0f, this.linecolor.getValue());
         }
         if (bl) {
             notifyList.clear();

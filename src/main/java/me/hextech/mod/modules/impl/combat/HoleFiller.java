@@ -30,7 +30,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
 
 public class HoleFiller
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static HoleFiller INSTANCE;
     public final EnumSetting<_sZEAolNLTvldDiHjSnlT> page = this.add(new EnumSetting<_sZEAolNLTvldDiHjSnlT>("Page", _sZEAolNLTvldDiHjSnlT.General));
     public final SliderSetting delay = this.add(new SliderSetting("Delay", 50, 0, 500, v -> this.page.getValue() == _sZEAolNLTvldDiHjSnlT.General));
@@ -77,7 +77,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return "";
     }
 
-    @EventHandler(priority=98)
+    @EventHandler(priority = 98)
     public void onRotate(RotateEvent event) {
         if (this.newRotate.getValue() && this.directionVec != null) {
             float[] newAngle = this.injectStep(EntityUtil.getLegitRotations(this.directionVec), this.yawStep.getValueFloat());
@@ -124,7 +124,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!list.isEmpty()) {
             for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
                 for (BlockPos pos : BlockUtil.getSphere(this.range.getValueFloat(), pap.player.getPos())) {
-                    if (!BlockUtil.isHole(pos, true, true, this.any.getValue()) && (!this.doubleHole.getValue() || !CombatUtil.isDoubleHole(pos)) || HoleFiller.mc.player.squaredDistanceTo(pos.toCenterPos()) < this.saferange.getValue() || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals(SpeedMine.breakPos)) || this.progress >= this.blocksPer.getValueInt() || !BlockUtil.canPlace(pos, this.placeRange.getValue()) || BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) == null || !HoleFiller.mc.world.isAir(pos)) continue;
+                    if (!BlockUtil.isHole(pos, true, true, this.any.getValue()) && (!this.doubleHole.getValue() || !CombatUtil.isDoubleHole(pos)) || HoleFiller.mc.player.squaredDistanceTo(pos.toCenterPos()) < this.saferange.getValue() || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals(SpeedMine.breakPos)) || this.progress >= this.blocksPer.getValueInt() || !BlockUtil.canPlace(pos, this.placeRange.getValue()) || BlockUtil.getPlaceSide(pos, this.placeRange.getValue()) == null || !HoleFiller.mc.world.isAir(pos))
+                        continue;
                     int oldSlot = HoleFiller.mc.player.getInventory().selectedSlot;
                     this.doSwap(block);
                     this.placeBlock(pos, this.rotate.getValue());
@@ -152,7 +153,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if ((side = BlockUtil.getPlaceSide(pos)) == null) {
             return false;
         }
-        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         BlockUtil.placedPos.add(pos);
         boolean sprint = false;
@@ -181,7 +182,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean clickBlock(BlockPos pos, Direction side, boolean rotate) {
-        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
         if (rotate && !this.faceVector(directionVec)) {
             return false;
         }

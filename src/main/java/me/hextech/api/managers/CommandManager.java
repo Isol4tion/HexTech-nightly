@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 
 public class CommandManager
-implements Wrapper {
+        implements Wrapper {
     public static final String syncCode = "§)";
     public final AimCommand aim = new AimCommand();
     public final BindCommand bind = new BindCommand();
@@ -39,11 +39,10 @@ implements Wrapper {
         try {
             for (Field field : CommandManager.class.getDeclaredFields()) {
                 if (!Command.class.isAssignableFrom(field.getType())) continue;
-                Command cmd = (Command)field.get(this);
+                Command cmd = (Command) field.get(this);
                 this.commands.put(cmd.getName(), cmd);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error initializing \u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c commands.");
             System.out.println(e.getStackTrace().toString());
         }
@@ -80,14 +79,14 @@ implements Wrapper {
             startCode = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.start.getValue();
             endCode = ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.end.getValue();
         }
-        ((IChatHud)CommandManager.mc.inGameHud.getChatHud()).nullpoint_nextgen_master$add(Text.of("\u00a7(\u00a7r" + startCode + ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.hackName.getValue() + "\u00a7r" + endCode + "\u00a7f " + message), id);
+        ((IChatHud) CommandManager.mc.inGameHud.getChatHud()).nullpoint_nextgen_master$add(Text.of("\u00a7(\u00a7r" + startCode + ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.hackName.getValue() + "\u00a7r" + endCode + "\u00a7f " + message), id);
     }
 
     public static void sendChatMessageWidthIdNoSync(String message, int id) {
         if (Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck()) {
             return;
         }
-        ((IChatHud)CommandManager.mc.inGameHud.getChatHud()).nullpoint_nextgen_master$add(Text.of("\u00a7f" + message), id);
+        ((IChatHud) CommandManager.mc.inGameHud.getChatHud()).nullpoint_nextgen_master$add(Text.of("\u00a7f" + message), id);
     }
 
     public Command getCommandBySyntax(String string) {

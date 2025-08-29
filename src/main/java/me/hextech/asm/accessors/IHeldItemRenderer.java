@@ -5,23 +5,23 @@ import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(value={HeldItemRenderer.class})
+@Mixin(value = {HeldItemRenderer.class})
 public interface IHeldItemRenderer {
-    @Accessor(value="equipProgressMainHand")
+    @Accessor(value = "equipProgressMainHand")
     float getEquippedProgressMainHand();
 
-    @Accessor(value="equipProgressMainHand")
+    @Accessor(value = "equipProgressMainHand")
     void setEquippedProgressMainHand(float var1);
 
-    @Accessor(value="equipProgressOffHand")
+    @Accessor(value = "equipProgressOffHand")
     float getEquippedProgressOffHand();
 
-    @Accessor(value="equipProgressOffHand")
+    @Accessor(value = "equipProgressOffHand")
     void setEquippedProgressOffHand(float var1);
 
-    @Accessor(value="mainHand")
+    @Accessor(value = "mainHand")
     void setItemStackMainHand(ItemStack var1);
 
-    @Accessor(value="offHand")
+    @Accessor(value = "offHand")
     void setItemStackOffHand(ItemStack var1);
 }

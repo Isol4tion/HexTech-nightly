@@ -19,7 +19,7 @@ import java.text.DecimalFormat;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class BreakESP
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static final ConcurrentHashMap<String, MineManager_aMxFbgVZCMGgbqNPBFpw.MineInfo> BREAK = new ConcurrentHashMap<>();
     public static BreakESP INSTANCE;
     public final BooleanSetting noSelf = this.add(new BooleanSetting("noSelf", true));
@@ -66,7 +66,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             double breakTimeMs = this.breakTime.getValue() * 1000.0;
             if (this.breakName.getValue()) {
-                Render3DUtil.drawText3DBreakMine(Text.of(this.df.format(Math.min(1.0, (double)breakData.timer.getPassedTimeMs() / breakTimeMs) * 100.0)), breakData.pos.toCenterPos().add(0.0, -this.mineY.getValueFloat(), 0.0), 0.0, 0.0, this.minescale.getValueFloat(), ColorUtil.fadeColor(new Color(235, 235, 235), new Color(235, 235, 235), (double)breakData.timer.getPassedTimeMs() / breakTimeMs));
+                Render3DUtil.drawText3DBreakMine(Text.of(this.df.format(Math.min(1.0, (double) breakData.timer.getPassedTimeMs() / breakTimeMs) * 100.0)), breakData.pos.toCenterPos().add(0.0, -this.mineY.getValueFloat(), 0.0), 0.0, 0.0, this.minescale.getValueFloat(), ColorUtil.fadeColor(new Color(235, 235, 235), new Color(235, 235, 235), (double) breakData.timer.getPassedTimeMs() / breakTimeMs));
             }
         });
     }

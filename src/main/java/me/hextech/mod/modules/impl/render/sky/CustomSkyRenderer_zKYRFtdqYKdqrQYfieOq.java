@@ -17,7 +17,7 @@ import org.joml.Vector3f;
 import java.awt.*;
 
 public class CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq
-implements DimensionRenderingRegistry.SkyRenderer {
+        implements DimensionRenderingRegistry.SkyRenderer {
     private static final Identifier NEBULA_1 = id("textures/sky/nebula_2.png");
     private static final Identifier NEBULA_2 = id("textures/sky/nebula_3.png");
     private static final Identifier HORIZON = id("textures/sky/nebula_1.png");
@@ -68,7 +68,7 @@ implements DimensionRenderingRegistry.SkyRenderer {
         this.initialise();
         Matrix4f projectionMatrix = context.projectionMatrix();
         MatrixStack matrices = context.matrixStack();
-        float time = ((float)context.world().getTimeOfDay() + context.tickDelta()) % 360000.0f * 1.7453292E-5f;
+        float time = ((float) context.world().getTimeOfDay() + context.tickDelta()) % 360000.0f * 1.7453292E-5f;
         float time2 = time * 2.0f;
         float time3 = time * 3.0f;
         BackgroundRenderer.applyFogColor();
@@ -84,31 +84,31 @@ implements DimensionRenderingRegistry.SkyRenderer {
             matrices.multiply(new Quaternionf().rotationXYZ(0.0f, time, 0.0f));
             RenderSystem.setShaderTexture(0, HORIZON);
             Color color = Skybox.INSTANCE.color.getValue();
-            this.renderBuffer(matrices, projectionMatrix, this.horizon, VertexFormats.POSITION_TEXTURE, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, 0.7f * blindA);
+            this.renderBuffer(matrices, projectionMatrix, this.horizon, VertexFormats.POSITION_TEXTURE, (float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f, (float) color.getBlue() / 255.0f, 0.7f * blindA);
             matrices.pop();
             matrices.push();
             matrices.multiply(new Quaternionf().rotationXYZ(0.0f, -time, 0.0f));
             RenderSystem.setShaderTexture(0, NEBULA_1);
             color = Skybox.INSTANCE.color2.getValue();
-            this.renderBuffer(matrices, projectionMatrix, this.nebula1, VertexFormats.POSITION_TEXTURE, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, blind02);
+            this.renderBuffer(matrices, projectionMatrix, this.nebula1, VertexFormats.POSITION_TEXTURE, (float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f, (float) color.getBlue() / 255.0f, blind02);
             matrices.pop();
             matrices.push();
             matrices.multiply(new Quaternionf().rotationXYZ(0.0f, time2, 0.0f));
             RenderSystem.setShaderTexture(0, NEBULA_2);
             color = Skybox.INSTANCE.color3.getValue();
-            this.renderBuffer(matrices, projectionMatrix, this.nebula2, VertexFormats.POSITION_TEXTURE, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, blind02);
+            this.renderBuffer(matrices, projectionMatrix, this.nebula2, VertexFormats.POSITION_TEXTURE, (float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f, (float) color.getBlue() / 255.0f, blind02);
             matrices.pop();
             if (Skybox.INSTANCE.stars.getValue()) {
                 RenderSystem.setShaderTexture(0, STARS);
                 matrices.push();
                 matrices.multiply(new Quaternionf().setAngleAxis(time, this.axis3.x, this.axis3.y, this.axis3.z));
                 color = Skybox.INSTANCE.color4.getValue();
-                this.renderBuffer(matrices, projectionMatrix, this.stars3, VertexFormats.POSITION_TEXTURE, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, blind06);
+                this.renderBuffer(matrices, projectionMatrix, this.stars3, VertexFormats.POSITION_TEXTURE, (float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f, (float) color.getBlue() / 255.0f, blind06);
                 matrices.pop();
                 matrices.push();
                 matrices.multiply(new Quaternionf().setAngleAxis(time2, this.axis4.x, this.axis4.y, this.axis4.z));
                 color = Skybox.INSTANCE.color5.getValue();
-                this.renderBuffer(matrices, projectionMatrix, this.stars4, VertexFormats.POSITION_TEXTURE, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, blind06);
+                this.renderBuffer(matrices, projectionMatrix, this.stars4, VertexFormats.POSITION_TEXTURE, (float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f, (float) color.getBlue() / 255.0f, blind06);
                 matrices.pop();
             }
         }
@@ -206,8 +206,8 @@ implements DimensionRenderingRegistry.SkyRenderer {
             double sin3 = Math.sin(angle);
             double cos3 = Math.cos(angle);
             for (int index = 0; index < 4; ++index) {
-                double x = (double)((index & 2) - 1) * size;
-                double y = (double)((index + 1 & 2) - 1) * size;
+                double x = (double) ((index & 2) - 1) * size;
+                double y = (double) ((index + 1 & 2) - 1) * size;
                 double aa = x * cos3 - y * sin3;
                 double ab = y * cos3 + x * sin3;
                 double dy = aa * sin2 + 0.0 * cos2;
@@ -243,10 +243,10 @@ implements DimensionRenderingRegistry.SkyRenderer {
             angle = random.nextDouble() * Math.PI * 2.0;
             double sin3 = Math.sin(angle);
             double cos3 = Math.cos(angle);
-            float minV = (float)random.nextInt(4) / 4.0f;
+            float minV = (float) random.nextInt(4) / 4.0f;
             for (int index = 0; index < 4; ++index) {
-                double x = (double)((index & 2) - 1) * size;
-                double y = (double)((index + 1 & 2) - 1) * size;
+                double x = (double) ((index & 2) - 1) * size;
+                double y = (double) ((index + 1 & 2) - 1) * size;
                 double aa = x * cos3 - y * sin3;
                 double ab = y * cos3 + x * sin3;
                 double dy = aa * sin2 + 0.0 * cos2;
@@ -254,7 +254,7 @@ implements DimensionRenderingRegistry.SkyRenderer {
                 double dx = ae * sin1 - ab * cos1;
                 double dz = ab * sin1 + ae * cos1;
                 float texU = index >> 1 & 1;
-                float texV = (float)(index + 1 >> 1 & 1) / 4.0f + minV;
+                float texV = (float) (index + 1 >> 1 & 1) / 4.0f + minV;
                 buffer.vertex(px + dx, py + dy, pz + dz).texture(texU, texV).next();
             }
         }
@@ -287,8 +287,8 @@ implements DimensionRenderingRegistry.SkyRenderer {
             double sin3 = Math.sin(angle);
             double cos3 = Math.cos(angle);
             for (int index = 0; index < 4; ++index) {
-                double x = (double)((index & 2) - 1) * size;
-                double y = (double)((index + 1 & 2) - 1) * size;
+                double x = (double) ((index & 2) - 1) * size;
+                double y = (double) ((index + 1 & 2) - 1) * size;
                 double aa = x * cos3 - y * sin3;
                 double ab = y * cos3 + x * sin3;
                 double dy = aa * sin2 + 0.0 * cos2;
@@ -306,14 +306,14 @@ implements DimensionRenderingRegistry.SkyRenderer {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
         for (int i = 0; i < segments; ++i) {
-            double a1 = (double)i * Math.PI * 2.0 / (double)segments;
-            double a2 = (double)(i + 1) * Math.PI * 2.0 / (double)segments;
+            double a1 = (double) i * Math.PI * 2.0 / (double) segments;
+            double a2 = (double) (i + 1) * Math.PI * 2.0 / (double) segments;
             double px1 = Math.sin(a1) * radius;
             double pz1 = Math.cos(a1) * radius;
             double px2 = Math.sin(a2) * radius;
             double pz2 = Math.cos(a2) * radius;
-            float u0 = (float)i / (float)segments;
-            float u1 = (float)(i + 1) / (float)segments;
+            float u0 = (float) i / (float) segments;
+            float u1 = (float) (i + 1) / (float) segments;
             buffer.vertex(px1, -height, pz1).texture(u0, 0.0f).next();
             buffer.vertex(px1, height, pz1).texture(u0, 1.0f).next();
             buffer.vertex(px2, height, pz2).texture(u1, 1.0f).next();

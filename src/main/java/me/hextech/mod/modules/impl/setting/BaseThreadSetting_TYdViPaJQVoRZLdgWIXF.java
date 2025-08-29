@@ -41,7 +41,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
 
 public class BaseThreadSetting_TYdViPaJQVoRZLdgWIXF
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static final Timer placeTimer = new Timer();
     public static final Timer placeBaseTimer = new Timer();
     public static BaseThreadSetting_TYdViPaJQVoRZLdgWIXF INSTANCE;
@@ -212,7 +212,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Packet<?> p = event.getPacket();
         if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.raytracebypass.getValue() && p instanceof PlayerMoveC2SPacket packet) {
             if (RotateManager.lastPitch != -91.0f) {
-                ((IPlayerMoveC2SPacket)packet).setPitch(-91.0f);
+                ((IPlayerMoveC2SPacket) packet).setPitch(-91.0f);
             }
         }
         if (this.antiopen.getValue()) {
@@ -261,7 +261,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (PredictionSetting.INSTANCE.prediction.getValue()) {
             ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.updateHistory();
         }
-        if (!this.delayTimer.passedMs((long)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.calcdelay.getValue())) {
+        if (!this.delayTimer.passedMs((long) AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.calcdelay.getValue())) {
             return;
         }
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.eatingPause.getValue() && BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.isUsingItem()) {
@@ -283,17 +283,20 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player);
         if (!list.isEmpty()) {
-            for (BlockPos pos : BlockUtil.getSphere((float)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue() + 1.0f)) {
+            for (BlockPos pos : BlockUtil.getSphere((float) AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue() + 1.0f)) {
                 CombatUtil.modifyPos = null;
-                if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.getEyePos().distanceTo(pos.toCenterPos().add(0.0, -0.5, 0.0)) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue() || !ListenerHelperUtil.canPlaceCrystal(pos, true, false)) continue;
+                if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.getEyePos().distanceTo(pos.toCenterPos().add(0.0, -0.5, 0.0)) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.range.getValue() || !ListenerHelperUtil.canPlaceCrystal(pos, true, false))
+                    continue;
                 CombatUtil.modifyPos = pos.down();
                 CombatUtil.modifyBlockState = Blocks.OBSIDIAN.getDefaultState();
                 if (ListenerHelperUtil.behindWall(pos) || !ListenerHelperUtil.canTouch(pos.down())) continue;
                 for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
                     float selfDamage;
-                    if (pos.down().getY() > pap.player.getBlockY() || AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lite.getValue() && ListenerHelperUtil.liteCheck(pos.toCenterPos().add(0.0, -0.5, 0.0), pap.predict.getPos())) continue;
+                    if (pos.down().getY() > pap.player.getBlockY() || AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lite.getValue() && ListenerHelperUtil.liteCheck(pos.toCenterPos().add(0.0, -0.5, 0.0), pap.predict.getPos()))
+                        continue;
                     float damage = ListenerHelperUtil.calculateBase(pos, pap.player, pap.predict);
-                    if (this.tempPos != null && !(damage > this.tempDamage) || (double)(selfDamage = ListenerHelperUtil.calculateBase(pos, self.player, self.predict)) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.maxSelf.getValue() || AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.noSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.getHealth() + BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.getAbsorptionAmount()) - AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.noSuicide.getValue() || damage < EntityUtil.getHealth(pap.player) && ((double)damage < ListenerDamage.getDamage(pap.player) || AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.smart.getValue() && (ListenerDamage.getDamage(pap.player) == AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forceMin.getValue() ? (double)damage < (double)selfDamage - 2.5 : damage < selfDamage))) continue;
+                    if (this.tempPos != null && !(damage > this.tempDamage) || (double) (selfDamage = ListenerHelperUtil.calculateBase(pos, self.player, self.predict)) > AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.maxSelf.getValue() || AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.noSuicide.getValue() > 0.0 && (double) selfDamage > (double) (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.getHealth() + BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.mc.player.getAbsorptionAmount()) - AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.noSuicide.getValue() || damage < EntityUtil.getHealth(pap.player) && ((double) damage < ListenerDamage.getDamage(pap.player) || AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.smart.getValue() && (ListenerDamage.getDamage(pap.player) == AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.forceMin.getValue() ? (double) damage < (double) selfDamage - 2.5 : damage < selfDamage)))
+                        continue;
                     this.displayTarget = pap.player;
                     this.tempPos = pos.down();
                     this.tempDamage = damage;

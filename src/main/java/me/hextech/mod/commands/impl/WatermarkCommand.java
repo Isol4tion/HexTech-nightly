@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class WatermarkCommand
-extends Command {
+        extends Command {
     public WatermarkCommand() {
         super("watermark", "change watermark", "[text]");
     }

@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={EntityRenderer.class})
+@Mixin(value = {EntityRenderer.class})
 public abstract class MixinEntityRenderer<T extends Entity> {
-    @Inject(method={"renderLabelIfPresent"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"renderLabelIfPresent"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onRenderLabel(T entity, Text text, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo info) {
         if (entity instanceof PlayerEntity && NameTags_NZLxiZHrtsQKbsfDngrN.INSTANCE.isOn()) {
             info.cancel();

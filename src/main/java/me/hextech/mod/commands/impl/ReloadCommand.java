@@ -8,7 +8,7 @@ import me.hextech.mod.commands.Command;
 import java.util.List;
 
 public class ReloadCommand
-extends Command {
+        extends Command {
     public ReloadCommand() {
         super("reload", "debug", "");
     }

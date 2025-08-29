@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FriendManager
-implements Wrapper {
+        implements Wrapper {
     public static final ArrayList<String> friendList = new ArrayList();
 
     public FriendManager() {
@@ -69,8 +69,7 @@ implements Wrapper {
             for (String s : list) {
                 this.addFriend(s);
             }
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
@@ -84,8 +83,7 @@ implements Wrapper {
             for (String str : friendList) {
                 printwriter.println(str);
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             System.out.println("[et-OS] Failed to save friends");
         }
         printwriter.close();
@@ -104,8 +102,7 @@ implements Wrapper {
         InputStream stream = Files.newInputStream(path);
         try {
             this.loadFile(new JsonParser().parse(new InputStreamReader(stream)).getAsJsonObject());
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             this.loadFile(new JsonObject());
         }
         stream.close();
@@ -113,11 +110,10 @@ implements Wrapper {
 
     private void loadFile(JsonObject input) {
         for (Map.Entry entry : input.entrySet()) {
-            JsonElement element = (JsonElement)entry.getValue();
+            JsonElement element = (JsonElement) entry.getValue();
             try {
                 this.addFriend(element.getAsString());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -142,8 +138,8 @@ implements Wrapper {
         for (String str : friendList) {
             try {
                 object.add(str.replace(" ", "_"), jp.parse(str.replace(" ", "_")));
+            } catch (Exception exception) {
             }
-            catch (Exception exception) {}
         }
         return object;
     }

@@ -30,9 +30,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.HashMap;
 import java.util.List;
 
-@Mixin(value={ChatHud.class})
+@Mixin(value = {ChatHud.class})
 public abstract class MixinChatHud
-implements IChatHud {
+        implements IChatHud {
     @Unique
     private final HashMap<ChatHudLine.Visible, FadeUtils_DPfHthPqEJdfXfNYhDbG> map = new HashMap();
     @Shadow
@@ -56,30 +56,30 @@ implements IChatHud {
         this.nullpoint_nextId = 0;
     }
 
-    @Inject(method={"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"}, at={@At(value="INVOKE", target="Ljava/util/List;add(ILjava/lang/Object;)V", ordinal=0, shift=At.Shift.AFTER)})
+    @Inject(method = {"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"}, at = {@At(value = "INVOKE", target = "Ljava/util/List;add(ILjava/lang/Object;)V", ordinal = 0, shift = At.Shift.AFTER)})
     private void onAddMessageAfterNewChatHudLineVisible(Text message, MessageSignatureData signature, int ticks, MessageIndicator indicator, boolean refresh, CallbackInfo info) {
-        ((IChatHudLine)(Object)this.visibleMessages.get(0)).nullpoint_nextgen_master$setId(this.nullpoint_nextId);
+        ((IChatHudLine) (Object) this.visibleMessages.get(0)).nullpoint_nextgen_master$setId(this.nullpoint_nextId);
     }
 
-    @Inject(method={"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"}, at={@At(value="INVOKE", target="Ljava/util/List;add(ILjava/lang/Object;)V", ordinal=1, shift=At.Shift.AFTER)})
+    @Inject(method = {"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"}, at = {@At(value = "INVOKE", target = "Ljava/util/List;add(ILjava/lang/Object;)V", ordinal = 1, shift = At.Shift.AFTER)})
     private void onAddMessageAfterNewChatHudLine(Text message, MessageSignatureData signature, int ticks, MessageIndicator indicator, boolean refresh, CallbackInfo info) {
-        ((IChatHudLine)(Object)this.messages.get(0)).nullpoint_nextgen_master$setId(this.nullpoint_nextId);
+        ((IChatHudLine) (Object) this.messages.get(0)).nullpoint_nextgen_master$setId(this.nullpoint_nextId);
     }
 
-    @Inject(at={@At(value="HEAD")}, method={"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"})
+    @Inject(at = {@At(value = "HEAD")}, method = {"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"})
     private void onAddMessage(Text message, @Nullable MessageSignatureData signature, int ticks, @Nullable MessageIndicator indicator, boolean refresh, CallbackInfo info) {
         if (this.nullpoint_nextId != 0) {
-            this.visibleMessages.removeIf(msg -> msg == null || ((IChatHudLine)(Object)msg).nullpoint_nextgen_master$getId() == this.nullpoint_nextId);
-            this.messages.removeIf(msg -> msg == null || ((IChatHudLine)(Object)msg).nullpoint_nextgen_master$getId() == this.nullpoint_nextId);
+            this.visibleMessages.removeIf(msg -> msg == null || ((IChatHudLine) (Object) msg).nullpoint_nextgen_master$getId() == this.nullpoint_nextId);
+            this.messages.removeIf(msg -> msg == null || ((IChatHudLine) (Object) msg).nullpoint_nextgen_master$getId() == this.nullpoint_nextId);
         }
     }
 
-    @Redirect(method={"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"}, at=@At(value="INVOKE", target="Ljava/util/List;size()I", ordinal=2, remap=false))
+    @Redirect(method = {"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"}, at = @At(value = "INVOKE", target = "Ljava/util/List;size()I", ordinal = 2, remap = false))
     public int chatLinesSize(List<ChatHudLine.Visible> list) {
         return ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.isOn() && ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.infiniteChat.getValue() ? -2147483647 : list.size();
     }
 
-    @Redirect(method={"render"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/OrderedText;III)I"))
+    @Redirect(method = {"render"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/OrderedText;III)I"))
     private int drawStringWithShadow(DrawContext drawContext, TextRenderer textRenderer, OrderedText text, int x, int y, int color) {
         if (ChatSetting_qVnAbgCzNciNTevKRovy.chatMessage.containsKey(text) && ChatSetting_qVnAbgCzNciNTevKRovy.chatMessage.get(text).getString().startsWith("\u00a7(")) {
             if (ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.pulse.booleanValue) {
@@ -90,7 +90,7 @@ implements IChatHud {
         return drawContext.drawTextWithShadow(textRenderer, text, x, y, color);
     }
 
-    @ModifyArg(method={"render"}, at=@At(value="INVOKE", target="Ljava/util/List;get(I)Ljava/lang/Object;", ordinal=0, remap=false))
+    @ModifyArg(method = {"render"}, at = @At(value = "INVOKE", target = "Ljava/util/List;get(I)Ljava/lang/Object;", ordinal = 0, remap = false))
     private int get(int i) {
         this.last = this.visibleMessages.get(i);
         if (this.last != null && !this.map.containsKey(this.last)) {
@@ -99,14 +99,14 @@ implements IChatHud {
         return i;
     }
 
-    @Inject(method={"render"}, at={@At(value="INVOKE", target="Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/OrderedText;III)I", ordinal=0, shift=At.Shift.BEFORE)})
+    @Inject(method = {"render"}, at = {@At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/OrderedText;III)I", ordinal = 0, shift = At.Shift.BEFORE)})
     private void translate(DrawContext context, int currentTick, int mouseX, int mouseY, CallbackInfo ci) {
         if (this.map.containsKey(this.last)) {
             context.getMatrices().translate(ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.animateOffset.getValue() * (1.0 - this.map.get(this.last).getQuad(ChatSetting_qVnAbgCzNciNTevKRovy.INSTANCE.animQuad.getValue())), 0.0, 0.0);
         }
     }
 
-    @Inject(at={@At(value="HEAD")}, method={"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V"}, cancellable=true)
+    @Inject(at = {@At(value = "HEAD")}, method = {"addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V"}, cancellable = true)
     public void onAddMessage(Text message, MessageSignatureData signature, MessageIndicator indicator, CallbackInfo ci) {
         ReceiveMessageEvent event = new ReceiveMessageEvent(message.getString());
         HexTech.EVENT_BUS.post(event);

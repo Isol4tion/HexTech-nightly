@@ -7,7 +7,7 @@ import me.hextech.mod.modules.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.mod.modules.settings.impl.SliderSetting;
 
 public class Zoom
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Zoom INSTANCE;
     public static boolean on;
     final SliderSetting animSpeed = this.add(new SliderSetting("AnimSpeed", 0.1, 0.0, 1.0, 0.01));
@@ -27,12 +27,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Zoom.on = true;
         } else if (Zoom.on) {
             this.currentFov = AnimateUtil.animate(this.currentFov, 0.0, this.animSpeed.getValue());
-            if ((int)this.currentFov == 0) {
+            if ((int) this.currentFov == 0) {
                 Zoom.on = false;
             }
         }
     }
-    
+
     @Override
     public void onEnable() {
         if (Zoom.mc.options.getFov().getValue() == 70) {

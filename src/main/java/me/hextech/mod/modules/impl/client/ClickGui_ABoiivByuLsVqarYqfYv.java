@@ -20,7 +20,7 @@ import me.hextech.mod.modules.settings.impl.SliderSetting;
 import java.awt.*;
 
 public class ClickGui_ABoiivByuLsVqarYqfYv
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static final FadeUtils_DPfHthPqEJdfXfNYhDbG fade = new FadeUtils_DPfHthPqEJdfXfNYhDbG(500L);
     public static ClickGui_ABoiivByuLsVqarYqfYv INSTANCE;
     private final EnumSetting<ClickGui_PrFcfRftxumUysizqxkG> page = this.add(new EnumSetting<ClickGui_PrFcfRftxumUysizqxkG>("Page", ClickGui_PrFcfRftxumUysizqxkG.General));
@@ -77,7 +77,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (ClickGuiTab tab : HexTech.GUI.tabs) {
                 for (Component component : tab.getChildren()) {
                     if (component instanceof ModuleComponent) {
-                        moduleComponent = (ModuleComponent)component;
+                        moduleComponent = (ModuleComponent) component;
                         for (Component settingComponent : moduleComponent.getSettingsList()) {
                             settingComponent.setHeight(this.height.getValueInt());
                             settingComponent.defaultHeight = this.height.getValueInt();
@@ -94,7 +94,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (Component component : tab.getChildren()) {
                     component.currentOffset = 0.0;
                     if (!(component instanceof ModuleComponent)) continue;
-                    moduleComponent = (ModuleComponent)component;
+                    moduleComponent = (ModuleComponent) component;
                     moduleComponent.isPopped = false;
                     for (Component settingComponent : moduleComponent.getSettingsList()) {
                         settingComponent.currentOffset = 0.0;

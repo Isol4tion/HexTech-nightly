@@ -9,7 +9,7 @@ import me.hextech.mod.modules.settings.impl.BooleanSetting;
 import net.minecraft.util.math.BlockPos;
 
 public class AntiCrawl
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AntiCrawl INSTANCE;
     public final BooleanSetting crawl = this.add(new BooleanSetting("Crawl", true));
     private final BooleanSetting pre = this.add(new BooleanSetting("Pre", true));

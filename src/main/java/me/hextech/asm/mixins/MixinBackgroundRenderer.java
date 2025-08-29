@@ -12,13 +12,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value={BackgroundRenderer.class})
+@Mixin(value = {BackgroundRenderer.class})
 public class MixinBackgroundRenderer {
-    @Inject(method={"applyFog"}, at={@At(value="TAIL")})
+    @Inject(method = {"applyFog"}, at = {@At(value = "TAIL")})
     private static void onApplyFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo info) {
         if (Ambience.INSTANCE.isOn()) {
             if (Ambience.INSTANCE.fog.booleanValue) {
-                RenderSystem.setShaderFogColor((float)Ambience.INSTANCE.fog.getValue().getRed() / 255.0f, (float)Ambience.INSTANCE.fog.getValue().getGreen() / 255.0f, (float)Ambience.INSTANCE.fog.getValue().getBlue() / 255.0f, (float)Ambience.INSTANCE.fog.getValue().getAlpha() / 255.0f);
+                RenderSystem.setShaderFogColor((float) Ambience.INSTANCE.fog.getValue().getRed() / 255.0f, (float) Ambience.INSTANCE.fog.getValue().getGreen() / 255.0f, (float) Ambience.INSTANCE.fog.getValue().getBlue() / 255.0f, (float) Ambience.INSTANCE.fog.getValue().getAlpha() / 255.0f);
             }
             if (Ambience.INSTANCE.fogDistance.getValue()) {
                 RenderSystem.setShaderFogStart(Ambience.INSTANCE.fogStart.getValueFloat());
@@ -31,7 +31,7 @@ public class MixinBackgroundRenderer {
         }
     }
 
-    @Inject(method={"getFogModifier(Lnet/minecraft/entity/Entity;F)Lnet/minecraft/client/render/BackgroundRenderer$StatusEffectFogModifier;"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"getFogModifier(Lnet/minecraft/entity/Entity;F)Lnet/minecraft/client/render/BackgroundRenderer$StatusEffectFogModifier;"}, at = {@At(value = "HEAD")}, cancellable = true)
     private static void onGetFogModifier(Entity entity, float tickDelta, CallbackInfoReturnable<Object> info) {
         if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.blindness.getValue()) {
             info.setReturnValue(null);

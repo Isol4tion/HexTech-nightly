@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.function.Predicate;
 
 public class ColorSetting
-extends Setting {
+        extends Setting {
     public final Timer timer = new Timer();
     public final float effectSpeed = 4.0f;
     public boolean isRainbow = false;
@@ -38,7 +38,7 @@ extends Setting {
     public final Color getValue() {
         if (this.isRainbow) {
             float[] HSB = Color.RGBtoHSB(this.value.getRed(), this.value.getGreen(), this.value.getBlue(), null);
-            Color preColor = Color.getHSBColor((float)this.timer.getPassedTimeMs() * 0.36f * 4.0f / 20.0f % 361.0f / 360.0f, HSB[1], HSB[2]);
+            Color preColor = Color.getHSBColor((float) this.timer.getPassedTimeMs() * 0.36f * 4.0f / 20.0f % 361.0f / 360.0f, HSB[1], HSB[2]);
             this.setValue(new Color(preColor.getRed(), preColor.getGreen(), preColor.getBlue(), this.value.getAlpha()));
         }
         return this.value;

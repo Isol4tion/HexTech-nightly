@@ -6,7 +6,7 @@ import me.hextech.mod.commands.Command;
 import java.util.List;
 
 public class ListCommand
-extends Command {
+        extends Command {
     public ListCommand() {
         super("list", "list origin-network user(s)", "");
     }

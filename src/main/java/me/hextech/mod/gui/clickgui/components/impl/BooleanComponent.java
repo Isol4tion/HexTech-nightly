@@ -14,7 +14,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import java.awt.*;
 
 public class BooleanComponent
-extends Component {
+        extends Component {
     final BooleanSetting setting;
     public double currentWidth = 0.0;
     boolean hover = false;
@@ -37,7 +37,7 @@ extends Component {
         int parentX = this.parent.getX();
         int parentY = this.parent.getY();
         int parentWidth = this.parent.getWidth();
-        if (GuiManager.currentGrabbed == null && this.isVisible() && mouseX >= (double)(parentX + 1) && mouseX <= (double)(parentX + parentWidth - 1) && mouseY >= (double)(parentY + offset) && mouseY <= (double)(parentY + offset + this.defaultHeight - 2)) {
+        if (GuiManager.currentGrabbed == null && this.isVisible() && mouseX >= (double) (parentX + 1) && mouseX <= (double) (parentX + parentWidth - 1) && mouseY >= (double) (parentY + offset) && mouseY <= (double) (parentY + offset + this.defaultHeight - 2)) {
             this.hover = true;
             if (mouseClicked) {
                 ClickGuiScreen.clicked = false;
@@ -55,32 +55,32 @@ extends Component {
     @Override
     public boolean draw(int offset, DrawContext drawContext, float partialTicks, Color color, boolean back) {
         this.currentOffset = BooleanComponent.animate(this.currentOffset, offset);
-        if (back && Math.abs(this.currentOffset - (double)offset) <= 0.5) {
+        if (back && Math.abs(this.currentOffset - (double) offset) <= 0.5) {
             this.currentWidth = 0.0;
             return false;
         }
         int x = this.parent.getX();
-        int y = (int)((double)this.parent.getY() + this.currentOffset - 2.0);
+        int y = (int) ((double) this.parent.getY() + this.currentOffset - 2.0);
         int width = this.parent.getWidth();
         MatrixStack matrixStack = drawContext.getMatrices();
-        Render2DUtil.drawRect(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)width - 2.0f, (float)this.defaultHeight - 1.0f, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.shColor.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.sbgColor.getValue());
-        this.currentWidth = BooleanComponent.animate(this.currentWidth, this.setting.getValue() ? (double)width - 2.0 : 0.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.booleanSpeed.getValue());
+        Render2DUtil.drawRect(matrixStack, (float) x + 1.0f, (float) y + 1.0f, (float) width - 2.0f, (float) this.defaultHeight - 1.0f, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.shColor.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.sbgColor.getValue());
+        this.currentWidth = BooleanComponent.animate(this.currentWidth, this.setting.getValue() ? (double) width - 2.0 : 0.0, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.booleanSpeed.getValue());
         switch (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue()) {
             case New: {
-                TextUtil.drawString(drawContext, this.setting.getName(), x + 4, (double)y + this.getTextOffsetY(), this.setting.getValue() ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableTextS.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue());
+                TextUtil.drawString(drawContext, this.setting.getName(), x + 4, (double) y + this.getTextOffsetY(), this.setting.getValue() ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.enableTextS.getValue() : ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.disableText.getValue());
                 break;
             }
             case Old: {
                 if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.booleanValue) {
-                    Render2DUtil.drawRectHorizontal(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)this.currentWidth, (float)this.defaultHeight - (float)(!ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 1 : 0), this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainEnd.getValue());
+                    Render2DUtil.drawRectHorizontal(matrixStack, (float) x + 1.0f, (float) y + 1.0f, (float) this.currentWidth, (float) this.defaultHeight - (float) (!ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 1 : 0), this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainEnd.getValue());
                 } else {
-                    Render2DUtil.drawRect(matrixStack, (float)x + 1.0f, (float)y + 1.0f, (float)this.currentWidth, (float)this.defaultHeight - (float)(!ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 1 : 0), this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color);
+                    Render2DUtil.drawRect(matrixStack, (float) x + 1.0f, (float) y + 1.0f, (float) this.currentWidth, (float) this.defaultHeight - (float) (!ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 1 : 0), this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color);
                 }
-                TextUtil.drawString(drawContext, this.setting.getName(), x + 4, (double)y + this.getTextOffsetY(), new Color(-1).getRGB());
+                TextUtil.drawString(drawContext, this.setting.getName(), x + 4, (double) y + this.getTextOffsetY(), new Color(-1).getRGB());
             }
         }
         if (this.setting.parent) {
-            TextUtil.drawString(drawContext, this.setting.popped ? "-" : "+", x + width - 11, (double)y + this.getTextOffsetY(), new Color(255, 255, 255).getRGB());
+            TextUtil.drawString(drawContext, this.setting.popped ? "-" : "+", x + width - 11, (double) y + this.getTextOffsetY(), new Color(255, 255, 255).getRGB());
         }
         return true;
     }

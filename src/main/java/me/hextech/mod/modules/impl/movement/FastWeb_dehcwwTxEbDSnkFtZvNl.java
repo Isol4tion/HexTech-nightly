@@ -10,7 +10,7 @@ import me.hextech.mod.modules.settings.impl.EnumSetting;
 import me.hextech.mod.modules.settings.impl.SliderSetting;
 
 public class FastWeb_dehcwwTxEbDSnkFtZvNl
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static FastWeb_dehcwwTxEbDSnkFtZvNl INSTANCE;
     public final EnumSetting<Mode> mode = this.add(new EnumSetting<Mode>("Mode", Mode.Vanilla));
     public final SliderSetting xZSlow = this.add(new SliderSetting("XZSpeed", 25.0, 0.0, 100.0, 0.1, v -> this.mode.getValue() == Mode.Custom).setSuffix("%"));
@@ -45,7 +45,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    @EventHandler(priority=-100)
+    @EventHandler(priority = -100)
     public void onTimer(TimerEvent event) {
         if (this.work && this.mode.getValue() == Mode.Strict) {
             event.set(this.fastSpeed.getValueFloat());

@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={ClientConnection.class})
+@Mixin(value = {ClientConnection.class})
 public class MixinClientConnection {
-    @Inject(at={@At(value="INVOKE", target="Lnet/minecraft/network/ClientConnection;handlePacket(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/listener/PacketListener;)V", ordinal=0)}, method={"channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/packet/Packet;)V"}, cancellable=true)
+    @Inject(at = {@At(value = "INVOKE", target = "Lnet/minecraft/network/ClientConnection;handlePacket(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/listener/PacketListener;)V", ordinal = 0)}, method = {"channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/packet/Packet;)V"}, cancellable = true)
     protected void onChannelRead(ChannelHandlerContext channelHandlerContext, Packet<?> packet, CallbackInfo ci) {
         PacketEvent_gBzdMCvQxlHfSrulemGS.Receive event = new PacketEvent_gBzdMCvQxlHfSrulemGS.Receive(packet);
         HexTech.EVENT_BUS.post(event);
@@ -21,7 +21,7 @@ public class MixinClientConnection {
         }
     }
 
-    @Inject(method={"channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/packet/Packet;)V"}, at={@At(value="INVOKE", target="Lnet/minecraft/network/ClientConnection;handlePacket(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/listener/PacketListener;)V", shift=At.Shift.BEFORE)}, cancellable=true)
+    @Inject(method = {"channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/packet/Packet;)V"}, at = {@At(value = "INVOKE", target = "Lnet/minecraft/network/ClientConnection;handlePacket(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/listener/PacketListener;)V", shift = At.Shift.BEFORE)}, cancellable = true)
     private void onHandlePacket(ChannelHandlerContext channelHandlerContext, Packet<?> packet, CallbackInfo ci) {
         PacketEvent_gBzdMCvQxlHfSrulemGS.Receive event = new PacketEvent_gBzdMCvQxlHfSrulemGS.Receive(packet);
         if (event.isCancelled()) {
@@ -29,7 +29,7 @@ public class MixinClientConnection {
         }
     }
 
-    @Inject(method={"send(Lnet/minecraft/network/packet/Packet;)V"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"send(Lnet/minecraft/network/packet/Packet;)V"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onSendPacketPre(Packet<?> packet, CallbackInfo info) {
         PacketEvent_gBzdMCvQxlHfSrulemGS.Send event = new PacketEvent_gBzdMCvQxlHfSrulemGS.Send(packet);
         HexTech.EVENT_BUS.post(event);

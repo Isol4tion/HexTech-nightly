@@ -14,7 +14,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 
 public class BugClip
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static BugClip INSTANCE;
     final SliderSetting delay = this.add(new SliderSetting("Delay", 100, 0, 500));
     final Timer timer = new Timer();
@@ -31,7 +31,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.cancelPacket = false;
         if (this.clipIn.getValue()) {
             Direction f = BugClip.mc.player.getHorizontalFacing();
-            BugClip.mc.player.setPosition(BugClip.mc.player.getX() + (double)f.getOffsetX() * 0.5, BugClip.mc.player.getY(), BugClip.mc.player.getZ() + (double)f.getOffsetZ() * 0.5);
+            BugClip.mc.player.setPosition(BugClip.mc.player.getX() + (double) f.getOffsetX() * 0.5, BugClip.mc.player.getY(), BugClip.mc.player.getZ() + (double) f.getOffsetZ() * 0.5);
             BugClip.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(BugClip.mc.player.getX(), BugClip.mc.player.getY(), BugClip.mc.player.getZ(), true));
         } else {
             BugClip.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(BugClip.mc.player.getX(), BugClip.mc.player.getY(), BugClip.mc.player.getZ(), true));
@@ -64,7 +64,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (this.cancelPacket && (t = event.getPacket()) instanceof PlayerMoveC2SPacket) {
-            PlayerMoveC2SPacket packet = (PlayerMoveC2SPacket)t;
+            PlayerMoveC2SPacket packet = (PlayerMoveC2SPacket) t;
             if (!this.insideBurrow()) {
                 this.disable();
                 return;
@@ -89,7 +89,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (int yOffset = -1; yOffset <= 1; ++yOffset) {
                 for (int zOffset = -1; zOffset <= 1; ++zOffset) {
                     BlockPos offsetPos = playerBlockPos.add(xOffset, yOffset, zOffset);
-                    if (BugClip.mc.world.getBlockState(offsetPos).getBlock() != Blocks.BEDROCK || !BugClip.mc.player.getBoundingBox().intersects(new Box(offsetPos))) continue;
+                    if (BugClip.mc.world.getBlockState(offsetPos).getBlock() != Blocks.BEDROCK || !BugClip.mc.player.getBoundingBox().intersects(new Box(offsetPos)))
+                        continue;
                     return true;
                 }
             }

@@ -27,7 +27,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ESP
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final EnumSetting mode = this.add(new EnumSetting<_iJUSlEiinRCZKkYYmFmY>("Type", _iJUSlEiinRCZKkYYmFmY.text));
     private final ColorSetting item = this.add(new ColorSetting("Item", new Color(255, 255, 255, 100)).injectBoolean(true));
     private final ColorSetting boxcolor = this.add(new ColorSetting("Box Color", new Color(255, 255, 255, 100)));
@@ -40,9 +40,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private static Vec3d[] getPoints(Entity ent) {
-        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.getTickDelta();
-        double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.getTickDelta();
-        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.getTickDelta();
+        double x = ent.prevX + (ent.getX() - ent.prevX) * (double) mc.getTickDelta();
+        double y = ent.prevY + (ent.getY() - ent.prevY) * (double) mc.getTickDelta();
+        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double) mc.getTickDelta();
         Box axisAlignedBB2 = ent.getBoundingBox();
         Box axisAlignedBB = new Box(axisAlignedBB2.minX - ent.getX() + x - 0.05, axisAlignedBB2.minY - ent.getY() + y, axisAlignedBB2.minZ - ent.getZ() + z - 0.05, axisAlignedBB2.maxX - ent.getX() + x + 0.05, axisAlignedBB2.maxY - ent.getY() + y + 0.15, axisAlignedBB2.maxZ - ent.getZ() + z + 0.05);
         Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.maxZ)};
@@ -86,9 +86,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     position.w = Math.max(vector.y, position.w);
                 }
                 if (position != null) {
-                    float posX = (float)position.x;
-                    float posY = (float)position.y;
-                    float endPosX = (float)position.z;
+                    float posX = (float) position.x;
+                    float posY = (float) position.y;
+                    float endPosX = (float) position.z;
                     float diff = (endPosX - posX) / 2.0f;
                     float textWidth = FontRenderers.Arial.getStringWidth(entity.getDisplayName().getString());
                     float tagX = (posX + diff - textWidth / 2.0f);
@@ -116,10 +116,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     position.w = Math.max(vector.y, position.w);
                 }
                 if (position == null) continue;
-                float posX = (float)position.x;
-                float posY = (float)position.y;
-                float endPosX = (float)position.z;
-                float endPosY = (float)position.w;
+                float posX = (float) position.x;
+                float posY = (float) position.y;
+                float endPosX = (float) position.z;
+                float endPosY = (float) position.w;
                 this.drawEquilateralTriangle(bufferBuilder, matrix, posX, posY, endPosX, endPosY, this.boxcolor.getValue());
             }
             BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
@@ -128,12 +128,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private double interpolate(double previous, double current, float delta) {
-        return previous + (current - previous) * (double)delta;
+        return previous + (current - previous) * (double) delta;
     }
 
     private void drawEquilateralTriangle(BufferBuilder bufferBuilder, Matrix4f stack, float posX, float posY, float endX, float endY, Color color) {
         float sideLength = Math.abs(endX - posX);
-        float height = (float)((double)sideLength * Math.sqrt(3.0) / 2.0);
+        float height = (float) ((double) sideLength * Math.sqrt(3.0) / 2.0);
         float halfSide = sideLength / 2.0f;
         ESP.setTrianglePoints(bufferBuilder, stack, posX, endY, endX, endY, posX + halfSide, endY - height, color);
     }
@@ -145,12 +145,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 Color color;
                 if (entity instanceof ItemEntity && this.item.booleanValue) {
                     color = this.item.getValue();
-                    Render3DUtil.draw3DBox(matrixStack, ((IEntity)entity).getDimensions().getBoxAt(new Vec3d(MathUtil.interpolate(entity.lastRenderX, entity.getX(), partialTicks), MathUtil.interpolate(entity.lastRenderY, entity.getY(), partialTicks), MathUtil.interpolate(entity.lastRenderZ, entity.getZ(), partialTicks))), color, false, true);
+                    Render3DUtil.draw3DBox(matrixStack, ((IEntity) entity).getDimensions().getBoxAt(new Vec3d(MathUtil.interpolate(entity.lastRenderX, entity.getX(), partialTicks), MathUtil.interpolate(entity.lastRenderY, entity.getY(), partialTicks), MathUtil.interpolate(entity.lastRenderZ, entity.getZ(), partialTicks))), color, false, true);
                     continue;
                 }
                 if (!(entity instanceof PlayerEntity) || !this.player.booleanValue) continue;
                 color = this.player.getValue();
-                Render3DUtil.draw3DBox(matrixStack, ((IEntity)entity).getDimensions().getBoxAt(new Vec3d(MathUtil.interpolate(entity.lastRenderX, entity.getX(), partialTicks), MathUtil.interpolate(entity.lastRenderY, entity.getY(), partialTicks), MathUtil.interpolate(entity.lastRenderZ, entity.getZ(), partialTicks))).expand(0.0, 0.1, 0.0), color, false, true);
+                Render3DUtil.draw3DBox(matrixStack, ((IEntity) entity).getDimensions().getBoxAt(new Vec3d(MathUtil.interpolate(entity.lastRenderX, entity.getX(), partialTicks), MathUtil.interpolate(entity.lastRenderY, entity.getY(), partialTicks), MathUtil.interpolate(entity.lastRenderZ, entity.getZ(), partialTicks))).expand(0.0, 0.1, 0.0), color, false, true);
             }
         }
         if (this.chest.booleanValue) {

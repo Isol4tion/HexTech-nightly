@@ -18,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
 public class BedCrafter
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static BedCrafter INSTANCE;
     private final BooleanSetting rotate = this.add(new BooleanSetting("Rotation", false));
     private final SliderSetting range = this.add(new SliderSetting("Range", 5, 0, 8));
@@ -60,9 +60,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (BedCrafter.mc.player.currentScreenHandler instanceof CraftingScreenHandler) {
             this.open = true;
             boolean craft = false;
-            block0: for (RecipeResultCollection recipeResult : BedCrafter.mc.player.getRecipeBook().getOrderedResults()) {
+            block0:
+            for (RecipeResultCollection recipeResult : BedCrafter.mc.player.getRecipeBook().getOrderedResults()) {
                 for (RecipeEntry recipe : recipeResult.getRecipes(true)) {
-                    if (!(recipe.value().getResult(BedCrafter.mc.world.getRegistryManager()).getItem() instanceof BedItem)) continue;
+                    if (!(recipe.value().getResult(BedCrafter.mc.world.getRegistryManager()).getItem() instanceof BedItem))
+                        continue;
                     int bed = 0;
                     for (int i = 0; i < BedCrafter.getEmptySlots(); ++i) {
                         craft = true;
@@ -101,9 +103,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 bestPos = pos;
                 break;
             }
-            if (!BlockUtil.canPlace(pos) || bestPos != null && !((double)MathHelper.sqrt((float)BedCrafter.mc.player.squaredDistanceTo(pos.toCenterPos())) < distance)) continue;
+            if (!BlockUtil.canPlace(pos) || bestPos != null && !((double) MathHelper.sqrt((float) BedCrafter.mc.player.squaredDistanceTo(pos.toCenterPos())) < distance))
+                continue;
             bestPos = pos;
-            distance = MathHelper.sqrt((float)BedCrafter.mc.player.squaredDistanceTo(pos.toCenterPos()));
+            distance = MathHelper.sqrt((float) BedCrafter.mc.player.squaredDistanceTo(pos.toCenterPos()));
         }
         if (bestPos != null) {
             if (!place) {

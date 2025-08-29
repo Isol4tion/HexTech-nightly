@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={GameRenderer.class})
+@Mixin(value = {GameRenderer.class})
 public abstract class GameRendererMixin {
     @Unique
     private CameraState camera;
@@ -25,7 +25,7 @@ public abstract class GameRendererMixin {
     @Unique
     private float originalPitch;
 
-    @Inject(method={"renderHand"}, at={@At(value="HEAD")})
+    @Inject(method = {"renderHand"}, at = {@At(value = "HEAD")})
     private void onRenderHandBegin(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
         this.camera = FreeLook.INSTANCE.getCameraState();
         if (this.camera.doTransition || this.camera.doLock) {
@@ -38,7 +38,7 @@ public abstract class GameRendererMixin {
         }
     }
 
-    @Inject(method={"renderHand"}, at={@At(value="RETURN")})
+    @Inject(method = {"renderHand"}, at = {@At(value = "RETURN")})
     private void onRenderHandEnd(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
         if (this.camera.doTransition || this.camera.doLock) {
             this.cameraEntity.setYaw(this.originalYaw);

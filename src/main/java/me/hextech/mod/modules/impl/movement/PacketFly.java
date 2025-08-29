@@ -17,7 +17,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.Set;
 
 public class PacketFly
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final BooleanSetting flight = this.add(new BooleanSetting("Flight", true).setParent());
     public final SliderSetting flightMode = this.add(new SliderSetting("FMode", 0, 0, 1, v -> this.flight.isOpen()));
     public final SliderSetting antiFactor = this.add(new SliderSetting("AntiFactor", 1.0, 0.1, 3.0));
@@ -56,10 +56,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         double[] strafing = this.getMotion(this.strafeFactor.getValue() && checkCollisionBoxes ? 0.031 : 0.26);
         int i = 1;
-        while ((double)i < this.loops.getValue() + 1.0) {
-            MovementUtil.setMotionX(strafing[0] * (double)i * this.extraFactor.getValue());
-            MovementUtil.setMotionY(speed * (double)i);
-            MovementUtil.setMotionZ(strafing[1] * (double)i * this.extraFactor.getValue());
+        while ((double) i < this.loops.getValue() + 1.0) {
+            MovementUtil.setMotionX(strafing[0] * (double) i * this.extraFactor.getValue());
+            MovementUtil.setMotionY(speed * (double) i);
+            MovementUtil.setMotionZ(strafing[1] * (double) i * this.extraFactor.getValue());
             this.sendPackets(MovementUtil.getMotionX(), MovementUtil.getMotionY(), MovementUtil.getMotionZ(), this.sendTeleport.getValue());
             ++i;
         }
@@ -128,9 +128,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         float rotationYaw = PacketFly.mc.player.prevYaw + (PacketFly.mc.player.getYaw() - PacketFly.mc.player.prevYaw) * mc.getTickDelta();
         if (moveForward != 0.0f) {
             if (moveStrafe > 0.0f) {
-                rotationYaw += (float)(moveForward > 0.0f ? -45 : 45);
+                rotationYaw += (float) (moveForward > 0.0f ? -45 : 45);
             } else if (moveStrafe < 0.0f) {
-                rotationYaw += (float)(moveForward > 0.0f ? 45 : -45);
+                rotationYaw += (float) (moveForward > 0.0f ? 45 : -45);
             }
             moveStrafe = 0.0f;
             if (moveForward > 0.0f) {
@@ -139,8 +139,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 moveForward = -1.0f;
             }
         }
-        double posX = (double)moveForward * speed * -Math.sin(Math.toRadians(rotationYaw)) + (double)moveStrafe * speed * Math.cos(Math.toRadians(rotationYaw));
-        double posZ = (double)moveForward * speed * Math.cos(Math.toRadians(rotationYaw)) - (double)moveStrafe * speed * -Math.sin(Math.toRadians(rotationYaw));
+        double posX = (double) moveForward * speed * -Math.sin(Math.toRadians(rotationYaw)) + (double) moveStrafe * speed * Math.cos(Math.toRadians(rotationYaw));
+        double posZ = (double) moveForward * speed * Math.cos(Math.toRadians(rotationYaw)) - (double) moveStrafe * speed * -Math.sin(Math.toRadians(rotationYaw));
         return new double[]{posX, posZ};
     }
 

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PopManager
-implements Wrapper {
+        implements Wrapper {
     public final HashMap<String, Integer> popContainer = new HashMap();
     public final ArrayList<PlayerEntity> deadPlayer = new ArrayList();
 
@@ -51,8 +51,8 @@ implements Wrapper {
             return;
         }
         Object t = event.getPacket();
-        if (t instanceof EntityStatusS2CPacket && (packet = (EntityStatusS2CPacket)t).getStatus() == 35 && (entity = packet.getEntity(PopManager.mc.world)) instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity)entity;
+        if (t instanceof EntityStatusS2CPacket && (packet = (EntityStatusS2CPacket) t).getStatus() == 35 && (entity = packet.getEntity(PopManager.mc.world)) instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
             this.onTotemPop(player);
         }
     }

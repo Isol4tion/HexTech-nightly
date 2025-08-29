@@ -12,7 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
 
 public class Quiver
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Quiver INSTANCE;
     private static int slot;
     private static int oldSlot;
@@ -58,7 +58,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if ((double)BowItem.getPullProgress(Quiver.mc.player.getItemUseTime()) >= 0.13) {
+        if ((double) BowItem.getPullProgress(Quiver.mc.player.getItemUseTime()) >= 0.13) {
             Quiver.mc.options.useKey.setPressed(false);
             Quiver.mc.interactionManager.stopUsingItem(Quiver.mc.player);
             if (this.inventory.getValue()) {
@@ -71,7 +71,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    @EventHandler(priority=-101)
+    @EventHandler(priority = -101)
     public void onRotate(RotateEvent event) {
         if (Quiver.mc.player.isUsingItem() && Quiver.mc.player.getActiveItem().getItem() instanceof BowItem) {
             event.setPitch(-90.0f);

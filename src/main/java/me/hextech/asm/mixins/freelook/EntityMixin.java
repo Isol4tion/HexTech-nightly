@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={Entity.class})
+@Mixin(value = {Entity.class})
 public abstract class EntityMixin {
     @Unique
     private CameraState camera;
 
-    @Inject(method={"changeLookDirection"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"changeLookDirection"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onChangeLookDirection(double cursorDeltaX, double cursorDeltaY, CallbackInfo callback) {
-        if ((Object)this instanceof ClientPlayerEntity) {
+        if ((Object) this instanceof ClientPlayerEntity) {
             this.camera = FreeLook.INSTANCE.getCameraState();
             if (this.camera.doLock) {
                 this.applyTransformedAngle(cursorDeltaX, cursorDeltaY);
@@ -32,8 +32,8 @@ public abstract class EntityMixin {
     @Unique
     private void applyTransformedAngle(double cursorDeltaX, double cursorDeltaY) {
         float cursorDeltaMultiplier = 0.15f;
-        float transformedCursorDeltaX = (float)cursorDeltaX * cursorDeltaMultiplier;
-        float transformedCursorDeltaY = (float)cursorDeltaY * cursorDeltaMultiplier;
+        float transformedCursorDeltaX = (float) cursorDeltaX * cursorDeltaMultiplier;
+        float transformedCursorDeltaY = (float) cursorDeltaY * cursorDeltaMultiplier;
         float yaw = this.camera.lookYaw;
         float pitch = this.camera.lookPitch;
         pitch += transformedCursorDeltaY;

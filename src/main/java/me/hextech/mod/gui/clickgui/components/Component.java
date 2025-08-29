@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.Objects;
 
 public abstract class Component
-implements Wrapper {
+        implements Wrapper {
     public int defaultHeight = 16;
     public double currentOffset = 0.0;
     protected ClickGuiTab parent;
@@ -62,6 +62,6 @@ implements Wrapper {
 
     public double getTextOffsetY() {
         Objects.requireNonNull(Wrapper.mc.textRenderer);
-        return (double)(this.defaultHeight - 9) / 2.0 + 1.0;
+        return (double) (this.defaultHeight - 9) / 2.0 + 1.0;
     }
 }

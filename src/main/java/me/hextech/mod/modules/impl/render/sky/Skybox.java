@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
 import java.util.Map;
 
 public class Skybox
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static final CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq skyRenderer = new CustomSkyRenderer_zKYRFtdqYKdqrQYfieOq();
     public static Skybox INSTANCE;
     public final ColorSetting color = this.add(new ColorSetting("Color", new Color(0.77f, 0.31f, 0.73f)));
@@ -31,12 +31,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         try {
             Field field = DimensionRenderingRegistryImpl.class.getDeclaredField("SKY_RENDERERS");
             field.setAccessible(true);
-            Map SKY_RENDERERS = (Map)field.get(null);
+            Map SKY_RENDERERS = (Map) field.get(null);
             SKY_RENDERERS.putIfAbsent(World.OVERWORLD, skyRenderer);
             SKY_RENDERERS.putIfAbsent(World.NETHER, skyRenderer);
             SKY_RENDERERS.putIfAbsent(World.END, skyRenderer);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -46,12 +45,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         try {
             Field field = DimensionRenderingRegistryImpl.class.getDeclaredField("SKY_RENDERERS");
             field.setAccessible(true);
-            Map SKY_RENDERERS = (Map)field.get(null);
+            Map SKY_RENDERERS = (Map) field.get(null);
             SKY_RENDERERS.remove(World.OVERWORLD, skyRenderer);
             SKY_RENDERERS.remove(World.NETHER, skyRenderer);
             SKY_RENDERERS.remove(World.END, skyRenderer);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

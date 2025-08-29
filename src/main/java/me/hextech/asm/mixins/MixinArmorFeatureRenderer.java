@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={ArmorFeatureRenderer.class})
+@Mixin(value = {ArmorFeatureRenderer.class})
 public class MixinArmorFeatureRenderer<T extends LivingEntity, M extends BipedEntityModel<T>, A extends BipedEntityModel<T>> {
-    @Inject(method={"renderArmor"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"renderArmor"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onRenderArmor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T livingEntity, EquipmentSlot equipmentSlot, int i, A bipedEntityModel, CallbackInfo ci) {
         if (NoRender.INSTANCE.isOn() && NoRender.INSTANCE.armor.getValue()) {
             ci.cancel();

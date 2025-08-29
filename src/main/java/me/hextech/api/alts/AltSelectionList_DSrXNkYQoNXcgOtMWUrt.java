@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AltSelectionList_DSrXNkYQoNXcgOtMWUrt
-extends ElementListWidget<AltSelectionList_MlYuzYrWmNSiQOBPfePW> {
+        extends ElementListWidget<AltSelectionList_MlYuzYrWmNSiQOBPfePW> {
     private final AltScreen owner;
     private final List<AltSelectionList> altList = new ArrayList<>();
 

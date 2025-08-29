@@ -10,7 +10,7 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
 import net.minecraft.util.Hand;
 
 public class PacketEat
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static PacketEat INSTANCE;
     private final BooleanSetting deSync = this.add(new BooleanSetting("noSync", false));
 
@@ -30,7 +30,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onPacket(PacketEvent_gBzdMCvQxlHfSrulemGS.Send event) {
         PlayerActionC2SPacket packet;
         Object t = event.getPacket();
-        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).getAction() == PlayerActionC2SPacket.Action.RELEASE_USE_ITEM && PacketEat.mc.player.getActiveItem().getItem().isFood()) {
+        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket) t).getAction() == PlayerActionC2SPacket.Action.RELEASE_USE_ITEM && PacketEat.mc.player.getActiveItem().getItem().isFood()) {
             event.cancel();
         }
     }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class HitLog
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static HitLog INSTANCE;
     static double y;
     private final ArrayList<HitLog_STBbGhMCskXcqFYRXyft> logList = new ArrayList();
@@ -40,7 +40,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onRender2D(DrawContext drawContext, float tickDelta) {
-        y = (double)mc.getWindow().getHeight() / 4.0 - 40.0;
+        y = (double) mc.getWindow().getHeight() / 4.0 - 40.0;
         this.logList.removeIf(log -> log.timer.passed(this.stayTime.getValue() * 1000.0) && log.alpha <= 10.0);
         for (HitLog_STBbGhMCskXcqFYRXyft log2 : new ArrayList<HitLog_STBbGhMCskXcqFYRXyft>(this.logList)) {
             double d;
@@ -48,14 +48,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             log2.alpha = HitLog.animate(log2.alpha, end ? 0.0 : 255.0, this.animationSpeed.getValue());
             double d2 = log2.y;
             if (end) {
-                double d3 = (double)mc.getWindow().getHeight() / 4.0 - 30.0;
+                double d3 = (double) mc.getWindow().getHeight() / 4.0 - 30.0;
                 Objects.requireNonNull(HitLog.mc.textRenderer);
                 d = d3 + 9.0;
             } else {
                 d = y;
             }
             log2.y = HitLog.animate(d2, d, this.animationSpeed.getValue());
-            drawContext.drawTextWithShadow(HitLog.mc.textRenderer, log2.text, (int)log2.x, (int)log2.y, new Color(255, 255, 255, (int)log2.alpha).getRGB());
+            drawContext.drawTextWithShadow(HitLog.mc.textRenderer, log2.text, (int) log2.x, (int) log2.y, new Color(255, 255, 255, (int) log2.alpha).getRGB());
             if (end) continue;
             Objects.requireNonNull(HitLog.mc.textRenderer);
             y -= 9 + 2;

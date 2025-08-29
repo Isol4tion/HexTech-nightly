@@ -4,7 +4,7 @@ import me.hextech.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.entity.vehicle.BoatEntity;
 
 public class BoatMoveEvent
-extends Event_auduwKaxKOWXRtyJkCPb {
+        extends Event_auduwKaxKOWXRtyJkCPb {
     private final BoatEntity boat;
 
     public BoatMoveEvent(BoatEntity boat) {

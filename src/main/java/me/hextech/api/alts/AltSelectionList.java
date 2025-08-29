@@ -15,12 +15,12 @@ import java.util.List;
  * Exception performing whole class analysis ignored.
  */
 public class AltSelectionList
-extends AltSelectionList_MlYuzYrWmNSiQOBPfePW {
+        extends AltSelectionList_MlYuzYrWmNSiQOBPfePW {
+    final /* synthetic */ AltSelectionList_DSrXNkYQoNXcgOtMWUrt this$0;
     private final AltScreen owner;
     private final MinecraftClient mc;
     private final Alt alt;
     private long lastClickTime;
-    final /* synthetic */ AltSelectionList_DSrXNkYQoNXcgOtMWUrt this$0;
 
     protected AltSelectionList(AltSelectionList_DSrXNkYQoNXcgOtMWUrt this$0, AltScreen ownerIn, Alt alt) {
         this.this$0 = this$0;
@@ -51,7 +51,7 @@ extends AltSelectionList_MlYuzYrWmNSiQOBPfePW {
     }
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        double d0 = mouseX - (double)this.this$0.getRowLeft();
+        double d0 = mouseX - (double) this.this$0.getRowLeft();
         if (d0 <= 32.0 && d0 < 32.0 && d0 > 16.0) {
             this.owner.setSelected(this);
             this.owner.loginToSelected();

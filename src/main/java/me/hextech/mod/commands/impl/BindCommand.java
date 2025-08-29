@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BindCommand
-extends Command {
+        extends Command {
     public BindCommand() {
         super("bind", "Bind key", "[module] [key]");
     }
@@ -48,7 +48,8 @@ extends Command {
             ModuleManager cm = HexTech.MODULE;
             ArrayList<String> correct = new ArrayList<String>();
             for (Module_eSdgMXWuzcxgQVaJFmKZ x : cm.modules) {
-                if (!input.equalsIgnoreCase(HexTech.PREFIX + "bind") && !x.getName().toLowerCase().startsWith(input)) continue;
+                if (!input.equalsIgnoreCase(HexTech.PREFIX + "bind") && !x.getName().toLowerCase().startsWith(input))
+                    continue;
                 correct.add(x.getName());
             }
             int numCmds = correct.size();

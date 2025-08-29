@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class BedAura_BzCWaQEhnpenizjBqrRp
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static BedAura_BzCWaQEhnpenizjBqrRp INSTANCE;
     public static BlockPos placePos;
     public final EnumSetting<Page> page = this.add(new EnumSetting<Page>("Page", Page.General));
@@ -148,7 +148,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.animUpdate();
-        if (!this.delayTimer.passedMs((long)this.updateDelay.getValue())) {
+        if (!this.delayTimer.passedMs((long) this.updateDelay.getValue())) {
             return;
         }
         if (this.noUsing.getValue() && EntityUtil.isUsing()) {
@@ -177,12 +177,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 list.add(new PredictionSetting._XBpBEveLWEKUGQPHCCIS(target));
             }
             PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS(BedAura_BzCWaQEhnpenizjBqrRp.mc.player);
-            for (BlockPos pos : BlockUtil.getSphere((float)this.range.getValue())) {
+            for (BlockPos pos : BlockUtil.getSphere((float) this.range.getValue())) {
                 if (!this.canPlaceBed(pos) && !(BlockUtil.getBlock(pos) instanceof BedBlock)) continue;
                 for (PredictionSetting._XBpBEveLWEKUGQPHCCIS pap : list) {
                     float damage = this.calculateDamage(pos, pap.player, pap.predict);
                     float selfDamage = this.calculateDamage(pos, self.player, self.predict);
-                    if ((double)selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getHealth() + BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getAbsorptionAmount()) - this.antiSuicide.getValue() || damage < EntityUtil.getHealth(pap.player) && (damage < this.placeMinDamage.getValueFloat() || this.smart.getValue() && damage < selfDamage) || placePos != null && !(damage > this.lastDamage)) continue;
+                    if ((double) selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double) selfDamage > (double) (BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getHealth() + BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getAbsorptionAmount()) - this.antiSuicide.getValue() || damage < EntityUtil.getHealth(pap.player) && (damage < this.placeMinDamage.getValueFloat() || this.smart.getValue() && damage < selfDamage) || placePos != null && !(damage > this.lastDamage))
+                        continue;
                     this.displayTarget = pap.player;
                     placePos = pos;
                     this.lastDamage = damage;
@@ -219,11 +220,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (BedAura_BzCWaQEhnpenizjBqrRp.mc.world.getBlockState(pos).getBlock() instanceof BedBlock) {
             Direction side = BlockUtil.getClickSide(pos);
-            Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+            Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
             if (this.rotate.getValue() && !this.faceVector(directionVec)) {
                 return;
             }
-            if (!this.breakTimer.passedMs((long)this.breakDelay.getValue())) {
+            if (!this.breakTimer.passedMs((long) this.breakDelay.getValue())) {
                 return;
             }
             this.breakTimer.reset();
@@ -245,16 +246,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int oldSlot = BedAura_BzCWaQEhnpenizjBqrRp.mc.player.getInventory().selectedSlot;
         Direction facing = null;
         for (Direction i : Direction.values()) {
-            if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.clientCanPlace(pos.offset(i), false) || !BlockUtil.canClick(pos.offset(i).down()) || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i))) continue;
+            if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.clientCanPlace(pos.offset(i), false) || !BlockUtil.canClick(pos.offset(i).down()) || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)))
+                continue;
             facing = i;
             break;
         }
         if (facing != null) {
-            Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)Direction.UP.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)Direction.UP.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)Direction.UP.getVector().getZ() * 0.5);
+            Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) Direction.UP.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) Direction.UP.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) Direction.UP.getVector().getZ() * 0.5);
             if (this.rotate.getValue() && !this.faceVector(directionVec)) {
                 return;
             }
-            if (!this.placeTimer.passedMs((long)this.placeDelay.getValue())) {
+            if (!this.placeTimer.passedMs((long) this.placeDelay.getValue())) {
                 return;
             }
             this.placeTimer.reset();
@@ -287,10 +289,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 bb = bb.shrink(-quad * 0.5, -quad * 0.5, -quad * 0.5);
             }
             if (this.box.getValue()) {
-                Render3DUtil.drawFill(matrixStack, bb, ColorUtil.injectAlpha(this.color.getValue(), (int)(this.boxAlpha.getValue() * Math.abs(quad - 1.0))));
+                Render3DUtil.drawFill(matrixStack, bb, ColorUtil.injectAlpha(this.color.getValue(), (int) (this.boxAlpha.getValue() * Math.abs(quad - 1.0))));
             }
             if (this.outline.getValue()) {
-                Render3DUtil.drawBox(matrixStack, bb, ColorUtil.injectAlpha(this.color.getValue(), (int)(this.outlineAlpha.getValue() * Math.abs(quad - 1.0))));
+                Render3DUtil.drawBox(matrixStack, bb, ColorUtil.injectAlpha(this.color.getValue(), (int) (this.outlineAlpha.getValue() * Math.abs(quad - 1.0))));
             }
         } else if (this.reset.getValue()) {
             this.nowBB = null;
@@ -298,7 +300,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void animUpdate() {
-        this.fadeUtils.setLength((long)(this.fadeTime.getValue() * 1000.0));
+        this.fadeUtils.setLength((long) (this.fadeTime.getValue() * 1000.0));
         if (placePos != null) {
             this.lastBB = new Box(placePos);
             this.noPosTimer.reset();
@@ -306,12 +308,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.nowBB = this.lastBB;
             }
             if (this.renderPos == null || !this.renderPos.equals(placePos)) {
-                this.animation.setLength(this.animationTime.getValue() * 1000.0 <= 0.0 ? 0L : (long)(Math.abs(this.nowBB.minX - this.lastBB.minX) + Math.abs(this.nowBB.minY - this.lastBB.minY) + Math.abs(this.nowBB.minZ - this.lastBB.minZ) <= 5.0 ? (double)((long)((Math.abs(this.nowBB.minX - this.lastBB.minX) + Math.abs(this.nowBB.minY - this.lastBB.minY) + Math.abs(this.nowBB.minZ - this.lastBB.minZ)) * (this.animationTime.getValue() * 1000.0))) : this.animationTime.getValue() * 5000.0));
+                this.animation.setLength(this.animationTime.getValue() * 1000.0 <= 0.0 ? 0L : (long) (Math.abs(this.nowBB.minX - this.lastBB.minX) + Math.abs(this.nowBB.minY - this.lastBB.minY) + Math.abs(this.nowBB.minZ - this.lastBB.minZ) <= 5.0 ? (double) ((long) ((Math.abs(this.nowBB.minX - this.lastBB.minX) + Math.abs(this.nowBB.minY - this.lastBB.minY) + Math.abs(this.nowBB.minZ - this.lastBB.minZ)) * (this.animationTime.getValue() * 1000.0))) : this.animationTime.getValue() * 5000.0));
                 this.animation.reset();
                 this.renderPos = placePos;
             }
         }
-        if (!this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
+        if (!this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0))) {
             this.fadeUtils.reset();
         }
         double size = this.animation.easeOutQuad();
@@ -375,7 +377,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean canPlaceBed(BlockPos pos) {
         if (!(!BlockUtil.canReplace(pos) || this.checkMine.getValue() && BlockUtil.isMining(pos))) {
             for (Direction i : Direction.values()) {
-                if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.isStrictDirection(pos.offset(i).down(), Direction.UP) || !this.isTrueFacing(pos.offset(i), i.getOpposite()) || !BlockUtil.clientCanPlace(pos.offset(i), false) || !BlockUtil.canClick(pos.offset(i).down()) || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i))) continue;
+                if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.isStrictDirection(pos.offset(i).down(), Direction.UP) || !this.isTrueFacing(pos.offset(i), i.getOpposite()) || !BlockUtil.clientCanPlace(pos.offset(i), false) || !BlockUtil.canClick(pos.offset(i).down()) || this.checkMine.getValue() && BlockUtil.isMining(pos.offset(i)))
+                    continue;
                 return true;
             }
         }

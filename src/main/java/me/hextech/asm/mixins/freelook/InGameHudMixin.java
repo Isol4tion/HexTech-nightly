@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-@Mixin(value={InGameHud.class})
+@Mixin(value = {InGameHud.class})
 public class InGameHudMixin {
     @Unique
     private CameraState camera;
@@ -26,7 +26,7 @@ public class InGameHudMixin {
     @Unique
     private double offsetCrosshairY;
 
-    @Inject(method={"renderCrosshair"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"renderCrosshair"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onRenderCrosshairBegin(DrawContext context, CallbackInfo ci) {
         if (Crosshair.INSTANCE.isOn()) {
             Crosshair.INSTANCE.draw(context);
@@ -40,7 +40,7 @@ public class InGameHudMixin {
             Entity cameraEntity = MinecraftClient.getInstance().getCameraEntity();
             int distance = Integer.MAX_VALUE;
             Vec3d position = cameraEntity.getPos();
-            Vec3d point = position.add((rotation = Vec3d.fromPolar(this.camera.originalPitch(), this.camera.originalYaw())).getX() * (double)distance, rotation.getY() * (double)distance, rotation.getZ() * (double)distance);
+            Vec3d point = position.add((rotation = Vec3d.fromPolar(this.camera.originalPitch(), this.camera.originalYaw())).getX() * (double) distance, rotation.getY() * (double) distance, rotation.getZ() * (double) distance);
             Vec3d projected = ProjectionUtils.worldToScreen(point);
             if (projected.getZ() < 0.0) {
                 this.offsetCrosshairX = -projected.getX();
@@ -53,11 +53,11 @@ public class InGameHudMixin {
         }
     }
 
-    @ModifyArgs(method={"renderCrosshair"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"))
+    @ModifyArgs(method = {"renderCrosshair"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"))
     private void modifyDrawTextureArgs(Args args) {
         if (this.camera.doTransition || this.camera.doLock) {
-            args.set(1, (Object)((Integer)args.get(1) + (int)this.offsetCrosshairX));
-            args.set(2, (Object)((Integer)args.get(2) + (int)this.offsetCrosshairY));
+            args.set(1, (Object) ((Integer) args.get(1) + (int) this.offsetCrosshairX));
+            args.set(2, (Object) ((Integer) args.get(2) + (int) this.offsetCrosshairY));
         }
     }
 }

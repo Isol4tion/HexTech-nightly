@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={ParticleManager.class})
+@Mixin(value = {ParticleManager.class})
 public class MixinParticleManager {
-    @Inject(at={@At(value="HEAD")}, method={"addParticle(Lnet/minecraft/client/particle/Particle;)V"}, cancellable=true)
+    @Inject(at = {@At(value = "HEAD")}, method = {"addParticle(Lnet/minecraft/client/particle/Particle;)V"}, cancellable = true)
     public void onAddParticle(Particle particle, CallbackInfo ci) {
         ParticleEvent_KqEBTPXRWHlYeOSnrLnf.AddParticle event = new ParticleEvent_KqEBTPXRWHlYeOSnrLnf.AddParticle(particle);
         HexTech.EVENT_BUS.post(event);
@@ -22,7 +22,7 @@ public class MixinParticleManager {
         }
     }
 
-    @Inject(at={@At(value="HEAD")}, method={"addEmitter(Lnet/minecraft/entity/Entity;Lnet/minecraft/particle/ParticleEffect;)V"}, cancellable=true)
+    @Inject(at = {@At(value = "HEAD")}, method = {"addEmitter(Lnet/minecraft/entity/Entity;Lnet/minecraft/particle/ParticleEffect;)V"}, cancellable = true)
     public void onAddEmmiter(Entity entity, ParticleEffect particleEffect, CallbackInfo ci) {
         ParticleEvent_KqEBTPXRWHlYeOSnrLnf.AddEmmiter event = new ParticleEvent_KqEBTPXRWHlYeOSnrLnf.AddEmmiter(particleEffect);
         HexTech.EVENT_BUS.post(event);
@@ -31,7 +31,7 @@ public class MixinParticleManager {
         }
     }
 
-    @Inject(at={@At(value="HEAD")}, method={"addEmitter(Lnet/minecraft/entity/Entity;Lnet/minecraft/particle/ParticleEffect;I)V"}, cancellable=true)
+    @Inject(at = {@At(value = "HEAD")}, method = {"addEmitter(Lnet/minecraft/entity/Entity;Lnet/minecraft/particle/ParticleEffect;I)V"}, cancellable = true)
     public void onAddEmmiterAged(Entity entity, ParticleEffect particleEffect, int maxAge, CallbackInfo ci) {
         ParticleEvent_KqEBTPXRWHlYeOSnrLnf.AddEmmiter event = new ParticleEvent_KqEBTPXRWHlYeOSnrLnf.AddEmmiter(particleEffect);
         HexTech.EVENT_BUS.post(event);

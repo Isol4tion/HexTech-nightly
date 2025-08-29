@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={ClientCommonNetworkHandler.class})
+@Mixin(value = {ClientCommonNetworkHandler.class})
 public class MixinClientCommonNetworkHandler {
-    @Inject(method={"onDisconnected"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"onDisconnected"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onDisconnected(Text reason, CallbackInfo ci) {
         if (Wrapper.mc.player != null && Wrapper.mc.world != null && SilentDisconnect.INSTANCE.isOn()) {
             CommandManager.sendChatMessage("\u00a74[!] \u00a7cDisconnect! reason: \u00a77" + reason.getString());
@@ -21,7 +21,7 @@ public class MixinClientCommonNetworkHandler {
         }
     }
 
-    @Inject(method={"sendPacket"}, at={@At(value="HEAD")})
+    @Inject(method = {"sendPacket"}, at = {@At(value = "HEAD")})
     public void sendPacket(Packet<?> packet, CallbackInfo ci) {
     }
 }

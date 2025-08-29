@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ModuleManager
-implements Wrapper {
+        implements Wrapper {
     public static Mod lastLoadMod;
     public final HashMap<Module_eSdgMXWuzcxgQVaJFmKZ.Category, Integer> categoryModules = new HashMap();
     public ArrayList<Module_eSdgMXWuzcxgQVaJFmKZ> modules = new ArrayList();
@@ -203,7 +203,7 @@ implements Wrapper {
         this.modules.forEach(module -> {
             for (Setting setting : module.getSettings()) {
                 BindSetting bind;
-                if (!(setting instanceof BindSetting) || !(bind = (BindSetting)setting).isListening()) continue;
+                if (!(setting instanceof BindSetting) || !(bind = (BindSetting) setting).isListening()) continue;
                 bind.setKey(eventKey);
                 bind.setListening(false);
                 if (bind.getBind().equals("DELETE")) {
@@ -224,7 +224,7 @@ implements Wrapper {
                 module.toggle();
                 module.getBind().hold = false;
             }
-            module.getSettings().stream().filter(setting -> setting instanceof BindSetting).map(setting -> (BindSetting)setting).filter(bindSetting -> bindSetting.getKey() == eventKey).forEach(bindSetting -> bindSetting.setPressed(false));
+            module.getSettings().stream().filter(setting -> setting instanceof BindSetting).map(setting -> (BindSetting) setting).filter(bindSetting -> bindSetting.getKey() == eventKey).forEach(bindSetting -> bindSetting.setPressed(false));
         });
     }
 
@@ -237,7 +237,7 @@ implements Wrapper {
                 module.toggle();
                 module.getBind().hold = true;
             }
-            module.getSettings().stream().filter(setting -> setting instanceof BindSetting).map(setting -> (BindSetting)setting).filter(bindSetting -> bindSetting.getKey() == eventKey).forEach(bindSetting -> bindSetting.setPressed(true));
+            module.getSettings().stream().filter(setting -> setting instanceof BindSetting).map(setting -> (BindSetting) setting).filter(bindSetting -> bindSetting.getKey() == eventKey).forEach(bindSetting -> bindSetting.setPressed(true));
         });
     }
 
@@ -245,8 +245,7 @@ implements Wrapper {
         this.modules.stream().filter(Module_eSdgMXWuzcxgQVaJFmKZ::isOn).forEach(module -> {
             try {
                 module.onThread();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 CommandManager.sendChatMessage("\u00a74[!] " + e.getMessage());
                 Notify_EXlgYplaRzfgofOPOkyB.sendNotify("\u00a74[!]\u7ebf\u7a0b\u8b66\u544a!");
@@ -258,8 +257,7 @@ implements Wrapper {
         this.modules.stream().filter(Module_eSdgMXWuzcxgQVaJFmKZ::isOn).forEach(module -> {
             try {
                 module.onUpdate();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 CommandManager.sendChatMessage("\u00a74[!] " + e.getMessage());
                 Notify_EXlgYplaRzfgofOPOkyB.sendNotify("\u00a74[!]\u7a7a\u6307\u9488\u8b66\u544a\uff01!");
@@ -289,15 +287,13 @@ implements Wrapper {
         this.modules.stream().filter(Module_eSdgMXWuzcxgQVaJFmKZ::isOn).forEach(module -> {
             try {
                 module.onRender3D(matrixStack, mc.getTickDelta());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 CommandManager.sendChatMessage("\u00a74[!] " + e.getMessage());
             }
         });
         try {
             HexTech.EVENT_BUS.post(new Render3DEvent(matrixStack, mc.getTickDelta()));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             CommandManager.sendChatMessage("\u00a74[!] " + e.getMessage());
         }
         matrixStack.pop();

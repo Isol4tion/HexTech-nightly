@@ -22,7 +22,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class AutoMinePlus_frUaFZksknOJRqkizndn
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AutoMinePlus_frUaFZksknOJRqkizndn INSTANCE;
     public final SliderSetting targetRange = this.add(new SliderSetting("TargetRange", 6.0, 0.0, 8.0, 0.1).setSuffix("m"));
     public final SliderSetting range = this.add(new SliderSetting("Range", 6.0, 0.0, 8.0, 0.1).setSuffix("m"));
@@ -70,8 +70,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.mineBur = false;
         this.mineBlocker = false;
         final BlockPos pos = EntityUtil.getEntityPos(player, true);
-        final double[] yOffset = { -0.8, 0.5, 1.1 };
-        final double[] xzOffset = { 0.3, -0.3 };
+        final double[] yOffset = {-0.8, 0.5, 1.1};
+        final double[] xzOffset = {0.3, -0.3};
         for (final PlayerEntity entity : CombatUtil.getEnemies(this.targetRange.getValue())) {
             for (final double y : yOffset) {
                 for (final double x : xzOffset) {
@@ -134,8 +134,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 if (!list.isEmpty()) {
                     SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
-                }
-                else {
+                } else {
                     for (final Direction j : Direction.values()) {
                         if (j != Direction.UP) {
                             if (j != Direction.DOWN) {
@@ -151,8 +150,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                     }
                 }
-            }
-            else if (this.mineMode.getValue() == AutoMinePlus.Always) {
+            } else if (this.mineMode.getValue() == AutoMinePlus.Always) {
                 final ArrayList<BlockPos> list = new ArrayList<BlockPos>();
                 for (final Direction j : Direction.values()) {
                     if (j != Direction.UP) {
@@ -167,8 +165,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 if (!list.isEmpty()) {
                     SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
-                }
-                else {
+                } else {
                     for (final Direction j : Direction.values()) {
                         if (j != Direction.UP) {
                             if (j != Direction.DOWN) {
@@ -184,8 +181,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
                     }
                 }
-            }
-            else if (this.mineMode.getValue() == AutoMinePlus.First) {
+            } else if (this.mineMode.getValue() == AutoMinePlus.First) {
                 for (final Direction i : Direction.values()) {
                     if (i != Direction.UP) {
                         if (i != Direction.DOWN) {
@@ -211,8 +207,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 if (!list.isEmpty()) {
                     SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getEyePos()))).get());
-                }
-                else {
+                } else {
                     for (final Direction j : Direction.values()) {
                         if (j != Direction.UP) {
                             if (j != Direction.DOWN) {
@@ -237,8 +232,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.down.getValue()) {
             if (this.smart.getValue() && player.getBlockPos().getY() - AutoMinePlus_frUaFZksknOJRqkizndn.mc.player.getBlockPos().getY() > this.yandy.getValue()) {
                 yList.add(-0.8f);
-            }
-            else if (!this.smart.getValue()) {
+            } else if (!this.smart.getValue()) {
                 yList.add(-0.8f);
             }
         }

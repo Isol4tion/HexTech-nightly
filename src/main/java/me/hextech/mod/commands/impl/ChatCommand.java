@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ChatCommand
-extends Command {
+        extends Command {
     public ChatCommand() {
         super("c", "send message to origin-network", "[text]");
     }

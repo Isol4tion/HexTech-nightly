@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class InventoryUtil
-implements Wrapper {
+        implements Wrapper {
     static int lastSlot;
     static int lastSelect;
 
@@ -118,7 +118,8 @@ implements Wrapper {
             if (clazz.isInstance(stack.getItem())) {
                 return i;
             }
-            if (!(stack.getItem() instanceof BlockItem) || !clazz.isInstance(((BlockItem)stack.getItem()).getBlock())) continue;
+            if (!(stack.getItem() instanceof BlockItem) || !clazz.isInstance(((BlockItem) stack.getItem()).getBlock()))
+                continue;
             return i;
         }
         return -1;
@@ -131,7 +132,8 @@ implements Wrapper {
             if (clazz.isInstance(entry.getValue().getItem())) {
                 count += entry.getValue().getCount();
             }
-            if (!(entry.getValue().getItem() instanceof BlockItem) || !clazz.isInstance(((BlockItem)entry.getValue().getItem()).getBlock())) continue;
+            if (!(entry.getValue().getItem() instanceof BlockItem) || !clazz.isInstance(((BlockItem) entry.getValue().getItem()).getBlock()))
+                continue;
             count += entry.getValue().getCount();
         }
         return count;
@@ -144,7 +146,8 @@ implements Wrapper {
             if (clazz.isInstance(stack.getItem())) {
                 return i < 9 ? i + 36 : i;
             }
-            if (!(stack.getItem() instanceof BlockItem) || !clazz.isInstance(((BlockItem)stack.getItem()).getBlock())) continue;
+            if (!(stack.getItem() instanceof BlockItem) || !clazz.isInstance(((BlockItem) stack.getItem()).getBlock()))
+                continue;
             return i < 9 ? i + 36 : i;
         }
         return -1;
@@ -153,7 +156,8 @@ implements Wrapper {
     public static int findBlock(Block blockIn) {
         for (int i = 0; i < 9; ++i) {
             ItemStack stack = InventoryUtil.getStackInSlot(i);
-            if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof BlockItem) || ((BlockItem)stack.getItem()).getBlock() != blockIn) continue;
+            if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof BlockItem) || ((BlockItem) stack.getItem()).getBlock() != blockIn)
+                continue;
             return i;
         }
         return -1;
@@ -161,7 +165,8 @@ implements Wrapper {
 
     public static int getPotCount(StatusEffect potion) {
         int count = 0;
-        block0: for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
+        block0:
+        for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
             if (!(entry.getValue().getItem() instanceof SplashPotionItem)) continue;
             List<StatusEffectInstance> effects = new ArrayList<>(PotionUtil.getPotionEffects(entry.getValue()));
             for (StatusEffectInstance potionEffect : effects) {
@@ -176,7 +181,8 @@ implements Wrapper {
     public static int getArmorCount(ArmorItem.Type type) {
         int count = 0;
         for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
-            if (!(entry.getValue().getItem() instanceof ArmorItem) || ((ArmorItem)entry.getValue().getItem()).getType() != type) continue;
+            if (!(entry.getValue().getItem() instanceof ArmorItem) || ((ArmorItem) entry.getValue().getItem()).getType() != type)
+                continue;
             count += entry.getValue().getCount();
         }
         return count;
@@ -184,7 +190,7 @@ implements Wrapper {
 
     public static boolean CheckArmorType(Item item, ArmorItem.Type type) {
         if (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.checkArmor.getValue()) {
-            return item instanceof ArmorItem && ((ArmorItem)item).getType() == type;
+            return item instanceof ArmorItem && ((ArmorItem) item).getType() == type;
         }
         return false;
     }
@@ -214,7 +220,8 @@ implements Wrapper {
     public static int findBlock() {
         for (int i = 0; i < 9; ++i) {
             ItemStack stack = InventoryUtil.getStackInSlot(i);
-            if (!(stack.getItem() instanceof BlockItem) || BlockUtil.shiftBlocks.contains(Block.getBlockFromItem(stack.getItem())) || ((BlockItem)stack.getItem()).getBlock() == Blocks.COBWEB) continue;
+            if (!(stack.getItem() instanceof BlockItem) || BlockUtil.shiftBlocks.contains(Block.getBlockFromItem(stack.getItem())) || ((BlockItem) stack.getItem()).getBlock() == Blocks.COBWEB)
+                continue;
             return i;
         }
         return -1;

@@ -11,7 +11,7 @@ import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
 import net.minecraft.network.packet.s2c.play.PositionFlag;
 
 public class NoRotateSet
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static NoRotateSet INSTANCE;
     public final BooleanSetting rotate = this.add(new BooleanSetting("Apply", false));
     public final SliderSetting lagTime = this.add(new SliderSetting("LagTime", 50, 0, 100));
@@ -32,16 +32,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (!this.rotate.getValue() && (t = event.getPacket()) instanceof PlayerPositionLookS2CPacket) {
-            PlayerPositionLookS2CPacket packet = (PlayerPositionLookS2CPacket)t;
+            PlayerPositionLookS2CPacket packet = (PlayerPositionLookS2CPacket) t;
             if (packet.getFlags().contains(PositionFlag.Y_ROT)) {
-                ((IPlayerPositionLookS2CPacket)packet).setYaw(0.0f);
+                ((IPlayerPositionLookS2CPacket) packet).setYaw(0.0f);
             } else {
-                ((IPlayerPositionLookS2CPacket)packet).setYaw(NoRotateSet.mc.player.getYaw());
+                ((IPlayerPositionLookS2CPacket) packet).setYaw(NoRotateSet.mc.player.getYaw());
             }
             if (packet.getFlags().contains(PositionFlag.X_ROT)) {
-                ((IPlayerPositionLookS2CPacket)packet).setPitch(0.0f);
+                ((IPlayerPositionLookS2CPacket) packet).setPitch(0.0f);
             } else {
-                ((IPlayerPositionLookS2CPacket)packet).setPitch(NoRotateSet.mc.player.getPitch());
+                ((IPlayerPositionLookS2CPacket) packet).setPitch(NoRotateSet.mc.player.getPitch());
             }
             if (event.getPacket() instanceof PlayerPositionLookS2CPacket) {
                 this.lagTimer.reset();

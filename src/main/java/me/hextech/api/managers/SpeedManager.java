@@ -10,7 +10,7 @@ import net.minecraft.util.math.MathHelper;
 import java.util.HashMap;
 
 public class SpeedManager
-implements Wrapper {
+        implements Wrapper {
     public final HashMap<PlayerEntity, Double> playerSpeeds = new HashMap();
     public double speedometerCurrentSpeed;
 
@@ -32,7 +32,7 @@ implements Wrapper {
 
     public void updatePlayers() {
         for (PlayerEntity player : SpeedManager.mc.world.getPlayers()) {
-            if (!((double)SpeedManager.mc.player.distanceTo(player) < 400.0)) continue;
+            if (!((double) SpeedManager.mc.player.distanceTo(player) < 400.0)) continue;
             double distTraveledLastTickX = player.getX() - player.prevX;
             double distTraveledLastTickZ = player.getZ() - player.prevZ;
             double playerSpeed = distTraveledLastTickX * distTraveledLastTickX + distTraveledLastTickZ * distTraveledLastTickZ;
@@ -49,11 +49,11 @@ implements Wrapper {
 
     public double getSpeedKpH() {
         double speedometerkphdouble = this.turnIntoKpH(this.speedometerCurrentSpeed);
-        speedometerkphdouble = (double)Math.round(10.0 * speedometerkphdouble) / 10.0;
+        speedometerkphdouble = (double) Math.round(10.0 * speedometerkphdouble) / 10.0;
         return speedometerkphdouble;
     }
 
     public double turnIntoKpH(double input) {
-        return (double)MathHelper.sqrt((float)input) * 71.2729367892;
+        return (double) MathHelper.sqrt((float) input) * 71.2729367892;
     }
 }

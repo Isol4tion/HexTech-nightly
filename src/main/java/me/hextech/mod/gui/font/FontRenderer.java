@@ -25,13 +25,37 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class FontRenderer
-implements Closeable {
+        implements Closeable {
     private static final Char2IntArrayMap colorCodes;
-    private static final int BLOCK_SIZE  = 256;
+    private static final int BLOCK_SIZE = 256;
     private static final Object2ObjectArrayMap<Identifier, ObjectList<_ZitfNZXjZiLiXZJDgFqm>> GLYPH_PAGE_CACHE;
     private static final char RND_START = 'a';
     private static final char RND_END = 'z';
     private static final Random RND;
+
+    static {
+        Char2IntArrayMap char2IntArrayMap = new Char2IntArrayMap();
+        char2IntArrayMap.put('0', 0);
+        char2IntArrayMap.put('1', 170);
+        char2IntArrayMap.put('2', 43520);
+        char2IntArrayMap.put('3', 43690);
+        char2IntArrayMap.put('4', 0xAA0000);
+        char2IntArrayMap.put('5', 0xAA00AA);
+        char2IntArrayMap.put('6', 0xFFAA00);
+        char2IntArrayMap.put('7', 0xAAAAAA);
+        char2IntArrayMap.put('8', 0x555555);
+        char2IntArrayMap.put('9', 0x5555FF);
+        char2IntArrayMap.put('A', 0x55FF55);
+        char2IntArrayMap.put('B', 0x55FFFF);
+        char2IntArrayMap.put('C', 0xFF5555);
+        char2IntArrayMap.put('D', 0xFF55FF);
+        char2IntArrayMap.put('E', 0xFFFF55);
+        char2IntArrayMap.put('F', 0xFFFFFF);
+        colorCodes = char2IntArrayMap;
+        GLYPH_PAGE_CACHE = new Object2ObjectArrayMap();
+        RND = new Random();
+    }
+
     private final float originalSize;
     private final ObjectList<GlyphMap> maps = new ObjectArrayList();
     private final Char2ObjectArrayMap<Glyph> allGlyphs = new Char2ObjectArrayMap();
@@ -46,7 +70,7 @@ implements Closeable {
     }
 
     private static int floorNearestMulN(int x) {
-        return 256 * (int)Math.floor((double)x / 256.0);
+        return 256 * (int) Math.floor((double) x / 256.0);
     }
 
     @NotNull
@@ -65,10 +89,10 @@ implements Closeable {
     }
 
     public static int getGuiScale() {
-        return (int)Wrapper.mc.getWindow().getScaleFactor();
+        return (int) Wrapper.mc.getWindow().getScaleFactor();
     }
 
-    @Contract(value="_ -> new", pure=true)
+    @Contract(value = "_ -> new", pure = true)
     public static int @NotNull [] RGBIntToRGB(int in) {
         int red = in >> 16 & 0xFF;
         int green = in >> 8 & 0xFF;
@@ -76,14 +100,14 @@ implements Closeable {
         return new int[]{red, green, blue};
     }
 
-    @Contract(value="-> new", pure=true)
+    @Contract(value = "-> new", pure = true)
     @NotNull
     public static Identifier randomIdentifier() {
         return new Identifier("hextech", "temp/" + FontRenderer.randomString(32));
     }
 
     private static String randomString(int length) {
-        return IntStream.range(0, length).mapToObj(operand -> String.valueOf((char)RND.nextInt(97, 123))).collect(Collectors.joining());
+        return IntStream.range(0, length).mapToObj(operand -> String.valueOf((char) RND.nextInt(97, 123))).collect(Collectors.joining());
     }
 
     private void sizeCheck() {
@@ -98,7 +122,7 @@ implements Closeable {
         this.scaleMul = this.previousGameScale = FontRenderer.getGuiScale();
         this.fonts = new Font[fonts.length];
         for (int i = 0; i < fonts.length; ++i) {
-            this.fonts[i] = fonts[i].deriveFont(sizePx * (float)this.scaleMul);
+            this.fonts[i] = fonts[i].deriveFont(sizePx * (float) this.scaleMul);
         }
     }
 
@@ -115,7 +139,7 @@ implements Closeable {
             return map.getGlyph(glyph);
         }
         int base = FontRenderer.floorNearestMulN(glyph);
-        GlyphMap glyphMap = this.generateMap((char)base, (char)(base + 256));
+        GlyphMap glyphMap = this.generateMap((char) base, (char) (base + 256));
         return glyphMap.getGlyph(glyph);
     }
 
@@ -135,7 +159,7 @@ implements Closeable {
         float b2 = b;
         stack.push();
         stack.translate(x, y, 0.0f);
-        stack.scale(1.0f / (float)this.scaleMul, 1.0f / (float)this.scaleMul, 1.0f);
+        stack.scale(1.0f / (float) this.scaleMul, 1.0f / (float) this.scaleMul, 1.0f);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
@@ -157,9 +181,9 @@ implements Closeable {
                 if (colorCodes.containsKey(c1) && !shadow) {
                     int ii = colorCodes.get(c1);
                     int[] col = FontRenderer.RGBIntToRGB(ii);
-                    r2 = (float)col[0] / 255.0f;
-                    g2 = (float)col[1] / 255.0f;
-                    b2 = (float)col[2] / 255.0f;
+                    r2 = (float) col[0] / 255.0f;
+                    g2 = (float) col[1] / 255.0f;
+                    b2 = (float) col[2] / 255.0f;
                     continue;
                 }
                 if (c1 != 'R') continue;
@@ -173,7 +197,7 @@ implements Closeable {
                 continue;
             }
             if (c == '\n') {
-                yOffset += this.getStringHeight(s.substring(lineStart, i)) * (float)this.scaleMul;
+                yOffset += this.getStringHeight(s.substring(lineStart, i)) * (float) this.scaleMul;
                 xOffset = 0.0f;
                 lineStart = i + 1;
                 continue;
@@ -184,7 +208,7 @@ implements Closeable {
                 _ZitfNZXjZiLiXZJDgFqm entry = new _ZitfNZXjZiLiXZJDgFqm(xOffset, yOffset, r2, g2, b2, glyph);
                 GLYPH_PAGE_CACHE.computeIfAbsent(i1, integer -> new ObjectArrayList()).add(entry);
             }
-            xOffset += (float)glyph.width();
+            xOffset += (float) glyph.width();
         }
         for (Identifier identifier : GLYPH_PAGE_CACHE.keySet()) {
             RenderSystem.setShaderTexture(0, identifier);
@@ -200,10 +224,10 @@ implements Closeable {
                 GlyphMap owner = glyph.owner();
                 float w = glyph.width();
                 float h = glyph.height();
-                float u1 = (float)glyph.u() / (float)owner.width;
-                float v1 = (float)glyph.v() / (float)owner.height;
-                float u2 = (float)(glyph.u() + glyph.width()) / (float)owner.width;
-                float v2 = (float)(glyph.v() + glyph.height()) / (float)owner.height;
+                float u1 = (float) glyph.u() / (float) owner.width;
+                float v1 = (float) glyph.v() / (float) owner.height;
+                float u2 = (float) (glyph.u() + glyph.width()) / (float) owner.width;
+                float v2 = (float) (glyph.v() + glyph.height()) / (float) owner.height;
                 bb.vertex(mat, xo + 0.0f, yo + h, 0.0f).texture(u1, v2).color(cr, cg, cb, a).next();
                 bb.vertex(mat, xo + w, yo + h, 0.0f).texture(u2, v2).color(cr, cg, cb, a).next();
                 bb.vertex(mat, xo + w, yo + 0.0f, 0.0f).texture(u2, v1).color(cr, cg, cb, a).next();
@@ -219,7 +243,7 @@ implements Closeable {
         this.sizeCheck();
         stack.push();
         stack.translate(x, y, 0.0f);
-        stack.scale(1.0f / (float)this.scaleMul, 1.0f / (float)this.scaleMul, 1.0f);
+        stack.scale(1.0f / (float) this.scaleMul, 1.0f / (float) this.scaleMul, 1.0f);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
@@ -236,9 +260,9 @@ implements Closeable {
         for (int i = 0; i < chars.length; ++i) {
             char c = chars[i];
             Color color = HexTech.GUI.getColor();
-            a = (float)color.getAlpha() / 255.0f;
+            a = (float) color.getAlpha() / 255.0f;
             if (c == '\n') {
-                yOffset += this.getStringHeight(s.substring(lineStart, i)) * (float)this.scaleMul;
+                yOffset += this.getStringHeight(s.substring(lineStart, i)) * (float) this.scaleMul;
                 xOffset = 0.0f;
                 lineStart = i + 1;
                 continue;
@@ -246,10 +270,10 @@ implements Closeable {
             Glyph glyph = this.locateGlyph1(c);
             if (glyph.value() != ' ') {
                 Identifier i1 = glyph.owner().bindToTexture;
-                _ZitfNZXjZiLiXZJDgFqm entry = new _ZitfNZXjZiLiXZJDgFqm(xOffset, yOffset, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, glyph);
+                _ZitfNZXjZiLiXZJDgFqm entry = new _ZitfNZXjZiLiXZJDgFqm(xOffset, yOffset, (float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f, (float) color.getBlue() / 255.0f, glyph);
                 (GLYPH_PAGE_CACHE.computeIfAbsent(i1, integer -> new ObjectArrayList())).add(entry);
             }
-            xOffset += (float)glyph.width();
+            xOffset += (float) glyph.width();
         }
         for (Identifier identifier : GLYPH_PAGE_CACHE.keySet()) {
             RenderSystem.setShaderTexture(0, identifier);
@@ -265,10 +289,10 @@ implements Closeable {
                 GlyphMap owner = glyph.owner();
                 float w = glyph.width();
                 float h = glyph.height();
-                float u1 = (float)glyph.u() / (float)owner.width;
-                float v1 = (float)glyph.v() / (float)owner.height;
-                float u2 = (float)(glyph.u() + glyph.width()) / (float)owner.width;
-                float v2 = (float)(glyph.v() + glyph.height()) / (float)owner.height;
+                float u1 = (float) glyph.u() / (float) owner.width;
+                float v1 = (float) glyph.v() / (float) owner.height;
+                float u2 = (float) (glyph.u() + glyph.width()) / (float) owner.width;
+                float v2 = (float) (glyph.v() + glyph.height()) / (float) owner.height;
                 bb.vertex(mat, xo + 0.0f, yo + h, 0.0f).texture(u1, v2).color(cr, cg, cb, a).next();
                 bb.vertex(mat, xo + w, yo + h, 0.0f).texture(u2, v2).color(cr, cg, cb, a).next();
                 bb.vertex(mat, xo + w, yo + 0.0f, 0.0f).texture(u2, v1).color(cr, cg, cb, a).next();
@@ -295,8 +319,8 @@ implements Closeable {
                 continue;
             }
             Glyph glyph = this.locateGlyph1(c1);
-            float gWidth = glyph == null ? 1.0f : (float)glyph.width();
-            currentLine += gWidth / (float)this.scaleMul;
+            float gWidth = glyph == null ? 1.0f : (float) glyph.width();
+            currentLine += gWidth / (float) this.scaleMul;
         }
         return Math.max(currentLine, maxPreviousLines);
     }
@@ -311,14 +335,14 @@ implements Closeable {
         for (char c1 : c) {
             if (c1 == '\n') {
                 if (currentLine == 0.0f) {
-                    currentLine = (float)this.locateGlyph1(' ').height() / (float)this.scaleMul;
+                    currentLine = (float) this.locateGlyph1(' ').height() / (float) this.scaleMul;
                 }
                 previous += currentLine;
                 currentLine = 0.0f;
                 continue;
             }
             Glyph glyph = this.locateGlyph1(c1);
-            currentLine = Math.max((float)glyph.height() / (float)this.scaleMul, currentLine);
+            currentLine = Math.max((float) glyph.height() / (float) this.scaleMul, currentLine);
         }
         return currentLine + previous;
     }
@@ -330,29 +354,6 @@ implements Closeable {
         }
         this.maps.clear();
         this.allGlyphs.clear();
-    }
-
-    static {
-        Char2IntArrayMap char2IntArrayMap = new Char2IntArrayMap();
-        char2IntArrayMap.put('0', 0);
-        char2IntArrayMap.put('1', 170);
-        char2IntArrayMap.put('2', 43520);
-        char2IntArrayMap.put('3', 43690);
-        char2IntArrayMap.put('4', 0xAA0000);
-        char2IntArrayMap.put('5', 0xAA00AA);
-        char2IntArrayMap.put('6', 0xFFAA00);
-        char2IntArrayMap.put('7', 0xAAAAAA);
-        char2IntArrayMap.put('8', 0x555555);
-        char2IntArrayMap.put('9', 0x5555FF);
-        char2IntArrayMap.put('A', 0x55FF55);
-        char2IntArrayMap.put('B', 0x55FFFF);
-        char2IntArrayMap.put('C', 0xFF5555);
-        char2IntArrayMap.put('D', 0xFF55FF);
-        char2IntArrayMap.put('E', 0xFFFF55);
-        char2IntArrayMap.put('F', 0xFFFFFF);
-        colorCodes = char2IntArrayMap;
-        GLYPH_PAGE_CACHE = new Object2ObjectArrayMap();
-        RND = new Random();
     }
 
     record _ZitfNZXjZiLiXZJDgFqm(float atX, float atY, float r, float g, float b, Glyph toDraw) {

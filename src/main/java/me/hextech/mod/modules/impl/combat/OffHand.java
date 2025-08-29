@@ -16,7 +16,7 @@ import net.minecraft.item.Items;
 import net.minecraft.screen.slot.SlotActionType;
 
 public class OffHand
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final BooleanSetting mainHand = this.add(new BooleanSetting("MainHand", false));
     private final BooleanSetting crystal = this.add(new BooleanSetting("OffHandCrystal", false));
     private final SliderSetting health = this.add(new SliderSetting("Health", 16.0, 0.0, 36.0, 0.1));
@@ -53,7 +53,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.timer.passedMs(200L)) {
             return;
         }
-        if ((double)(OffHand.mc.player.getHealth() + OffHand.mc.player.getAbsorptionAmount()) > this.health.getValue()) {
+        if ((double) (OffHand.mc.player.getHealth() + OffHand.mc.player.getAbsorptionAmount()) > this.health.getValue()) {
             int itemSlot;
             if (!this.mainHand.getValue() && this.crystal.getValue() && OffHand.mc.player.getOffHandStack().getItem() != Items.END_CRYSTAL && (itemSlot = InventoryUtil.findItemInventorySlot(Items.END_CRYSTAL)) != -1) {
                 OffHand.mc.interactionManager.clickSlot(OffHand.mc.player.currentScreenHandler.syncId, itemSlot, 0, SlotActionType.PICKUP, OffHand.mc.player);

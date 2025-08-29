@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AutoRegear
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final BooleanSetting rotate = this.add(new BooleanSetting("Rotation", true));
     final int[] stealCountList = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private final BooleanSetting autoDisable = this.add(new BooleanSetting("AutoDisable", true));
@@ -108,13 +108,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         double distance = 100.0;
         BlockPos bestPos = null;
-        for (BlockPos pos : BlockUtil.getSphere((float)this.range.getValue())) {
+        for (BlockPos pos : BlockUtil.getSphere((float) this.range.getValue())) {
             if (!BlockUtil.isAir(pos.up())) continue;
             if (this.preferOpen.getValue() && AutoRegear.mc.world.getBlockState(pos).getBlock() instanceof ShulkerBoxBlock) {
                 return;
             }
-            if ((double)MathHelper.sqrt((float)AutoRegear.mc.player.squaredDistanceTo(pos.toCenterPos())) < this.minRange.getValue() || !BlockUtil.clientCanPlace(pos, false) || !BlockUtil.isStrictDirection(pos.offset(Direction.DOWN), Direction.UP) || !BlockUtil.canClick(pos.offset(Direction.DOWN)) || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals(SpeedMine.breakPos)) || bestPos != null && !((double)MathHelper.sqrt((float)AutoRegear.mc.player.squaredDistanceTo(pos.toCenterPos())) < distance)) continue;
-            distance = MathHelper.sqrt((float)AutoRegear.mc.player.squaredDistanceTo(pos.toCenterPos()));
+            if ((double) MathHelper.sqrt((float) AutoRegear.mc.player.squaredDistanceTo(pos.toCenterPos())) < this.minRange.getValue() || !BlockUtil.clientCanPlace(pos, false) || !BlockUtil.isStrictDirection(pos.offset(Direction.DOWN), Direction.UP) || !BlockUtil.canClick(pos.offset(Direction.DOWN)) || this.detectMining.getValue() && (HexTech.BREAK.isMining(pos) || pos.equals(SpeedMine.breakPos)) || bestPos != null && !((double) MathHelper.sqrt((float) AutoRegear.mc.player.squaredDistanceTo(pos.toCenterPos())) < distance))
+                continue;
+            distance = MathHelper.sqrt((float) AutoRegear.mc.player.squaredDistanceTo(pos.toCenterPos()));
             bestPos = pos;
         }
         if (bestPos != null) {
@@ -147,27 +148,27 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void update() {
-        this.stealCountList[0] = (int)(this.crystal.getValue() - (double)InventoryUtil.getItemCount(Items.END_CRYSTAL));
-        this.stealCountList[1] = (int)(this.exp.getValue() - (double)InventoryUtil.getItemCount(Items.EXPERIENCE_BOTTLE));
-        this.stealCountList[2] = (int)(this.totem.getValue() - (double)InventoryUtil.getItemCount(Items.TOTEM_OF_UNDYING));
-        this.stealCountList[3] = (int)(this.gapple.getValue() - (double)InventoryUtil.getItemCount(Items.ENCHANTED_GOLDEN_APPLE));
-        this.stealCountList[4] = (int)(this.endChest.getValue() - (double)InventoryUtil.getItemCount(Item.fromBlock(Blocks.ENDER_CHEST)));
-        this.stealCountList[5] = (int)(this.web.getValue() - (double)InventoryUtil.getItemCount(Item.fromBlock(Blocks.COBWEB)));
-        this.stealCountList[6] = (int)(this.glowstone.getValue() - (double)InventoryUtil.getItemCount(Item.fromBlock(Blocks.GLOWSTONE)));
-        this.stealCountList[7] = (int)(this.anchor.getValue() - (double)InventoryUtil.getItemCount(Item.fromBlock(Blocks.RESPAWN_ANCHOR)));
-        this.stealCountList[8] = (int)(this.pearl.getValue() - (double)InventoryUtil.getItemCount(Items.ENDER_PEARL));
-        this.stealCountList[9] = (int)(this.turtleMaster.getValue() - (double)InventoryUtil.getPotCount(StatusEffects.RESISTANCE));
-        this.stealCountList[10] = (int)(this.helmet.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.Type.HELMET));
-        this.stealCountList[11] = (int)(this.chestplate.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.Type.CHESTPLATE));
-        this.stealCountList[12] = (int)(this.leggings.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.Type.LEGGINGS));
-        this.stealCountList[13] = (int)(this.boots.getValue() - (double)InventoryUtil.getArmorCount(ArmorItem.Type.BOOTS));
-        this.stealCountList[14] = (int)(this.elytra.getValue() - (double)InventoryUtil.getItemCount(Items.ELYTRA));
-        this.stealCountList[15] = (int)(this.sword.getValue() - (double)InventoryUtil.getClassCount(SwordItem.class));
-        this.stealCountList[16] = (int)(this.pickaxe.getValue() - (double)InventoryUtil.getClassCount(PickaxeItem.class));
-        this.stealCountList[17] = (int)(this.piston.getValue() - (double)InventoryUtil.getClassCount(PistonBlock.class));
-        this.stealCountList[18] = (int)(this.redstone.getValue() - (double)InventoryUtil.getItemCount(Item.fromBlock(Blocks.REDSTONE_BLOCK)));
-        this.stealCountList[19] = (int)(this.cfruit.getValue() - (double)InventoryUtil.getItemCount(Items.CHORUS_FRUIT));
-        this.stealCountList[20] = (int)(this.obs.getValue() - (double)InventoryUtil.getItemCount(Item.fromBlock(Blocks.OBSIDIAN)));
+        this.stealCountList[0] = (int) (this.crystal.getValue() - (double) InventoryUtil.getItemCount(Items.END_CRYSTAL));
+        this.stealCountList[1] = (int) (this.exp.getValue() - (double) InventoryUtil.getItemCount(Items.EXPERIENCE_BOTTLE));
+        this.stealCountList[2] = (int) (this.totem.getValue() - (double) InventoryUtil.getItemCount(Items.TOTEM_OF_UNDYING));
+        this.stealCountList[3] = (int) (this.gapple.getValue() - (double) InventoryUtil.getItemCount(Items.ENCHANTED_GOLDEN_APPLE));
+        this.stealCountList[4] = (int) (this.endChest.getValue() - (double) InventoryUtil.getItemCount(Item.fromBlock(Blocks.ENDER_CHEST)));
+        this.stealCountList[5] = (int) (this.web.getValue() - (double) InventoryUtil.getItemCount(Item.fromBlock(Blocks.COBWEB)));
+        this.stealCountList[6] = (int) (this.glowstone.getValue() - (double) InventoryUtil.getItemCount(Item.fromBlock(Blocks.GLOWSTONE)));
+        this.stealCountList[7] = (int) (this.anchor.getValue() - (double) InventoryUtil.getItemCount(Item.fromBlock(Blocks.RESPAWN_ANCHOR)));
+        this.stealCountList[8] = (int) (this.pearl.getValue() - (double) InventoryUtil.getItemCount(Items.ENDER_PEARL));
+        this.stealCountList[9] = (int) (this.turtleMaster.getValue() - (double) InventoryUtil.getPotCount(StatusEffects.RESISTANCE));
+        this.stealCountList[10] = (int) (this.helmet.getValue() - (double) InventoryUtil.getArmorCount(ArmorItem.Type.HELMET));
+        this.stealCountList[11] = (int) (this.chestplate.getValue() - (double) InventoryUtil.getArmorCount(ArmorItem.Type.CHESTPLATE));
+        this.stealCountList[12] = (int) (this.leggings.getValue() - (double) InventoryUtil.getArmorCount(ArmorItem.Type.LEGGINGS));
+        this.stealCountList[13] = (int) (this.boots.getValue() - (double) InventoryUtil.getArmorCount(ArmorItem.Type.BOOTS));
+        this.stealCountList[14] = (int) (this.elytra.getValue() - (double) InventoryUtil.getItemCount(Items.ELYTRA));
+        this.stealCountList[15] = (int) (this.sword.getValue() - (double) InventoryUtil.getClassCount(SwordItem.class));
+        this.stealCountList[16] = (int) (this.pickaxe.getValue() - (double) InventoryUtil.getClassCount(PickaxeItem.class));
+        this.stealCountList[17] = (int) (this.piston.getValue() - (double) InventoryUtil.getClassCount(PistonBlock.class));
+        this.stealCountList[18] = (int) (this.redstone.getValue() - (double) InventoryUtil.getItemCount(Item.fromBlock(Blocks.REDSTONE_BLOCK)));
+        this.stealCountList[19] = (int) (this.cfruit.getValue() - (double) InventoryUtil.getItemCount(Items.CHORUS_FRUIT));
+        this.stealCountList[20] = (int) (this.obs.getValue() - (double) InventoryUtil.getItemCount(Item.fromBlock(Blocks.OBSIDIAN)));
     }
 
     @Override
@@ -199,15 +200,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return;
             }
             if (this.open.getValue()) {
-                if (this.placePos != null && (double)MathHelper.sqrt((float)AutoRegear.mc.player.squaredDistanceTo(this.placePos.toCenterPos())) <= this.range.getValue() && AutoRegear.mc.world.isAir(this.placePos.up()) && (!this.timer.passedMs(500L) || AutoRegear.mc.world.getBlockState(this.placePos).getBlock() instanceof ShulkerBoxBlock)) {
+                if (this.placePos != null && (double) MathHelper.sqrt((float) AutoRegear.mc.player.squaredDistanceTo(this.placePos.toCenterPos())) <= this.range.getValue() && AutoRegear.mc.world.isAir(this.placePos.up()) && (!this.timer.passedMs(500L) || AutoRegear.mc.world.getBlockState(this.placePos).getBlock() instanceof ShulkerBoxBlock)) {
                     if (AutoRegear.mc.world.getBlockState(this.placePos).getBlock() instanceof ShulkerBoxBlock) {
                         this.openPos = this.placePos;
                         BlockUtil.clickBlock(this.placePos, BlockUtil.getClickSide(this.placePos), this.rotate.getValue());
                     }
                 } else {
                     boolean found = false;
-                    for (BlockPos pos : BlockUtil.getSphere((float)this.range.getValue())) {
-                        if (!BlockUtil.isAir(pos.up()) || !(AutoRegear.mc.world.getBlockState(pos).getBlock() instanceof ShulkerBoxBlock)) continue;
+                    for (BlockPos pos : BlockUtil.getSphere((float) this.range.getValue())) {
+                        if (!BlockUtil.isAir(pos.up()) || !(AutoRegear.mc.world.getBlockState(pos).getBlock() instanceof ShulkerBoxBlock))
+                            continue;
                         this.openPos = pos;
                         BlockUtil.clickBlock(pos, BlockUtil.getClickSide(pos), this.rotate.getValue());
                         found = true;
@@ -233,7 +235,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         ScreenHandler screenHandler = AutoRegear.mc.player.currentScreenHandler;
         if (screenHandler instanceof ShulkerBoxScreenHandler shulker) {
             for (Slot slot : shulker.slots) {
-                if (slot.id >= 27 || slot.getStack().isEmpty() || this.smart.getValue() && !this.needSteal(slot.getStack()) || !((double)InventoryUtil.getEmptySlotCount() > this.empty.getValue())) continue;
+                if (slot.id >= 27 || slot.getStack().isEmpty() || this.smart.getValue() && !this.needSteal(slot.getStack()) || !((double) InventoryUtil.getEmptySlotCount() > this.empty.getValue()))
+                    continue;
                 AutoRegear.mc.interactionManager.clickSlot(shulker.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, AutoRegear.mc.player);
                 take = true;
             }
@@ -326,7 +329,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.stealCountList[16] = this.stealCountList[16] - i.getCount();
             return true;
         }
-        if (i.getItem() instanceof BlockItem && ((BlockItem)i.getItem()).getBlock() instanceof PistonBlock && this.stealCountList[17] > 0) {
+        if (i.getItem() instanceof BlockItem && ((BlockItem) i.getItem()).getBlock() instanceof PistonBlock && this.stealCountList[17] > 0) {
             this.stealCountList[17] = this.stealCountList[17] - i.getCount();
             return true;
         }

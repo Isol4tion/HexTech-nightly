@@ -24,7 +24,7 @@ public class TimerManager {
     }
 
     public boolean passedS(double s) {
-        return this.passedMs((long)s * 1000L);
+        return this.passedMs((long) s * 1000L);
     }
 
     public boolean passedMs(long ms) {
@@ -32,7 +32,7 @@ public class TimerManager {
     }
 
     public boolean passedMs(double ms) {
-        return this.passedMs((long)ms);
+        return this.passedMs((long) ms);
     }
 
     public boolean passed(long ms) {
@@ -40,7 +40,7 @@ public class TimerManager {
     }
 
     public boolean passed(double ms) {
-        return this.passedMs((long)ms);
+        return this.passedMs((long) ms);
     }
 
     public void setMs(long ms) {
@@ -48,11 +48,11 @@ public class TimerManager {
     }
 
     public boolean passedNS(long ns) {
-        return (float)System.nanoTime() - this.timer >= (float)ns;
+        return (float) System.nanoTime() - this.timer >= (float) ns;
     }
 
     public long getPassedTimeMs() {
-        return this.getMs((long)((float)System.nanoTime() - this.timer));
+        return this.getMs((long) ((float) System.nanoTime() - this.timer));
     }
 
     public long getMs(long time) {

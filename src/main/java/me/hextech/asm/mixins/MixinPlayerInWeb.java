@@ -13,9 +13,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={CobwebBlock.class})
+@Mixin(value = {CobwebBlock.class})
 public class MixinPlayerInWeb {
-    @Inject(at={@At(value="HEAD")}, method={"onEntityCollision"}, cancellable=true)
+    @Inject(at = {@At(value = "HEAD")}, method = {"onEntityCollision"}, cancellable = true)
     private void onGetVelocityMultiplier(BlockState state, World world, BlockPos pos, Entity entity, CallbackInfo ci) {
         if (FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.isOn() && (Wrapper.mc.options.sneakKey.isPressed() || !FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.onlySneak.getValue())) {
             if (FastWeb_dehcwwTxEbDSnkFtZvNl.INSTANCE.groundcheck.getValue() && Wrapper.mc.player.isOnGround()) {

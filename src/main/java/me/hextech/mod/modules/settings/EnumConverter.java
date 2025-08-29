@@ -6,7 +6,7 @@ import com.google.gson.JsonPrimitive;
 import org.jetbrains.annotations.NotNull;
 
 public class EnumConverter
-extends Converter<Enum, JsonElement> {
+        extends Converter<Enum, JsonElement> {
     private final Class<? extends Enum> clazz;
 
     public EnumConverter(Class<? extends Enum> clazz) {
@@ -53,8 +53,7 @@ extends Converter<Enum, JsonElement> {
     public Enum doBackward(String string) {
         try {
             return Enum.valueOf(this.clazz, string);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return null;
         }
     }
@@ -63,8 +62,7 @@ extends Converter<Enum, JsonElement> {
     public Enum doBackward(JsonElement jsonElement) {
         try {
             return Enum.valueOf(this.clazz, jsonElement.getAsString());
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return null;
         }
     }

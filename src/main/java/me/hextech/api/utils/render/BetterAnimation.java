@@ -28,6 +28,6 @@ public class BetterAnimation {
     }
 
     public double getAnimationd() {
-        return BetterAnimation.dropAnimation(((float)this.prevTick + (float)(this.tick - this.prevTick) * Wrapper.mc.getTickDelta()) / (float)this.maxTick);
+        return BetterAnimation.dropAnimation(((float) this.prevTick + (float) (this.tick - this.prevTick) * Wrapper.mc.getTickDelta()) / (float) this.maxTick);
     }
 }

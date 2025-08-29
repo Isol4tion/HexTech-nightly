@@ -18,7 +18,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GuiManager
-implements Wrapper {
+        implements Wrapper {
     public static final ClickGuiScreen clickGui = new ClickGuiScreen();
     public static Tab currentGrabbed;
     public final ArrayList<ClickGuiTab> tabs = new ArrayList();
@@ -61,8 +61,8 @@ implements Wrapper {
         this.mouseX = x;
         this.mouseY = y;
         if (this.isClickGuiOpen()) {
-            int dx = (int)((double)this.mouseX);
-            int dy = (int)((double)this.mouseY);
+            int dx = (int) ((double) this.mouseX);
+            int dy = (int) ((double) this.mouseY);
             if (!mouseClicked) {
                 currentGrabbed = null;
             }
@@ -87,11 +87,11 @@ implements Wrapper {
                         break;
                     }
                     case Pull: {
-                        matrixStack.scale((float)quad, (float)quad, 1.0f);
+                        matrixStack.scale((float) quad, (float) quad, 1.0f);
                         break;
                     }
                     case Scissor: {
-                        this.setScissorRegion(0, 0, mc.getWindow().getWidth(), (int)((double)mc.getWindow().getHeight() * quad));
+                        this.setScissorRegion(0, 0, mc.getWindow().getWidth(), (int) ((double) mc.getWindow().getHeight() * quad));
                         s = true;
                     }
                 }
@@ -110,7 +110,7 @@ implements Wrapper {
     public void setScissorRegion(int x, int y, int width, int height) {
         double scaledY = mc.getWindow().getHeight() - (y + height);
         GL11.glEnable(3089);
-        GL11.glScissor(x, (int)scaledY, width, height);
+        GL11.glScissor(x, (int) scaledY, width, height);
     }
 
     public boolean isClickGuiOpen() {

@@ -10,14 +10,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={MultiplayerScreen.class})
+@Mixin(value = {MultiplayerScreen.class})
 public class MixinMultiplayerScreen
-extends Screen {
+        extends Screen {
     protected MixinMultiplayerScreen(Text title) {
         super(title);
     }
 
-    @Inject(at={@At(value="TAIL")}, method={"init()V"})
+    @Inject(at = {@At(value = "TAIL")}, method = {"init()V"})
     private void onInit(CallbackInfo ci) {
         this.addDrawableChild(ButtonWidget.builder(Text.of("Alt Manager"), b -> this.client.setScreen(new AltScreen(this))).dimensions(this.width / 2 + 4 + 50, 7, 100, 20).build());
     }

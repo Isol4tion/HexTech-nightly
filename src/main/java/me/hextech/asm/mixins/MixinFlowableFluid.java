@@ -9,9 +9,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Iterator;
 
-@Mixin(value={FlowableFluid.class})
+@Mixin(value = {FlowableFluid.class})
 public class MixinFlowableFluid {
-    @Redirect(method={"getVelocity"}, at=@At(value="INVOKE", target="Ljava/util/Iterator;hasNext()Z", ordinal=0))
+    @Redirect(method = {"getVelocity"}, at = @At(value = "INVOKE", target = "Ljava/util/Iterator;hasNext()Z", ordinal = 0))
     private boolean getVelocity_hasNext(Iterator<Direction> var9) {
         if (Velocity.INSTANCE.isOn() && Velocity.INSTANCE.waterPush.getValue()) {
             return false;

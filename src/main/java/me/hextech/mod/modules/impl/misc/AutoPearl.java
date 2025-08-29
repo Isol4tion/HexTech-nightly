@@ -13,7 +13,7 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
 import net.minecraft.util.Hand;
 
 public class AutoPearl
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AutoPearl INSTANCE;
     public static boolean throwing;
     public final BooleanSetting inventory = this.add(new BooleanSetting("InventorySwap", true));

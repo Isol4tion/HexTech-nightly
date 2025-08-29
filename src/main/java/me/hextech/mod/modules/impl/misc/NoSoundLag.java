@@ -10,7 +10,7 @@ import net.minecraft.sound.SoundEvents;
 import java.util.ArrayList;
 
 public class NoSoundLag
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     static final ArrayList<SoundEvent> armor = new ArrayList();
     public static NoSoundLag INSTANCE;
     private final BooleanSetting equip = this.add(new BooleanSetting("ArmorEquip", true));

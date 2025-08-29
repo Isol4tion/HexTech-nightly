@@ -11,7 +11,7 @@ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import java.util.HashMap;
 
 public class AutoQueue_kggvJAWJdfERirsncrmh
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static HashMap<String, String> asks;
     public static boolean inQueue;
     private final BooleanSetting queueCheck = this.add(new BooleanSetting("QueueCheck", true));

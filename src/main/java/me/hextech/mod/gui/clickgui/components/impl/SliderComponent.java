@@ -15,7 +15,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import java.awt.*;
 
 public class SliderComponent
-extends Component {
+        extends Component {
     final SliderSetting setting;
     private final ClickGuiTab parent;
     private final Timer timer = new Timer();
@@ -42,13 +42,13 @@ extends Component {
     @Override
     public void update(int offset, double mouseX, double mouseY, boolean mouseClicked) {
         if (this.firstUpdate) {
-            this.currentSliderPosition = (float)((this.setting.getValue() - this.setting.getMinimum()) / this.setting.getRange());
+            this.currentSliderPosition = (float) ((this.setting.getValue() - this.setting.getMinimum()) / this.setting.getRange());
             this.firstUpdate = false;
         }
         int parentX = this.parent.getX();
         int parentY = this.parent.getY();
         int parentWidth = this.parent.getWidth();
-        if (mouseX >= (double)parentX && mouseX <= (double)(parentX + parentWidth - 2) && mouseY >= (double)(parentY + offset) && mouseY <= (double)(parentY + offset + this.defaultHeight - 2)) {
+        if (mouseX >= (double) parentX && mouseX <= (double) (parentX + parentWidth - 2) && mouseY >= (double) (parentY + offset) && mouseY <= (double) (parentY + offset + this.defaultHeight - 2)) {
             this.hover = true;
             if (GuiManager.currentGrabbed == null && this.isVisible()) {
                 if (ClickGuiScreen.clicked) {
@@ -62,7 +62,7 @@ extends Component {
                         this.clicked = true;
                         ClickGuiScreen.hoverClicked = true;
                         ClickGuiScreen.clicked = false;
-                        this.currentSliderPosition = (float)Math.min((mouseX - (double)parentX) / (double)(parentWidth - 4), 1.0);
+                        this.currentSliderPosition = (float) Math.min((mouseX - (double) parentX) / (double) (parentWidth - 4), 1.0);
                         this.currentSliderPosition = Math.max(0.0, this.currentSliderPosition);
                         this.setting.setValue(this.currentSliderPosition * this.setting.getRange() + this.setting.getMinimum());
                     }
@@ -89,17 +89,17 @@ extends Component {
         int parentWidth = this.parent.getWidth();
         MatrixStack matrixStack = drawContext.getMatrices();
         this.currentOffset = SliderComponent.animate(this.currentOffset, offset);
-        if (back && Math.abs(this.currentOffset - (double)offset) <= 0.5) {
+        if (back && Math.abs(this.currentOffset - (double) offset) <= 0.5) {
             this.renderSliderPosition = 0.0;
             return false;
         }
-        this.renderSliderPosition = SliderComponent.animate(this.renderSliderPosition, Math.floor((double)(parentWidth - 2) * this.currentSliderPosition), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.sliderSpeed.getValue());
-        float height = ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.UIType.New ? 1.0f : (float)(this.defaultHeight - (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 0 : 1));
-        float f = y = ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.UIType.New ? (float)(parentY + offset + this.defaultHeight - 3) : (float)(parentY + offset - 1);
+        this.renderSliderPosition = SliderComponent.animate(this.renderSliderPosition, Math.floor((double) (parentWidth - 2) * this.currentSliderPosition), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.sliderSpeed.getValue());
+        float height = ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.UIType.New ? 1.0f : (float) (this.defaultHeight - (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.maxFill.getValue() ? 0 : 1));
+        float f = y = ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.uiType.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.UIType.New ? (float) (parentY + offset + this.defaultHeight - 3) : (float) (parentY + offset - 1);
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainEnd.booleanValue) {
-            Render2DUtil.drawRectHorizontal(matrixStack, parentX + 1, y, (int)this.renderSliderPosition, height, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainEnd.getValue());
+            Render2DUtil.drawRectHorizontal(matrixStack, parentX + 1, y, (int) this.renderSliderPosition, height, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainEnd.getValue());
         } else {
-            Render2DUtil.drawRect(matrixStack, (float)(parentX + 1), y, (float)((int)this.renderSliderPosition), height, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color);
+            Render2DUtil.drawRect(matrixStack, (float) (parentX + 1), y, (float) ((int) this.renderSliderPosition), height, this.hover ? ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.mainHover.getValue() : color);
         }
         if (this.setting == null) {
             return true;
@@ -109,12 +109,12 @@ extends Component {
                 this.b = !this.b;
                 this.timer.reset();
             }
-            TextUtil.drawString(drawContext, this.setting.temp + (this.b ? "_" : ""), parentX + 4, (float)((double)parentY + this.getTextOffsetY() + (double)offset - 2.0), 0xFFFFFF);
+            TextUtil.drawString(drawContext, this.setting.temp + (this.b ? "_" : ""), parentX + 4, (float) ((double) parentY + this.getTextOffsetY() + (double) offset - 2.0), 0xFFFFFF);
         } else {
-            Object value = (double)this.setting.getValueInt() == this.setting.getValue() ? String.valueOf(this.setting.getValueInt()) : String.valueOf(this.setting.getValueFloat());
+            Object value = (double) this.setting.getValueInt() == this.setting.getValue() ? String.valueOf(this.setting.getValueInt()) : String.valueOf(this.setting.getValueFloat());
             value = value + this.setting.getSuffix();
-            TextUtil.drawString(drawContext, this.setting.getName(), parentX + 4, (float)((double)parentY + this.getTextOffsetY() + (double)offset - 2.0), 0xFFFFFF);
-            TextUtil.drawString(drawContext, (String)value, (float)(parentX + parentWidth) - TextUtil.getWidth((String)value) - 5.0f, (float)((double)parentY + this.getTextOffsetY() + (double)offset - 2.0), 0xFFFFFF);
+            TextUtil.drawString(drawContext, this.setting.getName(), parentX + 4, (float) ((double) parentY + this.getTextOffsetY() + (double) offset - 2.0), 0xFFFFFF);
+            TextUtil.drawString(drawContext, (String) value, (float) (parentX + parentWidth) - TextUtil.getWidth((String) value) - 5.0f, (float) ((double) parentY + this.getTextOffsetY() + (double) offset - 2.0), 0xFFFFFF);
         }
         return true;
     }

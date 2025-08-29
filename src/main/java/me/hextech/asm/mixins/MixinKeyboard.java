@@ -17,14 +17,22 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={Keyboard.class})
+@Mixin(value = {Keyboard.class})
 public class MixinKeyboard
-implements Wrapper {
+        implements Wrapper {
     @Shadow
     @Final
     private MinecraftClient client;
 
-    @Inject(method={"onKey"}, at={@At(value="HEAD")})
+    private static /* synthetic */ void lambda$onChar$17(Element element, char c, int modifiers) {
+        element.charTyped(c, modifiers);
+    }
+
+    private static /* synthetic */ void lambda$onChar$8(Element element, int codePoint, int modifiers) {
+        element.charTyped((char) codePoint, modifiers);
+    }
+
+    @Inject(method = {"onKey"}, at = {@At(value = "HEAD")})
     private void onKey(long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo ci) {
         if (MixinKeyboard.mc.currentScreen instanceof ClickGuiScreen && action == 1 && HexTech.MODULE.setBind(key)) {
             return;
@@ -37,35 +45,27 @@ implements Wrapper {
         }
     }
 
-    @Inject(method={"onChar"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"onChar"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onChar(long window, int codePoint, int modifiers, CallbackInfo ci) {
         Screen element;
         if (window == this.client.getWindow().getHandle() && (element = this.client.currentScreen) != null && this.client.getOverlay() == null) {
             if (Character.charCount(codePoint) == 1) {
                 if (!Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck() && HexTech.GUI != null && HexTech.GUI.isClickGuiOpen()) {
-                    HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting)setting).filter(StringSetting::isListening).forEach(setting -> setting.charType((char)codePoint)));
-                    HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof SliderSetting).map(setting -> (SliderSetting)setting).filter(SliderSetting::isListening).forEach(setting -> setting.charType((char)codePoint)));
+                    HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting) setting).filter(StringSetting::isListening).forEach(setting -> setting.charType((char) codePoint)));
+                    HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof SliderSetting).map(setting -> (SliderSetting) setting).filter(SliderSetting::isListening).forEach(setting -> setting.charType((char) codePoint)));
                 }
                 Screen.wrapScreenError(() -> MixinKeyboard.lambda$onChar$8(element, codePoint, modifiers), "charTyped event handler", element.getClass().getCanonicalName());
             } else {
                 char[] var6;
                 for (char c : var6 = Character.toChars(codePoint)) {
                     if (!Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck() && HexTech.GUI != null && HexTech.GUI.isClickGuiOpen()) {
-                        HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting)setting).filter(StringSetting::isListening).forEach(setting -> setting.charType(c)));
-                        HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof SliderSetting).map(setting -> (SliderSetting)setting).filter(SliderSetting::isListening).forEach(setting -> setting.charType((char)codePoint)));
+                        HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting) setting).filter(StringSetting::isListening).forEach(setting -> setting.charType(c)));
+                        HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof SliderSetting).map(setting -> (SliderSetting) setting).filter(SliderSetting::isListening).forEach(setting -> setting.charType((char) codePoint)));
                     }
                     Screen.wrapScreenError(() -> MixinKeyboard.lambda$onChar$17(element, c, modifiers), "charTyped event handler", element.getClass().getCanonicalName());
                 }
             }
         }
         ci.cancel();
-    }
-
-    private static /* synthetic */ void lambda$onChar$17(Element element, char c, int modifiers) {
-        element.charTyped(c, modifiers);
-    }
-
-    private static /* synthetic */ void lambda$onChar$8(Element element, int codePoint, int modifiers) {
-        element.charTyped((char)codePoint, modifiers);
     }
 }

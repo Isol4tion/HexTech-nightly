@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public class HelpCommand
-extends Command {
+        extends Command {
     final int indexesPerPage = 5;
 
     public HelpCommand() {

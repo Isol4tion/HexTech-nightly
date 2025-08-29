@@ -11,7 +11,7 @@ import net.minecraft.client.util.SelectionManager;
 import java.util.function.Predicate;
 
 public class SliderSetting
-extends Setting {
+        extends Setting {
     private final double defaultValue;
     private final double minValue;
     private final double maxValue;
@@ -73,15 +73,15 @@ extends Setting {
         if (this.injectTask) {
             this.task.run();
         }
-        this.value = (double)Math.round(value / this.increment) * this.increment;
+        this.value = (double) Math.round(value / this.increment) * this.increment;
     }
 
     public final float getValueFloat() {
-        return (float)this.value;
+        return (float) this.value;
     }
 
     public final int getValueInt() {
-        return (int)this.value;
+        return (int) this.value;
     }
 
     public final double getMinimum() {
@@ -111,7 +111,7 @@ extends Setting {
 
     @Override
     public void loadSetting() {
-        this.setValue(HexTech.CONFIG.getFloat(this.getLine(), (float)this.defaultValue));
+        this.setValue(HexTech.CONFIG.getFloat(this.getLine(), (float) this.defaultValue));
     }
 
     public boolean isListening() {
@@ -133,8 +133,8 @@ extends Setting {
                 this.temp = this.temp + SelectionManager.getClipboard(Wrapper.mc);
                 break;
             }
-            case 256: 
-            case 257: 
+            case 256:
+            case 257:
             case 335: {
                 if (this.temp.isEmpty()) {
                     this.setValue(this.defaultValue);

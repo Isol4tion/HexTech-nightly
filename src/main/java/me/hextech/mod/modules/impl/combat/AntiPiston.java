@@ -19,7 +19,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 
 public class AntiPiston
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AntiPiston INSTANCE;
     public final BooleanSetting moveUp = this.add(new BooleanSetting("MoveUp", true));
     public final BooleanSetting rotate = this.add(new BooleanSetting("Rotation", true));
@@ -62,7 +62,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.moveUp.getValue()) {
             boolean canMove = false;
             for (Direction i : Direction.values()) {
-                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction)AntiPiston.mc.world.getBlockState(pos.offset(i).up()).get((Property)FacingBlock.FACING)).getOpposite() != i) {
+                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction) AntiPiston.mc.world.getBlockState(pos.offset(i).up()).get((Property) FacingBlock.FACING)).getOpposite() != i) {
                     if (this.webUpdate(AntiPiston.mc.player)) continue;
                     canMove = true;
                     continue;
@@ -81,7 +81,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int progress = 0;
         if (this.whenDouble.getValue()) {
             for (Direction i : Direction.values()) {
-                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction)AntiPiston.mc.world.getBlockState(pos.offset(i).up()).get((Property)FacingBlock.FACING)).getOpposite() != i) continue;
+                if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction) AntiPiston.mc.world.getBlockState(pos.offset(i).up()).get((Property) FacingBlock.FACING)).getOpposite() != i)
+                    continue;
                 ++progress;
             }
         }
@@ -90,7 +91,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(AntiPiston.mc.player.getX(), AntiPiston.mc.player.getY(), AntiPiston.mc.player.getZ(), true));
         }
         for (Direction i : Direction.values()) {
-            if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction)AntiPiston.mc.world.getBlockState(pos.offset(i).up()).get((Property)FacingBlock.FACING)).getOpposite() != i) continue;
+            if (i == Direction.DOWN || i == Direction.UP || !(this.getBlock(pos.offset(i).up()) instanceof PistonBlock) || ((Direction) AntiPiston.mc.world.getBlockState(pos.offset(i).up()).get((Property) FacingBlock.FACING)).getOpposite() != i)
+                continue;
             this.placeBlock(pos.up().offset(i, -1));
             if (this.trap.getValue() && (this.getBlock(pos) != Blocks.AIR || !this.onlyBurrow.getValue() || progress >= 2)) {
                 this.placeBlock(pos.up(2));
@@ -153,8 +155,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (float x : new float[]{0.0f, 0.3f, -0.3f}) {
             for (float z : new float[]{0.0f, 0.3f, -0.3f}) {
                 for (int y : new int[]{-1, 0, 1, 2}) {
-                    BlockPos pos = new BlockPosX(player.getX() + (double)x, player.getY(), player.getZ() + (double)z).up(y);
-                    if (!new Box(pos).intersects(player.getBoundingBox()) || AntiPiston.mc.world.getBlockState(pos).getBlock() != Blocks.COBWEB) continue;
+                    BlockPos pos = new BlockPosX(player.getX() + (double) x, player.getY(), player.getZ() + (double) z).up(y);
+                    if (!new Box(pos).intersects(player.getBoundingBox()) || AntiPiston.mc.world.getBlockState(pos).getBlock() != Blocks.COBWEB)
+                        continue;
                     return true;
                 }
             }

@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.List;
 
 public class LoadCommand
-extends Command {
+        extends Command {
     public LoadCommand() {
         super("load", "debug", "[config]");
     }

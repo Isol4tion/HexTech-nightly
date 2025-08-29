@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Mixin(value={ChatMessages.class})
+@Mixin(value = {ChatMessages.class})
 public class MixinChatMessages {
     @Final
     @Shadow
@@ -31,7 +31,7 @@ public class MixinChatMessages {
         return "";
     }
 
-    @Inject(method={"breakRenderedChatMessageLines"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"breakRenderedChatMessageLines"}, at = {@At(value = "HEAD")}, cancellable = true)
     private static void breakRenderedChatMessageLinesHook(StringVisitable message, int width, TextRenderer textRenderer, CallbackInfoReturnable<List<OrderedText>> cir) {
         TextCollector textCollector = new TextCollector();
         message.visit((style, messagex) -> {

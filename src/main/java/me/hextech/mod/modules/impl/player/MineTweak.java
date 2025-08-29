@@ -8,7 +8,7 @@ import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.SwordItem;
 
 public class MineTweak
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static MineTweak INSTANCE;
     public final BooleanSetting noEntityTrace = this.add(new BooleanSetting("NoEntityTrace", true).setParent());
     public final BooleanSetting onlyPickaxe = this.add(new BooleanSetting("OnlyPickaxe", true, v -> this.noEntityTrace.isOpen()));

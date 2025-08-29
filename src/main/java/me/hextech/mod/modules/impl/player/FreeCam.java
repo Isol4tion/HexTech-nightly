@@ -12,7 +12,7 @@ import me.hextech.mod.modules.settings.impl.SliderSetting;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class FreeCam
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static FreeCam INSTANCE;
     final BooleanSetting rotate = this.add(new BooleanSetting("Rotation", true));
     private final SliderSetting speed = this.add(new SliderSetting("HSpeed", 1.0, 0.0, 3.0));
@@ -49,7 +49,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.prevFakePitch = this.fakePitch;
         this.prevFakeYaw = this.fakeYaw;
         this.fakeX = FreeCam.mc.player.getX();
-        this.fakeY = FreeCam.mc.player.getY() + (double)FreeCam.mc.player.getEyeHeight(FreeCam.mc.player.getPose());
+        this.fakeY = FreeCam.mc.player.getY() + (double) FreeCam.mc.player.getEyeHeight(FreeCam.mc.player.getPose());
         this.fakeZ = FreeCam.mc.player.getZ();
         this.prevFakeX = this.fakeX;
         this.prevFakeY = this.fakeY;
@@ -70,7 +70,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    @EventHandler(priority=200)
+    @EventHandler(priority = 200)
     public void onRotate(RotateEvent event) {
         event.setYawNoModify(this.preYaw);
         event.setPitchNoModify(this.prePitch);
@@ -112,7 +112,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public float getFakePitch() {
-        return (float)MathUtil.interpolate(this.prevFakePitch, this.fakePitch, mc.getTickDelta());
+        return (float) MathUtil.interpolate(this.prevFakePitch, this.fakePitch, mc.getTickDelta());
     }
 
     public double getFakeX() {

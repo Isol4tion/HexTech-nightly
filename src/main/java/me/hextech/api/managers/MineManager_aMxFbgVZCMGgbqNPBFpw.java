@@ -16,7 +16,7 @@ import net.minecraft.util.math.MathHelper;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MineManager_aMxFbgVZCMGgbqNPBFpw
-implements Wrapper {
+        implements Wrapper {
     public final ConcurrentHashMap<Integer, MineInfo> breakMap = new ConcurrentHashMap();
 
     public MineManager_aMxFbgVZCMGgbqNPBFpw() {
@@ -37,7 +37,7 @@ implements Wrapper {
             if (breakData.getEntity() == null) {
                 return;
             }
-            if (MathHelper.sqrt((float)breakData.getEntity().getEyePos().squaredDistanceTo(packet.getPos().toCenterPos())) > 8.0f) {
+            if (MathHelper.sqrt((float) breakData.getEntity().getEyePos().squaredDistanceTo(packet.getPos().toCenterPos())) > 8.0f) {
                 return;
             }
             this.breakMap.put(packet.getEntityId(), breakData);
@@ -46,7 +46,8 @@ implements Wrapper {
 
     public boolean isMining(BlockPos pos) {
         for (MineInfo breakData : this.breakMap.values()) {
-            if (breakData.getEntity() == null || breakData.getEntity().getEyePos().distanceTo(pos.toCenterPos()) > 7.0 || !breakData.pos.equals(pos)) continue;
+            if (breakData.getEntity() == null || breakData.getEntity().getEyePos().distanceTo(pos.toCenterPos()) > 7.0 || !breakData.pos.equals(pos))
+                continue;
             return true;
         }
         return false;

@@ -10,7 +10,7 @@ import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class NoFall
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final SliderSetting distance = this.add(new SliderSetting("Distance", 3.0, 0.0, 8.0, 0.1));
 
     public NoFall() {
@@ -34,8 +34,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         Object t = event.getPacket();
         if (t instanceof PlayerMoveC2SPacket packet) {
-            if (NoFall.mc.player.fallDistance >= (float)this.distance.getValue()) {
-                ((IPlayerMoveC2SPacket)packet).setOnGround(true);
+            if (NoFall.mc.player.fallDistance >= (float) this.distance.getValue()) {
+                ((IPlayerMoveC2SPacket) packet).setOnGround(true);
             }
         }
     }

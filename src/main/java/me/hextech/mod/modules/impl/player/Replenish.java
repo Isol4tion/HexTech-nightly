@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.SlotActionType;
 
 public class Replenish
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final SliderSetting delay = this.add(new SliderSetting("Delay", 2.0, 0.0, 5.0, 0.01).setSuffix("s"));
     private final SliderSetting min = this.add(new SliderSetting("Min", 50, 1, 64));
     private final SliderSetting forceDelay = this.add(new SliderSetting("ForceDelay", 0.2, 0.0, 4.0, 0.01).setSuffix("s"));
@@ -35,7 +35,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!stack.isStackable()) {
             return false;
         }
-        if ((double)stack.getCount() > this.min.getValue()) {
+        if ((double) stack.getCount() > this.min.getValue()) {
             return false;
         }
         if (stack.getCount() == stack.getMaxCount()) {
@@ -44,7 +44,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (int i = 9; i < 36; ++i) {
             ItemStack item = Replenish.mc.player.getInventory().getStack(i);
             if (item.isEmpty() || !this.canMerge(stack, item)) continue;
-            if ((float)stack.getCount() > this.forceMin.getValueFloat() ? !this.timer.passedS(this.delay.getValue()) : !this.timer.passedS(this.forceDelay.getValue())) {
+            if ((float) stack.getCount() > this.forceMin.getValueFloat() ? !this.timer.passedS(this.delay.getValue()) : !this.timer.passedS(this.forceDelay.getValue())) {
                 return false;
             }
             Replenish.mc.interactionManager.clickSlot(Replenish.mc.player.playerScreenHandler.syncId, i, 0, SlotActionType.QUICK_MOVE, Replenish.mc.player);

@@ -18,9 +18,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={ClientPlayNetworkHandler.class})
+@Mixin(value = {ClientPlayNetworkHandler.class})
 public abstract class MixinClientPlayNetworkHandler
-extends ClientCommonNetworkHandler {
+        extends ClientCommonNetworkHandler {
     @Shadow
     private ClientWorld world;
     @Unique
@@ -32,14 +32,14 @@ extends ClientCommonNetworkHandler {
         super(client, connection, connectionState);
     }
 
-    @Inject(method={"onGameJoin"}, at={@At(value="HEAD")})
+    @Inject(method = {"onGameJoin"}, at = {@At(value = "HEAD")})
     private void onGameJoinHead(GameJoinS2CPacket packet, CallbackInfo info) {
         if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.nullfix.getValue()) {
             this.$worldNotNull = this.world != null;
         }
     }
 
-    @Inject(method={"onGameJoin"}, at={@At(value="TAIL")})
+    @Inject(method = {"onGameJoin"}, at = {@At(value = "TAIL")})
     private void onGameJoinTail(GameJoinS2CPacket packet, CallbackInfo info) {
         if (this.$worldNotNull) {
             HexTech.EVENT_BUS.post(new GameLeftEvent());
@@ -49,7 +49,7 @@ extends ClientCommonNetworkHandler {
     @Shadow
     public abstract void sendChatMessage(String var1);
 
-    @Inject(method={"sendChatMessage"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"sendChatMessage"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onSendChatMessage(String message, CallbackInfo ci) throws Throwable {
         if (this.nullpoint_ignoreChatMessage) {
             return;

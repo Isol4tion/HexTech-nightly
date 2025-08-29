@@ -12,7 +12,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
 public class InteractUtil
-implements Wrapper {
+        implements Wrapper {
     public static HitResult getRtxTarget(float yaw, float pitch, double x, double y, double z) {
         Box box;
         HitResult result = InteractUtil.rayTrace(5.0, yaw, pitch, x, y, z);
@@ -23,7 +23,7 @@ implements Wrapper {
         }
         Vec3d vec3d2 = InteractUtil.getRotationVector(yaw, pitch);
         Vec3d vec3d3 = vec3d.add(vec3d2.x * 5.0, vec3d2.y * 5.0, vec3d2.z * 5.0);
-        EntityHitResult entityHitResult = ProjectileUtil.raycast(InteractUtil.mc.player, vec3d, vec3d3, box = new Box(x - 0.3, y, z - 0.3, x + 0.3, y + (double)InteractUtil.mc.player.getEyeHeight(InteractUtil.mc.player.getPose()), z + 0.3).stretch(vec3d2.multiply(5.0)).expand(1.0, 1.0, 1.0), entity -> !entity.isSpectator() && entity.canHit(), distancePow2);
+        EntityHitResult entityHitResult = ProjectileUtil.raycast(InteractUtil.mc.player, vec3d, vec3d3, box = new Box(x - 0.3, y, z - 0.3, x + 0.3, y + (double) InteractUtil.mc.player.getEyeHeight(InteractUtil.mc.player.getPose()), z + 0.3).stretch(vec3d2.multiply(5.0)).expand(1.0, 1.0, 1.0), entity -> !entity.isSpectator() && entity.canHit(), distancePow2);
         if (entityHitResult != null) {
             Entity entity2 = entityHitResult.getEntity();
             Vec3d vec3d4 = entityHitResult.getPos();
@@ -43,6 +43,6 @@ implements Wrapper {
     }
 
     private static Vec3d getRotationVector(float yaw, float pitch) {
-        return new Vec3d(MathHelper.sin(-pitch * ((float)Math.PI / 180)) * MathHelper.cos(yaw * ((float)Math.PI / 180)), -MathHelper.sin(yaw * ((float)Math.PI / 180)), MathHelper.cos(-pitch * ((float)Math.PI / 180)) * MathHelper.cos(yaw * ((float)Math.PI / 180)));
+        return new Vec3d(MathHelper.sin(-pitch * ((float) Math.PI / 180)) * MathHelper.cos(yaw * ((float) Math.PI / 180)), -MathHelper.sin(yaw * ((float) Math.PI / 180)), MathHelper.cos(-pitch * ((float) Math.PI / 180)) * MathHelper.cos(yaw * ((float) Math.PI / 180)));
     }
 }

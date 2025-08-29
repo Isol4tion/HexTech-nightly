@@ -5,8 +5,8 @@ import net.minecraft.client.world.ClientWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(value={ClientWorld.class})
+@Mixin(value = {ClientWorld.class})
 public interface IClientWorld {
-    @Accessor(value="pendingUpdateManager")
+    @Accessor(value = "pendingUpdateManager")
     PendingUpdateManager acquirePendingUpdateManager();
 }

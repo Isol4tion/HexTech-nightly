@@ -17,7 +17,7 @@ import net.minecraft.util.math.MathHelper;
 import java.awt.*;
 
 public class Shader_CLqIXXaHSdAoBoxRSgjR
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Shader_CLqIXXaHSdAoBoxRSgjR INSTANCE;
     private final EnumSetting<Page> page = this.add(new EnumSetting<Page>("Page", Page.Shader));
     public final EnumSetting<ShaderManager.Mode> mode = this.add(new EnumSetting<ShaderManager.Mode>("Mode", ShaderManager.Mode.Solid, v -> this.page.getValue() == Page.Shader));
@@ -65,14 +65,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Shader_CLqIXXaHSdAoBoxRSgjR.mc.player == null) {
             return false;
         }
-        if ((double)MathHelper.sqrt((float)Shader_CLqIXXaHSdAoBoxRSgjR.mc.player.squaredDistanceTo(entity.getPos())) > this.maxRange.getValue()) {
+        if ((double) MathHelper.sqrt((float) Shader_CLqIXXaHSdAoBoxRSgjR.mc.player.squaredDistanceTo(entity.getPos())) > this.maxRange.getValue()) {
             return false;
         }
         if (entity instanceof PlayerEntity) {
             if (entity == Shader_CLqIXXaHSdAoBoxRSgjR.mc.player) {
                 return this.self.getValue();
             }
-            if (HexTech.FRIEND.isFriend((PlayerEntity)entity)) {
+            if (HexTech.FRIEND.isFriend((PlayerEntity) entity)) {
                 return this.friends.getValue();
             }
             return this.players.getValue();

@@ -28,7 +28,7 @@ import java.awt.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class PopChams_WNWBvFQQYNjRmTHDKpkM
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static PopChams_WNWBvFQQYNjRmTHDKpkM INSTANCE;
     private final ColorSetting color = this.add(new ColorSetting("Color", new Color(255, 255, 255)));
     private final SliderSetting alphaSpeed = this.add(new SliderSetting("AlphaSpeed", 0.2, 0.0, 1.0, 0.01));
@@ -100,11 +100,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double y = entity.getY() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.getEntityRenderDispatcher().camera.getPos().getY();
         double z = entity.getZ() - PopChams_WNWBvFQQYNjRmTHDKpkM.mc.getEntityRenderDispatcher().camera.getPos().getZ();
         matrices.push();
-        matrices.translate((float)x, (float)y, (float)z);
+        matrices.translate((float) x, (float) y, (float) z);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotation(MathUtil.rad(180.0f - entity.bodyYaw)));
         PopChams_WNWBvFQQYNjRmTHDKpkM.prepareScale(matrices);
         modelBase.animateModel((PlayerEntity) entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), mc.getTickDelta());
-        modelBase.setAngles((PlayerEntity) entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float)entity.age, entity.headYaw - entity.bodyYaw, entity.getPitch());
+        modelBase.setAngles((PlayerEntity) entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age, entity.headYaw - entity.bodyYaw, entity.getPitch());
         RenderSystem.enableBlend();
         GL11.glDisable(2929);
         Tessellator tessellator = Tessellator.getInstance();
@@ -112,7 +112,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
-        modelBase.render(matrices, buffer, 10, 0, (float)this.color.getValue().getRed() / 255.0f, (float)this.color.getValue().getGreen() / 255.0f, (float)this.color.getValue().getBlue() / 255.0f, (float)alpha / 255.0f);
+        modelBase.render(matrices, buffer, 10, 0, (float) this.color.getValue().getRed() / 255.0f, (float) this.color.getValue().getGreen() / 255.0f, (float) this.color.getValue().getBlue() / 255.0f, (float) alpha / 255.0f);
         tessellator.draw();
         RenderSystem.disableBlend();
         GL11.glEnable(2929);
@@ -127,7 +127,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         private final PlayerEntityModel<PlayerEntity> modelPlayer;
         private int alpha;
 
-        public PopChams( PlayerEntity player) {
+        public PopChams(PlayerEntity player) {
             this.player = player;
             this.modelPlayer = new PlayerEntityModel(new EntityRendererFactory.Context(mc.getEntityRenderDispatcher(), mc.getItemRenderer(), mc.getBlockRenderManager(), mc.getEntityRenderDispatcher().getHeldItemRenderer(), mc.getResourceManager(), mc.getEntityModelLoader(), mc.textRenderer).getPart(EntityModelLayers.PLAYER), false);
             this.modelPlayer.getHead().scale(new Vector3f(-0.3f, -0.3f, -0.3f));
@@ -142,11 +142,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 this.player.onRemoved();
                 return;
             }
-            this.alpha = (int)(AnimateUtil.animate(this.alpha, 0.0, alphaSpeed.getValue()) - 0.2);
+            this.alpha = (int) (AnimateUtil.animate(this.alpha, 0.0, alphaSpeed.getValue()) - 0.2);
         }
 
         public int getAlpha() {
-            return (int)MathUtil.clamp(this.alpha, 0.0f, 255.0f);
+            return (int) MathUtil.clamp(this.alpha, 0.0f, 255.0f);
         }
     }
 }

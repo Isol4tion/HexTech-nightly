@@ -7,7 +7,7 @@ import me.hextech.mod.modules.Module_eSdgMXWuzcxgQVaJFmKZ;
 import me.hextech.mod.modules.settings.impl.SliderSetting;
 
 public class Flight
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Flight INSTANCE;
     public final SliderSetting speed = this.add(new SliderSetting("Speed", 1.0, 0.1f, 10.0));
     public final SliderSetting downFactor = this.add(new SliderSetting("DownFactor", 0.0, 0.0, 1.0, 1.0E-6f));

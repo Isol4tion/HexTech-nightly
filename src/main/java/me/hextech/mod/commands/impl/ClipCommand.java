@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class ClipCommand
-extends Command {
+        extends Command {
     public ClipCommand() {
         super("clip", "Teleports the player certain blocks away (Vanilla only)", "[x] [y] [z]");
     }

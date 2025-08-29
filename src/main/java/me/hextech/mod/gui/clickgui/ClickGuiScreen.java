@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ClickGuiScreen
-extends Screen
-implements Wrapper {
+        extends Screen
+        implements Wrapper {
     public static boolean clicked;
     public static boolean rightClicked;
     public static boolean hoverClicked;
@@ -41,8 +41,8 @@ implements Wrapper {
     }
 
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting)setting).filter(StringSetting::isListening).forEach(setting -> setting.keyType(keyCode)));
-        HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof SliderSetting).map(setting -> (SliderSetting)setting).filter(SliderSetting::isListening).forEach(setting -> setting.keyType(keyCode)));
+        HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof StringSetting).map(setting -> (StringSetting) setting).filter(StringSetting::isListening).forEach(setting -> setting.keyType(keyCode)));
+        HexTech.MODULE.modules.forEach(module -> module.getSettings().stream().filter(setting -> setting instanceof SliderSetting).map(setting -> (SliderSetting) setting).filter(SliderSetting::isListening).forEach(setting -> setting.keyType(keyCode)));
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
@@ -97,7 +97,7 @@ implements Wrapper {
 
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         for (Tab tab : HexTech.GUI.tabs) {
-            tab.setY((int)((double)tab.getY() + verticalAmount * 30.0));
+            tab.setY((int) ((double) tab.getY() + verticalAmount * 30.0));
         }
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }

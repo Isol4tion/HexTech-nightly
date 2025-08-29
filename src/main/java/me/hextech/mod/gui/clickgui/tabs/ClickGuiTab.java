@@ -16,7 +16,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ClickGuiTab
-extends Tab {
+        extends Tab {
     protected final boolean drawBorder = true;
     protected final ArrayList<Component> children = new ArrayList();
     public double currentHeight = 0.0;
@@ -115,7 +115,7 @@ extends Tab {
     }
 
     public void onMouseClick(double mouseX, double mouseY, boolean mouseClicked) {
-        if (GuiManager.currentGrabbed == null && mouseX >= (double)this.x && mouseX <= (double)(this.x + this.width) && mouseY >= (double)this.y && mouseY <= (double)(this.y + 13)) {
+        if (GuiManager.currentGrabbed == null && mouseX >= (double) this.x && mouseX <= (double) (this.x + this.width) && mouseY >= (double) this.y && mouseY <= (double) (this.y + 13)) {
             if (mouseClicked) {
                 GuiManager.currentGrabbed = this;
             } else if (ClickGuiScreen.rightClicked) {
@@ -137,11 +137,11 @@ extends Tab {
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.categoryEnd.booleanValue) {
             Render2DUtil.drawRectVertical(matrixStack, this.x, this.y - 2, this.width, 15.0f, color, ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.categoryEnd.getValue());
         } else {
-            Render2DUtil.drawRect(matrixStack, (float)this.x, (float)(this.y - 2), (float)this.width, 15.0f, color.getRGB());
+            Render2DUtil.drawRect(matrixStack, (float) this.x, (float) (this.y - 2), (float) this.width, 15.0f, color.getRGB());
         }
-        Render2DUtil.drawRect(matrixStack, (float)this.x, (float)(this.y - 2 + 15), (float)this.width, 1.0f, new Color(38, 38, 38));
+        Render2DUtil.drawRect(matrixStack, (float) this.x, (float) (this.y - 2 + 15), (float) this.width, 1.0f, new Color(38, 38, 38));
         if (this.popped) {
-            Render2DUtil.drawRect(matrixStack, (float)this.x, (float)(this.y + 14), (float)this.width, (float)((int)this.currentHeight), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.bgColor.getValue());
+            Render2DUtil.drawRect(matrixStack, (float) this.x, (float) (this.y + 14), (float) this.width, (float) ((int) this.currentHeight), ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.bgColor.getValue());
         }
         if (this.popped) {
             int i = 15;
@@ -154,10 +154,10 @@ extends Tab {
                 child.currentOffset = i - 15;
             }
         }
-        TextUtil.drawString(drawContext, this.title, (double)this.x + (double)this.width / 2.0 - (double)(TextUtil.getWidth(this.title) / 2.0f), this.y + 2, new Color(255, 255, 255));
+        TextUtil.drawString(drawContext, this.title, (double) this.x + (double) this.width / 2.0 - (double) (TextUtil.getWidth(this.title) / 2.0f), this.y + 2, new Color(255, 255, 255));
         if (this.category != null) {
             String text = "[" + HexTech.MODULE.categoryModules.get(this.category) + "]";
-            TextUtil.drawStringWithScale(drawContext, text, (float)(this.x + this.width - 4) - TextUtil.getWidth(text) * 0.5f, (float)(this.y + 2), new Color(255, 255, 255), 0.5f);
+            TextUtil.drawStringWithScale(drawContext, text, (float) (this.x + this.width - 4) - TextUtil.getWidth(text) * 0.5f, (float) (this.y + 2), new Color(255, 255, 255), 0.5f);
         }
     }
 }

@@ -14,7 +14,7 @@ import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import org.jetbrains.annotations.NotNull;
 
 public class AntiHunger
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AntiHunger INSTANCE;
     public final BooleanSetting sprint = this.add(new BooleanSetting("Sprint", true));
     public final BooleanSetting ground = this.add(new BooleanSetting("Ground", true));
@@ -37,7 +37,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return packetBuf.readEnumConstant(AntiHunger_zYbEBAOiuFfDBojQHScp.class);
     }
 
-    @EventHandler(priority=-100)
+    @EventHandler(priority = -100)
     public void onPacketSend(PacketEvent_gBzdMCvQxlHfSrulemGS.Send event) {
         Object t = event.getPacket();
         if (t instanceof ClientCommandC2SPacket packet) {
@@ -46,7 +46,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
         }
         if (event.getPacket() instanceof PlayerMoveC2SPacket && this.ground.getValue() && AntiHunger.mc.player.fallDistance <= 0.0f && !AntiHunger.mc.interactionManager.isBreakingBlock()) {
-            ((IPlayerMoveC2SPacket)event.getPacket()).setOnGround(false);
+            ((IPlayerMoveC2SPacket) event.getPacket()).setOnGround(false);
         }
     }
 

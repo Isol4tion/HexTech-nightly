@@ -27,7 +27,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 public class SelfFlatten
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static SelfFlatten INSTANCE;
     private final BooleanSetting checkMine = this.add(new BooleanSetting("DetectMining", true));
     private final BooleanSetting inventory = this.add(new BooleanSetting("InventorySwap", true));
@@ -105,7 +105,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.checkMine.getValue() && BlockUtil.isMining(pos)) {
                 return false;
             }
-            if (!((double)this.progress < this.blocksPer.getValue())) {
+            if (!((double) this.progress < this.blocksPer.getValue())) {
                 return false;
             }
             Direction side = BlockUtil.getPlaceSide(pos);
@@ -160,7 +160,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private boolean hasEntity(BlockPos pos) {
         for (Entity entity : SelfFlatten.mc.world.getNonSpectatingEntities(Entity.class, new Box(pos))) {
-            if (entity == SelfFlatten.mc.player || !entity.isAlive() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
+            if (entity == SelfFlatten.mc.player || !entity.isAlive() || entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity || entity instanceof ExperienceBottleEntity || entity instanceof ArrowEntity || entity instanceof EndCrystalEntity || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue())
+                continue;
             return true;
         }
         return false;

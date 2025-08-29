@@ -9,7 +9,7 @@ import me.hextech.mod.modules.settings.impl.SliderSetting;
 import java.awt.*;
 
 public class ComboBreaks
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static ComboBreaks INSTANCE;
     public final EnumSetting<_PNwHzpQsMnnDslSAEFgc> page = this.add(new EnumSetting<_PNwHzpQsMnnDslSAEFgc>("Page", _PNwHzpQsMnnDslSAEFgc.Attack));
     public final ColorSetting Acolor = this.add(new ColorSetting("AttackColor ", new Color(255, 255, 255, 150), v -> this.page.is(_PNwHzpQsMnnDslSAEFgc.Attack)).injectBoolean(true));

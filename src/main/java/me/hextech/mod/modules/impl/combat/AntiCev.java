@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class AntiCev
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AntiCev INSTANCE;
     final Timer timer = new Timer();
     private final SliderSetting delay = this.add(new SliderSetting("Delay", 50, 0, 500));
@@ -55,7 +55,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         this.pos = EntityUtil.getPlayerPos(true);
         for (Direction i : Direction.values()) {
             BlockPos offsetPos;
-            if (i == Direction.DOWN || this.isGod(this.pos.offset(i).up()) || !this.crystalHere(offsetPos = this.pos.offset(i).up(2)) || this.crystalPos.contains(offsetPos)) continue;
+            if (i == Direction.DOWN || this.isGod(this.pos.offset(i).up()) || !this.crystalHere(offsetPos = this.pos.offset(i).up(2)) || this.crystalPos.contains(offsetPos))
+                continue;
             this.crystalPos.add(offsetPos);
         }
         if (this.getBlock() == -1) {
@@ -87,7 +88,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private void placeBlock(BlockPos pos) {
-        if (!((double)this.progress < this.multiPlace.getValue())) {
+        if (!((double) this.progress < this.multiPlace.getValue())) {
             return;
         }
         if (this.checkMine.getValue() && BlockUtil.isMining(pos)) {

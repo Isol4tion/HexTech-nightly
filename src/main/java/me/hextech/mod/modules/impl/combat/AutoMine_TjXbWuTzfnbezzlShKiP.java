@@ -22,7 +22,7 @@ import net.minecraft.util.math.Direction;
 import java.util.*;
 
 public class AutoMine_TjXbWuTzfnbezzlShKiP
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AutoMine_TjXbWuTzfnbezzlShKiP INSTANCE;
     public final SliderSetting burrowlistY = this.add(new SliderSetting("Ylist", 0.5, 0.0, 3.0, 0.1f));
     public final EnumSetting<BurrowMode> mineMode = this.add(new EnumSetting<BurrowMode>("BurrowMode", BurrowMode.FastSlot));
@@ -65,8 +65,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
      */
     private void doBreak(final PlayerEntity player) {
         final BlockPos pos = EntityUtil.getEntityPos(player, true);
-        double[] yOffset = { -0.8, 0.5, 1.1 };
-        double[] xzOffset = { 0.3, -0.3 };
+        double[] yOffset = {-0.8, 0.5, 1.1};
+        double[] xzOffset = {0.3, -0.3};
         for (final PlayerEntity entity : CombatUtil.getEnemies(this.targetRange.getValue())) {
             for (final double y : yOffset) {
                 for (final double x : xzOffset) {
@@ -136,8 +136,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 if (!list.isEmpty()) {
                     SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos()))).get());
-                }
-                else {
+                } else {
                     for (final Direction j : Direction.values()) {
                         if (j != Direction.UP) {
                             if (j != Direction.DOWN) {
@@ -153,8 +152,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         SpeedMine.INSTANCE.mine(list.stream().min(Comparator.comparingDouble(E -> E.getSquaredDistance(AutoMine_TjXbWuTzfnbezzlShKiP.mc.player.getEyePos()))).get());
                     }
                 }
-            }
-            else {
+            } else {
                 for (final Direction i : Direction.values()) {
                     if (i != Direction.UP) {
                         if (i != Direction.DOWN) {
@@ -193,8 +191,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (this.burrow.getValue()) {
             if (this.mineMode.is(BurrowMode.FastSlot)) {
-                yOffset = new double[] { -0.8, 0.5, 1.1 };
-                xzOffset = new double[] { 0.25, -0.25, 0.0 };
+                yOffset = new double[]{-0.8, 0.5, 1.1};
+                xzOffset = new double[]{0.25, -0.25, 0.0};
                 for (final PlayerEntity entity : CombatUtil.getEnemies(this.targetRange.getValue())) {
                     for (final double y : yOffset) {
                         for (final double x : xzOffset) {
@@ -208,7 +206,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
                 final double[] array10;
-                yOffset = (array10 = new double[] { 0.5, 1.1 });
+                yOffset = (array10 = new double[]{0.5, 1.1});
                 for (final double y3 : array10) {
                     for (final double offset3 : xzOffset) {
                         final BlockPos offsetPos4 = new BlockPosX(player.getX() + offset3, player.getY() + y3, player.getZ() + offset3);
@@ -253,9 +251,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
             if (this.mineMode.is(BurrowMode.SyncSlot)) {
-                xzOffset = new double[] { 0.0, 0.3, -0.3 };
+                xzOffset = new double[]{0.0, 0.3, -0.3};
                 final double[] array15;
-                yOffset = (array15 = new double[] { 0.5, 1.1 });
+                yOffset = (array15 = new double[]{0.5, 1.1});
                 for (final double y3 : array15) {
                     for (final double offset3 : xzOffset) {
                         final BlockPos offsetPos4 = new BlockPosX(player.getX() + offset3, player.getY() + y3, player.getZ() + offset3);

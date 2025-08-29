@@ -36,7 +36,7 @@ import net.minecraft.util.math.Vec3d;
 import java.awt.*;
 
 public class Aura
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Aura INSTANCE;
     public static Entity target;
     public final EnumSetting<_PJzsesCBLMlruCifoKuT> page = this.add(new EnumSetting<_PJzsesCBLMlruCifoKuT>("Page", _PJzsesCBLMlruCifoKuT.General));
@@ -77,7 +77,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static void doRender(MatrixStack matrixStack, float partialTicks, Entity entity, Color color, Aura_nurTqHTNjexQmuWdDgIn mode) {
         switch (mode.ordinal()) {
             case 0: {
-                Render3DUtil.draw3DBox(matrixStack, ((IEntity)entity).getDimensions().getBoxAt(new Vec3d(MathUtil.interpolate(entity.lastRenderX, entity.getX(), partialTicks), MathUtil.interpolate(entity.lastRenderY, entity.getY(), partialTicks), MathUtil.interpolate(entity.lastRenderZ, entity.getZ(), partialTicks))).expand(0.0, 0.1, 0.0), color, false, true);
+                Render3DUtil.draw3DBox(matrixStack, ((IEntity) entity).getDimensions().getBoxAt(new Vec3d(MathUtil.interpolate(entity.lastRenderX, entity.getX(), partialTicks), MathUtil.interpolate(entity.lastRenderY, entity.getY(), partialTicks), MathUtil.interpolate(entity.lastRenderZ, entity.getZ(), partialTicks))).expand(0.0, 0.1, 0.0), color, false, true);
                 break;
             }
             case 1: {
@@ -91,7 +91,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public static float getAttackCooldownProgressPerTick() {
-        return (float)(1.0 / Aura.mc.player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_SPEED) * 20.0);
+        return (float) (1.0 / Aura.mc.player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_SPEED) * 20.0);
     }
 
     @Override
@@ -129,7 +129,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    @EventHandler(priority=98)
+    @EventHandler(priority = 98)
     public void onRotate(RotateEvent event) {
         if (target != null && this.newRotate.getValue() && this.directionVec != null) {
             float[] newAngle = this.injectStep(EntityUtil.getLegitRotations(this.directionVec), this.yawStep.getValueFloat());
@@ -146,9 +146,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private boolean check() {
         int at = this.attackTicks;
         if (this.cd.getValue() == _VwTXxsLfDdMNyKpyAwyl.Vanilla) {
-            at = ((ILivingEntity)Aura.mc.player).getLastAttackedTicks();
+            at = ((ILivingEntity) Aura.mc.player).getLastAttackedTicks();
         }
-        if (!((double)Math.max((float)at / Aura.getAttackCooldownProgressPerTick(), 0.0f) >= this.cooldown.getValue())) {
+        if (!((double) Math.max((float) at / Aura.getAttackCooldownProgressPerTick(), 0.0f) >= this.cooldown.getValue())) {
             return false;
         }
         if (this.ghost.getValue()) {
@@ -206,23 +206,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double distance = this.range.getValue();
         double maxHealth = 36.0;
         for (Entity entity : Aura.mc.world.getEntities()) {
-            if (!this.isEnemy(entity) || !Aura.mc.player.canSee(entity) && (double)Aura.mc.player.distanceTo(entity) > this.wallRange.getValue() || !CombatUtil.isValid(entity, this.range.getValue())) continue;
+            if (!this.isEnemy(entity) || !Aura.mc.player.canSee(entity) && (double) Aura.mc.player.distanceTo(entity) > this.wallRange.getValue() || !CombatUtil.isValid(entity, this.range.getValue()))
+                continue;
             if (target == null) {
                 target = entity;
                 distance = Aura.mc.player.distanceTo(entity);
                 maxHealth = EntityUtil.getHealth(entity);
                 continue;
             }
-            if (entity instanceof PlayerEntity && EntityUtil.isArmorLow((PlayerEntity)entity, 10)) {
+            if (entity instanceof PlayerEntity && EntityUtil.isArmorLow((PlayerEntity) entity, 10)) {
                 target = entity;
                 break;
             }
-            if (this.targetMode.getValue() == _EhoXCPdRwyZMhABJnmhT.HEALTH && (double)EntityUtil.getHealth(entity) < maxHealth) {
+            if (this.targetMode.getValue() == _EhoXCPdRwyZMhABJnmhT.HEALTH && (double) EntityUtil.getHealth(entity) < maxHealth) {
                 target = entity;
                 maxHealth = EntityUtil.getHealth(entity);
                 continue;
             }
-            if (this.targetMode.getValue() != _EhoXCPdRwyZMhABJnmhT.DISTANCE || !((double)Aura.mc.player.distanceTo(entity) < distance)) continue;
+            if (this.targetMode.getValue() != _EhoXCPdRwyZMhABJnmhT.DISTANCE || !((double) Aura.mc.player.distanceTo(entity) < distance))
+                continue;
             target = entity;
             distance = Aura.mc.player.distanceTo(entity);
         }

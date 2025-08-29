@@ -50,7 +50,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class AutoCrystal_QcRVYRsOqpKivetoXSJa
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AutoCrystal_QcRVYRsOqpKivetoXSJa INSTANCE;
     public static BlockPos tempPos;
     public static BlockPos breakPos;
@@ -72,10 +72,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final SliderSetting updateDelay = this.add(new SliderSetting("UpdateDelay", 50, 0, 1000, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.General));
     public final SliderSetting wallRange = this.add(new SliderSetting("WallRange", 6.0, 0.0, 6.0, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.General));
     public final SliderSetting lagTime = this.add(new SliderSetting("LagTime", 500, 0, 1000, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.General));
-    private final BooleanSetting render3DUpdate = this.add(new BooleanSetting("Render3DUpdate", true, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.General));
-    private final BooleanSetting render3DUpdate2 = this.add(new BooleanSetting("Render3DUpdate2", true, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.General));
-    private final BooleanSetting walkingUpdate = this.add(new BooleanSetting("WalkingUpdate", true, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.General));
-    private final BooleanSetting render2DUpdate = this.add(new BooleanSetting("Render2DUpdate", true, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.General));
     public final BooleanSetting waitburrow = this.add(new BooleanSetting("WaitBurrow", false, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Cancel));
     public final BooleanSetting cancelBurrow = this.add(new BooleanSetting("CancelBurrow", false, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Cancel));
     public final BooleanSetting waitCleaner = this.add(new BooleanSetting("WaitCleaner", false, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Cancel));
@@ -164,6 +160,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final ColorSetting showIf = this.add(new ColorSetting("ShowIf", new Color(255, 255, 255, 250), v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Render).injectBoolean(false));
     public final ColorSetting showif2 = this.add(new ColorSetting("ShowIf2", new Color(255, 255, 255, 250), v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Render).injectBoolean(false));
     public final ColorSetting showCleaner = this.add(new ColorSetting("ShowCleaner", new Color(255, 255, 255, 250), v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.Render).injectBoolean(false));
+    private final BooleanSetting render3DUpdate = this.add(new BooleanSetting("Render3DUpdate", true, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.General));
+    private final BooleanSetting render3DUpdate2 = this.add(new BooleanSetting("Render3DUpdate2", true, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.General));
+    private final BooleanSetting walkingUpdate = this.add(new BooleanSetting("WalkingUpdate", true, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.General));
+    private final BooleanSetting render2DUpdate = this.add(new BooleanSetting("Render2DUpdate", true, v -> this.page.getValue() == Enum_sBhvBqKgHyCqkGvharVr.General));
     private final Timer delayTimer = new Timer();
     private final Timer placeTimer = new Timer();
     private final Timer noPosTimer = new Timer();
@@ -194,7 +194,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.placeVec3d == null) {
             return;
         }
-        this.fade = this.fadeSpeed.getValue() >= 1.0 ? (this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5) : AnimateUtil.animate(this.fade, this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5, this.fadeSpeed.getValue() / 10.0);
+        this.fade = this.fadeSpeed.getValue() >= 1.0 ? (this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5) : AnimateUtil.animate(this.fade, this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5, this.fadeSpeed.getValue() / 10.0);
         if (this.fade == 0.0) {
             AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d = null;
             return;
@@ -206,78 +206,78 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             MatrixStack matrixStack = event.getMatrixStack();
             if (this.colortype.getValue().equals(AutoCrystal_ohSMJidwaoXtIVckTOpo.Custom)) {
                 if (this.box.booleanValue) {
-                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(this.box.getValue(), (int)((double)this.box.getValue().getAlpha() * this.fade * 2.0)));
+                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(this.box.getValue(), (int) ((double) this.box.getValue().getAlpha() * this.fade * 2.0)));
                 }
                 if (this.online.booleanValue) {
                     if (!this.bold.getValue()) {
-                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(this.online.getValue(), (int)((double)this.online.getValue().getAlpha() * this.fade * 2.0)));
+                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(this.online.getValue(), (int) ((double) this.online.getValue().getAlpha() * this.fade * 2.0)));
                     } else {
-                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(this.online.getValue(), (int)((double)this.online.getValue().getAlpha() * this.fade * 2.0)), this.lineWidth.getValueInt());
+                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(this.online.getValue(), (int) ((double) this.online.getValue().getAlpha() * this.fade * 2.0)), this.lineWidth.getValueInt());
                     }
                 }
             }
             if (this.colortype.getValue().equals(AutoCrystal_ohSMJidwaoXtIVckTOpo.ComboBreaks) && ComboBreaks.INSTANCE.isOn()) {
                 if (ComboBreaks.INSTANCE.Acolor.booleanValue) {
-                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Acolor.getValue(), (int)((double)ComboBreaks.INSTANCE.Acolor.getValue().getAlpha() * this.fade * 2.0)));
+                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Acolor.getValue(), (int) ((double) ComboBreaks.INSTANCE.Acolor.getValue().getAlpha() * this.fade * 2.0)));
                 }
                 if (ComboBreaks.INSTANCE.Aonline.booleanValue) {
                     if (!this.bold.getValue()) {
-                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Aonline.getValue(), (int)((double)ComboBreaks.INSTANCE.Aonline.getValue().getAlpha() * this.fade * 2.0)));
+                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Aonline.getValue(), (int) ((double) ComboBreaks.INSTANCE.Aonline.getValue().getAlpha() * this.fade * 2.0)));
                     } else {
-                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Aonline.getValue(), (int)((double)ComboBreaks.INSTANCE.Aonline.getValue().getAlpha() * this.fade * 2.0)), this.lineWidth.getValueInt());
+                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Aonline.getValue(), (int) ((double) ComboBreaks.INSTANCE.Aonline.getValue().getAlpha() * this.fade * 2.0)), this.lineWidth.getValueInt());
                     }
                 }
             }
             if (this.colortype.getValue().equals(AutoCrystal_ohSMJidwaoXtIVckTOpo.ComboBreaks) && ComboBreaks.INSTANCE.isOff()) {
                 if (ComboBreaks.INSTANCE.Dcolor.booleanValue) {
-                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Dcolor.getValue(), (int)((double)ComboBreaks.INSTANCE.Dcolor.getValue().getAlpha() * this.fade * 2.0)));
+                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Dcolor.getValue(), (int) ((double) ComboBreaks.INSTANCE.Dcolor.getValue().getAlpha() * this.fade * 2.0)));
                 }
                 if (ComboBreaks.INSTANCE.Donline.booleanValue) {
                     if (!this.bold.getValue()) {
-                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Donline.getValue(), (int)((double)ComboBreaks.INSTANCE.Donline.getValue().getAlpha() * this.fade * 2.0)));
+                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Donline.getValue(), (int) ((double) ComboBreaks.INSTANCE.Donline.getValue().getAlpha() * this.fade * 2.0)));
                     } else {
-                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Donline.getValue(), (int)((double)ComboBreaks.INSTANCE.Donline.getValue().getAlpha() * this.fade * 2.0)), this.lineWidth.getValueInt());
+                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(ComboBreaks.INSTANCE.Donline.getValue(), (int) ((double) ComboBreaks.INSTANCE.Donline.getValue().getAlpha() * this.fade * 2.0)), this.lineWidth.getValueInt());
                     }
                 }
             }
             if (this.colortype.getValue().equals(AutoCrystal_ohSMJidwaoXtIVckTOpo.Sync)) {
                 if (ColorsSetting.INSTANCE.box.booleanValue) {
-                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.box.getValue(), (int)((double)ColorsSetting.INSTANCE.box.getValue().getAlpha() * this.fade * 2.0)));
+                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.box.getValue(), (int) ((double) ColorsSetting.INSTANCE.box.getValue().getAlpha() * this.fade * 2.0)));
                 }
                 if (ColorsSetting.INSTANCE.online.booleanValue) {
                     if (!this.bold.getValue()) {
-                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.online.getValue(), (int)((double)ColorsSetting.INSTANCE.online.getValue().getAlpha() * this.fade * 2.0)));
+                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.online.getValue(), (int) ((double) ColorsSetting.INSTANCE.online.getValue().getAlpha() * this.fade * 2.0)));
                     } else {
-                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.online.getValue(), (int)((double)ColorsSetting.INSTANCE.online.getValue().getAlpha() * this.fade * 2.0)), this.lineWidth.getValueInt());
+                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(ColorsSetting.INSTANCE.online.getValue(), (int) ((double) ColorsSetting.INSTANCE.online.getValue().getAlpha() * this.fade * 2.0)), this.lineWidth.getValueInt());
                     }
                 }
             }
         }
-        if (this.text.booleanValue && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
+        if (this.text.booleanValue && !this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0))) {
             ListenerText.drawText3D1("" + this.lastDamage, AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d, this.text.getValue());
         }
-        if (this.showCB_A.booleanValue && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0)) && ComboBreaks.INSTANCE.isOn()) {
+        if (this.showCB_A.booleanValue && !this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0)) && ComboBreaks.INSTANCE.isOn()) {
             ListenerText.drawText3D4("[\u8fdb\u653b\u6a21\u5f0f]", AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.showCB_A.getValue());
         }
-        if (this.showCB_D.booleanValue && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0)) && ComboBreaks.INSTANCE.isOff()) {
+        if (this.showCB_D.booleanValue && !this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0)) && ComboBreaks.INSTANCE.isOff()) {
             ListenerText.drawText3D4("[\u538b\u5236\u4e2d..]", AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.showCB_D.getValue());
         }
-        if (this.misscatext.booleanValue && this.lastDamage > 0.0f && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
+        if (this.misscatext.booleanValue && this.lastDamage > 0.0f && !this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0))) {
             ListenerText.drawText3D2(String.format("%.1f Sync", Float.valueOf(this.tempDamage)), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.misscatext.getValue());
         }
-        if (this.spamtext.booleanValue && WebAuraTick.INSTANCE.isOn() && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
+        if (this.spamtext.booleanValue && WebAuraTick.INSTANCE.isOn() && !this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0))) {
             ListenerText.drawText3D3(String.format("[Web > %.0f > %.0f]", Float.valueOf(WebAuraTick.lastYaw), Float.valueOf(WebAuraTick.lastPitch)), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.15, 0.0), this.spamtext.getValue());
         }
-        if (this.nullpostext.booleanValue && AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
+        if (this.nullpostext.booleanValue && AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null && !this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0))) {
             ListenerText.drawText3D2(String.format("WaitSync", AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.nullpostext.getValue());
         }
-        if (this.showIf.booleanValue && ComboBreaks.INSTANCE.isOn() && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
+        if (this.showIf.booleanValue && ComboBreaks.INSTANCE.isOn() && !this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0))) {
             ListenerText.drawText3DIF1(String.format("[\u5168\u529f\u7387]", AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.showIf.getValue());
         }
-        if (this.showif2.booleanValue && this.forceWeb.getValue() && ComboBreaks.INSTANCE.isOff() && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
+        if (this.showif2.booleanValue && this.forceWeb.getValue() && ComboBreaks.INSTANCE.isOff() && !this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0))) {
             ListenerText.drawText3DIF1(String.format("[\u65e0\u6781\u53d8\u901f]", AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.0, 0.0), this.showif2.getValue());
         }
-        if (this.showCleaner.booleanValue && Cleaner_iFwqnooxsJEmHoVteFeQ.INSTANCE.isOn() && !this.noPosTimer.passedMs((long)(this.startFadeTime.getValue() * 1000.0))) {
+        if (this.showCleaner.booleanValue && Cleaner_iFwqnooxsJEmHoVteFeQ.INSTANCE.isOn() && !this.noPosTimer.passedMs((long) (this.startFadeTime.getValue() * 1000.0))) {
             ListenerText.drawText3DCleaner(String.format("[\u6e05\u7406\u8718\u86db\u7f51\u4e2d..]", AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos == null), AutoCrystal_QcRVYRsOqpKivetoXSJa.curVec3d.add(0.0, -1.15, 0.0), this.showCleaner.getValue());
         }
         if (this.syncdebug.getValue() && AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null) {
@@ -384,7 +384,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             packet = PlayerInteractEntityC2SPacket.attack(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player, AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.isSneaking());
         }
         if (packet != null) {
-            ((IInteractEntityC2SPacket)packet).setId(id);
+            ((IInteractEntityC2SPacket) packet).setId(id);
         }
         mc.getNetworkHandler().sendPacket(packet);
         if (this.breakRemove.getValue() && (ent = AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.getEntityById(id)) instanceof EndCrystalEntity) {
@@ -484,7 +484,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    @EventHandler(priority=-199)
+    @EventHandler(priority = -199)
     public void onPacketSend(PacketEvent_gBzdMCvQxlHfSrulemGS.Send event) {
         if (event.isCancelled()) {
             return;
@@ -539,7 +539,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             tempPos = null;
             return;
         }
-        if (!this.delayTimer.passedMs((long)this.updateDelay.getValue())) {
+        if (!this.delayTimer.passedMs((long) this.updateDelay.getValue())) {
             return;
         }
         if (this.preferpiston.getValue() && PistonCrystal.INSTANCE.isOn()) {
@@ -562,7 +562,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             tempPos = null;
             return;
         }
-        if (!this.switchTimer.passedMs((long)this.switchCooldown.getValue())) {
+        if (!this.switchTimer.passedMs((long) this.switchCooldown.getValue())) {
             tempPos = null;
             return;
         }
@@ -584,15 +584,18 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         PredictionSetting._XBpBEveLWEKUGQPHCCIS self = new PredictionSetting._XBpBEveLWEKUGQPHCCIS(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player);
-        for (BlockPos pos : BlockUtil.getSphere((float)this.range.getValue() + 1.0f)) {
-            if (WallCheck.behindWall(pos) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos().distanceTo(pos.toCenterPos().add(0.0, -0.5, 0.0)) > this.range.getValue() || !this.canTouch(pos.down()) || !CanPlaceCrystal.canPlaceCrystal(pos, true, false)) continue;
+        for (BlockPos pos : BlockUtil.getSphere((float) this.range.getValue() + 1.0f)) {
+            if (WallCheck.behindWall(pos) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos().distanceTo(pos.toCenterPos().add(0.0, -0.5, 0.0)) > this.range.getValue() || !this.canTouch(pos.down()) || !CanPlaceCrystal.canPlaceCrystal(pos, true, false))
+                continue;
             for (PredictionSetting._XBpBEveLWEKUGQPHCCIS target : targets) {
                 float selfDamage2;
-                if (this.lite.getValue() && ListenerHelperUtil.liteCheck(pos.toCenterPos().add(0.0, -0.5, 0.0), target.predict.getPos())) continue;
-                int placeTicks = (int)PredictionSetting.INSTANCE.placeExtrap.getValue();
-                PlayerEntity placePredict = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createPredict(target.player, placeTicks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());
+                if (this.lite.getValue() && ListenerHelperUtil.liteCheck(pos.toCenterPos().add(0.0, -0.5, 0.0), target.predict.getPos()))
+                    continue;
+                int placeTicks = (int) PredictionSetting.INSTANCE.placeExtrap.getValue();
+                PlayerEntity placePredict = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createPredict(target.player, placeTicks, (int) PredictionSetting.INSTANCE.extrapTicks.getValue());
                 float damage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(pos, placePredict, placePredict);
-                if (tempPos != null && !(damage > this.tempDamage) || (double)(selfDamage2 = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(pos, self.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createSelfPredict(self.player, (int)PredictionSetting.INSTANCE.selfExtrap.getValue()))) > this.maxSelf.getValue() || this.noSuicide.getValue() > 0.0 && (double)selfDamage2 > (double)(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getHealth() + AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getAbsorptionAmount()) - this.noSuicide.getValue() || (double)damage < this.getDamage(target.player) || this.smart.getValue() && damage < selfDamage2) continue;
+                if (tempPos != null && !(damage > this.tempDamage) || (double) (selfDamage2 = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(pos, self.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createSelfPredict(self.player, (int) PredictionSetting.INSTANCE.selfExtrap.getValue()))) > this.maxSelf.getValue() || this.noSuicide.getValue() > 0.0 && (double) selfDamage2 > (double) (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getHealth() + AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getAbsorptionAmount()) - this.noSuicide.getValue() || (double) damage < this.getDamage(target.player) || this.smart.getValue() && damage < selfDamage2)
+                    continue;
                 this.displayTarget = target.player;
                 tempPos = pos;
                 this.tempDamage = damage;
@@ -601,12 +604,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world != null) {
             for (Entity entity : AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.getEntities()) {
                 EndCrystalEntity crystal;
-                if (!(entity instanceof EndCrystalEntity) || !AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.canSee(crystal = (EndCrystalEntity)entity) && AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos().distanceTo(crystal.getPos()) > this.wallRange.getValue() || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos().distanceTo(crystal.getPos()) > this.range.getValue()) continue;
+                if (!(entity instanceof EndCrystalEntity) || !AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.canSee(crystal = (EndCrystalEntity) entity) && AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos().distanceTo(crystal.getPos()) > this.wallRange.getValue() || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos().distanceTo(crystal.getPos()) > this.range.getValue())
+                    continue;
                 for (PredictionSetting._XBpBEveLWEKUGQPHCCIS target : targets) {
-                    int breakTicks = (int)PredictionSetting.INSTANCE.breakExtrap.getValue();
-                    PlayerEntity breakPredict = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createPredict(target.player, breakTicks, (int)PredictionSetting.INSTANCE.extrapTicks.getValue());
+                    int breakTicks = (int) PredictionSetting.INSTANCE.breakExtrap.getValue();
+                    PlayerEntity breakPredict = ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createPredict(target.player, breakTicks, (int) PredictionSetting.INSTANCE.extrapTicks.getValue());
                     float damage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(BlockPos.ofFloored(crystal.getPos()), breakPredict, breakPredict);
-                    if (breakPos != null && !(damage > this.breakDamage) || (double)(selfDamage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(BlockPos.ofFloored(crystal.getPos()), self.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createSelfPredict(self.player, (int)PredictionSetting.INSTANCE.selfExtrap.getValue()))) > this.maxSelf.getValue() || this.noSuicide.getValue() > 0.0 && (double)selfDamage > (double)(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getHealth() + AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getAbsorptionAmount()) - this.noSuicide.getValue() || (double)damage < this.breakMinDmg.getValue()) continue;
+                    if (breakPos != null && !(damage > this.breakDamage) || (double) (selfDamage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(BlockPos.ofFloored(crystal.getPos()), self.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createSelfPredict(self.player, (int) PredictionSetting.INSTANCE.selfExtrap.getValue()))) > this.maxSelf.getValue() || this.noSuicide.getValue() > 0.0 && (double) selfDamage > (double) (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getHealth() + AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getAbsorptionAmount()) - this.noSuicide.getValue() || (double) damage < this.breakMinDmg.getValue())
+                        continue;
                     breakPos = crystal.getBlockPos();
                     if (!(damage > this.tempDamage)) continue;
                     this.displayTarget = target.player;
@@ -618,7 +623,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 for (Direction dir : Direction.values()) {
                     BlockPos crystalPos;
                     BlockPos offsetPos;
-                    if (dir == Direction.DOWN || dir == Direction.UP || !(offsetPos = target.player.getBlockPos().offset(dir)).equals(SpeedMine.breakPos) || !CanPlaceCrystal.canPlaceCrystal(crystalPos = offsetPos.offset(dir), false, false) || !((double)(selfDamage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(crystalPos, self.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createSelfPredict(self.player, (int)PredictionSetting.INSTANCE.selfExtrap.getValue()))) < this.maxSelf.getValue()) || this.noSuicide.getValue() > 0.0 && (double)selfDamage > (double)(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getHealth() + AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getAbsorptionAmount()) - this.noSuicide.getValue()) continue;
+                    if (dir == Direction.DOWN || dir == Direction.UP || !(offsetPos = target.player.getBlockPos().offset(dir)).equals(SpeedMine.breakPos) || !CanPlaceCrystal.canPlaceCrystal(crystalPos = offsetPos.offset(dir), false, false) || !((double) (selfDamage = CrystalDamage_eJITUTNYpCPnjaYYZUHH.calculateDamage(crystalPos, self.player, ExtrapolationUtil_PeyhWPRKVrDcYEjSgxgn.createSelfPredict(self.player, (int) PredictionSetting.INSTANCE.selfExtrap.getValue()))) < this.maxSelf.getValue()) || this.noSuicide.getValue() > 0.0 && (double) selfDamage > (double) (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getHealth() + AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getAbsorptionAmount()) - this.noSuicide.getValue())
+                        continue;
                     tempPos = crystalPos;
                     if (this.doCrystal.getValue()) {
                         this.doCrystal(tempPos);
@@ -637,7 +643,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Direction side = BlockUtil.getClickSideStrict(pos);
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player == null) return false;
         if (side == null) return false;
-        Vec3d vec3d = new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5);
+        Vec3d vec3d = new Vec3d((double) side.getVector().getX() * 0.5, (double) side.getVector().getY() * 0.5, (double) side.getVector().getZ() * 0.5);
         return pos.toCenterPos().add(vec3d).distanceTo(AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getEyePos()) <= this.range.getValue();
     }
 
@@ -655,16 +661,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     private double getDamage(PlayerEntity target) {
-        if (!SpeedMine.INSTANCE.obsidian.isPressed() && this.slowPlace.getValue() && this.lastBreakTimer.passedMs((long)this.slowDelay.getValue()) && (!BedAura_BzCWaQEhnpenizjBqrRp.INSTANCE.isOn() || BedAura_BzCWaQEhnpenizjBqrRp.INSTANCE.getBed() == -1)) {
+        if (!SpeedMine.INSTANCE.obsidian.isPressed() && this.slowPlace.getValue() && this.lastBreakTimer.passedMs((long) this.slowDelay.getValue()) && (!BedAura_BzCWaQEhnpenizjBqrRp.INSTANCE.isOn() || BedAura_BzCWaQEhnpenizjBqrRp.INSTANCE.getBed() == -1)) {
             return this.slowMinDamage.getValue();
         }
-        if (this.forcePlace.getValue() && (double)EntityUtil.getHealth(target) <= this.forceMaxHealth.getValue() && !SpeedMine.INSTANCE.obsidian.isPressed()) {
+        if (this.forcePlace.getValue() && (double) EntityUtil.getHealth(target) <= this.forceMaxHealth.getValue() && !SpeedMine.INSTANCE.obsidian.isPressed()) {
             return this.forceMin.getValue();
         }
         if (this.armorBreaker.getValue()) {
             DefaultedList<ItemStack> armors = target.getInventory().armor;
             for (ItemStack armor : armors) {
-                if (armor.isEmpty() || (double)EntityUtil.getDamagePercent(armor) > this.maxDurable.getValue()) continue;
+                if (armor.isEmpty() || (double) EntityUtil.getDamagePercent(armor) > this.maxDurable.getValue())
+                    continue;
                 return this.armorBreakerDamage.getValue();
             }
         }
@@ -693,7 +700,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         this.lastBreakTimer.reset();
-        if (!this.switchTimer.passedMs((long)this.switchCooldown.getValue())) {
+        if (!this.switchTimer.passedMs((long) this.switchCooldown.getValue())) {
             return;
         }
         this.onlysynctime.reset();
@@ -702,7 +709,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.rotate.getValue() && this.onBreak.getValue() && !this.faceVector(entity.getPos().add(0.0, this.yOffset.getValue(), 0.0))) {
                 return;
             }
-            if (!CombatUtil.breakTimer.passedMs((long)this.breakDelay.getValue())) {
+            if (!CombatUtil.breakTimer.passedMs((long) this.breakDelay.getValue())) {
                 return;
             }
             CombatUtil.breakTimer.reset();
@@ -717,7 +724,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.breakRemove.getValue() && AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world != null) {
                 AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.world.removeEntity(entity.getId(), Entity.RemovalReason.KILLED);
             }
-            if (crystalPos != null && this.displayTarget != null && (double)this.lastDamage >= this.getDamage(this.displayTarget) && this.instant.getValue() && (!this.rotate.getValue() || this.rotateMode.getValue() == RotateMode.OffTrack)) {
+            if (crystalPos != null && this.displayTarget != null && (double) this.lastDamage >= this.getDamage(this.displayTarget) && this.instant.getValue() && (!this.rotate.getValue() || this.rotateMode.getValue() == RotateMode.OffTrack)) {
                 this.doPlace(crystalPos);
             }
             if (this.instantcalc.getValue()) {
@@ -726,7 +733,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.alwayscalc.getValue()) {
                 this.updateCrystalPos();
             }
-            if (this.WebSync.getValue() && (double)this.lastDamage > this.WebMinDamage.getValue()) {
+            if (this.WebSync.getValue() && (double) this.lastDamage > this.WebMinDamage.getValue()) {
                 WebAuraTick.force = false;
             }
             if (this.forceWeb.getValue() && WebAuraTick.INSTANCE.isOn()) {
@@ -752,14 +759,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         BlockPos obsPos = pos.down();
         Direction facing = BlockUtil.getClickSide(obsPos);
-        Vec3d vec = obsPos.toCenterPos().add((double)facing.getVector().getX() * 0.5, (double)facing.getVector().getY() * 0.5, (double)facing.getVector().getZ() * 0.5);
+        Vec3d vec = obsPos.toCenterPos().add((double) facing.getVector().getX() * 0.5, (double) facing.getVector().getY() * 0.5, (double) facing.getVector().getZ() * 0.5);
         if (facing != Direction.UP && facing != Direction.DOWN) {
             vec = vec.add(0.0, 0.45, 0.0);
         }
         if (this.rotate.getValue() && !this.faceVector(vec)) {
             return;
         }
-        if (!this.placeTimer.passedMs((long)this.placeDelay.getValue())) {
+        if (!this.placeTimer.passedMs((long) this.placeDelay.getValue())) {
             return;
         }
         if (AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getMainHandStack().getItem().equals(Items.END_CRYSTAL) || AutoCrystal_QcRVYRsOqpKivetoXSJa.mc.player.getOffHandStack().getItem().equals(Items.END_CRYSTAL)) {
@@ -816,7 +823,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             int startId = highest + PredictionSetting.INSTANCE.idStartOffset.getValueInt();
             for (int i = 0; i < PredictionSetting.INSTANCE.idPackets.getValueInt(); ++i) {
                 int cid = startId + i * PredictionSetting.INSTANCE.idPacketOffset.getValueInt();
-                long delay = (long)(PredictionSetting.INSTANCE.idStartDelay.getValue() + (double)i * PredictionSetting.INSTANCE.idPacketDelay.getValue());
+                long delay = (long) (PredictionSetting.INSTANCE.idStartDelay.getValue() + (double) i * PredictionSetting.INSTANCE.idPacketDelay.getValue());
                 this.idPredictQueue.add(new AutoCrystal_DyfHylndhLrmDUsYPHRl(cid, pos.toCenterPos().add(0.0, 1.0, 0.0), System.currentTimeMillis() + delay));
             }
         }
@@ -856,9 +863,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Custom,
         ComboBreaks,
         Sync
-    }
-
-    private record AutoCrystal_DyfHylndhLrmDUsYPHRl(int crystalId, Vec3d crystalPos, long executeAt) {
     }
 
     /*
@@ -902,5 +906,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         IDPrediction,
         Render
 
+    }
+
+    private record AutoCrystal_DyfHylndhLrmDUsYPHRl(int crystalId, Vec3d crystalPos, long executeAt) {
     }
 }

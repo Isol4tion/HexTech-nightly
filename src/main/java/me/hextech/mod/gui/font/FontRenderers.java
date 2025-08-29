@@ -20,19 +20,18 @@ public class FontRenderers {
     public static void createDefault(float size) {
         try {
             ui = FontRenderers.createDefault(size, "MiSans");
-        }
-        catch (FontFormatException | IOException e) {
+        } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public static RendererFontAdapter createArial(float size) {
-        Font font = new Font("tahoma", 0, (int)size);
+        Font font = new Font("tahoma", 0, (int) size);
         return new RendererFontAdapter(font, size);
     }
 
     public static RendererFontAdapter create(String name, int style, float size) {
-        return new RendererFontAdapter(new Font(name, style, (int)size), size);
+        return new RendererFontAdapter(new Font(name, style, (int) size), size);
     }
 
     public final FontAdapter getDefault() {

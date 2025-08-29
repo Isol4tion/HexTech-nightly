@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlurManager
-implements Wrapper {
+        implements Wrapper {
     private static final List<BlurManager_XkqtwkkpoPNjOLasIQyK> tasks = new ArrayList<BlurManager_XkqtwkkpoPNjOLasIQyK>();
     public static ManagedShaderEffect BLUR_OUTLINE;
     public static ManagedShaderEffect BLUR;
@@ -70,8 +70,8 @@ implements Wrapper {
             this.updateResolution();
         }
         effect.setUniformValue("Radius", Radius);
-        effect.setUniformValue("BlurXY", BlurX + offsetX, (float)mc.getWindow().getScaledHeight() - BlurY - offsetY);
-        effect.setUniformValue("BlurCoord", (float)((int)BlurCoordX), BlurCoordY);
+        effect.setUniformValue("BlurXY", BlurX + offsetX, (float) mc.getWindow().getScaledHeight() - BlurY - offsetY);
+        effect.setUniformValue("BlurCoord", (float) ((int) BlurCoordX), BlurCoordY);
         effect.render(mc.getTickDelta());
     }
 
@@ -90,8 +90,8 @@ implements Wrapper {
         if (flag && this.scaleFactor % 2 != 0 && this.scaleFactor != 1) {
             --this.scaleFactor;
         }
-        double scaledWidthD = (double)this.scaledWidth / (double)this.scaleFactor;
-        double scaledHeightD = (double)this.scaledHeight / (double)this.scaleFactor;
+        double scaledWidthD = (double) this.scaledWidth / (double) this.scaleFactor;
+        double scaledHeightD = (double) this.scaledHeight / (double) this.scaleFactor;
         this.scaledWidth = MathHelper.ceil(scaledWidthD);
         this.scaledHeight = MathHelper.ceil(scaledHeightD);
     }
@@ -107,7 +107,7 @@ implements Wrapper {
             if (effect == null) {
                 return;
             }
-            ((IShaderEffect)effect).addHook("bufOut", BlurManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
+            ((IShaderEffect) effect).addHook("bufOut", BlurManager.mc.worldRenderer.getEntityOutlinesFramebuffer());
         });
     }
 
@@ -123,16 +123,17 @@ implements Wrapper {
         return false;
     }
 
+    public record BlurManager_XkqtwkkpoPNjOLasIQyK(Runnable task, float Radius, float BlurX, float BlurY,
+                                                   float BlurCoordX, float BlurCoordY, float offsetX, float offsetY) {
+    }
+
     public class _cScSUnWhWBxyFlTcoHKo
-    extends Framebuffer {
+            extends Framebuffer {
         public _cScSUnWhWBxyFlTcoHKo(int width, int height) {
             super(false);
             RenderSystem.assertOnRenderThreadOrInit();
             this.resize(width, height, true);
             this.setClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         }
-    }
-
-    public record BlurManager_XkqtwkkpoPNjOLasIQyK(Runnable task, float Radius, float BlurX, float BlurY, float BlurCoordX, float BlurCoordY, float offsetX, float offsetY) {
     }
 }

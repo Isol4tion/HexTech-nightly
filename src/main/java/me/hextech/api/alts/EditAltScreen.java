@@ -9,7 +9,7 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 
 public class EditAltScreen
-extends Screen {
+        extends Screen {
     private final AltScreen parent;
     private final Alt alt;
     private ButtonWidget buttonSaveAlt;

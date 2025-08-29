@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={TitleScreen.class})
+@Mixin(value = {TitleScreen.class})
 public abstract class MixinTitleScreen
-extends Screen {
+        extends Screen {
     public MixinTitleScreen(Text title) {
         super(title);
     }
 
-    @Inject(method={"tick"}, at={@At(value="HEAD")})
+    @Inject(method = {"tick"}, at = {@At(value = "HEAD")})
     private void tick(CallbackInfo ci) {
         if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.Page.Nullpoint) {
             this.client.setScreen(new Menu());
@@ -28,7 +28,7 @@ extends Screen {
         }
     }
 
-    @Inject(method={"init"}, at={@At(value="HEAD")})
+    @Inject(method = {"init"}, at = {@At(value = "HEAD")})
     private void init(CallbackInfo ci) {
         if (this.client != null && ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.menu.getValue() == ClickGui_ABoiivByuLsVqarYqfYv.Page.Nullpoint) {
             this.client.setScreen(new Menu());

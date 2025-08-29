@@ -17,19 +17,13 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.screen.slot.SlotActionType;
 
 public class AntiWeakness_SVNjAQUSXMmCfEPBellQ
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
-    public enum AntiWeakness {
-        Normal,
-        Silent,
-        Inventory
-    }
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final SliderSetting delay = this.add(new SliderSetting("Delay", 100, 0, 500).setSuffix("ms"));
     private final EnumSetting<AntiWeakness> swapMode = this.add(new EnumSetting<AntiWeakness>("SwapMode", AntiWeakness.Inventory));
     private final BooleanSetting onlyCrystal = this.add(new BooleanSetting("OnlyCrystal", true));
     private final Timer delayTimer = new Timer();
     boolean ignore = false;
     private PlayerInteractEntityC2SPacket lastPacket = null;
-
     public AntiWeakness_SVNjAQUSXMmCfEPBellQ() {
         super("AntiWeakness", "anti weak", Category.Combat);
     }
@@ -39,7 +33,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         return this.swapMode.getValue().name();
     }
 
-    @EventHandler(priority=-200)
+    @EventHandler(priority = -200)
     public void onPacketSend(PacketEvent_gBzdMCvQxlHfSrulemGS.Send event) {
         PlayerInteractEntityC2SPacket packet;
         if (AntiWeakness_SVNjAQUSXMmCfEPBellQ.nullCheck()) {
@@ -61,7 +55,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Object t = event.getPacket();
-        if (t instanceof PlayerInteractEntityC2SPacket && Criticals.getInteractType(packet = (PlayerInteractEntityC2SPacket)t) == Criticals._QenzavIULhSqCVPmsILH.ATTACK) {
+        if (t instanceof PlayerInteractEntityC2SPacket && Criticals.getInteractType(packet = (PlayerInteractEntityC2SPacket) t) == Criticals._QenzavIULhSqCVPmsILH.ATTACK) {
             if (this.onlyCrystal.getValue() && !(Criticals.getEntity(packet) instanceof EndCrystalEntity)) {
                 return;
             }
@@ -97,5 +91,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.interactionManager.clickSlot(AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.currentScreenHandler.syncId, strong, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player.getInventory().selectedSlot, SlotActionType.SWAP, AntiWeakness_SVNjAQUSXMmCfEPBellQ.mc.player);
             EntityUtil.syncInventory();
         }
+    }
+
+    public enum AntiWeakness {
+        Normal,
+        Silent,
+        Inventory
     }
 }

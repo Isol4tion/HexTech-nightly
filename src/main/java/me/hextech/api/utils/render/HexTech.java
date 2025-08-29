@@ -17,8 +17,8 @@ import java.awt.*;
 import java.util.Objects;
 
 public class HexTech
-extends Screen
-implements Wrapper {
+        extends Screen
+        implements Wrapper {
     private final Identifier logo = new Identifier("nullpoint", "icon.png");
     private final Identifier bg = new Identifier("nullpoint", "menu/bg2.png");
     private final Identifier single = new Identifier("nullpoint", "menu/single.png");
@@ -39,14 +39,14 @@ implements Wrapper {
         if (mc.getWindow() == null) {
             return;
         }
-        float offsetX = ((float)mouseX - (float)this.width / 2.0f) / 48.0f;
-        float offsetY = ((float)mouseY - (float)this.height / 2.0f) / 80.0f;
-        drawContext.drawTexture(this.bg, (int)offsetX, (int)offsetY, 0, 0.0f, 0.0f, this.width, this.height, this.width, this.height);
+        float offsetX = ((float) mouseX - (float) this.width / 2.0f) / 48.0f;
+        float offsetY = ((float) mouseY - (float) this.height / 2.0f) / 80.0f;
+        drawContext.drawTexture(this.bg, (int) offsetX, (int) offsetY, 0, 0.0f, 0.0f, this.width, this.height, this.width, this.height);
         float buttonSpacing = 8.0f;
-        float baseX = (float)(this.width / 2) - this.buttonWidth / 2.0f;
-        float baseY = (float)(this.height / 2) - 2.0f * this.buttonHeight;
+        float baseX = (float) (this.width / 2) - this.buttonWidth / 2.0f;
+        float baseY = (float) (this.height / 2) - 2.0f * this.buttonHeight;
         for (int i = 0; i < 6; ++i) {
-            float y = baseY + (float)i * (30.0f + buttonSpacing);
+            float y = baseY + (float) i * (30.0f + buttonSpacing);
             boolean hover = this.isMouseHoveringRect(baseX, y, 200.0, 30.0, mouseX, mouseY);
             this.zoom[i] = hover ? Math.min(1.12f, this.zoom[i] + 0.04f) : Math.max(1.0f, this.zoom[i] - 0.04f);
             MatrixStack matrices = drawContext.getMatrices();
@@ -67,7 +67,7 @@ implements Wrapper {
                 case 5 -> this.exit;
                 default -> this.single;
             };
-            drawContext.drawTexture(iconTex, (int)(baseX + (float)iconSize + 8.0f), (int)(y + (30.0f - (float)iconSize) / 2.0f), 0.0f, 0.0f, iconSize, iconSize, iconSize, iconSize);
+            drawContext.drawTexture(iconTex, (int) (baseX + (float) iconSize + 8.0f), (int) (y + (30.0f - (float) iconSize) / 2.0f), 0.0f, 0.0f, iconSize, iconSize, iconSize, iconSize);
             String label = switch (i) {
                 case 0 -> "Singleplayer";
                 case 1 -> "Multiplayer";
@@ -78,18 +78,18 @@ implements Wrapper {
                 default -> "";
             };
             float fh = FontRenderers.Arial.getFontHeight();
-            FontRenderers.Arial.drawCenteredString(matrices, label, (double)this.width / 2.0, (double)y + (double)(30.0f - fh) / 2.0, Color.WHITE.getRGB());
+            FontRenderers.Arial.drawCenteredString(matrices, label, (double) this.width / 2.0, (double) y + (double) (30.0f - fh) / 2.0, Color.WHITE.getRGB());
             matrices.pop();
         }
         int logoSize = this.height / 8;
-        drawContext.drawTexture(this.logo, this.width / 2 - logoSize / 2, (int)(baseY - (float)logoSize - 30.0f), 0, 0.0f, 0.0f, logoSize, logoSize, logoSize, logoSize);
-        FontRenderers.ui.drawString(drawContext.getMatrices(), "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c-8", 5.0f, (float)this.height - FontRenderers.ui.getFontHeight(), Color.WHITE.getRGB());
+        drawContext.drawTexture(this.logo, this.width / 2 - logoSize / 2, (int) (baseY - (float) logoSize - 30.0f), 0, 0.0f, 0.0f, logoSize, logoSize, logoSize, logoSize);
+        FontRenderers.ui.drawString(drawContext.getMatrices(), "\u029c\u1d07\u04fc\u1d1b\u1d07\u1d04\u029c-8", 5.0f, (float) this.height - FontRenderers.ui.getFontHeight(), Color.WHITE.getRGB());
     }
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         float buttonSpacing = 8.0f;
-        float x = (float)(this.width / 2) - this.buttonWidth / 2.0f;
-        float y = (float)(this.height / 2) - 2.0f * this.buttonHeight;
+        float x = (float) (this.width / 2) - this.buttonWidth / 2.0f;
+        float y = (float) (this.height / 2) - 2.0f * this.buttonHeight;
         if (button == 0) {
             double d = x;
             double d2 = y;

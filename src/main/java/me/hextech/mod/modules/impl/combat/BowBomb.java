@@ -15,7 +15,7 @@ import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import java.util.Random;
 
 public class BowBomb
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final Timer delayTimer = new Timer();
     private final BooleanSetting rotation = this.add(new BooleanSetting("Rotation", false));
     private final SliderSetting spoofs = this.add(new SliderSetting("Spoofs", 50.0, 0.0, 200.0, 1.0));
@@ -40,11 +40,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     protected void onPacketSend(PacketEvent_gBzdMCvQxlHfSrulemGS.Send event) {
         PlayerActionC2SPacket packet;
-        if (BowBomb.nullCheck() || !this.delayTimer.passedMs((long)(this.delay.getValue() * 1000.0)) || !this.activeTimer.passedMs((long)(this.activeTime.getValue() * 1000.0))) {
+        if (BowBomb.nullCheck() || !this.delayTimer.passedMs((long) (this.delay.getValue() * 1000.0)) || !this.activeTimer.passedMs((long) (this.activeTime.getValue() * 1000.0))) {
             return;
         }
         Object t = event.getPacket();
-        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket)t).getAction() == PlayerActionC2SPacket.Action.RELEASE_USE_ITEM) {
+        if (t instanceof PlayerActionC2SPacket && (packet = (PlayerActionC2SPacket) t).getAction() == PlayerActionC2SPacket.Action.RELEASE_USE_ITEM) {
             BowBomb.mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(BowBomb.mc.player, ClientCommandC2SPacket.Mode.START_SPRINTING));
             if (this.exploit.getValue() == _rjdFZKIVfyUHfSoAeHLl.Fast) {
                 for (int i = 0; i < this.getRuns(); ++i) {

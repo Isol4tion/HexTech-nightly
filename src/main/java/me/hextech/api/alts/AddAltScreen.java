@@ -8,7 +8,7 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 
 public class AddAltScreen
-extends Screen {
+        extends Screen {
     private final AltScreen parent;
     private TextFieldWidget textFieldAltUsername;
 

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Blink
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Blink INSTANCE;
     public static OtherClientPlayerEntity fakePlayer;
     private final ArrayList<Packet> packetsList = new ArrayList();

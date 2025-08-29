@@ -22,7 +22,7 @@ import net.minecraft.world.RaycastContext;
 import java.util.HashMap;
 
 public class FastFall_mtLznGzMDzxhgBaLMnXD
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final EnumSetting<Mode> mode = this.add(new EnumSetting<Mode>("Mode", Mode.Fast));
     private final BooleanSetting noLag = this.add(new BooleanSetting("NoLag", true, v -> this.mode.getValue() == Mode.Fast));
     private final SliderSetting height = this.add(new SliderSetting("Height", 10.0, 1.0, 20.0, 0.5));
@@ -47,7 +47,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (this.height.getValue() > 0.0 && (double)this.traceDown() > this.height.getValue() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isInsideWall() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isSubmergedInWater() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isInLava() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isHoldingOntoLadder() || !this.lagTimer.passedMs(1000L) || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isFallFlying() || Flight.INSTANCE.isOn() || FastFall_mtLznGzMDzxhgBaLMnXD.nullCheck()) {
+        if (this.height.getValue() > 0.0 && (double) this.traceDown() > this.height.getValue() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isInsideWall() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isSubmergedInWater() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isInLava() || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isHoldingOntoLadder() || !this.lagTimer.passedMs(1000L) || FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isFallFlying() || Flight.INSTANCE.isOn() || FastFall_mtLznGzMDzxhgBaLMnXD.nullCheck()) {
             return;
         }
         if (HoleKickTest.isInWeb(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player)) {
@@ -55,9 +55,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         if (FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isOnGround()) {
             if (this.mode.getValue() == Mode.Fast) {
-                MovementUtil.setMotionY(MovementUtil.getMotionY() - (double)(this.noLag.getValue() ? 0.62f : 1.0f));
+                MovementUtil.setMotionY(MovementUtil.getMotionY() - (double) (this.noLag.getValue() ? 0.62f : 1.0f));
             }
-            if (this.traceDown() != 0 && (double)this.traceDown() <= this.height.getValue() && this.trace()) {
+            if (this.traceDown() != 0 && (double) this.traceDown() <= this.height.getValue() && this.trace()) {
                 MovementUtil.setMotionX(MovementUtil.getMotionX() * 0.05);
                 MovementUtil.setMotionZ(MovementUtil.getMotionZ() * 0.05);
             }
@@ -87,7 +87,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (!FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.isOnGround() && this.useTimer) {
-            event.set((float)this.STimer.getValue());
+            event.set((float) this.STimer.getValue());
         }
     }
 
@@ -101,7 +101,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private int traceDown() {
         int y;
         int retval = 0;
-        for (int tracey = y = (int)Math.round(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getY()) - 1; tracey >= 0; --tracey) {
+        for (int tracey = y = (int) Math.round(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getY()) - 1; tracey >= 0; --tracey) {
             BlockHitResult trace = FastFall_mtLznGzMDzxhgBaLMnXD.mc.world.raycast(new RaycastContext(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getPos(), new Vec3d(FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getX(), tracey, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player.getZ()), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, FastFall_mtLznGzMDzxhgBaLMnXD.mc.player));
             if (trace != null && trace.getType() == HitResult.Type.BLOCK) {
                 return retval;

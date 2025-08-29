@@ -8,9 +8,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={KeyboardInput.class})
+@Mixin(value = {KeyboardInput.class})
 public class MixinKeyboardInput {
-    @Inject(method={"tick"}, at={@At(value="FIELD", target="Lnet/minecraft/client/input/KeyboardInput;sneaking:Z", shift=At.Shift.BEFORE)}, cancellable=true)
+    @Inject(method = {"tick"}, at = {@At(value = "FIELD", target = "Lnet/minecraft/client/input/KeyboardInput;sneaking:Z", shift = At.Shift.BEFORE)}, cancellable = true)
     private void onSneak(boolean slowDown, float slowDownFactor, CallbackInfo ci) {
         KeyboardInputEvent event = new KeyboardInputEvent();
         HexTech.EVENT_BUS.post(event);

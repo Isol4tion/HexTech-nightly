@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AutoArmor
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AutoArmor INSTANCE;
     private final BooleanSetting noMove = this.add(new BooleanSetting("NoMove", false));
     private final SliderSetting delay = this.add(new SliderSetting("Delay", 3.0, 0.0, 10.0, 1.0));
@@ -58,35 +58,38 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         armorMap.put(EquipmentSlot.CHEST, new int[]{38, this.getProtection(AutoArmor.mc.player.getInventory().getStack(38)), -1, -1});
         armorMap.put(EquipmentSlot.HEAD, new int[]{39, this.getProtection(AutoArmor.mc.player.getInventory().getStack(39)), -1, -1});
         for (int s = 0; s < 36; ++s) {
-            if (!(AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ArmorItem) && AutoArmor.mc.player.getInventory().getStack(s).getItem() != Items.ELYTRA) continue;
+            if (!(AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ArmorItem) && AutoArmor.mc.player.getInventory().getStack(s).getItem() != Items.ELYTRA)
+                continue;
             int protection = this.getProtection(AutoArmor.mc.player.getInventory().getStack(s));
-            EquipmentSlot slot = AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ElytraItem ? EquipmentSlot.CHEST : ((ArmorItem)AutoArmor.mc.player.getInventory().getStack(s).getItem()).getSlotType();
+            EquipmentSlot slot = AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ElytraItem ? EquipmentSlot.CHEST : ((ArmorItem) AutoArmor.mc.player.getInventory().getStack(s).getItem()).getSlotType();
             for (Map.Entry e : armorMap.entrySet()) {
                 if (this.autoElytra.getValue() && ElytraFly.INSTANCE.isOn() && e.getKey() == EquipmentSlot.CHEST) {
-                    if (!AutoArmor.mc.player.getInventory().getStack(38).isEmpty() && AutoArmor.mc.player.getInventory().getStack(38).getItem() instanceof ElytraItem && ElytraItem.isUsable(AutoArmor.mc.player.getInventory().getStack(38)) || ((int[])e.getValue())[2] != -1 && !AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2]).isEmpty() && AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2]).getItem() instanceof ElytraItem && ElytraItem.isUsable(AutoArmor.mc.player.getInventory().getStack(((int[])e.getValue())[2])) || AutoArmor.mc.player.getInventory().getStack(s).isEmpty() || !(AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ElytraItem) || !ElytraItem.isUsable(AutoArmor.mc.player.getInventory().getStack(s))) continue;
-                    ((int[])e.getValue())[2] = s;
+                    if (!AutoArmor.mc.player.getInventory().getStack(38).isEmpty() && AutoArmor.mc.player.getInventory().getStack(38).getItem() instanceof ElytraItem && ElytraItem.isUsable(AutoArmor.mc.player.getInventory().getStack(38)) || ((int[]) e.getValue())[2] != -1 && !AutoArmor.mc.player.getInventory().getStack(((int[]) e.getValue())[2]).isEmpty() && AutoArmor.mc.player.getInventory().getStack(((int[]) e.getValue())[2]).getItem() instanceof ElytraItem && ElytraItem.isUsable(AutoArmor.mc.player.getInventory().getStack(((int[]) e.getValue())[2])) || AutoArmor.mc.player.getInventory().getStack(s).isEmpty() || !(AutoArmor.mc.player.getInventory().getStack(s).getItem() instanceof ElytraItem) || !ElytraItem.isUsable(AutoArmor.mc.player.getInventory().getStack(s)))
+                        continue;
+                    ((int[]) e.getValue())[2] = s;
                     continue;
                 }
-                if (protection <= 0 || e.getKey() != slot || protection <= ((int[])e.getValue())[1] || protection <= ((int[])e.getValue())[3]) continue;
-                ((int[])e.getValue())[2] = s;
-                ((int[])e.getValue())[3] = protection;
+                if (protection <= 0 || e.getKey() != slot || protection <= ((int[]) e.getValue())[1] || protection <= ((int[]) e.getValue())[3])
+                    continue;
+                ((int[]) e.getValue())[2] = s;
+                ((int[]) e.getValue())[3] = protection;
             }
         }
         for (Map.Entry equipmentSlotEntry : armorMap.entrySet()) {
-            if (((int[])equipmentSlotEntry.getValue())[2] == -1) continue;
-            if (((int[])equipmentSlotEntry.getValue())[1] == -1 && ((int[])equipmentSlotEntry.getValue())[2] < 9) {
-                if (((int[])equipmentSlotEntry.getValue())[2] != AutoArmor.mc.player.getInventory().selectedSlot) {
-                    AutoArmor.mc.player.getInventory().selectedSlot = ((int[])equipmentSlotEntry.getValue())[2];
-                    AutoArmor.mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(((int[])equipmentSlotEntry.getValue())[2]));
+            if (((int[]) equipmentSlotEntry.getValue())[2] == -1) continue;
+            if (((int[]) equipmentSlotEntry.getValue())[1] == -1 && ((int[]) equipmentSlotEntry.getValue())[2] < 9) {
+                if (((int[]) equipmentSlotEntry.getValue())[2] != AutoArmor.mc.player.getInventory().selectedSlot) {
+                    AutoArmor.mc.player.getInventory().selectedSlot = ((int[]) equipmentSlotEntry.getValue())[2];
+                    AutoArmor.mc.player.networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(((int[]) equipmentSlotEntry.getValue())[2]));
                 }
-                AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, 36 + ((int[])equipmentSlotEntry.getValue())[2], 1, SlotActionType.QUICK_MOVE, AutoArmor.mc.player);
+                AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, 36 + ((int[]) equipmentSlotEntry.getValue())[2], 1, SlotActionType.QUICK_MOVE, AutoArmor.mc.player);
                 EntityUtil.syncInventory();
             } else if (AutoArmor.mc.player.playerScreenHandler == AutoArmor.mc.player.currentScreenHandler) {
-                int armorSlot = ((int[])equipmentSlotEntry.getValue())[0] - 34 + (39 - ((int[])equipmentSlotEntry.getValue())[0]) * 2;
-                int newArmorSlot = ((int[])equipmentSlotEntry.getValue())[2] < 9 ? 36 + ((int[])equipmentSlotEntry.getValue())[2] : ((int[])equipmentSlotEntry.getValue())[2];
+                int armorSlot = ((int[]) equipmentSlotEntry.getValue())[0] - 34 + (39 - ((int[]) equipmentSlotEntry.getValue())[0]) * 2;
+                int newArmorSlot = ((int[]) equipmentSlotEntry.getValue())[2] < 9 ? 36 + ((int[]) equipmentSlotEntry.getValue())[2] : ((int[]) equipmentSlotEntry.getValue())[2];
                 AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, newArmorSlot, 0, SlotActionType.PICKUP, AutoArmor.mc.player);
                 AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, armorSlot, 0, SlotActionType.PICKUP, AutoArmor.mc.player);
-                if (((int[])equipmentSlotEntry.getValue())[1] != -1) {
+                if (((int[]) equipmentSlotEntry.getValue())[1] != -1) {
                     AutoArmor.mc.interactionManager.clickSlot(AutoArmor.mc.player.currentScreenHandler.syncId, newArmorSlot, 0, SlotActionType.PICKUP, AutoArmor.mc.player);
                 }
                 EntityUtil.syncInventory();
@@ -110,7 +113,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     prot += e.getValue().intValue();
                 }
             }
-            return (is.getItem() instanceof ArmorItem ? ((ArmorItem)is.getItem()).getProtection() : 0) + prot;
+            return (is.getItem() instanceof ArmorItem ? ((ArmorItem) is.getItem()).getProtection() : 0) + prot;
         }
         if (!is.isEmpty()) {
             return 0;

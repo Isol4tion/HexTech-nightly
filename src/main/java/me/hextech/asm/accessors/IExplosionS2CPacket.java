@@ -5,26 +5,26 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(value={ExplosionS2CPacket.class})
+@Mixin(value = {ExplosionS2CPacket.class})
 public interface IExplosionS2CPacket {
-    @Accessor(value="playerVelocityX")
+    @Accessor(value = "playerVelocityX")
     float getX();
 
     @Mutable
-    @Accessor(value="playerVelocityX")
+    @Accessor(value = "playerVelocityX")
     void setX(float var1);
 
-    @Accessor(value="playerVelocityY")
+    @Accessor(value = "playerVelocityY")
     float getY();
 
     @Mutable
-    @Accessor(value="playerVelocityY")
+    @Accessor(value = "playerVelocityY")
     void setY(float var1);
 
-    @Accessor(value="playerVelocityZ")
+    @Accessor(value = "playerVelocityZ")
     float getZ();
 
     @Mutable
-    @Accessor(value="playerVelocityZ")
+    @Accessor(value = "playerVelocityZ")
     void setZ(float var1);
 }

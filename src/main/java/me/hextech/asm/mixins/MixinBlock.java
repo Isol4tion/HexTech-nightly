@@ -8,10 +8,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value={Block.class})
+@Mixin(value = {Block.class})
 public abstract class MixinBlock
-implements ItemConvertible {
-    @Inject(at={@At(value="HEAD")}, method={"getVelocityMultiplier()F"}, cancellable=true)
+        implements ItemConvertible {
+    @Inject(at = {@At(value = "HEAD")}, method = {"getVelocityMultiplier()F"}, cancellable = true)
     private void onGetVelocityMultiplier(CallbackInfoReturnable<Float> cir) {
         if (!NoSlow_PaVUKKxFbWGbplzMaucl.INSTANCE.isOn()) {
             return;

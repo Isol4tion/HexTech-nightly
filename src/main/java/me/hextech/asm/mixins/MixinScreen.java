@@ -9,14 +9,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={Screen.class})
+@Mixin(value = {Screen.class})
 public class MixinScreen {
     @Shadow
     public int width;
     @Shadow
     public int height;
 
-    @Inject(method={"renderInGameBackground"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"renderInGameBackground"}, at = {@At(value = "HEAD")}, cancellable = true)
     public void renderInGameBackgroundHook(DrawContext context, CallbackInfo ci) {
         ci.cancel();
         if (ClickGui_ABoiivByuLsVqarYqfYv.INSTANCE.blackground.getValue()) {

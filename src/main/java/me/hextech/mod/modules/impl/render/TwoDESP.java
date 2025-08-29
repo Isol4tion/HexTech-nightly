@@ -29,7 +29,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class TwoDESP
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final EnumSetting page = this.add(new EnumSetting<>("Settings", TwoDESPMode.Target));
     public final ColorSetting armorDuraColor = this.add(new ColorSetting("Armor Dura Color", new Color(0x2FFF00), v -> this.page.getValue() == TwoDESPMode.Color));
     public final ColorSetting hHealth = this.add(new ColorSetting("High Health Color", new Color(0, 255, 0, 255), v -> this.page.getValue() == TwoDESPMode.Color));
@@ -67,9 +67,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (TwoDESP.mc.player == null) {
             return 0.0f;
         }
-        double x = (double)vec.x - TwoDESP.mc.player.getPos().x;
-        double z = (double)vec.y - TwoDESP.mc.player.getPos().z;
-        return (float)(-(Math.atan2(x, z) * 57.29577951308232));
+        double x = (double) vec.x - TwoDESP.mc.player.getPos().x;
+        double z = (double) vec.y - TwoDESP.mc.player.getPos().z;
+        return (float) (-(Math.atan2(x, z) * 57.29577951308232));
     }
 
     @Override
@@ -102,7 +102,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (entity == TwoDESP.mc.player && TwoDESP.mc.options.getPerspective().isFirstPerson()) {
                 return false;
             }
-            if (HexTech.FRIEND.isFriend((PlayerEntity)entity)) {
+            if (HexTech.FRIEND.isFriend((PlayerEntity) entity)) {
                 return this.friends.getValue();
             }
             return this.players.getValue();
@@ -123,7 +123,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return new Color(-1);
         }
         if (entity instanceof PlayerEntity) {
-            if (HexTech.FRIEND.isFriend((PlayerEntity)entity)) {
+            if (HexTech.FRIEND.isFriend((PlayerEntity) entity)) {
                 return this.friendsC.getValue();
             }
             return this.playersC.getValue();
@@ -141,9 +141,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void drawBox(BufferBuilder bufferBuilder, @NotNull Entity ent, Matrix4f matrix, DrawContext context) {
-        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.getTickDelta();
-        double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.getTickDelta();
-        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.getTickDelta();
+        double x = ent.prevX + (ent.getX() - ent.prevX) * (double) mc.getTickDelta();
+        double y = ent.prevY + (ent.getY() - ent.prevY) * (double) mc.getTickDelta();
+        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double) mc.getTickDelta();
         Box axisAlignedBB2 = ent.getBoundingBox();
         Box axisAlignedBB = new Box(axisAlignedBB2.minX - ent.getX() + x - 0.05, axisAlignedBB2.minY - ent.getY() + y, axisAlignedBB2.minZ - ent.getZ() + z - 0.05, axisAlignedBB2.maxX - ent.getX() + x + 0.05, axisAlignedBB2.maxY - ent.getY() + y + 0.15, axisAlignedBB2.maxZ - ent.getZ() + z + 0.05);
         Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.maxZ)};
@@ -167,19 +167,19 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             double endPosX = position.z;
             double endPosY = position.w;
             if (this.outline.getValue()) {
-                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 1.0), (float)posY, (float)(posX + 0.5), (float)(endPosY + 0.5), Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
-                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 1.0), (float)(posY - 0.5), (float)(endPosX + 0.5), (float)(posY + 0.5 + 0.5), Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
-                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(endPosX - 0.5 - 0.5), (float)posY, (float)(endPosX + 0.5), (float)(endPosY + 0.5), Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
-                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 1.0), (float)(endPosY - 0.5 - 0.5), (float)(endPosX + 0.5), (float)(endPosY + 0.5), Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
-                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 0.5), (float)posY, (float)(posX + 0.5 - 0.5), (float)endPosY, col, col, col, col);
-                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)posX, (float)(endPosY - 0.5), (float)endPosX, (float)endPosY, col, col, col, col);
-                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 0.5), (float)posY, (float)endPosX, (float)(posY + 0.5), col, col, col, col);
-                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(endPosX - 0.5), (float)posY, (float)endPosX, (float)endPosY, col, col, col, col);
+                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float) (posX - 1.0), (float) posY, (float) (posX + 0.5), (float) (endPosY + 0.5), Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
+                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float) (posX - 1.0), (float) (posY - 0.5), (float) (endPosX + 0.5), (float) (posY + 0.5 + 0.5), Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
+                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float) (endPosX - 0.5 - 0.5), (float) posY, (float) (endPosX + 0.5), (float) (endPosY + 0.5), Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
+                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float) (posX - 1.0), (float) (endPosY - 0.5 - 0.5), (float) (endPosX + 0.5), (float) (endPosY + 0.5), Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
+                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float) (posX - 0.5), (float) posY, (float) (posX + 0.5 - 0.5), (float) endPosY, col, col, col, col);
+                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float) posX, (float) (endPosY - 0.5), (float) endPosX, (float) endPosY, col, col, col, col);
+                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float) (posX - 0.5), (float) posY, (float) endPosX, (float) (posY + 0.5), col, col, col, col);
+                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float) (endPosX - 0.5), (float) posY, (float) endPosX, (float) endPosY, col, col, col, col);
             }
-            if (ent instanceof LivingEntity && (lent = (LivingEntity)ent).getHealth() != 0.0f && this.renderHealth.getValue()) {
-                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 4.0), (float)posY, (float)posX - 3.0f, (float)endPosY, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
+            if (ent instanceof LivingEntity && (lent = (LivingEntity) ent).getHealth() != 0.0f && this.renderHealth.getValue()) {
+                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float) (posX - 4.0), (float) posY, (float) posX - 3.0f, (float) endPosY, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
                 Color color = this.getcolor(lent.getHealth());
-                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(posX - 4.0), (float)(endPosY + (posY - endPosY) * (double)lent.getHealth() / (double)lent.getMaxHealth()), (float)posX - 3.0f, (float)endPosY, color, color, color, color);
+                Render2DUtil.setRectPoints(bufferBuilder, matrix, (float) (posX - 4.0), (float) (endPosY + (posY - endPosY) * (double) lent.getHealth() / (double) lent.getMaxHealth()), (float) posX - 3.0f, (float) endPosY, color, color, color, color);
             }
             if (ent instanceof PlayerEntity player) {
                 if (this.renderArmor.getValue()) {
@@ -194,9 +194,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         ++i;
                         if (armor.isEmpty()) continue;
                         float durability = armor.getMaxDamage() - armor.getDamage();
-                        int percent = (int)(durability / (float)armor.getMaxDamage() * 100.0f);
-                        double finalH = height * (double)(percent / 100);
-                        Render2DUtil.setRectPoints(bufferBuilder, matrix, (float)(endPosX + 1.5), (float)((double)((float)posY) + height * (double)i + 1.2 * (double)(i + 1)), (float)endPosX + 3.0f, (int)(posY + height * (double)i + 1.2 * (double)(i + 1) + finalH), this.armorDuraColor.getValue(), this.armorDuraColor.getValue(), this.armorDuraColor.getValue(), this.armorDuraColor.getValue());
+                        int percent = (int) (durability / (float) armor.getMaxDamage() * 100.0f);
+                        double finalH = height * (double) (percent / 100);
+                        Render2DUtil.setRectPoints(bufferBuilder, matrix, (float) (endPosX + 1.5), (float) ((double) ((float) posY) + height * (double) i + 1.2 * (double) (i + 1)), (float) endPosX + 3.0f, (int) (posY + height * (double) i + 1.2 * (double) (i + 1) + finalH), this.armorDuraColor.getValue(), this.armorDuraColor.getValue(), this.armorDuraColor.getValue(), this.armorDuraColor.getValue());
                     }
                 }
             }
@@ -204,9 +204,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void drawText(Entity ent, DrawContext context) {
-        double x = ent.prevX + (ent.getX() - ent.prevX) * (double)mc.getTickDelta();
-        double y = ent.prevY + (ent.getY() - ent.prevY) * (double)mc.getTickDelta();
-        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double)mc.getTickDelta();
+        double x = ent.prevX + (ent.getX() - ent.prevX) * (double) mc.getTickDelta();
+        double y = ent.prevY + (ent.getY() - ent.prevY) * (double) mc.getTickDelta();
+        double z = ent.prevZ + (ent.getZ() - ent.prevZ) * (double) mc.getTickDelta();
         Box axisAlignedBB2 = ent.getBoundingBox();
         Box axisAlignedBB = new Box(axisAlignedBB2.minX - ent.getX() + x - 0.05, axisAlignedBB2.minY - ent.getY() + y, axisAlignedBB2.minZ - ent.getZ() + z - 0.05, axisAlignedBB2.maxX - ent.getX() + x + 0.05, axisAlignedBB2.maxY - ent.getY() + y + 0.15, axisAlignedBB2.maxZ - ent.getZ() + z + 0.05);
         Vec3d[] vectors = new Vec3d[]{new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.minZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.minX, axisAlignedBB.maxY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.maxZ), new Vec3d(axisAlignedBB.maxX, axisAlignedBB.maxY, axisAlignedBB.maxZ)};
@@ -230,13 +230,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             double endPosY = position.w;
             if (ent instanceof ItemEntity entity) {
                 if (this.drawItem.getValue()) {
-                    float diff = (float)((endPosX - posX) / 2.0);
+                    float diff = (float) ((endPosX - posX) / 2.0);
                     float textWidth = FontRenderers.Arial.getWidth(entity.getDisplayName().getString());
-                    float tagX = (float)((posX + (double) diff - (double) (textWidth / 2.0f)));
+                    float tagX = (float) ((posX + (double) diff - (double) (textWidth / 2.0f)));
                     int count = entity.getStack().getCount();
-                    context.drawText(TwoDESP.mc.textRenderer, entity.getDisplayName().getString(), (int)tagX, (int)(posY - 10.0), this.textcolor.getValue().getRGB(), false);
+                    context.drawText(TwoDESP.mc.textRenderer, entity.getDisplayName().getString(), (int) tagX, (int) (posY - 10.0), this.textcolor.getValue().getRGB(), false);
                     if (this.drawItemC.getValue()) {
-                        context.drawText(TwoDESP.mc.textRenderer, "x" + count, (int)(tagX + (float) TwoDESP.mc.textRenderer.getWidth(entity.getDisplayName().getString() + " ")), (int)posY - 10, this.countColor.getValue().getRGB(), false);
+                        context.drawText(TwoDESP.mc.textRenderer, "x" + count, (int) (tagX + (float) TwoDESP.mc.textRenderer.getWidth(entity.getDisplayName().getString() + " ")), (int) posY - 10, this.countColor.getValue().getRGB(), false);
                     }
                 }
             }
@@ -253,9 +253,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         ++i;
                         if (armor.isEmpty()) continue;
                         float durability = armor.getMaxDamage() - armor.getDamage();
-                        int percent = (int)(durability / (float)armor.getMaxDamage() * 100.0f);
-                        double finalH = height * (double)(percent / 100);
-                        context.drawItem(armor, (int)(endPosX + 4.0), (int)(posY + height * (double)i + 1.2 * (double)(i + 1) + finalH / 2.0));
+                        int percent = (int) (durability / (float) armor.getMaxDamage() * 100.0f);
+                        double finalH = height * (double) (percent / 100);
+                        context.drawItem(armor, (int) (endPosX + 4.0), (int) (posY + height * (double) i + 1.2 * (double) (i + 1) + finalH / 2.0));
                     }
                 }
             }

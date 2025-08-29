@@ -5,12 +5,12 @@ import me.hextech.api.events.impl.MoveEvent;
 import me.hextech.mod.modules.Module_eSdgMXWuzcxgQVaJFmKZ;
 
 public class SafeWalk
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public SafeWalk() {
         super("SafeWalk", "stop at the edge", Category.Movement);
     }
 
-    @EventHandler(priority=-100)
+    @EventHandler(priority = -100)
     public void onMove(MoveEvent event) {
         double x = event.getX();
         double y = event.getY();

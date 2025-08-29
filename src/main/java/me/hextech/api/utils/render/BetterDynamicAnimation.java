@@ -38,7 +38,7 @@ public class BetterDynamicAnimation {
 
     public double getAnimationD() {
         double delta = this.dstValue - this.value;
-        double animation = BetterDynamicAnimation.createAnimation((double)((float)this.prevStep + (float)(this.step - this.prevStep) * Wrapper.mc.getTickDelta()) / (double)this.maxTicks);
+        double animation = BetterDynamicAnimation.createAnimation((double) ((float) this.prevStep + (float) (this.step - this.prevStep) * Wrapper.mc.getTickDelta()) / (double) this.maxTicks);
         return this.value + delta * animation;
     }
 }

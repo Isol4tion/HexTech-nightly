@@ -10,7 +10,7 @@ import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
 
 public class AutoReconnect
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AutoReconnect INSTANCE;
     public final SliderSetting delay = this.add(new SliderSetting("Delay", 3, 0, 20));
     public Pair<ServerAddress, ServerInfo> lastServerConnection;

@@ -16,7 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import java.awt.*;
 
 public class Debug
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Debug INSTANCE;
     private final BooleanSetting prerender = this.add(new BooleanSetting("PredictRender", true));
     private final BooleanSetting chat = this.add(new BooleanSetting("Chat", true));

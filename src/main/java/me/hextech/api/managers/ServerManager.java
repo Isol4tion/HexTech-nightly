@@ -16,7 +16,7 @@ import java.math.RoundingMode;
 import java.util.ArrayDeque;
 
 public class ServerManager
-implements Wrapper {
+        implements Wrapper {
     private final Timer timeDelay = new Timer();
     private final ArrayDeque<Float> tpsResult = new ArrayDeque(20);
     boolean worldNull = true;
@@ -39,11 +39,11 @@ implements Wrapper {
     }
 
     public float getCurrentTPS() {
-        return ServerManager.round2(20.0f * ((float)this.tickTime / 1000.0f));
+        return ServerManager.round2(20.0f * ((float) this.tickTime / 1000.0f));
     }
 
     public float getTPSFactor() {
-        return (float)this.tickTime / 1000.0f;
+        return (float) this.tickTime / 1000.0f;
     }
 
     @EventHandler
@@ -54,12 +54,12 @@ implements Wrapper {
                 if (this.tpsResult.size() > 20) {
                     this.tpsResult.poll();
                 }
-                this.tpsResult.add(Float.valueOf(20.0f * (1000.0f / (float)this.tickTime)));
+                this.tpsResult.add(Float.valueOf(20.0f * (1000.0f / (float) this.tickTime)));
                 float average = 0.0f;
                 for (Float value : this.tpsResult) {
                     average += MathUtil.clamp(value.floatValue(), 0.0f, 20.0f);
                 }
-                this.tps = average / (float)this.tpsResult.size();
+                this.tps = average / (float) this.tpsResult.size();
             }
             this.time = System.currentTimeMillis();
         }

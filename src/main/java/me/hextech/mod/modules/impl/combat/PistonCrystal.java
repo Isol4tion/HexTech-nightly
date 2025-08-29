@@ -37,7 +37,7 @@ import net.minecraft.util.math.*;
 import java.util.Iterator;
 
 public class PistonCrystal
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static PistonCrystal INSTANCE;
     public final EnumSetting<_nsRHxiHWZMPWnytkAhif> page = this.add(new EnumSetting<_nsRHxiHWZMPWnytkAhif>("Page", _nsRHxiHWZMPWnytkAhif.General));
     public final BooleanSetting yawDeceive = this.add(new BooleanSetting("YawDeceive", true, v -> this.page.getValue() == _nsRHxiHWZMPWnytkAhif.Rotate));
@@ -231,16 +231,17 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public void attackCrystal(BlockPos pos, boolean rotate, boolean eatingPause) {
-        block0: {
+        block0:
+        {
             Iterator iterator = PistonCrystal.mc.world.getNonSpectatingEntities(EndCrystalEntity.class, new Box(pos)).iterator();
             if (!iterator.hasNext()) break block0;
-            EndCrystalEntity entity = (EndCrystalEntity)iterator.next();
+            EndCrystalEntity entity = (EndCrystalEntity) iterator.next();
             this.attackCrystal(entity, rotate, eatingPause);
         }
     }
 
     public void attackCrystal(Entity crystal, boolean rotate, boolean usingPause) {
-        if (!CombatUtil.breakTimer.passedMs((long)(CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.attackDelay.getValue() * 1000.0))) {
+        if (!CombatUtil.breakTimer.passedMs((long) (CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.attackDelay.getValue() * 1000.0))) {
             return;
         }
         if (usingPause && EntityUtil.isUsing()) {
@@ -340,7 +341,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         if (!(this.getBlock(pos) instanceof PistonBlock)) {
-            if (PistonCrystal.mc.player != null && (PistonCrystal.mc.player.getY() - (double)pos.getY() <= -2.0 || PistonCrystal.mc.player.getY() - (double)pos.getY() >= 3.0) && BlockUtil.distanceToXZ((double)pos.getX() + 0.5, (double)pos.getZ() + 0.5) < 2.6) {
+            if (PistonCrystal.mc.player != null && (PistonCrystal.mc.player.getY() - (double) pos.getY() <= -2.0 || PistonCrystal.mc.player.getY() - (double) pos.getY() >= 3.0) && BlockUtil.distanceToXZ((double) pos.getX() + 0.5, (double) pos.getZ() + 0.5) < 2.6) {
                 return;
             }
             if (!this.isTrueFacing(pos, facing)) {
@@ -353,25 +354,25 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!BlockUtil.canPlace(pos, this.placeRange.getValue()) && !this.isPiston(pos, facing)) {
             return;
         }
-        if (!((double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) < this.distance) && this.bestPos != null) {
+        if (!((double) MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) < this.distance) && this.bestPos != null) {
             return;
         }
         this.bestPos = pos;
         this.bestOPos = oPos;
         this.bestFacing = facing;
-        this.distance = MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()));
+        this.distance = MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos()));
         this.getPos = true;
         this.crystalTimer.reset();
     }
 
     private void doPistonAura(BlockPos pos, Direction facing, BlockPos oPos) {
-        if ((double)this.stage >= this.stageSetting.getValue()) {
+        if ((double) this.stage >= this.stageSetting.getValue()) {
             this.stage = 0;
         }
         ++this.stage;
         if (PistonCrystal.mc.world != null && PistonCrystal.mc.world.isAir(pos)) {
             if (BlockUtil.canPlace(pos)) {
-                if ((double)this.stage >= this.pistonStage.getValue() && (double)this.stage <= this.pistonMaxStage.getValue()) {
+                if ((double) this.stage >= this.pistonStage.getValue() && (double) this.stage <= this.pistonMaxStage.getValue()) {
                     Vec3d hitVec;
                     Direction side = BlockUtil.getPlaceSide(pos);
                     if (side == null) {
@@ -383,7 +384,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                     BlockPos neighbour = pos.offset(side);
                     Direction opposite = side.getOpposite();
-                    if (this.rotate.getValue() && !this.faceVector(hitVec = pos.toCenterPos().add(new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5)))) {
+                    if (this.rotate.getValue() && !this.faceVector(hitVec = pos.toCenterPos().add(new Vec3d((double) side.getVector().getX() * 0.5, (double) side.getVector().getY() * 0.5, (double) side.getVector().getZ() * 0.5)))) {
                         return;
                     }
                     if (this.shouldYawCheck()) {
@@ -406,13 +407,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return;
             }
         }
-        if ((double)this.stage >= this.powerStage.getValue() && (double)this.stage <= this.powerMaxStage.getValue()) {
+        if ((double) this.stage >= this.powerStage.getValue() && (double) this.stage <= this.powerMaxStage.getValue()) {
             this.doRedStone(pos, facing, oPos.offset(facing));
         }
-        if ((double)this.stage >= this.crystalStage.getValue() && (double)this.stage <= this.crystalMaxStage.getValue()) {
+        if ((double) this.stage >= this.crystalStage.getValue() && (double) this.stage <= this.crystalMaxStage.getValue()) {
             this.placeCrystal(oPos, facing);
         }
-        if ((double)this.stage >= this.fireStage.getValue() && (double)this.stage <= this.fireMaxStage.getValue()) {
+        if ((double) this.stage >= this.fireStage.getValue() && (double) this.stage <= this.fireMaxStage.getValue()) {
             this.doFire(oPos, facing);
         }
     }
@@ -449,7 +450,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (PistonCrystal.mc.world != null && !(PistonCrystal.mc.world.getBlockState(pos).getBlock() instanceof PistonBlock)) {
             return false;
         }
-        if (((Direction)PistonCrystal.mc.world.getBlockState(pos).get((Property)FacingBlock.FACING)).getOpposite() != facing) {
+        if (((Direction) PistonCrystal.mc.world.getBlockState(pos).get((Property) FacingBlock.FACING)).getOpposite() != facing) {
             return false;
         }
         return PistonCrystal.mc.world.isAir(pos.offset(facing, -1)) || this.getBlock(pos.offset(facing, -1)) == Blocks.FIRE || this.getBlock(pos.offset(facing.getOpposite())) == Blocks.MOVING_PISTON;
@@ -530,7 +531,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         for (Direction i : Direction.values()) {
-            if (!BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue()) || pos.offset(i).equals(crystalPos) || i == facing.getOpposite()) continue;
+            if (!BlockUtil.canPlace(pos.offset(i), this.placeRange.getValue()) || pos.offset(i).equals(crystalPos) || i == facing.getOpposite())
+                continue;
             this.doSwap(power);
             this.placeBlock(pos.offset(i), this.rotate.getValue(), this.endSwing.getValue());
             if (this.inventory.getValue()) {
@@ -556,7 +558,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (side == null) {
             side = Direction.UP;
         }
-        return Direction.fromRotation(EntityUtil.getLegitRotations(hitVec = pos.offset((side = side.getOpposite()).getOpposite()).toCenterPos().add(new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5)))[0]) == facing;
+        return Direction.fromRotation(EntityUtil.getLegitRotations(hitVec = pos.offset((side = side.getOpposite()).getOpposite()).toCenterPos().add(new Vec3d((double) side.getVector().getX() * 0.5, (double) side.getVector().getY() * 0.5, (double) side.getVector().getZ() * 0.5)))[0]) == facing;
     }
 
     private void doSwap(int slot) {
@@ -609,7 +611,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if ((side = BlockUtil.getPlaceSide(pos)) == null) {
             return;
         }
-        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
         EntityUtil.swingHand(Hand.MAIN_HAND, CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.swingMode.getValue());
         BlockHitResult result = new BlockHitResult(directionVec, side, pos, false);
         BlockUtil.placedPos.add(pos);
@@ -664,7 +666,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean clickBlock(BlockPos pos, Direction side, boolean rotate) {
-        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
         if (rotate && !this.faceVector(directionVec)) {
             return false;
         }

@@ -11,7 +11,7 @@ import me.hextech.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.network.packet.s2c.play.UpdateSelectedSlotS2CPacket;
 
 public class BypassSetting_RInKGmTQYgWFRhsUOiJP
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static BypassSetting_RInKGmTQYgWFRhsUOiJP INSTANCE;
     public final EnumSetting<Page> page = this.add(new EnumSetting<Page>("Page", Page.NCP));
     public final BooleanSetting grim = this.add(new BooleanSetting("GrimAC[!Test]", false, v -> this.page.getValue() == Page.Grim));
@@ -37,7 +37,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (t instanceof UpdateSelectedSlotS2CPacket packet) {
                 int slot = BypassSetting_RInKGmTQYgWFRhsUOiJP.mc.player.getInventory().selectedSlot;
                 if (packet.getSlot() != slot) {
-                    ((IUpdateSelectedSlotS2CPacket)packet).setslot(slot);
+                    ((IUpdateSelectedSlotS2CPacket) packet).setslot(slot);
                     InventoryUtil.switchToSlot(slot);
                     EntityUtil.syncInventory();
                 }

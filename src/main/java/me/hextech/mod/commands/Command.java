@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class Command
-implements Wrapper {
+        implements Wrapper {
     protected final String name;
     protected final String description;
     protected final String syntax;

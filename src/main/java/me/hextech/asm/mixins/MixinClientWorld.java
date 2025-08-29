@@ -19,18 +19,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.awt.*;
 import java.util.function.Supplier;
 
-@Mixin(value={ClientWorld.class})
+@Mixin(value = {ClientWorld.class})
 public abstract class MixinClientWorld
-extends World {
+        extends World {
     protected MixinClientWorld(MutableWorldProperties properties, RegistryKey<World> registryRef, DynamicRegistryManager registryManager, RegistryEntry<DimensionType> dimensionEntry, Supplier<Profiler> profiler, boolean isClient, boolean debugWorld, long biomeAccess, int maxChainedNeighborUpdates) {
         super(properties, registryRef, registryManager, dimensionEntry, profiler, isClient, debugWorld, biomeAccess, maxChainedNeighborUpdates);
     }
 
-    @Inject(method={"getSkyColor"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"getSkyColor"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onGetSkyColor(Vec3d cameraPos, float tickDelta, CallbackInfoReturnable<Vec3d> info) {
         if (Ambience.INSTANCE.isOn() && Ambience.INSTANCE.sky.booleanValue) {
             Color sky = Ambience.INSTANCE.sky.getValue();
-            info.setReturnValue(new Vec3d((double)sky.getRed() / 255.0, (double)sky.getGreen() / 255.0, (double)sky.getBlue() / 255.0));
+            info.setReturnValue(new Vec3d((double) sky.getRed() / 255.0, (double) sky.getGreen() / 255.0, (double) sky.getBlue() / 255.0));
         }
     }
 

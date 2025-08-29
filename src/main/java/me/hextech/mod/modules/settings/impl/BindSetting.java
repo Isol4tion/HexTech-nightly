@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 import java.util.function.Predicate;
 
 public class BindSetting
-extends Setting {
+        extends Setting {
     public boolean hold = false;
     private boolean isListening = false;
     private int key;
@@ -67,16 +67,16 @@ extends Setting {
             try {
                 for (Field declaredField : GLFW.class.getDeclaredFields()) {
                     int a;
-                    if (!declaredField.getName().startsWith("GLFW_KEY_") || (a = ((Integer)declaredField.get(null)).intValue()) != this.key) continue;
+                    if (!declaredField.getName().startsWith("GLFW_KEY_") || (a = ((Integer) declaredField.get(null)).intValue()) != this.key)
+                        continue;
                     String nb = declaredField.getName().substring("GLFW_KEY_".length());
                     kn = nb.substring(0, 1).toUpperCase() + nb.substring(1).toLowerCase();
                 }
-            }
-            catch (Exception ignored) {
+            } catch (Exception ignored) {
                 kn = "None";
             }
         }
-        return ((String)kn).toUpperCase();
+        return ((String) kn).toUpperCase();
     }
 
     public boolean isListening() {

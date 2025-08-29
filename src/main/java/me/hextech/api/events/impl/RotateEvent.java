@@ -3,7 +3,7 @@ package me.hextech.api.events.impl;
 import me.hextech.api.events.Event_auduwKaxKOWXRtyJkCPb;
 
 public class RotateEvent
-extends Event_auduwKaxKOWXRtyJkCPb {
+        extends Event_auduwKaxKOWXRtyJkCPb {
     private float yaw;
     private float pitch;
     private boolean modified;

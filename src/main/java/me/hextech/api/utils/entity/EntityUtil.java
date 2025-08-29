@@ -31,7 +31,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
 public class EntityUtil
-implements Wrapper {
+        implements Wrapper {
     public static boolean rotating;
 
     public static boolean isHoldingWeapon(PlayerEntity player) {
@@ -53,7 +53,7 @@ implements Wrapper {
         if (stack.getDamage() == stack.getMaxDamage()) {
             return 100;
         }
-        return (int)((double)(stack.getMaxDamage() - stack.getDamage()) / Math.max(0.1, stack.getMaxDamage()) * 100.0);
+        return (int) ((double) (stack.getMaxDamage() - stack.getDamage()) / Math.max(0.1, stack.getMaxDamage()) * 100.0);
     }
 
     public static boolean isArmorLow(PlayerEntity player, int durability) {
@@ -73,14 +73,14 @@ implements Wrapper {
         double diffY = vec.y - eyesPos.y;
         double diffZ = vec.z - eyesPos.z;
         double diffXZ = Math.sqrt(diffX * diffX + diffZ * diffZ);
-        float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
-        float pitch = (float)(-Math.toDegrees(Math.atan2(diffY, diffXZ)));
+        float yaw = (float) Math.toDegrees(Math.atan2(diffZ, diffX)) - 90.0f;
+        float pitch = (float) (-Math.toDegrees(Math.atan2(diffY, diffXZ)));
         return new float[]{MathHelper.wrapDegrees(yaw), MathHelper.wrapDegrees(pitch)};
     }
 
     public static float getHealth(Entity entity) {
         if (entity.isLiving()) {
-            LivingEntity livingBase = (LivingEntity)entity;
+            LivingEntity livingBase = (LivingEntity) entity;
             return livingBase.getHealth() + livingBase.getAbsorptionAmount();
         }
         return 0.0f;
@@ -107,7 +107,7 @@ implements Wrapper {
     }
 
     public static boolean canSee(BlockPos pos, Direction side) {
-        Vec3d testVec = pos.toCenterPos().add((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5);
+        Vec3d testVec = pos.toCenterPos().add((double) side.getVector().getX() * 0.5, (double) side.getVector().getY() * 0.5, (double) side.getVector().getZ() * 0.5);
         BlockHitResult result = EntityUtil.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), testVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, EntityUtil.mc.player));
         return result == null || result.getType() == HitResult.Type.MISS;
     }
@@ -145,12 +145,12 @@ implements Wrapper {
     }
 
     public static void facePosSide(BlockPos pos, Direction side) {
-        Vec3d hitVec = pos.toCenterPos().add(new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5));
+        Vec3d hitVec = pos.toCenterPos().add(new Vec3d((double) side.getVector().getX() * 0.5, (double) side.getVector().getY() * 0.5, (double) side.getVector().getZ() * 0.5));
         EntityUtil.faceVector(hitVec);
     }
 
     public static void facePosSideNoStay(BlockPos pos, Direction side) {
-        Vec3d hitVec = pos.toCenterPos().add(new Vec3d((double)side.getVector().getX() * 0.5, (double)side.getVector().getY() * 0.5, (double)side.getVector().getZ() * 0.5));
+        Vec3d hitVec = pos.toCenterPos().add(new Vec3d((double) side.getVector().getX() * 0.5, (double) side.getVector().getY() * 0.5, (double) side.getVector().getZ() * 0.5));
         EntityUtil.faceVectorNoStay(hitVec);
     }
 
@@ -166,7 +166,7 @@ implements Wrapper {
     }
 
     static PendingUpdateManager getUpdateManager(ClientWorld world) {
-        return ((IClientWorld)world).acquirePendingUpdateManager();
+        return ((IClientWorld) world).acquirePendingUpdateManager();
     }
 
     public static void swingHand(Hand hand, SwingSide side) {

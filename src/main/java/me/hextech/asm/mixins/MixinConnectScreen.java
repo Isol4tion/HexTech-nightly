@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={ConnectScreen.class})
+@Mixin(value = {ConnectScreen.class})
 public class MixinConnectScreen {
-    @Inject(method={"connect(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/client/network/ServerAddress;Lnet/minecraft/client/network/ServerInfo;)V"}, at={@At(value="HEAD")})
+    @Inject(method = {"connect(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/client/network/ServerAddress;Lnet/minecraft/client/network/ServerInfo;)V"}, at = {@At(value = "HEAD")})
     private void tryConnectEvent(MinecraftClient client, ServerAddress address, ServerInfo info, CallbackInfo ci) {
         ServerConnectBeginEvent event = new ServerConnectBeginEvent(address, info);
         HexTech.EVENT_BUS.post(event);

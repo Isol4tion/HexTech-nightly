@@ -11,10 +11,23 @@ import java.lang.reflect.Modifier;
 import java.util.function.Consumer;
 
 public class LambdaListener_AbcZKcjDwtaoZeuwqpJc
-implements IListener {
+        implements IListener {
     private static final boolean isJava1dot8 = System.getProperty("java.version").startsWith("1.8");
     private static Constructor<MethodHandles.Lookup> lookupConstructor;
     private static Method privateLookupInMethod;
+
+    static {
+        try {
+            if (isJava1dot8) {
+                lookupConstructor = MethodHandles.Lookup.class.getDeclaredConstructor(Class.class);
+            } else {
+                privateLookupInMethod = MethodHandles.class.getDeclaredMethod("privateLookupIn", Class.class, MethodHandles.Lookup.class);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
+
     private final Class<?> target;
     private final boolean isStatic;
     private final int priority;
@@ -47,13 +60,11 @@ implements IListener {
             }
             final MethodHandle lambdaFactory = LambdaMetafactory.metafactory(lookup, "accept", invokedType, MethodType.methodType(Void.TYPE, Object.class), methodHandle, methodType).getTarget();
             if (this.isStatic) {
-                this.executor = (Consumer<Object>)lambdaFactory.invoke();
+                this.executor = (Consumer<Object>) lambdaFactory.invoke();
+            } else {
+                this.executor = (Consumer<Object>) lambdaFactory.invoke(object);
             }
-            else {
-                this.executor = (Consumer<Object>)lambdaFactory.invoke(object);
-            }
-        }
-        catch (Throwable throwable) {
+        } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
     }
@@ -76,18 +87,6 @@ implements IListener {
     @Override
     public boolean isStatic() {
         return this.isStatic;
-    }
-
-    static {
-        try {
-            if (isJava1dot8) {
-                lookupConstructor = MethodHandles.Lookup.class.getDeclaredConstructor(Class.class);
-            } else {
-                privateLookupInMethod = MethodHandles.class.getDeclaredMethod("privateLookupIn", Class.class, MethodHandles.Lookup.class);
-            }
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
     }
 
     /*

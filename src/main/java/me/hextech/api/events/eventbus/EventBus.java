@@ -9,20 +9,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
 
 public class EventBus implements IEventBus {
-    public class LambdaFactoryInfo {
-        public final LambdaListener_AbcZKcjDwtaoZeuwqpJc.Factory factory;
-
-        public LambdaFactoryInfo(LambdaListener_AbcZKcjDwtaoZeuwqpJc.Factory factory) {
-            this.factory = factory;
-        }
-    }
-
+    public final Map<Class<?>, List<IListener>> listenerMap = new ConcurrentHashMap<>();
+    public final List<LambdaFactoryInfo> lambdaFactoryInfos = new ArrayList<>();
     private final Map<Object, List<IListener>> listenerCache = new ConcurrentHashMap<>();
     private final Map<Class<?>, List<IListener>> staticListenerCache = new ConcurrentHashMap<>();
-
-    public final Map<Class<?>, List<IListener>> listenerMap = new ConcurrentHashMap<>();
-
-    public final List<LambdaFactoryInfo> lambdaFactoryInfos = new ArrayList<>();
 
     @Override
     public void registerLambdaFactory(LambdaListener_AbcZKcjDwtaoZeuwqpJc.Factory factory) {
@@ -79,9 +69,9 @@ public class EventBus implements IEventBus {
 
     private void subscribe(IListener listener, boolean onlyStatic) {
         if (onlyStatic) {
-            if (listener.isStatic()) insert(listenerMap.computeIfAbsent(listener.getTarget(), aClass -> new CopyOnWriteArrayList<>()), listener);
-        }
-        else {
+            if (listener.isStatic())
+                insert(listenerMap.computeIfAbsent(listener.getTarget(), aClass -> new CopyOnWriteArrayList<>()), listener);
+        } else {
             insert(listenerMap.computeIfAbsent(listener.getTarget(), aClass -> new CopyOnWriteArrayList<>()), listener);
         }
     }
@@ -120,8 +110,7 @@ public class EventBus implements IEventBus {
         if (l != null) {
             if (staticOnly) {
                 if (listener.isStatic()) l.remove(listener);
-            }
-            else l.remove(listener);
+            } else l.remove(listener);
         }
     }
 
@@ -167,10 +156,18 @@ public class EventBus implements IEventBus {
     private LambdaListener_AbcZKcjDwtaoZeuwqpJc.Factory getLambdaFactory(Class<?> klass) {
         synchronized (lambdaFactoryInfos) {
             for (LambdaFactoryInfo info : lambdaFactoryInfos) {
-                 return info.factory;
+                return info.factory;
             }
         }
 
         throw new NoLambdaFactoryException(klass);
+    }
+
+    public class LambdaFactoryInfo {
+        public final LambdaListener_AbcZKcjDwtaoZeuwqpJc.Factory factory;
+
+        public LambdaFactoryInfo(LambdaListener_AbcZKcjDwtaoZeuwqpJc.Factory factory) {
+            this.factory = factory;
+        }
     }
 }

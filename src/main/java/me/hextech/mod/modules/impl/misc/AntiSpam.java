@@ -7,7 +7,7 @@ import me.hextech.mod.modules.settings.impl.StringSetting;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 
 public class AntiSpam
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final StringSetting name = this.add(new StringSetting("Name", "zhuan_gan_"));
 
     public AntiSpam() {
@@ -18,7 +18,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private void PacketReceive(PacketEvent_gBzdMCvQxlHfSrulemGS.Receive receive) {
         GameMessageS2CPacket e;
         Object t = receive.getPacket();
-        if (t instanceof GameMessageS2CPacket && (e = (GameMessageS2CPacket)t).content().getString().contains(this.name.getValue())) {
+        if (t instanceof GameMessageS2CPacket && (e = (GameMessageS2CPacket) t).content().getString().contains(this.name.getValue())) {
             receive.cancel();
         }
     }

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Module_eSdgMXWuzcxgQVaJFmKZ
-extends Mod {
+        extends Mod {
     public final BooleanSetting drawnSetting;
     private final Category category;
     private final BindSetting bindSetting;
@@ -50,7 +50,7 @@ extends Mod {
         if (mc.getNetworkHandler() == null || Module_eSdgMXWuzcxgQVaJFmKZ.mc.world == null) {
             return;
         }
-        try (PendingUpdateManager pendingUpdateManager = Module_eSdgMXWuzcxgQVaJFmKZ.mc.world.getPendingUpdateManager().incrementSequence()){
+        try (PendingUpdateManager pendingUpdateManager = Module_eSdgMXWuzcxgQVaJFmKZ.mc.world.getPendingUpdateManager().incrementSequence()) {
             int i = pendingUpdateManager.getSequence();
             mc.getNetworkHandler().sendPacket(packetCreator.predict(i));
         }
@@ -128,8 +128,7 @@ extends Mod {
         this.onToggle();
         try {
             this.onEnable();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -190,8 +189,7 @@ extends Mod {
         }
         try {
             key = InputUtil.fromTranslationKey("key.keyboard." + rkey.toLowerCase()).getCode();
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             if (!Module_eSdgMXWuzcxgQVaJFmKZ.nullCheck()) {
                 CommandManager.sendChatMessage("\u00a7c[!] \u00a7fBad key!");
             }

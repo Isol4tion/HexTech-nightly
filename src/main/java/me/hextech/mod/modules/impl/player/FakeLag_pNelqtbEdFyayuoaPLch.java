@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class FakeLag_pNelqtbEdFyayuoaPLch
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private static final HashMap<PlayerEntity, Vec3d> map = new HashMap();
     private final SliderSetting spoof = this.add(new SliderSetting("Spoof", 500.0, 0.0, 5000.0, 1.0));
     private final BooleanSetting ping = this.add(new BooleanSetting("Ping", true));
@@ -47,15 +47,15 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             return;
         }
         Object t = event.getPacket();
-        if (t instanceof EntityS2CPacket && (entity = (entityS2CPacket = (EntityS2CPacket)t).getEntity(FakeLag_pNelqtbEdFyayuoaPLch.mc.world)) instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity)entity;
+        if (t instanceof EntityS2CPacket && (entity = (entityS2CPacket = (EntityS2CPacket) t).getEntity(FakeLag_pNelqtbEdFyayuoaPLch.mc.world)) instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
             if (player == FakeLag_pNelqtbEdFyayuoaPLch.mc.player) {
                 return;
             }
             if (map.containsKey(player) && this.entity.getValue()) {
                 Vec3d vec3d = new Vec3d(entityS2CPacket.getDeltaX(), entityS2CPacket.getDeltaY(), entityS2CPacket.getDeltaZ());
                 if (map.get(player).distanceTo(FakeLag_pNelqtbEdFyayuoaPLch.mc.player.getPos()) < vec3d.distanceTo(FakeLag_pNelqtbEdFyayuoaPLch.mc.player.getPos())) {
-                    this.packet.add(new FakeLag( entityS2CPacket));
+                    this.packet.add(new FakeLag(entityS2CPacket));
                     event.cancel();
                 }
             }
@@ -79,7 +79,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.entity.getValue()) {
             for (Vec3d vec3d : map.values()) {
                 Color color = new Color(255, 255, 255, 100);
-                Render3DUtil.draw3DBox(matrixStack, ((IEntity)FakeLag_pNelqtbEdFyayuoaPLch.mc.player).getDimensions().getBoxAt(vec3d).expand(0.0, 0.1, 0.0), color, false, true);
+                Render3DUtil.draw3DBox(matrixStack, ((IEntity) FakeLag_pNelqtbEdFyayuoaPLch.mc.player).getDimensions().getBoxAt(vec3d).expand(0.0, 0.1, 0.0), color, false, true);
             }
         }
     }

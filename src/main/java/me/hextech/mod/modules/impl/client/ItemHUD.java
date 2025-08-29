@@ -15,7 +15,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ItemHUD
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static ItemHUD INSTANCE;
     private final SliderSetting xOffset = this.add(new SliderSetting("X", 0, 0, 2000));
     private final SliderSetting yOffset = this.add(new SliderSetting("Y", 10, 0, 2000));
@@ -40,8 +40,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         matrices.push();
         matrices.scale(scale, scale, 1.0f);
         matrices.translate(0.0f, 0.0f, 401.0f);
-        int scaledX = (int)((float)x / scale);
-        int scaledY = (int)((float)y / scale);
+        int scaledX = (int) ((float) x / scale);
+        int scaledY = (int) ((float) y / scale);
         drawContext.drawItem(itemStack, scaledX, scaledY);
         matrices.pop();
     }
@@ -66,9 +66,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             drawContext.getMatrices().push();
             drawContext.getMatrices().scale(this.scale.getValueFloat(), this.scale.getValueFloat(), this.scale.getValueFloat());
             if (list.get(i).getCount() != Integer.MAX_VALUE) {
-                TextUtil.drawString(drawContext, String.valueOf(list.get(i).getCount()), ((float)(this.xOffset.getValueInt() + this.xPlus.getValueInt() * i) + this.TextxPlus.getValueFloat()) / this.scale.getValueFloat(), ((double)this.yOffset.getValueInt() + 12.5 + this.yPlus.getValue()) / (double)this.scale.getValueFloat(), this.textColor.getValue().getRGB());
+                TextUtil.drawString(drawContext, String.valueOf(list.get(i).getCount()), ((float) (this.xOffset.getValueInt() + this.xPlus.getValueInt() * i) + this.TextxPlus.getValueFloat()) / this.scale.getValueFloat(), ((double) this.yOffset.getValueInt() + 12.5 + this.yPlus.getValue()) / (double) this.scale.getValueFloat(), this.textColor.getValue().getRGB());
             } else {
-                TextUtil.drawString(drawContext, "0", ((float)(this.xOffset.getValueInt() + this.xPlus.getValueInt() * i) + this.TextxPlus.getValueFloat()) / this.scale.getValueFloat(), ((double)this.yOffset.getValueInt() + 12.5 + this.yPlus.getValue()) / (double)this.scale.getValueFloat(), this.textColor.getValue().getRGB());
+                TextUtil.drawString(drawContext, "0", ((float) (this.xOffset.getValueInt() + this.xPlus.getValueInt() * i) + this.TextxPlus.getValueFloat()) / this.scale.getValueFloat(), ((double) this.yOffset.getValueInt() + 12.5 + this.yPlus.getValue()) / (double) this.scale.getValueFloat(), this.textColor.getValue().getRGB());
             }
             drawContext.getMatrices().pop();
         }

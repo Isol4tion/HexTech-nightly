@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoAnchor_MDcwoWYRcPYheLZJWRZK
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AutoAnchor_MDcwoWYRcPYheLZJWRZK INSTANCE;
     public static BlockPos currentPos;
     static Vec3d placeVec3d;
@@ -210,7 +210,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             boolean bl = shouldSpam = this.spam.getValue() && (!this.mineSpam.getValue() || HexTech.BREAK.isMining(currentPos));
             if (shouldSpam) {
-                if (!this.delayTimer.passed((long)this.spamDelay.getValueFloat())) {
+                if (!this.delayTimer.passed((long) this.spamDelay.getValueFloat())) {
                     return;
                 }
                 this.delayTimer.reset();
@@ -227,7 +227,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (this.spamPlace.getValue() && this.inSpam.getValue()) {
                     if (this.yawStep.getValue() && this.checkFov.getValue()) {
                         Direction side = BlockUtil.getClickSide(currentPos);
-                        Vec3d directionVec = new Vec3d((double)currentPos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)currentPos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)currentPos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+                        Vec3d directionVec = new Vec3d((double) currentPos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) currentPos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) currentPos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
                         if (HexTech.ROTATE.inFov(directionVec, this.fov.getValueFloat())) {
                             CombatUtil.modifyPos = currentPos;
                             CombatUtil.modifyBlockState = Blocks.AIR.getDefaultState();
@@ -242,21 +242,21 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                 }
             } else if (BlockUtil.canPlace(currentPos, this.range.getValue(), this.breakCrystal.getValue())) {
-                if (!this.delayTimer.passed((long)this.placeDelay.getValueFloat())) {
+                if (!this.delayTimer.passed((long) this.placeDelay.getValueFloat())) {
                     return;
                 }
                 this.delayTimer.reset();
                 this.placeBlock(currentPos, this.rotate.getValue(), anchor);
             } else if (BlockUtil.getBlock(currentPos) == Blocks.RESPAWN_ANCHOR) {
                 if (!this.chargeList.contains(currentPos)) {
-                    if (!this.delayTimer.passed((long)this.placeDelay.getValueFloat())) {
+                    if (!this.delayTimer.passed((long) this.placeDelay.getValueFloat())) {
                         return;
                     }
                     this.delayTimer.reset();
                     this.clickBlock(currentPos, BlockUtil.getClickSide(currentPos), this.rotate.getValue(), glowstone);
                     this.chargeList.add(currentPos);
                 } else {
-                    if (!this.delayTimer.passed((long)this.placeDelay.getValueFloat())) {
+                    if (!this.delayTimer.passed((long) this.placeDelay.getValueFloat())) {
                         return;
                     }
                     this.delayTimer.reset();
@@ -265,7 +265,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     if (this.spamPlace.getValue()) {
                         if (this.yawStep.getValue() && this.checkFov.getValue()) {
                             Direction side = BlockUtil.getClickSide(currentPos);
-                            Vec3d directionVec = new Vec3d((double)currentPos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)currentPos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)currentPos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+                            Vec3d directionVec = new Vec3d((double) currentPos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) currentPos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) currentPos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
                             if (HexTech.ROTATE.inFov(directionVec, this.fov.getValueFloat())) {
                                 CombatUtil.modifyPos = currentPos;
                                 CombatUtil.modifyBlockState = Blocks.AIR.getDefaultState();
@@ -291,7 +291,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (AutoAnchor_MDcwoWYRcPYheLZJWRZK.nullCheck()) {
             return;
         }
-        if (this.calcTimer.passed((long)this.updateDelay.getValueFloat())) {
+        if (this.calcTimer.passed((long) this.updateDelay.getValueFloat())) {
             double damage;
             PredictionSetting._XBpBEveLWEKUGQPHCCIS selfPredict = new PredictionSetting._XBpBEveLWEKUGQPHCCIS(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player);
             this.calcTimer.reset();
@@ -308,9 +308,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double d = 0;
                 double selfDamage;
                 BlockPos pos = EntityUtil.getEntityPos(pap.player, true).up(2);
-                if (!BlockUtil.canPlace(pos, this.range.getValue(), this.breakCrystal.getValue()) && (BlockUtil.getBlock(pos) != Blocks.RESPAWN_ANCHOR || BlockUtil.getClickSideStrict(pos) == null) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
+                if (!BlockUtil.canPlace(pos, this.range.getValue(), this.breakCrystal.getValue()) && (BlockUtil.getBlock(pos) != Blocks.RESPAWN_ANCHOR || BlockUtil.getClickSideStrict(pos) == null) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double) (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount())))
+                    continue;
                 damage = this.getAnchorDamage(pos, pap.player, pap.predict);
-                if (!(d > (double)this.headDamage.getValueFloat())) continue;
+                if (!(d > (double) this.headDamage.getValueFloat())) continue;
                 this.lastDamage = damage;
                 this.displayTarget = pap.player;
                 this.tempPos = pos;
@@ -330,12 +331,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         }
                         if (BlockUtil.getBlock(pos) != Blocks.RESPAWN_ANCHOR) {
                             double selfDamage2;
-                            if (anchorFound || !BlockUtil.canPlace(pos, this.range.getValue(), this.breakCrystal.getValue())) continue;
+                            if (anchorFound || !BlockUtil.canPlace(pos, this.range.getValue(), this.breakCrystal.getValue()))
+                                continue;
                             CombatUtil.modifyPos = pos;
                             CombatUtil.modifyBlockState = Blocks.OBSIDIAN.getDefaultState();
                             skip = BlockUtil.getClickSideStrict(pos) == null;
                             CombatUtil.modifyPos = null;
-                            if (skip || !((damage = this.getAnchorDamage(pos, pap.player, pap.predict)) >= placeDamage) || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage2 = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage2 > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
+                            if (skip || !((damage = this.getAnchorDamage(pos, pap.player, pap.predict)) >= placeDamage) || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double) AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage2 = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage2 > (double) (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount())))
+                                continue;
                             this.lastDamage = damage;
                             this.displayTarget = pap.player;
                             placeDamage = damage;
@@ -347,7 +350,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         if (damage2 >= this.minPrefer.getValue()) {
                             anchorFound = true;
                         }
-                        if (!anchorFound && damage2 < placeDamage || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double)AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage2) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double)(AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount()))) continue;
+                        if (!anchorFound && damage2 < placeDamage || AutoCrystal_QcRVYRsOqpKivetoXSJa.crystalPos != null && !AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.isOff() && !((double) AutoCrystal_QcRVYRsOqpKivetoXSJa.INSTANCE.lastDamage < damage2) || AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player != null && ((selfDamage = this.getAnchorDamage(pos, selfPredict.player, selfPredict.predict)) > this.maxSelfDamage.getValue() || this.noSuicide.getValue() && selfDamage > (double) (AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getHealth() + AutoAnchor_MDcwoWYRcPYheLZJWRZK.mc.player.getAbsorptionAmount())))
+                            continue;
                         this.lastDamage = damage2;
                         this.displayTarget = pap.player;
                         breakDamage = damage2;
@@ -384,7 +388,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (pos == null) {
             return;
         }
-        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
         if (rotate && !this.faceVector(directionVec)) {
             return;
         }
@@ -443,7 +447,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (Blink.INSTANCE.isOn() && this.cancelblink.getValue()) {
             return;
         }
-        if (!this.assistTimer.passed((long)(this.delay.getValueFloat() * 1000.0f))) {
+        if (!this.assistTimer.passed((long) (this.delay.getValueFloat() * 1000.0f))) {
             return;
         }
         this.assistTimer.reset();
@@ -464,7 +468,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             for (Direction i : Direction.values()) {
                 double damage2;
-                if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.clientCanPlace(pos.offset(i), false) || !((damage2 = this.getAnchorDamage(pos.offset(i), pap.player, pap.predict)) >= bestDamage)) continue;
+                if (i == Direction.UP || i == Direction.DOWN || !BlockUtil.clientCanPlace(pos.offset(i), false) || !((damage2 = this.getAnchorDamage(pos.offset(i), pap.player, pap.predict)) >= bestDamage))
+                    continue;
                 bestDamage = damage2;
                 this.assistPos = pos.offset(i);
             }
@@ -482,10 +487,23 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public BlockPos getHelper(BlockPos pos) {
         for (Direction i : Direction.values()) {
-            if (this.checkMine.getValue() && HexTech.BREAK.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite()) || !BlockUtil.canPlace(pos.offset(i))) continue;
+            if (this.checkMine.getValue() && HexTech.BREAK.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite()) || !BlockUtil.canPlace(pos.offset(i)))
+                continue;
             return pos.offset(i);
         }
         return null;
+    }
+
+    /*
+     * Exception performing whole class analysis ignored.
+     */
+    public enum Page {
+        General,
+        Calc,
+        Rotate,
+        Assist,
+        Render
+
     }
 
     /*
@@ -505,7 +523,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (placeVec3d == null) {
                 return;
             }
-            fade = fadeSpeed.getValue() >= 1.0 ? (noPosTimer.passedMs((long)(startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5) : AnimateUtil.animate(fade, noPosTimer.passedMs((long)(startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5, fadeSpeed.getValue() / 10.0);
+            fade = fadeSpeed.getValue() >= 1.0 ? (noPosTimer.passedMs((long) (startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5) : AnimateUtil.animate(fade, noPosTimer.passedMs((long) (startFadeTime.getValue() * 1000.0)) ? 0.0 : 0.5, fadeSpeed.getValue() / 10.0);
             if (fade == 0.0) {
                 curVec3d = null;
                 return;
@@ -516,28 +534,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 cbox = shrink.getValue() ? cbox.expand(fade) : cbox.expand(0.5);
                 MatrixStack matrixStack = event.getMatrixStack();
                 if (fill.booleanValue) {
-                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(fill.getValue(), (int)((double)fill.getValue().getAlpha() * fade * 2.0)));
+                    Render3DUtil.drawFill(matrixStack, cbox, ColorUtil.injectAlpha(fill.getValue(), (int) ((double) fill.getValue().getAlpha() * fade * 2.0)));
                 }
                 if (box.booleanValue) {
                     if (!bold.getValue()) {
-                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(box.getValue(), (int)((double)box.getValue().getAlpha() * fade * 2.0)));
+                        Render3DUtil.drawBox(matrixStack, cbox, ColorUtil.injectAlpha(box.getValue(), (int) ((double) box.getValue().getAlpha() * fade * 2.0)));
                     } else {
-                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(box.getValue(), (int)((double)box.getValue().getAlpha() * fade * 2.0)), lineWidth.getValueInt());
+                        Render3DUtil.drawLine(cbox, ColorUtil.injectAlpha(box.getValue(), (int) ((double) box.getValue().getAlpha() * fade * 2.0)), lineWidth.getValueInt());
                     }
                 }
             }
         }
-    }
-
-    /*
-     * Exception performing whole class analysis ignored.
-     */
-    public enum Page {
-        General,
-        Calc,
-        Rotate,
-        Assist,
-        Render
-
     }
 }

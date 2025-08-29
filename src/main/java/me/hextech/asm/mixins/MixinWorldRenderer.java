@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={WorldRenderer.class})
+@Mixin(value = {WorldRenderer.class})
 public abstract class MixinWorldRenderer {
     @Final
     @Shadow
@@ -37,7 +37,7 @@ public abstract class MixinWorldRenderer {
     @Shadow
     protected abstract void renderEndSky(MatrixStack var1);
 
-    @Inject(method={"renderEntity"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"renderEntity"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void renderEntityHook(Entity entity, double cameraX, double cameraY, double cameraZ, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, CallbackInfo ci) {
         if (NoInterp.INSTANCE.isOn() && entity != MinecraftClient.getInstance().player && entity instanceof PlayerEntity) {
             ci.cancel();
@@ -49,7 +49,7 @@ public abstract class MixinWorldRenderer {
         }
     }
 
-    @Redirect(method={"render"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/gl/PostEffectProcessor;render(F)V", ordinal=0))
+    @Redirect(method = {"render"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/PostEffectProcessor;render(F)V", ordinal = 0))
     void replaceShaderHook(PostEffectProcessor instance, float tickDelta) {
         ShaderManager.Mode shaders = Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.mode.getValue();
         if (Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.isOn() && Wrapper.mc.world != null) {
@@ -59,7 +59,7 @@ public abstract class MixinWorldRenderer {
         }
     }
 
-    @Inject(method={"renderSky(Lnet/minecraft/client/util/math/MatrixStack;Lorg/joml/Matrix4f;FLnet/minecraft/client/render/Camera;ZLjava/lang/Runnable;)V"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"renderSky(Lnet/minecraft/client/util/math/MatrixStack;Lorg/joml/Matrix4f;FLnet/minecraft/client/render/Camera;ZLjava/lang/Runnable;)V"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void renderSkyHead(MatrixStack matrices, Matrix4f matrix4f, float tickDelta, Camera camera, boolean bl, Runnable runnable, CallbackInfo info) {
         if (Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.isOn() && Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.sky.getValue()) {
             HexTech.SHADER.applyShader(() -> this.renderEndSky(matrices), Shader_CLqIXXaHSdAoBoxRSgjR.INSTANCE.skyMode.getValue());
@@ -67,7 +67,7 @@ public abstract class MixinWorldRenderer {
         }
     }
 
-    @ModifyArg(method={"render"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/render/WorldRenderer;setupTerrain(Lnet/minecraft/client/render/Camera;Lnet/minecraft/client/render/Frustum;ZZ)V"), index=3)
+    @ModifyArg(method = {"render"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;setupTerrain(Lnet/minecraft/client/render/Camera;Lnet/minecraft/client/render/Frustum;ZZ)V"), index = 3)
     private boolean renderSetupTerrainModifyArg(boolean spectator) {
         return FreeCam.INSTANCE.isOn() || spectator;
     }

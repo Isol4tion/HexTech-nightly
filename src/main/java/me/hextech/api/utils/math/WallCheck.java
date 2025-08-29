@@ -10,10 +10,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
 public class WallCheck
-implements Wrapper {
+        implements Wrapper {
     public static boolean behindWall(BlockPos pos) {
         Vec3d WallVec;
-        WallVec = new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() + 1.7, (double)pos.getZ() + 0.5);
+        WallVec = new Vec3d((double) pos.getX() + 0.5, (double) pos.getY() + 1.7, (double) pos.getZ() + 0.5);
         BlockHitResult result = null;
         if (WallCheck.mc.world != null && WallCheck.mc.player != null) {
             result = WallCheck.mc.world.raycast(new RaycastContext(EntityUtil.getEyesPos(), WallVec, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, WallCheck.mc.player));

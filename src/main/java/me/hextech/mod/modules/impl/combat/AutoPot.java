@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoPot
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static AutoPot INSTANCE;
     private final SliderSetting delay = this.add(new SliderSetting("Delay", 5, 0, 10).setSuffix("s"));
     private final BooleanSetting speed = this.add(new BooleanSetting("Speed", true));

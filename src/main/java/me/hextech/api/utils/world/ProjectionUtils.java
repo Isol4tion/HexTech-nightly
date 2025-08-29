@@ -17,7 +17,7 @@ public class ProjectionUtils {
         Vector3f calculation = rotation.conjugate().transform(position.subtract(destination).toVector3f());
         Integer fov = client.options.getFov().getValue();
         int half = client.getWindow().getScaledHeight() / 2;
-        double scale = (double)half / ((double)calculation.z() * Math.tan(Math.toRadians(fov / 2)));
-        return new Vec3d((double)calculation.x() * scale, (double)calculation.y() * scale, calculation.z());
+        double scale = (double) half / ((double) calculation.z() * Math.tan(Math.toRadians(fov / 2)));
+        return new Vec3d((double) calculation.x() * scale, (double) calculation.y() * scale, calculation.z());
     }
 }

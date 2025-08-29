@@ -8,7 +8,7 @@ import net.minecraft.client.option.Perspective;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class CameraClip
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static CameraClip INSTANCE;
     public final SliderSetting distance = this.add(new SliderSetting("Distance", 4.0, 1.0, 20.0));
     public final SliderSetting animateTime = this.add(new SliderSetting("AnimationTime", 200, 0, 1000));

@@ -10,7 +10,7 @@ import me.hextech.mod.modules.impl.combat.HoleKickTest;
 import me.hextech.mod.modules.settings.impl.SliderSetting;
 
 public class BurrowMove
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static BurrowMove INSTANCE;
     public final SliderSetting wspeed = this.add(new SliderSetting("WebSpeed", 10.0, 0.0, 50.0, 0.01)).setSuffix("\u00f72");
     public final SliderSetting aSpeed = this.add(new SliderSetting("BlockSpeed", 10.02, 0.0, 30.0, 0.01));

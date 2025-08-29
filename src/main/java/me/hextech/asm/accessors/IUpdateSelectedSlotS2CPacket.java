@@ -5,9 +5,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(value={UpdateSelectedSlotS2CPacket.class})
+@Mixin(value = {UpdateSelectedSlotS2CPacket.class})
 public interface IUpdateSelectedSlotS2CPacket {
     @Mutable
-    @Accessor(value="slot")
+    @Accessor(value = "slot")
     void setslot(int var1);
 }

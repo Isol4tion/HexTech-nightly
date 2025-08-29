@@ -41,9 +41,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 import java.util.Random;
 
-@Mixin(value={ClientPlayerEntity.class})
+@Mixin(value = {ClientPlayerEntity.class})
 public abstract class MixinClientPlayerEntity
-extends AbstractClientPlayerEntity {
+        extends AbstractClientPlayerEntity {
     @Shadow
     public Input input;
     @Final
@@ -78,14 +78,14 @@ extends AbstractClientPlayerEntity {
         super(world, profile);
     }
 
-    @Inject(method={"pushOutOfBlocks"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"pushOutOfBlocks"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void onPushOutOfBlocksHook(double x, double d, CallbackInfo info) {
         if (Velocity.INSTANCE.isOn() && Velocity.INSTANCE.blockPush.getValue()) {
             info.cancel();
         }
     }
 
-    @Redirect(method={"tickMovement"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z"), require=0)
+    @Redirect(method = {"tickMovement"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z"), require = 0)
     private boolean tickMovementHook(ClientPlayerEntity player) {
         if (NoSlow_PaVUKKxFbWGbplzMaucl.INSTANCE.isOn()) {
             return false;
@@ -93,7 +93,7 @@ extends AbstractClientPlayerEntity {
         return player.isUsingItem();
     }
 
-    @Redirect(method={"updateNausea"}, at=@At(value="FIELD", target="Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;"))
+    @Redirect(method = {"updateNausea"}, at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;"))
     private Screen updateNauseaGetCurrentScreenProxy(MinecraftClient client) {
         if (PortalGui.INSTANCE.isOn()) {
             return null;
@@ -101,7 +101,7 @@ extends AbstractClientPlayerEntity {
         return client.currentScreen;
     }
 
-    @Inject(method={"move"}, at={@At(value="INVOKE", target="Lnet/minecraft/client/network/AbstractClientPlayerEntity;move(Lnet/minecraft/entity/MovementType;Lnet/minecraft/util/math/Vec3d;)V")}, cancellable=true)
+    @Inject(method = {"move"}, at = {@At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;move(Lnet/minecraft/entity/MovementType;Lnet/minecraft/util/math/Vec3d;)V")}, cancellable = true)
     public void onMoveHook(MovementType movementType, Vec3d movement, CallbackInfo ci) {
         if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.movehook.getValue()) {
             MoveEvent event = new MoveEvent(movement.x, movement.y, movement.z);
@@ -127,9 +127,10 @@ extends AbstractClientPlayerEntity {
     }
 
 
-    @Shadow public abstract float getYaw(float tickDelta);
+    @Shadow
+    public abstract float getYaw(float tickDelta);
 
-    @Inject(method={"sendMovementPackets"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"sendMovementPackets"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void sendMovementPacketsHook(CallbackInfo ci) {
         ci.cancel();
         if (BaseThreadSetting_TYdViPaJQVoRZLdgWIXF.INSTANCE.packethook.getValue()) {
@@ -195,14 +196,13 @@ extends AbstractClientPlayerEntity {
                     this.autoJumpEnabled = this.client.options.getAutoJump().getValue();
                 }
                 HexTech.EVENT_BUS.post(new UpdateWalkingEvent(Event_auduwKaxKOWXRtyJkCPb.Stage.Post));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    @Inject(method={"tick"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = {"tick"}, at = {@At(value = "HEAD")}, cancellable = true)
     private void tickHook(CallbackInfo ci) {
         ci.cancel();
         if (!this.getWorld().isPosLoaded(this.getBlockX(), this.getBlockZ())) {

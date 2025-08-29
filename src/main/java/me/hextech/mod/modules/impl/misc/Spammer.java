@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Spammer
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final BooleanSetting tellMode = this.add(new BooleanSetting("RandomMsg", false));
     public final BooleanSetting checkSelf = this.add(new BooleanSetting("CheckSelf", false));
     private final SliderSetting randoms = this.add(new SliderSetting("Random", 3.0, 0.0, 20.0, 1.0));
@@ -42,7 +42,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
         this.timer.reset();
         Object randomString = this.generateRandomString(this.randoms.getValueInt());
-        if (!((String)randomString).isEmpty()) {
+        if (!((String) randomString).isEmpty()) {
             randomString = " " + randomString;
         }
         if (!this.messages.isEmpty()) {
@@ -54,10 +54,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (size == 0) {
                     return;
                 }
-                PlayerListEntry playerListEntry = (PlayerListEntry)list.get(this.random.nextInt(size));
+                PlayerListEntry playerListEntry = (PlayerListEntry) list.get(this.random.nextInt(size));
                 if (Spammer.mc.player != null) {
                     while (this.checkSelf.getValue() && Objects.equals(playerListEntry.getProfile().getName(), Spammer.mc.player.getGameProfile().getName())) {
-                        playerListEntry = (PlayerListEntry)list.get(this.random.nextInt(size));
+                        playerListEntry = (PlayerListEntry) list.get(this.random.nextInt(size));
                     }
                 }
                 mc.getNetworkHandler().sendChatCommand("tell " + playerListEntry.getProfile().getName() + " " + selectedMessage + randomString);
@@ -87,8 +87,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             }
             List lines = IOUtils.readLines(new FileInputStream(SpammerFile), StandardCharsets.UTF_8);
             this.messages.addAll(lines);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

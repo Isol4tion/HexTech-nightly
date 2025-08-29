@@ -4,7 +4,7 @@ import me.hextech.api.events.Event_auduwKaxKOWXRtyJkCPb;
 import net.minecraft.util.math.Vec3d;
 
 public class OffTrackEvent
-extends Event_auduwKaxKOWXRtyJkCPb {
+        extends Event_auduwKaxKOWXRtyJkCPb {
     public float priority = 0.0f;
     private Vec3d target;
     private float yaw;

@@ -13,7 +13,7 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class Criticals
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Criticals INSTANCE;
     public final EnumSetting<_llXqHCnomcmaIkSSIBHS> mode = this.add(new EnumSetting<_llXqHCnomcmaIkSSIBHS>("Mode", _llXqHCnomcmaIkSSIBHS.Packet));
 
@@ -45,7 +45,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Entity entity;
         PlayerInteractEntityC2SPacket packet;
         Object t;
-        if (!Aura.INSTANCE.sweeping && !TPAura_LycLkxHLQeGfgqfryvmV.attacking && (t = event.getPacket()) instanceof PlayerInteractEntityC2SPacket && Criticals.getInteractType(packet = (PlayerInteractEntityC2SPacket)t) == _QenzavIULhSqCVPmsILH.ATTACK && !((entity = Criticals.getEntity(packet)) instanceof EndCrystalEntity)) {
+        if (!Aura.INSTANCE.sweeping && !TPAura_LycLkxHLQeGfgqfryvmV.attacking && (t = event.getPacket()) instanceof PlayerInteractEntityC2SPacket && Criticals.getInteractType(packet = (PlayerInteractEntityC2SPacket) t) == _QenzavIULhSqCVPmsILH.ATTACK && !((entity = Criticals.getEntity(packet)) instanceof EndCrystalEntity)) {
             Criticals.mc.player.addCritParticles(entity);
             this.doCrit();
         }
@@ -79,6 +79,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         LowPacket
 
     }
+
     public enum _QenzavIULhSqCVPmsILH {
         INTERACT,
         ATTACK,

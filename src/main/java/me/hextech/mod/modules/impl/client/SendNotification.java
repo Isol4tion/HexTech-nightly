@@ -5,7 +5,7 @@ import me.hextech.mod.modules.Module_eSdgMXWuzcxgQVaJFmKZ;
 import java.io.IOException;
 
 public class SendNotification
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static SendNotification INSTANCE;
 
     public SendNotification() {

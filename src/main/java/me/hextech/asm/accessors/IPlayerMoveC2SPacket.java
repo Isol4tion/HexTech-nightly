@@ -5,17 +5,17 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(value={PlayerMoveC2SPacket.class})
+@Mixin(value = {PlayerMoveC2SPacket.class})
 public interface IPlayerMoveC2SPacket {
     @Mutable
-    @Accessor(value="onGround")
+    @Accessor(value = "onGround")
     void setOnGround(boolean var1);
 
     @Mutable
-    @Accessor(value="pitch")
+    @Accessor(value = "pitch")
     void setPitch(float var1);
 
     @Mutable
-    @Accessor(value="yaw")
+    @Accessor(value = "yaw")
     void setYaw(float var1);
 }

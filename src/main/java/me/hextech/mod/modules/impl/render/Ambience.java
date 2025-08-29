@@ -13,7 +13,7 @@ import net.minecraft.network.packet.s2c.play.WorldTimeUpdateS2CPacket;
 import java.awt.*;
 
 public class Ambience
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Ambience INSTANCE;
     public final ColorSetting worldColor = this.add(new ColorSetting("WorldColor", new Color(-1, true)).injectBoolean(true));
     public final BooleanSetting customTime = this.add(new BooleanSetting("CustomTime", false).setParent());
@@ -50,7 +50,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Ambience.mc.player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 100000, 0));
         }
         if (this.customTime.getValue()) {
-            Ambience.mc.world.setTimeOfDay((long)this.time.getValue());
+            Ambience.mc.world.setTimeOfDay((long) this.time.getValue());
         }
     }
 
@@ -74,7 +74,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     @EventHandler
     public void onReceivePacket(PacketEvent_gBzdMCvQxlHfSrulemGS.Receive event) {
         if (event.getPacket() instanceof WorldTimeUpdateS2CPacket) {
-            this.oldTime = ((WorldTimeUpdateS2CPacket)event.getPacket()).getTime();
+            this.oldTime = ((WorldTimeUpdateS2CPacket) event.getPacket()).getTime();
             event.cancel();
         }
     }

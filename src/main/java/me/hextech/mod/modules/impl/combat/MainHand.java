@@ -20,7 +20,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class MainHand
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static MainHand INSTANCE;
     public final BooleanSetting mineSlot = this.add(new BooleanSetting("MineSlot", true).setParent());
     public final BooleanSetting pauseEat = this.add(new BooleanSetting("PauseEat", false, v -> this.mineSlot.isOpen()));
@@ -65,7 +65,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!this.totem.getValue()) {
             return;
         }
-        boolean bl = this.handSlot = (double)(MainHand.mc.player.getAbsorptionAmount() + MainHand.mc.player.getHealth()) - this.getCrystal() <= this.forceHealth.getValue();
+        boolean bl = this.handSlot = (double) (MainHand.mc.player.getAbsorptionAmount() + MainHand.mc.player.getHealth()) - this.getCrystal() <= this.forceHealth.getValue();
         if (this.minePause.getValue() && this.needSwitch && !MainHand.mc.player.isUsingItem()) {
             return;
         }
@@ -108,7 +108,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 MainHand.mc.player.getInventory().selectedSlot = this.old;
                 this.needSwitch = false;
             }
-            if (SpeedMine.breakPos != null && (double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(SpeedMine.breakPos.toCenterPos())) <= SpeedMine.INSTANCE.range.getValue() && (!BlockUtil.isAir(SpeedMine.breakPos) || SpeedMine.secondPos != null) && (SpeedMine.INSTANCE.done || SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.slot, this.damage.getValue())))) {
+            if (SpeedMine.breakPos != null && (double) MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(SpeedMine.breakPos.toCenterPos())) <= SpeedMine.INSTANCE.range.getValue() && (!BlockUtil.isAir(SpeedMine.breakPos) || SpeedMine.secondPos != null) && (SpeedMine.INSTANCE.done || SpeedMine.INSTANCE.secondTimer.passed(SpeedMine.INSTANCE.getBreakTime(SpeedMine.secondPos, this.slot, this.damage.getValue())))) {
                 this.needSwitch = true;
                 if (MainHand.mc.player.getInventory().selectedSlot != this.slot) {
                     MainHand.mc.player.getInventory().selectedSlot = this.slot;
@@ -148,7 +148,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (Entity entity : MainHand.mc.world.getEntities()) {
             double dmg;
             EndCrystalEntity endCrystal;
-            if (!(entity instanceof EndCrystalEntity) || (endCrystal = (EndCrystalEntity)entity).squaredDistanceTo(MainHand.mc.player.getEyePos()) > 25.0 || !((dmg = this.calculateDamage(endCrystal.getBlockPos().toCenterPos(), MainHand.mc.player, MainHand.mc.player)) > maxDMG)) continue;
+            if (!(entity instanceof EndCrystalEntity) || (endCrystal = (EndCrystalEntity) entity).squaredDistanceTo(MainHand.mc.player.getEyePos()) > 25.0 || !((dmg = this.calculateDamage(endCrystal.getBlockPos().toCenterPos(), MainHand.mc.player, MainHand.mc.player)) > maxDMG))
+                continue;
             maxDMG = dmg;
         }
         return maxDMG;

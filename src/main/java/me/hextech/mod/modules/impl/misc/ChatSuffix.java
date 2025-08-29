@@ -7,7 +7,7 @@ import me.hextech.mod.modules.settings.impl.BooleanSetting;
 import me.hextech.mod.modules.settings.impl.StringSetting;
 
 public class ChatSuffix
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static ChatSuffix INSTANCE;
     public final BooleanSetting green = this.add(new BooleanSetting("Green", false));
     private final StringSetting msg = this.add(new StringSetting("append", "\u1d04\u1d1b\ud835\udc0e\ud835\udc12"));

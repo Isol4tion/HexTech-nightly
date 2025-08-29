@@ -22,9 +22,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(value={DisconnectedScreen.class})
+@Mixin(value = {DisconnectedScreen.class})
 public abstract class MixinDisconnectedScreen
-extends Screen {
+        extends Screen {
     @Shadow
     @Final
     private DirectionalLayoutWidget grid;
@@ -38,13 +38,13 @@ extends Screen {
         this.time = AutoReconnect.INSTANCE.delay.getValueInt() * 20;
     }
 
-    @Inject(method={"init"}, at={@At(value="INVOKE", target="Lnet/minecraft/client/gui/widget/DirectionalLayoutWidget;refreshPositions()V", shift=At.Shift.BEFORE)}, locals=LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = {"init"}, at = {@At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/DirectionalLayoutWidget;refreshPositions()V", shift = At.Shift.BEFORE)}, locals = LocalCapture.CAPTURE_FAILHARD)
     private void addButtons(CallbackInfo ci, ButtonWidget buttonWidget) {
         AutoReconnect autoReconnect = AutoReconnect.INSTANCE;
         if (autoReconnect.lastServerConnection != null) {
             this.reconnectBtn = new ButtonWidget.Builder(Text.literal(this.getText()), button -> this.tryConnecting()).build();
-            this.grid.add((Widget)this.reconnectBtn);
-            this.grid.add((Widget)new ButtonWidget.Builder(Text.literal("Toggle Auto Reconnect"), button -> {
+            this.grid.add((Widget) this.reconnectBtn);
+            this.grid.add((Widget) new ButtonWidget.Builder(Text.literal("Toggle Auto Reconnect"), button -> {
                 autoReconnect.toggle();
                 this.reconnectBtn.setMessage(Text.literal(this.getText()));
                 this.time = autoReconnect.delay.getValueInt() * 20;

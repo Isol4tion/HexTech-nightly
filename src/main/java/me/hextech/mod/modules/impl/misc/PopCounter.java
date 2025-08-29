@@ -11,7 +11,7 @@ import me.hextech.mod.modules.settings.impl.EnumSetting;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class PopCounter
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static PopCounter INSTANCE;
     public final BooleanSetting unPop = this.add(new BooleanSetting("Dead", true));
     private final EnumSetting<_jJlsegqwuwGfJNTYElis> notitype = this.add(new EnumSetting<_jJlsegqwuwGfJNTYElis>("Type", _jJlsegqwuwGfJNTYElis.Notify));

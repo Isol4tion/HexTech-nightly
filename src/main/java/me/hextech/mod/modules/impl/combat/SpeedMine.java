@@ -53,7 +53,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SpeedMine
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static final List<Block> godBlocks;
     public static SpeedMine INSTANCE;
     public static BlockPos breakPos;
@@ -62,6 +62,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static double secondProgress;
     public static boolean sendGroundPacket;
     static DecimalFormat df;
+
+    static {
+        df = new DecimalFormat("0.0");
+        godBlocks = Arrays.asList(Blocks.COMMAND_BLOCK, Blocks.LAVA_CAULDRON, Blocks.LAVA, Blocks.WATER_CAULDRON, Blocks.WATER, Blocks.BEDROCK, Blocks.BARRIER, Blocks.END_PORTAL, Blocks.NETHER_PORTAL, Blocks.END_PORTAL_FRAME);
+    }
+
     final Timer secondTimer = new Timer();
     private final EnumSetting<_uySyZpuFdxDcRzYECOEM> page = this.add(new EnumSetting<_uySyZpuFdxDcRzYECOEM>("Page", _uySyZpuFdxDcRzYECOEM.General));
     public final SliderSetting range = this.add(new SliderSetting("Range", 6.0, 3.0, 10.0, 0.1, v -> this.page.is(_uySyZpuFdxDcRzYECOEM.General)));
@@ -154,7 +160,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public static boolean noEntity(BlockPos pos, boolean ignoreItem) {
         for (Entity entity : BlockUtil.getEntities(new Box(pos))) {
-            if (entity instanceof ItemEntity && ignoreItem || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue()) continue;
+            if (entity instanceof ItemEntity && ignoreItem || entity instanceof ArmorStandEntity && CombatSetting_kxXrLvbWbduSuFoeBUsC.INSTANCE.obsMode.getValue())
+                continue;
             return false;
         }
         return true;
@@ -209,7 +216,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     slot = SpeedMine.mc.player.getInventory().selectedSlot;
                 }
                 breakTime = this.getBreakTime(secondPos, slot);
-                secondProgress = (double)this.secondTimer.getPassedTimeMs() / breakTime;
+                secondProgress = (double) this.secondTimer.getPassedTimeMs() / breakTime;
                 if (this.isAir(secondPos)) {
                     secondPos = null;
                     return;
@@ -217,10 +224,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 double iProgress = secondProgress > 1.0 ? 1.0 : secondProgress;
                 double ease = (1.0 - this.secondAnim.getQuad(this.quad.getValue())) * 0.5;
                 if (!this.bold.getValue()) {
-                    Render3DUtil.draw3DBox(matrixStack, new Box(secondPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.doubleColor.getValue(), (int)((double)this.doubleColor.getValue().getAlpha() * iProgress)), this.outline.getValue(), this.box.getValue());
+                    Render3DUtil.draw3DBox(matrixStack, new Box(secondPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.doubleColor.getValue(), (int) ((double) this.doubleColor.getValue().getAlpha() * iProgress)), this.outline.getValue(), this.box.getValue());
                 } else {
-                    Render3DUtil.drawLine(new Box(secondPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.doubleColor.getValue(), (int)((double)this.doubleColor.getValue().getAlpha() * iProgress)), this.lineWidth.getValueInt());
-                    Render3DUtil.drawFill(matrixStack, new Box(secondPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.doubleColor.getValue(), (int)((double)this.doubleColor.getValue().getAlpha() * iProgress)));
+                    Render3DUtil.drawLine(new Box(secondPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.doubleColor.getValue(), (int) ((double) this.doubleColor.getValue().getAlpha() * iProgress)), this.lineWidth.getValueInt());
+                    Render3DUtil.drawFill(matrixStack, new Box(secondPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.doubleColor.getValue(), (int) ((double) this.doubleColor.getValue().getAlpha() * iProgress)));
                 }
             } else {
                 secondProgress = 0.0;
@@ -232,16 +239,16 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     slot = SpeedMine.mc.player.getInventory().selectedSlot;
                 }
                 breakTime = this.getBreakTime(breakPos, slot);
-                progress = (double)this.mineTimer.getPassedTimeMs() / breakTime;
-                this.animationTime.setLength((long)this.getBreakTime(breakPos, slot));
+                progress = (double) this.mineTimer.getPassedTimeMs() / breakTime;
+                this.animationTime.setLength((long) this.getBreakTime(breakPos, slot));
                 double ease = (1.0 - this.animationTime.getQuad(this.quad.getValue())) * 0.5;
                 Color color = this.color.getValue();
                 double d = iProgress = progress > 1.0 ? 1.0 : progress;
                 if (!this.bold.getValue()) {
-                    Render3DUtil.draw3DBox(matrixStack, new Box(breakPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.autoColor.getValue() ? new Color((int)(255.0 * iProgress), (int)(255.0 * iProgress), 0) : (!this.endColor.booleanValue ? color : (iProgress >= 1.0 ? this.endColor.getValue() : color)), (int)(!this.endColor.booleanValue ? (double)color.getAlpha() * iProgress : (iProgress >= 1.0 ? (double)this.endColor.getValue().getAlpha() * iProgress : (double)color.getAlpha() * iProgress))), this.outline.getValue(), this.box.getValue());
+                    Render3DUtil.draw3DBox(matrixStack, new Box(breakPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.autoColor.getValue() ? new Color((int) (255.0 * iProgress), (int) (255.0 * iProgress), 0) : (!this.endColor.booleanValue ? color : (iProgress >= 1.0 ? this.endColor.getValue() : color)), (int) (!this.endColor.booleanValue ? (double) color.getAlpha() * iProgress : (iProgress >= 1.0 ? (double) this.endColor.getValue().getAlpha() * iProgress : (double) color.getAlpha() * iProgress))), this.outline.getValue(), this.box.getValue());
                 } else {
-                    Render3DUtil.drawLine(new Box(breakPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.autoColor.getValue() ? new Color((int)(255.0 * iProgress), (int)(255.0 * iProgress), 0) : (!this.endColor.booleanValue ? color : (iProgress >= 1.0 ? this.endboxColor.getValue() : color)), (int)(!this.endColor.booleanValue ? (double)color.getAlpha() * iProgress : (iProgress >= 1.0 ? (double)this.endColor.getValue().getAlpha() * iProgress : (double)color.getAlpha() * iProgress))), this.lineWidth.getValueInt());
-                    Render3DUtil.drawFill(matrixStack, new Box(breakPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.autoColor.getValue() ? new Color((int)(255.0 * iProgress), (int)(255.0 * iProgress), 0) : (!this.endColor.booleanValue ? color : (iProgress >= 1.0 ? this.endColor.getValue() : color)), (int)(!this.endColor.booleanValue ? (double)color.getAlpha() * iProgress : (iProgress >= 1.0 ? (double)this.endColor.getValue().getAlpha() * iProgress : (double)color.getAlpha() * iProgress))));
+                    Render3DUtil.drawLine(new Box(breakPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.autoColor.getValue() ? new Color((int) (255.0 * iProgress), (int) (255.0 * iProgress), 0) : (!this.endColor.booleanValue ? color : (iProgress >= 1.0 ? this.endboxColor.getValue() : color)), (int) (!this.endColor.booleanValue ? (double) color.getAlpha() * iProgress : (iProgress >= 1.0 ? (double) this.endColor.getValue().getAlpha() * iProgress : (double) color.getAlpha() * iProgress))), this.lineWidth.getValueInt());
+                    Render3DUtil.drawFill(matrixStack, new Box(breakPos).shrink(ease, ease, ease).shrink(-ease, -ease, -ease), ColorUtil.injectAlpha(this.autoColor.getValue() ? new Color((int) (255.0 * iProgress), (int) (255.0 * iProgress), 0) : (!this.endColor.booleanValue ? color : (iProgress >= 1.0 ? this.endColor.getValue() : color)), (int) (!this.endColor.booleanValue ? (double) color.getAlpha() * iProgress : (iProgress >= 1.0 ? (double) this.endColor.getValue().getAlpha() * iProgress : (double) color.getAlpha() * iProgress))));
                 }
                 if (this.text.getValue()) {
                     if (MainHand.INSTANCE.isOn() && MainHand.INSTANCE.mineSlot.getValue() && this.isAir(breakPos)) {
@@ -249,7 +256,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     }
                     if (this.isAir(breakPos)) {
                         Render3DUtil.drawText3DMine("Waiting", breakPos.toCenterPos(), -1);
-                    } else if ((double)((int)this.mineTimer.getPassedTimeMs()) < breakTime) {
+                    } else if ((double) ((int) this.mineTimer.getPassedTimeMs()) < breakTime) {
                         Render3DUtil.drawText3DMine(df.format(progress * 100.0) + "%", breakPos.toCenterPos(), -1);
                     } else {
                         Render3DUtil.drawText3DMine("100.0%", breakPos.toCenterPos(), -1);
@@ -311,7 +318,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.isAir(breakPos)) {
             this.breakNumber = 0;
         }
-        if ((double)this.breakNumber > this.maxBreak.getValue() - 1.0 && this.maxBreak.getValue() > 0.0 || !this.wait.getValue() && this.isAir(breakPos) && !this.instant.getValue()) {
+        if ((double) this.breakNumber > this.maxBreak.getValue() - 1.0 && this.maxBreak.getValue() > 0.0 || !this.wait.getValue() && this.isAir(breakPos) && !this.instant.getValue()) {
             if (breakPos.equals(secondPos)) {
                 secondPos = null;
             }
@@ -325,7 +332,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.startPacket = false;
             return;
         }
-        if ((double)MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(breakPos.toCenterPos())) > this.range.getValue()) {
+        if ((double) MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(breakPos.toCenterPos())) > this.range.getValue()) {
             if (this.farCancel.getValue()) {
                 this.startPacket = false;
                 this.breakNumber = 0;
@@ -382,7 +389,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
             }
             this.breakNumber = 0;
-        } else if (SpeedMine.canPlaceCrystal(breakPos.up(), true) && this.shouldCrystal() && (this.placeTimer.passedMs(this.placeDelay.getValue()) ? (this.checkDamage.getValue() ? (double)this.mineTimer.getPassedTimeMs() / this.getBreakTime(breakPos, slot) >= this.crystalDamage.getValue() && !this.placeCrystal() : !this.placeCrystal()) : this.startPacket)) {
+        } else if (SpeedMine.canPlaceCrystal(breakPos.up(), true) && this.shouldCrystal() && (this.placeTimer.passedMs(this.placeDelay.getValue()) ? (this.checkDamage.getValue() ? (double) this.mineTimer.getPassedTimeMs() / this.getBreakTime(breakPos, slot) >= this.crystalDamage.getValue() && !this.placeCrystal() : !this.placeCrystal()) : this.startPacket)) {
             return;
         }
         if (this.waitPlace.getValue()) {
@@ -392,7 +399,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 return;
             }
         }
-        if (!this.delayTimer.passedMs((long)this.delay.getValue())) {
+        if (!this.delayTimer.passedMs((long) this.delay.getValue())) {
             return;
         }
         if (this.startPacket) {
@@ -402,12 +409,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (this.onlyGround.getValue() && !SpeedMine.mc.player.isOnGround()) {
                 return;
             }
-            this.done = this.mineTimer.passedMs((long)this.getBreakTime(breakPos, slot));
+            this.done = this.mineTimer.passedMs((long) this.getBreakTime(breakPos, slot));
             if (this.done) {
                 boolean shouldSwitch;
                 if (this.endRotate.getValue()) {
                     Vec3i vec3i = BlockUtil.getClickSide(breakPos).getVector();
-                    if (!this.faceVector(breakPos.toCenterPos().add(new Vec3d((double)vec3i.getX() * 0.5, (double)vec3i.getY() * 0.5, (double)vec3i.getZ() * 0.5)))) {
+                    if (!this.faceVector(breakPos.toCenterPos().add(new Vec3d((double) vec3i.getX() * 0.5, (double) vec3i.getY() * 0.5, (double) vec3i.getZ() * 0.5)))) {
                         return;
                     }
                 }
@@ -464,7 +471,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Direction side = BlockUtil.getClickSide(breakPos);
             if (this.rotate.getValue()) {
                 Vec3i vec3i = side.getVector();
-                if (!this.faceVector(breakPos.toCenterPos().add(new Vec3d((double)vec3i.getX() * 0.5, (double)vec3i.getY() * 0.5, (double)vec3i.getZ() * 0.5)))) {
+                if (!this.faceVector(breakPos.toCenterPos().add(new Vec3d((double) vec3i.getX() * 0.5, (double) vec3i.getY() * 0.5, (double) vec3i.getZ() * 0.5)))) {
                     return;
                 }
             }
@@ -478,7 +485,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 if (secondPos == null || this.isAir(secondPos)) {
                     double breakTime = this.getBreakTime(breakPos, slot, 1.0);
                     this.secondAnim.reset();
-                    this.secondAnim.setLength((long)breakTime);
+                    this.secondAnim.setLength((long) breakTime);
                     this.secondTimer.reset();
                     secondPos = breakPos;
                 }
@@ -544,7 +551,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (BlockUtil.getClickSideStrict(pos) == null) {
             return;
         }
-        if ((double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.range.getValue()) {
+        if ((double) MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.range.getValue()) {
             return;
         }
         breakPos = pos;
@@ -557,7 +564,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         Direction side = BlockUtil.getClickSide(breakPos);
         if (this.rotate.getValue()) {
             Vec3i vec3i = side.getVector();
-            if (!this.faceVector(breakPos.toCenterPos().add(new Vec3d((double)vec3i.getX() * 0.5, (double)vec3i.getY() * 0.5, (double)vec3i.getZ() * 0.5)))) {
+            if (!this.faceVector(breakPos.toCenterPos().add(new Vec3d((double) vec3i.getX() * 0.5, (double) vec3i.getY() * 0.5, (double) vec3i.getZ() * 0.5)))) {
                 return;
             }
         }
@@ -575,7 +582,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 }
                 double breakTime = this.getBreakTime(breakPos, slot, 1.0);
                 this.secondAnim.reset();
-                this.secondAnim.setLength((long)breakTime);
+                this.secondAnim.setLength((long) breakTime);
                 this.secondTimer.reset();
                 secondPos = breakPos;
             }
@@ -629,7 +636,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (BlockUtil.getClickSideStrict(pos) == null) {
             return;
         }
-        if ((double)MathHelper.sqrt((float)EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.range.getValue()) {
+        if ((double) MathHelper.sqrt((float) EntityUtil.getEyesPos().squaredDistanceTo(pos.toCenterPos())) > this.range.getValue()) {
             return;
         }
         breakPos = pos;
@@ -666,7 +673,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 float destroySpeed;
                 float digSpeed;
                 ItemStack stack = SpeedMine.mc.player.getInventory().getStack(i);
-                if (stack == ItemStack.EMPTY || !((digSpeed = (float)EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, stack)) + (destroySpeed = stack.getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
+                if (stack == ItemStack.EMPTY || !((digSpeed = (float) EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, stack)) + (destroySpeed = stack.getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest))
+                    continue;
                 CurrentFastest = digSpeed + destroySpeed;
                 index = i;
             }
@@ -678,35 +686,36 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
             float destroySpeed;
             float digSpeed;
-            if (entry.getValue().getItem() instanceof AirBlockItem || !((digSpeed = (float)EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, entry.getValue())) + (destroySpeed = entry.getValue().getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest)) continue;
+            if (entry.getValue().getItem() instanceof AirBlockItem || !((digSpeed = (float) EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, entry.getValue())) + (destroySpeed = entry.getValue().getMiningSpeedMultiplier(SpeedMine.mc.world.getBlockState(pos))) > CurrentFastest))
+                continue;
             CurrentFastest = digSpeed + destroySpeed;
             slot.set(entry.getKey());
         }
         return slot.get();
     }
 
-    @EventHandler(priority=-200)
+    @EventHandler(priority = -200)
     public void onPacketSend(PacketEvent_gBzdMCvQxlHfSrulemGS.Send event) {
         if (SpeedMine.nullCheck() || SpeedMine.mc.player.isCreative()) {
             return;
         }
         if (event.getPacket() instanceof PlayerMoveC2SPacket) {
-            if (this.bypassGround.getValue() && !SpeedMine.mc.player.isFallFlying() && breakPos != null && (!this.isAir(breakPos) || secondPos != null) && this.bypassTime.getValue() > 0.0 && MathHelper.sqrt((float)breakPos.toCenterPos().squaredDistanceTo(EntityUtil.getEyesPos())) <= this.range.getValueFloat() + 2.0f) {
+            if (this.bypassGround.getValue() && !SpeedMine.mc.player.isFallFlying() && breakPos != null && (!this.isAir(breakPos) || secondPos != null) && this.bypassTime.getValue() > 0.0 && MathHelper.sqrt((float) breakPos.toCenterPos().squaredDistanceTo(EntityUtil.getEyesPos())) <= this.range.getValueFloat() + 2.0f) {
                 int slot = this.getTool(breakPos);
                 if (slot == -1) {
                     slot = SpeedMine.mc.player.getInventory().selectedSlot;
                 }
                 double breakTime = this.getBreakTime(breakPos, slot) - this.bypassTime.getValue();
                 if (secondPos == null) {
-                    if (breakTime <= 0.0 || this.mineTimer.passedMs((long)breakTime)) {
+                    if (breakTime <= 0.0 || this.mineTimer.passedMs((long) breakTime)) {
                         sendGroundPacket = true;
-                        ((IPlayerMoveC2SPacket)event.getPacket()).setOnGround(true);
+                        ((IPlayerMoveC2SPacket) event.getPacket()).setOnGround(true);
                     }
                 } else {
                     double breakTime2 = this.getBreakTime(secondPos, slot) - this.bypassTime.getValue();
-                    if (breakTime <= 0.0 || this.mineTimer.passedMs((long)breakTime) || breakTime2 <= 0.0) {
+                    if (breakTime <= 0.0 || this.mineTimer.passedMs((long) breakTime) || breakTime2 <= 0.0) {
                         sendGroundPacket = true;
-                        ((IPlayerMoveC2SPacket)event.getPacket()).setOnGround(true);
+                        ((IPlayerMoveC2SPacket) event.getPacket()).setOnGround(true);
                     }
                 }
             } else {
@@ -730,13 +739,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (!(event.getPacket() instanceof PlayerActionC2SPacket)) {
             return;
         }
-        if (((PlayerActionC2SPacket)event.getPacket()).getAction() == PlayerActionC2SPacket.Action.START_DESTROY_BLOCK) {
-            if (breakPos == null || !((PlayerActionC2SPacket)event.getPacket()).getPos().equals(breakPos)) {
+        if (((PlayerActionC2SPacket) event.getPacket()).getAction() == PlayerActionC2SPacket.Action.START_DESTROY_BLOCK) {
+            if (breakPos == null || !((PlayerActionC2SPacket) event.getPacket()).getPos().equals(breakPos)) {
                 return;
             }
             this.startPacket = true;
-        } else if (((PlayerActionC2SPacket)event.getPacket()).getAction() == PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK) {
-            if (breakPos == null || !((PlayerActionC2SPacket)event.getPacket()).getPos().equals(breakPos)) {
+        } else if (((PlayerActionC2SPacket) event.getPacket()).getAction() == PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK) {
+            if (breakPos == null || !((PlayerActionC2SPacket) event.getPacket()).getPos().equals(breakPos)) {
                 return;
             }
             if (!this.instant.getValue()) {
@@ -750,7 +759,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public final double getBreakTime(BlockPos pos, int slot, double damage) {
-        return (double)(1.0f / this.getBlockStrength(pos, SpeedMine.mc.player.getInventory().getStack(slot)) / 20.0f * 1000.0f) * damage;
+        return (double) (1.0f / this.getBlockStrength(pos, SpeedMine.mc.player.getInventory().getStack(slot)) / 20.0f * 1000.0f) * damage;
     }
 
     public float getBlockStrength(BlockPos position, ItemStack itemStack) {
@@ -767,10 +776,10 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         int efficiencyModifier;
         float digSpeed = this.getDestroySpeed(state, itemStack);
         if (digSpeed > 1.0f && (efficiencyModifier = EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, itemStack)) > 0 && !itemStack.isEmpty()) {
-            digSpeed += (float)(StrictMath.pow(efficiencyModifier, 2.0) + 1.0);
+            digSpeed += (float) (StrictMath.pow(efficiencyModifier, 2.0) + 1.0);
         }
         if (SpeedMine.mc.player.hasStatusEffect(StatusEffects.HASTE)) {
-            digSpeed *= 1.0f + (float)(SpeedMine.mc.player.getStatusEffect(StatusEffects.HASTE).getAmplifier() + 1) * 0.2f;
+            digSpeed *= 1.0f + (float) (SpeedMine.mc.player.getStatusEffect(StatusEffects.HASTE).getAmplifier() + 1) * 0.2f;
         }
         if (SpeedMine.mc.player.hasStatusEffect(StatusEffects.MINING_FATIGUE)) {
             digSpeed *= (switch (SpeedMine.mc.player.getStatusEffect(StatusEffects.MINING_FATIGUE).getAmplifier()) {
@@ -800,11 +809,6 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     private boolean isAir(BlockPos breakPos) {
         return SpeedMine.mc.world.isAir(breakPos) || BlockUtil.getBlock(breakPos) == Blocks.FIRE && BlockUtil.hasCrystal(breakPos);
-    }
-
-    static {
-        df = new DecimalFormat("0.0");
-        godBlocks = Arrays.asList(Blocks.COMMAND_BLOCK, Blocks.LAVA_CAULDRON, Blocks.LAVA, Blocks.WATER_CAULDRON, Blocks.WATER, Blocks.BEDROCK, Blocks.BARRIER, Blocks.END_PORTAL, Blocks.NETHER_PORTAL, Blocks.END_PORTAL_FRAME);
     }
 
     public enum _uySyZpuFdxDcRzYECOEM {

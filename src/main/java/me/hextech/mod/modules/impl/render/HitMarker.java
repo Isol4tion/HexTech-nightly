@@ -10,7 +10,7 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.util.Identifier;
 
 public class HitMarker
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private final Identifier marker = new Identifier("nullpoint", "hitmarker.png");
     public SliderSetting time = this.add(new SliderSetting("Show Time", 3, 0, 60));
     public Timer timer = new Timer();
@@ -30,7 +30,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public void onRender2D(DrawContext drawContext, float tickDelta) {
         if (this.timer.passedMs(0L)) {
             this.timer.reset();
-            if ((float)this.ticks <= this.time.getValueFloat()) {
+            if ((float) this.ticks <= this.time.getValueFloat()) {
                 ++this.ticks;
                 drawContext.drawTexture(this.marker, mc.getWindow().getScaledWidth() / 2 - 8, mc.getWindow().getScaledHeight() / 2 - 8, 0, 0.0f, 0.0f, 16, 16, 16, 16);
             }

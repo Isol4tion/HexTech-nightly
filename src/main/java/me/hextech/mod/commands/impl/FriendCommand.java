@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendCommand
-extends Command {
+        extends Command {
     public FriendCommand() {
         super("friend", "Set friend", "[name/reset/list] | [add/del] [name]");
     }

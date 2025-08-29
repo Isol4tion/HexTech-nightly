@@ -6,7 +6,7 @@ import net.minecraft.client.render.BlockBreakingInfo;
 import net.minecraft.util.math.BlockPos;
 
 public class WorldBreakEvent
-extends Event_auduwKaxKOWXRtyJkCPb {
+        extends Event_auduwKaxKOWXRtyJkCPb {
     private final BlockBreakingInfo blockBreakingInfo;
 
     public WorldBreakEvent(BlockBreakingInfo pos) {

@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class AimCommand
-extends Command {
+        extends Command {
     public AimCommand() {
         super("aim", "Aim to pos", "[x] [y] [z]");
     }

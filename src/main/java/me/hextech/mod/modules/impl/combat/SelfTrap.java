@@ -18,7 +18,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.*;
 
 public class SelfTrap
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static SelfTrap INSTANCE;
     public final SliderSetting placeDelay = this.add(new SliderSetting("PlaceDelay", 50, 0, 500));
     public final BooleanSetting extend = this.add(new BooleanSetting("Extend", true));
@@ -68,7 +68,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         double d3 = vec.x;
         double yaw = SelfTrap.normalizeAngle(Math.toDegrees(Math.atan2(d2, d3)) - 90.0);
         double pitch = SelfTrap.normalizeAngle(Math.toDegrees(-Math.atan2(vec.y, xz)));
-        return new Vec2f((float)yaw, (float)pitch);
+        return new Vec2f((float) yaw, (float) pitch);
     }
 
     private static double normalizeAngle(final double angleIn) {
@@ -103,13 +103,13 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         }
     }
 
-    @EventHandler(priority=-1)
+    @EventHandler(priority = -1)
     public void onMove(MoveEvent event) {
         if (SelfTrap.nullCheck() || !this.center.getValue() || SelfTrap.mc.player.isFallFlying()) {
             return;
         }
         BlockPos blockPos = EntityUtil.getPlayerPos(true);
-        if (SelfTrap.mc.player.getX() - (double)blockPos.getX() - 0.5 <= 0.2 && SelfTrap.mc.player.getX() - (double)blockPos.getX() - 0.5 >= -0.2 && SelfTrap.mc.player.getZ() - (double)blockPos.getZ() - 0.5 <= 0.2 && SelfTrap.mc.player.getZ() - 0.5 - (double)blockPos.getZ() >= -0.2) {
+        if (SelfTrap.mc.player.getX() - (double) blockPos.getX() - 0.5 <= 0.2 && SelfTrap.mc.player.getX() - (double) blockPos.getX() - 0.5 >= -0.2 && SelfTrap.mc.player.getZ() - (double) blockPos.getZ() - 0.5 <= 0.2 && SelfTrap.mc.player.getZ() - 0.5 - (double) blockPos.getZ() >= -0.2) {
             if (this.shouldCenter && (SelfTrap.mc.player.isOnGround() || MovementUtil.isMoving())) {
                 event.setX(0.0);
                 event.setZ(0.0);
@@ -118,11 +118,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         } else if (this.shouldCenter) {
             Vec3d centerPos = EntityUtil.getPlayerPos(true).toCenterPos();
             float rotation = SelfTrap.getRotationTo(SelfTrap.mc.player.getPos(), centerPos).x;
-            float yawRad = rotation / 180.0f * (float)Math.PI;
+            float yawRad = rotation / 180.0f * (float) Math.PI;
             double dist = SelfTrap.mc.player.getPos().distanceTo(new Vec3d(centerPos.x, SelfTrap.mc.player.getY(), centerPos.z));
             double cappedSpeed = Math.min(0.2873, dist);
-            double x = (double)(-((float)Math.sin(yawRad))) * cappedSpeed;
-            double z = (double)((float)Math.cos(yawRad)) * cappedSpeed;
+            double x = (double) (-((float) Math.sin(yawRad))) * cappedSpeed;
+            double z = (double) ((float) Math.cos(yawRad)) * cappedSpeed;
             event.setX(x);
             event.setZ(z);
         }
@@ -130,7 +130,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     @Override
     public void onUpdate() {
-        if (!this.timer.passedMs((long)this.placeDelay.getValue())) {
+        if (!this.timer.passedMs((long) this.placeDelay.getValue())) {
             return;
         }
         this.progress = 0;
@@ -140,7 +140,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             this.startZ = SelfTrap.mc.player.getZ();
         }
         BlockPos pos = EntityUtil.getPlayerPos(true);
-        double distanceToStart = MathHelper.sqrt((float)SelfTrap.mc.player.squaredDistanceTo(this.startX, this.startY, this.startZ));
+        double distanceToStart = MathHelper.sqrt((float) SelfTrap.mc.player.squaredDistanceTo(this.startX, this.startY, this.startZ));
         if (this.getBlock() == -1) {
             CommandManager.sendChatMessageWidthId("\u00a7c\u00a7oObsidian" + (this.enderChest.getValue() ? "/EnderChest" : "") + "?", this.hashCode());
             this.disable();
@@ -200,7 +200,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.detectMining.getValue() && HexTech.BREAK.isMining(pos)) {
             return;
         }
-        if (!((double)this.progress < this.blocksPer.getValue())) {
+        if (!((double) this.progress < this.blocksPer.getValue())) {
             return;
         }
         int block = this.getBlock();
@@ -251,7 +251,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
 
     public BlockPos getHelperPos(BlockPos pos) {
         for (Direction i : Direction.values()) {
-            if (this.detectMining.getValue() && HexTech.BREAK.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite()) || !BlockUtil.canPlace(pos.offset(i))) continue;
+            if (this.detectMining.getValue() && HexTech.BREAK.isMining(pos.offset(i)) || !BlockUtil.isStrictDirection(pos.offset(i), i.getOpposite()) || !BlockUtil.canPlace(pos.offset(i)))
+                continue;
             return pos.offset(i);
         }
         return null;

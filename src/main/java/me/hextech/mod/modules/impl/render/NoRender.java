@@ -16,7 +16,7 @@ import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
 
 public class NoRender
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static NoRender INSTANCE;
     public final BooleanSetting weather = this.add(new BooleanSetting("Weather", true));
     public final BooleanSetting invisible = this.add(new BooleanSetting("Invisible", false));

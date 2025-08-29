@@ -30,7 +30,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
 
 public class WebAuraTick
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static WebAuraTick INSTANCE;
     public static float lastYaw;
     public static float lastPitch;
@@ -155,10 +155,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (this.usingPause.getValue() && WebAuraTick.mc.player.isUsingItem()) {
             return;
         }
-        block0: for (PlayerEntity player : CombatUtil.getEnemies(this.targetRange.getValue())) {
-            this.tempMaxWebs = (int)this.maxWebs.getValue();
+        block0:
+        for (PlayerEntity player : CombatUtil.getEnemies(this.targetRange.getValue())) {
+            this.tempMaxWebs = (int) this.maxWebs.getValue();
             if (this.isInBurrow(player)) {
-                this.tempMaxWebs = (int)this.burrowMaxWebs.getValue();
+                this.tempMaxWebs = (int) this.burrowMaxWebs.getValue();
             }
             Vec3d playerPos = this.predictTicks.getValue() > 0.0 ? CombatUtil.getEntityPosVec(player, this.predictTicks.getValueInt()) : player.getPos();
             int webs = 0;
@@ -169,10 +170,11 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             for (float x : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
                 for (float z : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
                     for (float y : new float[]{0.0f, 1.0f, -1.0f}) {
-                        BlockPosX pos = new BlockPosX(playerPos.getX() + (double)x, playerPos.getY() + (double)y, playerPos.getZ() + (double)z);
+                        BlockPosX pos = new BlockPosX(playerPos.getX() + (double) x, playerPos.getY() + (double) y, playerPos.getZ() + (double) z);
                         if (list.contains(pos)) continue;
                         list.add(pos);
-                        if (!this.isTargetHere(pos, player) || WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.COBWEB || HexTech.BREAK.isMining(pos)) continue;
+                        if (!this.isTargetHere(pos, player) || WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.COBWEB || HexTech.BREAK.isMining(pos))
+                            continue;
                         ++webs;
                     }
                 }
@@ -180,10 +182,12 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (webs >= this.tempMaxWebs && !ignore) continue;
             boolean skip = false;
             if (this.feet.getValue()) {
-                block4: for (float x : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
+                block4:
+                for (float x : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
                     for (float z : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
-                        BlockPosX pos = new BlockPosX(playerPos.getX() + (double)x, playerPos.getY(), playerPos.getZ() + (double)z);
-                        if (!this.isTargetHere(pos, player) || !this.placeWeb(pos) || ++webs < this.tempMaxWebs) continue;
+                        BlockPosX pos = new BlockPosX(playerPos.getX() + (double) x, playerPos.getY(), playerPos.getZ() + (double) z);
+                        if (!this.isTargetHere(pos, player) || !this.placeWeb(pos) || ++webs < this.tempMaxWebs)
+                            continue;
                         skip = true;
                         break block4;
                     }
@@ -192,8 +196,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (skip || !this.face.getValue()) continue;
             for (float x : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
                 for (float z : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
-                    BlockPosX pos = new BlockPosX(playerPos.getX() + (double)x, playerPos.getY() + 1.1, playerPos.getZ() + (double)z);
-                    if (this.isTargetHere(pos, player) && this.placeWeb(pos) && ++webs >= this.tempMaxWebs) continue block0;
+                    BlockPosX pos = new BlockPosX(playerPos.getX() + (double) x, playerPos.getY() + 1.1, playerPos.getZ() + (double) z);
+                    if (this.isTargetHere(pos, player) && this.placeWeb(pos) && ++webs >= this.tempMaxWebs)
+                        continue block0;
                 }
             }
         }
@@ -245,8 +250,9 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public boolean isInBurrow(PlayerEntity player) {
         for (float x : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
             for (float z : new float[]{0.0f, this.offset.getValueFloat(), -this.offset.getValueFloat()}) {
-                BlockPosX pos = new BlockPosX(player.getX() + (double)x, player.getY() + (double)0.15f, player.getZ() + (double)z);
-                if (WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.OBSIDIAN && WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.BEDROCK && WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.ENDER_CHEST && WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.RESPAWN_ANCHOR) continue;
+                BlockPosX pos = new BlockPosX(player.getX() + (double) x, player.getY() + (double) 0.15f, player.getZ() + (double) z);
+                if (WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.OBSIDIAN && WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.BEDROCK && WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.ENDER_CHEST && WebAuraTick.mc.world.getBlockState(pos).getBlock() != Blocks.RESPAWN_ANCHOR)
+                    continue;
                 return true;
             }
         }
@@ -265,7 +271,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     }
 
     public boolean clickBlock(BlockPos pos, Direction side, boolean rotate, int slot) {
-        Vec3d directionVec = new Vec3d((double)pos.getX() + 0.5 + (double)side.getVector().getX() * 0.5, (double)pos.getY() + 0.5 + (double)side.getVector().getY() * 0.5, (double)pos.getZ() + 0.5 + (double)side.getVector().getZ() * 0.5);
+        Vec3d directionVec = new Vec3d((double) pos.getX() + 0.5 + (double) side.getVector().getX() * 0.5, (double) pos.getY() + 0.5 + (double) side.getVector().getY() * 0.5, (double) pos.getZ() + 0.5 + (double) side.getVector().getZ() * 0.5);
         if (rotate && !this.faceVector(directionVec)) {
             return false;
         }

@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class BaseFinder
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     private static final File basedata = Manager.getFile("Base.txt");
     private static final File chestdata = Manager.getFile("Chest,txt");
     public final ColorSetting color = this.add(new ColorSetting("Color", new Color(255, 255, 255, 100)));
@@ -42,8 +42,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                 writer.write(data);
                 writer.newLine();
                 writer.close();
-            }
-            catch (IOException iOException) {
+            } catch (IOException iOException) {
                 // empty catch block
             }
         }).start();
@@ -57,7 +56,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             Box box = new Box(blockEntity.getPos());
             Render3DUtil.draw3DBox(matrixStack, box, this.color.getValue());
         }
-        if (!this.timer.passed((long)this.delay.getValueInt() * 20L)) {
+        if (!this.timer.passed((long) this.delay.getValueInt() * 20L)) {
             return;
         }
         int chest = 0;
@@ -68,7 +67,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
             if (!this.log.getValue()) continue;
             BaseFinder.writePacketData(chestdata, "FindChest:" + blockEntity.getPos());
         }
-        if ((double)chest >= this.count.getValue()) {
+        if ((double) chest >= this.count.getValue()) {
             this.timer.reset();
             BaseFinder.writePacketData(basedata, "Find:" + BaseFinder.mc.player.getPos() + " Count:" + chest);
             CommandManager.sendChatMessage("Find:" + BaseFinder.mc.player.getPos() + " Count:" + chest);

@@ -21,7 +21,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BlockView;
 
 public class ExplosionUtil
-implements Wrapper {
+        implements Wrapper {
     public static float anchorDamage(BlockPos pos, PlayerEntity target, PlayerEntity predict) {
         if (BlockUtil.getBlock(pos) == Blocks.RESPAWN_ANCHOR) {
             CombatUtil.modifyPos = pos;
@@ -43,19 +43,18 @@ implements Wrapper {
             predict = entity;
         }
         float doubleExplosionSize = 2.0f * power;
-        double distancedsize = (double)MathHelper.sqrt((float)predict.squaredDistanceTo(posX, posY, posZ)) / (double)doubleExplosionSize;
+        double distancedsize = (double) MathHelper.sqrt((float) predict.squaredDistanceTo(posX, posY, posZ)) / (double) doubleExplosionSize;
         Vec3d vec3d = new Vec3d(posX, posY, posZ);
         double blockDensity = 0.0;
         try {
             blockDensity = ExplosionUtil.getExposure(vec3d, predict);
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             // empty catch block
         }
         double v = (1.0 - distancedsize) * blockDensity;
-        float damage = (int)((v * v + v) / 2.0 * 7.0 * (double)doubleExplosionSize + 1.0);
-        double finald = ExplosionUtil.getBlastReduction((LivingEntity)entity, ExplosionUtil.getDamageMultiplied(damage));
-        return (float)finald;
+        float damage = (int) ((v * v + v) / 2.0 * 7.0 * (double) doubleExplosionSize + 1.0);
+        double finald = ExplosionUtil.getBlastReduction((LivingEntity) entity, ExplosionUtil.getDamageMultiplied(damage));
+        return (float) finald;
     }
 
     public static float getDamageAfterAbsorb(float damage, float totalArmor, float toughnessAttribute) {
@@ -67,16 +66,16 @@ implements Wrapper {
     public static float getBlastReduction(LivingEntity entity, float damageI) {
         float damage = damageI;
         if (entity instanceof PlayerEntity player) {
-            damage = ExplosionUtil.getDamageAfterAbsorb(damage, player.getArmor(), (float)player.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
+            damage = ExplosionUtil.getDamageAfterAbsorb(damage, player.getArmor(), (float) player.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
             int k = ExplosionUtil.getProtectionAmount(player.getArmorItems());
-            float f = MathHelper.clamp((float)k, 0.0f, 20.0f);
+            float f = MathHelper.clamp((float) k, 0.0f, 20.0f);
             damage *= 1.0f - f / 25.0f;
             if (player.hasStatusEffect(StatusEffects.RESISTANCE)) {
                 damage -= damage / 4.0f;
             }
             return Math.max(damage, 0.0f);
         }
-        damage = ExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float)entity.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
+        damage = ExplosionUtil.getDamageAfterAbsorb(damage, entity.getArmor(), (float) entity.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
         return Math.max(damage, 0.0f);
     }
 
@@ -98,7 +97,7 @@ implements Wrapper {
                 }
             }
         }
-        return (float)miss / (float)hit;
+        return (float) miss / (float) hit;
     }
 
     private static HitResult.Type raycast(Vec3d start, Vec3d end) {
@@ -131,6 +130,6 @@ implements Wrapper {
     }
 
     public static float calculateDamage(BlockPos pos, Entity target) {
-        return ExplosionUtil.calculateDamage((double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5, target, target, 6.0f);
+        return ExplosionUtil.calculateDamage((double) pos.getX() + 0.5, pos.getY(), (double) pos.getZ() + 0.5, target, target, 6.0f);
     }
 }

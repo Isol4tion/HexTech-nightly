@@ -12,7 +12,7 @@ import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.network.packet.c2s.play.CloseHandledScreenC2SPacket;
 
 public class XCarry
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public final BooleanSetting Move = this.add(new BooleanSetting("MoveItem", true));
     Screen lastScreen = null;
 

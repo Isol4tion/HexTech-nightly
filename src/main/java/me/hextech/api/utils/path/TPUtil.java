@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TPUtil
-implements Wrapper {
+        implements Wrapper {
     public static ArrayList<Vec3> tp(Runnable runnable, Vec3d vec) {
         List<Vec3> tpPath = PathUtils.computePath(vec);
         tpPath.forEach(vec3 -> TPUtil.mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(vec3.getX(), vec3.getY(), vec3.getZ(), false)));

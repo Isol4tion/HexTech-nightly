@@ -20,7 +20,7 @@ import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class NoSlow_PaVUKKxFbWGbplzMaucl
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static NoSlow_PaVUKKxFbWGbplzMaucl INSTANCE;
     private final EnumSetting<Mode> mode = this.add(new EnumSetting<Mode>("Mode", Mode.Vanilla));
     private final BooleanSetting soulSand = this.add(new BooleanSetting("SoulSand", true));
@@ -112,13 +112,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         if (t instanceof ClickSlotC2SPacket click) {
             switch (this.clickBypass.getValue().ordinal()) {
                 case 2: {
-                    if (click.getActionType() == SlotActionType.PICKUP || click.getActionType() == SlotActionType.PICKUP_ALL) break;
+                    if (click.getActionType() == SlotActionType.PICKUP || click.getActionType() == SlotActionType.PICKUP_ALL)
+                        break;
                     int syncId = NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.currentScreenHandler.syncId;
-                    int closePacketCount = 2 + (int)(Math.random() * 2.0);
+                    int closePacketCount = 2 + (int) (Math.random() * 2.0);
                     for (int i = 0; i < closePacketCount; ++i) {
                         mc.getNetworkHandler().sendPacket(new CloseHandledScreenC2SPacket(syncId));
                     }
-                    int randomSlot = (int)(Math.random() * 9.0);
+                    int randomSlot = (int) (Math.random() * 9.0);
                     mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(randomSlot));
                     mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getInventory().selectedSlot));
                     NoSlow_PaVUKKxFbWGbplzMaucl.sendSequencedPacket(id -> new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, id));
@@ -129,7 +130,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     break;
                 }
                 case 1: {
-                    if (!NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isOnGround() || NoSlow_PaVUKKxFbWGbplzMaucl.mc.world.getBlockCollisions(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getBoundingBox().offset(0.0, 0.0656, 0.0)).iterator().hasNext()) break;
+                    if (!NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isOnGround() || NoSlow_PaVUKKxFbWGbplzMaucl.mc.world.getBlockCollisions(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getBoundingBox().offset(0.0, 0.0656, 0.0)).iterator().hasNext())
+                        break;
                     if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isSprinting()) {
                         mc.getNetworkHandler().sendPacket(new ClientCommandC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
                     }
@@ -137,7 +139,8 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                     break;
                 }
                 case 5: {
-                    if (!NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isOnGround() || NoSlow_PaVUKKxFbWGbplzMaucl.mc.world.getBlockCollisions(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getBoundingBox().offset(0.0, 2.71875E-7, 0.0)).iterator().hasNext()) break;
+                    if (!NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isOnGround() || NoSlow_PaVUKKxFbWGbplzMaucl.mc.world.getBlockCollisions(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.getBoundingBox().offset(0.0, 2.71875E-7, 0.0)).iterator().hasNext())
+                        break;
                     if (NoSlow_PaVUKKxFbWGbplzMaucl.mc.player.isSprinting()) {
                         mc.getNetworkHandler().sendPacket(new ClientCommandC2SPacket(NoSlow_PaVUKKxFbWGbplzMaucl.mc.player, ClientCommandC2SPacket.Mode.STOP_SPRINTING));
                     }

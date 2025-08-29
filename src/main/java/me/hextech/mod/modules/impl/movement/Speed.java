@@ -21,7 +21,7 @@ import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
 import java.util.Objects;
 
 public class Speed
-extends Module_eSdgMXWuzcxgQVaJFmKZ {
+        extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public static Speed INSTANCE;
     private final EnumSetting<_hIXwTMQyjavijZllSIBF> mode = this.add(new EnumSetting<_hIXwTMQyjavijZllSIBF>("Mode", _hIXwTMQyjavijZllSIBF.Instant));
     private final BooleanSetting strafeGround = this.add(new BooleanSetting("StrafeGround", true, v -> this.mode.is(_hIXwTMQyjavijZllSIBF.Instant)));
@@ -87,7 +87,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
         event.setZ(dir[1]);
     }
 
-    @EventHandler(priority=100)
+    @EventHandler(priority = 100)
     public void invoke(PacketEvent_gBzdMCvQxlHfSrulemGS.Receive event) {
         if (this.mode.is(_hIXwTMQyjavijZllSIBF.Instant)) {
             Packet<?> packet3 = event.getPacket();
@@ -106,16 +106,14 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
                         });
                     }
                 }
-            }
-            else if (packet3 instanceof PlayerPositionLookS2CPacket) {
+            } else if (packet3 instanceof PlayerPositionLookS2CPacket) {
                 this.lagTimer.reset();
                 if (Speed.mc.player != null) {
                     this.distance = 0.0;
                 }
                 this.speed = 0.0;
                 this.stage = 4;
-            }
-            else {
+            } else {
                 if (packet3 instanceof ExplosionS2CPacket packet2) {
                     if (this.explosions.getValue() && MovementUtil.isMoving() && Speed.mc.player.squaredDistanceTo(packet2.getX(), packet2.getY(), packet2.getZ()) < 200.0) {
                         final double speed = Math.sqrt(Math.abs(packet2.getPlayerVelocityX() * packet2.getPlayerVelocityX()) + Math.abs(packet2.getPlayerVelocityZ() * packet2.getPlayerVelocityZ()));
@@ -148,7 +146,7 @@ extends Module_eSdgMXWuzcxgQVaJFmKZ {
     public double getBaseMoveSpeed() {
         double n = 0.2873;
         if (!(!Speed.mc.player.hasStatusEffect(StatusEffects.SPEED) || this.slowCheck.getValue() && Speed.mc.player.hasStatusEffect(StatusEffects.SLOWNESS))) {
-            n *= 1.0 + 0.2 * (double)(Objects.requireNonNull(Speed.mc.player.getStatusEffect(StatusEffects.SPEED)).getAmplifier() + 1);
+            n *= 1.0 + 0.2 * (double) (Objects.requireNonNull(Speed.mc.player.getStatusEffect(StatusEffects.SPEED)).getAmplifier() + 1);
         }
         return n;
     }

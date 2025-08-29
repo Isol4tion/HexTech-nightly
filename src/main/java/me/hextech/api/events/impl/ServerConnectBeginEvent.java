@@ -5,7 +5,7 @@ import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
 
 public class ServerConnectBeginEvent
-extends Event_auduwKaxKOWXRtyJkCPb {
+        extends Event_auduwKaxKOWXRtyJkCPb {
     private final ServerAddress address;
     private final ServerInfo info;
 
